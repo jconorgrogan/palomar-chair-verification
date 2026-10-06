@@ -1,0 +1,92 @@
+{
+  "scope": "RECOVERED_HISTORICAL_LOCAL_STRONG_EXTENSION_PASS_OFFICIAL_FULL_NEW_TARGET_NOTRUN",
+  "recorded_utc": null,
+  "selected_theorem": "PalomarMonotiles.T5_strongAperiodicity",
+  "base_commit": "9008dec3afc006a62d3d2fd6b49b12f189248f33",
+  "base_source_manifest_sha256": "40e0be12c33cb719b6afdf7a69e99d69e820ae5af41cbf76bfd246a995de07c2",
+  "base_official_full_preflight": {
+    "run_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323",
+    "status": "pass",
+    "selected_theorem": "PalomarMonotiles.T5_isAperiodicMonotile",
+    "report_sha256": "43edc2c785ceaa7ecff4b231a0a9738a5e320d6fd5b0461d6de88491f482f027"
+  },
+  "current_stronger_official_full_preflight": "NOTRUN",
+  "current_stronger_main_independent_kernels": "NOTRUN",
+  "definition_exemptions": [],
+  "allowed_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "body_and_original_claim_prefix_sha256": "ad31f10e89435c6c1202e536f21d06521043d9fa912c1282d3fe5f14b39cf9ef",
+  "body_and_all256_placements_unchanged": true,
+  "old_T5Claim_retained_as_conjunct": true,
+  "checked_sources": {
+    "SparseMonotiles/FiniteSymmetry.lean": {
+      "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+      "source_sha256": "a3f3445311f8ffb6b73fdda41065240f652a917138b3e10c3228a36476f4f017",
+      "object_sha256": "5846cd97234fcba36be8b11668f4ace187e28dc76558c5180ca30b06087a6210",
+      "compiler_log_sha256": "6520de775269764b487c080fa7e7693dc6925ee2bfb28c0d59152068f7b0c028",
+      "elapsed_seconds": 11.538,
+      "artifacts_available_after_reset": false
+    },
+    "SparseMonotiles/StrongSymmetryStatement.lean": {
+      "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+      "source_sha256": "47990b58a0e2a080ccb65bd7e08518e715501d689860d9cc8b2b721988073e34",
+      "object_sha256": "95855554125b97f36dbb3c60872e5d7e6be187efcbbfcde376b4049ca0e2599e",
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 2.127,
+      "artifacts_available_after_reset": false
+    },
+    "Challenge.lean": {
+      "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+      "source_sha256": "7fbf473f9dc669e85971b28955797c3bb239c1faba37d6b60bfd2c5fa347955c",
+      "object_sha256": null,
+      "compiler_log_sha256": "9680cd5cd9234f66c395567d3f348f5c7e8844d7c83a301108837b681de716af",
+      "elapsed_seconds": 4.035,
+      "artifacts_available_after_reset": false
+    },
+    "Solution.lean": {
+      "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+      "source_sha256": "2294fc4163af64bcea2d0cabe10548a9eeba05f94c958f6f22bf5793b8bfe0d2",
+      "object_sha256": "2fc118d7f86c42d4d22f9a80b7c17eb8dc86c4dee949e948e575d145989d18b1",
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 5.11,
+      "artifacts_available_after_reset": false
+    },
+    "VerificationAudit.lean": {
+      "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+      "source_sha256": "589b2cd83cedb6d821bc01e5a83434d510a403a3df2ee56d54b5d0f94c62993c",
+      "object_sha256": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6",
+      "compiler_log_sha256": "8062d1037bb16df2287c02b34376b131095a2c0136c4c26b156e14105ed17258",
+      "elapsed_seconds": 3.034,
+      "artifacts_available_after_reset": false
+    }
+  },
+  "statement_comparison": {
+    "status": "PASS_RECORDED_BEFORE_WORKSPACE_RESET",
+    "scope": "Entire stronger T5StrongClaim definition closure, separately compiled Challenge and implementation statement; synthetic reflexivity target, not the full main-proof replay",
+    "method": "Unmodified installed Lake.Check.compareAt and checkAxioms",
+    "target": "PalomarMonotiles.strong_statement_reflexive",
+    "definition_exemptions": [],
+    "elapsed_seconds": 66.28,
+    "log_sha256": "879e10190af98a2fb8cf11a9d52e56ef4bf92899775efe4125525f2ad1970e03",
+    "raw_export_sha256": {
+      "ComparisonChallenge": "9023c13ae1e62b5e526d51a5597f83964082034e7a564f169dab006bf3adc285",
+      "ComparisonSolution": "889acd9ae860fb7c1ac93bbbcb0086ef4b136ceca78795a952980f562f40b6f6"
+    }
+  },
+  "runtime_guards_unchanged": true,
+  "recovery": {
+    "recovered_utc": "2026-10-06T22:09:08.597222+00:00",
+    "historical_expected_receipt_sha256": "205821c8f85225d5c99533cd7b23b45de601be337457ac9f39fc67875dc1ef32",
+    "historical_expected_receipt_bytes": 3805,
+    "byte_exact_reconstruction": false,
+    "reason": "The execution workspace reset after the mathematical sources and14 patch files were committed. The original receipt timestamp and Challenge.olean digest were not present in the surviving captures. They are marked null, not guessed.",
+    "preserved_evidence": "All mathematical source hashes and four other object hashes are preserved in immutable GitHub commitc2f95c8d4744fc71ea7077ec47a3c270edd54e20; successful compile stages, standard axiom audit and full statement-comparison results were recorded before reset.",
+    "source_commit_observed": "c2f95c8d4744fc71ea7077ec47a3c270edd54e20",
+    "new_local_compiler_or_kernel_check_performed": false,
+    "mathematical_source_changes": false,
+    "next_verification": "The official full workflow will rebuild and independently check the unchanged stronger mathematical sources. Its result remains NOTRUN until the actual run."
+  }
+}

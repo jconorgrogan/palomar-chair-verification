@@ -26,5 +26,18 @@
     "aggregate_authorized_cap_usd": 5,
     "runtime_is_estimate": true,
     "reason": "At most two dependency-ready single-thread real Lake targets fit the measured peak-pair envelope with live admission and a 1.5 GiB reserve; smaller hosts fall back to serial. Receipt durations exclude clean Lake tracing/build overhead, package fetch/setup, proof export, complete main declaration comparison and independent kernels. The 360-minute bound is a cap, not a completion promise; no cold main verifier measurement exists."
+  },
+  "strong_extension_addendum": {
+    "source_commit_before_extension": "9008dec3afc006a62d3d2fd6b49b12f189248f33",
+    "original_full_official_run": 37520435323,
+    "original_total_job_seconds": 5695,
+    "new_modules": [
+      "SparseMonotiles.FiniteSymmetry",
+      "SparseMonotiles.StrongSymmetryStatement"
+    ],
+    "new_full_official_replay": "NOTRUN",
+    "new_peak_rss_measured": false,
+    "scheduler_and_memory_guards_changed": false,
+    "new_module_rss_admission": "unchanged conservative builder default; no speculative parallelism increase"
   }
 }
