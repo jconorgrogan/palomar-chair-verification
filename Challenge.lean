@@ -38,9 +38,17 @@ structure Placement (k : ℕ) where
 
 /-- The ordered tangential coordinate of a world axis different from the normal. -/
 def tangentIndex {k : ℕ} (a i : Fin (k + 1)) (h : i ≠ a) : Fin k :=
-  if hi : i.val < a.val then ⟨i.val, by omega⟩ else ⟨i.val - 1, by
-    have hn : i.val ≠ a.val := fun he => h (Fin.ext he)
-    omega⟩
+  if hi : i.val < a.val then
+    ⟨i.val, Nat.lt_of_lt_of_le hi (Nat.le_of_lt_succ a.isLt)⟩
+  else
+    ⟨i.val - 1,
+      Nat.lt_of_lt_of_le
+        (Nat.sub_lt
+          (Nat.lt_of_le_of_lt (Nat.zero_le a.val)
+            (Nat.lt_of_le_of_ne (Nat.le_of_not_lt hi)
+              (fun he => h (Fin.ext he.symm))))
+          (Nat.zero_lt_succ 0))
+        (Nat.le_of_lt_succ i.isLt)⟩
 
 /-- Binary coordinate of the explicitly listed carrier cell. -/
 def cellBit {k : ℕ} (p : Placement k) (i : Fin (k + 1)) : ℚ :=

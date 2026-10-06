@@ -1,7 +1,7 @@
 {
   "scope": "T5_SELECTED_SOURCE_CLOSURE_READINESS_ONLY",
   "utc": "2026-10-06T16:27:35.157707+00:00",
-  "challenge_sha256": "da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d",
+  "challenge_sha256": "c2cef3183a8b1deecee8d6a4e3602c607390bf92572774905f3842e0f7ed6c54",
   "roots": [
     "SparseMonotiles.T5Monotile",
     "SparseMonotiles.CompactKeys5"
@@ -13,14 +13,16 @@
   "main_solution_checked": true,
   "solution_checks": {
     "Solution": {
-      "kind": "current_supported_receipt",
-      "receipt": "/workspace/scratch/8b3aff9fe1f4/lean_sparse_monotiles_palomar_full_20261006/logs/Solution-check.json",
-      "receipt_sha256": "ad2680094729a0c815e9d1cc8b09fb0ee7cb1b2272dbc2d95d1a4e074418ec24"
+      "kind": "fresh_repaired_dependency_overlay_compile",
+      "receipt": "verification/COMPARATOR_REPAIR.json",
+      "source_sha256": "4d16d09362a60a35d242fefd0c449a08e7a49ac7c0f781c5de300d28d57f44e5",
+      "object_sha256": "2d42d799864ea468fdd1428338ea6decc661d5777159297ef948b92dd2f5b3ea"
     },
     "VerificationAudit": {
-      "kind": "current_supported_receipt",
-      "receipt": "/workspace/scratch/8b3aff9fe1f4/lean_sparse_monotiles_palomar_full_20261006/logs/VerificationAudit-check.json",
-      "receipt_sha256": "d938c6f6018a4c2b420d0f190bbcfd1a27eddf524fcf0be1f6fb558d49458100"
+      "kind": "fresh_repaired_dependency_overlay_compile",
+      "receipt": "verification/COMPARATOR_REPAIR.json",
+      "source_sha256": "3ee08c50aaaaf76fde39eb05ee47f45059f5b006ed6645ecf154351c46921bbe",
+      "object_sha256": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6"
     }
   },
   "main_comparator_passed": false,
@@ -12002,163 +12004,187 @@
     },
     {
       "module": "SparseMonotiles.CompactStatement",
-      "source_sha256": "e67203a3bf010d03717b8c339bb8f641e4a68b4616c571a44297dda146f082d7",
+      "source_sha256": "2921fed49814ba5dff1cef91f09a933536e85dacc2c640bbbc8d5dae5dc36d01",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "3e7965ffb4aa687b23e6bef02799c3c550ef6e06e3919144661e619cfb6a5793"
       }
     },
     {
       "module": "SparseMonotiles.CompactBodyBridge",
       "source_sha256": "4a365a9b0d766d49ceeea33fd68150068bd41781c8d03def3827f9c0675d59c0",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "42b3e1e90bf97f1ca286675cc0ff4bde0e13914b61666dfa890348c681e38272"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Data",
       "source_sha256": "c838d9fc2d53d3b2b077fe5853f153fbc7d89753d09cb273ecefbacac8ce12a7",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "7f2a4333c33b7c94437038c6cf40be4d48b045e15fe87124b5e5b5315bc5c803"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk00",
       "source_sha256": "44cd872009506a48a63037d97c64ff6476824dae279985a809b305737376598f",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "a89f3a85965fe4b65f7e11ffb904944b0d99a5ee23cd254dc73ab8e5505f7a04"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk01",
       "source_sha256": "5403a550fe062b5d7fe7f40d4e7d52983fc826ca70cb50bd230723760c1ababd",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "a9f1e4cce14a35fa80941539d17e2e92a3bff22f328c123347fb0898ac8890fb"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk02",
       "source_sha256": "691c10f531ed310b0d16b5183cdb20c3b981962c5acad6518889d8db6a1e14de",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "d09dd2edb80c0b3e5e4e413739f8b117bc118d18fb92044cc32b02fd4237761d"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk03",
       "source_sha256": "6a10d7c82337df4b6ebfdaf554beec6e2f176346d316a325f0badfacc06aecae",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "09193e2e4ea7d5a0e996282adbc85c888d931415793a1169271ee0063a8dda8c"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk04",
       "source_sha256": "6e82b2e9bbc9c8999033402c9cee6c386d40568109d5b777fbbf849006fa0b9e",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "43b78b3ecce90fe1a3896b086f5a4fb94d01edf4a29f361442c40d1d0976fb0d"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk05",
       "source_sha256": "d7c681f93c0efe47c3dfa8120666a4efa640720c50dcfb8ee8324d69b770061d",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "07104f5a07a9ccdd463d44cf0ff4c82599571d75e5f5af16abc0bb01c5388051"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk06",
       "source_sha256": "c69881a163da992b3a13b6cc38dcaae55b2ee3c9a512dbd839cf5ed05c2c2ac3",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "f3a68d5875add305388ca65974d252fe61f2bfba47ee7bac05eb06dd47ca2ea2"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk07",
       "source_sha256": "18d96c4b4f8b38d019cddaf2dbe50e4b486efb9f80534c45f5fabc04ee324050",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "f681a3eb6926b41838ef72fc72b6f3a9daf3a3ebb6db6f4dacaff109cd710c90"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk08",
       "source_sha256": "0ea817747fe61199930eedb14d3ae1a0c17abd0988f5301e19909546da1f3483",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "a9e7d1950e0a6c90eb0c14ddc3a7e61fcbc0c53257147a20f3d3eb54b9bb9237"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk09",
       "source_sha256": "65067c8f8aa1ec73dfc975db4b7805a7e07d93fc4c23b7e6bdcee0cfc934c285",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "9d6453b323c5f44cb3b9281dc4a758fb1a4c5e37d7d64e5adebd5d83e25b7f43"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk10",
       "source_sha256": "130d527ee926baa9dce2bab3c902856a9dc1592c984a7b78c75b79209a69f297",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "f3ed7092b1b2ce064177fa90353ccf9f83bb7d16cf2f61c6e9985c17fee4004b"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk11",
       "source_sha256": "9ee27143a9d1d6b8a003d2694eed6206300afd2e443581f44d2f7539ee3d7f97",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "9bc697b360a05edec0f2ebecbd2c49fcc2597280dff4fc74f3442f16646a3516"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk12",
       "source_sha256": "343d61924a863432aacf3696da3e534e31058f6bca89da5ac660c50e5c127190",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "4b9e7d2d14727bb39bb3cf634b90399c5ca9ffb81a358f64632f298218cbba70"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk13",
       "source_sha256": "8352a614c2aa2bae5e38aed14054bf4681ad1285e0c1ebeb2816038029eb37b5",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "18cd29077259383b97e0481e28a0847883060432917972c3022aa58cc6ca8782"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk14",
       "source_sha256": "772c1f9235fe17d25217ef52bc7e48d8fc41da11281cf4452ebb444b80a78270",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "7d8499d57b4fd9107e9234467bb95978d457f18809245b33e86ab40eb5752826"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5Chunks.Chunk15",
       "source_sha256": "f325a88ad0537e56b965b193f1ebe3618f361665f84b8e43806b770f40f3358c",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "eea9c0551c7a28aeb65791be3d37a43570977249942a58e760d9de32902ebd80"
       }
     },
     {
       "module": "SparseMonotiles.CompactKeys5",
       "source_sha256": "c2f741c415c9aa247cce6a371a03bfeb8f19de94cf483b45fad8873f5ae2e0f2",
       "check": {
-        "kind": "exact_same_toolchain_body_binding_reuse",
-        "transfer_receipt_sha256": "3d138e0921f082a3c0781f8c1e320145ee34f4d9857d955c493b7e330d61a853"
+        "kind": "fresh_repaired_dependency_overlay_compile",
+        "receipt": "verification/COMPARATOR_REPAIR.json",
+        "object_sha256": "137dc972afb26e2098d26ed19b7f923df7be3adf4c6f1a17d863bbfafe117671"
       }
     }
-  ]
+  ],
+  "base_readiness_sha256": "120e0ab12fa84d7f230f26926467e131b132982930f91625f3974c0aeba4c4ad",
+  "base_readiness_scope": "Pre-repair exact proof closure; unchanged main implementation objects reused for the bounded local repair check",
+  "repair_receipt": "verification/COMPARATOR_REPAIR.json",
+  "repair_receipt_sha256": "7f96397f6fdd393874b7d6f9418fab23c60f80054fb328b49ea8f3c8663f2d64"
 }
