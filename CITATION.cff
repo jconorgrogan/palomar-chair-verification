@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: >-
+  If you use this proof repository or discuss the construction, please cite
+  the companion preprint below and identify the source commit used.
+type: software
+title: "The CLARK Tile: A Strongly Aperiodic Monotile in Five Dimensions"
+authors:
+  - family-names: Grogan
+    given-names: Conor
+repository-code: "https://github.com/jconorgrogan/palomar-chair-verification"
+url: "https://github.com/jconorgrogan/palomar-chair-verification"
+license: Apache-2.0
+keywords:
+  - aperiodic tilings
+  - monotiles
+  - Lean
+  - formal verification
+preferred-citation:
+  type: generic
+  status: preprint
+  title: "An Arithmetic Family of Aperiodic Tilings in Odd Prime Dimensions"
+  authors:
+    - family-names: Grogan
+      given-names: Conor
+  version: "2"
+  date-published: "2026-10-06"
+  year: 2026
+  month: 10
+  publisher:
+    name: Zenodo
+  doi: "10.5281/zenodo.23197680"
+  url: "https://zenodo.org/records/23197680"
+  license: CC-BY-4.0
+  notes: "Preprint, version 2."

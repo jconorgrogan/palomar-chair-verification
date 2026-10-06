@@ -4,6 +4,8 @@ Conor Grogan, author and responsible maintainer
 
 Companion preprint: [read the paper on Zenodo](https://zenodo.org/records/23197680), DOI [10.5281/zenodo.23197680](https://doi.org/10.5281/zenodo.23197680).
 
+Download version 2: [**An Arithmetic Family of Aperiodic Tilings in Odd Prime Dimensions** (PDF)](CLARK_paper.pdf?raw=1). Citation files: [CFF](CITATION.cff) and [BibTeX](CITATION.bib).
+
 We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. It retains the Lean identifier **T5**.
 
 ![Planar section of a level-five CLARK carrier patch with matching-key zooms](CLARK_overview.png)
@@ -59,6 +61,6 @@ This submission formalizes the 5D construction. Companion work gives an ordinary
 
 AI systems made substantive contributions to mathematical analysis, Lean proofs, exact certificate generation, audits, migration and exposition. The metadata records those contributions separately from human authorship. No independent human mathematical peer review or novelty certification is claimed.
 
-The proof repository is licensed under [Apache License 2.0](https://github.com/jconorgrogan/palomar-chair-verification/blob/9008dec3afc006a62d3d2fd6b49b12f189248f33/LICENSE). Lean, Mathlib and other dependencies retain their own licenses and notices.
+The companion preprint (`CLARK_paper.pdf`) and its figures are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The proof code is licensed under [Apache License 2.0](https://github.com/jconorgrogan/palomar-chair-verification/blob/9008dec3afc006a62d3d2fd6b49b12f189248f33/LICENSE). Lean, Mathlib and other dependencies retain their own licenses and notices.
 
 An [earlier four-result compatibility pilot](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37466588417) passed the official Comparator and three kernels. That result concerns four supporting statements and is separate from the full T5 preflight.
