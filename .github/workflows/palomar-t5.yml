@@ -1,0 +1,61 @@
+# LOCAL TEMPLATE ONLY. Resolve all placeholders against the final approved freeze.
+name: Full T5 private mechanical verification
+run-name: Full T5 freeze 1d4d594952ed2c8d902731877abb844501ff3e45ad38092a4ffed755c0b0f6c2
+on:
+  push:
+    branches: [verification/t5-full-20261006]
+concurrency:
+  group: private-t5-verification-20261006
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  verify-t5:
+    if: >-
+      github.event_name == 'push' &&
+      github.event.head_commit.message == 'Run authorized full T5 verification 1d4d594952ed2c8d (2026-10-06)' &&
+      github.run_attempt == 1
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      TZ: UTC
+      LEAN_NUM_THREADS: '1'
+      MATHLIB_NO_CACHE_ON_UPDATE: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Identify immutable source and available resources
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          printf 'CI_SOURCE_COMMIT=%s\n' "$GITHUB_SHA"
+          printf 'CI_APPROVED_FREEZE=%s\n' '1d4d594952ed2c8d902731877abb844501ff3e45ad38092a4ffed755c0b0f6c2'
+          git status --porcelain
+          sha256sum lean-toolchain lake-manifest.json comparator.json
+          free -m
+          df -h .
+      - name: Install official distribution bubblewrap
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Identify official verifier binaries
+        run: |
+          set -euo pipefail
+          lean --version
+          lake --version
+          prefix=$(lean --print-prefix)
+          for tool in lean lake leanexport leanchecker nanoda_bin con-ron; do
+            test -x "$prefix/bin/$tool"
+            sha256sum "$prefix/bin/$tool"
+          done
+      - name: Verify frozen T5 with unchanged sandboxed Comparator
+        run: bash scripts/verify-t5-on-linux.sh

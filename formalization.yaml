@@ -1,0 +1,160 @@
+# Approved human metadata; complete local Lean proof, independent main verification pending.
+version: v0.4
+project:
+  name: An Aperiodic Monotile in Five Dimensions
+  description: We give an explicit compact tile in five-dimensional Euclidean space and prove that it
+    admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes
+    with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states
+    that every tiling by these copies has no nonzero translation preserving its tile collection. The Lean
+    formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming
+    lattice registration or matching rules.
+  authors:
+  - Conor Grogan
+  responsible_maintainers:
+  - Conor Grogan
+  license: Apache-2.0
+classification:
+  arxiv:
+  - math.MG
+  - math.CO
+  msc2020: []
+sources:
+- title: S54 exact final sparse-key T5 specification
+  type: other
+  relationship: formalizes
+  note: Exact input tile5_final_spec.json is retained under sources/ and has SHA-256 8c94499b8b9fc89efef794497723f649a188de6a7a5460849dc7989bc61b6094.
+    Its 256 keys retain their order and exact rational centres, radii, apices and bump/dent bits. Conor
+    Grogan confirmed the rights to publish the supplied specifications, manuscripts and proof sources
+    on 2026-10-06. Original source bibliographic authors and endorsement status were not established;
+    other below means unknown, not endorsed.
+  license: unknown
+  author_endorsement: other
+- title: Uniform prime-dimensional framed chair hierarchy manuscripts, 2026-10-05
+  type: other
+  relationship: adapts
+  note: Ordinary registered full-frame hierarchy arguments with explicit model restrictions and finite
+    checks. The pinned summary is sources/THEOREM_SUMMARY.md, SHA-256 76dae90716a32d4a84f3818ba919dd51f3a471bed7bd60cf1583e1e37d0139ad.
+    Only the exact physical T5 body is selected; no all-prime physical claim is submitted. Rights to publish
+    supplied materials were confirmed by the responsible maintainer. Original source authors and endorsement
+    status remain unknown.
+  license: unknown
+  author_endorsement: other
+- title: Five-dimensional physical right-symmetry quotient hierarchy, 2026-10-05
+  type: other
+  relationship: adapts
+  note: Uses the actual right-{id,r} physical quotient without assuming a global 222-frame lift. The formal
+    port and its exact source-based proof are included in this repository. Rights to publish the supplied
+    manuscript and proof sources were confirmed by the responsible maintainer. Original manuscript bibliographic
+    authors and endorsement status remain unknown.
+  license: unknown
+  author_endorsement: other
+- title: A chiral aperiodic monotile
+  authors:
+  - David Smith
+  - Joseph Samuel Myers
+  - Craig S. Kaplan
+  - Chaim Goodman-Strauss
+  type: paper
+  relationship: background
+  id: https://arxiv.org/abs/2305.17743v2
+  note: Context for shape-enforced aperiodicity in the plane. It is not a source for the exact T5 theorem
+    or evidence of priority for this submission.
+- title: A Strongly Aperiodic Monotile in Three Dimensions
+  authors:
+  - Ioannis Tsiokos
+  type: paper
+  relationship: background
+  id: https://arxiv.org/abs/2609.19214v1
+  note: Three-dimensional keyed-chair and geometric-registration antecedent. This citation does not attribute
+    the exact five-dimensional construction or its proof to that paper. Retain a more substantive relationship
+    if a final source audit shows the submitted proof directly adapts its results.
+- title: Towards Strongly Aperiodic Monotiles in Higher Dimensions
+  authors:
+  - Dmitry Kamenetsky
+  type: paper
+  relationship: background
+  id: https://arxiv.org/abs/2610.00916v1
+  note: Conditional higher-dimensional chair framework and finite contact-test context. It does not establish
+    the exact S54 T5 physical theorem.
+related_formalizations:
+- id: sha256:a95aa8b916170ce8892d67fd0149b2fd556f76d7e0e74e5f9fb99b7faea14c38
+  relationship: builds-on
+  note: Identifies the retained sources/legacy_T5_MONOTILE_RECEIPT.json for the complete original Lean
+    4.19 theorem SparseMonotiles.T5Goal_proved. This repository contains the substantive supported-toolchain
+    port and exact compact-body binding, rather than a wrapper importing an external formalization. The
+    digest identifies exact retained bytes; it is not a public archival identifier.
+status:
+  scope: One selected unconditional T5 physical monotile theorem. The complete supported proof, exact
+    compact-body/claim binding, actual Solution composition and four-endpoint axiom audit have passed
+    on Lean 4.35.0-rc2. The selected implementation closure has zero sorry/admit/custom-axiom/native-decide
+    tokens after comment/string-aware scanning. The independent Challenge elaborated at SHA-256 da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d,
+    with its one deliberate theorem hole and no definition holes. Official main Comparator, independent
+    main kernel replays and public submission remain pending. Companion T7 and odd-prime results are not
+    selected.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  hole_count_note: Counts refer to the selected Solution implementation closure and actual proof source.
+    The independent Challenge intentionally contains one theorem placeholder, which is not a Solution
+    proof hole.
+automation:
+  methods:
+  - method: agent
+    models: []
+    framework: OpenAI multi-agent assistant workflow
+    tool_setup: Substantive AI-assisted source analysis, mathematical and Lean proof construction, exact
+      rational/integer certificate generation, bounded compiler/kernel checks, source/proof-evidence audits,
+      migration and exposition. Exact body/claim fidelity, the full supported main theorem, and actual
+      Solution with axiom audit are checked. The official full-main Comparator and independent kernels
+      remain pending. Historical model identifiers were not fully recorded.
+    cost:
+      wall_time: Not reconstructed; component receipts record individual checks
+      spend_usd: Not tracked
+      hardware: Shared Linux execution environment; bounded serial Lean checks
+    prompting_notes: Preserve the exact S54 T5 body and arbitrary-isometry physical quantifiers, the actual
+      carrier hierarchy and right-symmetry quotient, honest nonvacuity boundaries, and the distinction
+      between legacy proof, supported component checks, and final independent verification.
+  notes: AI made substantive mathematical, proof-code, generator, audit and writing contributions. Source-level
+    arithmetic and lexical scans are not Lean proofs. Verification is attributed only to the actual dated
+    compiler/kernel receipts; final main independent verification is still pending.
+fidelity:
+  divergences: The independent Challenge retains all 26 T5/generic definition bodies exactly from the
+    existing two-dimension Challenge and definition-only implementation. Only the 22 T7 declarations are
+    omitted; the selected T5 theorem type is unchanged. Exact compact-to-literal body equality and physical-claim
+    equivalence were kernel-proved on Lean 4.35.0-rc2 in the existing development. The exact projected
+    Challenge has now elaborated successfully; final declaration-closure comparison against the actual
+    Solution remains required. Connectedness, polyhedral-ball, full-symmetry, all-prime, and T7 results
+    are not selected claims.
+review:
+  status: agent-reviewed
+  reviewers:
+  - AI source/evidence and static projection checks, 2026-10-06
+  notes: Internal AI review and the specifically recorded kernel checks. No independent human expert review,
+    novelty certification or Palomar review is claimed. Conor Grogan approved authorship, responsible
+    maintenance, supplied-source publication rights, Apache-2.0 licensing, and public release/submission
+    after all required checks on 2026-10-06. This approval is not independent mathematical peer review.
+alignment:
+  namespace: PalomarMonotiles
+  statements:
+  - source: Exact S54 T5 physical monotile target
+    lean: PalomarMonotiles.T5_isAperiodicMonotile
+    module: Challenge
+    status: complete
+    note: The actual selected Solution theorem has passed Lean 4.35.0-rc2 with the standard axiom inventory.
+      The independent Challenge has its deliberate statement-only theorem placeholder. Full official comparison
+      and independent replay are pending.
+acknowledgements: Lean, Mathlib and standard-library contributors. Substantive AI contributions are disclosed
+  under automation. Original supplied-manuscript bibliographic authors and any additional human contributor
+  credits were not established; no third-party endorsement is inferred.
+release_authorization:
+  approved_date: '2026-10-06'
+  human_author_and_responsible_maintainer: Conor Grogan
+  supplied_source_publication_rights_confirmed: true
+  approved_spdx_license: Apache-2.0
+  approved_public_repository: https://github.com/jconorgrogan/palomar-chair-verification
+  public_release_and_t5_submission: Authorized after all required verification checks pass
+  public_release_performed: false
+  palomar_submission_performed: false

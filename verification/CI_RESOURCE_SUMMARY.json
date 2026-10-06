@@ -1,0 +1,30 @@
+{
+  "scope": "SELECTED_SOURCE_RECEIPT_COST_EVIDENCE_NOT_COLD_CI_MEASUREMENT",
+  "utc": "2026-10-06T16:27:30.478815+00:00",
+  "selected_readiness_sha256": "f1bc12bde29af68a75277800ce2d06a637f9e052d67a98c88bbcb01d5fe6ffc5",
+  "selected_modules": 1351,
+  "fresh_pass_modules": 1351,
+  "timed_modules": 1351,
+  "unmeasured_modules": [],
+  "total_recorded_compiler_seconds": 14644.955236257694,
+  "total_recorded_compiler_minutes": 244.08258727096157,
+  "max_peak_rss_kib": 2503784,
+  "largest_two_peak_sum_kib": 4808028,
+  "lexical_forbidden_admission_violations": [],
+  "selected_implementation_sorry_count": 0,
+  "solution_source_sorry_count": 0,
+  "deliberate_independent_challenge_sorry_count": 1,
+  "recommendation": {
+    "compiler_processes": 2,
+    "serial_fallback_below_total_ram_gib": 7,
+    "available_memory_reserve_gib": 1.5,
+    "predicted_rss_headroom_percent": 15,
+    "lean_threads": 1,
+    "ci_timeout_minutes": 360,
+    "nominal_standard_linux_job_max_usd": 2.16,
+    "prior_pilot_nominal_usd": 0.018,
+    "aggregate_authorized_cap_usd": 5,
+    "runtime_is_estimate": true,
+    "reason": "At most two dependency-ready single-thread real Lake targets fit the measured peak-pair envelope with live admission and a 1.5 GiB reserve; smaller hosts fall back to serial. Receipt durations exclude clean Lake tracing/build overhead, package fetch/setup, proof export, complete main declaration comparison and independent kernels. The 360-minute bound is a cap, not a completion promise; no cold main verifier measurement exists."
+  }
+}

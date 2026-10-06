@@ -1,0 +1,25 @@
+{
+  "scope": "T5_ONLY_CHALLENGE_STATEMENT_ELABORATION_NOT_A_SOLUTION_OR_SUBMISSION",
+  "status": "PASS",
+  "exit_code": 0,
+  "lean": "4.35.0-rc2",
+  "mathlib": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+  "source_sha256": "da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d",
+  "source_unchanged": true,
+  "command": [
+    "/workspace/scratch/8b3aff9fe1f4/lean_sparse_monotiles_palomar_full_20261006/run_lean.sh",
+    "env",
+    "lean",
+    "-j1",
+    "-DautoImplicit=false",
+    "--root=/workspace/scratch/8b3aff9fe1f4/palomar_t5_private_draft_20261006",
+    "/workspace/scratch/8b3aff9fe1f4/palomar_t5_private_draft_20261006/Challenge.lean"
+  ],
+  "elapsed_seconds": 10.999330917999032,
+  "peak_rss_kib": 1474928,
+  "log_sha256": "af32b68b9167448e5d8a505d113cc57e18b3aa8700add9cdabb3d21bc929e80b",
+  "intentional_challenge_holes": 1,
+  "solution_proved": false,
+  "comparator_run": false,
+  "independent_main_checkers_run": false
+}

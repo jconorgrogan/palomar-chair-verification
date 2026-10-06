@@ -1,0 +1,45 @@
+{
+  "scope": "LOCAL_SUPPORTED_SOLUTION_AND_AXIOM_AUDIT_PASS_NOT_MAIN_COMPARATOR",
+  "utc": "2026-10-06T16:23:51.631370+00:00",
+  "toolchain": "leanprover/lean4:v4.35.0-rc2",
+  "mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+  "selected_theorem": "PalomarMonotiles.T5_isAperiodicMonotile",
+  "challenge_sha256": "da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d",
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "modules": {
+    "Solution": {
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 7.009025339997606,
+      "peak_rss_kib": 1826408,
+      "source_sha256": "4d16d09362a60a35d242fefd0c449a08e7a49ac7c0f781c5de300d28d57f44e5",
+      "source_and_dependencies_stable": true,
+      "forbidden_axiom_text_seen": false,
+      "object_artifacts": {
+        ".lake/build/lib/lean/Solution.olean.server": "ddf6a9532f0c6d140b2184834bf0260e4b031344d79d0913cf3c1325a48664b8",
+        ".lake/build/lib/lean/Solution.olean.private": "2452947faf8d69a8a5cfd48051d3e14bd5b1fd92cab442eddbc6277284a3063a",
+        ".lake/build/lib/lean/Solution.olean": "2d42d799864ea468fdd1428338ea6decc661d5777159297ef948b92dd2f5b3ea"
+      }
+    },
+    "VerificationAudit": {
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 11.682408851993387,
+      "peak_rss_kib": 1821036,
+      "source_sha256": "3ee08c50aaaaf76fde39eb05ee47f45059f5b006ed6645ecf154351c46921bbe",
+      "source_and_dependencies_stable": true,
+      "forbidden_axiom_text_seen": false,
+      "object_artifacts": {
+        ".lake/build/lib/lean/VerificationAudit.olean.private": "200fdfc2483cdc81959ed7cadf2cd7d251f8a6a00815dbe5969528dee841197c",
+        ".lake/build/lib/lean/VerificationAudit.olean.server": "abfc943abd0a8cddb2730e4ce89f1e48a8e2e314ca6778f672f80db861de72cf",
+        ".lake/build/lib/lean/VerificationAudit.olean": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6"
+      }
+    }
+  },
+  "main_comparator_passed": false,
+  "public_release_performed": false
+}
