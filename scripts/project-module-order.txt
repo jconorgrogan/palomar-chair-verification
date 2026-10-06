@@ -1349,3 +1349,5 @@ SparseMonotiles.CompactKeys5Chunks.Chunk13
 SparseMonotiles.CompactKeys5Chunks.Chunk14
 SparseMonotiles.CompactKeys5Chunks.Chunk15
 SparseMonotiles.CompactKeys5
+SparseMonotiles.FiniteSymmetry
+SparseMonotiles.StrongSymmetryStatement

@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,re
 R=Path(__file__).resolve().parents[1]
 j=json.loads((R/'SOURCE_MANIFEST.json').read_text())
-assert j['selected_theorem']=='PalomarMonotiles.T5_isAperiodicMonotile' and j['definition_names']==[]
+assert j['selected_theorem']=='PalomarMonotiles.T5_strongAperiodicity' and j['definition_names']==[]
 for name,h in j['files'].items():
  p=R/name;assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==h,name
 for p in R.rglob('*.lean'):
@@ -32,7 +32,7 @@ for p in R.rglob('*.lean'):
  if p.name=='Challenge.lean' and p.parent==R:
   assert len(s.encode())<=102400 and len(s.splitlines())<=1000
 cfg=json.loads((R/'comparator.json').read_text())
-assert cfg['theorem_names']==['PalomarMonotiles.T5_isAperiodicMonotile']
+assert cfg['theorem_names']==['PalomarMonotiles.T5_strongAperiodicity']
 assert cfg['definition_names']==[]
 assert set(cfg['permitted_axioms'])=={'propext','Quot.sound','Classical.choice'}
 assert 'external_kernels' not in cfg

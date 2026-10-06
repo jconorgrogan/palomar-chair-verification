@@ -36,6 +36,7 @@ Mathlib.Data.Finset.Option
 Mathlib.Data.Finset.Union
 Mathlib.Data.Fintype.Basic
 Mathlib.Data.Fintype.Fin
+Mathlib.Data.Fintype.Perm
 Mathlib.Data.Fintype.Pi
 Mathlib.Data.Int.Basic
 Mathlib.Data.List.FinRange
@@ -51,6 +52,7 @@ Mathlib.Logic.Function.Iterate
 Mathlib.Logic.Relation
 Mathlib.MeasureTheory.Group.AddCircle
 Mathlib.Order.Filter.Finite
+Mathlib.SetTheory.Cardinal.Finite
 Mathlib.Tactic.Abel
 Mathlib.Tactic.Common
 Mathlib.Tactic.FieldSimp

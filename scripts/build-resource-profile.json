@@ -6755,5 +6755,17 @@
     "peak_rss_kib": 1580656,
     "elapsed_seconds": 3.2807969830028014,
     "source_sha256": "c2f741c415c9aa247cce6a371a03bfeb8f19de94cf483b45fad8873f5ae2e0f2"
+  },
+  "SparseMonotiles.FiniteSymmetry": {
+    "source_sha256": "a3f3445311f8ffb6b73fdda41065240f652a917138b3e10c3228a36476f4f017",
+    "elapsed_seconds": 11.538,
+    "peak_rss_kib": null,
+    "rss_note": "RSS not measured for this new final-module-path compile. Existing bounded builder uses its unchanged conservative default2503784KiB plus15percent headroom."
+  },
+  "SparseMonotiles.StrongSymmetryStatement": {
+    "source_sha256": "47990b58a0e2a080ccb65bd7e08518e715501d689860d9cc8b2b721988073e34",
+    "elapsed_seconds": 2.127,
+    "peak_rss_kib": null,
+    "rss_note": "RSS not measured for this new final-module-path compile. Existing bounded builder uses its unchanged conservative default2503784KiB plus15percent headroom."
   }
 }
