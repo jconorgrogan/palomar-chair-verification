@@ -6657,7 +6657,9 @@
   "SparseMonotiles.CompactStatement": {
     "peak_rss_kib": 1738096,
     "elapsed_seconds": 14.430890664996696,
-    "source_sha256": "e67203a3bf010d03717b8c339bb8f641e4a68b4616c571a44297dda146f082d7"
+    "source_sha256": "2921fed49814ba5dff1cef91f09a933536e85dacc2c640bbbc8d5dae5dc36d01",
+    "measurement_source_sha256": "e67203a3bf010d03717b8c339bb8f641e4a68b4616c571a44297dda146f082d7",
+    "note": "Peak RSS is the pre-repair same-body measurement, retained conservatively; explicit-witness source compiled in the repair receipt."
   },
   "SparseMonotiles.CompactBodyBridge": {
     "peak_rss_kib": 1571708,
