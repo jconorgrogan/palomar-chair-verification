@@ -1,0 +1,235 @@
+{
+  "scope": "LOCAL_STATEMENT_COMPARATOR_REGRESSION_AND_AFFECTED_SOLUTION_RECHECK; OFFICIAL_FULL_RETRY_PENDING",
+  "utc": "2026-10-06T19:23:32.411244+00:00",
+  "failed_official_run": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37509737027",
+  "failed_source_commit": "68e28dd1ae9472fc92a8af87b666501c17aa7675",
+  "failure": "Const does not match between challenge and target PalomarMonotiles.tangentIndex._proof_4",
+  "cause": "omega-generated proof wrappers referenced module-qualified private proof constants in independently compiled copies",
+  "repair": "Replace only the two tangentIndex bound witnesses with explicit Nat/Fin proof terms; the complete function is definitionally equal by rfl",
+  "changed_lean_sources": [
+    {
+      "path": "Challenge.lean",
+      "before_sha256": "da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d",
+      "after_sha256": "c2cef3183a8b1deecee8d6a4e3602c607390bf92572774905f3842e0f7ed6c54"
+    },
+    {
+      "path": "SparseMonotiles/CompactStatement.lean",
+      "before_sha256": "e67203a3bf010d03717b8c339bb8f641e4a68b4616c571a44297dda146f082d7",
+      "after_sha256": "2921fed49814ba5dff1cef91f09a933536e85dacc2c640bbbc8d5dae5dc36d01"
+    }
+  ],
+  "all_other_lean_sources_unchanged": true,
+  "solution_source_unchanged": true,
+  "definition_exemptions": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "helper_regression": "Original fails; repaired passes exact comparator and Lean, NanoDa, verified con-ron",
+  "helper_regression_receipt_sha256": "006015441f4d3f9b566a5b9d5a93a34c6fb0a6edd58fab337444873997eef896",
+  "helper_kernel_receipt_sha256": "fae7dbcb3449317e635a9d232d829f2f4040bec1ccb23c59b8a907e913430163",
+  "definitional_equality_source_sha256": "f44e152f9e36abf72872a039f80a2a726cc3f26c960f71766c903bf7b5551939",
+  "full_statement_comparison": {
+    "status": "PASS",
+    "target": "PalomarMonotiles.statement_reflexive : T5Claim = T5Claim",
+    "scope": "Every definition reachable from T5Claim, independent full Challenge definitions versus imported repaired CompactStatement; synthetic reflexivity proof only",
+    "comparator": "Unmodified Lake.Check.compareAt and checkAxioms from pinned Lean toolchain",
+    "definition_exemptions": [],
+    "elapsed_seconds": 74.061,
+    "log_sha256": "879e10190af98a2fb8cf11a9d52e56ef4bf92899775efe4125525f2ad1970e03",
+    "export_sha256": {
+      "ChallengeSide": "433e01adb80626f0b62f97456dd69ba2e15513aedf666d2cec534c2032cab616",
+      "SolutionSide": "84afd7ac5fd33e742f92db849a44c9d13c8348c3d5f027d4b795a76fe44a7615"
+    },
+    "export_bytes": {
+      "ChallengeSide": 78522399,
+      "SolutionSide": 78522585
+    }
+  },
+  "fresh_compile_checks": [
+    {
+      "module": "SparseMonotiles.CompactStatement",
+      "status": "PASS",
+      "source_sha256": "2921fed49814ba5dff1cef91f09a933536e85dacc2c640bbbc8d5dae5dc36d01",
+      "object_sha256": "3e7965ffb4aa687b23e6bef02799c3c550ef6e06e3919144661e619cfb6a5793",
+      "elapsed_seconds": 24.579,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactBodyBridge",
+      "status": "PASS",
+      "source_sha256": "4a365a9b0d766d49ceeea33fd68150068bd41781c8d03def3827f9c0675d59c0",
+      "object_sha256": "42b3e1e90bf97f1ca286675cc0ff4bde0e13914b61666dfa890348c681e38272",
+      "elapsed_seconds": 6.762,
+      "compiler_log_sha256": "dd8f470827716b869379776be238a8471093dd691fc58e5287105b75db1b934d"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Data",
+      "status": "PASS",
+      "source_sha256": "c838d9fc2d53d3b2b077fe5853f153fbc7d89753d09cb273ecefbacac8ce12a7",
+      "object_sha256": "7f2a4333c33b7c94437038c6cf40be4d48b045e15fe87124b5e5b5315bc5c803",
+      "elapsed_seconds": 3.96,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk00",
+      "status": "PASS",
+      "source_sha256": "44cd872009506a48a63037d97c64ff6476824dae279985a809b305737376598f",
+      "object_sha256": "a89f3a85965fe4b65f7e11ffb904944b0d99a5ee23cd254dc73ab8e5505f7a04",
+      "elapsed_seconds": 3.959,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk01",
+      "status": "PASS",
+      "source_sha256": "5403a550fe062b5d7fe7f40d4e7d52983fc826ca70cb50bd230723760c1ababd",
+      "object_sha256": "a9f1e4cce14a35fa80941539d17e2e92a3bff22f328c123347fb0898ac8890fb",
+      "elapsed_seconds": 4.154,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk02",
+      "status": "PASS",
+      "source_sha256": "691c10f531ed310b0d16b5183cdb20c3b981962c5acad6518889d8db6a1e14de",
+      "object_sha256": "d09dd2edb80c0b3e5e4e413739f8b117bc118d18fb92044cc32b02fd4237761d",
+      "elapsed_seconds": 4.828,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk03",
+      "status": "PASS",
+      "source_sha256": "6a10d7c82337df4b6ebfdaf554beec6e2f176346d316a325f0badfacc06aecae",
+      "object_sha256": "09193e2e4ea7d5a0e996282adbc85c888d931415793a1169271ee0063a8dda8c",
+      "elapsed_seconds": 2.796,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk04",
+      "status": "PASS",
+      "source_sha256": "6e82b2e9bbc9c8999033402c9cee6c386d40568109d5b777fbbf849006fa0b9e",
+      "object_sha256": "43b78b3ecce90fe1a3896b086f5a4fb94d01edf4a29f361442c40d1d0976fb0d",
+      "elapsed_seconds": 4.21,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk05",
+      "status": "PASS",
+      "source_sha256": "d7c681f93c0efe47c3dfa8120666a4efa640720c50dcfb8ee8324d69b770061d",
+      "object_sha256": "07104f5a07a9ccdd463d44cf0ff4c82599571d75e5f5af16abc0bb01c5388051",
+      "elapsed_seconds": 4.235,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk06",
+      "status": "PASS",
+      "source_sha256": "c69881a163da992b3a13b6cc38dcaae55b2ee3c9a512dbd839cf5ed05c2c2ac3",
+      "object_sha256": "f3a68d5875add305388ca65974d252fe61f2bfba47ee7bac05eb06dd47ca2ea2",
+      "elapsed_seconds": 3.947,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk07",
+      "status": "PASS",
+      "source_sha256": "18d96c4b4f8b38d019cddaf2dbe50e4b486efb9f80534c45f5fabc04ee324050",
+      "object_sha256": "f681a3eb6926b41838ef72fc72b6f3a9daf3a3ebb6db6f4dacaff109cd710c90",
+      "elapsed_seconds": 4.586,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk08",
+      "status": "PASS",
+      "source_sha256": "0ea817747fe61199930eedb14d3ae1a0c17abd0988f5301e19909546da1f3483",
+      "object_sha256": "a9e7d1950e0a6c90eb0c14ddc3a7e61fcbc0c53257147a20f3d3eb54b9bb9237",
+      "elapsed_seconds": 5.745,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk09",
+      "status": "PASS",
+      "source_sha256": "65067c8f8aa1ec73dfc975db4b7805a7e07d93fc4c23b7e6bdcee0cfc934c285",
+      "object_sha256": "9d6453b323c5f44cb3b9281dc4a758fb1a4c5e37d7d64e5adebd5d83e25b7f43",
+      "elapsed_seconds": 4.397,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk10",
+      "status": "PASS",
+      "source_sha256": "130d527ee926baa9dce2bab3c902856a9dc1592c984a7b78c75b79209a69f297",
+      "object_sha256": "f3ed7092b1b2ce064177fa90353ccf9f83bb7d16cf2f61c6e9985c17fee4004b",
+      "elapsed_seconds": 4.81,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk11",
+      "status": "PASS",
+      "source_sha256": "9ee27143a9d1d6b8a003d2694eed6206300afd2e443581f44d2f7539ee3d7f97",
+      "object_sha256": "9bc697b360a05edec0f2ebecbd2c49fcc2597280dff4fc74f3442f16646a3516",
+      "elapsed_seconds": 7.048,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk12",
+      "status": "PASS",
+      "source_sha256": "343d61924a863432aacf3696da3e534e31058f6bca89da5ac660c50e5c127190",
+      "object_sha256": "4b9e7d2d14727bb39bb3cf634b90399c5ca9ffb81a358f64632f298218cbba70",
+      "elapsed_seconds": 13.117,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk13",
+      "status": "PASS",
+      "source_sha256": "8352a614c2aa2bae5e38aed14054bf4681ad1285e0c1ebeb2816038029eb37b5",
+      "object_sha256": "18cd29077259383b97e0481e28a0847883060432917972c3022aa58cc6ca8782",
+      "elapsed_seconds": 4.547,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk14",
+      "status": "PASS",
+      "source_sha256": "772c1f9235fe17d25217ef52bc7e48d8fc41da11281cf4452ebb444b80a78270",
+      "object_sha256": "7d8499d57b4fd9107e9234467bb95978d457f18809245b33e86ab40eb5752826",
+      "elapsed_seconds": 4.689,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5Chunks.Chunk15",
+      "status": "PASS",
+      "source_sha256": "f325a88ad0537e56b965b193f1ebe3618f361665f84b8e43806b770f40f3358c",
+      "object_sha256": "eea9c0551c7a28aeb65791be3d37a43570977249942a58e760d9de32902ebd80",
+      "elapsed_seconds": 5.298,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "SparseMonotiles.CompactKeys5",
+      "status": "PASS",
+      "source_sha256": "c2f741c415c9aa247cce6a371a03bfeb8f19de94cf483b45fad8873f5ae2e0f2",
+      "object_sha256": "137dc972afb26e2098d26ed19b7f923df7be3adf4c6f1a17d863bbfafe117671",
+      "elapsed_seconds": 3.082,
+      "compiler_log_sha256": "95cc81b5aee8ef3e6d96da484032ed729e21920c7035732a8e6153419ee5fb6b"
+    },
+    {
+      "module": "Solution",
+      "status": "PASS",
+      "source_sha256": "4d16d09362a60a35d242fefd0c449a08e7a49ac7c0f781c5de300d28d57f44e5",
+      "object_sha256": "2d42d799864ea468fdd1428338ea6decc661d5777159297ef948b92dd2f5b3ea",
+      "elapsed_seconds": 8.665,
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "VerificationAudit",
+      "status": "PASS",
+      "source_sha256": "3ee08c50aaaaf76fde39eb05ee47f45059f5b006ed6645ecf154351c46921bbe",
+      "object_sha256": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6",
+      "elapsed_seconds": 4.355,
+      "compiler_log_sha256": "57ebbf011afaffdb52652aa697e44086731270d1170d45e17da963fdeb8588ae"
+    }
+  ],
+  "final_audit_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "official_full_main_independent_kernels_passed": false,
+  "new_public_commit": null
+}
