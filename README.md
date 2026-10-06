@@ -4,6 +4,12 @@ Conor Grogan, author and responsible maintainer
 
 We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. It retains the Lean identifier **T5**.
 
+![CLARK carrier projection](CLARK_overview.png)
+
+Projection of the carrier; boundary keys omitted. Illustration does not replace exact shape specification.
+
+[Download the CLARK tile illustration (PDF)](Clark_5D_tile.pdf)
+
 We give an explicit compact tile in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states that every tiling by these copies has no nonzero translation preserving its tile collection. The Lean formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming lattice registration or matching rules.
 
 ## Proof and verification status
