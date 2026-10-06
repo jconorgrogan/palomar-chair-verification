@@ -1,14 +1,13 @@
-# Approved descriptive naming revision; proof code and comparison configuration unchanged.
+# Separate stronger selected theorem; original passed source remains immutable.
 version: v0.4
 project:
   name: 'The CLARK Tile: An Aperiodic Monotile in Five Dimensions'
   description: We give an explicit compact tile, called CLARK (Chair with Local Asymmetric Registration
-    Keys), in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling.
-    The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies
-    may be translated, rotated, or reflected. The theorem states that every tiling by these copies has
-    no nonzero translation preserving its tile collection. The Lean formalization fixes the exact body
-    and proves compactness, existence, and aperiodicity without assuming lattice registration or matching
-    rules.
+    Keys), in five-dimensional Euclidean space. It modifies a chair of 31 unit five-cubes with 256 rational
+    pyramidal keys. Copies may be translated, rotated or reflected. The selected theorem proves tiling
+    existence, no nonzero translation period in any physical tiling, and a finite full Euclidean symmetry
+    group of cardinality at most 3840 for every such tiling. No registration, matching-rule or hierarchy
+    assumption is imposed. A trivial symmetry group is not asserted.
   authors:
   - Conor Grogan
   responsible_maintainers:
@@ -84,19 +83,23 @@ related_formalizations:
     4.19 theorem SparseMonotiles.T5Goal_proved. This repository contains the substantive supported-toolchain
     port and exact compact-body binding, rather than a wrapper importing an external formalization. The
     digest identifies exact retained bytes; it is not a public archival identifier.
+- id: https://github.com/jconorgrogan/palomar-chair-verification/tree/9008dec3afc006a62d3d2fd6b49b12f189248f33
+  relationship: builds-on
+  note: The original exact T5 theorem passed the pinned official full mechanical preflight. Its substantive
+    proof remains included in this source tree. This source adds the finite full-symmetry theorem; the
+    original pass is not a pass for the strengthened selected declaration.
 status:
-  scope: One selected unconditional T5 physical monotile theorem. The complete supported proof, exact
-    compact-body/claim binding, actual Solution composition and four-endpoint axiom audit have passed
-    on Lean 4.35.0-rc2. The selected implementation closure has zero sorry/admit/custom-axiom/native-decide
-    tokens after comment/string-aware scanning. The independent Challenge elaborated at SHA-256 c2cef3183a8b1deecee8d6a4e3602c607390bf92572774905f3842e0f7ed6c54,
-    with its one deliberate theorem hole and no definition holes. The required official full reusable-workflow
-    mechanical preflight, its independent main kernel replays and Palomar submission remain pending. The
-    earlier private cold-build run was cancelled before its Comparator phase; its successful partial build
-    is not a full independent pass. Companion T7 and odd-prime results are not selected.
-  comparator_repair: The first official full run clean-built the Solution but rejected a module-private generated
-    proof dependency. This revision replaces only tangentIndex bound witnesses with definitionally equal
-    explicit terms. Local whole-statement comparison and affected Solution rechecks pass; the official
-    full retry and independent main proof replays remain pending. See verification/COMPARATOR_REPAIR.json.
+  scope: One selected unconditional physical T5 theorem, strengthened by a finite full Euclidean symmetry
+    bound 3840. The original T5 theorem at commit9008dec3afc006a62d3d2fd6b49b12f189248f33 passed official
+    full run 37520435323, including Lean, NanoDa and verified con-ron. The stronger independent Challenge,
+    actual Solution and axiom audit pass locally on Lean 4.35.0-rc2; its full statement definition closure
+    also compares exactly with no exemptions. The official full workflow and independent main-proof replays
+    for this stronger selected declaration are NOTRUN. The implementation has zero proof holes/custom
+    axioms/native-decide trust. Challenge has one deliberate theorem placeholder. Companion T7 and all-prime
+    claims are not selected.
+  comparator_repair: The previously verified tangentIndex repair is retained byte-for-byte. No new arithmetic
+    tactic occurs in the shared symmetry definitions. Historical repair evidence is verification/COMPARATOR_REPAIR.json;
+    current stronger-source evidence is verification/STRONG_EXTENSION.json.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -111,11 +114,11 @@ automation:
   - method: agent
     models: []
     framework: OpenAI multi-agent assistant workflow
-    tool_setup: Substantive AI-assisted source analysis, mathematical and Lean proof construction, exact
-      rational/integer certificate generation, bounded compiler/kernel checks, source/proof-evidence audits,
-      migration and exposition. Exact body/claim fidelity, the full supported main theorem, and actual
-      Solution with axiom audit are checked. The official full-main Comparator and independent kernels
-      remain pending. Historical model identifiers were not fully recorded.
+    tool_setup: Substantive AI-assisted mathematical and Lean proof construction, exact rational/integer
+      certificates, source/evidence audits, migration and exposition. The original T5 official full preflight
+      passed. The stronger full-symmetry proof, independent statement and actual Solution are locally
+      checked; the new selected declaration still requires its own full official workflow and independent
+      main-proof replay. Historical model identifiers were not fully recorded.
     cost:
       wall_time: Not reconstructed; component receipts record individual checks
       spend_usd: Not tracked
@@ -123,17 +126,16 @@ automation:
     prompting_notes: Preserve the exact S54 T5 body and arbitrary-isometry physical quantifiers, the actual
       carrier hierarchy and right-symmetry quotient, honest nonvacuity boundaries, and the distinction
       between legacy proof, supported component checks, and final independent verification.
-  notes: AI made substantive mathematical, proof-code, generator, audit and writing contributions. Source-level
-    arithmetic and lexical scans are not Lean proofs. Verification is attributed only to the actual dated
-    compiler/kernel receipts; final main independent verification is still pending.
+  notes: AI made substantive mathematical, proof-code, generator, audit and writing contributions. Verification
+    is attributed only to actual dated receipts. The stronger selected target has local Lean and full-statement
+    comparison passes; its official full replay is NOTRUN.
 fidelity:
-  divergences: The independent Challenge retains all 26 T5/generic definition bodies exactly from the
-    existing two-dimension Challenge and definition-only implementation. Only the 22 T7 declarations are
-    omitted; the selected T5 theorem type is unchanged. Exact compact-to-literal body equality and physical-claim
-    equivalence were kernel-proved on Lean 4.35.0-rc2 in the existing development. The exact projected
-    Challenge has now elaborated successfully; final declaration-closure comparison against the actual
-    Solution remains required. Connectedness, polyhedral-ball, full-symmetry, all-prime, and T7 results
-    are not selected claims.
+  divergences: The exact repaired independent T5 body and original T5Claim definition are retained byte-for-byte,
+    including all 256 placements. Three explicit full-symmetry/target definitions are added. The stronger
+    target is the conjunction of the original T5Claim and a finite cardinality bound 3840 for every physical
+    tiling symmetry type. Compact-to-literal body equality remains the checked original binding. Shared
+    definitions compare exactly without exemptions. Connectedness, topological-ball, trivial-symmetry,
+    all-prime and T7 conclusions are not selected.
 review:
   status: agent-reviewed
   reviewers:
@@ -145,13 +147,13 @@ review:
 alignment:
   namespace: PalomarMonotiles
   statements:
-  - source: Exact S54 T5 physical monotile target
-    lean: PalomarMonotiles.T5_isAperiodicMonotile
+  - source: Exact S54 T5 physical monotile with finite full Euclidean symmetry bound 3840
+    lean: PalomarMonotiles.T5_strongAperiodicity
     module: Challenge
     status: complete
-    note: The actual selected Solution theorem has passed Lean 4.35.0-rc2 with the standard axiom inventory.
-      The independent Challenge has its deliberate statement-only theorem placeholder. Full official comparison
-      and independent replay are pending.
+    note: Actual stronger Solution and standard-axiom audit passed locally. Full shared-statement comparison
+      passed. Official full workflow and independent main-proof replay for this stronger target are NOTRUN;
+      the original theorem has a separate full pass.
 acknowledgements: Lean, Mathlib and standard-library contributors. Substantive AI contributions are disclosed
   under automation. Original supplied-manuscript bibliographic authors and any additional human contributor
   credits were not established; no third-party endorsement is inferred.
@@ -168,6 +170,6 @@ release_authorization:
 descriptive_names:
   T5: CLARK
   expansion: Chair with Local Asymmetric Registration Keys
-  note: User-selected acronym for the five-dimensional tile. T7 remains unnamed and outside this selected
-    claim. Exact mathematical definitions, theorem names, proof code and comparison configuration are
-    unchanged.
+  note: CLARK is the approved five-dimensional name. The exact body is unchanged; this revision strengthens
+    only the selected theorem with a finite full Euclidean symmetry bound. T7 is outside the selected
+    claim.

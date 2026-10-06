@@ -1,28 +1,36 @@
 {
-  "scope": "T5_SELECTED_SOURCE_CLOSURE_READINESS_ONLY",
+  "scope": "STRONGER_SELECTED_SOLUTION_LOCAL_READINESS_OFFICIAL_FULL_NOTRUN",
   "utc": "2026-10-06T16:27:35.157707+00:00",
-  "challenge_sha256": "c2cef3183a8b1deecee8d6a4e3602c607390bf92572774905f3842e0f7ed6c54",
+  "challenge_sha256": "7fbf473f9dc669e85971b28955797c3bb239c1faba37d6b60bfd2c5fa347955c",
   "roots": [
     "SparseMonotiles.T5Monotile",
-    "SparseMonotiles.CompactKeys5"
+    "SparseMonotiles.CompactKeys5",
+    "SparseMonotiles.FiniteSymmetry",
+    "SparseMonotiles.StrongSymmetryStatement"
   ],
-  "source_modules": 1351,
+  "source_modules": 1353,
   "missing_sources": [],
   "pending_or_stale_checks": [],
   "all_source_checks_pass": true,
   "main_solution_checked": true,
   "solution_checks": {
     "Solution": {
-      "kind": "fresh_repaired_dependency_overlay_compile",
-      "receipt": "verification/COMPARATOR_REPAIR.json",
-      "source_sha256": "4d16d09362a60a35d242fefd0c449a08e7a49ac7c0f781c5de300d28d57f44e5",
-      "object_sha256": "2d42d799864ea468fdd1428338ea6decc661d5777159297ef948b92dd2f5b3ea"
+      "kind": "fresh_stronger_solution_compile",
+      "receipt": "verification/STRONG_EXTENSION.json",
+      "status": "PASS",
+      "source_sha256": "2294fc4163af64bcea2d0cabe10548a9eeba05f94c958f6f22bf5793b8bfe0d2",
+      "object_sha256": "2fc118d7f86c42d4d22f9a80b7c17eb8dc86c4dee949e948e575d145989d18b1",
+      "compiler_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 5.11
     },
     "VerificationAudit": {
-      "kind": "fresh_repaired_dependency_overlay_compile",
-      "receipt": "verification/COMPARATOR_REPAIR.json",
-      "source_sha256": "3ee08c50aaaaf76fde39eb05ee47f45059f5b006ed6645ecf154351c46921bbe",
-      "object_sha256": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6"
+      "kind": "fresh_stronger_solution_compile",
+      "receipt": "verification/STRONG_EXTENSION.json",
+      "status": "PASS",
+      "source_sha256": "589b2cd83cedb6d821bc01e5a83434d510a403a3df2ee56d54b5d0f94c62993c",
+      "object_sha256": "1c9200e45869a43bec6ff7290cc83bfaee23cce8d7baeb428cd82ce2f40f88c6",
+      "compiler_log_sha256": "8062d1037bb16df2287c02b34376b131095a2c0136c4c26b156e14105ed17258",
+      "elapsed_seconds": 3.034
     }
   },
   "main_comparator_passed": false,
@@ -12181,10 +12189,39 @@
         "receipt": "verification/COMPARATOR_REPAIR.json",
         "object_sha256": "137dc972afb26e2098d26ed19b7f923df7be3adf4c6f1a17d863bbfafe117671"
       }
+    },
+    {
+      "module": "SparseMonotiles.FiniteSymmetry",
+      "source_sha256": "a3f3445311f8ffb6b73fdda41065240f652a917138b3e10c3228a36476f4f017",
+      "check": {
+        "kind": "fresh_final_module_path_compile",
+        "receipt": "verification/STRONG_EXTENSION.json",
+        "object_sha256": "5846cd97234fcba36be8b11668f4ace187e28dc76558c5180ca30b06087a6210"
+      }
+    },
+    {
+      "module": "SparseMonotiles.StrongSymmetryStatement",
+      "source_sha256": "47990b58a0e2a080ccb65bd7e08518e715501d689860d9cc8b2b721988073e34",
+      "check": {
+        "kind": "fresh_final_module_path_compile",
+        "receipt": "verification/STRONG_EXTENSION.json",
+        "object_sha256": "95855554125b97f36dbb3c60872e5d7e6be187efcbbfcde376b4049ca0e2599e"
+      }
     }
   ],
   "base_readiness_sha256": "120e0ab12fa84d7f230f26926467e131b132982930f91625f3974c0aeba4c4ad",
   "base_readiness_scope": "Pre-repair exact proof closure; unchanged main implementation objects reused for the bounded local repair check",
   "repair_receipt": "verification/COMPARATOR_REPAIR.json",
-  "repair_receipt_sha256": "7f96397f6fdd393874b7d6f9418fab23c60f80054fb328b49ea8f3c8663f2d64"
+  "repair_receipt_sha256": "7f96397f6fdd393874b7d6f9418fab23c60f80054fb328b49ea8f3c8663f2d64",
+  "base_pre_extension_readiness_sha256": "00c90f8e9c6a258f59322a7d967f0d477a709964cddd13d2750e8f05320e2c25",
+  "selected_theorem": "PalomarMonotiles.T5_strongAperiodicity",
+  "extension_receipt": "verification/STRONG_EXTENSION.json",
+  "extension_receipt_sha256": "205821c8f85225d5c99533cd7b23b45de601be337457ac9f39fc67875dc1ef32",
+  "base_official_full_preflight": {
+    "run_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323",
+    "status": "pass",
+    "selected_theorem": "PalomarMonotiles.T5_isAperiodicMonotile",
+    "report_sha256": "43edc2c785ceaa7ecff4b231a0a9738a5e320d6fd5b0461d6de88491f482f027"
+  },
+  "whole_statement_definition_comparison_passed": true
 }

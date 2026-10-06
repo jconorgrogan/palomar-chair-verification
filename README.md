@@ -2,15 +2,17 @@
 
 Conor Grogan, author and responsible maintainer
 
+Companion preprint: [Zenodo record23197475](https://zenodo.org/records/23197475), DOI [10.5281/zenodo.23197475](https://doi.org/10.5281/zenodo.23197475).
+
 We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. The Lean development retains the identifier **T5**; the name does not change its exact body definition or proof identifiers.
 
 ## Verification status
 
-This is the public source snapshot for the CLARK tile (T5) submission. The complete physical theorem, actual Solution and axiom audit passed Lean 4.35.0-rc2. [The first official full run](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37509737027) clean-built all 4,135 Lake jobs but stopped at a generated statement-proof constant mismatch before the independent main kernels. This revision replaces only the two affected bound-proof blocks with definitionally equal explicit terms. Local full-statement dependency comparison and fresh affected-binding/Solution checks pass; see [the repair evidence](verification/COMPARATOR_REPAIR.md). The required official full retry and independent main kernel checks remain pending. No Palomar acceptance is claimed.
+This is a separate stronger CLARK (T5) source revision. The original compactness, tiling-existence and no-nonzero-translation-period theorem passed [official full run 37520435323](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323) at immutable source 9008dec3afc006a62d3d2fd6b49b12f189248f33, with Lean, NanoDa and verified con-ron. This revision additionally bounds the full Euclidean symmetry group of every physical tiling by 3,840. Its actual independent Challenge, Solution, axiom audit and full statement-definition comparison have passed locally. The full official workflow and independent main-proof replay for this stronger selected theorem are **NOTRUN** at preparation. [Current extension evidence](verification/STRONG_EXTENSION.md) records the exact scope. No registry review or acceptance is claimed.
 
 ## Abstract
 
-We give an explicit compact tile in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states that every tiling by these copies has no nonzero translation preserving its tile collection. The Lean formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming lattice registration or matching rules.
+We give an explicit compact tile in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states that every tiling by these copies has no nonzero translation preserving its tile collection. It also proves that every such tiling has at most 3,840 full Euclidean symmetries, counting all rotations, reflections and translations that preserve its tile collection. The Lean formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming lattice registration or matching rules.
 
 The abstract describes the mathematical result selected for release. The verification status above records which checks have actually finished.
 
@@ -23,12 +25,15 @@ Then:
 1. T5 is compact
 2. There is a tiling of all of R⁵ by Euclidean isometric copies of T5
 3. For every such tiling, the only translation that preserves its collection of tiles is the zero translation
+4. The full Euclidean symmetry group of every such tiling is finite and has at most 3,840 elements
 
 A tiling here is a collection of unmarked tile sets that covers every point of R⁵, with disjoint interiors for distinct tiles. Any translation, rotation, or reflection is allowed when placing a copy. A period preserves the tile collection, not just the union of the tiles. The theorem has no registration, matching-rule, hierarchy, or finite-certificate assumption.
 
-The selected declaration is [`PalomarMonotiles.T5_isAperiodicMonotile`](Solution.lean), with statement [`T5Claim`](Challenge.lean). The exact [tile definition](Challenge.lean) and [complete physical theorem](SparseMonotiles/T5Monotile.lean) are included in this source snapshot. The source specification is `tile5_final_spec.json`, SHA-256 `8c94499b8b9fc89efef794497723f649a188de6a7a5460849dc7989bc61b6094`. The exposed definition in `Challenge.lean` fixes the body independently of the proof implementation. Its 256 placement records retain the source order and exact rational coordinates.
+The selected declaration is [`PalomarMonotiles.T5_strongAperiodicity`](Solution.lean), with statement [`T5StrongClaim`](Challenge.lean). The exact [tile definition](Challenge.lean) and [complete physical theorem](SparseMonotiles/T5Monotile.lean) are included in this source snapshot. The source specification is `tile5_final_spec.json`, SHA-256 `8c94499b8b9fc89efef794497723f649a188de6a7a5460849dc7989bc61b6094`. The exposed definition in `Challenge.lean` fixes the body independently of the proof implementation. Its 256 placement records retain the source order and exact rational coordinates.
 
-The selected theorem does not assert that T5 is a topological ball, that it is connected, or that every tiling has a finite full Euclidean symmetry group. It makes no first-example or priority claim. Novelty has not been established.
+The new [full-symmetry proof](SparseMonotiles/FiniteSymmetry.lean) supplies the uniform bound.
+
+The selected theorem does not assert that T5 is a topological ball, that it is connected, or that every tiling has a trivial full Euclidean symmetry group. It makes no first-example or priority claim. Novelty has not been established.
 
 ## Broader program
 
@@ -48,13 +53,13 @@ The mathematical inputs are the S54 body and proof chain, the uniform registered
 
 AI systems made substantive contributions to mathematical analysis, Lean proofs, exact certificate generation, checking, migration and exposition. Historical model identifiers and aggregate costs were not fully recorded and are not reconstructed. Human authorship and responsibility belong to Conor Grogan. AI systems are not listed as authors.
 
-The recorded review consists of internal AI review and the identified compiler/kernel checks. No independent human expert review, peer review or novelty certification is claimed. The final verification will check the selected declaration with the standard Lean kernel, NanoDa and verified con-ron, through the official unchanged sandboxed Comparator. Only `propext`, `Classical.choice` and `Quot.sound` are permitted. No native-decide trust boundary or extra axiom is authorized.
+The recorded review consists of internal AI review and the identified compiler/kernel checks. No independent human expert review, peer review or novelty certification is claimed. A new full official verification must check this stronger selected declaration with the standard Lean kernel, NanoDa and verified con-ron, through the official unchanged sandboxed Comparator. Only `propext`, `Classical.choice` and `Quot.sound` are permitted. No native-decide trust boundary or extra axiom is authorized.
 
 ## Reproducing the selected verification
 
 The pinned toolchain is `leanprover/lean4:v4.35.0-rc2`; Mathlib is pinned at `065356127b1dc0016f66b7283ce0ce2c4055aa55`. On a compatible Linux host with Bubblewrap, run `bash scripts/verify-t5-on-linux.sh`. The script checks the frozen source manifest, obtains only the required Mathlib cache targets, builds dependency-ready project modules with at most two single-thread compiler processes and a 1.5 GiB available-memory reserve, falling back to serial execution on smaller hosts, builds Challenge and Solution independently, audits selected theorem axioms, and invokes the bundled official Comparator with both independent kernels. It fails on incompatible sandbox hosts rather than bypassing sandboxing. This command reproduces the proof build and Comparator/kernel checks; the official Palomar reusable workflow additionally checks metadata, Challenge provenance, execution-profile limits and the mechanical report. A local script result is not a substitute for that full workflow report.
 
-`Challenge.lean` independently fixes the exact body and physical tiling statement. Its one deliberate theorem placeholder is part of the Comparator challenge. `Solution.lean` does not import Challenge and supplies the actual proof. `definition_names` is empty: no body definition is excused from declaration-closure comparison. The historical draft comment in the frozen Challenge predates its successful elaboration receipt.
+`Challenge.lean` independently fixes the exact body and physical tiling statement. Its one deliberate stronger-theorem placeholder is part of the Comparator challenge. `Solution.lean` does not import Challenge and supplies the actual proof. `definition_names` is empty: no body definition is excused from declaration-closure comparison. The original body and old T5Claim are unchanged; the stronger target explicitly retains that original claim as a conjunct.
 
 ## License and source responsibility
 
