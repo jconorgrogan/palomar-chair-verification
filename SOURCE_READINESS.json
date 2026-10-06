@@ -1,5 +1,5 @@
 {
-  "scope": "STRONGER_SELECTED_SOLUTION_LOCAL_READINESS_OFFICIAL_FULL_NOTRUN",
+  "scope": "STRONGER_SELECTED_SOLUTION_HISTORICAL_LOCAL_READINESS_RECOVERED_OFFICIAL_FULL_NOTRUN",
   "utc": "2026-10-06T16:27:35.157707+00:00",
   "challenge_sha256": "7fbf473f9dc669e85971b28955797c3bb239c1faba37d6b60bfd2c5fa347955c",
   "roots": [
@@ -12216,12 +12216,21 @@
   "base_pre_extension_readiness_sha256": "00c90f8e9c6a258f59322a7d967f0d477a709964cddd13d2750e8f05320e2c25",
   "selected_theorem": "PalomarMonotiles.T5_strongAperiodicity",
   "extension_receipt": "verification/STRONG_EXTENSION.json",
-  "extension_receipt_sha256": "205821c8f85225d5c99533cd7b23b45de601be337457ac9f39fc67875dc1ef32",
+  "extension_receipt_sha256": "4cf2f628ccf51e8204e2d1fecfa11d20df775d7683138ee02399396221b427c5",
   "base_official_full_preflight": {
     "run_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323",
     "status": "pass",
     "selected_theorem": "PalomarMonotiles.T5_isAperiodicMonotile",
     "report_sha256": "43edc2c785ceaa7ecff4b231a0a9738a5e320d6fd5b0461d6de88491f482f027"
   },
-  "whole_statement_definition_comparison_passed": true
+  "whole_statement_definition_comparison_passed": true,
+  "recovery_provenance": {
+    "recovered_utc": "2026-10-06T22:09:08.597222+00:00",
+    "from_immutable_remote_commit": "c2f95c8d4744fc71ea7077ec47a3c270edd54e20",
+    "prior_readiness_sha256": "49f3d9316147a50bf8f49f860e5698bf634743b1240d6339e01e110161205609",
+    "historical_extension_receipt_sha256": "205821c8f85225d5c99533cd7b23b45de601be337457ac9f39fc67875dc1ef32",
+    "all_math_source_hashes_unchanged": true,
+    "fresh_compilation_after_reset": false,
+    "status_interpretation": "PASS entries describe the recorded pre-reset local checks. Compiled objects were lost in the reset; the separate official full run has not started."
+  }
 }

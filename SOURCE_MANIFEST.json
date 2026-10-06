@@ -9,7 +9,7 @@
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "NOTICE": "514851ecf0c68219b4f58c41d4f9a12cda2cb21c1c77212a09130a54065cd53c",
     "README.md": "a5f2cb0f598ffa544290f095c669e696768188b60cbcddf9a945624b383dfe90",
-    "SOURCE_READINESS.json": "49f3d9316147a50bf8f49f860e5698bf634743b1240d6339e01e110161205609",
+    "SOURCE_READINESS.json": "e84789359fb25945ed6ef375b867c8a85ca07a35ad9c56801f5f3ea9e6300033",
     "Solution.lean": "2294fc4163af64bcea2d0cabe10548a9eeba05f94c958f6f22bf5793b8bfe0d2",
     "SparseMonotiles/ActiveKeyRidgeModelInventory.lean": "a5fc356df6dca74f77aa3368d6ae5a7754fbab1b34f745860fc434507440984b",
     "SparseMonotiles/ActivePhysicalKeyModelInventory.lean": "dcd7f5e2dc530a9e3f08521b49c9c9b16a0ce834cd83260b35f09182c6ebbc74",
@@ -1389,10 +1389,21 @@
     "verification/LOCAL_SOLUTION_RECEIPT.json": "e5157cb24b3c8b30f1ba9924a95c817d0932fb233f70c3fe070e3fb09cec795e",
     "SparseMonotiles/FiniteSymmetry.lean": "a3f3445311f8ffb6b73fdda41065240f652a917138b3e10c3228a36476f4f017",
     "SparseMonotiles/StrongSymmetryStatement.lean": "47990b58a0e2a080ccb65bd7e08518e715501d689860d9cc8b2b721988073e34",
-    "verification/STRONG_EXTENSION.json": "205821c8f85225d5c99533cd7b23b45de601be337457ac9f39fc67875dc1ef32",
+    "verification/STRONG_EXTENSION.json": "4cf2f628ccf51e8204e2d1fecfa11d20df775d7683138ee02399396221b427c5",
     "verification/STRONG_EXTENSION.md": "8c5a80f39c38f3d96cbc256ae60188516b3be11984dc1fd2e7cd7a52f3394b61"
   },
   "parent_source_manifest_sha256": "40e0be12c33cb719b6afdf7a69e99d69e820ae5af41cbf76bfd246a995de07c2",
   "base_public_commit": "9008dec3afc006a62d3d2fd6b49b12f189248f33",
-  "revision_scope": "Retain exact original T5Claim/body and add uniform finite full Euclidean symmetry bound3840; independent statement and actual Solution checked locally; full new official verification NOTRUN"
+  "revision_scope": "Retain exact original T5Claim/body and add uniform finite full Euclidean symmetry bound3840; independent statement and actual Solution checked locally; full new official verification NOTRUN",
+  "recovery_provenance": {
+    "recovered_utc": "2026-10-06T22:09:08.597222+00:00",
+    "prior_manifest_sha256": "b6ffc47864049c07d4523663ca9a9999f1fa206a00e2937eeba0ce39d03e6b34",
+    "persisted_source_commit": "c2f95c8d4744fc71ea7077ec47a3c270edd54e20",
+    "only_existing_file_hash_changes": [
+      "SOURCE_READINESS.json",
+      "verification/STRONG_EXTENSION.json"
+    ],
+    "mathematical_source_hash_changes": [],
+    "reason": "Honest recovery of a lost evidence receipt after workspace reset; no new proof check claimed."
+  }
 }
