@@ -1,13 +1,14 @@
-# Approved human metadata; complete local Lean proof, independent main verification pending.
+# Approved descriptive naming revision; proof code and comparison configuration unchanged.
 version: v0.4
 project:
-  name: An Aperiodic Monotile in Five Dimensions
-  description: We give an explicit compact tile in five-dimensional Euclidean space and prove that it
-    admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes
-    with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states
-    that every tiling by these copies has no nonzero translation preserving its tile collection. The Lean
-    formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming
-    lattice registration or matching rules.
+  name: 'The CLARK Tile: An Aperiodic Monotile in Five Dimensions'
+  description: We give an explicit compact tile, called CLARK (Chair with Local Asymmetric Registration
+    Keys), in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling.
+    The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies
+    may be translated, rotated, or reflected. The theorem states that every tiling by these copies has
+    no nonzero translation preserving its tile collection. The Lean formalization fixes the exact body
+    and proves compactness, existence, and aperiodicity without assuming lattice registration or matching
+    rules.
   authors:
   - Conor Grogan
   responsible_maintainers:
@@ -88,9 +89,10 @@ status:
     compact-body/claim binding, actual Solution composition and four-endpoint axiom audit have passed
     on Lean 4.35.0-rc2. The selected implementation closure has zero sorry/admit/custom-axiom/native-decide
     tokens after comment/string-aware scanning. The independent Challenge elaborated at SHA-256 da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d,
-    with its one deliberate theorem hole and no definition holes. Official main Comparator, independent
-    main kernel replays and public submission remain pending. Companion T7 and odd-prime results are not
-    selected.
+    with its one deliberate theorem hole and no definition holes. The required official full reusable-workflow
+    mechanical preflight, its independent main kernel replays and Palomar submission remain pending. The
+    earlier private cold-build run was cancelled before its Comparator phase; its successful partial build
+    is not a full independent pass. Companion T7 and odd-prime results are not selected.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -155,6 +157,13 @@ release_authorization:
   supplied_source_publication_rights_confirmed: true
   approved_spdx_license: Apache-2.0
   approved_public_repository: https://github.com/jconorgrogan/palomar-chair-verification
-  public_release_and_t5_submission: Authorized after all required verification checks pass
-  public_release_performed: false
+  public_release_and_t5_submission: Public source release was authorized before the required public mechanical
+    preflight; final T5 submission remains authorized after required verification checks pass
+  public_release_performed: true
   palomar_submission_performed: false
+descriptive_names:
+  T5: CLARK
+  expansion: Chair with Local Asymmetric Registration Keys
+  note: User-selected acronym for the five-dimensional tile. T7 remains unnamed and outside this selected
+    claim. Exact mathematical definitions, theorem names, proof code and comparison configuration are
+    unchanged.

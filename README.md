@@ -1,10 +1,12 @@
-# An Aperiodic Monotile in Five Dimensions
+# The CLARK Tile: An Aperiodic Monotile in Five Dimensions
 
 Conor Grogan, author and responsible maintainer
 
+We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. The Lean development retains the identifier **T5**; the name does not change its exact body definition or proof identifiers.
+
 ## Verification status
 
-This is the private source staging for one T5 submission. The complete original proof passed Lean 4.19. The complete supported proof, actual Solution composition and axiom audit have now passed Lean 4.35.0-rc2. Full official Comparator and independent main kernel checks remain pending. A successful four-supporting-result pilot is separate evidence. No Palomar acceptance is claimed. This dated status must be replaced by the actual frozen main receipts before release.
+This is a public source snapshot for the CLARK tile (T5) submission. The complete original proof passed Lean 4.19. The complete supported proof, actual Solution composition and axiom audit have now passed Lean 4.35.0-rc2. The required official full Palomar reusable-workflow mechanical preflight and its independent main kernel checks remain pending. The earlier private cold-build run was cancelled before its Comparator phase; its partial build success is not a full independent pass. A successful four-supporting-result pilot is separate evidence. No Palomar acceptance is claimed. This dated status must be replaced by the actual frozen main receipts before release.
 
 ## Abstract
 

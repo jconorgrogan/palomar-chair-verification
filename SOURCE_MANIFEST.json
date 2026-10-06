@@ -1,16 +1,16 @@
 {
-  "scope": "FROZEN_SOURCE_ONLY_PRIVATE_VERIFICATION_INPUT_NOT_A_COMPARATOR_PASS",
+  "scope": "FROZEN_PUBLIC_SOURCE_INPUT_OFFICIAL_MECHANICAL_PREFLIGHT_PENDING",
   "toolchain": "leanprover/lean4:v4.35.0-rc2",
   "mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
   "selected_theorem": "PalomarMonotiles.T5_isAperiodicMonotile",
   "definition_names": [],
   "files": {
-    "README.md": "e12f1c313dd02d72cc2e39f45e691fdecec96485b68e89abac1e2ea99e26fe19",
+    "README.md": "872c8510845e6e2185dfe52bbf486f244b7b0a88a2891ec130ea7da7ad0715fe",
     "Challenge.lean": "da01d258ae094a1706ba48cd991c247854621fd80df63b0a31340d93067d1e8d",
     "SOURCE_READINESS.json": "120e0ab12fa84d7f230f26926467e131b132982930f91625f3974c0aeba4c4ad",
     "lake-manifest.json": "6b4fe708d4442df8b9f315739dd5c6616771cc94827c823ae2a7b11624245e84",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "formalization.yaml": "96807c06e0a07899fc8e2607dd5ada9da01f7d1c43308f0c909aa478f3e34640",
+    "formalization.yaml": "ee7a9d6ae0706dfc71553ba70becb36a521d7ee4b49847a92fe8f4261fa24e0e",
     "NOTICE": "514851ecf0c68219b4f58c41d4f9a12cda2cb21c1c77212a09130a54065cd53c",
     "lakefile.toml": "90cfefdc416015f25380ca4afbbbc48e16c67ded5281724e2c825332baaf1975",
     "Solution.lean": "4d16d09362a60a35d242fefd0c449a08e7a49ac7c0f781c5de300d28d57f44e5",
@@ -1385,5 +1385,7 @@
     "SparseMonotiles/AtlasBindingChunks/Tile5Chunk0.lean": "b5c2bd88311e88fc929850536f659cfaa70416fc00ba66f89bd40e7fabb61473",
     "SparseMonotiles/AtlasBindingChunks/Tile5Chunk2.lean": "5361012df3e3083e6ed42e7e84a306d02ddb494a9917df1eb0b9700cc51d9153",
     "SparseMonotiles/AtlasBindingChunks/Tile7Chunk11.lean": "38894d7651bb74e93e163786c4af2593b7c4521c9e928f515f527b3849f63f74"
-  }
+  },
+  "parent_source_manifest_sha256": "1d4d594952ed2c8d902731877abb844501ff3e45ad38092a4ffed755c0b0f6c2",
+  "revision_scope": "Approved CLARK acronym and public verification-status prose only; all Lean, build configuration and verifier scripts unchanged"
 }
