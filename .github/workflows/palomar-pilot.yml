@@ -1,0 +1,35 @@
+name: Palomar compatibility pilot (four supporting results)
+on:
+  push:
+    branches: [verification/pilot4-20261006]
+concurrency:
+  group: palomar-pilot4-20261006
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  verify-pilot:
+    if: >-
+      github.event_name == 'push' &&
+      github.event.head_commit.message == 'Run authorized Palomar pilot4 verification (2026-10-06)' &&
+      github.run_attempt == 1
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install official distribution bubblewrap
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Verify selected pilot with unchanged sandboxed Comparator
+        run: ./scripts/verify-pilot-on-linux.sh

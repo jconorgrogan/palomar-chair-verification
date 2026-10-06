@@ -1,0 +1,17 @@
+Mathlib.Analysis.InnerProductSpace.PiL2
+Mathlib.Analysis.Convex.Hull
+Mathlib.Topology.MetricSpace.Isometry
+Mathlib.Analysis.Real.Sqrt
+Mathlib.Tactic.NormNum
+Mathlib.Tactic.Linarith
+Mathlib.Tactic.FinCases
+Mathlib.Data.Fin.VecNotation
+Mathlib.Algebra.BigOperators.Fin
+Mathlib.Data.Fintype.Pi
+Mathlib.Data.Fintype.Fin
+Mathlib.Data.Finset.Disjoint
+Mathlib.Data.Finset.Image
+Mathlib.Basic.Real.Basic
+Mathlib.Algebra.BigOperators.Group.Finset.Basic
+Mathlib.Tactic.FieldSimp
+Mathlib.Tactic.Ring

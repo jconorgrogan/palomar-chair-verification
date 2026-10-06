@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SparseMonotiles.body_isClosed",
+    "SparseMonotiles.key5_inside_collar",
+    "SparseMonotiles.Contact.rejection_sound",
+    "SparseMonotiles.Contact.Calibration3.chunk0_checked"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}
