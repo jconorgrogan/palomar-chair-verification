@@ -2,6 +2,8 @@
 
 Conor Grogan, author and responsible maintainer
 
+Companion preprint: [read the paper on Zenodo](https://zenodo.org/records/23197475), DOI [10.5281/zenodo.23197475](https://doi.org/10.5281/zenodo.23197475).
+
 We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. It retains the Lean identifier **T5**.
 
 ![CLARK carrier projection](CLARK_overview.png)
