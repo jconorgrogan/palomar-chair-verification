@@ -3,17 +3,18 @@ module
 public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.Analysis.Convex.Hull
 public import Mathlib.Topology.MetricSpace.Isometry
+public import Mathlib.SetTheory.Cardinal.Finite
 public import Lean.Elab.Tactic.Omega
 
 @[expose] public section
 
 /-!
-# Exact S54 five-dimensional sparse-key body: private statement draft
+# Exact CLARK body and full Euclidean symmetry bound: separate extension draft
 
-This private T5-only draft specifies one exact physical body and claim.
-The theorem below has one deliberate Challenge-only hole. Its complete proof
-is checked on Lean 4.19; the supported-toolchain Solution remains pending.
-This newly projected Challenge has not yet been elaborated or compared.
+This independent statement retains the exact frozen T5 body definitions.
+Its single theorem hole is confined to Challenge. This separate stronger
+statement and Solution require fresh checks and a new full official preflight;
+they do not change the existing running submission.
 
 Only Lean core and Mathlib are imported. Each placement is an explicit tuple
 (cell mask, normal axis, positive outward side, signed tangential labels, bump).
@@ -266,9 +267,25 @@ def IsAperiodicMonotile {d : ℕ} (T : Set (Point d)) : Prop :=
 
 /-- Exact T5 target proposition; a definition alone asserts no proof. -/
 def T5Claim : Prop := IsAperiodicMonotile T5
-/-- DRAFT main claim: the exact T5 body is a physical aperiodic monotile.
-The deliberate statement hole is permitted only in Challenge, not Solution. -/
-theorem T5_isAperiodicMonotile : T5Claim := by
+/-- All Euclidean isometries preserving the physical tile collection, with
+no prescribed centre, orientation, lattice, or registered-frame restriction. -/
+def IsEuclideanSymmetry {d : ℕ} (tiles : Set (Set (Point d)))
+    (f : Point d ≃ᵢ Point d) : Prop :=
+  ∀ A, A ∈ tiles ↔ f '' A ∈ tiles
+
+/-- The full symmetry type, including arbitrary rotations, reflections and translations. -/
+def EuclideanSymmetries {d : ℕ} (tiles : Set (Set (Point d))) :=
+  {f : Point d ≃ᵢ Point d // IsEuclideanSymmetry tiles f}
+
+/-- Retain the original compactness/existence/no-period claim and add a uniform
+finite bound for the full Euclidean symmetry group of every physical tiling.
+The bound is 2^5 * 5! = 3840; trivial symmetry is not asserted. -/
+def T5StrongClaim : Prop :=
+  T5Claim ∧ ∀ tiles : Set (Set (Point 5)), IsTiling T5 tiles →
+    Finite (EuclideanSymmetries tiles) ∧ Nat.card (EuclideanSymmetries tiles) ≤ 3840
+
+/-- The deliberate Challenge-only theorem placeholder for the stronger entry. -/
+theorem T5_strongAperiodicity : T5StrongClaim := by
   sorry
 
 end PalomarMonotiles

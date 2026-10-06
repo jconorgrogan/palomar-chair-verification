@@ -2,7 +2,7 @@
   "challenge_module": "Challenge",
   "solution_module": "Solution",
   "theorem_names": [
-    "PalomarMonotiles.T5_isAperiodicMonotile"
+    "PalomarMonotiles.T5_strongAperiodicity"
   ],
   "definition_names": [],
   "permitted_axioms": [
