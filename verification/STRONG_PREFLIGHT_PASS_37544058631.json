@@ -1,0 +1,76 @@
+{
+  "status": "pass",
+  "stage": "complete",
+  "run_id": 37544058631,
+  "run_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631",
+  "source_commit": "5f5ceedee770b76c21e8f1105e5e4e3b84b8d676",
+  "source_manifest_sha256": "ec0ed3ed9927fe13aa654c713ce9eb83e2a52da7b3d6c6c6cea07efcebb998f3",
+  "source_tree": "12aceff1b3b58c262c16b6546a48b1282f346328",
+  "source_files_verified": 1391,
+  "selected_theorem": "PalomarMonotiles.T5_strongAperiodicity",
+  "proved_scope": "Original exact physical T5 compactness/existence/no-nonzero-translational-period claim, together with finiteness of the full Euclidean symmetry group of every tiling and cardinality at most 3840.",
+  "not_claimed": [
+    "Trivial symmetry for every tiling",
+    "T7 or all-prime physical monotile theorem",
+    "Human peer review",
+    "Palomar registry intake or acceptance"
+  ],
+  "definition_exemptions": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "pipeline_commit": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44",
+  "reusable_workflow": {
+    "path": "PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44",
+    "sha": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44"
+  },
+  "execution_profile": "palomar-standard-v1",
+  "mode": "full",
+  "request_id": "strongclark1",
+  "run_attempt": 1,
+  "jobs": [
+    {
+      "id": 112543730968,
+      "name": "palomar-full / profile",
+      "started_at": "2026-10-06T23:00:29Z",
+      "completed_at": "2026-10-06T23:00:33Z",
+      "conclusion": "success"
+    },
+    {
+      "id": 112543766596,
+      "name": "palomar-full / verify",
+      "started_at": "2026-10-06T23:00:35Z",
+      "completed_at": "2026-10-07T00:56:06Z",
+      "conclusion": "success"
+    }
+  ],
+  "checks": {
+    "solution_build": "PASS, 4137 Lake jobs",
+    "source_requirements": "PASS, 1357 Lean files",
+    "challenge_provenance": "PASS, high trust, no untrusted sources",
+    "comparator": "PASS",
+    "con_ron": "accepted 69558 declarations (--verified)",
+    "nanoda": "accepted",
+    "lean_default_kernel": "accepted"
+  },
+  "challenge_source_sha256": "7fbf473f9dc669e85971b28955797c3bb239c1faba37d6b60bfd2c5fa347955c",
+  "solution_source_sha256": "2294fc4163af64bcea2d0cabe10548a9eeba05f94c958f6f22bf5793b8bfe0d2",
+  "comparator_config_sha256": "4ff865e42b60e46a4218555f2f54c795fec15ca3593e3041a6ee667edc0cd89b",
+  "artifact": {
+    "id": 11454083416,
+    "url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631/artifacts/11454083416",
+    "zip_sha256": "26a698dec89eb6b5ac4468a321810001ef48e86bbf180f9bc2ab58744c7c3dfa",
+    "json_sha256": "82711b9d865e0441d453decdfebf5b4d071292f46b52a5e5ca77c385ed498884",
+    "zip_size_bytes": 9927
+  },
+  "logs": {
+    "verify_sha256": "7e9759bb3f7eda59c1bd0c5bc5e3304a55f85de625a9ee75c82a8add371ac8d8",
+    "profile_sha256": "46ce84625a5f05f2c02474c50a05f169f800a11ca2cafee702ca2a43aeadbfd5"
+  },
+  "log_urls": {
+    "palomar-full / profile": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631/job/112543730968",
+    "palomar-full / verify": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631/job/112543766596"
+  }
+}
