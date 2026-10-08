@@ -1,0 +1,17 @@
+{
+  "status": "PASS_STATIC_TARGETED_REPLAY_ADMISSION",
+  "plan_sha256": "8da429720ac566fefc1dc376c2497f5c7aff5f9af0ddbeba0bb2896e69c05cb4",
+  "runner_sha256": "a46d491baa4c505e90fd126191b9b9d3ec013905ebf5339829650711c6ab44f9",
+  "fresh_modules": 910,
+  "fallback_modules": 889,
+  "default_checks": 105,
+  "inherited_modules": 3462,
+  "all_fresh_object_parts_absent_before_execution": true,
+  "topological_order_verified": true,
+  "per_module_flags_equal_selected_recipes": true,
+  "only_changed_module": [
+    "closure_analysis.CoarseWalls"
+  ],
+  "toolchain_hashes_checked": true,
+  "execution_pass_established": false
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS_IDENTICAL_OLD_NEW_SIGNATURE_AND_RFL_BODY",
+  "receipts": {
+    "original": {
+      "compile_log": "@RegisteredPrime.wallDiscrepancy : {p : Nat} \u2192 RegisteredPrime.Pose p \u2192 Fin p \u2192 RegisteredPrime.Mask p\n'HENRYRepairSignature' does not depend on any axioms\n",
+      "compile_receipt_sha256": "aa97c75de6619c36ddd7198f57b6f0207d916e2ac188189f7e5ec7b62e36f6d0",
+      "check_receipt_sha256": "c3ae584cfefbce527a4a30273c9472f35650182fa6d2db038db50b399af35ca6"
+    },
+    "explicit_binder": {
+      "compile_log": "@RegisteredPrime.wallDiscrepancy : {p : Nat} \u2192 RegisteredPrime.Pose p \u2192 Fin p \u2192 RegisteredPrime.Mask p\n'HENRYRepairSignature' does not depend on any axioms\n",
+      "compile_receipt_sha256": "a768ef8751b16a11645adab3aa5b9a11517423ee5045d19979761aeb5fff9780",
+      "check_receipt_sha256": "0b7c1711f49de07b14eee7b57c5417c7b3f8712cb487e0cd140df6718a840667"
+    }
+  },
+  "fresh_910_replay_separate": true
+}

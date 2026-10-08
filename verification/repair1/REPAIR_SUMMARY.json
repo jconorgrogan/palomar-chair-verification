@@ -1,0 +1,33 @@
+{
+  "status": "PASS_REPAIR1_TARGETED_LOCAL_REPLAY_OFFICIAL_RERUN_REQUIRED",
+  "public_endpoint": "PalomarMonotiles.T7_strongAperiodicity",
+  "internal_endpoint": "SparseMonotiles.ExactCompactT7Strong.final_bound",
+  "bound": 645120,
+  "original_failed_source_commit": "0d7c1977466067b09d994496edb3f608ccf2102b",
+  "original_official_run": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37725422679",
+  "original_official_failure_report_sha256": "4987241d37bb41f1ee39c6ab249bdd7dd2d095279c3c513b7160a2652c7e93bf",
+  "original_selected_manifest_sha256": "76064e6c6bdc34498034350e8a781504c023170411b13a27200bbceb89d54ac9",
+  "original_local_archive_sha256": "8a319bdc356ec67fc71e3e7f34cd89edc3aa9f886484cbef7f582701c6623ddd",
+  "only_changed_proof_source": "closure_analysis/CoarseWalls.lean",
+  "original_source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+  "corrected_source_sha256": "030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff",
+  "repair": "Make the existing implicit Nat parameter explicit: def wallDiscrepancy {p : Nat}. No statement/body/tactic/assumption/axiom/definition-exemption change.",
+  "root_cause": "The original replay used default autoImplicit=true; the later declared fallback selected false. Undeclared p caused cascading error-recovery omega failures.",
+  "fresh_compiles": 910,
+  "fresh_default_kernel_checks": 105,
+  "selected_historical_gap_modules_freshly_compiled": 889,
+  "selected_modules_freshly_compiled": 903,
+  "unchanged_objects_reused": 3462,
+  "axiom_reports": 1745,
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "replay_result_sha256": "8260f6d8090a4fbbd398f3cf1aa06074acb66c2c3e6b1a954a0dd3d24b2e90bf",
+  "independent_review_sha256": "1328728a1290728a9e28f8e0bace09f17daf097383eb9380f53925e8287b82fc",
+  "all_selected_compiler_flags_unchanged": true,
+  "full_clean_project_build_established": false,
+  "official_repair1_pass_established": false,
+  "official_acceptance_established": false
+}

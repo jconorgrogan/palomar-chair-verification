@@ -1,0 +1,9 @@
+{
+  "status": "PASS_IDENTICAL_OLD_NEW_SIGNATURE_AND_DEFINITIONAL_BODY",
+  "result_sha256": "e38e99f779d1fa622ab2e6e77d494966f040d316f9515981b4032c2c45fc38c6",
+  "old_and_new_compile_and_default_check_receipts_verified": true,
+  "candidate_object_resolution_verified": true,
+  "log": "@RegisteredPrime.wallDiscrepancy : {p : Nat} \u2192 RegisteredPrime.Pose p \u2192 Fin p \u2192 RegisteredPrime.Mask p\n'HENRYRepairSignature' does not depend on any axioms\n",
+  "all_theorem_statements_and_bodies_byte_identical": true,
+  "fresh_910_replay_separate_and_pending": true
+}

@@ -1,4 +1,4 @@
-# LOCALLY CHECKED PREPARATION: official verification and registration remain pending.
+# REPAIR1: locally checked corrected source; full official rerun and registration pending.
 version: v0.4
 project:
   name: 'HENRY: A Strongly Aperiodic Monotile in Seven Dimensions'
@@ -68,24 +68,27 @@ related_formalizations:
     seven-dimensional HENRY target. The final source audit must accurately describe any shared implementation
     modules.
 status:
-  scope: One selected unconditional physical T7 theorem with exact compact body, actual tiling existence,
-    no nonzero translation period, and a finite full Euclidean symmetry group of cardinality at most 645120
-    for every arbitrary-placement physical tiling. Full 262144-pair contact classification and the exact
-    final internal/public composition passed local Lean 4.35.0-rc2 compilation/default-kernel checks.
-    Independent agent receipt review passed. The final independent official Comparator, NanoDa, con-ron,
-    clean Lake build, immutable public commit and HENRY registry acceptance remain NOT RUN or unavailable.
-    This is locally checked metadata preparation, not an official verification or acceptance claim.
+  scope: One selected unconditional exact physical T7 theorem with compactness, actual tiling existence,
+    absence of nonzero translation periods, and finite full Euclidean symmetry cardinality at most 645120.
+    The original local proof and contact certificates are retained. The first official run passed independent
+    Challenge compilation but failed clean Solution build at an undeclared implicit Nat parameter under
+    a declared fallback option. Repair1 explicitly binds that same parameter; all 910 targeted fresh compiles,105
+    default-kernel checks and all 889 selected prior fallback assignments pass, including the exact final
+    public theorem and expanded audits. The targeted replay reuses 3462 unaffected checked objects and
+    is not a full clean project build. The corrected official full pipeline, Comparator/export/independent
+    kernels and registry acceptance remain pending.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
   - propext
   - Classical.choice
   - Quot.sound
-  audit_note: Counts are from the hash-bound 4123-module selected Solution source closure. The independent
-    Challenge has one deliberate theorem placeholder; Solution never imports it. Twelve final transitive
-    axiom reports use only the three standard axioms. Failed initial checker target discovery is retained;
-    successful exact proof checks used a reviewed namespace-only regular-object-copy recovery, with unchanged
-    proof source and default checker.
+  audit_note: The selected source closure of 4,123 project modules has zero proof holes and custom axioms.
+    Challenge retains only its deliberate theorem placeholder and is never imported by Solution. Repair1
+    changes exactly one implicit-parameter binder, with identical old/new signatures and rfl body probes.
+    All 1,745 reported repair-replay axiom closures use only propext, Classical.choice and Quot.sound.
+    Original failures and earlier receipt identities remain historical evidence, not a claim that the
+    first source rebuilt successfully.
 automation:
   methods:
   - method: agent
@@ -101,9 +104,10 @@ automation:
     prompting_notes: Preserve the exact seven-dimensional T7 body, all 1024 keys, arbitrary-isometry physical
       quantifiers, nonvacuous tiling existence, and the distinction between checked components, conditional
       theorems and the final independently verified theorem.
-  notes: AI systems made substantive mathematical, proof-code, generator, audit and writing contributions.
-    Exact final HENRY proof composition and standard-kernel checks passed locally. Official independent
-    verification and Palomar acceptance remain pending.
+  notes: AI systems contributed mathematical analysis, proof code, generators, audits and writing. The
+    original local kernel result is retained. Repair1 addresses an implicit-parameter/compiler-option
+    compatibility mismatch and passed targeted fresh compiler/kernel replay; official repaired verification
+    and acceptance remain pending.
 fidelity:
   divergences: The compact independent Challenge is 39804 bytes / 761 lines, SHA-256 2d250d0118bed6cdac62d0bcf0b01ee09bc624b64f07378d4627f4837d891d03.
     Its exact 28-entry rational palette retains all 1024 placements. Compact-to-literal body equality
@@ -113,12 +117,13 @@ fidelity:
     symmetry group of every physical tiling; trivial symmetry, connectedness, topological-ball, four-dimensional
     and all-prime physical claims are not selected.
 review:
-  status: agent-reviewed; exact local final kernel checks passed; official verification pending
+  status: agent-reviewed repair1; 910 fresh compiles and 105 default-kernel checks passed; official rerun
+    pending
   reviewers: []
-  notes: The exact completed contact run, all 13 final guarded proof processes, 12 standard-only axiom
-    reports and unconditional expanded target passed independent read-only receipt/hash/guard review.
-    Source scan covers all 4123 selected project modules. No independent human mathematical peer review,
-    novelty certification, official HENRY full verification or registry acceptance is claimed.
+  notes: Independent audit verified all 1,015 process receipts, exact sources/objects/logs/dependencies/commands,
+    initial exclusion of fresh target objects, signature/body preservation and standard-only axiom reports.
+    Every selected former fallback assignment was actually compiled. No independent human peer review,
+    novelty certification or HENRY registry acceptance is claimed.
 alignment:
   namespace: PalomarMonotiles
   statements:
@@ -126,9 +131,9 @@ alignment:
     lean: PalomarMonotiles.T7_strongAperiodicity
     module: Challenge
     status: complete
-    note: Actual Solution declaration and internal SparseMonotiles.ExactCompactT7Strong.final_bound compiled
-      and passed default kernel checks plus expanded-type audits. Final marker SHA-256 aab39e0645aeb573d89b2564bab3448834095668278a4c379d6fd0970ef92c51.
-      Official full verification and registry acceptance are separate and not yet claimed.
+    note: The repaired dependency chain, actual Solution and exact expanded-type audit compiled and passed
+      default-kernel checks. Targeted replay result SHA-256 8260f6d8090a4fbbd398f3cf1aa06074acb66c2c3e6b1a954a0dd3d24b2e90bf.
+      It does not certify an official repaired clean build or independent external kernels.
 acknowledgements: Lean, Mathlib and standard-library contributors. AI contributions are disclosed under
   automation. Do not infer additional human authorship, endorsement or review from the supplied sources.
   Carry confirmed contributor credits into the final package.
@@ -136,3 +141,36 @@ license_scope_note: Repository project-owned software is Apache-2.0. Retained au
   are CC-BY-4.0 under the companion release scope; external dependencies and third-party materials retain
   their original terms. Unknown original bibliographic authorship does not imply endorsement or a newly
   granted blanket license.
+proof_reproducibility_repair:
+  status: PASS_REPAIR1_TARGETED_LOCAL_REPLAY_OFFICIAL_RERUN_REQUIRED
+  public_endpoint: PalomarMonotiles.T7_strongAperiodicity
+  internal_endpoint: SparseMonotiles.ExactCompactT7Strong.final_bound
+  bound: 645120
+  original_failed_source_commit: 0d7c1977466067b09d994496edb3f608ccf2102b
+  original_official_run: https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37725422679
+  original_official_failure_report_sha256: 4987241d37bb41f1ee39c6ab249bdd7dd2d095279c3c513b7160a2652c7e93bf
+  original_selected_manifest_sha256: 76064e6c6bdc34498034350e8a781504c023170411b13a27200bbceb89d54ac9
+  original_local_archive_sha256: 8a319bdc356ec67fc71e3e7f34cd89edc3aa9f886484cbef7f582701c6623ddd
+  only_changed_proof_source: closure_analysis/CoarseWalls.lean
+  original_source_sha256: 8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2
+  corrected_source_sha256: 030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff
+  repair: 'Make the existing implicit Nat parameter explicit: def wallDiscrepancy {p : Nat}. No statement/body/tactic/assumption/axiom/definition-exemption
+    change.'
+  root_cause: The original replay used default autoImplicit=true; the later declared fallback selected
+    false. Undeclared p caused cascading error-recovery omega failures.
+  fresh_compiles: 910
+  fresh_default_kernel_checks: 105
+  selected_historical_gap_modules_freshly_compiled: 889
+  selected_modules_freshly_compiled: 903
+  unchanged_objects_reused: 3462
+  axiom_reports: 1745
+  permitted_axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  replay_result_sha256: 8260f6d8090a4fbbd398f3cf1aa06074acb66c2c3e6b1a954a0dd3d24b2e90bf
+  independent_review_sha256: 1328728a1290728a9e28f8e0bace09f17daf097383eb9380f53925e8287b82fc
+  all_selected_compiler_flags_unchanged: true
+  full_clean_project_build_established: false
+  official_repair1_pass_established: false
+  official_acceptance_established: false

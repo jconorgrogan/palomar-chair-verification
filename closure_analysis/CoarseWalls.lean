@@ -7,7 +7,7 @@ namespace RegisteredPrime
 open Uniform
 
 /-- The sign discrepancy left after crossing the chosen coarse face. -/
-def wallDiscrepancy (e : Pose p) (j : Fin p) : Mask p :=
+def wallDiscrepancy {p : Nat} (e : Pose p) (j : Fin p) : Mask p :=
   fun i => xor (e.frame.negative i) (decide (i = j))
 
 /-- The matching outer corner lies one actual cell step across the coarse

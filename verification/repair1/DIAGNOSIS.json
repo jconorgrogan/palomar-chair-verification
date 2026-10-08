@@ -1,0 +1,113 @@
+{
+  "status": "DIAGNOSIS_CONFIRMED_AFFECTED_REPLAY_PENDING",
+  "official_run": "37725422679",
+  "trigger_commit": "0d7c1977466067b09d994496edb3f608ccf2102b",
+  "official_report_sha256": "4987241d37bb41f1ee39c6ab249bdd7dd2d095279c3c513b7160a2652c7e93bf",
+  "selected_source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+  "candidate_source_sha256": "030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff",
+  "precise_change": "Add explicit implicit Nat parameter {p : Nat} to wallDiscrepancy; all theorem statements and bodies unchanged.",
+  "cause": "Published fallback recipe disables autoImplicit. Selected wallDiscrepancy depends on auto-bound p. Its failed elaboration causes later omega and unsolved-goal cascades.",
+  "official_assignment": {
+    "group": "HENRYProof2",
+    "flags": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "historical_command_receipt_available_to_final_recipe_audit": false
+  },
+  "historical_evidence": {
+    "build_json": "/workspace/scratch/8b3aff9fe1f4/compact_t7_atlas_inclusion_20261007/bundle/fresh_replay/BUILD.json",
+    "replay_script": "/workspace/scratch/8b3aff9fe1f4/compact_t7_atlas_inclusion_20261007/bundle/replay.py",
+    "script_flags": [
+      "-j1",
+      "-M1536"
+    ],
+    "default_autoImplicit": true,
+    "receipt": {
+      "module": "closure_analysis.CoarseWalls",
+      "exit_code": 0,
+      "seconds": 0.5467915459994401,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": {
+        ".olean": "7444eca82b9a0a6facc3e2ae71e019944abdfe67785874c470d70f2ea03c14e3",
+        ".olean.private": "94e19665a5d12c641cae1e325e99c6c1a511b87e80102122d1c4f064eb3bb470",
+        ".olean.server": "fd435d7d905ea3b6b8ec700106d722e1cc19e95df4df738e60dbadb9f9fc4d24"
+      }
+    },
+    "object_bytes_reverified": true
+  },
+  "toolchain_matches": {
+    "commit": "11acb17ec6b07a8f9e9173e6845197929540936b",
+    "lean_sha256": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+    "leanchecker_sha256": "9e36e955a251b1313c8eb5b7fa101282d51df109d34d8bb7c1cfdf51985aba29"
+  },
+  "dependency_manifest_matches": true,
+  "controlled_checks": {
+    "baseline_inherited": {
+      "receipt_sha256": "d2b4b98451b534e00d6f784520764fcf8d23dc9672f7e2af57d6eaddf864f454",
+      "log_sha256": "0b4f9804e085ecd397a1f8635625a550e24a0bbcd7a9add60ce5150a7ce67f53",
+      "exit_code": 1,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/project/closure_analysis/CoarseWalls.lean"
+      ]
+    },
+    "control_autoimplicit": {
+      "receipt_sha256": "023be26c507e4446c909c4ba6d68fcb010640b6f345db9bc565e3cb7ca51b3b4",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=true",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/project/closure_analysis/CoarseWalls.lean"
+      ]
+    },
+    "candidate_explicit": {
+      "receipt_sha256": "766e5e84e82e4a577dc6f2c9f77adeeb3db6a004e21e129acc17bbc9ca620351",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "source_sha256": "030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff",
+      "command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/project/closure_analysis/CoarseWalls.lean"
+      ]
+    }
+  },
+  "stale_object_conclusion": "No evidence of stale or mismatched CoarseWalls object: historical successful build record binds identical selected source and identical reused object hashes. Compiler option mismatch is sufficient and experimentally isolated.",
+  "prior_claim_correction": "Prior local default-kernel/object consistency PASS remains supported within stated scope; any implication that exact selected sources and fallback flags had freshly rebuilt must be corrected. Earlier review explicitly excluded clean Lake rebuild and external acceptance.",
+  "remaining": [
+    "Compare old and new elaborated definition signatures/body via owner serial probes.",
+    "Review genuinely fresh 105-module ancestor/affected rebuild and default kernel checks without old affected objects.",
+    "Complete new exact-source official clean Solution build, Comparator, exports and independent kernels; new publication/submission requires parent authorization."
+  ],
+  "reviewer_ran_lean": false
+}

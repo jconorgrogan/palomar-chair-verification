@@ -1,0 +1,11 @@
+--- HENRY_official_selected_source_20261008T0142/closure_analysis/CoarseWalls.lean
++++ HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/project/closure_analysis/CoarseWalls.lean
+@@ -7,7 +7,7 @@
+ open Uniform
+ 
+ /-- The sign discrepancy left after crossing the chosen coarse face. -/
+-def wallDiscrepancy (e : Pose p) (j : Fin p) : Mask p :=
++def wallDiscrepancy {p : Nat} (e : Pose p) (j : Fin p) : Mask p :=
+   fun i => xor (e.frame.negative i) (decide (i = j))
+ 
+ /-- The matching outer corner lies one actual cell step across the coarse

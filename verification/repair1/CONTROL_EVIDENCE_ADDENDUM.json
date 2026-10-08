@@ -1,0 +1,80 @@
+{
+  "status": "CONTROL_METADATA_CLARIFICATION_ORIGINAL_RECEIPTS_PRESERVED",
+  "controls": {
+    "baseline": {
+      "receipt_sha256": "b4e58364a37c9fe953f4ffeffe9273c30fdff14375e8cec971a46ee4e4ded901",
+      "exit_code": 1,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "actual_command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline/project/closure_analysis/CoarseWalls.lean"
+      ]
+    },
+    "baseline_inherited": {
+      "receipt_sha256": "d2b4b98451b534e00d6f784520764fcf8d23dc9672f7e2af57d6eaddf864f454",
+      "exit_code": 1,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "actual_command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/baseline_inherited/project/closure_analysis/CoarseWalls.lean"
+      ]
+    },
+    "control_autoimplicit": {
+      "receipt_sha256": "023be26c507e4446c909c4ba6d68fcb010640b6f345db9bc565e3cb7ca51b3b4",
+      "exit_code": 0,
+      "source_sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "actual_command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=true",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/control_autoimplicit/project/closure_analysis/CoarseWalls.lean"
+      ]
+    },
+    "candidate_explicit": {
+      "receipt_sha256": "766e5e84e82e4a577dc6f2c9f77adeeb3db6a004e21e129acc17bbc9ca620351",
+      "exit_code": 0,
+      "source_sha256": "030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff",
+      "actual_command": [
+        "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0",
+        "--root=/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/project",
+        "-o",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/objects/closure_analysis/CoarseWalls.olean",
+        "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/candidate_explicit/project/closure_analysis/CoarseWalls.lean"
+      ]
+    }
+  },
+  "scope_corrections": {
+    "baseline": "Initial namespace diagnostic stopped at missing dependency due partial root shadowing. No theorem elaboration claim.",
+    "baseline_inherited": "Original source with published autoImplicit=false fallback flags; fails at undeclared p then cascading goals.",
+    "control_autoimplicit": "Original source with intentional autoImplicit=true control, not exact published flags. Successful compile matches historical option behavior.",
+    "candidate_explicit": "One-line explicit implicit Nat binder candidate, not byte-identical original source. Uses exact published false/fallback vector; compile succeeds."
+  },
+  "error_recovery_note": "Baseline diagnostics mentioning sorry are compiler error-recovery terms after unresolved p, not source proof holes and not accepted outputs. Failed outputs are never admitted."
+}

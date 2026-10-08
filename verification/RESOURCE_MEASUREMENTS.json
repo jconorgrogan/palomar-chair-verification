@@ -1,16 +1,16 @@
 {
-  "status": "HISTORICAL_COMPILER_MEASUREMENTS_NOT_CLEAN_LAKE_ESTIMATE",
+  "status": "RECORDED_LOCAL_COMPILER_MEASUREMENTS_NOT_OFFICIAL_RUNTIME_PREDICTION",
   "selected_modules": 4123,
-  "recorded_modules": 3234,
-  "unmeasured_modules": 889,
-  "recorded_wall_seconds_sum": 14083.174447866979,
-  "recorded_cpu_seconds_sum": 13806.80028099998,
-  "recorded_peak_group_rss_kib": 2564712,
+  "recorded_modules": 4123,
+  "unmeasured_modules": 0,
+  "repair1_fresh_selected_modules": 903,
+  "recorded_wall_seconds_sum": 16858.0871872961,
+  "recorded_cpu_seconds_sum": 16608.110337,
+  "recorded_peak_group_rss_kib": 2569832,
   "official_execution_budget_seconds": 19800,
   "limits": [
-    "One actual historical receipt per measured module, not a same-machine controlled benchmark.",
-    "No timing for unmeasured inherited recipe modules.",
-    "Lake/config/export/Comparator/independent-kernel work not included.",
-    "Cannot infer official end-to-end feasibility from these sums."
+    "One genuine local receipt per module across different runs/environments, not a same-machine clean Lake benchmark.",
+    "Official first attempt failed source compilation; its independent Challenge passed, but Comparator/export/kernels did not run.",
+    "Official repaired full build and export/kernel time and memory remain unmeasured; no guaranteed profile finish."
   ]
 }

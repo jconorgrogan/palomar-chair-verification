@@ -5201,10 +5201,10 @@
   },
   {
     "module": "closure_analysis.CoarseWalls",
-    "origin": "/workspace/scratch/8b3aff9fe1f4/compact_t7_conditional_physical_20261007T0842/project/closure_analysis/CoarseWalls.lean",
+    "origin": "/workspace/scratch/8b3aff9fe1f4/HENRY_CoarseWalls_repair_20261008T0559/fresh/project/closure_analysis/CoarseWalls.lean",
     "path": "closure_analysis/CoarseWalls.lean",
-    "bytes": 8817,
-    "sha256": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+    "bytes": 8827,
+    "sha256": "030cf4c624087ad06d477a3ff6e6670bfaf46d127c0f2fc8af7acd93f08292ff",
     "mode": "100644"
   },
   {

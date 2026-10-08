@@ -1,7 +1,7 @@
 {
   "status": "PASS_PINNED_OFFICIAL_METADATA_CONTRACT",
-  "formalization_sha256": "dbc4f4fd4634308c093929105077a8aa8409c488f05387c72088c1d277eae602",
-  "proof_status": "LOCAL_FINAL_PROOF_PASS",
+  "formalization_sha256": "f1c6cda064ed9ac178d24f783550e503dd912bd110894efaef8b3db0f61270ce",
+  "proof_status": "REPAIR1_TARGETED_LOCAL_REPLAY_PASS",
   "official_verification": false,
   "registered": false,
   "official_pin": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44"
