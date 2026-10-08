@@ -1,0 +1,3 @@
+# License scopes
+
+Project-owned Lean, Python and build software is Apache-2.0, as provided in LICENSE. Author-controlled mathematical prose, input data, receipts and bibliographic metadata are CC-BY-4.0 under the retained approved companion-paper scope dated 6 October 2026. Existing third-party notices and dependency licenses are preserved and are not relicensed. This makes no exclusive-rights claim in mathematical facts. See formalization.yaml and verification/LICENSE_PROVENANCE.json for exact source identity and scope. Original supplied-source bibliographic authorship and endorsement remain unknown; no endorsement is inferred. The excluded, unverified-lineage chair_nd.py is not redistributed.
