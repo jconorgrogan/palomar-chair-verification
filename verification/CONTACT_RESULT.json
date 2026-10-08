@@ -1,0 +1,15 @@
+{
+  "review_utc": "2026-10-08T01:26:27.955024+00:00",
+  "scope": "Independent local evidence review, not rerun or official acceptance",
+  "contact": {
+    "status": "PASS_LOCAL_CLASSIFICATION_EVIDENCE",
+    "marker_sha256": "3a282753aa1d0c167f697cc39386fb543f7992f234e2d78cd391e740edf4fc3e",
+    "pairs": 262144,
+    "roots": 512,
+    "leaves": 1024,
+    "successful_process_receipts": 3144,
+    "successful_process_cpu_seconds": 19891.623523999966
+  },
+  "status": "PASS",
+  "files_hashed": 18871
+}

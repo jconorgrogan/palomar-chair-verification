@@ -1,0 +1,72 @@
+--- /workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/scripts/run_after_classification.py
++++ /workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/runtime_recovery/run_after_classification.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""PREPARED, NEVER EXECUTED. Compose exact HENRY only after full classification.
++"""Versioned namespace-only recovery. Compose exact HENRY after full classification.
+ 
+ All writes belong to this isolated workspace. This does not build classification,
+ change any inherited source/object, install anything, or publish anything.
+@@ -469,6 +469,17 @@
+     # process starts when the complete classification marker is missing.
+     require((C / "CLASSIFICATION_READY.json").is_file(), "BLOCKED: CLASSIFICATION_READY.json is absent")
+     verify_file(C / "CLASSIFICATION_READY.json", sha(C / "CLASSIFICATION_READY.json"))
++    admission_path = R / "runtime_recovery/ADMISSION.json"
++    admission = load(admission_path)
++    require(admission["status"] == "REVIEWED_NAMESPACE_RECOVERY_PREPARATION", "Wrong recovery admission")
++    verify_file(admission_path, sha(admission_path))
++    verify_file(Path(__file__), admission["runtime_runner_sha256"])
++    verify_file(R / "scripts/run_after_classification.py", admission["original_runner_sha256"])
++    verify_file(R / "PACKAGE_MANIFEST.json", admission["original_package_manifest_sha256"])
++    require(admission["materialized_modules"] == CFG["recheck_inherited"], "Recovery scope changed")
++    for path, digest in admission["preserved_failure_evidence"].items():
++        verify_file(path, digest)
++
+     for rel, h in load(R / "PACKAGE_MANIFEST.json")["sha256"].items():
+         verify_file(R / rel, h)
+     for path, h in CFG["pins"].items():
+@@ -538,7 +549,23 @@
+             dest = O / (stem + suffix)
+             owned_write_path(dest, allow_leaf_symlink=True)
+             dest.parent.mkdir(parents=True, exist_ok=True)
+-            if dest.is_symlink():
++            if module in CFG["recheck_inherited"]:
++                # Official leanchecker resolves target filenames before looking
++                # up module names. These five targets need real local files.
++                origin = Path(part["path"])
++                verify_file(origin, part["sha256"])
++                if dest.is_symlink():
++                    require(dest.resolve() == origin.resolve(), ("Wrong merged link", str(dest)))
++                    preserved = R / "runtime_recovery/preserved_links" / (stem + suffix)
++                    owned_write_path(preserved, allow_leaf_symlink=True)
++                    require(not preserved.exists() and not preserved.is_symlink(), ("Preserved link exists", str(preserved)))
++                    preserved.parent.mkdir(parents=True, exist_ok=True)
++                    dest.rename(preserved)
++                if not dest.exists():
++                    with origin.open("rb") as source, dest.open("xb") as output:
++                        shutil.copyfileobj(source, output)
++                require(not dest.is_symlink(), ("Checker target remains linked", str(dest)))
++            elif dest.is_symlink():
+                 require(dest.resolve() == Path(part["path"]).resolve(), ("Wrong merged link", str(dest)))
+             else:
+                 require(not dest.exists(), ("Refusing object overwrite", str(dest)))
+@@ -614,7 +641,9 @@
+                 "lean_path": env["LEAN_PATH"], "plan_sha256": sha(R / "PLAN.json"),
+                 "dependency_union_sha256": sha(R / "DEPENDENCY_UNION.json"),
+                 "classification_ready_sha256": sha(C / "CLASSIFICATION_READY.json"),
+-                "direct_dependencies": direct_fingerprints(source, env)}
++                "direct_dependencies": direct_fingerprints(source, env),
++                "runtime_runner_sha256": sha(Path(__file__)),
++                "runtime_admission_sha256": sha(R / "runtime_recovery/ADMISSION.json")}
+     if receipt_file.exists():
+         r = load(receipt_file)
+         require(clean(r) and all(r.get(k) == v for k, v in bindings.items()), ("Invalid resume receipt", tag))
+@@ -753,6 +782,8 @@
+             "axiom_audit_sha256": sha(R / "AXIOM_AUDIT.json"), "receipt_hashes": receipts,
+             "source_sha256": {rel: sha(R / rel) for rel in CFG["sources"]},
+             "new_objects": {m: actual_objects(m) for m in CFG["order"]},
++            "runtime_runner_sha256": sha(Path(__file__)),
++            "runtime_admission_sha256": sha(R / "runtime_recovery/ADMISSION.json"),
+             "independent_external_preflight_run": False, "submission_or_external_writes_performed": False})
+         print("FINAL_COMPOSITION_READY: exact internal and public results compiled and default-kernelchecked", flush=True)
+ 

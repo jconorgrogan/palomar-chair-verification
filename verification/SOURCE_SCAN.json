@@ -1,0 +1,13 @@
+{
+  "status": "PASS_HASH_BOUND_4123_MODULE_SELECTED_CLOSURE_SOURCE_SCAN",
+  "time_utc": "2026-10-08T01:40:13.561479+00:00",
+  "selected_modules": 4123,
+  "sorry_count": 0,
+  "sorry_in_definitions": 0,
+  "custom_axiom_declarations": 0,
+  "native_decide_and_unsafe_scanned_absent": true,
+  "challenge_deliberate_theorem_holes": 1,
+  "final_marker_sha256": "aab39e0645aeb573d89b2564bab3448834095668278a4c379d6fd0970ef92c51",
+  "source_plan_sha256": "26241b4dc752553cd97b0edcb8c2fe8afd2fb1ec5c6525c85e9b7a13eadfd82b",
+  "limits": "Project selected source closure only; dependency proof soundness uses original kernel/axiom evidence. No official comparison or independent kernels."
+}

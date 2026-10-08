@@ -1,0 +1,19 @@
+{
+  "status": "CONFIRMED_NAMESPACE_REALPATH_DISCOVERY_FAILURE",
+  "checker_source": {
+    "path": "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/src/lean/LeanChecker.lean",
+    "sha256": "4a406b8ed95da0377206600b7b00a03bedc05102c0fadad641ffe0bfdb95122f",
+    "lines": "107-113"
+  },
+  "path_source": {
+    "path": "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/src/lean/Lean/Util/Path.lean",
+    "sha256": "52cf9aa41a82db18d0d3c93bf6257d064f773af9e62b8b43be89ce1b0e00055f",
+    "lines": "147-165"
+  },
+  "failed_log": "/workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/logs/check_HENRY_Statement.1791422827945115612.log",
+  "failed_log_sha256": "aa8e9a1c759543f5d1b869b72920de36994915b277fe7bb7496537c7bb85111f",
+  "failed_log_text": "uncaught exception: Could not find any oleans for: HENRY.Statement\n",
+  "target_realpath": "/workspace/scratch/8b3aff9fe1f4/henry_compact_statement_prepared_20261007T2321/objects/HENRY/Statement.olean",
+  "target_in_any_search_root": false,
+  "proposed_scope": "Versioned assembly repair: regular hash-verified copies of all object parts of five directly rechecked interface modules; retain default checker command and original guard/source bytes."
+}

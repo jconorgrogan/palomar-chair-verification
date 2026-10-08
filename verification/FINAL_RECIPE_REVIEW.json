@@ -1,0 +1,56 @@
+{
+  "status": "PASS_INDEPENDENT_ACTUAL_FINAL_RECIPE_AND_PACKAGING_GATE_REVIEW",
+  "runtime_packager_sha256": "601894ee2f8d1e0bfac65552f9c00747ef4b2d986615aaf50ce040dfa4ab00c2",
+  "admission_sha256": "634604f3148f9e0595d36918454b3d2af6e56dcb9cb56d5ec26c1dde7baa6c99",
+  "caller_index_sha256": "6efa513a455ff2fd363d0e74bcc903898ee9e0e85e8a7e246dd907d7e6992bce",
+  "actual_recipe_sha256": "ccebb91fe96bcfc32815b9ac066238a23f85342995123e354daef4f37bd1b76e",
+  "lakefile_sha256": "f14356756f9ab3b6c4540f65c0837ab002b07b42f80a6dc6e5719155deeabe00",
+  "source_modules": 4372,
+  "selected_modules": 4123,
+  "changed_recipe_vectors": [
+    "T7MatchedBlockCoverage",
+    "T7MatchedKeyFreshAudit",
+    "T7MatchedKeyReduction",
+    "T7PackedReplayBase",
+    "T7PolarityIndexBase",
+    "T7PolarityIndexBlock0",
+    "T7PolarityIndexBlock1",
+    "T7PolarityIndexBlock2",
+    "T7PolarityIndexBlock3",
+    "T7ReducedIndexData"
+  ],
+  "recorded_compile_commands_checked": 9040,
+  "groups": [
+    {
+      "name": "HENRYProof0",
+      "modules": 1221,
+      "flags": [
+        "-j1",
+        "-M3072"
+      ]
+    },
+    {
+      "name": "HENRYProof1",
+      "modules": 2012,
+      "flags": [
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false"
+      ]
+    },
+    {
+      "name": "HENRYProof2",
+      "modules": 889,
+      "flags": [
+        "-j1",
+        "-M3072",
+        "-DautoImplicit=false",
+        "-DmaxRecDepth=100000",
+        "-t0"
+      ]
+    }
+  ],
+  "strict_recipe_equality_preserved": true,
+  "original_frozen_files_preserved": true,
+  "official_build_or_execution_established": false
+}

@@ -1,0 +1,352 @@
+{
+  "T7MatchedBlockCoverage": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/objects/T7MatchedBlockCoverage.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project/T7MatchedBlockCoverage.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/logs/T7MatchedBlockCoverage.compile.1791388692620687481.receipt.json"
+      }
+    ]
+  },
+  "T7MatchedKeyFreshAudit": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/objects/T7MatchedKeyFreshAudit.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project/T7MatchedKeyFreshAudit.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/logs/T7MatchedKeyFreshAudit.compile.1791388918036417195.receipt.json"
+      }
+    ]
+  },
+  "T7MatchedKeyReduction": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/objects/T7MatchedKeyReduction.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/project/T7MatchedKeyReduction.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_matched_key_reduction_20261007T1553/logs/T7MatchedKeyReduction.compile.1791388470826643379.receipt.json"
+      }
+    ]
+  },
+  "T7PackedReplayBase": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PackedReplayBase.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PackedReplayBase.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PackedReplayBase_compile_1791387637965028110.json"
+      }
+    ]
+  },
+  "T7PolarityIndexBase": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PolarityIndexBase.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PolarityIndexBase.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PolarityIndexBase_compile_1791387389952559381.json"
+      }
+    ]
+  },
+  "T7PolarityIndexBlock0": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PolarityIndexBlock0.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PolarityIndexBlock0.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PolarityIndexBlock0_compile_1791387403398379109.json"
+      }
+    ]
+  },
+  "T7PolarityIndexBlock1": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PolarityIndexBlock1.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PolarityIndexBlock1.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PolarityIndexBlock1_compile_1791387416762290381.json"
+      }
+    ]
+  },
+  "T7PolarityIndexBlock2": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PolarityIndexBlock2.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PolarityIndexBlock2.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PolarityIndexBlock2_compile_1791387428531142204.json"
+      }
+    ]
+  },
+  "T7PolarityIndexBlock3": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7PolarityIndexBlock3.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7PolarityIndexBlock3.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7PolarityIndexBlock3_compile_1791387437937862281.json"
+      }
+    ]
+  },
+  "T7ReducedIndexData": {
+    "actual": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false"
+    ],
+    "kind": "relocated_recorded_compile_command",
+    "prepared": [
+      "-j1",
+      "-M3072",
+      "-DautoImplicit=false",
+      "-DmaxRecDepth=100000",
+      "-t0"
+    ],
+    "receipts": [
+      {
+        "flags": [
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false"
+        ],
+        "historical_command": [
+          "/workspace/scratch/8b3aff9fe1f4/lean435_recovery_toolchain_20261006/lean-4.35.0-rc2-linux/bin/lean",
+          "-j1",
+          "-M3072",
+          "-DautoImplicit=false",
+          "--root=/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project",
+          "-o",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/.build/lib/lean/T7ReducedIndexData.olean",
+          "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/project/T7ReducedIndexData.lean"
+        ],
+        "receipt": "/workspace/scratch/8b3aff9fe1f4/compact_t7_full_contact_plan_20261007T1518/receipts/T7ReducedIndexData_compile_1791388448681247810.json"
+      }
+    ]
+  }
+}

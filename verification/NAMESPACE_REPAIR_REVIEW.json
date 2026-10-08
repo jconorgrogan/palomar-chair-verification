@@ -1,0 +1,19 @@
+{
+  "status": "PASS_INDEPENDENT_NAMESPACE_REPAIR_STATIC_REVIEW",
+  "runtime_runner_sha256": "9124afca89ebfb609d46d46b03b1a3f9968acafb3f31a249de943d5e9e0a1c5f",
+  "admission_sha256": "1bdc1292612e2646cd2f8d7b95597188bf38ca138961993a7ea012a1394738d8",
+  "original_runner_sha256": "10511f042ee7a9e049e0e76a70bdfdfb1bb406a4eee435fb20cde245c971f3c6",
+  "original_guard_sha256": "c398b61e6d355268b6a4eaf53c69daf44cdc5028bba1d3466b89d8126c8eb26e",
+  "all_original_package_manifest_files_verified": true,
+  "preserved_failure_evidence_verified": true,
+  "changed_functions": [
+    "preflight",
+    "assemble",
+    "execute",
+    "main"
+  ],
+  "unchanged_functions_count": 22,
+  "scope": "Exactly 25 object parts for five checked compact interface modules materialized; default checker commands, mathematical sources, plan and process guard unchanged. Runtime variant and admission bound in successful receipts and final marker.",
+  "resume": "Existing incorrect/partial copies fail hash checks; no successful final receipts existed at review.",
+  "proof_processes_launched_by_review": 0
+}

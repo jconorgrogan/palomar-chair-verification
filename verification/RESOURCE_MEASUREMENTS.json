@@ -1,0 +1,16 @@
+{
+  "status": "HISTORICAL_COMPILER_MEASUREMENTS_NOT_CLEAN_LAKE_ESTIMATE",
+  "selected_modules": 4123,
+  "recorded_modules": 3234,
+  "unmeasured_modules": 889,
+  "recorded_wall_seconds_sum": 14083.174447866979,
+  "recorded_cpu_seconds_sum": 13806.80028099998,
+  "recorded_peak_group_rss_kib": 2564712,
+  "official_execution_budget_seconds": 19800,
+  "limits": [
+    "One actual historical receipt per measured module, not a same-machine controlled benchmark.",
+    "No timing for unmeasured inherited recipe modules.",
+    "Lake/config/export/Comparator/independent-kernel work not included.",
+    "Cannot infer official end-to-end feasibility from these sums."
+  ]
+}

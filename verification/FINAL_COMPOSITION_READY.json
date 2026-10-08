@@ -1,0 +1,81 @@
+{
+  "axiom_audit_sha256": "d34ce62b9ad3a9ff6fe0d2a2dff25b10433fdbd1415677a5e4616e68841a1d30",
+  "bound": 645120,
+  "classification_ready_sha256": "3a282753aa1d0c167f697cc39386fb543f7992f234e2d78cd391e740edf4fc3e",
+  "compact_challenge_sha256": "2d250d0118bed6cdac62d0bcf0b01ee09bc624b64f07378d4627f4837d891d03",
+  "compact_interface_frozen_sha256": "29585a5717a42de4f41df4b882c5f7a1fd996b82603fa67172aaaa9b176e00bd",
+  "compact_interface_result_sha256": "b7efcdb9352a42de0ca56f011e48b94e971d7afda8783bfb84127aa23b6061c5",
+  "compact_statement_sha256": "23c373f64433047020cb656fafc3698aa0f7edec73413c4d05d1b9b1db9c0638",
+  "dependency_union_sha256": "6f032e9c4c6bc83851f979aee62f9bbec400a756f635d874cb4d59bb51bf5358",
+  "independent_external_preflight_run": false,
+  "inherited_interface_modules_default_rechecked": [
+    "HENRY.Statement",
+    "HENRY.CodecPilot",
+    "HENRY.BodyBinding",
+    "HENRY.StatementAudit",
+    "HENRY.Transport"
+  ],
+  "internal_endpoint": "SparseMonotiles.ExactCompactT7Strong.final_bound",
+  "new_compiled_and_default_kernelchecked_modules": [
+    "T7ExactStrongMonotile",
+    "T7ExactStrongFreshAudit",
+    "Solution",
+    "HENRY.FinalExactTypeAudit"
+  ],
+  "new_objects": {
+    "HENRY.FinalExactTypeAudit": {
+      ".ir": "17026a5e003b28f98b62114a813fb0ee1d3f85eb1fcd37f03dba6eddd8fad394",
+      ".ir.sig": "6f46c6b07a6b2290b241f47fa3e26e4782aedb2915705dcf17a22d08d0c9b775",
+      ".olean": "824da4b6913d6195acf8db1025a3cec1895b67fa8e0c1dd27e5cfc7c11599c5a",
+      ".olean.private": "fc773336219d161704cb11208c8a1a3922f6a6e1a85e80dcb666ffd9ea0aa220",
+      ".olean.server": "030ec76c06c7a858212ab04d26502c4c5745109b48f2de9f089d969e8fda5aca"
+    },
+    "Solution": {
+      ".ir": "d4662d8250c1da2e5f15f8cd8eb32a96c82e4cc30d78b93a49f05f7c3a9fb505",
+      ".ir.sig": "330f176d1fd451d38755cb0d1cacf6bbc14921af93dd1f691115135e5a8341cf",
+      ".olean": "797bad8deb1dbe2556e8d7686d05fa20361ecedce00b5b2bfbfa40a4a91f5af0",
+      ".olean.private": "598fc2afb6c6255f7c5834797e6e41a373f805705dd74d10612e46103d12546c",
+      ".olean.server": "0fc39e9e91e51b4e6b8c312a16e4d31da7c26b2d8b151c22853128e3b010356a"
+    },
+    "T7ExactStrongFreshAudit": {
+      ".ir": "b32af032a8e6e9db100284d748b9e410259301285e8c4476c78a173afc4a3e7c",
+      ".ir.sig": "72ff1d449f5f60820240c445ee388a2f38e93b9a07ad749deb7fbdb25985bbdc",
+      ".olean": "c1b98379d76c9e9043c9d0e7236ead05fdc7440c16c43250f64251c9d97ff761",
+      ".olean.private": "971a5914d6aaf96987db9f2df8bf8893b30165c23db6565d49461a152458fdab",
+      ".olean.server": "99167f56883a27120c6c74bd13e433303dc1b845318b74f5936a6671276c52f4"
+    },
+    "T7ExactStrongMonotile": {
+      ".ir": "3bf0f50e3b1e6fd56dc510b43b08c4b419e052afe2432991abbe9e0ca8e02df2",
+      ".ir.sig": "c2a9940eac696c2f3d0cb57c8e17c4fe82cfbd16a2e29c519a5f86ecc23b984d",
+      ".olean": "ffd7d6dd823d3f85431db194f4d9559cfaa70284d23a55814f9a9df82663f298",
+      ".olean.private": "08ce4b7359907a6682716ff176c555068babbbf7fadda64924473883252158ce",
+      ".olean.server": "e47b02bfc24031d13cbef2a5de3f0a69971785977f93697ce2e1106c94f0c641"
+    }
+  },
+  "public_endpoint": "PalomarMonotiles.T7_strongAperiodicity",
+  "receipt_hashes": {
+    "check_HENRY_BodyBinding.json": "b260cd8d40a5a70eb679d2f9794d777e3c4908069f3d0f9e1fc142844f34224e",
+    "check_HENRY_CodecPilot.json": "a4366f8e2a0992caebe2455f2b1e260419802d7dd281e32520bdf051a89d6ba3",
+    "check_HENRY_FinalExactTypeAudit.json": "015d735cc75d99b9c34c2a22b833b383639ba5e1618861d5a0c848e56e326de6",
+    "check_HENRY_Statement.json": "a61fb95691bf6ecf3080a1461c49f626dcfcf3639981e9c2bcd7ba557e9b8050",
+    "check_HENRY_StatementAudit.json": "67aa8abe1e6c05767ef75c47c3b8ab7b4f395a15918c3145f2c1bccf751d8859",
+    "check_HENRY_Transport.json": "100fe73cb82aa7a76c895edc13c5b8f5955582bb72d8d5287e81c3b70b3694c3",
+    "check_Solution.json": "8e55bca923cb102ea5247256830833d071ee2ec0107c72a964b7f551926b057c",
+    "check_T7ExactStrongFreshAudit.json": "ece5fc181488df91a3c04e617dae8cdbd701277a0628e733dbcf129658d334cc",
+    "check_T7ExactStrongMonotile.json": "af457cf26ec275215e6afd2b33f75d61f2789c2dba9640387c7517bceaa0c4fb",
+    "compile_HENRY_FinalExactTypeAudit.json": "4ce9f7c0e5c09ed2fb9f36028ba28563a940c9a22dc4d537e4dce0f292547a89",
+    "compile_Solution.json": "2db813b19b1f270b2a0ed29ff7301d0b1e257940d2df4912f949eb5e6c413da6",
+    "compile_T7ExactStrongFreshAudit.json": "e45c31d8db4fbdccc5d891544b8ca07e62765f52cd310651259eb9a7b09f267f",
+    "compile_T7ExactStrongMonotile.json": "5d822903393ecf4ac539fb20f6992ef2fc7784ab8da616042c74f75580c5a7e0"
+  },
+  "runtime_admission_sha256": "1bdc1292612e2646cd2f8d7b95597188bf38ca138961993a7ea012a1394738d8",
+  "runtime_runner_sha256": "9124afca89ebfb609d46d46b03b1a3f9968acafb3f31a249de943d5e9e0a1c5f",
+  "source_sha256": {
+    "project/HENRY/FinalExactTypeAudit.lean": "87c33bf3d66e065957cc057803e0fa2d3302df862e196276bfb0c9c2c12eda80",
+    "project/Solution.lean": "c1db823fe950ccbf69983380219be628f4b014c58d906342afa2021b7272811f",
+    "project/T7ExactStrongFreshAudit.lean": "23ce60160ab9f7d3cbf84c42c634d06b5115f7214f6a48e1d7b4a6c2f3ddce91",
+    "project/T7ExactStrongMonotile.lean": "e7c337f6d1d98d42cc1d3c15a4070ef02a9166ba9a9ed9c77319bc655a9d1ac2"
+  },
+  "status": "PASS_EXACT_HENRY_STRONG_APERIODICITY",
+  "submission_or_external_writes_performed": false
+}

@@ -1,0 +1,21 @@
+{
+  "status": "SCOPED_LICENSE_PROVENANCE_IDENTIFIED_NOT_NEW_LEGAL_AUTHORIZATION",
+  "inputs": {
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/LICENSE_SCOPE.md": "dffe96671b976dbb7b97183aa2948d61c22142cb76205f0dc4548faac2c66d45",
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/reviews/FINAL_AUTHORIZED_NOTE_ADDENDUM.md": "25812329beea8bdb6eeb94213d084da353617c491ea86085605e26d0accc15d1",
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/data/tile7_final_spec.json": "2d8a6562eb1ee4f7ebeb0af571c783d92fb5c3296bc638848aad13ebcd2230a2",
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/data/p7_CL.json": "26403cdb1291b173904a28adf9044738db34d837d06bb4e8115cfab257cc0fa0",
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/evidence/uniform_prime/THEOREM_SUMMARY.md": "76dae90716a32d4a84f3818ba919dd51f3a471bed7bd60cf1583e1e37d0139ad",
+    "/workspace/scratch/8b3aff9fe1f4/arithmetic_chair_preprint_publication_20261006/evidence/uniform_prime/source/PROVENANCE.md": "bb32d1688ec9baf25830d6cbe5555d77d96ef74ce2510620447af0c8ad511c49",
+    "/workspace/scratch/8b3aff9fe1f4/henry_submission_pipeline_recovery_20261007T2355/metadata_review/ACCEPTED_CLARK_METADATA.yaml": "b1132c2e080f059899790345bc2f84cb8135437b55d54317093260a93dbc61b8"
+  },
+  "accepted_metadata_url": "https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/formalization.yaml",
+  "scope": "Exact companion data and author-controlled ordinary proof packet. No blanket third-party relicensing.",
+  "raw_historical_user_message_recovered": false,
+  "evidence_basis": "Retained approved LICENSE_SCOPE and approval addendum plus immutable public accepted CLARK metadata; broad context search yielded no relevant exact user message.",
+  "user_input_blockers": [],
+  "unresolved_disclosed": [
+    "Original supplied-source bibliographic authors and endorsement are unknown.",
+    "Proof-dependent metadata counts, final axiom audit, commit and official acceptance await genuine evidence."
+  ]
+}

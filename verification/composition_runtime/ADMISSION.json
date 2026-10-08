@@ -1,0 +1,20 @@
+{
+  "status": "REVIEWED_NAMESPACE_RECOVERY_PREPARATION",
+  "original_runner_sha256": "10511f042ee7a9e049e0e76a70bdfdfb1bb406a4eee435fb20cde245c971f3c6",
+  "runtime_runner_sha256": "9124afca89ebfb609d46d46b03b1a3f9968acafb3f31a249de943d5e9e0a1c5f",
+  "original_package_manifest_sha256": "065307887e847c7452d6947626695712cc518b9cea19e4899714841916ca3d4b",
+  "materialized_modules": [
+    "HENRY.Statement",
+    "HENRY.CodecPilot",
+    "HENRY.BodyBinding",
+    "HENRY.StatementAudit",
+    "HENRY.Transport"
+  ],
+  "preserved_failure_evidence": {
+    "/workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/receipts/check_HENRY_Statement.failed.1791422827945115612.json": "9683c3f10c6b3304c1af3d4601ff28d815eb5f2ad394168823740f8a157ce293",
+    "/workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/logs/check_HENRY_Statement.1791422827945115612.log": "aa8e9a1c759543f5d1b869b72920de36994915b277fe7bb7496537c7bb85111f",
+    "/workspace/scratch/8b3aff9fe1f4/henry_final_composition_compact_prepared_20261007T2332/logs/check_HENRY_Statement.1791422827945115612.process.json": "2b0d59308cff6b1fe67160840d87f90494c9548fb07518cf2ec4b47feb51b08a"
+  },
+  "scope": "Copy only all five genuine object parts for each of five inherited compact-interface checker targets into existing isolated object namespace. Exact original objects remain untouched. Original mathematical plan/guard/default commands/source hashes unchanged. Generated failed-attempt symlinks are preserved outside namespace.",
+  "new_compilation_claim_for_copies": false
+}

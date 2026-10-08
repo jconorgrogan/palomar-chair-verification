@@ -1,0 +1,65 @@
+{
+  "declarations": {
+    "HENRY.Binding.keys7_length": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "HENRY.Binding.strongClaim_of_internal": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "PalomarMonotiles.FinalExactTypeAudit.exact_body_binding": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "PalomarMonotiles.FinalExactTypeAudit.public_solution_expanded": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "PalomarMonotiles.FinalExactTypeAudit.statement_iff_expanded": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "PalomarMonotiles.T7_strongAperiodicity": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.ExactCompactExistence7.hasTiling": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.ExactCompactT7Strong.FreshAudit.final_bound_expanded": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.ExactCompactT7Strong.final_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.FullContactReplay.T7_isAperiodic": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.FullContactReplay.all_legal_contact_mem_M7": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "SparseMonotiles.T7_finite_full_symmetry_bound_of_contact_classification": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "status": "PASS_ALLOWED_STANDARD_AXIOMS_ONLY"
+}

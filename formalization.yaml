@@ -1,0 +1,138 @@
+# LOCALLY CHECKED PREPARATION: official verification and registration remain pending.
+version: v0.4
+project:
+  name: 'HENRY: A Strongly Aperiodic Monotile in Seven Dimensions'
+  description: We give an explicit compact tile, called HENRY, in seven-dimensional Euclidean space. It
+    modifies a chair made from 127 unit seven-cubes with 1,024 rational pyramidal keys. Copies may be
+    translated, rotated or reflected. The selected theorem proves that the tile admits a tiling, every
+    such physical tiling has no nonzero translational period, and its full Euclidean symmetry group is
+    finite with at most 645,120 elements. No lattice-registration, matching-rule or hierarchy hypothesis
+    is assumed. Here, strongly aperiodic means finite full Euclidean symmetry group; a trivial symmetry
+    group is not asserted.
+  authors:
+  - Conor Grogan
+  responsible_maintainers:
+  - Conor Grogan
+  license: Apache-2.0
+classification:
+  arxiv:
+  - math.MG
+  - math.CO
+  msc2020: []
+sources:
+- title: Exact sparse-key seven-dimensional tile specification
+  type: other
+  relationship: formalizes
+  note: 'The retained tile7_final_spec.json has SHA-256 2d8a6562eb1ee4f7ebeb0af571c783d92fb5c3296bc638848aad13ebcd2230a2.
+    Its exact order, rational coordinates, bump/dent signs and all 1,024 keys must be retained. The specification
+    records 127 carrier cells, 896 exposed facets, 512 bumps, 512 dents and key height 1/336. HENRY is
+    the user-selected name for this exact T7 body. Original bibliographic authors and endorsement status
+    have not been established; author_endorsement: other means unknown, not endorsed. The exact retained
+    input is byte-identical to the author-controlled data in the companion-paper package covered by its
+    approved LICENSE_SCOPE.md (6 October 2026): CC-BY-4.0 for author-controlled data, with existing third-party
+    terms preserved. This identifies the scoped release terms, not previously unknown bibliographic authorship
+    or endorsement.'
+  license: CC-BY-4.0
+  author_endorsement: other
+- title: Exact seven-dimensional legal-contact catalogue
+  type: other
+  relationship: formalizes
+  note: 'The retained p7_CL.json catalogue has SHA-256 26403cdb1291b173904a28adf9044738db34d837d06bb4e8115cfab257cc0fa0
+    and 408 poses. Catalogue membership, acceptance and completeness must be justified by the selected
+    proof. These finite data are not a substitute for proving classification of arbitrary physical contacts.
+    Original catalogue bibliographic authors and endorsement status are not established. The exact retained
+    input is byte-identical to the author-controlled data in the companion-paper package covered by its
+    approved LICENSE_SCOPE.md (6 October 2026): CC-BY-4.0 for author-controlled data, with existing third-party
+    terms preserved. This identifies the scoped release terms, not previously unknown bibliographic authorship
+    or endorsement.'
+  license: CC-BY-4.0
+  author_endorsement: other
+- title: Uniform prime-dimensional framed chair hierarchy manuscripts, 2026-10-05
+  type: other
+  relationship: adapts
+  note: The retained source is the ordinary registered full-frame mathematical packet in the companion-paper
+    evidence/uniform_prime directory, including THEOREM_SUMMARY.md SHA-256 76dae90716a32d4a84f3818ba919dd51f3a471bed7bd60cf1583e1e37d0139ad.
+    This summary is identical to the source identified in accepted CLARK metadata. The companion package
+    approved scope applies CC-BY-4.0 to author-controlled prose and Apache-2.0 to project-owned software,
+    preserving third-party terms. Original bibliographic authorship and endorsement remain unknown. Registered
+    full-frame arguments provide context; their model assumptions do not prove arbitrary-placement physical
+    T7 registration. HENRY must discharge its own physical classification. The nonessential unverified-lineage
+    chair_nd.py is excluded; the T5-specific right-symmetry manuscript is not claimed as a T7 proof source.
+  license: CC-BY-4.0
+  author_endorsement: other
+related_formalizations:
+- id: https://palomar-registry.org/entry?id=PALOMAR-2026-10-07-000006&version=1
+  relationship: other
+  note: Related registered five-dimensional CLARK development from the same mathematical program. Its
+    exact body, registration and independent proof checks concern T5. They do not prove or verify the
+    seven-dimensional HENRY target. The final source audit must accurately describe any shared implementation
+    modules.
+status:
+  scope: One selected unconditional physical T7 theorem with exact compact body, actual tiling existence,
+    no nonzero translation period, and a finite full Euclidean symmetry group of cardinality at most 645120
+    for every arbitrary-placement physical tiling. Full 262144-pair contact classification and the exact
+    final internal/public composition passed local Lean 4.35.0-rc2 compilation/default-kernel checks.
+    Independent agent receipt review passed. The final independent official Comparator, NanoDa, con-ron,
+    clean Lake build, immutable public commit and HENRY registry acceptance remain NOT RUN or unavailable.
+    This is locally checked metadata preparation, not an official verification or acceptance claim.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  audit_note: Counts are from the hash-bound 4123-module selected Solution source closure. The independent
+    Challenge has one deliberate theorem placeholder; Solution never imports it. Twelve final transitive
+    axiom reports use only the three standard axioms. Failed initial checker target discovery is retained;
+    successful exact proof checks used a reviewed namespace-only regular-object-copy recovery, with unchanged
+    proof source and default checker.
+automation:
+  methods:
+  - method: agent
+    models: []
+    framework: OpenAI multi-agent assistant workflow
+    tool_setup: Substantive AI-assisted mathematical analysis, Lean proof construction, exact finite certificate
+      generation, source/evidence audits and exposition. Describe only completed checks in the final metadata.
+      Historical model versions were not consistently recorded.
+    cost:
+      wall_time: Not reconstructed; component receipts record individual checks
+      spend_usd: Not tracked
+      hardware: Shared Linux execution environment; bounded Lean checks
+    prompting_notes: Preserve the exact seven-dimensional T7 body, all 1024 keys, arbitrary-isometry physical
+      quantifiers, nonvacuous tiling existence, and the distinction between checked components, conditional
+      theorems and the final independently verified theorem.
+  notes: AI systems made substantive mathematical, proof-code, generator, audit and writing contributions.
+    Exact final HENRY proof composition and standard-kernel checks passed locally. Official independent
+    verification and Palomar acceptance remain pending.
+fidelity:
+  divergences: The compact independent Challenge is 39804 bytes / 761 lines, SHA-256 2d250d0118bed6cdac62d0bcf0b01ee09bc624b64f07378d4627f4837d891d03.
+    Its exact 28-entry rational palette retains all 1024 placements. Compact-to-literal body equality
+    and physical-claim transport passed local compiler/default-kernel checks with only standard axioms.
+    The exact unconditional Solution and expanded-type audits have passed locally. The independent official
+    statement-definition comparison is pending. The selected result has bound 645120 for the full Euclidean
+    symmetry group of every physical tiling; trivial symmetry, connectedness, topological-ball, four-dimensional
+    and all-prime physical claims are not selected.
+review:
+  status: agent-reviewed; exact local final kernel checks passed; official verification pending
+  reviewers: []
+  notes: The exact completed contact run, all 13 final guarded proof processes, 12 standard-only axiom
+    reports and unconditional expanded target passed independent read-only receipt/hash/guard review.
+    Source scan covers all 4123 selected project modules. No independent human mathematical peer review,
+    novelty certification, official HENRY full verification or registry acceptance is claimed.
+alignment:
+  namespace: PalomarMonotiles
+  statements:
+  - source: Exact physical HENRY/T7 strong aperiodicity with finite full Euclidean symmetry bound 645120
+    lean: PalomarMonotiles.T7_strongAperiodicity
+    module: Challenge
+    status: complete
+    note: Actual Solution declaration and internal SparseMonotiles.ExactCompactT7Strong.final_bound compiled
+      and passed default kernel checks plus expanded-type audits. Final marker SHA-256 aab39e0645aeb573d89b2564bab3448834095668278a4c379d6fd0970ef92c51.
+      Official full verification and registry acceptance are separate and not yet claimed.
+acknowledgements: Lean, Mathlib and standard-library contributors. AI contributions are disclosed under
+  automation. Do not infer additional human authorship, endorsement or review from the supplied sources.
+  Carry confirmed contributor credits into the final package.
+license_scope_note: Repository project-owned software is Apache-2.0. Retained author-controlled prose/data
+  are CC-BY-4.0 under the companion release scope; external dependencies and third-party materials retain
+  their original terms. Unknown original bibliographic authorship does not imply endorsement or a newly
+  granted blanket license.

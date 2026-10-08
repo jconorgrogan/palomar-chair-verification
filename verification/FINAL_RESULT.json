@@ -1,0 +1,25 @@
+{
+  "review_utc": "2026-10-08T01:34:11.202981+00:00",
+  "scope": "Independent local evidence review, not rerun or official acceptance",
+  "contact": {
+    "status": "PASS_LOCAL_CLASSIFICATION_EVIDENCE",
+    "marker_sha256": "3a282753aa1d0c167f697cc39386fb543f7992f234e2d78cd391e740edf4fc3e",
+    "pairs": 262144,
+    "roots": 512,
+    "leaves": 1024,
+    "successful_process_receipts": 3144,
+    "successful_process_cpu_seconds": 19891.623523999966
+  },
+  "final": {
+    "status": "PASS_LOCAL_FINAL_COMPOSITION_EVIDENCE",
+    "marker_sha256": "aab39e0645aeb573d89b2564bab3448834095668278a4c379d6fd0970ef92c51",
+    "successful_process_receipts": 13,
+    "public_endpoint": "PalomarMonotiles.T7_strongAperiodicity : PalomarMonotiles.T7StrongClaim",
+    "bound": 645120,
+    "axiom_reports": 12,
+    "successful_process_cpu_seconds": 41.027991,
+    "official_acceptance_established": false
+  },
+  "status": "PASS",
+  "files_hashed": 49604
+}
