@@ -1,0 +1,25 @@
+# Add only after the frozen HENRY source tree and metadata have been independently reviewed.
+name: Official HENRY full symmetry mechanical preflight repair 1b
+on:
+  push:
+    branches: [verification/palomar-henry-repair1b-20261008]
+permissions:
+  contents: read
+concurrency:
+  group: official-henry-palomar-repair1b-20261008
+  cancel-in-progress: false
+jobs:
+  palomar-full:
+    if: >-
+      github.event_name == 'push' &&
+      github.run_number == 1 &&
+      github.run_attempt == 1
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+    with:
+      repository: jconorgrogan/palomar-chair-verification
+      commit: ${{ github.sha }}
+      pipeline_commit: d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+      request_id: henryrepr001
+      mode: full
+      execution_profile: palomar-standard-v1
+      options: '{"comparator_config_path":"comparator.json","formalization_metadata_path":"formalization.yaml","authorization_relationship":"I am a responsible author or maintainer"}'
