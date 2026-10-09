@@ -1,4 +1,4 @@
-# REPAIR1: locally checked corrected source; full official rerun and registration pending.
+# Size-64 candidate: local compilation, exports and comparison passed; full-export kernel verification incomplete; official preflight pending.
 version: v0.4
 project:
   name: 'HENRY: A Strongly Aperiodic Monotile in Seven Dimensions'
@@ -68,27 +68,40 @@ related_formalizations:
     seven-dimensional HENRY target. The final source audit must accurately describe any shared implementation
     modules.
 status:
-  scope: One selected unconditional exact physical T7 theorem with compactness, actual tiling existence,
+  scope: 'One selected unconditional exact physical T7 theorem with compactness, actual tiling existence,
     absence of nonzero translation periods, and finite full Euclidean symmetry cardinality at most 645120.
-    The original local proof and contact certificates are retained. The first official run passed independent
-    Challenge compilation but failed clean Solution build at an undeclared implicit Nat parameter under
-    a declared fallback option. Repair1 explicitly binds that same parameter; all 910 targeted fresh compiles,105
-    default-kernel checks and all 889 selected prior fallback assignments pass, including the exact final
-    public theorem and expanded audits. The targeted replay reuses 3462 unaffected checked objects and
-    is not a full clean project build. The corrected official full pipeline, Comparator/export/independent
-    kernels and registry acceptance remain pending.
+    Historical Repair1 targeted replay and its literal receipt below are retained. Official-workflow preflight
+    https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37795381080 checked historical
+    source 8e1dc7924f7573b00c182e43342a0fc09b734d28: its clean Solution build and Challenge/Solution exports
+    passed, then the shared 19800-second budget was exhausted during Comparator. The optimized four-by-64
+    candidate changed 1024 leaf proof implementations. All 4124 candidate modules compiled fresh locally;
+    separate full Challenge/Solution exports and standalone target/common-definition comparison plus Solution
+    permitted-axiom closure passed. Con-ron stopped at its 4608 MiB operational RSS guard (sampled peak
+    4723900 KiB, exit -9). NanoDa aborted with a worker stack overflow (exit -6); the pinned upstream
+    source specifies a 16777216-byte worker stack, which is source-level evidence rather than a runtime
+    stack measurement. The default Lean export checker reached its 10800-second wall cap (exit 124, RESOURCE_INCONCLUSIVE)
+    without emitting a proof verdict. None of the three full-export kernel passes is established; these
+    operational outcomes do not establish a mathematical rejection. Official full-preflight success, official
+    runtime fit and HENRY registration remain unestablished. This publication-stage snapshot only updates
+    metadata; all proof inputs remain byte-identical to the frozen locally checked candidate.'
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
   - propext
   - Classical.choice
   - Quot.sound
-  audit_note: The selected source closure of 4,123 project modules has zero proof holes and custom axioms.
-    Challenge retains only its deliberate theorem placeholder and is never imported by Solution. Repair1
-    changes exactly one implicit-parameter binder, with identical old/new signatures and rfl body probes.
-    All 1,745 reported repair-replay axiom closures use only propext, Classical.choice and Quot.sound.
-    Original failures and earlier receipt identities remain historical evidence, not a claim that the
-    first source rebuilt successfully.
+  audit_note: 'Historical Repair1 source 8e1dc7924f7573b00c182e43342a0fc09b734d28 had 1745 recorded repair-replay
+    axiom reports using only propext, Classical.choice and Quot.sound; that repair changed one implicit-parameter
+    binder. The current size-64 candidate additionally changes exactly 1024 ReplayLeaf private proof regions.
+    Its static delta retains all 262144 rows, imports/options, checked propositions, public classified
+    statements and the other 3144 files. All 4124 project modules were compiled fresh locally. Standalone
+    Lake.Check.compareAt passed for PalomarMonotiles.T7_strongAperiodicity and its compared common definitions,
+    with no definition exemptions; Lake.Check.checkAxioms passed for the selected Solution theorem with
+    only propext, Quot.sound and Classical.choice permitted. Challenge and Solution were exported from
+    separate object search paths. The later full-export kernel attempts remained inconclusive: con-ron
+    RSS-guard stop, NanoDa worker-stack abort and default Lean wall timeout. Final immutable export/source-reuse
+    validation passed after the default Lean diagnostic. These integrity checks do not convert any kernel
+    attempt into a proof pass or establish official mechanical-preflight success.'
 automation:
   methods:
   - method: agent
@@ -104,36 +117,58 @@ automation:
     prompting_notes: Preserve the exact seven-dimensional T7 body, all 1024 keys, arbitrary-isometry physical
       quantifiers, nonvacuous tiling existence, and the distinction between checked components, conditional
       theorems and the final independently verified theorem.
-  notes: AI systems contributed mathematical analysis, proof code, generators, audits and writing. The
-    original local kernel result is retained. Repair1 addresses an implicit-parameter/compiler-option
-    compatibility mismatch and passed targeted fresh compiler/kernel replay; official repaired verification
-    and acceptance remain pending.
+  notes: AI systems contributed mathematical analysis, proof code, generators, audits and writing. Historical
+    Repair1 corrected an implicit-parameter/compiler-option mismatch; its official-workflow preflight
+    later passed the clean build and exports but exhausted the execution budget during Comparator. AI-assisted
+    four-by-64 batching changed exactly 1024 leaf proof implementations. The candidate passed all 4124
+    fresh local compilations, separate full exports, standalone target/common-definition comparison and
+    selected Solution axiom-closure checking. The full-export kernel attempts then ended with a con-ron
+    RSS-guard stop, NanoDa worker-stack overflow and default Lean wall timeout, without established proof
+    rejection or complete kernel verification. This is a metadata-only snapshot; prior source states,
+    receipts and reviews are preserved. No official full-preflight, runtime-fit or registration success
+    is claimed.
 fidelity:
   divergences: The compact independent Challenge is 39804 bytes / 761 lines, SHA-256 2d250d0118bed6cdac62d0bcf0b01ee09bc624b64f07378d4627f4837d891d03.
-    Its exact 28-entry rational palette retains all 1024 placements. Compact-to-literal body equality
-    and physical-claim transport passed local compiler/default-kernel checks with only standard axioms.
-    The exact unconditional Solution and expanded-type audits have passed locally. The independent official
-    statement-definition comparison is pending. The selected result has bound 645120 for the full Euclidean
-    symmetry group of every physical tiling; trivial symmetry, connectedness, topological-ball, four-dimensional
-    and all-prime physical claims are not selected.
+    Its exact 28-entry rational palette retains all 1024 placements. Historical Repair1 compact-to-literal
+    body equality, physical-claim transport and expanded-type audits passed the recorded local compiler/default-kernel
+    checks. The optimized candidate now has 4124 fresh local compiler passes and separate full Challenge/Solution
+    exports. Its standalone target/common-definition comparison and selected Solution permitted-axiom
+    closure passed; con-ron stopped at its configured RSS guard, NanoDa aborted after a worker stack overflow,
+    and the default Lean export checker timed out at 10800 seconds. No full-export kernel pass or mathematical
+    rejection is established. A passing official mechanical preflight remains pending. The selected result
+    has bound 645120 for the full Euclidean symmetry group of every physical tiling; trivial symmetry,
+    connectedness, topological-ball, four-dimensional and all-prime physical claims are not selected.
 review:
-  status: agent-reviewed repair1; 910 fresh compiles and 105 default-kernel checks passed; official rerun
-    pending
+  status: agent-reviewed; local compilation, exports and standalone comparison/axioms passed; con-ron
+    RSS stop, NanoDa stack abort, default Lean timeout; official full preflight pending
   reviewers: []
-  notes: Independent audit verified all 1,015 process receipts, exact sources/objects/logs/dependencies/commands,
+  notes: 'Historical Repair1 audit: Independent audit verified all 1,015 process receipts, exact sources/objects/logs/dependencies/commands,
     initial exclusion of fresh target objects, signature/body preservation and standard-only axiom reports.
     Every selected former fallback assignment was actually compiled. No independent human peer review,
-    novelty certification or HENRY registry acceptance is claimed.
+    novelty certification or HENRY registry acceptance is claimed. Those 1015 receipts concern the earlier
+    targeted repair replay. The optimized candidate has a separate complete fresh compilation result for
+    4124 modules, independent export receipts and a passing standalone target/common-definition and Solution
+    axiom-closure receipt. The three later full-export kernel attempts did not establish passes: con-ron
+    stopped at its RSS guard, NanoDa aborted with a worker stack overflow, and default Lean reached its
+    wall cap with no proof verdict. The final source/export-reuse validation and a separately recorded
+    independent terminal audit passed. Those are evidence-integrity results, not kernel verification.
+    None of these local diagnostics is a Palomar full mechanical preflight or editorial review. The historical
+    proof_reproducibility_repair block is unchanged; its booleans describe that earlier receipt.'
 alignment:
   namespace: PalomarMonotiles
   statements:
   - source: Exact physical HENRY/T7 strong aperiodicity with finite full Euclidean symmetry bound 645120
     lean: PalomarMonotiles.T7_strongAperiodicity
     module: Challenge
-    status: complete
-    note: The repaired dependency chain, actual Solution and exact expanded-type audit compiled and passed
-      default-kernel checks. Targeted replay result SHA-256 8260f6d8090a4fbbd398f3cf1aa06074acb66c2c3e6b1a954a0dd3d24b2e90bf.
-      It does not certify an official repaired clean build or independent external kernels.
+    note: The selected endpoint is PalomarMonotiles.T7_strongAperiodicity. Historical Repair1 targeted replay
+      result SHA-256 8260f6d8090a4fbbd398f3cf1aa06074acb66c2c3e6b1a954a0dd3d24b2e90bf remains historical
+      evidence. The current optimized candidate, manifest 7f115da7f7726a083751fea4070c45cd23cd52c87080045e3fd40f3ec4912153,
+      passed all 4124 fresh local compilations, separate Challenge/Solution exports, standalone target/common-definition
+      comparison with no definition exemptions, and the permitted-axiom closure check of this Solution theorem.
+      Subsequent full-export attempts ended with a con-ron RSS-guard stop, NanoDa worker-stack overflow
+      and default Lean wall timeout. None established a full-export kernel pass or mathematical rejection.
+      Full-export kernel passes and official full-preflight success remain unestablished. Metadata-only
+      publication staging is linked to that candidate through the external source-identity manifest.
 acknowledgements: Lean, Mathlib and standard-library contributors. AI contributions are disclosed under
   automation. Do not infer additional human authorship, endorsement or review from the supplied sources.
   Carry confirmed contributor credits into the final package.
@@ -174,3 +209,150 @@ proof_reproducibility_repair:
   full_clean_project_build_established: false
   official_repair1_pass_established: false
   official_acceptance_established: false
+
+verification_evidence:
+  as_of_utc: '2026-10-09T09:06:32.516186+00:00'
+  historical_repair_receipt_scope: 'proof_reproducibility_repair is preserved literally as the earlier
+    targeted-replay receipt. Its counts, flags, one-file delta and full_clean_project_build_established:
+    false do not describe the later baseline official build or the optimized candidate.'
+  historical_official_preflight:
+    source_commit: 8e1dc7924f7573b00c182e43342a0fc09b734d28
+    workflow_url: https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37795381080
+    pipeline_commit: d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+    mechanical_report_sha256: 3e2ddec06888791bc96a91461c789594716eae3ce0ded971d690813397f47e44
+    status: error
+    stage: resource-exhausted
+    last_active_stage: comparator
+    execution_budget_seconds: 19800
+    clean_solution_build_pass: true
+    challenge_export_pass: true
+    solution_export_pass: true
+    comparator_pass_established: false
+    completed_independent_kernel_pass_established: false
+  candidate_local:
+    frozen_source_canonical_files_sha256: 7f115da7f7726a083751fea4070c45cd23cd52c87080045e3fd40f3ec4912153
+    basis_formalization_yaml_sha256: f1c6cda064ed9ac178d24f783550e503dd912bd110894efaef8b3db0f61270ce
+    metadata_only_staging: true
+    identity_note: The frozen-source digest identifies the source used for local verification before
+      this metadata update. The publication-stage whole-source manifest is recorded externally and differs.
+      All other source paths, bytes and modes are identical.
+    fresh_compilation:
+      status: PASS_ALL_4124_FRESH_LOCAL_COMPILES
+      completed_modules: 4124
+      build_result_sha256: 9e3deb740c202dc407335c1fcf59f9d1005ac4b9efd445c3253c2a53c8582c7d
+      all_project_modules_fresh: true
+      pinned_external_dependency_cache_reused: true
+    replay_run_start_sha256: b018ddeb56c68989d20a6afca5fbfa0bfbb85486b7c3721302f1de058cee835d
+    challenge_export:
+      status: pass
+      bytes: 81629664
+      sha256: b1847b1c72f9f3a51fe733158cff35cd86c88be69bfb9d8ca2e2327c68edb8b9
+      receipt_sha256: 45df831babdffa356fd2ee51d2a489cb9070de0f05d2504cfe6703334bb57b67
+    solution_export:
+      status: pass
+      bytes: 577584042
+      sha256: e1bec936e06446adf4e4df51b3e4a6a2650f02dddd344d195fb5e225b1980226
+      receipt_sha256: f174c2662366fbc98b497cc783b2c80d01ac47941996bd403614957cfcedc979
+    standalone_comparison_and_axioms:
+      status: pass
+      receipt_sha256: 92bac4ef44a5432f52a04c178cdfaad7f4e2c88e7c2a6d19c9752c012f8a990b
+      log_sha256: d167281c4c923c9de57235b0fa3e6aaf9de7bbcc9295d86fe074fa99a7e43b72
+      comparison_driver_sha256: 4f96f1f47fa3f815c0bf72ef9c4442799033acd4c76b7c62e9180efef5331b54
+      selected_theorem: PalomarMonotiles.T7_strongAperiodicity
+      definition_exemptions: []
+      permitted_axioms:
+      - propext
+      - Quot.sound
+      - Classical.choice
+      official_comparator: false
+    full_export_kernels:
+      con_ron:
+        status: stopped_rss_guard_no_proof_verdict
+        pass_established: false
+        exit_code: -9
+        receipt_sha256: f079d73a726a02d6729cc886e7ac50f9f8d53c9fbcfa88deffb2608980c42f71
+        finished_at_utc: '2026-10-09T05:22:56.571116+00:00'
+        wall_seconds: 168.5469179560023
+        rss_guard_mib: 4608
+        observed_peak_group_rss_kib: 4723900
+        rss_guard_triggered: true
+        cpu_accounting_complete: false
+        result_note: The configured operational RSS guard stopped the process. This is a capacity stop,
+          not a mathematical rejection.
+        start_receipt_sha256: 8ba1442b9b110b65e893ae6f7a99fb4ac4eaf0b6adac0d964da8d414db99b57c
+        started_at_utc: '2026-10-09T05:20:08.023605+00:00'
+        result_sha256: 8f41c8712087882c08e81f0a792e9c372f7d75f5058226b76226a86a09cefc31
+      nanoda:
+        status: runtime_stack_overflow_no_proof_verdict
+        pass_established: false
+        exit_code: -6
+        started_at_utc: '2026-10-09T05:49:52.467453+00:00'
+        finished_at_utc: '2026-10-09T05:50:08.971200+00:00'
+        wall_seconds: 16.503738407001947
+        timed_out: false
+        rss_guard_triggered: false
+        receipt_sha256: 3ad752877f2ba410aac0e67dafab9812ffb3257274c7c07fb77db0647e424db7
+        result_sha256: 7e2a99014edebfaeaab17ad57f87d6e4d7b768a69ed69ad4740935e4d960d5bc
+        driver_exit_sha256: 57858b5115ae2dbe6abdd445d3dd26c26b47a9a9579be1e94fb4fd901e4c4226
+        log_sha256: f762a0c366df6df056417fd636584320d7f45bbc81472c0a0ae01fc87d3a9bbb
+        cpu_accounting_complete: false
+        worker_stack_source_evidence:
+          bytes: 16777216
+          source_commit: 4c544ed4099c8227f07d5de77ad1e69fb0740a27
+          size_declaration: https://github.com/ammkrn/nanoda_lib/blob/4c544ed4099c8227f07d5de77ad1e69fb0740a27/src/lib.rs#L23
+          worker_application: https://github.com/ammkrn/nanoda_lib/blob/4c544ed4099c8227f07d5de77ad1e69fb0740a27/src/tc.rs#L160
+          interpretation: Pinned source setting, not a runtime stack-size measurement.
+        result_note: A checker runtime stack overflow is recorded; no failing declaration or mathematical
+          rejection was established.
+      lean_default:
+        status: RESOURCE_INCONCLUSIVE
+        pass_established: false
+        exit_code: 124
+        started_at_utc: '2026-10-09T05:58:58.875836+00:00'
+        finished_at_utc: '2026-10-09T08:58:59.418022+00:00'
+        timeout_seconds: 10800
+        wall_seconds: 10800.542177412994
+        timed_out: true
+        rss_guard_triggered: false
+        receipt_sha256: 0e79f0ca64a1fe650bcf4cf8ee8e8cd0c045cb5e316dc9e64d5135fa3b5cf607
+        result_sha256: 7b3be1a2bd243bd2cca29f18d4536b7152ee904bdf9f81ef7800983cc3b12eb7
+        driver_exit_sha256: 10654a55d1cae9b553b88926f07d432258e6b4a4b784b7cadb95fba33abb368c
+        log_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        cpu_accounting_complete: false
+        live_processes_after_cleanup: []
+        result_note: The authorized wall limit was reached without a proof verdict. The diagnostic driver
+          completed with exit 0 after recording this checker non-pass; the checker itself exited 124.
+    original_serial_replay_terminal_status: STOPPED_REQUIRES_REVIEW
+    original_serial_replay_terminal_result_sha256: 8f41c8712087882c08e81f0a792e9c372f7d75f5058226b76226a86a09cefc31
+    latest_diagnostic_result:
+      status: COMPLETE_DEFAULT_LEAN_DIAGNOSTIC_WITH_NONPASS
+      result_sha256: 7b3be1a2bd243bd2cca29f18d4536b7152ee904bdf9f81ef7800983cc3b12eb7
+      finished_at_utc: '2026-10-09T08:59:35.491602+00:00'
+      final_source_export_reuse_validation:
+        status: PASS_IMMUTABLE_EXPORT_AND_SOURCE_REUSE_VALIDATION
+        receipt_sha256: 33a086ff38c0f8e8399fe742bedd450727e995e52e35e364cb8c269fd2b28595
+        at_utc: '2026-10-09T08:59:34.896186+00:00'
+      independent_terminal_audit:
+        status: PASS_INDEPENDENT_TERMINAL_AUDIT_DEFAULT_LEAN_TIMEOUT_WITH_NONPASS
+        sha256: fff34cfbf1a29737baf7dee1333042ab5a53cadafaa7766146e93bad8be644f6
+        scope_note: Evidence integrity and terminal-outcome review only; no kernel pass is implied.
+  official_candidate_full_preflight:
+    status: not_run
+    pass_established: false
+    runtime_fit_established: false
+    planned_execution_profile: palomar-standard-v1
+    purpose: Supported official-workflow diagnostic; no expected passing result is asserted from the
+      local outcomes.
+  registry:
+    submitted: false
+    registered: false
+  publication_note: New local metadata-only staging snapshot. All three full-export kernel passes remain
+    unestablished. No official preflight has run for this staged source; root activation is required
+    before any public action. A passing full official workflow is required before agent intake.
+  prior_metadata_snapshot:
+    source_canonical_files_sha256: 190adf4225ded1985aa25de8ca5e3a465c681603398462747a1fd20861a05fae
+    formalization_yaml_sha256: aaaa4c0f6735e8e8061f6b7102db86f9855a68d02854abfa8fdb8150b910f94f
+    independent_review_sha256: e72ce3370ce6173526a6153a6c559aa16668e042412adc6b755712f8d61bfc3d
+    as_of_utc: '2026-10-09T05:24:59.124391+00:00'
+    preservation_note: The complete prior snapshot and exact prior metadata/receipts remain unchanged;
+      this superseding state is a new metadata-only source identity.
