@@ -22,9 +22,234 @@ def canonicalBox7_96 : BoxKey 7 :=
 theorem canonicalMatch7_96 :
     canonicalPose7_96.boxKey 188160 (referenceBox7 (!canonicalBox7_96.bump)) = canonicalBox7_96 := by decide +kernel
 
+private theorem decodeFin7 {P : Fin 7 → Prop}
+    (h0 : P 0) (h1 : P 1) (h2 : P 2) (h3 : P 3)
+    (h4 : P 4) (h5 : P 5) (h6 : P 6) : ∀ i, P i :=
+  Fin.cases h0 (Fin.cases h1 (Fin.cases h2 (Fin.cases h3
+    (Fin.cases h4 (Fin.cases h5 (Fin.cases h6 (fun i => Fin.elim0 i)))))))
+
+private theorem decode188160_neg560 :
+    ((-560 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (-1 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_0 :
+    ((0 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (0 : ℚ) := by
+  norm_num
+
+private theorem decode188160_560 :
+    ((560 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_1680 :
+    ((1680 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1 / 112 : ℚ) := by
+  norm_num
+
+private theorem decode188160_1960 :
+    ((1960 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1 / 96 : ℚ) := by
+  norm_num
+
+private theorem decode188160_2240 :
+    ((2240 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1 / 84 : ℚ) := by
+  norm_num
+
+private theorem decode188160_2520 :
+    ((2520 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (3 / 224 : ℚ) := by
+  norm_num
+
+private theorem decode188160_2800 :
+    ((2800 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (5 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_3080 :
+    ((3080 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (11 / 672 : ℚ) := by
+  norm_num
+
+private theorem decode188160_53375 :
+    ((53375 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1525 / 5376 : ℚ) := by
+  norm_num
+
+private theorem decode188160_53760 :
+    ((53760 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (2 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_60080 :
+    ((60080 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (751 / 2352 : ℚ) := by
+  norm_num
+
+private theorem decode188160_60480 :
+    ((60480 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (9 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_66780 :
+    ((66780 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (159 / 448 : ℚ) := by
+  norm_num
+
+private theorem decode188160_67200 :
+    ((67200 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (5 / 14 : ℚ) := by
+  norm_num
+
+private theorem decode188160_73472 :
+    ((73472 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (41 / 105 : ℚ) := by
+  norm_num
+
+private theorem decode188160_73920 :
+    ((73920 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (11 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_100800 :
+    ((100800 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (15 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_101360 :
+    ((101360 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (181 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_107520 :
+    ((107520 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (4 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_108010 :
+    ((108010 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1543 / 2688 : ℚ) := by
+  norm_num
+
+private theorem decode188160_114240 :
+    ((114240 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (17 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_114688 :
+    ((114688 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (64 / 105 : ℚ) := by
+  norm_num
+
+private theorem decode188160_120960 :
+    ((120960 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (9 / 14 : ℚ) := by
+  norm_num
+
+private theorem decode188160_121380 :
+    ((121380 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (289 / 448 : ℚ) := by
+  norm_num
+
+private theorem decode188160_127680 :
+    ((127680 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (19 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_128080 :
+    ((128080 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (1601 / 2352 : ℚ) := by
+  norm_num
+
+private theorem decode188160_134400 :
+    ((134400 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (5 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_134785 :
+    ((134785 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (3851 / 5376 : ℚ) := by
+  norm_num
+
+private theorem decode188160_241535 :
+    ((241535 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (6901 / 5376 : ℚ) := by
+  norm_num
+
+private theorem decode188160_241920 :
+    ((241920 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (9 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_248240 :
+    ((248240 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (3103 / 2352 : ℚ) := by
+  norm_num
+
+private theorem decode188160_248640 :
+    ((248640 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (37 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_254940 :
+    ((254940 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (607 / 448 : ℚ) := by
+  norm_num
+
+private theorem decode188160_255360 :
+    ((255360 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (19 / 14 : ℚ) := by
+  norm_num
+
+private theorem decode188160_261632 :
+    ((261632 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (146 / 105 : ℚ) := by
+  norm_num
+
+private theorem decode188160_262080 :
+    ((262080 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (39 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_268310 :
+    ((268310 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (3833 / 2688 : ℚ) := by
+  norm_num
+
+private theorem decode188160_268800 :
+    ((268800 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (10 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_274960 :
+    ((274960 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (491 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_275520 :
+    ((275520 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (41 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_302400 :
+    ((302400 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (45 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_302848 :
+    ((302848 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (169 / 105 : ℚ) := by
+  norm_num
+
+private theorem decode188160_309120 :
+    ((309120 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (23 / 14 : ℚ) := by
+  norm_num
+
+private theorem decode188160_309540 :
+    ((309540 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (737 / 448 : ℚ) := by
+  norm_num
+
+private theorem decode188160_315840 :
+    ((315840 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (47 / 28 : ℚ) := by
+  norm_num
+
+private theorem decode188160_316240 :
+    ((316240 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (3953 / 2352 : ℚ) := by
+  norm_num
+
+private theorem decode188160_322560 :
+    ((322560 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (12 / 7 : ℚ) := by
+  norm_num
+
+private theorem decode188160_322945 :
+    ((322945 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (9227 / 5376 : ℚ) := by
+  norm_num
+
+private theorem decode188160_375760 :
+    ((375760 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (671 / 336 : ℚ) := by
+  norm_num
+
+private theorem decode188160_376320 :
+    ((376320 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (2 : ℚ) := by
+  norm_num
+
+private theorem decode188160_376880 :
+    ((376880 : ℤ) : ℚ) / ((188160 : ℤ) : ℚ) = (673 / 336 : ℚ) := by
+  norm_num
+
 theorem canonicalDecode7_96 : canonicalBox7_96.toKeyData 188160 = keys7Chunk3.get ⟨0, by decide⟩ := by
+  have _ := canonicalBox7_96.eq_1
   change canonicalBox7_96.toKeyData 188160 = ⟨![0, (11 / 28), (4 / 7), (41 / 28), (9 / 7), (19 / 28), (5 / 14)], ![0, (1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336), (3 / 224)], ![(1 / 336), (41 / 105), (1543 / 2688), (491 / 336), (6901 / 5376), (1601 / 2352), (159 / 448)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_0 decode188160_73920 decode188160_107520 decode188160_275520
+      decode188160_241920 decode188160_127680 decode188160_67200
+  · exact decodeFin7
+      decode188160_0 decode188160_2240 decode188160_1960 decode188160_1680
+      decode188160_3080 decode188160_2800 decode188160_2520
+  · exact decodeFin7
+      decode188160_560 decode188160_73472 decode188160_108010 decode188160_274960
+      decode188160_241535 decode188160_128080 decode188160_66780
+  · rfl
 
 theorem canonicalSolid7_96 : keySolid (keys7Chunk3.get ⟨0, by decide⟩) = canonicalPose7_96.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_96 (box := canonicalBox7_96) (k := keys7Chunk3.get ⟨0, by decide⟩) (canonicalMatch7_96) (canonicalDecode7_96)
@@ -38,8 +263,19 @@ theorem canonicalMatch7_97 :
     canonicalPose7_97.boxKey 188160 (referenceBox7 (!canonicalBox7_97.bump)) = canonicalBox7_97 := by decide +kernel
 
 theorem canonicalDecode7_97 : canonicalBox7_97.toKeyData 188160 = keys7Chunk3.get ⟨1, by decide⟩ := by
+  have _ := canonicalBox7_97.eq_1
   change canonicalBox7_97.toKeyData 188160 = ⟨![0, (5 / 14), (19 / 28), (9 / 7), (41 / 28), (4 / 7), (11 / 28)], ![0, (3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96), (1 / 84)], ![(-1 / 336), (159 / 448), (1601 / 2352), (6901 / 5376), (491 / 336), (1543 / 2688), (41 / 105)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_0 decode188160_67200 decode188160_127680 decode188160_241920
+      decode188160_275520 decode188160_107520 decode188160_73920
+  · exact decodeFin7
+      decode188160_0 decode188160_2520 decode188160_2800 decode188160_3080
+      decode188160_1680 decode188160_1960 decode188160_2240
+  · exact decodeFin7
+      decode188160_neg560 decode188160_66780 decode188160_128080 decode188160_241535
+      decode188160_274960 decode188160_108010 decode188160_73472
+  · rfl
 
 theorem canonicalSolid7_97 : keySolid (keys7Chunk3.get ⟨1, by decide⟩) = canonicalPose7_97.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_97 (box := canonicalBox7_97) (k := keys7Chunk3.get ⟨1, by decide⟩) (canonicalMatch7_97) (canonicalDecode7_97)
@@ -53,8 +289,19 @@ theorem canonicalMatch7_98 :
     canonicalPose7_98.boxKey 188160 (referenceBox7 (!canonicalBox7_98.bump)) = canonicalBox7_98 := by decide +kernel
 
 theorem canonicalDecode7_98 : canonicalBox7_98.toKeyData 188160 = keys7Chunk3.get ⟨2, by decide⟩ := by
+  have _ := canonicalBox7_98.eq_1
   change canonicalBox7_98.toKeyData 188160 = ⟨![(17 / 28), 0, (9 / 14), (47 / 28), (12 / 7), (15 / 28), (4 / 7)], ![(1 / 84), 0, (3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96)], ![(64 / 105), (-1 / 336), (289 / 448), (3953 / 2352), (9227 / 5376), (181 / 336), (1543 / 2688)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_114240 decode188160_0 decode188160_120960 decode188160_315840
+      decode188160_322560 decode188160_100800 decode188160_107520
+  · exact decodeFin7
+      decode188160_2240 decode188160_0 decode188160_2520 decode188160_2800
+      decode188160_3080 decode188160_1680 decode188160_1960
+  · exact decodeFin7
+      decode188160_114688 decode188160_neg560 decode188160_121380 decode188160_316240
+      decode188160_322945 decode188160_101360 decode188160_108010
+  · rfl
 
 theorem canonicalSolid7_98 : keySolid (keys7Chunk3.get ⟨2, by decide⟩) = canonicalPose7_98.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_98 (box := canonicalBox7_98) (k := keys7Chunk3.get ⟨2, by decide⟩) (canonicalMatch7_98) (canonicalDecode7_98)
@@ -68,8 +315,19 @@ theorem canonicalMatch7_99 :
     canonicalPose7_99.boxKey 188160 (referenceBox7 (!canonicalBox7_99.bump)) = canonicalBox7_99 := by decide +kernel
 
 theorem canonicalDecode7_99 : canonicalBox7_99.toKeyData 188160 = keys7Chunk3.get ⟨3, by decide⟩ := by
+  have _ := canonicalBox7_99.eq_1
   change canonicalBox7_99.toKeyData 188160 = ⟨![(9 / 28), (9 / 14), 0, (39 / 28), (10 / 7), (15 / 28), (5 / 7)], ![(5 / 336), (3 / 224), 0, (1 / 84), (1 / 96), (1 / 112), (11 / 672)], ![(751 / 2352), (289 / 448), (-1 / 336), (146 / 105), (3833 / 2688), (181 / 336), (3851 / 5376)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_60480 decode188160_120960 decode188160_0 decode188160_262080
+      decode188160_268800 decode188160_100800 decode188160_134400
+  · exact decodeFin7
+      decode188160_2800 decode188160_2520 decode188160_0 decode188160_2240
+      decode188160_1960 decode188160_1680 decode188160_3080
+  · exact decodeFin7
+      decode188160_60080 decode188160_121380 decode188160_neg560 decode188160_261632
+      decode188160_268310 decode188160_101360 decode188160_134785
+  · rfl
 
 theorem canonicalSolid7_99 : keySolid (keys7Chunk3.get ⟨3, by decide⟩) = canonicalPose7_99.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_99 (box := canonicalBox7_99) (k := keys7Chunk3.get ⟨3, by decide⟩) (canonicalMatch7_99) (canonicalDecode7_99)
@@ -83,8 +341,19 @@ theorem canonicalMatch7_100 :
     canonicalPose7_100.boxKey 188160 (referenceBox7 (!canonicalBox7_100.bump)) = canonicalBox7_100 := by decide +kernel
 
 theorem canonicalDecode7_100 : canonicalBox7_100.toKeyData 188160 = keys7Chunk3.get ⟨4, by decide⟩ := by
+  have _ := canonicalBox7_100.eq_1
   change canonicalBox7_100.toKeyData 188160 = ⟨![(19 / 28), (5 / 14), (17 / 28), 2, (10 / 7), (15 / 28), (2 / 7)], ![(5 / 336), (3 / 224), (1 / 84), 0, (1 / 96), (1 / 112), (11 / 672)], ![(1601 / 2352), (159 / 448), (64 / 105), (671 / 336), (3833 / 2688), (181 / 336), (1525 / 5376)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_127680 decode188160_67200 decode188160_114240 decode188160_376320
+      decode188160_268800 decode188160_100800 decode188160_53760
+  · exact decodeFin7
+      decode188160_2800 decode188160_2520 decode188160_2240 decode188160_0
+      decode188160_1960 decode188160_1680 decode188160_3080
+  · exact decodeFin7
+      decode188160_128080 decode188160_66780 decode188160_114688 decode188160_375760
+      decode188160_268310 decode188160_101360 decode188160_53375
+  · rfl
 
 theorem canonicalSolid7_100 : keySolid (keys7Chunk3.get ⟨4, by decide⟩) = canonicalPose7_100.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_100 (box := canonicalBox7_100) (k := keys7Chunk3.get ⟨4, by decide⟩) (canonicalMatch7_100) (canonicalDecode7_100)
@@ -98,8 +367,19 @@ theorem canonicalMatch7_101 :
     canonicalPose7_101.boxKey 188160 (referenceBox7 (!canonicalBox7_101.bump)) = canonicalBox7_101 := by decide +kernel
 
 theorem canonicalDecode7_101 : canonicalBox7_101.toKeyData 188160 = keys7Chunk3.get ⟨5, by decide⟩ := by
+  have _ := canonicalBox7_101.eq_1
   change canonicalBox7_101.toKeyData 188160 = ⟨![(19 / 28), (2 / 7), (15 / 28), (10 / 7), 2, (17 / 28), (5 / 14)], ![(5 / 336), (11 / 672), (1 / 112), (1 / 96), 0, (1 / 84), (3 / 224)], ![(1601 / 2352), (1525 / 5376), (181 / 336), (3833 / 2688), (673 / 336), (64 / 105), (159 / 448)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_127680 decode188160_53760 decode188160_100800 decode188160_268800
+      decode188160_376320 decode188160_114240 decode188160_67200
+  · exact decodeFin7
+      decode188160_2800 decode188160_3080 decode188160_1680 decode188160_1960
+      decode188160_0 decode188160_2240 decode188160_2520
+  · exact decodeFin7
+      decode188160_128080 decode188160_53375 decode188160_101360 decode188160_268310
+      decode188160_376880 decode188160_114688 decode188160_66780
+  · rfl
 
 theorem canonicalSolid7_101 : keySolid (keys7Chunk3.get ⟨5, by decide⟩) = canonicalPose7_101.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_101 (box := canonicalBox7_101) (k := keys7Chunk3.get ⟨5, by decide⟩) (canonicalMatch7_101) (canonicalDecode7_101)
@@ -113,8 +393,19 @@ theorem canonicalMatch7_102 :
     canonicalPose7_102.boxKey 188160 (referenceBox7 (!canonicalBox7_102.bump)) = canonicalBox7_102 := by decide +kernel
 
 theorem canonicalDecode7_102 : canonicalBox7_102.toKeyData 188160 = keys7Chunk3.get ⟨6, by decide⟩ := by
+  have _ := canonicalBox7_102.eq_1
   change canonicalBox7_102.toKeyData 188160 = ⟨![(9 / 28), (5 / 7), (15 / 28), (10 / 7), (39 / 28), 0, (9 / 14)], ![(5 / 336), (11 / 672), (1 / 112), (1 / 96), (1 / 84), 0, (3 / 224)], ![(751 / 2352), (3851 / 5376), (181 / 336), (3833 / 2688), (146 / 105), (1 / 336), (289 / 448)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_60480 decode188160_134400 decode188160_100800 decode188160_268800
+      decode188160_262080 decode188160_0 decode188160_120960
+  · exact decodeFin7
+      decode188160_2800 decode188160_3080 decode188160_1680 decode188160_1960
+      decode188160_2240 decode188160_0 decode188160_2520
+  · exact decodeFin7
+      decode188160_60080 decode188160_134785 decode188160_101360 decode188160_268310
+      decode188160_261632 decode188160_560 decode188160_121380
+  · rfl
 
 theorem canonicalSolid7_102 : keySolid (keys7Chunk3.get ⟨6, by decide⟩) = canonicalPose7_102.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_102 (box := canonicalBox7_102) (k := keys7Chunk3.get ⟨6, by decide⟩) (canonicalMatch7_102) (canonicalDecode7_102)
@@ -128,8 +419,19 @@ theorem canonicalMatch7_103 :
     canonicalPose7_103.boxKey 188160 (referenceBox7 (!canonicalBox7_103.bump)) = canonicalBox7_103 := by decide +kernel
 
 theorem canonicalDecode7_103 : canonicalBox7_103.toKeyData 188160 = keys7Chunk3.get ⟨7, by decide⟩ := by
+  have _ := canonicalBox7_103.eq_1
   change canonicalBox7_103.toKeyData 188160 = ⟨![(17 / 28), (4 / 7), (15 / 28), (12 / 7), (47 / 28), (9 / 14), 0], ![(1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336), (3 / 224), 0], ![(64 / 105), (1543 / 2688), (181 / 336), (9227 / 5376), (3953 / 2352), (289 / 448), (1 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_114240 decode188160_107520 decode188160_100800 decode188160_322560
+      decode188160_315840 decode188160_120960 decode188160_0
+  · exact decodeFin7
+      decode188160_2240 decode188160_1960 decode188160_1680 decode188160_3080
+      decode188160_2800 decode188160_2520 decode188160_0
+  · exact decodeFin7
+      decode188160_114688 decode188160_108010 decode188160_101360 decode188160_322945
+      decode188160_316240 decode188160_121380 decode188160_560
+  · rfl
 
 theorem canonicalSolid7_103 : keySolid (keys7Chunk3.get ⟨7, by decide⟩) = canonicalPose7_103.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_103 (box := canonicalBox7_103) (k := keys7Chunk3.get ⟨7, by decide⟩) (canonicalMatch7_103) (canonicalDecode7_103)
@@ -143,8 +445,19 @@ theorem canonicalMatch7_104 :
     canonicalPose7_104.boxKey 188160 (referenceBox7 (!canonicalBox7_104.bump)) = canonicalBox7_104 := by decide +kernel
 
 theorem canonicalDecode7_104 : canonicalBox7_104.toKeyData 188160 = keys7Chunk3.get ⟨8, by decide⟩ := by
+  have _ := canonicalBox7_104.eq_1
   change canonicalBox7_104.toKeyData 188160 = ⟨![0, (9 / 14), (9 / 28), (9 / 7), (41 / 28), (4 / 7), (39 / 28)], ![0, (3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96), (1 / 84)], ![(-1 / 336), (289 / 448), (751 / 2352), (6901 / 5376), (491 / 336), (1543 / 2688), (146 / 105)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_0 decode188160_120960 decode188160_60480 decode188160_241920
+      decode188160_275520 decode188160_107520 decode188160_262080
+  · exact decodeFin7
+      decode188160_0 decode188160_2520 decode188160_2800 decode188160_3080
+      decode188160_1680 decode188160_1960 decode188160_2240
+  · exact decodeFin7
+      decode188160_neg560 decode188160_121380 decode188160_60080 decode188160_241535
+      decode188160_274960 decode188160_108010 decode188160_261632
+  · rfl
 
 theorem canonicalSolid7_104 : keySolid (keys7Chunk3.get ⟨8, by decide⟩) = canonicalPose7_104.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_104 (box := canonicalBox7_104) (k := keys7Chunk3.get ⟨8, by decide⟩) (canonicalMatch7_104) (canonicalDecode7_104)
@@ -158,8 +471,19 @@ theorem canonicalMatch7_105 :
     canonicalPose7_105.boxKey 188160 (referenceBox7 (!canonicalBox7_105.bump)) = canonicalBox7_105 := by decide +kernel
 
 theorem canonicalDecode7_105 : canonicalBox7_105.toKeyData 188160 = keys7Chunk3.get ⟨9, by decide⟩ := by
+  have _ := canonicalBox7_105.eq_1
   change canonicalBox7_105.toKeyData 188160 = ⟨![(9 / 14), 0, (17 / 28), (10 / 7), (41 / 28), (2 / 7), (47 / 28)], ![(3 / 224), 0, (1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336)], ![(289 / 448), (-1 / 336), (64 / 105), (3833 / 2688), (491 / 336), (1525 / 5376), (3953 / 2352)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_120960 decode188160_0 decode188160_114240 decode188160_268800
+      decode188160_275520 decode188160_53760 decode188160_315840
+  · exact decodeFin7
+      decode188160_2520 decode188160_0 decode188160_2240 decode188160_1960
+      decode188160_1680 decode188160_3080 decode188160_2800
+  · exact decodeFin7
+      decode188160_121380 decode188160_neg560 decode188160_114688 decode188160_268310
+      decode188160_274960 decode188160_53375 decode188160_316240
+  · rfl
 
 theorem canonicalSolid7_105 : keySolid (keys7Chunk3.get ⟨9, by decide⟩) = canonicalPose7_105.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_105 (box := canonicalBox7_105) (k := keys7Chunk3.get ⟨9, by decide⟩) (canonicalMatch7_105) (canonicalDecode7_105)
@@ -173,8 +497,19 @@ theorem canonicalMatch7_106 :
     canonicalPose7_106.boxKey 188160 (referenceBox7 (!canonicalBox7_106.bump)) = canonicalBox7_106 := by decide +kernel
 
 theorem canonicalDecode7_106 : canonicalBox7_106.toKeyData 188160 = keys7Chunk3.get ⟨10, by decide⟩ := by
+  have _ := canonicalBox7_106.eq_1
   change canonicalBox7_106.toKeyData 188160 = ⟨![(4 / 7), (11 / 28), 0, (23 / 14), (37 / 28), (5 / 7), (41 / 28)], ![(1 / 96), (1 / 84), 0, (3 / 224), (5 / 336), (11 / 672), (1 / 112)], ![(1543 / 2688), (41 / 105), (1 / 336), (737 / 448), (3103 / 2352), (3851 / 5376), (491 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_107520 decode188160_73920 decode188160_0 decode188160_309120
+      decode188160_248640 decode188160_134400 decode188160_275520
+  · exact decodeFin7
+      decode188160_1960 decode188160_2240 decode188160_0 decode188160_2520
+      decode188160_2800 decode188160_3080 decode188160_1680
+  · exact decodeFin7
+      decode188160_108010 decode188160_73472 decode188160_560 decode188160_309540
+      decode188160_248240 decode188160_134785 decode188160_274960
+  · rfl
 
 theorem canonicalSolid7_106 : keySolid (keys7Chunk3.get ⟨10, by decide⟩) = canonicalPose7_106.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_106 (box := canonicalBox7_106) (k := keys7Chunk3.get ⟨10, by decide⟩) (canonicalMatch7_106) (canonicalDecode7_106)
@@ -188,8 +523,19 @@ theorem canonicalMatch7_107 :
     canonicalPose7_107.boxKey 188160 (referenceBox7 (!canonicalBox7_107.bump)) = canonicalBox7_107 := by decide +kernel
 
 theorem canonicalDecode7_107 : canonicalBox7_107.toKeyData 188160 = keys7Chunk3.get ⟨11, by decide⟩ := by
+  have _ := canonicalBox7_107.eq_1
   change canonicalBox7_107.toKeyData 188160 = ⟨![(19 / 28), (5 / 14), 0, (45 / 28), (10 / 7), (15 / 28), (9 / 7)], ![(5 / 336), (3 / 224), 0, (1 / 84), (1 / 96), (1 / 112), (11 / 672)], ![(1601 / 2352), (159 / 448), (-1 / 336), (169 / 105), (3833 / 2688), (181 / 336), (6901 / 5376)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_127680 decode188160_67200 decode188160_0 decode188160_302400
+      decode188160_268800 decode188160_100800 decode188160_241920
+  · exact decodeFin7
+      decode188160_2800 decode188160_2520 decode188160_0 decode188160_2240
+      decode188160_1960 decode188160_1680 decode188160_3080
+  · exact decodeFin7
+      decode188160_128080 decode188160_66780 decode188160_neg560 decode188160_302848
+      decode188160_268310 decode188160_101360 decode188160_241535
+  · rfl
 
 theorem canonicalSolid7_107 : keySolid (keys7Chunk3.get ⟨11, by decide⟩) = canonicalPose7_107.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_107 (box := canonicalBox7_107) (k := keys7Chunk3.get ⟨11, by decide⟩) (canonicalMatch7_107) (canonicalDecode7_107)
@@ -203,8 +549,19 @@ theorem canonicalMatch7_108 :
     canonicalPose7_108.boxKey 188160 (referenceBox7 (!canonicalBox7_108.bump)) = canonicalBox7_108 := by decide +kernel
 
 theorem canonicalDecode7_108 : canonicalBox7_108.toKeyData 188160 = keys7Chunk3.get ⟨12, by decide⟩ := by
+  have _ := canonicalBox7_108.eq_1
   change canonicalBox7_108.toKeyData 188160 = ⟨![(15 / 28), (4 / 7), (17 / 28), 2, (19 / 14), (9 / 28), (12 / 7)], ![(1 / 112), (1 / 96), (1 / 84), 0, (3 / 224), (5 / 336), (11 / 672)], ![(181 / 336), (1543 / 2688), (64 / 105), (671 / 336), (607 / 448), (751 / 2352), (9227 / 5376)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_100800 decode188160_107520 decode188160_114240 decode188160_376320
+      decode188160_255360 decode188160_60480 decode188160_322560
+  · exact decodeFin7
+      decode188160_1680 decode188160_1960 decode188160_2240 decode188160_0
+      decode188160_2520 decode188160_2800 decode188160_3080
+  · exact decodeFin7
+      decode188160_101360 decode188160_108010 decode188160_114688 decode188160_375760
+      decode188160_254940 decode188160_60080 decode188160_322945
+  · rfl
 
 theorem canonicalSolid7_108 : keySolid (keys7Chunk3.get ⟨12, by decide⟩) = canonicalPose7_108.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_108 (box := canonicalBox7_108) (k := keys7Chunk3.get ⟨12, by decide⟩) (canonicalMatch7_108) (canonicalDecode7_108)
@@ -218,8 +575,19 @@ theorem canonicalMatch7_109 :
     canonicalPose7_109.boxKey 188160 (referenceBox7 (!canonicalBox7_109.bump)) = canonicalBox7_109 := by decide +kernel
 
 theorem canonicalDecode7_109 : canonicalBox7_109.toKeyData 188160 = keys7Chunk3.get ⟨13, by decide⟩ := by
+  have _ := canonicalBox7_109.eq_1
   change canonicalBox7_109.toKeyData 188160 = ⟨![(15 / 28), (5 / 7), (9 / 28), (19 / 14), 2, (17 / 28), (10 / 7)], ![(1 / 112), (11 / 672), (5 / 336), (3 / 224), 0, (1 / 84), (1 / 96)], ![(181 / 336), (3851 / 5376), (751 / 2352), (607 / 448), (671 / 336), (64 / 105), (3833 / 2688)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_100800 decode188160_134400 decode188160_60480 decode188160_255360
+      decode188160_376320 decode188160_114240 decode188160_268800
+  · exact decodeFin7
+      decode188160_1680 decode188160_3080 decode188160_2800 decode188160_2520
+      decode188160_0 decode188160_2240 decode188160_1960
+  · exact decodeFin7
+      decode188160_101360 decode188160_134785 decode188160_60080 decode188160_254940
+      decode188160_375760 decode188160_114688 decode188160_268310
+  · rfl
 
 theorem canonicalSolid7_109 : keySolid (keys7Chunk3.get ⟨13, by decide⟩) = canonicalPose7_109.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_109 (box := canonicalBox7_109) (k := keys7Chunk3.get ⟨13, by decide⟩) (canonicalMatch7_109) (canonicalDecode7_109)
@@ -233,8 +601,19 @@ theorem canonicalMatch7_110 :
     canonicalPose7_110.boxKey 188160 (referenceBox7 (!canonicalBox7_110.bump)) = canonicalBox7_110 := by decide +kernel
 
 theorem canonicalDecode7_110 : canonicalBox7_110.toKeyData 188160 = keys7Chunk3.get ⟨14, by decide⟩ := by
+  have _ := canonicalBox7_110.eq_1
   change canonicalBox7_110.toKeyData 188160 = ⟨![(15 / 28), (2 / 7), (19 / 28), (23 / 14), (39 / 28), 0, (10 / 7)], ![(1 / 112), (11 / 672), (5 / 336), (3 / 224), (1 / 84), 0, (1 / 96)], ![(181 / 336), (1525 / 5376), (1601 / 2352), (737 / 448), (146 / 105), (-1 / 336), (3833 / 2688)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_100800 decode188160_53760 decode188160_127680 decode188160_309120
+      decode188160_262080 decode188160_0 decode188160_268800
+  · exact decodeFin7
+      decode188160_1680 decode188160_3080 decode188160_2800 decode188160_2520
+      decode188160_2240 decode188160_0 decode188160_1960
+  · exact decodeFin7
+      decode188160_101360 decode188160_53375 decode188160_128080 decode188160_309540
+      decode188160_261632 decode188160_neg560 decode188160_268310
+  · rfl
 
 theorem canonicalSolid7_110 : keySolid (keys7Chunk3.get ⟨14, by decide⟩) = canonicalPose7_110.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_110 (box := canonicalBox7_110) (k := keys7Chunk3.get ⟨14, by decide⟩) (canonicalMatch7_110) (canonicalDecode7_110)
@@ -248,8 +627,19 @@ theorem canonicalMatch7_111 :
     canonicalPose7_111.boxKey 188160 (referenceBox7 (!canonicalBox7_111.bump)) = canonicalBox7_111 := by decide +kernel
 
 theorem canonicalDecode7_111 : canonicalBox7_111.toKeyData 188160 = keys7Chunk3.get ⟨15, by decide⟩ := by
+  have _ := canonicalBox7_111.eq_1
   change canonicalBox7_111.toKeyData 188160 = ⟨![(17 / 28), (5 / 14), (19 / 28), (12 / 7), (41 / 28), (4 / 7), 2], ![(1 / 84), (3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96), 0], ![(64 / 105), (159 / 448), (1601 / 2352), (9227 / 5376), (491 / 336), (1543 / 2688), (671 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_114240 decode188160_67200 decode188160_127680 decode188160_322560
+      decode188160_275520 decode188160_107520 decode188160_376320
+  · exact decodeFin7
+      decode188160_2240 decode188160_2520 decode188160_2800 decode188160_3080
+      decode188160_1680 decode188160_1960 decode188160_0
+  · exact decodeFin7
+      decode188160_114688 decode188160_66780 decode188160_128080 decode188160_322945
+      decode188160_274960 decode188160_108010 decode188160_375760
+  · rfl
 
 theorem canonicalSolid7_111 : keySolid (keys7Chunk3.get ⟨15, by decide⟩) = canonicalPose7_111.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_111 (box := canonicalBox7_111) (k := keys7Chunk3.get ⟨15, by decide⟩) (canonicalMatch7_111) (canonicalDecode7_111)
@@ -263,8 +653,19 @@ theorem canonicalMatch7_112 :
     canonicalPose7_112.boxKey 188160 (referenceBox7 (!canonicalBox7_112.bump)) = canonicalBox7_112 := by decide +kernel
 
 theorem canonicalDecode7_112 : canonicalBox7_112.toKeyData 188160 = keys7Chunk3.get ⟨16, by decide⟩ := by
+  have _ := canonicalBox7_112.eq_1
   change canonicalBox7_112.toKeyData 188160 = ⟨![0, (4 / 7), (15 / 28), (12 / 7), (37 / 28), (23 / 14), (17 / 28)], ![0, (1 / 96), (1 / 112), (11 / 672), (5 / 336), (3 / 224), (1 / 84)], ![(-1 / 336), (1543 / 2688), (181 / 336), (9227 / 5376), (3103 / 2352), (737 / 448), (64 / 105)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_0 decode188160_107520 decode188160_100800 decode188160_322560
+      decode188160_248640 decode188160_309120 decode188160_114240
+  · exact decodeFin7
+      decode188160_0 decode188160_1960 decode188160_1680 decode188160_3080
+      decode188160_2800 decode188160_2520 decode188160_2240
+  · exact decodeFin7
+      decode188160_neg560 decode188160_108010 decode188160_101360 decode188160_322945
+      decode188160_248240 decode188160_309540 decode188160_114688
+  · rfl
 
 theorem canonicalSolid7_112 : keySolid (keys7Chunk3.get ⟨16, by decide⟩) = canonicalPose7_112.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_112 (box := canonicalBox7_112) (k := keys7Chunk3.get ⟨16, by decide⟩) (canonicalMatch7_112) (canonicalDecode7_112)
@@ -278,8 +679,19 @@ theorem canonicalMatch7_113 :
     canonicalPose7_113.boxKey 188160 (referenceBox7 (!canonicalBox7_113.bump)) = canonicalBox7_113 := by decide +kernel
 
 theorem canonicalDecode7_113 : canonicalBox7_113.toKeyData 188160 = keys7Chunk3.get ⟨17, by decide⟩ := by
+  have _ := canonicalBox7_113.eq_1
   change canonicalBox7_113.toKeyData 188160 = ⟨![(4 / 7), 0, (17 / 28), (23 / 14), (37 / 28), (12 / 7), (15 / 28)], ![(1 / 96), 0, (1 / 84), (3 / 224), (5 / 336), (11 / 672), (1 / 112)], ![(1543 / 2688), (1 / 336), (64 / 105), (737 / 448), (3103 / 2352), (9227 / 5376), (181 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_107520 decode188160_0 decode188160_114240 decode188160_309120
+      decode188160_248640 decode188160_322560 decode188160_100800
+  · exact decodeFin7
+      decode188160_1960 decode188160_0 decode188160_2240 decode188160_2520
+      decode188160_2800 decode188160_3080 decode188160_1680
+  · exact decodeFin7
+      decode188160_108010 decode188160_560 decode188160_114688 decode188160_309540
+      decode188160_248240 decode188160_322945 decode188160_101360
+  · rfl
 
 theorem canonicalSolid7_113 : keySolid (keys7Chunk3.get ⟨17, by decide⟩) = canonicalPose7_113.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_113 (box := canonicalBox7_113) (k := keys7Chunk3.get ⟨17, by decide⟩) (canonicalMatch7_113) (canonicalDecode7_113)
@@ -293,8 +705,19 @@ theorem canonicalMatch7_114 :
     canonicalPose7_114.boxKey 188160 (referenceBox7 (!canonicalBox7_114.bump)) = canonicalBox7_114 := by decide +kernel
 
 theorem canonicalDecode7_114 : canonicalBox7_114.toKeyData 188160 = keys7Chunk3.get ⟨18, by decide⟩ := by
+  have _ := canonicalBox7_114.eq_1
   change canonicalBox7_114.toKeyData 188160 = ⟨![(4 / 7), (17 / 28), 0, (19 / 14), (47 / 28), (9 / 7), (15 / 28)], ![(1 / 96), (1 / 84), 0, (3 / 224), (5 / 336), (11 / 672), (1 / 112)], ![(1543 / 2688), (64 / 105), (-1 / 336), (607 / 448), (3953 / 2352), (6901 / 5376), (181 / 336)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_107520 decode188160_114240 decode188160_0 decode188160_255360
+      decode188160_315840 decode188160_241920 decode188160_100800
+  · exact decodeFin7
+      decode188160_1960 decode188160_2240 decode188160_0 decode188160_2520
+      decode188160_2800 decode188160_3080 decode188160_1680
+  · exact decodeFin7
+      decode188160_108010 decode188160_114688 decode188160_neg560 decode188160_254940
+      decode188160_316240 decode188160_241535 decode188160_101360
+  · rfl
 
 theorem canonicalSolid7_114 : keySolid (keys7Chunk3.get ⟨18, by decide⟩) = canonicalPose7_114.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_114 (box := canonicalBox7_114) (k := keys7Chunk3.get ⟨18, by decide⟩) (canonicalMatch7_114) (canonicalDecode7_114)
@@ -308,8 +731,19 @@ theorem canonicalMatch7_115 :
     canonicalPose7_115.boxKey 188160 (referenceBox7 (!canonicalBox7_115.bump)) = canonicalBox7_115 := by decide +kernel
 
 theorem canonicalDecode7_115 : canonicalBox7_115.toKeyData 188160 = keys7Chunk3.get ⟨19, by decide⟩ := by
+  have _ := canonicalBox7_115.eq_1
   change canonicalBox7_115.toKeyData 188160 = ⟨![(2 / 7), (9 / 28), (9 / 14), 2, (39 / 28), (10 / 7), (15 / 28)], ![(11 / 672), (5 / 336), (3 / 224), 0, (1 / 84), (1 / 96), (1 / 112)], ![(1525 / 5376), (751 / 2352), (289 / 448), (673 / 336), (146 / 105), (3833 / 2688), (181 / 336)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_53760 decode188160_60480 decode188160_120960 decode188160_376320
+      decode188160_262080 decode188160_268800 decode188160_100800
+  · exact decodeFin7
+      decode188160_3080 decode188160_2800 decode188160_2520 decode188160_0
+      decode188160_2240 decode188160_1960 decode188160_1680
+  · exact decodeFin7
+      decode188160_53375 decode188160_60080 decode188160_121380 decode188160_376880
+      decode188160_261632 decode188160_268310 decode188160_101360
+  · rfl
 
 theorem canonicalSolid7_115 : keySolid (keys7Chunk3.get ⟨19, by decide⟩) = canonicalPose7_115.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_115 (box := canonicalBox7_115) (k := keys7Chunk3.get ⟨19, by decide⟩) (canonicalMatch7_115) (canonicalDecode7_115)
@@ -323,8 +757,19 @@ theorem canonicalMatch7_116 :
     canonicalPose7_116.boxKey 188160 (referenceBox7 (!canonicalBox7_116.bump)) = canonicalBox7_116 := by decide +kernel
 
 theorem canonicalDecode7_116 : canonicalBox7_116.toKeyData 188160 = keys7Chunk3.get ⟨20, by decide⟩ := by
+  have _ := canonicalBox7_116.eq_1
   change canonicalBox7_116.toKeyData 188160 = ⟨![(15 / 28), (5 / 7), (19 / 28), (23 / 14), 2, (45 / 28), (4 / 7)], ![(1 / 112), (11 / 672), (5 / 336), (3 / 224), 0, (1 / 84), (1 / 96)], ![(181 / 336), (3851 / 5376), (1601 / 2352), (737 / 448), (673 / 336), (169 / 105), (1543 / 2688)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_100800 decode188160_134400 decode188160_127680 decode188160_309120
+      decode188160_376320 decode188160_302400 decode188160_107520
+  · exact decodeFin7
+      decode188160_1680 decode188160_3080 decode188160_2800 decode188160_2520
+      decode188160_0 decode188160_2240 decode188160_1960
+  · exact decodeFin7
+      decode188160_101360 decode188160_134785 decode188160_128080 decode188160_309540
+      decode188160_376880 decode188160_302848 decode188160_108010
+  · rfl
 
 theorem canonicalSolid7_116 : keySolid (keys7Chunk3.get ⟨20, by decide⟩) = canonicalPose7_116.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_116 (box := canonicalBox7_116) (k := keys7Chunk3.get ⟨20, by decide⟩) (canonicalMatch7_116) (canonicalDecode7_116)
@@ -338,8 +783,19 @@ theorem canonicalMatch7_117 :
     canonicalPose7_117.boxKey 188160 (referenceBox7 (!canonicalBox7_117.bump)) = canonicalBox7_117 := by decide +kernel
 
 theorem canonicalDecode7_117 : canonicalBox7_117.toKeyData 188160 = keys7Chunk3.get ⟨21, by decide⟩ := by
+  have _ := canonicalBox7_117.eq_1
   change canonicalBox7_117.toKeyData 188160 = ⟨![(5 / 7), (15 / 28), (4 / 7), (45 / 28), 2, (23 / 14), (19 / 28)], ![(11 / 672), (1 / 112), (1 / 96), (1 / 84), 0, (3 / 224), (5 / 336)], ![(3851 / 5376), (181 / 336), (1543 / 2688), (169 / 105), (671 / 336), (737 / 448), (1601 / 2352)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_134400 decode188160_100800 decode188160_107520 decode188160_302400
+      decode188160_376320 decode188160_309120 decode188160_127680
+  · exact decodeFin7
+      decode188160_3080 decode188160_1680 decode188160_1960 decode188160_2240
+      decode188160_0 decode188160_2520 decode188160_2800
+  · exact decodeFin7
+      decode188160_134785 decode188160_101360 decode188160_108010 decode188160_302848
+      decode188160_375760 decode188160_309540 decode188160_128080
+  · rfl
 
 theorem canonicalSolid7_117 : keySolid (keys7Chunk3.get ⟨21, by decide⟩) = canonicalPose7_117.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_117 (box := canonicalBox7_117) (k := keys7Chunk3.get ⟨21, by decide⟩) (canonicalMatch7_117) (canonicalDecode7_117)
@@ -353,8 +809,19 @@ theorem canonicalMatch7_118 :
     canonicalPose7_118.boxKey 188160 (referenceBox7 (!canonicalBox7_118.bump)) = canonicalBox7_118 := by decide +kernel
 
 theorem canonicalDecode7_118 : canonicalBox7_118.toKeyData 188160 = keys7Chunk3.get ⟨22, by decide⟩ := by
+  have _ := canonicalBox7_118.eq_1
   change canonicalBox7_118.toKeyData 188160 = ⟨![(9 / 28), (2 / 7), (15 / 28), (10 / 7), (39 / 28), 2, (9 / 14)], ![(5 / 336), (11 / 672), (1 / 112), (1 / 96), (1 / 84), 0, (3 / 224)], ![(751 / 2352), (1525 / 5376), (181 / 336), (3833 / 2688), (146 / 105), (671 / 336), (289 / 448)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_60480 decode188160_53760 decode188160_100800 decode188160_268800
+      decode188160_262080 decode188160_376320 decode188160_120960
+  · exact decodeFin7
+      decode188160_2800 decode188160_3080 decode188160_1680 decode188160_1960
+      decode188160_2240 decode188160_0 decode188160_2520
+  · exact decodeFin7
+      decode188160_60080 decode188160_53375 decode188160_101360 decode188160_268310
+      decode188160_261632 decode188160_375760 decode188160_121380
+  · rfl
 
 theorem canonicalSolid7_118 : keySolid (keys7Chunk3.get ⟨22, by decide⟩) = canonicalPose7_118.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_118 (box := canonicalBox7_118) (k := keys7Chunk3.get ⟨22, by decide⟩) (canonicalMatch7_118) (canonicalDecode7_118)
@@ -368,8 +835,19 @@ theorem canonicalMatch7_119 :
     canonicalPose7_119.boxKey 188160 (referenceBox7 (!canonicalBox7_119.bump)) = canonicalBox7_119 := by decide +kernel
 
 theorem canonicalDecode7_119 : canonicalBox7_119.toKeyData 188160 = keys7Chunk3.get ⟨23, by decide⟩ := by
+  have _ := canonicalBox7_119.eq_1
   change canonicalBox7_119.toKeyData 188160 = ⟨![(17 / 28), (4 / 7), (15 / 28), (9 / 7), (47 / 28), (19 / 14), 0], ![(1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336), (3 / 224), 0], ![(64 / 105), (1543 / 2688), (181 / 336), (6901 / 5376), (3953 / 2352), (607 / 448), (1 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_114240 decode188160_107520 decode188160_100800 decode188160_241920
+      decode188160_315840 decode188160_255360 decode188160_0
+  · exact decodeFin7
+      decode188160_2240 decode188160_1960 decode188160_1680 decode188160_3080
+      decode188160_2800 decode188160_2520 decode188160_0
+  · exact decodeFin7
+      decode188160_114688 decode188160_108010 decode188160_101360 decode188160_241535
+      decode188160_316240 decode188160_254940 decode188160_560
+  · rfl
 
 theorem canonicalSolid7_119 : keySolid (keys7Chunk3.get ⟨23, by decide⟩) = canonicalPose7_119.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_119 (box := canonicalBox7_119) (k := keys7Chunk3.get ⟨23, by decide⟩) (canonicalMatch7_119) (canonicalDecode7_119)
@@ -383,8 +861,19 @@ theorem canonicalMatch7_120 :
     canonicalPose7_120.boxKey 188160 (referenceBox7 (!canonicalBox7_120.bump)) = canonicalBox7_120 := by decide +kernel
 
 theorem canonicalDecode7_120 : canonicalBox7_120.toKeyData 188160 = keys7Chunk3.get ⟨24, by decide⟩ := by
+  have _ := canonicalBox7_120.eq_1
   change canonicalBox7_120.toKeyData 188160 = ⟨![0, (17 / 28), (4 / 7), (41 / 28), (12 / 7), (47 / 28), (19 / 14)], ![0, (1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336), (3 / 224)], ![(1 / 336), (64 / 105), (1543 / 2688), (491 / 336), (9227 / 5376), (3953 / 2352), (607 / 448)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_0 decode188160_114240 decode188160_107520 decode188160_275520
+      decode188160_322560 decode188160_315840 decode188160_255360
+  · exact decodeFin7
+      decode188160_0 decode188160_2240 decode188160_1960 decode188160_1680
+      decode188160_3080 decode188160_2800 decode188160_2520
+  · exact decodeFin7
+      decode188160_560 decode188160_114688 decode188160_108010 decode188160_274960
+      decode188160_322945 decode188160_316240 decode188160_254940
+  · rfl
 
 theorem canonicalSolid7_120 : keySolid (keys7Chunk3.get ⟨24, by decide⟩) = canonicalPose7_120.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_120 (box := canonicalBox7_120) (k := keys7Chunk3.get ⟨24, by decide⟩) (canonicalMatch7_120) (canonicalDecode7_120)
@@ -398,8 +887,19 @@ theorem canonicalMatch7_121 :
     canonicalPose7_121.boxKey 188160 (referenceBox7 (!canonicalBox7_121.bump)) = canonicalBox7_121 := by decide +kernel
 
 theorem canonicalDecode7_121 : canonicalBox7_121.toKeyData 188160 = keys7Chunk3.get ⟨25, by decide⟩ := by
+  have _ := canonicalBox7_121.eq_1
   change canonicalBox7_121.toKeyData 188160 = ⟨![(11 / 28), 0, (5 / 14), (37 / 28), (9 / 7), (41 / 28), (10 / 7)], ![(1 / 84), 0, (3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96)], ![(41 / 105), (-1 / 336), (159 / 448), (3103 / 2352), (6901 / 5376), (491 / 336), (3833 / 2688)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_73920 decode188160_0 decode188160_67200 decode188160_248640
+      decode188160_241920 decode188160_275520 decode188160_268800
+  · exact decodeFin7
+      decode188160_2240 decode188160_0 decode188160_2520 decode188160_2800
+      decode188160_3080 decode188160_1680 decode188160_1960
+  · exact decodeFin7
+      decode188160_73472 decode188160_neg560 decode188160_66780 decode188160_248240
+      decode188160_241535 decode188160_274960 decode188160_268310
+  · rfl
 
 theorem canonicalSolid7_121 : keySolid (keys7Chunk3.get ⟨25, by decide⟩) = canonicalPose7_121.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_121 (box := canonicalBox7_121) (k := keys7Chunk3.get ⟨25, by decide⟩) (canonicalMatch7_121) (canonicalDecode7_121)
@@ -413,8 +913,19 @@ theorem canonicalMatch7_122 :
     canonicalPose7_122.boxKey 188160 (referenceBox7 (!canonicalBox7_122.bump)) = canonicalBox7_122 := by decide +kernel
 
 theorem canonicalDecode7_122 : canonicalBox7_122.toKeyData 188160 = keys7Chunk3.get ⟨26, by decide⟩ := by
+  have _ := canonicalBox7_122.eq_1
   change canonicalBox7_122.toKeyData 188160 = ⟨![(5 / 14), 0, (11 / 28), (10 / 7), (41 / 28), (9 / 7), (37 / 28)], ![(3 / 224), 0, (1 / 84), (1 / 96), (1 / 112), (11 / 672), (5 / 336)], ![(159 / 448), (1 / 336), (41 / 105), (3833 / 2688), (491 / 336), (6901 / 5376), (3103 / 2352)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_67200 decode188160_0 decode188160_73920 decode188160_268800
+      decode188160_275520 decode188160_241920 decode188160_248640
+  · exact decodeFin7
+      decode188160_2520 decode188160_0 decode188160_2240 decode188160_1960
+      decode188160_1680 decode188160_3080 decode188160_2800
+  · exact decodeFin7
+      decode188160_66780 decode188160_560 decode188160_73472 decode188160_268310
+      decode188160_274960 decode188160_241535 decode188160_248240
+  · rfl
 
 theorem canonicalSolid7_122 : keySolid (keys7Chunk3.get ⟨26, by decide⟩) = canonicalPose7_122.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_122 (box := canonicalBox7_122) (k := keys7Chunk3.get ⟨26, by decide⟩) (canonicalMatch7_122) (canonicalDecode7_122)
@@ -428,8 +939,19 @@ theorem canonicalMatch7_123 :
     canonicalPose7_123.boxKey 188160 (referenceBox7 (!canonicalBox7_123.bump)) = canonicalBox7_123 := by decide +kernel
 
 theorem canonicalDecode7_123 : canonicalBox7_123.toKeyData 188160 = keys7Chunk3.get ⟨27, by decide⟩ := by
+  have _ := canonicalBox7_123.eq_1
   change canonicalBox7_123.toKeyData 188160 = ⟨![(4 / 7), (17 / 28), 0, (19 / 14), (47 / 28), (12 / 7), (41 / 28)], ![(1 / 96), (1 / 84), 0, (3 / 224), (5 / 336), (11 / 672), (1 / 112)], ![(1543 / 2688), (64 / 105), (-1 / 336), (607 / 448), (3953 / 2352), (9227 / 5376), (491 / 336)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_107520 decode188160_114240 decode188160_0 decode188160_255360
+      decode188160_315840 decode188160_322560 decode188160_275520
+  · exact decodeFin7
+      decode188160_1960 decode188160_2240 decode188160_0 decode188160_2520
+      decode188160_2800 decode188160_3080 decode188160_1680
+  · exact decodeFin7
+      decode188160_108010 decode188160_114688 decode188160_neg560 decode188160_254940
+      decode188160_316240 decode188160_322945 decode188160_274960
+  · rfl
 
 theorem canonicalSolid7_123 : keySolid (keys7Chunk3.get ⟨27, by decide⟩) = canonicalPose7_123.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_123 (box := canonicalBox7_123) (k := keys7Chunk3.get ⟨27, by decide⟩) (canonicalMatch7_123) (canonicalDecode7_123)
@@ -443,8 +965,19 @@ theorem canonicalMatch7_124 :
     canonicalPose7_124.boxKey 188160 (referenceBox7 (!canonicalBox7_124.bump)) = canonicalBox7_124 := by decide +kernel
 
 theorem canonicalDecode7_124 : canonicalBox7_124.toKeyData 188160 = keys7Chunk3.get ⟨28, by decide⟩ := by
+  have _ := canonicalBox7_124.eq_1
   change canonicalBox7_124.toKeyData 188160 = ⟨![(5 / 7), (9 / 28), (9 / 14), 2, (39 / 28), (10 / 7), (41 / 28)], ![(11 / 672), (5 / 336), (3 / 224), 0, (1 / 84), (1 / 96), (1 / 112)], ![(3851 / 5376), (751 / 2352), (289 / 448), (673 / 336), (146 / 105), (3833 / 2688), (491 / 336)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_134400 decode188160_60480 decode188160_120960 decode188160_376320
+      decode188160_262080 decode188160_268800 decode188160_275520
+  · exact decodeFin7
+      decode188160_3080 decode188160_2800 decode188160_2520 decode188160_0
+      decode188160_2240 decode188160_1960 decode188160_1680
+  · exact decodeFin7
+      decode188160_134785 decode188160_60080 decode188160_121380 decode188160_376880
+      decode188160_261632 decode188160_268310 decode188160_274960
+  · rfl
 
 theorem canonicalSolid7_124 : keySolid (keys7Chunk3.get ⟨28, by decide⟩) = canonicalPose7_124.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_124 (box := canonicalBox7_124) (k := keys7Chunk3.get ⟨28, by decide⟩) (canonicalMatch7_124) (canonicalDecode7_124)
@@ -458,8 +991,19 @@ theorem canonicalMatch7_125 :
     canonicalPose7_125.boxKey 188160 (referenceBox7 (!canonicalBox7_125.bump)) = canonicalBox7_125 := by decide +kernel
 
 theorem canonicalDecode7_125 : canonicalBox7_125.toKeyData 188160 = keys7Chunk3.get ⟨29, by decide⟩ := by
+  have _ := canonicalBox7_125.eq_1
   change canonicalBox7_125.toKeyData 188160 = ⟨![(2 / 7), (19 / 28), (5 / 14), (39 / 28), 2, (10 / 7), (41 / 28)], ![(11 / 672), (5 / 336), (3 / 224), (1 / 84), 0, (1 / 96), (1 / 112)], ![(1525 / 5376), (1601 / 2352), (159 / 448), (146 / 105), (671 / 336), (3833 / 2688), (491 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_53760 decode188160_127680 decode188160_67200 decode188160_262080
+      decode188160_376320 decode188160_268800 decode188160_275520
+  · exact decodeFin7
+      decode188160_3080 decode188160_2800 decode188160_2520 decode188160_2240
+      decode188160_0 decode188160_1960 decode188160_1680
+  · exact decodeFin7
+      decode188160_53375 decode188160_128080 decode188160_66780 decode188160_261632
+      decode188160_375760 decode188160_268310 decode188160_274960
+  · rfl
 
 theorem canonicalSolid7_125 : keySolid (keys7Chunk3.get ⟨29, by decide⟩) = canonicalPose7_125.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_125 (box := canonicalBox7_125) (k := keys7Chunk3.get ⟨29, by decide⟩) (canonicalMatch7_125) (canonicalDecode7_125)
@@ -473,8 +1017,19 @@ theorem canonicalMatch7_126 :
     canonicalPose7_126.boxKey 188160 (referenceBox7 (!canonicalBox7_126.bump)) = canonicalBox7_126 := by decide +kernel
 
 theorem canonicalDecode7_126 : canonicalBox7_126.toKeyData 188160 = keys7Chunk3.get ⟨30, by decide⟩ := by
+  have _ := canonicalBox7_126.eq_1
   change canonicalBox7_126.toKeyData 188160 = ⟨![(5 / 14), (19 / 28), (2 / 7), (41 / 28), (10 / 7), 2, (39 / 28)], ![(3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96), 0, (1 / 84)], ![(159 / 448), (1601 / 2352), (1525 / 5376), (491 / 336), (3833 / 2688), (673 / 336), (146 / 105)], true⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_67200 decode188160_127680 decode188160_53760 decode188160_275520
+      decode188160_268800 decode188160_376320 decode188160_262080
+  · exact decodeFin7
+      decode188160_2520 decode188160_2800 decode188160_3080 decode188160_1680
+      decode188160_1960 decode188160_0 decode188160_2240
+  · exact decodeFin7
+      decode188160_66780 decode188160_128080 decode188160_53375 decode188160_274960
+      decode188160_268310 decode188160_376880 decode188160_261632
+  · rfl
 
 theorem canonicalSolid7_126 : keySolid (keys7Chunk3.get ⟨30, by decide⟩) = canonicalPose7_126.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_126 (box := canonicalBox7_126) (k := keys7Chunk3.get ⟨30, by decide⟩) (canonicalMatch7_126) (canonicalDecode7_126)
@@ -488,8 +1043,19 @@ theorem canonicalMatch7_127 :
     canonicalPose7_127.boxKey 188160 (referenceBox7 (!canonicalBox7_127.bump)) = canonicalBox7_127 := by decide +kernel
 
 theorem canonicalDecode7_127 : canonicalBox7_127.toKeyData 188160 = keys7Chunk3.get ⟨31, by decide⟩ := by
+  have _ := canonicalBox7_127.eq_1
   change canonicalBox7_127.toKeyData 188160 = ⟨![(9 / 14), (9 / 28), (5 / 7), (41 / 28), (10 / 7), (39 / 28), 2], ![(3 / 224), (5 / 336), (11 / 672), (1 / 112), (1 / 96), (1 / 84), 0], ![(289 / 448), (751 / 2352), (3851 / 5376), (491 / 336), (3833 / 2688), (146 / 105), (671 / 336)], false⟩
-  apply keyData_ext_of_coordinates <;> decide +kernel
+  apply keyData_ext_of_coordinates
+  · exact decodeFin7
+      decode188160_120960 decode188160_60480 decode188160_134400 decode188160_275520
+      decode188160_268800 decode188160_262080 decode188160_376320
+  · exact decodeFin7
+      decode188160_2520 decode188160_2800 decode188160_3080 decode188160_1680
+      decode188160_1960 decode188160_2240 decode188160_0
+  · exact decodeFin7
+      decode188160_121380 decode188160_60080 decode188160_134785 decode188160_274960
+      decode188160_268310 decode188160_261632 decode188160_375760
+  · rfl
 
 theorem canonicalSolid7_127 : keySolid (keys7Chunk3.get ⟨31, by decide⟩) = canonicalPose7_127.euclidean '' referenceSolid7 :=
   canonical7_of_box_match canonicalPose7_127 (box := canonicalBox7_127) (k := keys7Chunk3.get ⟨31, by decide⟩) (canonicalMatch7_127) (canonicalDecode7_127)
