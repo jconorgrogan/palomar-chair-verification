@@ -1,0 +1,31 @@
+name: Full Palomar mechanical verification
+
+# This draft is for the separately approved verification branch only.
+# Publication and workflow execution require the responsible maintainer's
+# authorization; preparing this local file does not grant that authorization.
+on:
+  push:
+    branches:
+      - verification/prime-three-mod-four-20261013
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact approved 40-character source commit to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  palomar-full:
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ inputs.source_commit || github.sha }}
+      pipeline_commit: d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+      request_id: prime3mod4${{ github.run_id }}
+      mode: full
+      execution_profile: palomar-standard-v1
+      options: >-
+        {"comparator_config_path":"comparator.json","authorization_relationship":"I have approval from a responsible author or maintainer"}

@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-10-13T04:30:00Z",
+  "scope": "Local static packaging checks, separate from the required Palomar full verifier",
+  "proof_closure_modules": 183,
+  "standalone_statement_and_solution_modules": 2,
+  "all_modules_have_module_header": true,
+  "all_modules_below_10000_lines": true,
+  "largest_lean_module_lines": 591,
+  "challenge_lines": 42,
+  "challenge_utf8_bytes": 2123,
+  "challenge_direct_imports": [
+    "Mathlib.Analysis.InnerProductSpace.PiL2",
+    "Mathlib.Topology.MetricSpace.Isometry",
+    "Mathlib.Data.Nat.Prime.Defs"
+  ],
+  "challenge_imports_only_mathlib": true,
+  "challenge_solution_theorem_type_text_identical": true,
+  "solution_does_not_import_challenge": true,
+  "challenge_intentional_statement_placeholders": 1,
+  "proof_closure_textual_holes_or_trust_bypasses": [],
+  "lean_source_symlinks": 0,
+  "metadata_official_v04_schema_validation": "pass",
+  "preserved_manuscript_source_digests_match": true,
+  "comparator_definition_names": [],
+  "official_full_workflow_ran": false,
+  "public_repository_write_performed": false,
+  "planned_verification_branch": "verification/prime-three-mod-four-20261013",
+  "planned_branch_absent_at_utc": "2026-10-13T04:33:35Z",
+  "workflow_trigger": "push restricted to the planned verification branch; workflow_dispatch for explicit later reruns",
+  "workflow_pipeline_pinned": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44",
+  "workflow_full_mode_and_profile_verified": true
+}

@@ -1,0 +1,9 @@
+.lake/
+.lake-debug/
+*.olean
+*.olean.*
+*.ilean
+*.ir
+*.ir.sig
+*.trace
+*.hash

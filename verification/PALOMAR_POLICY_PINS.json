@@ -1,0 +1,15 @@
+{
+  "verified_at_utc": "2026-10-13T04:23:00Z",
+  "PalomarPolicy": "96b034cc31a72a63d4f4041911dce337a85c9a04",
+  "PalomarTemplate": "2891de4c48955af824969a263d31b25e7a9a1406",
+  "PalomarSubmission": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44",
+  "minimum_lean": "v4.35.0-rc2",
+  "project_lean": "v4.35.0-rc2",
+  "mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+  "challenge_source_imports": "Mathlib only; no candidate-local imports",
+  "required_remote_mode": "full",
+  "required_caller_profile": "palomar-standard-v1",
+  "local_comparator_is_remote_full_workflow": false,
+  "full_workflow_ran": false,
+  "registry_submission_performed": false
+}

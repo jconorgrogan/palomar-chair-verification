@@ -1,0 +1,26 @@
+[
+  {
+    "path": "sources/DENSE_REGISTRATION_THEOREM.md",
+    "sha256": "1b424d9fb7be37f219cfe92f0a723eaab38595465fd839384aa75f8db740b477"
+  },
+  {
+    "path": "sources/FINAL_REGISTERED_SCOPE.md",
+    "sha256": "bbffd1d5f9dda2e445c6de654f401ad04b3811e1d30ba3cdd7943ead36347325"
+  },
+  {
+    "path": "sources/HISTORICAL_LICENSE_SCOPE.md",
+    "sha256": "6f738f15557e175cf3b8d5559c9dd74b3a80f1ba9723c98e360ace6743d71c67"
+  },
+  {
+    "path": "sources/UNIFORM_FACET_FINAL_THEOREM.md",
+    "sha256": "1ddff1bc61dcce92ec84d3b64dae3722d7d42ab3033ade0ff34f0a106a90e753"
+  },
+  {
+    "path": "sources/UNIFORM_THEOREM_SUMMARY.md",
+    "sha256": "76dae90716a32d4a84f3818ba919dd51f3a471bed7bd60cf1583e1e37d0139ad"
+  },
+  {
+    "path": "sources/licenses/CC-BY-4.0.txt",
+    "sha256": "76c86ec10616b2e227964b1cda858cdb12f4ec929752e71e8de5a830e7fbdde7"
+  }
+]

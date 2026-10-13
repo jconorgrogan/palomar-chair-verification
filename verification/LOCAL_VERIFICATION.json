@@ -1,0 +1,83 @@
+{
+  "schema": "local-verification-status-v1",
+  "checked_at_utc": "2026-10-13T04:29:00Z",
+  "scope": "Local Lean compilation and official leanchecker diagnostics; not a Palomar full-workflow pass.",
+  "lean_toolchain": "leanprover/lean4:v4.35.0-rc2",
+  "mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+  "module_system_package_build": {
+    "utc": "2026-10-13T04:23:43.683616+00:00",
+    "command": "lake build Solution Challenge",
+    "exit_code": 0,
+    "elapsed_seconds": 264.758,
+    "max_process_tree_rss_kib": 2405056,
+    "lean_num_threads": 1,
+    "guard_reason": null,
+    "time_guard_seconds": 1200,
+    "memory_guard_gib": 7,
+    "whole_mathlib_build_allowed": false,
+    "challenge_sha256": "c62f703529b2b4731b39fd067c9821108c3689fcf810e6525f3a7e00e0175540",
+    "solution_sha256": "718cdd15d64e16a2f8eb8ad3226738f15b58579fef872f4a6f31ebf84e14285f",
+    "source_port_manifest_sha256": "b85114f5294bf34da90d8def7e10bf03cc92661878d791e523ee85f3ca9a4760",
+    "mathlib_source_compilations_seen": 0,
+    "intentional_challenge_sorry": true
+  },
+  "ported_solution_kernel_type_axiom_audit": {
+    "utc": "2026-10-13T04:26:50.153985+00:00",
+    "leanchecker_exit_code": 0,
+    "endpoint_audit_exit_code": 0,
+    "root": "PrimePhysicalMonotile.exists_prime_three_mod_four_monotile",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "solution_sha256": "718cdd15d64e16a2f8eb8ad3226738f15b58579fef872f4a6f31ebf84e14285f",
+    "challenge_sha256": "c62f703529b2b4731b39fd067c9821108c3689fcf810e6525f3a7e00e0175540",
+    "comparator_passed": false,
+    "nanoda_passed": false,
+    "con_ron_passed": false,
+    "scope": "Separate local ported Solution kernel/type/axiom diagnostics, not a substitute for the blocked sandboxed Comparator/NanoDa/con-ron run."
+  },
+  "source_closure_hash_audit": {
+    "utc": "2026-10-13T04:28:46.786499+00:00",
+    "source_port_manifest_sha256": "b85114f5294bf34da90d8def7e10bf03cc92661878d791e523ee85f3ca9a4760",
+    "checked_module_count": 183,
+    "original_and_packaged_hashes_match": true,
+    "all_packaged_proof_modules_have_module_header": true,
+    "errors": [],
+    "current_physical_modules": 87,
+    "current_physical_audited_roots": 658,
+    "current_arithmetic_modules": 22,
+    "current_arithmetic_audited_roots": 192,
+    "reviewed_checkpoint_unchanged": "75 physical /584 roots +15 SparseMonotiles roots",
+    "official_comparator_status": "blocked twice before judging by bwrap; stopped per parent instruction"
+  },
+  "protected_comparator_attempts": [
+    {
+      "utc": "2026-10-13T04:25:44.445491+00:00",
+      "command": "lake comparator --config /tmp/palomar-comparator.9UrwRB",
+      "exit_code": 1,
+      "elapsed_seconds": 0.065,
+      "error": "bwrap: Can't create file /root: Read-only file system",
+      "stage": "Sandbox startup before proof judging",
+      "nanoda_enabled": true,
+      "con_ron_enabled": true,
+      "sandbox_disabled": false
+    },
+    {
+      "utc": "2026-10-13T04:27:59.638776+00:00",
+      "command": "lake comparator --config /tmp/palomar-comparator.9UrwRB",
+      "exit_code": 1,
+      "error": "bwrap: Destination is not a directory /root",
+      "stage": "Sandbox startup before proof judging",
+      "execution_escalation_requested": true,
+      "nanoda_enabled": true,
+      "con_ron_enabled": true,
+      "sandbox_disabled": false
+    }
+  ],
+  "full_remote_workflow_ran": false,
+  "palomar_submission_performed": false,
+  "registry_publication_claimed": false,
+  "further_local_sandbox_retries_stopped": true
+}

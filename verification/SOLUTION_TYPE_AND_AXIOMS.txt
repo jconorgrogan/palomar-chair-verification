@@ -1,0 +1,17 @@
+@PrimePhysicalMonotile.exists_prime_three_mod_four_monotile : ∀ {p : ℕ},
+  Nat.Prime p →
+    p % 4 = 3 →
+      ∃ T,
+        IsCompact T ∧
+          (interior T).Nonempty ∧
+            (∃ tiles,
+                (∀ A ∈ tiles, ∃ g, A = ⇑g '' T) ∧
+                  (∀ (x : EuclideanSpace ℝ (Fin p)), ∃ A ∈ tiles, x ∈ A) ∧
+                    ∀ A ∈ tiles, ∀ B ∈ tiles, A ≠ B → Disjoint (interior A) (interior B)) ∧
+              ∀ (tiles : Set (Set (EuclideanSpace ℝ (Fin p)))),
+                ((∀ A ∈ tiles, ∃ g, A = ⇑g '' T) ∧
+                    (∀ (x : EuclideanSpace ℝ (Fin p)), ∃ A ∈ tiles, x ∈ A) ∧
+                      ∀ A ∈ tiles, ∀ B ∈ tiles, A ≠ B → Disjoint (interior A) (interior B)) →
+                  ∀ (v : EuclideanSpace ℝ (Fin p)),
+                    (∀ (A : Set (EuclideanSpace ℝ (Fin p))), A ∈ tiles ↔ (fun x => x + v) '' A ∈ tiles) → v = 0
+'PrimePhysicalMonotile.exists_prime_three_mod_four_monotile' depends on axioms: [propext, Classical.choice, Quot.sound]

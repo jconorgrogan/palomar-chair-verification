@@ -1,0 +1,142 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: v0.4
+project:
+  name: Physical aperiodic monotiles in prime dimensions congruent to three modulo four
+  description: >-
+    For every prime p congruent to three modulo four, we construct a compact
+    subset of Euclidean p-space with nonempty interior that admits a tiling by
+    arbitrary isometric copies, including reflections, and for which every
+    tiling by unmarked physical copies has no nonzero translational period.
+    The finite free-orbit keyed-chair compiler, physical tiling existence,
+    arbitrary-isometry registration, arithmetic contact closure, hierarchy,
+    and transfer of unmarked periods are all proved. The statement imposes no
+    registration, matching-rule, contact-catalogue, or hierarchy hypothesis.
+  authors: [Conor Grogan]
+  responsible_maintainers: [Conor Grogan]
+  license: Apache-2.0
+classification:
+  arxiv: [math.MG, math.CO]
+  msc2020: [52C22, 03B35]
+sources:
+  - title: Uniform prime-dimensional framed chair hierarchy manuscripts, 2026-10-05
+    type: manuscript
+    relationship: formalizes
+    location: sources/UNIFORM_THEOREM_SUMMARY.md
+    note: >-
+      The recovered registered hierarchy development covers odd-prime parameters.
+      Its actual-E world construction and arithmetic-atlas period descent are
+      included as substantive proof sources. Bibliographic authorship of the
+      supplied ordinary manuscripts was not established in the retained source
+      records; no third-party endorsement or priority claim is inferred.
+    license: CC-BY-4.0 for author-controlled prose; existing third-party rights retained
+  - title: Dense free-orbit keyed-chair physical registration theorem
+    type: manuscript
+    relationship: formalizes
+    location: sources/DENSE_REGISTRATION_THEOREM.md
+    note: >-
+      The actual Euclidean body, finite native facet sites, rational asymmetric
+      tent keys, complete coefficient graph and arbitrary-isometry registration
+      are implemented directly. Tiling coverage and interior disjointness are
+      derived from literal replacement-piece geometry.
+  - title: Uniform facet compiler theorem for primes congruent to three modulo four
+    type: manuscript
+    relationship: formalizes
+    location: sources/UNIFORM_FACET_FINAL_THEOREM.md
+    note: >-
+      The selected square parameter is one and the nonsquare parameter is minus
+      one. Exact graph walks retain complete tangent frames; arithmetic mean
+      obstruction gives closure into the proved arithmetic atlas. No finite
+      contact catalogue or graph-closure certificate is supplied as an axiom.
+  - title: Pinned physical-monotile model and compact translation-equivariant frames
+    type: formalization
+    relationship: adapts
+    id: https://github.com/jconorgrogan/palomar-chair-verification/tree/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676
+    note: >-
+      The unmarked IsTiling and IsPeriod definitions are retained exactly in
+      SparseMonotiles.Model. The compact coordinate-minimum frame construction
+      is reused. The selected Challenge expands these predicates using only
+      Mathlib so its statement is independent of the proof library. Earlier
+      five-dimensional verification is not claimed as verification of this family.
+    license: Apache-2.0
+related_formalizations:
+  - id: https://github.com/jconorgrogan/palomar-chair-verification/tree/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676
+    relationship: builds-on
+    note: >-
+      Reuses the unmarked physical model and compact frame-selection argument;
+      the dense uniform compiler and physical prime-family proof are substantive
+      new work in the present source tree, not a thin external wrapper.
+status:
+  scope: >-
+    One selected unconditional physical theorem for every prime dimension
+    congruent to three modulo four. It proves compactness, nonempty interior,
+    actual tiling existence, and absence of nonzero translations in every
+    arbitrary-isometry unmarked tiling. The remaining prime dimensions,
+    composite-dimension exclusion, topological-ball certification, and trivial
+    full isometry group are not asserted. Both the original proof closure and
+    the complete module-system publication port compile. The final family
+    endpoint and ported Solution passed official leanchecker and exact
+    theorem-type/axiom audits using only the three standard axioms. Protected
+    Comparator attempts with NanoDa and con-ron enabled stopped before judging
+    because the local host could not create the required sandbox mount at /root.
+    The official remote full Palomar workflow remains pending; no external-kernel
+    verification, Palomar approval, submission, or registration is claimed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+automation:
+  methods:
+    - method: agent
+      models: []
+      framework: OpenAI multi-agent assistant workflow
+      tool_setup: >-
+        Substantive mathematical recovery, finite and Euclidean Lean proof
+        construction, dependency audits, statement review, module-system port,
+        and bounded serialized fresh compiler/kernel replays. Exact model
+        snapshot identifiers were not recorded in the proof artifacts.
+      cost:
+        wall_time: Not reconstructed; verification receipts record individual checks
+        spend_usd: Not tracked
+        hardware: Shared Linux execution workspace; bounded Lean processes
+      prompting_notes: >-
+        Preserve the actual physical construction and unrestricted-isometry
+        quantifiers; prove nonvacuous existence; discharge registration,
+        complete-profile closure and unmarked period transfer rather than
+        assuming certificates; do not infer exclusion of composite dimensions.
+  notes: >-
+    AI systems made substantive mathematical, proof-code, audit and exposition
+    contributions. Verification status is attributed only to actual receipts.
+fidelity:
+  divergences: >-
+    The finite generator set is constructed from eligible complete native-site
+    pairs, with exact equality to the original generated contact relation proved,
+    avoiding a separately enumerated catalogue. Physical tilings are shown to
+    satisfy the larger proved arithmetic atlas; equality of that saturation with
+    the original generated language is not needed or asserted. The selected
+    theorem is translational aperiodicity, not triviality of every isometry group.
+review:
+  status: agent-reviewed; full Palomar mechanical verification pending
+  reviewers: [AI proof-source and statement audits]
+  notes: >-
+    Repeated source reviews and independent fresh compiler, exact theorem-type,
+    axiom and official leanchecker checks were performed on the original proof
+    and ported Solution. No independent human expert review, novelty certification,
+    Palomar editorial approval, or registry publication is claimed. Two protected
+    Comparator attempts failed at sandbox startup before proof judging; no
+    sandbox or kernel requirements were weakened, and further local retries
+    stopped. Exact local results are recorded in verification/LOCAL_VERIFICATION.json.
+alignment:
+  namespace: PrimePhysicalMonotile
+  statements:
+    - source: Dense free-orbit registration and uniform three-mod-four compiler family
+      lean: PrimePhysicalMonotile.exists_prime_three_mod_four_monotile
+      module: Challenge
+      status: proved and Lean-kernel checked in the module-system publication port; full Palomar workflow pending
+      note: >-
+        The independent Challenge imports only Mathlib, expands all tiling and
+        period predicates inline, and has one deliberate theorem statement
+        placeholder. The corresponding Solution contains the actual proof.
+acknowledgements: >-
+  Lean, Mathlib and standard-library contributors. Substantive AI contributions
+  are disclosed above. Supplied-manuscript bibliographic authorship remains
+  unestablished where the retained source records do not identify it. Earlier
+  source rights and applicable third-party notices are retained.

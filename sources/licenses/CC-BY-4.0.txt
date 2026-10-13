@@ -1,0 +1,12 @@
+Creative Commons Attribution 4.0 International
+SPDX identifier: CC-BY-4.0
+
+The manuscript, prose and data identified in LICENSE_SCOPE.md are licensed under Creative Commons Attribution 4.0 International.
+
+Canonical license and deed:
+https://creativecommons.org/licenses/by/4.0/
+
+Full governing legal code:
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+This file is the license notice and canonical link, not a replacement or abridgment of the governing legal code.

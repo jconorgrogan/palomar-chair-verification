@@ -1,0 +1,109 @@
+module
+
+public import PhysicalRegistration.RetainedBall
+public import PhysicalRegistration.IsometryTransport
+public import Mathlib.Topology.MetricSpace.Basic
+public import Mathlib.Topology.LocallyFinite
+
+@[expose] public section
+
+/-!
+# Local finiteness of actual congruent native-chair packings
+
+The index type and ambient isometric placements are arbitrary. Pairwise
+interior-disjointness, the proved retained ball, and compactness of the
+actual body imply finite compact incidence and local finiteness. No
+local-finiteness or diameter certificate is assumed.
+-/
+
+namespace PhysicalRegistration.NativeChair
+open Set
+noncomputable section
+
+/-- Every isometric copy retains the same literal open ball. -/
+theorem placedBody_retained_ball {m J : ℕ} [NeZero m]
+    (a : Coefficients m J) (f : Space m ≃ᵢ Space m) :
+    Metric.ball (f (halfPoint m)) (1 / 4) ⊆ interior (placedBody a f) := by
+  rw [← f.image_ball]
+  exact (Set.image_mono (halfPoint_ball_subset_interior_body a)).trans
+    (f.toHomeomorph.isOpenMap.image_interior_subset (body a))
+
+/-- Disjoint placed interiors force uniformly separated retained-ball centers. -/
+theorem placedBody_centers_separated {m J : ℕ} [NeZero m] {ι : Type*}
+    (a : Coefficients m J) (f : ι → Space m ≃ᵢ Space m)
+    (hdisjoint : Pairwise fun i j =>
+      Disjoint (interior (placedBody a (f i))) (interior (placedBody a (f j)))) :
+    Pairwise fun i j => (1 / 4 : ℝ) ≤ dist (f i (halfPoint m)) (f j (halfPoint m)) := by
+  intro i j hij
+  by_contra! hdist
+  have hi : f i (halfPoint m) ∈ interior (placedBody a (f i)) :=
+    placedBody_retained_ball a (f i) (Metric.mem_ball_self (by norm_num))
+  have hj : f i (halfPoint m) ∈ interior (placedBody a (f j)) :=
+    placedBody_retained_ball a (f j) hdist
+  exact Set.disjoint_left.mp (hdisjoint hij) hi hj
+
+/-- Only finitely many retained-ball centers lie in any compact set. -/
+theorem finite_placedBody_centers_mem_compact {m J : ℕ} [NeZero m] {ι : Type*}
+    (a : Coefficients m J) (f : ι → Space m ≃ᵢ Space m)
+    (hdisjoint : Pairwise fun i j =>
+      Disjoint (interior (placedBody a (f i))) (interior (placedBody a (f j))))
+    (K : Set (Space m)) (hK : IsCompact K) :
+    {i | f i (halfPoint m) ∈ K}.Finite := by
+  let : TopologicalSpace ι := ⊥
+  let : DiscreteTopology ι := discreteTopology_bot ι
+  have hf := Metric.isClosedEmbedding_of_pairwise_le_dist
+    (by norm_num : (0 : ℝ) < 1 / 4) (placedBody_centers_separated a f hdisjoint)
+  exact (hf.isCompact_preimage hK).finite_of_discrete
+
+/-- Any compact set meets only finitely many actual bodies in an arbitrary
+interior-disjoint isometric packing. The body-radius bound is derived from
+`body_isCompact`; it is not an extra geometric assumption. -/
+theorem finite_placedBody_inter_compact {m J : ℕ} [NeZero m] {ι : Type*}
+    (a : Coefficients m J) (f : ι → Space m ≃ᵢ Space m)
+    (hdisjoint : Pairwise fun i j =>
+      Disjoint (interior (placedBody a (f i))) (interior (placedBody a (f j))))
+    (K : Set (Space m)) (hK : IsCompact K) :
+    {i | (placedBody a (f i) ∩ K).Nonempty}.Finite := by
+  obtain ⟨R, hR⟩ := (body_isCompact a).isBounded.subset_closedBall (halfPoint m)
+  obtain ⟨S, hS⟩ := hK.isBounded.subset_closedBall (0 : Space m)
+  have hfinite := finite_placedBody_centers_mem_compact a f hdisjoint
+    (Metric.closedBall (0 : Space m) (R + S)) (isCompact_closedBall _ _)
+  apply hfinite.subset
+  intro i hi
+  obtain ⟨x, hxbody, hxK⟩ := hi
+  obtain ⟨z, hz, rfl⟩ := hxbody
+  change dist (f i (halfPoint m)) 0 ≤ R + S
+  calc
+    dist (f i (halfPoint m)) 0 ≤
+        dist (f i (halfPoint m)) (f i z) + dist (f i z) 0 := dist_triangle _ _ _
+    _ = dist (halfPoint m) z + dist (f i z) 0 := by rw [(f i).dist_eq]
+    _ ≤ R + S := add_le_add (by simpa only [Metric.mem_closedBall, dist_comm] using hR hz)
+      (hS hxK)
+
+/-- Arbitrary interior-disjoint isometric placements of the literal native
+body form a genuinely locally finite family. -/
+theorem placedBody_locallyFinite {m J : ℕ} [NeZero m] {ι : Type*}
+    (a : Coefficients m J) (f : ι → Space m ≃ᵢ Space m)
+    (hdisjoint : Pairwise fun i j =>
+      Disjoint (interior (placedBody a (f i))) (interior (placedBody a (f j)))) :
+    LocallyFinite (fun i => placedBody a (f i)) := by
+  intro x
+  exact ⟨Metric.closedBall x 1, Metric.closedBall_mem_nhds x (by norm_num),
+    finite_placedBody_inter_compact a f hdisjoint _ (isCompact_closedBall x 1)⟩
+
+/-- In particular every fixed copy has only finitely many touching neighbors,
+including lower-dimensional contacts. -/
+theorem finite_placedBody_neighbors {m J : ℕ} [NeZero m] {ι : Type*}
+    (a : Coefficients m J) (f : ι → Space m ≃ᵢ Space m)
+    (hdisjoint : Pairwise fun i j =>
+      Disjoint (interior (placedBody a (f i))) (interior (placedBody a (f j)))) (i : ι) :
+    {j | (placedBody a (f j) ∩ placedBody a (f i)).Nonempty}.Finite :=
+  finite_placedBody_inter_compact a f hdisjoint _
+    ((body_isCompact a).image (f i).continuous)
+
+#print axioms placedBody_centers_separated
+#print axioms finite_placedBody_inter_compact
+#print axioms placedBody_locallyFinite
+#print axioms finite_placedBody_neighbors
+end
+end PhysicalRegistration.NativeChair

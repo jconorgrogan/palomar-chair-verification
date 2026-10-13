@@ -1,0 +1,1032 @@
+{
+  "roots": [
+    "PrimeFacetClosure.PhysicalMonotile"
+  ],
+  "module_count": 183,
+  "ported_module_count": 103,
+  "topological_modules": [
+    "Uniform.Defs",
+    "Uniform.Lists",
+    "Uniform.Arith",
+    "Uniform.U1",
+    "Uniform.Sign",
+    "Uniform.U3",
+    "Uniform.U2",
+    "Uniform.U4",
+    "RegisteredPrime.CompletedRules",
+    "RegisteredPrime.CellDissection",
+    "RegisteredPrime.ExactChildImages",
+    "RegisteredPrime.RegisteredLanguage",
+    "RegisteredPrime.FrameBridge",
+    "RegisteredPrime.ContactParity",
+    "RegisteredPrime.BoxGeometry",
+    "RegisteredPrime.Fan",
+    "RegisteredPrime.LocalRecognition",
+    "RegisteredPrime.WorldRecognitionBridge",
+    "RegisteredPrime.CarrierGeometryInvariant",
+    "RegisteredPrime.DyadicCarrierColor",
+    "RegisteredPrime.ContactBoxAlignment",
+    "RegisteredPrime.ColoredWallMask",
+    "RegisteredPrime.GeneratedWallGeometry",
+    "RegisteredPrime.IncomingPredecessors",
+    "RegisteredPrime.HoleCarryArithmetic",
+    "RegisteredPrime.FiniteSupertiles",
+    "RegisteredPrime.HoleOwnerRecursion",
+    "RegisteredPrime.CentralHoleOwner",
+    "RegisteredPrime.PoseAlgebra",
+    "RegisteredPrime.ScalarEquivariance",
+    "RegisteredPrime.FullPoseHoleCarry",
+    "RegisteredPrime.IncomingExhaustiveness",
+    "RegisteredPrime.WorldNormalization",
+    "RegisteredPrime.WorldHoleOwners",
+    "RegisteredPrime.TwoCoronaExistence",
+    "RegisteredPrime.CompleteParentSupport",
+    "RegisteredPrime.ParentOverlapExclusion",
+    "RegisteredPrime.UniqueParent",
+    "RegisteredPrime.CoarseGeometry",
+    "RegisteredPrime.CoarseAlignment",
+    "RegisteredPrime.GridPaths",
+    "RegisteredPrime.GlobalParentAlignment",
+    "RegisteredPrime.CoarseWorld",
+    "WorldExistence.FiniteStages",
+    "WorldExistence.InteriorCopies",
+    "RegisteredPrime.WorldExistence",
+    "RegisteredPrime.ContactProjection",
+    "closure_analysis.ZeroOriginGeometry",
+    "MeanObstruction.AffineFrames",
+    "MeanObstruction.Support",
+    "MeanObstruction.Complement",
+    "closure_analysis.ZeroOrigin",
+    "WorldExistence.ProperFrames",
+    "WeakRecognition.Contact",
+    "WeakRecognition.Parents",
+    "WeakRecognition.CoarseWorld",
+    "RegisteredPrime.ArithmeticAtlas",
+    "PrimeFacetClosure.MinusAffine",
+    "PrimeFacetClosure.Parameters",
+    "MeanObstruction.Obstruction",
+    "MeanObstruction.RegisteredBinding",
+    "MeanObstruction.FaceMean",
+    "RegisteredPrime.OuterInterface",
+    "RegisteredPrime.WallMasks",
+    "PrimeFacetClosure.Transport",
+    "PrimeFacetClosure.MeanAtlasBridge",
+    "PrimeFacetClosure.HoleAtlasBridge",
+    "PrimeFacetClosure.StarHolonomy",
+    "PhysicalRegistration.ComponentCoefficients",
+    "PhysicalRegistration.ThreeCones",
+    "PhysicalRegistration.LocalGraphs",
+    "PhysicalRegistration.KeyTent",
+    "PhysicalRegistration.KeyHypograph",
+    "PhysicalRegistration.NativeChair",
+    "PhysicalRegistration.NativeOrientation",
+    "PhysicalRegistration.TubeSeparation",
+    "PhysicalRegistration.NativeTubeSeparation",
+    "PhysicalRegistration.TubeAssembly",
+    "PhysicalRegistration.KeyTube",
+    "PhysicalRegistration.NativeAssembly",
+    "PhysicalRegistration.IsometryTransport",
+    "PhysicalRegistration.KeyCreaseGeometry",
+    "PhysicalRegistration.CreaseConnectivity",
+    "PhysicalRegistration.GenericCreaseDensity",
+    "PhysicalRegistration.GenericAffineAvoidance",
+    "PhysicalRegistration.RetainedBall",
+    "PhysicalRegistration.PackingLocalFiniteness",
+    "PhysicalRegistration.NativeBoundary",
+    "PhysicalRegistration.BoundaryClassification",
+    "PhysicalRegistration.PrimeAngleSeparation",
+    "PhysicalRegistration.NativeAngleSeparation",
+    "PhysicalRegistration.NativeBoundaryPlanes",
+    "PhysicalRegistration.CrossTilingGenericity",
+    "PhysicalRegistration.CreaseSectors",
+    "PhysicalRegistration.CreasePlaneGerms",
+    "PhysicalRegistration.CreaseNormalSpan",
+    "PhysicalRegistration.KeyNormalRank",
+    "PhysicalRegistration.KeyTransverseClassification",
+    "PhysicalRegistration.CarrierTransverse",
+    "PhysicalRegistration.GenericIncidentKeys",
+    "PhysicalRegistration.PhysicalTilingGerms",
+    "PhysicalRegistration.PlacedConicalGerms",
+    "PhysicalRegistration.GenericConicalFans",
+    "PhysicalRegistration.ConicalFanRegularity",
+    "PhysicalRegistration.SignConeInterior",
+    "PhysicalRegistration.TransversePlaneCoordinates",
+    "PhysicalRegistration.PlanarSectorMeasure",
+    "PhysicalRegistration.ConicalAngularCover",
+    "PhysicalRegistration.NativeDihedralAngles",
+    "PhysicalRegistration.NativeKeySectorMass",
+    "PhysicalRegistration.CarrierInteriorRay",
+    "PhysicalRegistration.OrdinaryConeInterior",
+    "PhysicalRegistration.OrdinaryConeActiveNormals",
+    "PhysicalRegistration.OrdinarySectorMass",
+    "PhysicalRegistration.SectorAngleBalance",
+    "PhysicalRegistration.NonflatSectorBalance",
+    "PhysicalRegistration.GenericComplementaryKeys",
+    "PhysicalRegistration.ComplementaryBaseLabels",
+    "PhysicalRegistration.GenericBaseLabelMatching",
+    "PhysicalRegistration.ConnectedCover",
+    "PhysicalRegistration.CreaseCompanionPropagation",
+    "PhysicalRegistration.PhysicalWholeCompanions",
+    "PhysicalRegistration.WholeBaseLabelMatching",
+    "PhysicalRegistration.BasePlaneRigidity",
+    "PhysicalRegistration.LabelledTangentRigidity",
+    "PhysicalRegistration.OppositeCarrierNormals",
+    "PhysicalRegistration.PhysicalKeyFrames",
+    "PhysicalRegistration.SignedPermutationRegistration",
+    "PhysicalRegistration.NativeGraphCoefficients",
+    "PrimeFacetClosure.NativeStarHolonomy",
+    "PhysicalRegistration.RetainedCore",
+    "PhysicalRegistration.NativeLatticeCells",
+    "PhysicalRegistration.IntegralPoseGroup",
+    "PhysicalRegistration.ComponentCellCenters",
+    "PhysicalRegistration.IntegralLatticeCells",
+    "PhysicalRegistration.LatticeStepConnectivity",
+    "PhysicalRegistration.ComponentLatticeCover",
+    "PhysicalRegistration.NativeComponentOrder",
+    "PhysicalRegistration.GlobalRegistration",
+    "PhysicalRegistration.PhysicalProfileLaw",
+    "PhysicalRegistration.RegisteredWorldBridge",
+    "PrimeFacetClosure.NativeWalkTransport",
+    "PrimeFacetClosure.RegisteredStarTransport",
+    "PhysicalRegistration.PoseRealization",
+    "PhysicalRegistration.RegisteredPoseProperness",
+    "PrimeFacetClosure.FiniteGeneratedCompiler",
+    "closure_analysis.ZeroOriginBinding",
+    "closure_analysis.CoarseWalls",
+    "PrimeFacetClosure.Reflection",
+    "PrimeFacetClosure.NativeFacetGeometry",
+    "PrimeFacetClosure.NativeGeneratedGauge",
+    "PrimeFacetClosure.GeneratedStarHolonomy",
+    "PrimeFacetClosure.NativeFreeOrbit",
+    "PrimeFacetClosure.NativeAtlasBridge",
+    "PrimeFacetClosure.NativeContactFacet",
+    "PrimeFacetClosure.RealizedFacetClosure",
+    "SparseMonotiles.Model",
+    "SparseMonotiles.CompactTranslationFrames",
+    "AtlasPeriods.Translation",
+    "PhysicalRegistration.UnmarkedPeriodTransfer",
+    "PhysicalRegistration.CompiledRegisteredWorld",
+    "RegisteredPrime.CoarseCellWalls",
+    "closure_analysis.CoarseGeometryCases",
+    "closure_analysis.CoarseHoles",
+    "closure_analysis.CoarseIncoming",
+    "RegisteredPrime.ArithmeticAtlasClosure",
+    "RegisteredPrime.AtlasHierarchy",
+    "AtlasPeriods.Aperiodicity",
+    "PrimeFacetClosure.PhysicalAperiodicity",
+    "PhysicalRegistration.RegisteredCarrierWorld",
+    "PhysicalRegistration.MaterialCovariance",
+    "PrimeFacetClosure.NativePrescribedOrbit",
+    "PrimeFacetClosure.GeneratedWorldProfiles",
+    "PhysicalRegistration.NativeMaterialAvoidance",
+    "PhysicalRegistration.NativeMaterialGluing",
+    "PhysicalRegistration.RegisteredTubeOwners",
+    "PhysicalRegistration.RegisteredTubeGeometry",
+    "PhysicalRegistration.RegisteredTubeSeparation",
+    "PhysicalRegistration.RegisteredTubeMatching",
+    "PhysicalRegistration.RegisteredTubeOpposition",
+    "PhysicalRegistration.PhysicalTilingUnmarked",
+    "PhysicalRegistration.RegisteredMaterialExistence",
+    "PrimeFacetClosure.PhysicalMonotile"
+  ],
+  "ported_modules": [
+    "PrimeFacetClosure.StarHolonomy",
+    "PhysicalRegistration.ComponentCoefficients",
+    "PhysicalRegistration.ThreeCones",
+    "PhysicalRegistration.LocalGraphs",
+    "PhysicalRegistration.KeyTent",
+    "PhysicalRegistration.KeyHypograph",
+    "PhysicalRegistration.NativeChair",
+    "PhysicalRegistration.NativeOrientation",
+    "PhysicalRegistration.TubeSeparation",
+    "PhysicalRegistration.NativeTubeSeparation",
+    "PhysicalRegistration.TubeAssembly",
+    "PhysicalRegistration.KeyTube",
+    "PhysicalRegistration.NativeAssembly",
+    "PhysicalRegistration.IsometryTransport",
+    "PhysicalRegistration.KeyCreaseGeometry",
+    "PhysicalRegistration.CreaseConnectivity",
+    "PhysicalRegistration.GenericCreaseDensity",
+    "PhysicalRegistration.GenericAffineAvoidance",
+    "PhysicalRegistration.RetainedBall",
+    "PhysicalRegistration.PackingLocalFiniteness",
+    "PhysicalRegistration.NativeBoundary",
+    "PhysicalRegistration.BoundaryClassification",
+    "PhysicalRegistration.PrimeAngleSeparation",
+    "PhysicalRegistration.NativeAngleSeparation",
+    "PhysicalRegistration.NativeBoundaryPlanes",
+    "PhysicalRegistration.CrossTilingGenericity",
+    "PhysicalRegistration.CreaseSectors",
+    "PhysicalRegistration.CreasePlaneGerms",
+    "PhysicalRegistration.CreaseNormalSpan",
+    "PhysicalRegistration.KeyNormalRank",
+    "PhysicalRegistration.KeyTransverseClassification",
+    "PhysicalRegistration.CarrierTransverse",
+    "PhysicalRegistration.GenericIncidentKeys",
+    "PhysicalRegistration.PhysicalTilingGerms",
+    "PhysicalRegistration.PlacedConicalGerms",
+    "PhysicalRegistration.GenericConicalFans",
+    "PhysicalRegistration.ConicalFanRegularity",
+    "PhysicalRegistration.SignConeInterior",
+    "PhysicalRegistration.TransversePlaneCoordinates",
+    "PhysicalRegistration.PlanarSectorMeasure",
+    "PhysicalRegistration.ConicalAngularCover",
+    "PhysicalRegistration.NativeDihedralAngles",
+    "PhysicalRegistration.NativeKeySectorMass",
+    "PhysicalRegistration.CarrierInteriorRay",
+    "PhysicalRegistration.OrdinaryConeInterior",
+    "PhysicalRegistration.OrdinaryConeActiveNormals",
+    "PhysicalRegistration.OrdinarySectorMass",
+    "PhysicalRegistration.SectorAngleBalance",
+    "PhysicalRegistration.NonflatSectorBalance",
+    "PhysicalRegistration.GenericComplementaryKeys",
+    "PhysicalRegistration.ComplementaryBaseLabels",
+    "PhysicalRegistration.GenericBaseLabelMatching",
+    "PhysicalRegistration.ConnectedCover",
+    "PhysicalRegistration.CreaseCompanionPropagation",
+    "PhysicalRegistration.PhysicalWholeCompanions",
+    "PhysicalRegistration.WholeBaseLabelMatching",
+    "PhysicalRegistration.BasePlaneRigidity",
+    "PhysicalRegistration.LabelledTangentRigidity",
+    "PhysicalRegistration.OppositeCarrierNormals",
+    "PhysicalRegistration.PhysicalKeyFrames",
+    "PhysicalRegistration.SignedPermutationRegistration",
+    "PhysicalRegistration.NativeGraphCoefficients",
+    "PrimeFacetClosure.NativeStarHolonomy",
+    "PhysicalRegistration.RetainedCore",
+    "PhysicalRegistration.NativeLatticeCells",
+    "PhysicalRegistration.IntegralPoseGroup",
+    "PhysicalRegistration.ComponentCellCenters",
+    "PhysicalRegistration.IntegralLatticeCells",
+    "PhysicalRegistration.LatticeStepConnectivity",
+    "PhysicalRegistration.ComponentLatticeCover",
+    "PhysicalRegistration.NativeComponentOrder",
+    "PhysicalRegistration.GlobalRegistration",
+    "PhysicalRegistration.PhysicalProfileLaw",
+    "PhysicalRegistration.RegisteredWorldBridge",
+    "PrimeFacetClosure.NativeWalkTransport",
+    "PrimeFacetClosure.RegisteredStarTransport",
+    "PhysicalRegistration.PoseRealization",
+    "PhysicalRegistration.RegisteredPoseProperness",
+    "PrimeFacetClosure.FiniteGeneratedCompiler",
+    "PrimeFacetClosure.NativeFacetGeometry",
+    "PrimeFacetClosure.NativeGeneratedGauge",
+    "PrimeFacetClosure.GeneratedStarHolonomy",
+    "PrimeFacetClosure.NativeFreeOrbit",
+    "PrimeFacetClosure.NativeAtlasBridge",
+    "PrimeFacetClosure.NativeContactFacet",
+    "PrimeFacetClosure.RealizedFacetClosure",
+    "PhysicalRegistration.UnmarkedPeriodTransfer",
+    "PhysicalRegistration.CompiledRegisteredWorld",
+    "PrimeFacetClosure.PhysicalAperiodicity",
+    "PhysicalRegistration.RegisteredCarrierWorld",
+    "PhysicalRegistration.MaterialCovariance",
+    "PrimeFacetClosure.NativePrescribedOrbit",
+    "PrimeFacetClosure.GeneratedWorldProfiles",
+    "PhysicalRegistration.NativeMaterialAvoidance",
+    "PhysicalRegistration.NativeMaterialGluing",
+    "PhysicalRegistration.RegisteredTubeOwners",
+    "PhysicalRegistration.RegisteredTubeGeometry",
+    "PhysicalRegistration.RegisteredTubeSeparation",
+    "PhysicalRegistration.RegisteredTubeMatching",
+    "PhysicalRegistration.RegisteredTubeOpposition",
+    "PhysicalRegistration.PhysicalTilingUnmarked",
+    "PhysicalRegistration.RegisteredMaterialExistence",
+    "PrimeFacetClosure.PhysicalMonotile"
+  ],
+  "module_hashes": {
+    "Uniform.Defs": {
+      "original": "e853716368004d05fc336c6a956e33816727f6a1919512ca7518f641641454c6",
+      "packaged": "e853716368004d05fc336c6a956e33816727f6a1919512ca7518f641641454c6"
+    },
+    "Uniform.Lists": {
+      "original": "01d204478bf8ccf8addb62ec282fef7d0da268c6d5e0477c00e638856a2f3d2d",
+      "packaged": "01d204478bf8ccf8addb62ec282fef7d0da268c6d5e0477c00e638856a2f3d2d"
+    },
+    "Uniform.Arith": {
+      "original": "45c50e84d83e59c99bb9a96ec395034d739ef5140c501e8e53c6a1cdef50d3d1",
+      "packaged": "45c50e84d83e59c99bb9a96ec395034d739ef5140c501e8e53c6a1cdef50d3d1"
+    },
+    "Uniform.U1": {
+      "original": "3b9b182e582b3d29782cc177c9457a416000c81e646e6421fced5b43358e9d4f",
+      "packaged": "3b9b182e582b3d29782cc177c9457a416000c81e646e6421fced5b43358e9d4f"
+    },
+    "Uniform.Sign": {
+      "original": "6278a6b2b858dcbd218124c06ba15be0ed09ea09e34deea1f1f8285fcad40754",
+      "packaged": "6278a6b2b858dcbd218124c06ba15be0ed09ea09e34deea1f1f8285fcad40754"
+    },
+    "Uniform.U3": {
+      "original": "a761988f91c63c1d2a2d979af465d5ddf1595c66faad42c2822502a9221f091b",
+      "packaged": "a761988f91c63c1d2a2d979af465d5ddf1595c66faad42c2822502a9221f091b"
+    },
+    "Uniform.U2": {
+      "original": "95c0c24047d3b5cf896b2a2e61055b8bee633ed750a27d5a99712e99cccf2f99",
+      "packaged": "95c0c24047d3b5cf896b2a2e61055b8bee633ed750a27d5a99712e99cccf2f99"
+    },
+    "Uniform.U4": {
+      "original": "44dabb913597e4300be56b3dbfe032ee2df22b65fec6f49ae6da1b5453c2ce64",
+      "packaged": "44dabb913597e4300be56b3dbfe032ee2df22b65fec6f49ae6da1b5453c2ce64"
+    },
+    "RegisteredPrime.CompletedRules": {
+      "original": "ee578990b24353c0376055f0609a37a601f838ed9222e1e57ebfa4eacad10c77",
+      "packaged": "ee578990b24353c0376055f0609a37a601f838ed9222e1e57ebfa4eacad10c77"
+    },
+    "RegisteredPrime.CellDissection": {
+      "original": "e8b7f84aacff3365b1831061745ecc50558dc728c614915768de0246fdce1d00",
+      "packaged": "e8b7f84aacff3365b1831061745ecc50558dc728c614915768de0246fdce1d00"
+    },
+    "RegisteredPrime.ExactChildImages": {
+      "original": "b4115d70ecbae2f652a84e1f378d936ab80f8b6dadf21fc7ce6de139159eaf9e",
+      "packaged": "b4115d70ecbae2f652a84e1f378d936ab80f8b6dadf21fc7ce6de139159eaf9e"
+    },
+    "RegisteredPrime.RegisteredLanguage": {
+      "original": "a99dbd25f65096b2bffa1dd28fec84de009585bfc0803393e60db7812cb53243",
+      "packaged": "a99dbd25f65096b2bffa1dd28fec84de009585bfc0803393e60db7812cb53243"
+    },
+    "RegisteredPrime.FrameBridge": {
+      "original": "3fce5687e07dd9b247e7c0b039288798fba61cd8a3f173e6dcddc4d3e61f1050",
+      "packaged": "3fce5687e07dd9b247e7c0b039288798fba61cd8a3f173e6dcddc4d3e61f1050"
+    },
+    "RegisteredPrime.ContactParity": {
+      "original": "cdc3fc34c202cf4d846a4a35b739bb0322ef4649dd8f4322a2db7577cdf1cd25",
+      "packaged": "cdc3fc34c202cf4d846a4a35b739bb0322ef4649dd8f4322a2db7577cdf1cd25"
+    },
+    "RegisteredPrime.BoxGeometry": {
+      "original": "b39c39c237c74792816b27112851564cf60fe95e7e2b4279afdafdb80759b7b1",
+      "packaged": "b39c39c237c74792816b27112851564cf60fe95e7e2b4279afdafdb80759b7b1"
+    },
+    "RegisteredPrime.Fan": {
+      "original": "e9da9ce5071e94873be9895103e0490c0cebd630113712d98be32a8201be13b2",
+      "packaged": "e9da9ce5071e94873be9895103e0490c0cebd630113712d98be32a8201be13b2"
+    },
+    "RegisteredPrime.LocalRecognition": {
+      "original": "8ceaa2f1ef22625368db28b0eec8615de31ae022c3212ab0f41c9be378087cbf",
+      "packaged": "8ceaa2f1ef22625368db28b0eec8615de31ae022c3212ab0f41c9be378087cbf"
+    },
+    "RegisteredPrime.WorldRecognitionBridge": {
+      "original": "25bb8217f77bb022ed5cdfdb1ced88c5fcdc067cc6e973b62ac9d71707a90cac",
+      "packaged": "25bb8217f77bb022ed5cdfdb1ced88c5fcdc067cc6e973b62ac9d71707a90cac"
+    },
+    "RegisteredPrime.CarrierGeometryInvariant": {
+      "original": "e595c11b303087aaa3a99461af40e3dcf734c18581ff059cdb336faa8f879f6e",
+      "packaged": "e595c11b303087aaa3a99461af40e3dcf734c18581ff059cdb336faa8f879f6e"
+    },
+    "RegisteredPrime.DyadicCarrierColor": {
+      "original": "9f454c11c49c477cdb9eaa162e9a6a5e4a7cda09765946b7d3b22231bffa1a7a",
+      "packaged": "9f454c11c49c477cdb9eaa162e9a6a5e4a7cda09765946b7d3b22231bffa1a7a"
+    },
+    "RegisteredPrime.ContactBoxAlignment": {
+      "original": "45c8b0e951438cb6f1e66bbb0717719b85c059e017b4630b01bdaa98b37f9222",
+      "packaged": "45c8b0e951438cb6f1e66bbb0717719b85c059e017b4630b01bdaa98b37f9222"
+    },
+    "RegisteredPrime.ColoredWallMask": {
+      "original": "bc309f5d6311d870327ac3d04eeb511622266c65939f1375e5284fba294e29cf",
+      "packaged": "bc309f5d6311d870327ac3d04eeb511622266c65939f1375e5284fba294e29cf"
+    },
+    "RegisteredPrime.GeneratedWallGeometry": {
+      "original": "dc2cc49a29fc52c6a61c7a1157a8d780082cd354702c2ef32802c0055821b80a",
+      "packaged": "dc2cc49a29fc52c6a61c7a1157a8d780082cd354702c2ef32802c0055821b80a"
+    },
+    "RegisteredPrime.IncomingPredecessors": {
+      "original": "20e1d7e35496ac9424c933aca925b9d92f9521c6e3daa32d8e80f32acb66675f",
+      "packaged": "20e1d7e35496ac9424c933aca925b9d92f9521c6e3daa32d8e80f32acb66675f"
+    },
+    "RegisteredPrime.HoleCarryArithmetic": {
+      "original": "363d73c817c1121685674dd4326e4e718bd2489f113c861a6b6ec0dd587d363c",
+      "packaged": "363d73c817c1121685674dd4326e4e718bd2489f113c861a6b6ec0dd587d363c"
+    },
+    "RegisteredPrime.FiniteSupertiles": {
+      "original": "8c67038097127efad43594ce5c1461ea7ae8995a160104eb8d0a92e64117943a",
+      "packaged": "8c67038097127efad43594ce5c1461ea7ae8995a160104eb8d0a92e64117943a"
+    },
+    "RegisteredPrime.HoleOwnerRecursion": {
+      "original": "673dc6f63a643f5b9f2699a420fe5666df1e489f6bb22437bf56ee6fe6824363",
+      "packaged": "673dc6f63a643f5b9f2699a420fe5666df1e489f6bb22437bf56ee6fe6824363"
+    },
+    "RegisteredPrime.CentralHoleOwner": {
+      "original": "e00c2b4c1e15476ca660a922f7d92ef57e34ffdc71393a94561641238ef5546b",
+      "packaged": "e00c2b4c1e15476ca660a922f7d92ef57e34ffdc71393a94561641238ef5546b"
+    },
+    "RegisteredPrime.PoseAlgebra": {
+      "original": "17ff15794e5dd4674b1b085e203d239146fc4085e4e05527e4f180ab44d8faab",
+      "packaged": "17ff15794e5dd4674b1b085e203d239146fc4085e4e05527e4f180ab44d8faab"
+    },
+    "RegisteredPrime.ScalarEquivariance": {
+      "original": "be6f300f5390b90ef05351c7a393b40d6b16a398938254d826591b704dfb1c18",
+      "packaged": "be6f300f5390b90ef05351c7a393b40d6b16a398938254d826591b704dfb1c18"
+    },
+    "RegisteredPrime.FullPoseHoleCarry": {
+      "original": "61b65ec6691f34840da6d0a393a33fac98aec3912e849c0f8f4ad0e40f2f2cb4",
+      "packaged": "61b65ec6691f34840da6d0a393a33fac98aec3912e849c0f8f4ad0e40f2f2cb4"
+    },
+    "RegisteredPrime.IncomingExhaustiveness": {
+      "original": "e56c4ff916b974629e8673e6f90b017da5816e03b06e57426143e4861a027622",
+      "packaged": "e56c4ff916b974629e8673e6f90b017da5816e03b06e57426143e4861a027622"
+    },
+    "RegisteredPrime.WorldNormalization": {
+      "original": "0cd0ff461d417b615626812d8733b312c94ceca3a469d287b2f00cad82a14c04",
+      "packaged": "0cd0ff461d417b615626812d8733b312c94ceca3a469d287b2f00cad82a14c04"
+    },
+    "RegisteredPrime.WorldHoleOwners": {
+      "original": "80f4eda451d808ac3aa3ad5119b732fb18dfc20f7ff336b0e21d6cfa718a2054",
+      "packaged": "80f4eda451d808ac3aa3ad5119b732fb18dfc20f7ff336b0e21d6cfa718a2054"
+    },
+    "RegisteredPrime.TwoCoronaExistence": {
+      "original": "465bd7dc2111f0799f11e54a047211bac4af63cc879a4981c1ba33c5fd28fc27",
+      "packaged": "465bd7dc2111f0799f11e54a047211bac4af63cc879a4981c1ba33c5fd28fc27"
+    },
+    "RegisteredPrime.CompleteParentSupport": {
+      "original": "39f8492177c344b13508aef472723b717f790d9071f7b7da028c773e8cfde7b4",
+      "packaged": "39f8492177c344b13508aef472723b717f790d9071f7b7da028c773e8cfde7b4"
+    },
+    "RegisteredPrime.ParentOverlapExclusion": {
+      "original": "ecb0beca5a7e9d636804494d4fe72d5c1798685619057e5940c578cc4aa3d74b",
+      "packaged": "ecb0beca5a7e9d636804494d4fe72d5c1798685619057e5940c578cc4aa3d74b"
+    },
+    "RegisteredPrime.UniqueParent": {
+      "original": "8ca726837ffaf607b8d13ce5efc080bcf98b65b1d8edcd911643911a1c0924c2",
+      "packaged": "8ca726837ffaf607b8d13ce5efc080bcf98b65b1d8edcd911643911a1c0924c2"
+    },
+    "RegisteredPrime.CoarseGeometry": {
+      "original": "99cee051885d77e5b64858b21a9dc57f600919a3f6499bd852fd441b0f4047ff",
+      "packaged": "99cee051885d77e5b64858b21a9dc57f600919a3f6499bd852fd441b0f4047ff"
+    },
+    "RegisteredPrime.CoarseAlignment": {
+      "original": "6841c61b3c15d55b3bfcf816413f35330855c182aea4d0223db472a8d94b9304",
+      "packaged": "6841c61b3c15d55b3bfcf816413f35330855c182aea4d0223db472a8d94b9304"
+    },
+    "RegisteredPrime.GridPaths": {
+      "original": "ba9b052d0edf4d061bde7b9f238382e1fecfccab6b9eb266dc775d9014bf2972",
+      "packaged": "ba9b052d0edf4d061bde7b9f238382e1fecfccab6b9eb266dc775d9014bf2972"
+    },
+    "RegisteredPrime.GlobalParentAlignment": {
+      "original": "f80ce4cc4ff0e4e8e8727ba20293da8ec635c9fddbc9c22df92060f16518f137",
+      "packaged": "f80ce4cc4ff0e4e8e8727ba20293da8ec635c9fddbc9c22df92060f16518f137"
+    },
+    "RegisteredPrime.CoarseWorld": {
+      "original": "1380285d9d0bd44cd9633c1451c011500e4b36292fc0c5e591512f636e32c965",
+      "packaged": "1380285d9d0bd44cd9633c1451c011500e4b36292fc0c5e591512f636e32c965"
+    },
+    "WorldExistence.FiniteStages": {
+      "original": "2bf4dadbd06b1ab46906d4872aa6162ae9dd3260110827d767b627d68971361a",
+      "packaged": "2bf4dadbd06b1ab46906d4872aa6162ae9dd3260110827d767b627d68971361a"
+    },
+    "WorldExistence.InteriorCopies": {
+      "original": "1ed8a8d6821b979e93f4fc4ad2656e6444df1bac7e0c4cce0610ce1696182d7d",
+      "packaged": "1ed8a8d6821b979e93f4fc4ad2656e6444df1bac7e0c4cce0610ce1696182d7d"
+    },
+    "RegisteredPrime.WorldExistence": {
+      "original": "43c589818decf7e3fe0ab1a255e42df04da9bc96c783bc38eb5b32150733ae8d",
+      "packaged": "43c589818decf7e3fe0ab1a255e42df04da9bc96c783bc38eb5b32150733ae8d"
+    },
+    "RegisteredPrime.ContactProjection": {
+      "original": "1fa5aed042874eb19966af33edeb189cf6f6763b4cd848a04d412aab59ef7e3d",
+      "packaged": "1fa5aed042874eb19966af33edeb189cf6f6763b4cd848a04d412aab59ef7e3d"
+    },
+    "closure_analysis.ZeroOriginGeometry": {
+      "original": "115663c09f08f187badb020083bb31f30ab73fed2cba56535b51ff7e2c049731",
+      "packaged": "115663c09f08f187badb020083bb31f30ab73fed2cba56535b51ff7e2c049731"
+    },
+    "MeanObstruction.AffineFrames": {
+      "original": "e8aae91f0ebb0b9b7e74ca2b07d0c860d0fffd4ed830ab52b79a3bc3a85fcccb",
+      "packaged": "e8aae91f0ebb0b9b7e74ca2b07d0c860d0fffd4ed830ab52b79a3bc3a85fcccb"
+    },
+    "MeanObstruction.Support": {
+      "original": "3e3b7c8495267daed29706564ad2cee2ab9ea50fc2caf5368a402d6002ce0c6d",
+      "packaged": "3e3b7c8495267daed29706564ad2cee2ab9ea50fc2caf5368a402d6002ce0c6d"
+    },
+    "MeanObstruction.Complement": {
+      "original": "19c635384e6f9220732de446def690f9016f91ae14ba524b354baac2ef28df8b",
+      "packaged": "19c635384e6f9220732de446def690f9016f91ae14ba524b354baac2ef28df8b"
+    },
+    "closure_analysis.ZeroOrigin": {
+      "original": "d646c4f39f986053e31b042764c6c447f197fa0eea83ecec0982fe241d8fb3cd",
+      "packaged": "d646c4f39f986053e31b042764c6c447f197fa0eea83ecec0982fe241d8fb3cd"
+    },
+    "WorldExistence.ProperFrames": {
+      "original": "948a0aad289c0a1f16f3229ff045766efef755743c60cc95552564f61ea976f6",
+      "packaged": "948a0aad289c0a1f16f3229ff045766efef755743c60cc95552564f61ea976f6"
+    },
+    "WeakRecognition.Contact": {
+      "original": "a240d4fcfefa6654bc9c73c2bca6f79e7a7201faea3133107704a2e578b9d92c",
+      "packaged": "a240d4fcfefa6654bc9c73c2bca6f79e7a7201faea3133107704a2e578b9d92c"
+    },
+    "WeakRecognition.Parents": {
+      "original": "15bba466c5bfb22c96013be83ad546aa6dcffac807539b72313ed10d7ba4cd3f",
+      "packaged": "15bba466c5bfb22c96013be83ad546aa6dcffac807539b72313ed10d7ba4cd3f"
+    },
+    "WeakRecognition.CoarseWorld": {
+      "original": "ccd431203d6f963bb1443b77e33dcd86c76d6ecb711ce9e009ba4a089716817b",
+      "packaged": "ccd431203d6f963bb1443b77e33dcd86c76d6ecb711ce9e009ba4a089716817b"
+    },
+    "RegisteredPrime.ArithmeticAtlas": {
+      "original": "72707f0d3c93cf2afc0e1837922beff85e413eac503f3ff8b255b08afa53be03",
+      "packaged": "72707f0d3c93cf2afc0e1837922beff85e413eac503f3ff8b255b08afa53be03"
+    },
+    "PrimeFacetClosure.MinusAffine": {
+      "original": "6cc1cbabb45b843b2bc4eea55e06197e8a36c96d22c19d5be4802f33bc2bc85c",
+      "packaged": "6cc1cbabb45b843b2bc4eea55e06197e8a36c96d22c19d5be4802f33bc2bc85c"
+    },
+    "PrimeFacetClosure.Parameters": {
+      "original": "7b572cbfe0a796c0d01a2f2f6c6023295aa28976be8f10ff4d5aeb60f3d6aff1",
+      "packaged": "7b572cbfe0a796c0d01a2f2f6c6023295aa28976be8f10ff4d5aeb60f3d6aff1"
+    },
+    "MeanObstruction.Obstruction": {
+      "original": "69289fdb859104eeb0fdd0d3bcb20338ddafd6d259e1d11dda8ad86874d062cb",
+      "packaged": "69289fdb859104eeb0fdd0d3bcb20338ddafd6d259e1d11dda8ad86874d062cb"
+    },
+    "MeanObstruction.RegisteredBinding": {
+      "original": "fdf7a772d0224112f33155ac5a34cb8299e850e961d2e62faa8058dc0126b290",
+      "packaged": "fdf7a772d0224112f33155ac5a34cb8299e850e961d2e62faa8058dc0126b290"
+    },
+    "MeanObstruction.FaceMean": {
+      "original": "7c03c4c5d3cdb369aef15c550f5894b0c55c7214d8e712cf26532c71be92eb11",
+      "packaged": "7c03c4c5d3cdb369aef15c550f5894b0c55c7214d8e712cf26532c71be92eb11"
+    },
+    "RegisteredPrime.OuterInterface": {
+      "original": "354a84a5490f9c5b6268072d4c642bd9df29ced557bc352b3131f4af781b2864",
+      "packaged": "354a84a5490f9c5b6268072d4c642bd9df29ced557bc352b3131f4af781b2864"
+    },
+    "RegisteredPrime.WallMasks": {
+      "original": "97746bd9cae4104c5f8184e6a377e5a7323b09e07114979956557fe6e3c5e1cd",
+      "packaged": "97746bd9cae4104c5f8184e6a377e5a7323b09e07114979956557fe6e3c5e1cd"
+    },
+    "PrimeFacetClosure.Transport": {
+      "original": "aa3002a561ca2ac32407735114fa76914d8fbb4323bd02c46dd68443702acebe",
+      "packaged": "aa3002a561ca2ac32407735114fa76914d8fbb4323bd02c46dd68443702acebe"
+    },
+    "PrimeFacetClosure.MeanAtlasBridge": {
+      "original": "f6d9fa026717cda364af89ff8c4dba2bc1bd859d3852eda86dc4b10a30aeb8d4",
+      "packaged": "f6d9fa026717cda364af89ff8c4dba2bc1bd859d3852eda86dc4b10a30aeb8d4"
+    },
+    "PrimeFacetClosure.HoleAtlasBridge": {
+      "original": "feaaa3ba0b29b8ba3f21fa236c559a8517210a949e5d07ea02dcc9105a063210",
+      "packaged": "feaaa3ba0b29b8ba3f21fa236c559a8517210a949e5d07ea02dcc9105a063210"
+    },
+    "PrimeFacetClosure.StarHolonomy": {
+      "original": "33970714bd289c5260070f11be2d719949494a35eb99b100edc0831f49171a39",
+      "packaged": "4d9f87ed097e680f5d37da0b33977bc73dc4e61924b3e5a9e047e365fbabd1a6"
+    },
+    "PhysicalRegistration.ComponentCoefficients": {
+      "original": "7237f7c8f791893a51c86a2bedbe136e2dcb834c2a3b657ad018191c97ab24a3",
+      "packaged": "91d92ab69bdf13e9f3c6647628ba2bce2caf8daf776217ee4f6cd914455f6b4a"
+    },
+    "PhysicalRegistration.ThreeCones": {
+      "original": "1bdb615ae97dea5c72779129824b6dc3e5f4d85080ee90d51cf7d822376b5bf8",
+      "packaged": "0940460886ff02b821a7261e26a30b10d1daaa7f45395f89f09db3eba311e1ce"
+    },
+    "PhysicalRegistration.LocalGraphs": {
+      "original": "cd0b9d7a36bf8a6fc60e5355a3076ba6aa25722d13cbd1ec08bdfed08fe18892",
+      "packaged": "8658e88a2fa339c0b4cabac35b2b1f1d2e9b375dace2947db8b458f1d7222c91"
+    },
+    "PhysicalRegistration.KeyTent": {
+      "original": "edabf1400e18aeb776d34cc5e029388f078d877dfe77113e8c061548c60f5ab0",
+      "packaged": "ee3d69b1d7b0f7989db6d382cca7c3aade6aee5d6b1b204e1212f42e756e84f1"
+    },
+    "PhysicalRegistration.KeyHypograph": {
+      "original": "47182e7de8b8e66360a7ff20538242188913dde4fa44eac8db6df8df2630db53",
+      "packaged": "6828c557d8e8c9bcb39e916ae01d4862f38e9edb59f973a13bd53a066561692b"
+    },
+    "PhysicalRegistration.NativeChair": {
+      "original": "b916f8436199f2e8b380bf09ec4f3dcf8ea2ee8eae26665867c017bb1d00e68f",
+      "packaged": "b7be901bc247e6e0d603c73f39e361cfc165b72eeca72fd52664acdc83319654"
+    },
+    "PhysicalRegistration.NativeOrientation": {
+      "original": "c67335cdfa0d038bcffce3538776b05b48356af5b12d22c479aef488cc86a25d",
+      "packaged": "28dcf6e27c2ab3f314c43536bf05e9f98d7125d186f6ec3db177e4338bd0c9c6"
+    },
+    "PhysicalRegistration.TubeSeparation": {
+      "original": "39fdb21409ca6899b5146838bfad4fdf832154278a9dc171ff69fc6baf6f0cbe",
+      "packaged": "8b82ca54e307b14f8d47e34319df9aa50dc4c3b06babc0eb9a17f5eaf93370c2"
+    },
+    "PhysicalRegistration.NativeTubeSeparation": {
+      "original": "e9844fa98725663662c789dcf4e202fbe1dbb6bda20a0787f4281580cdca2368",
+      "packaged": "f66cdb9848fff7d443d7e9d79ec96829200b6c9719be996e6fba61cd831eeb66"
+    },
+    "PhysicalRegistration.TubeAssembly": {
+      "original": "3d2eaa501858b88773d3fbb2194b3288bf992eee0f8a3da1cc027aae50d88d3b",
+      "packaged": "8fe22832761c307a23d56c982becc49e14a462241dcdb3c8907bb81f84c989d6"
+    },
+    "PhysicalRegistration.KeyTube": {
+      "original": "75cbed491b0f7d873f883e0db7060594ca112df097c9bcf9ee2533b869a924a4",
+      "packaged": "0fd5af3ec7f7ba0d48aea22055c775ee85e99508d867f87696e7244c4be99377"
+    },
+    "PhysicalRegistration.NativeAssembly": {
+      "original": "b886886125f13a11653713466fc958422b5c9abaf5b68303ddffe701b12306aa",
+      "packaged": "22fbe477a97e1770e69c22ce8a3edae0f20478a43409fbad7835071e92776385"
+    },
+    "PhysicalRegistration.IsometryTransport": {
+      "original": "36c5332832073c2d0362ebca290707658efd7654033d3db09c01651360954aef",
+      "packaged": "ec13991434b4ca95706ebd297e89e51bac82f047272ce1370e6ddedd549fc228"
+    },
+    "PhysicalRegistration.KeyCreaseGeometry": {
+      "original": "f2ad9199b4e9b131b6b96b38afdb8bb8c42ba436a34a8c620e5145d370303471",
+      "packaged": "0dbc6f56ab8a908146aaab0aa906cbae576f4572d9edb2f3e5328b45da2c8645"
+    },
+    "PhysicalRegistration.CreaseConnectivity": {
+      "original": "a359c76e2993ac453a907cbcb7e4d88c588729433a6a3fcd3773970bb3fbb884",
+      "packaged": "e4dd45f902be3e647cb783448c151a325f8fbdff225872ac7b375814e3c20b2b"
+    },
+    "PhysicalRegistration.GenericCreaseDensity": {
+      "original": "41f6862dbdd747ad2d62704a6d6b486faba02d73ac6fc437500ec3f94552e55b",
+      "packaged": "de0fef9c541091eef84ab29e4932097fae09e0d6c990ceaef66b6724793dc0ad"
+    },
+    "PhysicalRegistration.GenericAffineAvoidance": {
+      "original": "57f35370813c4d36a83764922e76e146890d1e0524803eb7510ddd2055393f47",
+      "packaged": "a564ed047b3a414463f42531d71f951465826b96fd02949d7faf03e543ff3074"
+    },
+    "PhysicalRegistration.RetainedBall": {
+      "original": "bd3d139469867c5b25292b2398f98995ba709ba31b6aaedbf1502dcc74232fd4",
+      "packaged": "071738e6ec403c14e0ccb3b9e412ac92b2500972e6512fe89894e8dc5b57707c"
+    },
+    "PhysicalRegistration.PackingLocalFiniteness": {
+      "original": "9aaa10c44bfe00c4cebeb5d9eac1db006eb5aaef02d2b981b50925833da7ed99",
+      "packaged": "1ddaa666c4395d4426abd47ecdbe42956abbda4bb37d927cb7a69fdbc82330af"
+    },
+    "PhysicalRegistration.NativeBoundary": {
+      "original": "eade0df72ee9ddb3eaca789fd5e9f8d1ca823a4403d9fbd1c40f18d3540b82a1",
+      "packaged": "98eacf188e8e930c71264d6dff038af51eeffebe369f7780fd6b72a324f01329"
+    },
+    "PhysicalRegistration.BoundaryClassification": {
+      "original": "e2116dbd5328a1728838762482747d58e65ff404bc378f00f1435af70ce50020",
+      "packaged": "07f095ac4d01fa6c64703b06b63f83ad0b050300bc65424f0c0e30403ab5880d"
+    },
+    "PhysicalRegistration.PrimeAngleSeparation": {
+      "original": "ca71902ab58efdfb7aa4e9988eac899f24c0797b1d8a5348982229b8d9bcd07f",
+      "packaged": "b028d5eaa5de46e46c850c425bd43456ff2d6c568d71906063289fb28e563c3d"
+    },
+    "PhysicalRegistration.NativeAngleSeparation": {
+      "original": "3c39202f973313bd73fdc0d21f67f22556f7b6abe462c32be22e9934de9f333f",
+      "packaged": "918a439e53d40e79e54e521f9ca626813b60d0b6480268195244e1545ebc9af8"
+    },
+    "PhysicalRegistration.NativeBoundaryPlanes": {
+      "original": "5746003d509b428774c21f8e5f8f2dc4314652d63677b88df2ab12cd0b786b20",
+      "packaged": "dcfae8e34a1e2912ea1f925c49d97adee4cff456bcb35aa0c42fa201307628ff"
+    },
+    "PhysicalRegistration.CrossTilingGenericity": {
+      "original": "1f244cc17c1ca88fdacaedfc83b5a8a03ce567c7102026677af419524cdd677e",
+      "packaged": "1720f454833646a98617f53e901b25634c347d7c3e322a794e683d1c80c73198"
+    },
+    "PhysicalRegistration.CreaseSectors": {
+      "original": "441928526d5cdfb57e8df04dd610b9e6205b2733be21d75ddb83ed2c06533056",
+      "packaged": "122723df49f8aa2714e91ce2d7f538fb7781d989ee991b2c30dd228611e6ae65"
+    },
+    "PhysicalRegistration.CreasePlaneGerms": {
+      "original": "767214585cf3277ca9c3ac3f600a475b51678ee1be4dec0c8e0529be5bcd2f8f",
+      "packaged": "ab46321304611367baa3efdd9a9361ff4bb5c75dd17627749fe0ce95e5078e77"
+    },
+    "PhysicalRegistration.CreaseNormalSpan": {
+      "original": "fd42c281fa6afddde3560d94bc4dc1ce82f5c871d83b08586cbd6b431ac7180c",
+      "packaged": "9f4fb670e4b519fb5f64dcb77bdea6e59144cacaa0da6cc9bc26f8edbfd3793a"
+    },
+    "PhysicalRegistration.KeyNormalRank": {
+      "original": "cbb7601d4899e4024aad5558a1cc199e6f5162cf4b4983df35e3c7cae924a2b0",
+      "packaged": "eab7ce75b37bbd9c1c2fcd333b47e4bb55ee619d05d0ff0780fb4b81af0175a5"
+    },
+    "PhysicalRegistration.KeyTransverseClassification": {
+      "original": "eb5b22f2e4e1a78930477b67f5a366c5301c94a3a5b2b3ef9747f401913c6330",
+      "packaged": "3f007c25b4d81b1dad8625a5de7186b3bdbb05e6824b2c18d07b920b35d67fc5"
+    },
+    "PhysicalRegistration.CarrierTransverse": {
+      "original": "14ea7a60cff77c3ba07d8981a7ed77673a96c30a5a0d0ef711fc878605485794",
+      "packaged": "845a5ff8f29b5290dd53bc9105c8d3fba81000eadb81d82958bbb6ce40ba178e"
+    },
+    "PhysicalRegistration.GenericIncidentKeys": {
+      "original": "83d61297a449b6d5ec9c35ba710de0b4a0b8e99fb62f4ea3bbd8aee311200b94",
+      "packaged": "8961a0fb16f01095b468b06d29cb23e04d2580ae4344fd0c5db0053dfac19658"
+    },
+    "PhysicalRegistration.PhysicalTilingGerms": {
+      "original": "8f6f1bdaa5c923e38caae9c5786088c445260d7bb55e54e11ad5237e86e194b8",
+      "packaged": "2943bf740e1e18f89695726f7528b16d97be8e8a0c88f3656e6a40c7bf2f0a77"
+    },
+    "PhysicalRegistration.PlacedConicalGerms": {
+      "original": "a3e57395c161e97c268e9fcdffd7d08290e660c1e4305bbc3408b8b6b845dc74",
+      "packaged": "9dde5b920931e6b1acf13d8b53ae9526a397844089f4773c996fc726204b971d"
+    },
+    "PhysicalRegistration.GenericConicalFans": {
+      "original": "6a7823ea16caf0dc9c000125dba5e9c065e1b3b85410ef958ea50ce379c8170e",
+      "packaged": "fdbbe338c5d1ccfa438fcae5cac6c81fc1c919041b5a5c084eeb54a98c375ed1"
+    },
+    "PhysicalRegistration.ConicalFanRegularity": {
+      "original": "588b40f6bc7f46e23f83abcb99697a068808622a0d26e6e4d00076b8658539c5",
+      "packaged": "39252d26d1d0886372ec61cc5e23d85fcff7947b3c0777e4be41965cb2e39119"
+    },
+    "PhysicalRegistration.SignConeInterior": {
+      "original": "6197d6f7654c06512994a65de2681bd0dbae6296837f2f92892fdf1967046d4d",
+      "packaged": "c9416d959912b8e5384c632ef2c87b63d925c79f0085b2389072ce94e54f2b81"
+    },
+    "PhysicalRegistration.TransversePlaneCoordinates": {
+      "original": "85af85b301971872384b014804ef19a0bd91042a211b74c929cea3a1e3337cf6",
+      "packaged": "b68f3207bfae36c7596c5ad0a876cb3b096ff29f9bc50f8c9b55b9c1f3814088"
+    },
+    "PhysicalRegistration.PlanarSectorMeasure": {
+      "original": "4128e8df0d03d716aa7cbd394d4cbade8a78345d39536909167fcbef5fbf2428",
+      "packaged": "317835cc35748368293926eea3e9315c1c97a35de4d4268eb9696fe15b0ea071"
+    },
+    "PhysicalRegistration.ConicalAngularCover": {
+      "original": "4ac1c00d02620396a62f9285512d21cf0e704b53baa942c980afbb59d494a68a",
+      "packaged": "82fd47d309669656ce39b7583667674590b644c150135d9e9a83aa239174be25"
+    },
+    "PhysicalRegistration.NativeDihedralAngles": {
+      "original": "2565062d7cea7c0d38021628a9b5ef7a7a32bae8aa4a59905f7225d157a17f12",
+      "packaged": "f2804c87eda042110a9c47bbe9dd1dbfdd48ab49c41137d36dac8c7bec64760b"
+    },
+    "PhysicalRegistration.NativeKeySectorMass": {
+      "original": "e1680e9e54fdff0648cb8a8a979d598f646fe6747f4f2c8beafd00c91451c39b",
+      "packaged": "7e4007d8522f94aab2f3442359587fe496f5ccdf339c2766e06c228e700256cc"
+    },
+    "PhysicalRegistration.CarrierInteriorRay": {
+      "original": "92bfac18a6dfee81cd7fcaa6fcc71b37cd2b285389cfb50b15d784d02da557e1",
+      "packaged": "b53cdd8079e12c54430c53411239144ae40bc6fae73b62a9aeda33f98f529f13"
+    },
+    "PhysicalRegistration.OrdinaryConeInterior": {
+      "original": "c364538a43cb7bf1f5206ee3e12cd5919a39492437a7e67bf28800d40caeca2b",
+      "packaged": "2369c68fe62762b1480fc4257ea668b04ddc7ebc974974ed39d68a7aff9cb372"
+    },
+    "PhysicalRegistration.OrdinaryConeActiveNormals": {
+      "original": "f3eb7ea22149e20af0e431864154c72f957c23093a085115e6c67cc054813880",
+      "packaged": "11806bf3262ef0f111f1eb266b63cdd15aff5f3cdfce78cad3028a98f3f311d9"
+    },
+    "PhysicalRegistration.OrdinarySectorMass": {
+      "original": "38765a3a67c5c77da2a9f2f783fb44ae3300b9a0016b080003e524e905f2e1c9",
+      "packaged": "e67bb952db06badaca43529a67d728b286467b2b959cb2e4167790b994ea64d3"
+    },
+    "PhysicalRegistration.SectorAngleBalance": {
+      "original": "3714a9953e57a97e25d7bb4392133c3027d2312159f0083cd5b268d7665d81cc",
+      "packaged": "bc4dbe9fa2ee1f26c562c68ab8d3062235bc977994c8695fbf7da98f4ef5b9b6"
+    },
+    "PhysicalRegistration.NonflatSectorBalance": {
+      "original": "9310cd454afa6d8108ed3565c9b1480b04a18026c96f22175b74c317535fdee2",
+      "packaged": "9d85e7ae36128cdc1e8d453155e5cc6817bc2c0648f809c8e2de4e54e3b2e799"
+    },
+    "PhysicalRegistration.GenericComplementaryKeys": {
+      "original": "8254b4310c3b4a3a5cf34c38201fb27aa18ec8b988d77e4c33cca762c76e3872",
+      "packaged": "c2618ba8241327804f4685ed1de6895fac410fdb779b6ffea5156a196fc2dd88"
+    },
+    "PhysicalRegistration.ComplementaryBaseLabels": {
+      "original": "bdc2261576199bfe70ec6ed1f0de081f11b2772f2e8604525c04847ed768e145",
+      "packaged": "9624b7d7bbc35de1c102bbede72c486e794b91aaa22cd02d107b82b1c17a0b79"
+    },
+    "PhysicalRegistration.GenericBaseLabelMatching": {
+      "original": "d5f042fff563d5fc31646bdedca26279936e7db1ccdab2380073e62e5ccda0f7",
+      "packaged": "62f9a978bc3275bfb864ab78b633c0dac686d9cacb9d02d6e462efaeb08f67c3"
+    },
+    "PhysicalRegistration.ConnectedCover": {
+      "original": "8ca1abacac832a4f4d2435b43c407fecdd38aea73f4e81f6ab7b1a3a5f6535d2",
+      "packaged": "bace631466055b05678d12de46af0097ce5ab66e8f43a2ad2142e777e5367e99"
+    },
+    "PhysicalRegistration.CreaseCompanionPropagation": {
+      "original": "1609440d75dda51773d5db805c7be30b846f2e7e4793622f567d28913936fbf8",
+      "packaged": "84560895fa970beccf3cd4a3a6ae55256e5cb22f08cfd5e57b21aeca3630c9fe"
+    },
+    "PhysicalRegistration.PhysicalWholeCompanions": {
+      "original": "9518453bad6ff0db51cd921ea0294c23a9ac2d92652e4bf07addb0c6ac38854d",
+      "packaged": "7fab59eae83d8235c9dfb7797e82809aeaab7761a21bdcec836119b63275706d"
+    },
+    "PhysicalRegistration.WholeBaseLabelMatching": {
+      "original": "b7482b3bf6f58fe5e1f528d79c29cc4c69a3fbff5e0df2362b85859c9b9418d1",
+      "packaged": "5394d17ba32a7ce1466e4ff7fa606a267eb0d0655ba34e90d305acef66813740"
+    },
+    "PhysicalRegistration.BasePlaneRigidity": {
+      "original": "8cc26898ac64f005cae0a3663d59e09583ebb0eabd00f19ab87157d117a9337f",
+      "packaged": "5bc56f2a135b1a9898c004ce273c28cbff9378cae6502b8ce62c2faacfbe626d"
+    },
+    "PhysicalRegistration.LabelledTangentRigidity": {
+      "original": "165c25b7bea6bf09f7bee3c19701b2c0a311e31ad6219f6fddb59334f074ecca",
+      "packaged": "8bd5f2892b405e72960dd93461c3ba7c6a8363535b81096f823b78eab7945ee8"
+    },
+    "PhysicalRegistration.OppositeCarrierNormals": {
+      "original": "83b3597c48793c04f120f96d2ca5a248e9253419d3fe7dc48b27db77daaf48a1",
+      "packaged": "a93948a319e95a5adcfad8b12cb21b04b341a4d079d2e02856d86f460d6e583f"
+    },
+    "PhysicalRegistration.PhysicalKeyFrames": {
+      "original": "e4f6f5231fc52b13fdf53887eedf22f6e68c45988b5ac444ad998b9f0cf0544a",
+      "packaged": "4a2c76c019be3ff803bf42be563fdb40fa98724c8f553eaec1269dabbdfa7363"
+    },
+    "PhysicalRegistration.SignedPermutationRegistration": {
+      "original": "1c49afc59ef23e86d70d751b114eefa5c56093219dc5567293a936e3f14e1a72",
+      "packaged": "f77e1ff4b59188373ec4d719780032efa0e5fa076c4d3807f1e5263e8c5058a6"
+    },
+    "PhysicalRegistration.NativeGraphCoefficients": {
+      "original": "165436a2920a28c550408279aa5878b2913af53e1d34baa41bc9bfd5ad8c0bd5",
+      "packaged": "b609619ca6efaf28dfcdeb2bdeea74c9adf3f4f3f2bc77fdfa063f25031c4e0d"
+    },
+    "PrimeFacetClosure.NativeStarHolonomy": {
+      "original": "f7e77023cc3e1e14d19b42e2c700ec11e9ff12d3ee3196429a42fd7f12c96c02",
+      "packaged": "611149ee3b3659435279840d69f5884cd9fceed0ec005852efae61386b108bc3"
+    },
+    "PhysicalRegistration.RetainedCore": {
+      "original": "07dd67a6586aaec283943416661f6f09e387fd9264c84d269e8f283899f47309",
+      "packaged": "b4de15e6649b22ee75fef205367650d71e15b4cd8b46ba377ea0404913eae439"
+    },
+    "PhysicalRegistration.NativeLatticeCells": {
+      "original": "51e27604e3a488a45fab5a962bcbfc287f479a959ba76502ac2b2deb21b97a3d",
+      "packaged": "80d84284bc95779d783c6ebc97a4f42d997583b37019c8d1928d5a8caf58e64e"
+    },
+    "PhysicalRegistration.IntegralPoseGroup": {
+      "original": "a2761d0798a204bc1280705d4a3982693c9278e8ea9d9c0a9bbe3e849bb31f9e",
+      "packaged": "df4ebfb112839efc7336b1547e0292814155cd42976c771e8dcce35e88db8598"
+    },
+    "PhysicalRegistration.ComponentCellCenters": {
+      "original": "70f6b5bd1472d17f3cfead1bf296539f5e75299761ff26f5068b9dbf4f9917b9",
+      "packaged": "2edc026761df279c4e686d84fbcb68b5dc1bc2fbcb51e6e468cf09f71416aa66"
+    },
+    "PhysicalRegistration.IntegralLatticeCells": {
+      "original": "d01a4b79b99950070542835fe338648215ce7ce42d9ad892e651161b8baaee29",
+      "packaged": "e44b789c6adf03d3ab1d4ccd801693640e730e83059ee1ac53ec8d8eefcd1715"
+    },
+    "PhysicalRegistration.LatticeStepConnectivity": {
+      "original": "710727e3c1c761f54d053c7865bc69970ca80f412d9d98c411b041fedbd2715c",
+      "packaged": "182d7eddeb8f31f958306ffc8e94b13582f74b666d97fd63a4939d41cc855661"
+    },
+    "PhysicalRegistration.ComponentLatticeCover": {
+      "original": "ca723e0aa42c12c339c5410a468f2e95ba6457df4d38c30e26ff0e665eae5852",
+      "packaged": "eb941b74da0e3b8e13cad96f6f55e8185b299cf2f723944b28575c5eecb9e201"
+    },
+    "PhysicalRegistration.NativeComponentOrder": {
+      "original": "61e056c5dd20fb69b3239e0d0ab2b90903c40b52221a2a57348769410070bf11",
+      "packaged": "429da475245a83a62bb0cce5354b7166faf3342eb2297bf173b424108b4e782a"
+    },
+    "PhysicalRegistration.GlobalRegistration": {
+      "original": "213a053ec10259dc1743eda5f77336e48e784ee8060d7e626125e28d6f3cbd40",
+      "packaged": "e13bb2e39e997bc08e2f46fa0c9ece43276344bcb5645836bb13ee6fd6a5735f"
+    },
+    "PhysicalRegistration.PhysicalProfileLaw": {
+      "original": "ca5ba33a117b6c0a297e47664fd8ad906747d962e01682c34af37fe252d332f4",
+      "packaged": "8e8b1d014127e81b7113e9562b3ef8b7d533f698cc7c601ad2d2c73cb61455ee"
+    },
+    "PhysicalRegistration.RegisteredWorldBridge": {
+      "original": "2e1eae2a2915a40341e0d19f16f27c1ad3ef9e73ed67d8a88f167389e6347950",
+      "packaged": "bc4da4c87b3ce243758ed3d3435d24799527d02c60d5c9d00d7e122cd45a711c"
+    },
+    "PrimeFacetClosure.NativeWalkTransport": {
+      "original": "3193e15ebe2c610518888f3052fa4c89e277b278266b58a39f681aea1f329465",
+      "packaged": "258b049a477c163aca6860ea77ff92b6a219daa1615e5f4880fa5bc8496210f8"
+    },
+    "PrimeFacetClosure.RegisteredStarTransport": {
+      "original": "1932ec01ae29b36886236f3312f0737e9e22515dc0c836410d2c5c03146f645e",
+      "packaged": "c70cbd1f56f874d7652c99afbb08a03af7dec474c14d92d6ecc39a42f49d18f0"
+    },
+    "PhysicalRegistration.PoseRealization": {
+      "original": "db8254cc8671329cd767597fa6a5b1dae7a77990a188b6c190d831d70eb67cca",
+      "packaged": "fdf9cc20bf5eb0e8ba74f92fbfcd3e7b30e324ef0c14161001c2ae38c2139ed7"
+    },
+    "PhysicalRegistration.RegisteredPoseProperness": {
+      "original": "6c535de1bda35f053e74ee226b196adc6daf91e186a233037f3ade764d2bcb29",
+      "packaged": "ddbdcd12f3dcadd15f5665ee0c385d7b725ab72763996ecb5281d3a9d014269d"
+    },
+    "PrimeFacetClosure.FiniteGeneratedCompiler": {
+      "original": "17f879ed50200cbf24a411d286321e4d895723c4a2205ec161eafa04bae2f4be",
+      "packaged": "f96a7d82b0ca845087956a797586c286c6eef8f3a59a2412879344ae9c83c56e"
+    },
+    "closure_analysis.ZeroOriginBinding": {
+      "original": "1956a20c821668b41c4b081d617a14dfcce0c6e726395d8bb0847e8b2feed656",
+      "packaged": "1956a20c821668b41c4b081d617a14dfcce0c6e726395d8bb0847e8b2feed656"
+    },
+    "closure_analysis.CoarseWalls": {
+      "original": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2",
+      "packaged": "8bf4107cdb0181224fb188cc6ba872ad2df75bb4f79995b1c7daebdc49ee4bf2"
+    },
+    "PrimeFacetClosure.Reflection": {
+      "original": "8d6f2618babfdf6791c39aead22c479d9206052fe283bcc9446937a58d412fc2",
+      "packaged": "8d6f2618babfdf6791c39aead22c479d9206052fe283bcc9446937a58d412fc2"
+    },
+    "PrimeFacetClosure.NativeFacetGeometry": {
+      "original": "0d658798c9e01f6198c13819d3cb0332af30c6647dc5e4f29eb5ce4ed03e647e",
+      "packaged": "bdcaf976ca0a23988bad6630076d89decef904aac5cac1e9373b9e1f3e56053d"
+    },
+    "PrimeFacetClosure.NativeGeneratedGauge": {
+      "original": "40fe7f79f82021de48cb6110c7ba786c9dd0e1b9ccba8fdc25e024e75ba8be1e",
+      "packaged": "912d7cb4e557fe1b6057ff0923bb8bfadbe6e4c59d0938def40cac8c53b2a174"
+    },
+    "PrimeFacetClosure.GeneratedStarHolonomy": {
+      "original": "61c7603f5d61bc4415bb3422a0d61f581c733e76052d28efb09a9842d7ce9ff5",
+      "packaged": "1afa1d7a613b88250cc3929a32f84b77506842f37697e22e6683622844619337"
+    },
+    "PrimeFacetClosure.NativeFreeOrbit": {
+      "original": "41e70e81d8e5d79b12c55268c66c825ab2a40aff56e0d17c5ee3a7dffd41a644",
+      "packaged": "18f5d9aeb4c4e721a0c17f33eecb0cfceacd383ca4a9105d573d4da96b6fa7b0"
+    },
+    "PrimeFacetClosure.NativeAtlasBridge": {
+      "original": "cf60d6d4b991e1e945e01e3416b472c60a0c3d9c7eb00e45f083045ed0387f61",
+      "packaged": "932497d941db9b6cc9c6ae9fbef242b251e0c61099db1c9f839913f7de9959ba"
+    },
+    "PrimeFacetClosure.NativeContactFacet": {
+      "original": "f36e218454a3623cb52b9911190ace887cbe6ce030e33c4b5fc5fc4f32600599",
+      "packaged": "94242acddca0cf939d564ff3a90da0a23635e7ff48e11d34486c73f89fe6b73e"
+    },
+    "PrimeFacetClosure.RealizedFacetClosure": {
+      "original": "26059febdf7463de158986fe7b96c58c583880bfc67d7f02b07dd8be9d027566",
+      "packaged": "05d88eb19e62fbe0ed1988d6cdf3c0a5776dbcc4e7dc744d50f8f0ab644ccc91"
+    },
+    "SparseMonotiles.Model": {
+      "original": "a01f12dba930d9c8697b2880237392a8ef28252c68680a0da8592b55cf2b1797",
+      "packaged": "a01f12dba930d9c8697b2880237392a8ef28252c68680a0da8592b55cf2b1797"
+    },
+    "SparseMonotiles.CompactTranslationFrames": {
+      "original": "d948afda42d134ce09238607a34a1e97d82cbd0b5b5aa2e4a4897553c4b4355c",
+      "packaged": "d948afda42d134ce09238607a34a1e97d82cbd0b5b5aa2e4a4897553c4b4355c"
+    },
+    "AtlasPeriods.Translation": {
+      "original": "99c08f8017eb57f25730c194d890ecf8c5bdddd8e0248a9dee71f85fb366fa24",
+      "packaged": "99c08f8017eb57f25730c194d890ecf8c5bdddd8e0248a9dee71f85fb366fa24"
+    },
+    "PhysicalRegistration.UnmarkedPeriodTransfer": {
+      "original": "7b369645743fa225bc7532e06876d62dfeb426259ff3b6fb7bc4da4a4767de26",
+      "packaged": "6a87eee95ba8e079869309bf77c13dbbf8190ea95031710b8804a5c4d48b481d"
+    },
+    "PhysicalRegistration.CompiledRegisteredWorld": {
+      "original": "0330dbe861eeff3d3f17bd706fea7199ee8383f17a3704de503e318dc67b9d79",
+      "packaged": "d574333370e6461967f4d2985e04369347ca77eb0f60262085f1ecfe3cf63754"
+    },
+    "RegisteredPrime.CoarseCellWalls": {
+      "original": "d6e0836ae58b87720e701471b177c2cf83eddb7fd840b309597996f5edc566cf",
+      "packaged": "d6e0836ae58b87720e701471b177c2cf83eddb7fd840b309597996f5edc566cf"
+    },
+    "closure_analysis.CoarseGeometryCases": {
+      "original": "803d1bb96195bfbad1b4840e06f84ff5eb19d86ddc1340d243575809dd1cc842",
+      "packaged": "803d1bb96195bfbad1b4840e06f84ff5eb19d86ddc1340d243575809dd1cc842"
+    },
+    "closure_analysis.CoarseHoles": {
+      "original": "9f5e551d9ed5af5807de909bec8e3127543fb546b55e72a5e748c961563dbe78",
+      "packaged": "9f5e551d9ed5af5807de909bec8e3127543fb546b55e72a5e748c961563dbe78"
+    },
+    "closure_analysis.CoarseIncoming": {
+      "original": "48d3636f35c26f80f626b166c19a44d3115eb3bfb4e54c05a64f7832152ffc0b",
+      "packaged": "48d3636f35c26f80f626b166c19a44d3115eb3bfb4e54c05a64f7832152ffc0b"
+    },
+    "RegisteredPrime.ArithmeticAtlasClosure": {
+      "original": "873e6d209d47bd41ec8bba23a8f451770934a5c97136d35d019082a6bba01575",
+      "packaged": "873e6d209d47bd41ec8bba23a8f451770934a5c97136d35d019082a6bba01575"
+    },
+    "RegisteredPrime.AtlasHierarchy": {
+      "original": "98f288658c707feb7e874f2e353f020fd94400f00491885952d337f77ad6bea6",
+      "packaged": "98f288658c707feb7e874f2e353f020fd94400f00491885952d337f77ad6bea6"
+    },
+    "AtlasPeriods.Aperiodicity": {
+      "original": "af91d5e3da968c778c21b10e639a78f6ddc371a1efd35632641baaa3f8e14920",
+      "packaged": "af91d5e3da968c778c21b10e639a78f6ddc371a1efd35632641baaa3f8e14920"
+    },
+    "PrimeFacetClosure.PhysicalAperiodicity": {
+      "original": "53571b601909e74ae39fb5a03984ecab3c3ae047c70be3d45fc369a931c950fb",
+      "packaged": "9ebd6596de9058972c6596f6bc43328b90544b18cb7fff3b1f8e00a8a84e7e86"
+    },
+    "PhysicalRegistration.RegisteredCarrierWorld": {
+      "original": "95c4866322a64959d85c233dcb97090db2d3461e2eb81830ef9d309831c6fc57",
+      "packaged": "2d73b026b71f918bec24f29a98590be062ff9afb852098c99603e7eeceb4ebd5"
+    },
+    "PhysicalRegistration.MaterialCovariance": {
+      "original": "006e0d941755d4443d23f711d318039291bb0f09ad905dbaee14a5d4139121ea",
+      "packaged": "06daf1dae6a3bb4d16c958c69c384f0c52c44c0778a2012583eae41444c489d2"
+    },
+    "PrimeFacetClosure.NativePrescribedOrbit": {
+      "original": "f8cad99053ffa36faf3394bead4260d3a44d30ee9bfae52382f5a4932cb05c37",
+      "packaged": "61fe604a339d43769af0303979251e2b05e33178904338e0f9632f6dcb012ede"
+    },
+    "PrimeFacetClosure.GeneratedWorldProfiles": {
+      "original": "ee1ac40522d531c2ad7b1222c71458dc35df14e90109fd1c888ebf3617d3ac77",
+      "packaged": "65aa221005424e0782b2c0f6f47657472fc7ed8e74508ef0c8ba03feae3d96af"
+    },
+    "PhysicalRegistration.NativeMaterialAvoidance": {
+      "original": "792e2b53ad8c0b7fa3dc07d9bff4a2420c1f03593252a9cdfbb6f286e6309ced",
+      "packaged": "5d80a7f03e33b77a4a1748f4f88ee27142c54d6c717015426e55b06b5d3a15ca"
+    },
+    "PhysicalRegistration.NativeMaterialGluing": {
+      "original": "fbb1ae4c81c231ee0b3be1071378f424b7f5142c475927d4923dd62848882c42",
+      "packaged": "9bc3ef166d72302635cccbba13679d790a24c451ec27f54cf85aa2519f0eb5b4"
+    },
+    "PhysicalRegistration.RegisteredTubeOwners": {
+      "original": "14000546db521797bd5d941b19428ca1cdbd065c1cd6fabff18d2ad10e6c3031",
+      "packaged": "328ae6f2e5d6bea2b7433f36a9e08259d558d295d4e4d0ef004a49805b54e086"
+    },
+    "PhysicalRegistration.RegisteredTubeGeometry": {
+      "original": "98bb82b6cb3fb9e0531c38ff4872b82ae651881b469e1ffe363e29aeb5a5e15b",
+      "packaged": "dae0becfcbb525388d7963d1c5b9ea2315a37baf0ea0284d43ee965dfbf81cab"
+    },
+    "PhysicalRegistration.RegisteredTubeSeparation": {
+      "original": "853b3ba1c2b066fb17f918a9dea6b7ee503dfc958f4524b2d826f456d471e281",
+      "packaged": "07b61bfb3dca2deb7c938bf27cd3d9535a5e23e7eba20d9cdda5b836b60a1299"
+    },
+    "PhysicalRegistration.RegisteredTubeMatching": {
+      "original": "c121ac410fd8de29d8c445e0406ce452417be18cfb4569ece24c1deb5e7715dd",
+      "packaged": "456f3fc5e78723fc19fc8fe8276f2dcf931d90740be9403e3c5a407f0d3d2548"
+    },
+    "PhysicalRegistration.RegisteredTubeOpposition": {
+      "original": "c705d9134e127a81291017ce62861b4ca604d964eb9a44cf02e2806cfea9ce12",
+      "packaged": "b6bfc197b81dd660a1b129adee85ce1ae25b2699151a2527139e32887e6359c5"
+    },
+    "PhysicalRegistration.PhysicalTilingUnmarked": {
+      "original": "f56475797042dbec4e918316d5b129ff850da72a9e718fc0f80edaeacab78709",
+      "packaged": "572d6a9488412aa1208c74a581bb7894e75fdb63202f948585d86fbf2a8f51ad"
+    },
+    "PhysicalRegistration.RegisteredMaterialExistence": {
+      "original": "766a766a8e873a53cfa0c0921ffcde16c1dfdf47ee8f3b8e14af395bbba54788",
+      "packaged": "673c71cb080f79ecea0f2b5387ca1ef2109d9bafb92e812945ffaac8ee394c9e"
+    },
+    "PrimeFacetClosure.PhysicalMonotile": {
+      "original": "fafea5141c6326b2cd7c6a19699d8894769bf201ae259c4f8ac5f88a58d55f3b",
+      "packaged": "cbfda1cb8309ce110978e7341c70d88a36ad813a25f09ca3e9bfd4ea30d68974"
+    }
+  },
+  "source_snapshot": "Independently compiled and leanchecker-verified pre-module-port proof snapshot, 2026-10-13"
+}
