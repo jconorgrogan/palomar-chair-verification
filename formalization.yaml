@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
 version: v0.4
 project:
-  name: Physical aperiodic monotiles in prime dimensions congruent to three modulo four
+  name: Aperiodic Monotiles in Infinitely Many Dimensions
   description: >-
     For every prime p congruent to three modulo four, we construct a compact
     subset of Euclidean p-space with nonempty interior that admits a tiling by

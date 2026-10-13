@@ -1,4 +1,4 @@
-# Physical aperiodic monotiles in prime dimensions p = 3 mod 4
+# Aperiodic Monotiles in Infinitely Many Dimensions
 
 The selected theorem says that for every ordinary prime `p` with `p % 4 = 3`,
 there is a compact set in Euclidean `p`-space with nonempty interior which tiles
@@ -41,6 +41,12 @@ This is a substantive uniform physical construction; no novelty or human
 peer-review claim is made. The source manuscripts and their relationship to
 the formalization are described in `formalization.yaml` and `sources/`.
 
+The earlier five-dimensional CLARK development is related work. This project
+reuses its unmarked physical-tiling model and compact translation-equivariant
+frame construction, with the pinned source recorded in `formalization.yaml`.
+Dimension 5 is outside the prime dimensions congruent to 3 modulo 4 treated
+here; CLARK and the present family have separately recorded verification.
+
 ## Reproducibility and verification status
 
 The project pins Lean `v4.35.0-rc2` and Mathlib commit
@@ -59,8 +65,12 @@ The protected Palomar Comparator was attempted with both NanoDa and con-ron
 enabled. Both attempts stopped before proof judging because the local host
 could not create the required sandbox mount at `/root`. No sandbox or kernel
 check was disabled. Comparator and the two external kernels have therefore
-not verified this package. The official remote full workflow remains pending;
-this package has not been submitted to or registered by Palomar. Recorded local
+not verified this package. The first official remote full-workflow attempt
+stopped during input preparation because the caller request identifier had the
+wrong length; it did not judge any proof. This revision fixes that identifier.
+Full mechanical verification remains pending, and this package has not been
+submitted to or registered by Palomar. The preserved initial run is
+[38403493227](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/38403493227). Recorded local
 results and exact source hashes are in `verification/LOCAL_VERIFICATION.json`.
 The final independent AI source review, including actual tiling existence and
 the profile/atlas binding, is in `verification/INDEPENDENT_PACKAGE_REVIEW.md`.
