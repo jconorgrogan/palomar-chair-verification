@@ -13,7 +13,7 @@ concurrency:
 jobs:
   prepare:
     name: prepare
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     steps:
       - name: Check out reviewed pipeline commit
@@ -40,7 +40,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py prepare
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -70,7 +70,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-prepare/*
   wave_00:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare]
     strategy:
@@ -104,7 +104,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -134,7 +134,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_01:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_00]
     strategy:
@@ -168,7 +168,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -198,7 +198,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_02:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_01]
     strategy:
@@ -232,7 +232,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -262,7 +262,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_03:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_02]
     strategy:
@@ -296,7 +296,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -326,7 +326,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_04:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_03]
     strategy:
@@ -360,7 +360,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -390,7 +390,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_05:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_04]
     strategy:
@@ -424,7 +424,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -454,7 +454,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_06:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_05]
     strategy:
@@ -488,7 +488,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -518,7 +518,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_07:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_06]
     strategy:
@@ -552,7 +552,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -582,7 +582,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_08:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_07]
     strategy:
@@ -616,7 +616,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -646,7 +646,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_09:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_08]
     strategy:
@@ -680,7 +680,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -710,7 +710,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_10:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_09]
     strategy:
@@ -744,7 +744,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -774,7 +774,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_11:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_10]
     strategy:
@@ -808,7 +808,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -838,7 +838,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_12:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_11]
     strategy:
@@ -872,7 +872,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -902,7 +902,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_13:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_12]
     strategy:
@@ -936,7 +936,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -966,7 +966,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_14:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_13]
     strategy:
@@ -1000,7 +1000,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1030,7 +1030,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_15:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_14]
     strategy:
@@ -1064,7 +1064,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1094,7 +1094,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_16:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_15]
     strategy:
@@ -1128,7 +1128,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1158,7 +1158,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_17:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_16]
     strategy:
@@ -1192,7 +1192,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1222,7 +1222,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_18:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_17]
     strategy:
@@ -1256,7 +1256,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1286,7 +1286,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_19:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_18]
     strategy:
@@ -1320,7 +1320,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1350,7 +1350,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_20:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_19]
     strategy:
@@ -1384,7 +1384,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1414,7 +1414,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_21:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_20]
     strategy:
@@ -1448,7 +1448,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1478,7 +1478,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_22:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_21]
     strategy:
@@ -1512,7 +1512,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1542,7 +1542,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_23:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_22]
     strategy:
@@ -1576,7 +1576,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1606,7 +1606,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   wave_24:
     name: stage ${{ matrix.stage }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_23]
     strategy:
@@ -1640,7 +1640,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1670,7 +1670,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-build-${{ matrix.stage }}/*
   export_target:
     name: export_target
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_24]
     steps:
@@ -1698,7 +1698,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py export_target
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1728,7 +1728,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-export_target/*
   fresh_kernel:
     name: fresh_kernel
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, wave_24]
     steps:
@@ -1756,7 +1756,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py fresh_kernel
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1786,7 +1786,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-fresh_kernel/*
   lean_export:
     name: lean_export
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, export_target]
     steps:
@@ -1814,7 +1814,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py lean_export
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1844,7 +1844,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-lean_export/*
   nanoda:
     name: nanoda
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, export_target]
     steps:
@@ -1872,7 +1872,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py nanoda
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1902,7 +1902,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-nanoda/*
   conron:
     name: conron
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, export_target]
     steps:
@@ -1930,7 +1930,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py conron
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1960,7 +1960,7 @@ jobs:
           path: ${{ runner.temp }}/hierarchy-c-failure-conron/*
   verdict:
     name: verdict
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 350
     needs: [prepare, export_target, fresh_kernel, lean_export, nanoda, conron]
     steps:
@@ -1988,7 +1988,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py verdict
-          --contract-sha256 760d26ef779b9f3deba8e9ca33964f8a71c3d833046f6c605950bffd3f19d243
+          --contract-sha256 c424b0c24caa5bace2e3d07a75f748480e0d9957149ecc6ff19e054e537bff02
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence

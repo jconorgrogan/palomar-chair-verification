@@ -246,7 +246,7 @@ def validate_contract(contract, manifest, plan, profiles):
     need(COMMIT.fullmatch(contract.get('source_commit', '')), 'exact immutable source commit required')
     need(contract['lean_release'] == 'v4.35.0-rc2' and contract['lean_archive_sha256'] == TOOLCHAIN_SHA256,
          'wrong toolchain release/archive')
-    need(contract['runner'] == 'ubuntu-24.04' and type(contract['maximum_parallel_jobs']) is int and 1 <= contract['maximum_parallel_jobs'] <= 4,
+    need(contract['runner'] == 'ubuntu-22.04' and type(contract['maximum_parallel_jobs']) is int and 1 <= contract['maximum_parallel_jobs'] <= 4,
          'unsupported runner/parallelism')
     need(contract['retention_days'] == 7, 'artifact retention must be seven days')
     positive_int(contract['job_timeout_seconds'], 'job timeout', 21000)
