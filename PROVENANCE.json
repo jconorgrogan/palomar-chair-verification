@@ -1,0 +1,35 @@
+{
+  "current_source_changes": "Current split Part1/Part2 source substitutions are included; historical compiled objects and acceptance records are excluded.",
+  "excluded": [
+    "compiled objects",
+    "runtime binaries",
+    "caches",
+    "locks and leases",
+    "execution receipts",
+    "local absolute paths",
+    "unrelated project files"
+  ],
+  "existing_branches_changed": false,
+  "intended_branch": "verify/hierarchy-c-20261015",
+  "license": "Apache-2.0 for owned code; preserve original third-party notices and licenses.",
+  "proof_commands_executed_for_this_snapshot": false,
+  "publication_source_commit": "The Git commit containing this provenance file; resolved and pinned by the subsequent pipeline commit.",
+  "repository": "https://github.com/jconorgrogan/palomar-chair-verification",
+  "schema": "radius-five-public-source-provenance-v1",
+  "selected_inventory_pins": {
+    "corrected_private628_ordered_import_plan": "5afde7899be5b728c4e295c2d3228b3b7d0b97005afcfaf5fcc5efb102a3e277",
+    "main_nonfinal2960": "6f5fcfc7dfd099f8eb1ef4d1cde722b28efd57e491993cb82667446b9de8c023",
+    "private_current1052": "96492caaad3d504558d344cf20f9f4a37d716570558038bdaf2c2b6ef78ded6b"
+  },
+  "selection_counts": {
+    "final_assembly": 6,
+    "main_pruning": 2960,
+    "private_current": 1052,
+    "shared_prerequisites": 2351
+  },
+  "source_archive_sha256": "ecbfffcb707315191b3c87d7e463363257fadd5cb6c2045fec2c9761d0d97b37",
+  "source_content_sha256": "dbaaed6b1628729b9e557dc6bd034472cfbb7a318f11fbaca778aeb459e6273a",
+  "source_manifest_sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61",
+  "source_origin": "The source working tree has no project Git commit. Exact selected bytes are identified by the per-file source manifest and content digest.",
+  "status": "work_in_progress_unverified"
+}
