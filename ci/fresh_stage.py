@@ -626,15 +626,30 @@ class StageRunner:
         for name in ('objects', 'deps', 'scratch', 'logs'): (self.workspace / name).mkdir()
         verify_sources(self.source_root, self.manifest)
         archive_total = sum(Path(x['archive_path']).stat().st_size for x in descriptors)
-        required_free = 2 * archive_total + 2 * self.contract['max_stage_output_bytes'] + self.contract['minimum_free_disk_bytes']
+        required_free = 3 * archive_total + 2 * self.contract['max_stage_output_bytes'] + self.contract['minimum_free_disk_bytes']
         need(shutil.disk_usage(self.workspace).free >= required_free, 'insufficient measured space for dependency/output copies')
         self.read_predecessors(sid, descriptors)
         original_deps = {name: file_sha(path) for name, path in regular_tree(self.workspace / 'deps').items()}
+        # Lean resolves a module namespace from its first search root, so separate
+        # own/dependency roots can shadow one another. Build in one complete
+        # namespace tree; retain the separately verified predecessor copy for
+        # immutable comparison. Only own_files are ever packed for upload.
+        for name, path in regular_tree(self.workspace / 'deps').items():
+            destination = self.workspace / 'objects' / name
+            need(not destination.exists(), 'predecessor shadows a fresh output')
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path, destination)
+        def verify_predecessor_copies():
+            # Check the fixed pinned predecessor list, not a broad filesystem scan.
+            need(original_deps == {name: file_sha(self.workspace / 'deps' / name) for name in original_deps},
+                 'predecessor objects changed')
+            checked = {name.removeprefix('objects/'): digest for outputs in self.objects.values() for name, digest in outputs.items()}
+            need(checked == {name: file_sha(self.workspace / 'objects' / name) for name in checked},
+                 'unified-search predecessor objects changed')
         environment = {'PATH': str(self.toolchain_root / 'bin') + ':/usr/bin:/bin',
                        'HOME': str(self.workspace / 'scratch'), 'TMPDIR': str(self.workspace / 'scratch'),
                        'LANG': 'C.UTF-8', 'LC_ALL': 'C.UTF-8', 'LEAN_NUM_THREADS': '1',
-                       'LEAN_PATH': os.pathsep.join(str(x) for x in [self.workspace / 'objects', self.workspace / 'deps',
-                                                                    self.toolchain_root / 'lib/lean'])}
+                       'LEAN_PATH': os.pathsep.join(str(x) for x in [self.workspace / 'objects', self.toolchain_root / 'lib/lean'])}
         records, own_files = [], set()
         for module in self.stages[sid]['modules']:
             profile_id = self.profiles['module_profiles'][module]
@@ -642,12 +657,16 @@ class StageRunner:
             imported = self.imported(module)
             output_names = object_paths(module, self.contract['output_suffixes'])
             (self.workspace / output_names[0]).parent.mkdir(parents=True, exist_ok=True)
+            verify_predecessor_copies()
             compile_result = self.command(module, 'compile', profile, environment, deadline)
-            expected_outputs = {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')}
+            verify_predecessor_copies()
+            expected_outputs = set(original_deps) | {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')}
             expected_outputs.update(x.removeprefix('objects/') for x in output_names)
             exact_tree(self.workspace / 'objects', expected_outputs)
             before_check = {x: file_sha(self.workspace / x) for x in output_names}
+            verify_predecessor_copies()
             check_result = self.command(module, 'check', profile, environment, deadline)
+            verify_predecessor_copies()
             need(before_check == {x: file_sha(self.workspace / x) for x in output_names}, 'checker changed output')
             need(module not in self.objects, 'duplicate new module')
             self.objects[module] = before_check
@@ -660,7 +679,9 @@ class StageRunner:
         verify_sources(self.source_root, self.manifest)
         need(original_deps == {name: file_sha(path) for name, path in regular_tree(self.workspace / 'deps').items()},
              'predecessor objects changed')
-        exact_tree(self.workspace / 'objects', {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')})
+        need(original_deps == {name: file_sha(self.workspace / 'objects' / name) for name in original_deps},
+             'unified-search predecessor objects changed')
+        exact_tree(self.workspace / 'objects', set(original_deps) | {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')})
         exact_tree(self.workspace / 'logs', {x.removeprefix('logs/') for x in own_files if x.startswith('logs/')})
         files = {name: self.workspace / name for name in sorted(own_files)}
         info = {name: {'sha256': file_sha(path), 'bytes': path.stat().st_size} for name, path in files.items()}
