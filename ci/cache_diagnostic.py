@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Bounded cache-backed conditional geometry replay. C remains an explicit premise."""
 from __future__ import annotations
-import argparse,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,stat,subprocess,sys,time,urllib.request
+import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,stat,subprocess,sys,time,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
 HELPERS={'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'c653460745c85dd1adb617e94301a186e4a056e6dd5662fceee9ee2def5942e6',
+ 'collect_evidence.py':'c4c7e49c4fd10b66a59db4d9b0ce88caff75b50e8a3996bf9bd737b02e377a78',
+ 'conditional_transport.py':'428f66710069d857ce2c9e041ac0d789f434bfbd37f4fe022103b2a4ecbc76a3',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -20,6 +21,7 @@ def load_helper(name):
     module=importlib.util.module_from_spec(spec);sys.modules[name]=module;spec.loader.exec_module(module);return module
 f=load_helper('fresh_stage')
 header_parser=load_helper('source_header')
+transport=load_helper('conditional_transport')
 install_archive=load_helper('toolchain_install').install_archive
 GIB=1024**3
 DIAGNOSTIC_HEAP_MIB=4096
@@ -150,13 +152,17 @@ ENDPOINT_THEOREMS=['NativeFinalAssembly.curved_monotile_of_parent','NativeFinalA
 BRIDGES=['KernelCurvedPilot.CurvedGeometryAndTiling','KernelCurvedParentPilot.CurvedPeriodFromParent','KernelSeedPilot.ProductPhysicalExistence','KernelParentPilot.ProductAperiodicityFromParent']
 SUFFIXES=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
 SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
+STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
 
 def validate_diagnostic_profile(contract):
-    expected={'schema':'conditional-geometry-cache-backed-replay-v1','owned_module_count':2481,
+    expected={'schema':'conditional-geometry-staged-replay-v2','owned_module_count':2481,
       'finite_prerequisite_count':333,'owned_geometry_count':2144,'ordinary_bridge_count':4,
       'conditional_endpoint_count':2,'lean_heap_mib':4096,'diagnostic_rss_gib':8,
       'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'outer_timeout_minutes':330,
-      'aggregate_command_deadline_seconds':19200,'maximum_parallel_jobs':1,
+      'aggregate_command_deadline_seconds':19200,'maximum_parallel_jobs':3,
+      'stage_count':5,'workflow_aggregate_seconds':96000,'workflow_outer_runner_minutes':1650,
+      'object_artifact_max_bytes':4*GIB,'object_artifact_zip_max_bytes':4*GIB+4*1024**2,
+      'producer_job_log_max_bytes':16*1024**2,'transport_timeout_seconds':1800,'failure_evidence_grace_seconds':5,
       'owned_output_max_bytes':6*GIB,'owned_source_max_bytes':32*1024**2,
       'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,
       'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,
@@ -164,7 +170,7 @@ def validate_diagnostic_profile(contract):
     for key,value in expected.items():f.need(contract.get(key)==value,'conditional replay profile mismatch: '+key)
     for key,value in {'conditional_C_remains_explicit':True,'final_C_proof_certified':False,
         'unconditional_monotile_proof_certified':False,'fresh_external_source_rebuild':False,
-        'owned_objects_from_prior_runs_allowed':False}.items():
+        'owned_objects_from_prior_runs_allowed':False,'owned_objects_from_same_run_checked_stages_allowed':True}.items():
         f.need(contract.get(key) is value,'conditional replay trust/scope changed: '+key)
     f.need(contract['conditional_endpoints']==ENDPOINTS and contract['endpoint_theorems']==ENDPOINT_THEOREMS,'endpoint contract differs')
     f.need(set(contract['ordinary_bridges'])==set(BRIDGES),'ordinary bridge set differs')
@@ -172,7 +178,7 @@ def validate_diagnostic_profile(contract):
 
 def distribution_files(contract):
     expected={p for p in contract['inputs'] if not p.startswith('src/')}|{'contract.json','.github/workflows/conditional-geometry.yml','owned-sources.tar.gz'}
-    f.need(contract['distribution_files']==sorted(expected) and len(expected)==26,'distribution manifest differs')
+    f.need(contract['distribution_files']==sorted(expected) and len(expected)==29,'distribution manifest differs')
     return expected
 
 
@@ -334,10 +340,10 @@ def verify_owned_final(objects,prior,maximum):
 
 def require_success_commands(commands):
     for r in commands:
-        f.need(r['exit_code']==0 and not any(r[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and r['process_group_empty'] and r['descendants_empty'],'terminal receipt contains unsuccessful command')
+        f.need(r['exit_code']==0 and not any(r[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and r['process_group_empty'] and r['descendants_empty'] and not (r['escaped_descendants'] and not r['new_sessions_explicitly_allowed']),'terminal receipt contains unsuccessful command')
 
 
-def validate_terminal_receipt(result,commands,owned_rows,receipts,audits):
+def validate_terminal_receipt(result,commands,owned_rows,receipts,audits,*,final=True):
     f.need(result['conditional_C_remains_explicit'] is True and result['final_C_proof_certified'] is False and result['unconditional_monotile_proof_certified'] is False,'terminal conditional scope weakened')
     require_success_commands(commands)
     expected=[(phase,r['module']) for r in owned_rows for phase in ['compile','check']]
@@ -348,7 +354,7 @@ def validate_terminal_receipt(result,commands,owned_rows,receipts,audits):
                 actual.append((phase,command['name'].removeprefix(phase+'-')))
     f.need(actual==expected,'missing, duplicated, or reordered compile/check pair')
     f.need([r['module'] for r in receipts]==[r['module'] for r in owned_rows] and all(r['checker_passed'] is True for r in receipts),'fresh module receipt coverage differs')
-    f.need(audits=={'ordinary_bridges':True,'conditional_endpoints':True},'mandatory raw audits missing')
+    f.need(audits==({'ordinary_bridges':True,'conditional_endpoints':True} if final else {}),'mandatory raw audits missing or premature')
 
 def audit_axiom_output(transcript,theorems):
     f.need('sorryAx' not in transcript,'bridge diagnostic depends on a Challenge hole')
@@ -414,14 +420,168 @@ def readonly_boundary_preflight(runtime,work,env,command):
     write_json(work/'evidence/read-only-boundary-preflight.json',{'status':'READ_ONLY_PREDECESSOR_WRITES_CHMOD_AND_NAMESPACE_CREATION_REJECTED','quarantine_write_allowed':True,'fixture_sha256':f.file_sha(seed),'not_a_research_proof':True})
 
 
+def validate_stage_plan(contract):
+    stages=contract['stages'];order=contract['stage_order']
+    expected=['F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','F4_bridge_and_endpoint_joins']
+    f.need(order==expected and set(stages)==set(order),'stage identity/order differs')
+    counts=[186,890,1226,109,70];all_modules=[];seen_stages=[];owner={}
+    for sid,count in zip(order,counts):
+        row=stages[sid];names=row['modules']
+        f.need(len(names)==count and len(set(names))==count,'stage count/duplicate differs')
+        f.need(row['needs']==([] if sid==order[0] else order[:-1] if sid==order[-1] else [order[0]]),'stage dependency graph differs')
+        ancestors=set(row['needs'])
+        for dep in row['needs']:ancestors.update(stages[dep]['admitted_stages'])
+        f.need(row['admitted_stages']==[x for x in seen_stages if x in ancestors],'stage ancestor admission differs')
+        for module in names:
+            f.need(module not in owner,'owned module scheduled twice');owner[module]=sid
+        all_modules+=names;seen_stages.append(sid)
+    f.need(set(all_modules)=={r['module'] for r in contract['modules']} and len(all_modules)==2481,'stage partition differs from exact owned union')
+    f.need(contract['final_stage']==order[-1],'wrong final audit stage')
+    owned=f.load_json(ROOT/'locks/owned-sources.json')['sources'];rows={r['module']:r for r in owned}
+    for sid in order:
+        available={m for dep in stages[sid]['admitted_stages'] for m in stages[dep]['modules']}
+        for module in stages[sid]['modules']:
+            for dep in rows[module]['ordered_imports']:
+                f.need(dep not in owner or dep in available,'stage imports unaccepted owned module')
+            available.add(module)
+
+def validate_session_policy(name,argv,allowed,work,contract):
+    """Explicit authorization, not retrospective acceptance of a cleanup race."""
+    is_sandbox=argv[0]=='/usr/bin/bwrap'
+    if is_sandbox:
+        f.need(name in {'bwrap-preflight','read-only-committed-root-preflight','cache-bootstrap','cache-get','cache-lookup'} or name.startswith(('compile-','check-','audit-')),'unrecognized sandbox command')
+        f.need('--new-session' in argv and '--unshare-all' in argv,'sandbox session topology changed')
+    is_fetch=False
+    pins=f.load_json(ROOT/'locks/dependencies.json')['packages']
+    for pin in pins:
+        if name==pin['name']+'-fetch':
+            expected=['/usr/bin/git','-c','core.hooksPath=/dev/null','-c','core.fsmonitor=false','-C',str(work/'packages'/pin['name']),'fetch','--quiet','--depth=1','--no-tags',pin['url'],pin['rev']]
+            f.need(argv==expected,'official fetch argv differs from pinned allowlist');is_fetch=True
+    f.need(type(allowed) is bool and allowed==(is_sandbox or is_fetch),'unapproved or missing explicit session policy')
+
+def cache_interface_identity(cache_rows,inventories,runtime_sha):
+    native={}
+    for package,inventory in inventories.items():
+        for name,row in inventory['files'].items():
+            if re.search(r'\.(?:so(?:\.[0-9.]+)?|a|dylib|dll)$',name):
+                f.need(set(row)=={'bytes','sha256'},'native library symlink is not an admissible cross-stage interface')
+                native[package+'/'+name]=row
+    return {'schema':'conditional-external-interface-v1','runtime_inventory_sha256':runtime_sha,
+      'required_cache_companion_rows_sha256':f.sha(f.json_bytes(cache_rows)),
+      'all_package_native_library_files_sha256':f.sha(f.json_bytes(native))}
+
+def stage_identity():
+    return {'repository':os.environ['GITHUB_REPOSITORY'],'run_id':os.environ['GITHUB_RUN_ID'],
+      'run_attempt':os.environ['GITHUB_RUN_ATTEMPT'],'workflow_commit':os.environ['GITHUB_SHA']}
+
+def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cache_rows,runtime,deadline):
+    prior={};checked=set();lineage=[]
+    ancestors=contract['stages'][stage_id]['admitted_stages']
+    if not ancestors:return prior,checked,lineage
+    client=transport.Transport(deadline=deadline);root=work/'stage-imports';root.mkdir()
+    search=[str(work/'packages'/p['name']/'.lake/build/lib/lean') for p in f.load_json(ROOT/'locks/dependencies.json')['packages']]
+    for sid in ancestors:
+        producer=contract['stages'][sid];download=root/(sid+'-download')
+        origin=client.download_stage(sid,'conditional '+sid,download,contract['object_artifact_max_bytes'])
+        extracted=root/(sid+'-extracted')
+        receipt=transport.extract_stage(download,extracted,maximum=contract['object_artifact_max_bytes'],deadline=deadline)
+        predecessor=[x for x in lineage if x['stage_id'] in producer['admitted_stages']]
+        imported_modules={m for dep in producer['admitted_stages'] for m in contract['stages'][dep]['modules']}
+        producer_inventory={name:prior[name] for module in imported_modules for name in module_outputs(module)}
+        expected={'identity':stage_identity(),'stage_id':sid,'stage_modules':producer['modules'],
+          'admitted_stages':producer['admitted_stages'],'contract_sha256':contract_sha,
+          'interface_identity':interface,'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,
+          'predecessor_artifacts':predecessor,'contract':contract,'stage_rows':[owned_rows[m] for m in producer['modules']],
+          'owned_rows':owned_rows,'cache_rows':cache_rows,'runtime':runtime,'cache_search':search,
+          'producer_inventory':producer_inventory,'origin':origin,'dependency_pins':f.load_json(ROOT/'locks/dependencies.json')['packages']}
+        added,prior=transport.admit_stage(extracted,expected=expected,objects=work/'objects',prior=prior,checked=checked,api=sys.modules[__name__],deadline=deadline)
+        f.need([r['module'] for r in added]==producer['modules'],'admitted producer coverage differs')
+        checked.update(producer['modules'])
+        lineage.append({'stage_id':sid,'origin':origin,'receipt_sha256':f.file_sha(extracted/'receipt.json'),
+          'own_modules':producer['modules'],'checked_module_receipts_sha256':f.file_sha(extracted/'evidence/owned-modules.jsonl')})
+        # Download/extraction files are not import roots. Retain producer evidence
+        # locally, but remove payload duplicates after verified host admission.
+        shutil.rmtree(download)
+    verify_owned_final(work/'objects',prior,contract['owned_output_max_bytes'])
+    return prior,checked,lineage
+
+def export_stage(work,contract,contract_sha,stage_id,interface,lineage,deadline):
+    own=contract['stages'][stage_id]
+    receipt={'identity':stage_identity(),'stage_id':stage_id,'stage_modules':own['modules'],
+      'admitted_stages':own['admitted_stages'],'contract_sha256':contract_sha,'interface_identity':interface,
+      'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,
+      'predecessor_artifacts':lineage}
+    collector=load_helper('collect_evidence')
+    collector.verify_complete(work/'evidence',contract,contract_sha,require_export=False)
+    transport.write_stage(work/'objects',work/'evidence',receipt,work/'object-upload',
+      maximum=contract['object_artifact_max_bytes'],evidence_maximum=contract['evidence_max_bytes'],deadline=deadline)
+    return {'stage_id':stage_id,'contract_sha256':contract_sha,
+      'stage_tar_sha256':f.file_sha(work/'object-upload/stage.tar'),'stage_tar_bytes':(work/'object-upload/stage.tar').stat().st_size,
+      'descriptor_sha256':f.file_sha(work/'object-upload/descriptor.json')}
+
+
+def finalize_stage_export(work,contract,contract_sha,stage_id,interface,lineage,deadline,result,watchdog=None):
+    try:
+        f.need(time.monotonic()<deadline,'stage aggregate deadline exceeded before export')
+        exported=export_stage(work,contract,contract_sha,stage_id,interface,lineage,deadline)
+        f.need(time.monotonic()<deadline,'stage aggregate deadline exceeded during export')
+        marker=work/'evidence/stage-export.json';pending=work/'evidence/.stage-export.pending'
+        f.need(not marker.exists() and not pending.exists(),'preexisting stage completion marker')
+        with pending.open('xb') as stream:stream.write(f.json_bytes(exported))
+        if watchdog is not None:watchdog.check()
+        f.need(time.monotonic()<deadline,'stage aggregate deadline exceeded before completion marker')
+        os.replace(pending,marker)
+        if watchdog is not None:watchdog.close()
+    except Exception as e:
+        result['status']='FAILED_STAGE_EXPORT_OR_DEADLINE';result['complete_evidence']=False;result['error']=str(e)
+        write_json(work/'evidence/result.json',result)
+        raise
+
+class HostDeadline:
+    """Interrupt host I/O at the fixed deadline without interrupting child cleanup."""
+    def __init__(self,deadline):
+        self.deadline=deadline;self.in_command=False;self.expired=False;self.old_handler=None;self.failure_grace_started=False
+    def alarm(self,signum,frame):
+        self.expired=True
+        if not self.in_command:
+            self.failure_receipt_grace()
+            raise f.Rejected('stage host-work aggregate deadline exceeded')
+    def arm(self):
+        f.need(signal.getitimer(signal.ITIMER_REAL)==(0.0,0.0),'preexisting process alarm')
+        self.old_handler=signal.signal(signal.SIGALRM,self.alarm)
+        signal.setitimer(signal.ITIMER_REAL,max(0.001,self.deadline-time.monotonic()))
+    def failure_receipt_grace(self):
+        f.need(self.expired and not self.in_command,'failure grace requires expired deadline and no owned command')
+        if not self.failure_grace_started:
+            self.failure_grace_started=True
+            signal.setitimer(signal.ITIMER_REAL,5,1)
+    def check(self):
+        f.need(not self.expired and time.monotonic()<self.deadline,'stage aggregate deadline expired')
+    def close(self):
+        if self.old_handler is not None:
+            signal.setitimer(signal.ITIMER_REAL,0)
+            signal.signal(signal.SIGALRM,self.old_handler);self.old_handler=None
+
+_ACTIVE_WATCHDOG=None
+
+def execute_cli():
+    try:main()
+    finally:
+        if _ACTIVE_WATCHDOG is not None:_ACTIVE_WATCHDOG.close()
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--contract-sha256',required=True);ap.add_argument('--work',type=Path,required=True)
+    ap.add_argument('--stage',required=True);ap.add_argument('--contract-sha256',required=True);ap.add_argument('--work',type=Path,required=True)
     ap.add_argument('--runtime',type=Path);ap.add_argument('--runtime-inventory',type=Path)
     ap.add_argument('--local-dependencies',type=Path)
     a=ap.parse_args();f.need(sys.flags.isolated and sys.dont_write_bytecode,'invoke with Python -I -B');contract=f.pinned_load(ROOT/'contract.json',a.contract_sha256)
     f.need(contract['review_status']=='reviewed_for_execution','INACTIVE: diagnostic is not reviewed')
     validate_diagnostic_profile(contract)
+    validate_stage_plan(contract)
+    f.need(a.stage in contract['stages'],'unknown stage')
+    f.need(not a.runtime and not a.runtime_inventory and not a.local_dependencies,'staged production runner requires fresh official acquisition')
+    stage=contract['stages'][a.stage];final_stage=a.stage==contract['final_stage']
     f.need(f.file_sha(ROOT/'ci/fresh_stage.py')==HELPER_SHA,'bounded runner changed')
     validate_distribution_layout(contract)
     f.need(os.environ.get('GITHUB_REF')=='refs/heads/'+contract['publication_branch'],'unexpected diagnostic branch')
@@ -435,8 +595,11 @@ def main():
     work=a.work.absolute();f.no_symlink_path(work);f.need(not work.exists(),'diagnostic workspace must be new');work.mkdir()
     for n in ['logs','evidence','packages','home','tmp','cache','objects','bootstrap','quarantine','auditor-objects']:(work/n).mkdir()
     deadline=time.monotonic()+contract['aggregate_command_deadline_seconds'];commands=[];runtime=None;terminal_ready=False
-    result={'schema':'conditional-geometry-cache-backed-replay-v1','status':'INCOMPLETE','proof_certified':False,
+    global _ACTIVE_WATCHDOG
+    watchdog=HostDeadline(deadline);_ACTIVE_WATCHDOG=watchdog;watchdog.arm()
+    result={'schema':'conditional-geometry-staged-replay-v2','status':'INCOMPLETE','proof_certified':False,
       'fresh_external_source_rebuild':False,'cache_bytes_trusted_not_source_authenticated':True,
+      'stage_id':a.stage,'stage_modules':stage['modules'],'admitted_stages':stage['admitted_stages'],
       'owned_module_count':2481,'finite_prerequisite_count':333,'conditional_C_remains_explicit':True,
       'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,
       'owned_objects_from_prior_runs':False,'contract_sha256':a.contract_sha256,
@@ -445,16 +608,26 @@ def main():
     write_json(work/'evidence/result.json',result)
     def command(name,argv,*,cwd=None,env=None,seconds=1800,rss=8*GIB,allowed_sessions=False,expect_success=True):
         f.need(time.monotonic()<deadline,'diagnostic aggregate deadline exceeded')
+        requested_seconds=seconds
         seconds=min(seconds,max(1,int(deadline-time.monotonic())))
+        validate_session_policy(name,list(map(str,argv)),allowed_sessions,work,contract)
         out=work/'logs'/(name+'.stdout');err=work/'logs'/(name+'.stderr')
-        r=f.run_process(list(map(str,argv)),cwd=cwd or work,env=env or safe_env(runtime or Path('/usr'),work/'home',work/'tmp'),timeout=seconds,stdout=out,stderr=err,max_log_bytes=contract['per_command_log_max_bytes'],
-          limits={'address_space_bytes':12*GIB,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions)
-        r.update(name=name,argv=list(map(str,argv)),cwd=str(cwd or work),stdout_sha256=f.file_sha(out),stderr_sha256=f.file_sha(err));commands.append(r)
+        watchdog.in_command=True
+        try:
+            r=f.run_process(list(map(str,argv)),cwd=cwd or work,env=env or safe_env(runtime or Path('/usr'),work/'home',work/'tmp'),timeout=seconds,stdout=out,stderr=err,max_log_bytes=contract['per_command_log_max_bytes'],
+              limits={'address_space_bytes':12*GIB,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions)
+        finally:
+            watchdog.in_command=False
+            if watchdog.expired:watchdog.failure_receipt_grace()
+        r.update(timeout_seconds=seconds,max_log_bytes=contract['per_command_log_max_bytes'],limits={'address_space_bytes':12*GIB,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions,
+          requested_timeout_seconds=requested_seconds,effective_timeout_seconds=seconds,
+          max_rss_bytes=rss,address_space_bytes=12*GIB,max_created_file_bytes=512*1024**2,name=name,argv=list(map(str,argv)),cwd=str(cwd or work),stdout_sha256=f.file_sha(out),stderr_sha256=f.file_sha(err));commands.append(r)
         with (work/'evidence/commands.jsonl').open('a') as h:h.write(json.dumps(r,sort_keys=True,separators=(',',':'))+'\n')
         result['command_count']=len(commands);result['complete_log_bytes']+=out.stat().st_size+err.stat().st_size
         f.need(result['complete_log_bytes']<=contract['aggregate_log_max_bytes'],'aggregate complete log bound exceeded')
         write_json(work/'evidence/last_command.json',r);write_json(work/'evidence/result.json',result)
-        ok=r['exit_code']==0 and not any(r[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and r['process_group_empty'] and r['descendants_empty']
+        watchdog.check()
+        ok=r['exit_code']==0 and not any(r[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and r['process_group_empty'] and r['descendants_empty'] and not (r['escaped_descendants'] and not r['new_sessions_explicitly_allowed'])
         f.need(ok or not expect_success,'command failed/incomplete: '+name)
         return out,ok
     try:
@@ -499,7 +672,7 @@ def main():
             command(name+'-remote',base+['remote','add','origin',pin['url']],env=env,seconds=30)
             origin=str(a.local_dependencies/name) if a.local_dependencies else pin['url']
             if a.local_dependencies:source_snapshot(a.local_dependencies/name,pin)
-            command(name+'-fetch',base+['fetch','--quiet','--depth=1','--no-tags',origin,pin['rev']],env=env,seconds=300)
+            command(name+'-fetch',base+['fetch','--quiet','--depth=1','--no-tags',origin,pin['rev']],env=env,seconds=300,allowed_sessions=True)
             command(name+'-checkout',base+['checkout','--quiet','--detach',pin['rev']],env=env,seconds=60)
             before[name]=source_snapshot(p,pin)
             f.need(not (p/'.lake').exists(),'fresh checkout has prior Lake state')
@@ -568,7 +741,7 @@ def main():
         # Cached package builds stay read-only. Download archives are no longer inputs.
         shutil.rmtree(work/'cache');(work/'cache').mkdir()
         env['LEAN_PATH']=':'.join([str(work/'objects'),*search,str(runtime/'lib/lean')])
-        prior={};checked=set();receipts=[]
+        prior={};checked=set();receipts=[];lineage=[]
         owned_rows={r['module']:r for r in owned['sources']};cache_rows={}
         for r in required:
             prefix='lib/lean/'+r['module'].replace('.','/')
@@ -576,9 +749,15 @@ def main():
             cache_rows[r['module']]={**r,'companions':{prefix+suffix:inventories[r['package']]['files'][prefix+suffix] for suffix in suffixes}}
         result['cached_build_inventory_sha256']=f.file_sha(work/'evidence/cached-build-inventory.json')
         result['runtime_inventory_sha256']=f.file_sha(work/'evidence/runtime-inventory.json')
-        for entry in contract['modules']:
-            module=entry['module'];row=owned_rows[module];rel=module.replace('.','/')
-            print(json.dumps({'phase':'compile_and_check','module':module,'completed':len(checked),'total':2481}),flush=True)
+        interface=cache_interface_identity(cache_rows,inventories,result['runtime_inventory_sha256'])
+        write_json(work/'evidence/interface-identity.json',interface)
+        result['interface_identity_sha256']=f.file_sha(work/'evidence/interface-identity.json')
+        prior,checked,lineage=restore_stages(work,contract,a.contract_sha256,a.stage,interface,owned_rows,cache_rows,runtime,deadline)
+        write_json(work/'evidence/imported-stages.json',lineage)
+        result['imported_stages_sha256']=f.file_sha(work/'evidence/imported-stages.json')
+        for module in stage['modules']:
+            row=owned_rows[module];rel=module.replace('.','/')
+            print(json.dumps({'phase':'compile_and_check','module':module,'stage':a.stage,'completed':len(receipts),'total':len(stage['modules'])}),flush=True)
             f.need(shutil.disk_usage(work).free>=contract['minimum_free_disk_bytes'],'insufficient measured disk reserve before module')
             staging=work/'quarantine'/module;staging.mkdir()
             target=staging/(rel+'.olean');target.parent.mkdir(parents=True,exist_ok=True)
@@ -613,18 +792,19 @@ def main():
             receipts.append(receipt)
             with (work/'evidence/owned-modules.jsonl').open('a') as h:h.write(json.dumps(receipt,sort_keys=True,separators=(',',':'))+'\n')
             result['checked_owned_module_count']=len(checked)
+            result['checked_fresh_module_count']=len(receipts)
             write_json(work/'evidence/result.json',result)
         # Auditors compile and check against official runtime only, each in its
         # own writable quarantine. Their runtime import environment is read-only.
         audit_prior={};audit_env=safe_env(runtime,work/'home',work/'tmp')
         audit_env['LEAN_PATH']=str(work/'auditor-objects')+':'+str(runtime/'lib/lean')
         audits={}
-        for name,key,marker in [('AuditOrdinaryBridges','ordinary_bridges','ALL_FOUR_EXACT_RAW_BRIDGE_CONTRACTS_PASSED'),('AuditConditionalEndpoints','conditional_endpoints','CONDITIONAL_ENDPOINT_AUDIT_PASSED')]:
-            stage=work/'quarantine'/name;stage.mkdir()
-            argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false','-o',stage/(name+'.olean'),'-i',stage/(name+'.ilean'),'-c',stage/(name+'.c'),work/'auditors'/(name+'.lean')]
-            kw=dict(runtime=runtime,sources=[work/'auditors',work/'auditor-objects'],writable=[stage,work/'home',work/'tmp'],cwd=work/'auditors',env=audit_env)
+        for name,key,marker in ([('AuditOrdinaryBridges','ordinary_bridges','ALL_FOUR_EXACT_RAW_BRIDGE_CONTRACTS_PASSED'),('AuditConditionalEndpoints','conditional_endpoints','CONDITIONAL_ENDPOINT_AUDIT_PASSED')] if final_stage else []):
+            audit_stage=work/'quarantine'/name;audit_stage.mkdir()
+            argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false','-o',audit_stage/(name+'.olean'),'-i',audit_stage/(name+'.ilean'),'-c',audit_stage/(name+'.c'),work/'auditors'/(name+'.lean')]
+            kw=dict(runtime=runtime,sources=[work/'auditors',work/'auditor-objects'],writable=[audit_stage,work/'home',work/'tmp'],cwd=work/'auditors',env=audit_env)
             command('compile-auditor-'+name,sandbox(argv,**kw),env=audit_env,seconds=180,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
-            audit_prior=admit_quarantine(stage,work/'auditor-objects',name,audit_prior,64*1024**2);shutil.rmtree(stage)
+            audit_prior=admit_quarantine(audit_stage,work/'auditor-objects',name,audit_prior,64*1024**2);shutil.rmtree(audit_stage)
             kw['writable']=[work/'home',work/'tmp']
             command('check-auditor-'+name,sandbox([runtime/'bin/leanchecker',name],**kw),env=audit_env,seconds=120,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
             run_env=dict(env);run_env['LEAN_PATH']=str(work/'auditor-objects')+':'+env['LEAN_PATH']
@@ -644,7 +824,10 @@ def main():
             name=pin['name'];p=work/'packages'/name
             f.need(source_snapshot(p,pin)==before[name],'dependency source changed during consumers')
             f.need(checked_inventory(p/'.lake/build',maximum=4*GIB,allow_links=True)==inventories[name],'cached dependency bytes changed during consumers')
-        validate_terminal_receipt(result,commands,owned['sources'],receipts,audits)
+        validate_terminal_receipt(result,commands,[owned_rows[m] for m in stage['modules']],receipts,audits,final=final_stage)
+        expected_checked={m for sid in [*stage['admitted_stages'],a.stage] for m in contract['stages'][sid]['modules']}
+        f.need(checked==expected_checked,'stage checked coverage differs')
+        if final_stage:f.need(len(checked)==2481,'final all-module coverage missing')
         result['raw_audits']=audits
         result['status']='ALL_PROOF_GATES_PASSED_EVIDENCE_COLLECTION_PENDING'
         result['owned_companion_bytes']=final_owned['bytes']
@@ -664,11 +847,13 @@ def main():
                 q=work/'evidence/logs'/p.name;q.parent.mkdir(exist_ok=True);shutil.copyfile(p,q)
             checked_inventory(work/'evidence',maximum=contract['evidence_max_bytes']-8192)
             if terminal_ready:
-                result['status']=SUCCESS;result['complete_evidence']=True
+                result['status']=SUCCESS if final_stage else STAGE_SUCCESS;result['complete_evidence']=True
                 write_json(work/'evidence/result.json',result)
         except Exception as e:
             result['status']='FAILED_EVIDENCE_COLLECTION';result['complete_evidence']=False;result['collection_error']=str(e)
             write_json(work/'evidence/result.json',result)
             raise
 
-if __name__=='__main__':main()
+    finalize_stage_export(work,contract,a.contract_sha256,a.stage,interface,lineage,deadline,result,watchdog)
+
+if __name__=='__main__':execute_cli()

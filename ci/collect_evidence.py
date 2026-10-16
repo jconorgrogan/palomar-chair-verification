@@ -5,6 +5,7 @@ from pathlib import Path
 MAXIMUM=128*1024**2
 RESERVE=4*1024**2
 SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
+STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
 def need(ok,message):
     if not ok:raise ValueError(message)
 def sha(path):
@@ -20,35 +21,60 @@ def load(path):return json.loads(path.read_text(),object_pairs_hook=pairs)
 def lines(path):return [json.loads(s,object_pairs_hook=pairs) for s in path.read_text().splitlines()]
 def regular(path):
     s=path.lstat();need(stat.S_ISREG(s.st_mode) and s.st_nlink==1,'nonregular or hardlinked evidence');return s.st_size
-def verify_complete(evidence,contract,contract_sha):
+def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     result=load(evidence/'result.json')
     need(result['contract_sha256']==contract_sha,'result contract identity differs')
-    need(result['status']==SUCCESS and result.get('complete_evidence') is True,'runner did not reach complete conditional success')
+    expected_status=STAGE_SUCCESS if 'stages' in contract and result.get('stage_id')!=contract['final_stage'] else SUCCESS
+    need(result['status']==expected_status and result.get('complete_evidence') is True,'runner did not reach complete stage/replay success')
     need(result.get('conditional_C_remains_explicit') is True and result.get('final_C_proof_certified') is False and result.get('unconditional_monotile_proof_certified') is False,'conditional claim changed')
     extraction=load(evidence/'source-extraction.json')
     need(sha(evidence/'source-extraction.json')==result['source_extraction_receipt_sha256'],'source extraction receipt hash differs')
     need(result['source_archive_sha256']==contract['source_archive']['sha256'],'source archive receipt identity differs')
     expected_extraction={'schema':'authenticated-source-extraction-v1','archive':contract['source_archive'],'source_file_count':contract['owned_module_count'],'source_bytes':contract['source_archive']['source_bytes'],'exact_source_tree':True,'all_source_pins_verified':True}
     need(extraction==expected_extraction,'source extraction receipt differs')
+    staged='stages' in contract
+    if staged:
+        sid=result['stage_id'];need(sid in contract['stages'],'unknown result stage')
+        stage=contract['stages'][sid];own_names=stage['modules']
+        if require_export:
+            exported=load(evidence/'stage-export.json')
+            need(exported['stage_id']==sid and exported['contract_sha256']==contract_sha,'object export identity differs')
+            upload=evidence.parent/'object-upload'
+            need(regular(upload/'stage.tar')==exported['stage_tar_bytes']<=contract['object_artifact_max_bytes'] and sha(upload/'stage.tar')==exported['stage_tar_sha256'],'exported object archive absent or changed')
+            need(sha(upload/'descriptor.json')==exported['descriptor_sha256'],'exported descriptor absent or changed')
+        expected_names=[m for dep in [*stage['admitted_stages'],sid] for m in contract['stages'][dep]['modules']]
+        need(result['stage_modules']==own_names and result['admitted_stages']==stage['admitted_stages'],'stage schedule receipt differs')
+        need(result['checked_fresh_module_count']==len(own_names),'fresh stage count differs')
+        for filename,key in [('interface-identity.json','interface_identity_sha256'),('imported-stages.json','imported_stages_sha256')]:
+            need(sha(evidence/filename)==result[key],'stage identity receipt hash differs')
+        imported=load(evidence/'imported-stages.json')
+        need([x['stage_id'] for x in imported]==stage['admitted_stages'],'imported stage coverage differs')
+        for row in imported:
+            need(row['own_modules']==contract['stages'][row['stage_id']]['modules'],'imported module coverage differs')
+            origin=row['origin']
+            need(origin['identity']['workflow_commit']==result['workflow_commit'] and str(origin['identity']['run_id'])==str(result['run_id']) and str(origin['identity']['run_attempt'])==str(result['run_attempt']),'cross-run or cross-attempt origin')
+            for key in ['receipt_sha256','checked_module_receipts_sha256']:need(re.fullmatch(r'[0-9a-f]{64}',row[key]) is not None,'invalid imported evidence identity')
+    else:
+        own_names=[r['module'] for r in contract['modules']];expected_names=own_names
     commands=lines(evidence/'commands.jsonl');modules=lines(evidence/'owned-modules.jsonl')
-    need(len(commands)==result['command_count'] and len(modules)==result['checked_owned_module_count']==2481,'receipt counts differ')
-    need([r['module'] for r in modules]==[r['module'] for r in contract['modules']],'module receipt coverage differs')
+    need(len(commands)==result['command_count'] and len(modules)==len(own_names) and result['checked_owned_module_count']==len(expected_names),'receipt counts differ')
+    need([r['module'] for r in modules]==own_names,'module receipt coverage differs')
     for name,key in [('commands.jsonl','command_receipts_sha256'),('owned-modules.jsonl','owned_module_receipts_sha256'),('fresh-owned-objects.json','owned_output_inventory_sha256'),('cached-build-inventory.json','cached_build_inventory_sha256'),('runtime-inventory.json','runtime_inventory_sha256')]:
         need(sha(evidence/name)==result[key],'terminal receipt hash differs: '+name)
     objects=load(evidence/'fresh-owned-objects.json')['files']
     suffixes=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
-    expected_outputs={r['module'].replace('.','/')+suffix for r in contract['modules'] for suffix in suffixes}
+    expected_outputs={name.replace('.','/')+suffix for name in expected_names for suffix in suffixes}
     need(set(objects)==expected_outputs,'owned object inventory coverage differs')
     names=[];log_bytes=0
     for command in commands:
         name=command['name'];need(isinstance(name,str) and re.fullmatch(r'[A-Za-z0-9_.-]+',name) and '..' not in name,'unsafe command log name')
         need(name not in names,'duplicate command name');names.append(name)
-        need(command['exit_code']==0 and not any(command[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and command['process_group_empty'] and command['descendants_empty'],'unsuccessful command in success evidence')
+        need(command['exit_code']==0 and not any(command[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and command['process_group_empty'] and command['descendants_empty'] and not (command['escaped_descendants'] and not command['new_sessions_explicitly_allowed']),'unsuccessful command in success evidence')
         for stream in ['stdout','stderr']:
             p=evidence/'logs'/(name+'.'+stream);log_bytes+=regular(p);need(sha(p)==command[stream+'_sha256'],'missing, partial, or changed command log')
     need(log_bytes==result['complete_log_bytes'] and log_bytes<=contract['aggregate_log_max_bytes'],'complete log byte count differs')
     pairs=[name for name in names if name.startswith(('compile-','check-')) and not name.startswith(('compile-auditor-','check-auditor-'))]
-    expected_pairs=[phase+'-'+r['module'] for r in contract['modules'] for phase in ['compile','check']]
+    expected_pairs=[phase+'-'+module for module in own_names for phase in ['compile','check']]
     need(pairs==expected_pairs,'ordered compile/check coverage differs')
     for row in modules:
         module=row['module'];source='src/'+module.replace('.','/')+'.lean'
@@ -59,7 +85,9 @@ def verify_complete(evidence,contract,contract_sha):
         need(type(a) is int and type(b) is int and 0<=a<b<len(commands) and a+1==b,'invalid or nonadjacent command indexes')
         need(row['checker_passed'] is True,'module has no successful checker')
         need(commands[row['compiler_command']]['name']=='compile-'+row['module'] and commands[row['checker_command']]['name']=='check-'+row['module'],'module command indexes differ')
-    need(result['raw_audits']=={'conditional_endpoints':True,'ordinary_bridges':True},'raw audit completion differs')
+    final=not staged or sid==contract['final_stage']
+    need(result['raw_audits']==({'conditional_endpoints':True,'ordinary_bridges':True} if final else {}),'raw audit completion differs')
+    if staged and final:need(len(expected_names)==len(set(expected_names))==2481,'final exact union coverage differs')
     return result
 
 def collect(work,contract,contract_sha=None):
@@ -97,7 +125,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--work',type=Path,required=True);a=p.parse_args()
     root=Path(__file__).resolve().parents[1];receipt=collect(a.work,load(root/'contract.json'),sha(root/'contract.json'))
     if not receipt['all_available_files_copied']:raise SystemExit('Evidence cap exceeded; incomplete available-file collection.')
-    if receipt['runner_status']==SUCCESS and not receipt['replay_acceptance_evidence_complete']:raise SystemExit('Claimed replay success has incomplete or inconsistent acceptance evidence.')
+    if receipt['runner_status'] in (SUCCESS,STAGE_SUCCESS) and not receipt['replay_acceptance_evidence_complete']:raise SystemExit('Claimed replay success has incomplete or inconsistent acceptance evidence.')
     # The replay command supplies the failure status; an interrupted collector may
     # still upload diagnostic evidence without inventing a successful replay.
     print(json.dumps({k:v for k,v in receipt.items() if k not in ['files','omitted']},sort_keys=True))

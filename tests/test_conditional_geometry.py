@@ -296,7 +296,8 @@ class ActualConditionalLoopTests(unittest.TestCase):
  def run_loop(self,hook=None,observed=None):
   import ast,copy
   tree=ast.parse((ROOT/'ci/cache_diagnostic.py').read_text())
-  loops=[n for n in ast.walk(tree) if isinstance(n,ast.For) and isinstance(n.target,ast.Name) and n.target.id=='entry' and isinstance(n.iter,ast.Subscript) and isinstance(n.iter.slice,ast.Constant) and n.iter.slice.value=='modules']
+  main=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='main')
+  loops=[n for n in ast.walk(main) if isinstance(n,ast.For) and isinstance(n.target,ast.Name) and n.target.id=='module' and isinstance(n.iter,ast.Subscript) and isinstance(n.iter.slice,ast.Constant) and n.iter.slice.value=='modules']
   self.assertEqual(len(loops),1)
   fn=ast.FunctionDef(name='loop',args=ast.arguments(posonlyargs=[],args=[],kwonlyargs=[],kw_defaults=[],defaults=[]),body=ast.parse('prior={}\nchecked=set()\nreceipts=[]').body+[copy.deepcopy(loops[0])]+ast.parse('return prior,receipts').body,decorator_list=[])
   code=compile(ast.fix_missing_locations(ast.Module(body=[fn],type_ignores=[])),'<production-loop-synthetic-test>','exec')
@@ -321,9 +322,9 @@ class ActualConditionalLoopTests(unittest.TestCase):
      self.assertEqual(kwargs['seconds'],120);self.assertTrue((work/'objects'/(mod.replace('.','/')+'.olean')).is_file());self.assertFalse((work/'quarantine'/mod).exists())
     if hook:hook(phase,mod,work)
     return work/'unused',True
-   ns=dict(vars(c));ns.update(work=work,runtime=work/'runtime',contract=contract,env=env,search=[],prior={},checked=set(),receipts=[],owned_rows={r['module']:r for r in rows},cache_rows={},result={},commands=[],command=command)
+   ns=dict(vars(c));ns.update(work=work,runtime=work/'runtime',contract=contract,stage={'modules':[r['module'] for r in rows]},a=type('Args',(),{'stage':'synthetic'})(),env=env,search=[],prior={},checked=set(),receipts=[],owned_rows={r['module']:r for r in rows},cache_rows={},result={},commands=[],command=command)
    exec(code,ns)
-   with patch('builtins.print'):prior,receipts=ns['loop']()
+   with patch('builtins.print'),patch.object(c.shutil,'disk_usage',return_value=type('Disk',(),{'free':20*c.GIB})()):prior,receipts=ns['loop']()
    c.verify_owned_final(work/'objects',prior,contract['owned_output_max_bytes'])
    return calls,receipts
  def test_same_prefix_single_root_compile_and_checker(self):
@@ -368,7 +369,7 @@ class TerminalReceiptTests(unittest.TestCase):
  def fixture(self):
   result={'conditional_C_remains_explicit':True,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False}
   rows=[{'module':'Shared.A'},{'module':'Shared.B'}]
-  commands=[{'name':p+'-'+r['module'],'exit_code':0,'timed_out':False,'log_overflow':False,'memory_exceeded':False,'surviving_children':False,'process_group_empty':True,'descendants_empty':True} for r in rows for p in ['compile','check']]
+  commands=[{'name':p+'-'+r['module'],'exit_code':0,'timed_out':False,'log_overflow':False,'memory_exceeded':False,'surviving_children':False,'process_group_empty':True,'descendants_empty':True,'escaped_descendants':False,'new_sessions_explicitly_allowed':False} for r in rows for p in ['compile','check']]
   receipts=[{'module':r['module'],'checker_passed':True} for r in rows]
   return result,commands,rows,receipts,{'ordinary_bridges':True,'conditional_endpoints':True}
  def test_complete(self):c.validate_terminal_receipt(*self.fixture())
@@ -475,7 +476,7 @@ class CollectorReadbackTests(unittest.TestCase):
    mod=r['module'];cls.contract['inputs']['src/'+mod.replace('.','/')+'.lean']={'sha256':'a'*64,'bytes':0};outputs={name:{'sha256':'b'*64,'bytes':0} for name in c.module_outputs(mod)};objects.update(outputs)
    cls.modules.append({'module':mod,'source_sha256':'a'*64,'outputs':outputs,'compiler_command':2*i,'checker_command':2*i+1,'checker_passed':True})
    for phase in ['compile','check']:
-    name=phase+'-'+mod;cls.commands.append({'name':name,'exit_code':0,'timed_out':False,'log_overflow':False,'memory_exceeded':False,'surviving_children':False,'process_group_empty':True,'descendants_empty':True,'stdout_sha256':empty,'stderr_sha256':empty})
+    name=phase+'-'+mod;cls.commands.append({'name':name,'exit_code':0,'timed_out':False,'log_overflow':False,'memory_exceeded':False,'surviving_children':False,'process_group_empty':True,'descendants_empty':True,'escaped_descendants':False,'new_sessions_explicitly_allowed':False,'stdout_sha256':empty,'stderr_sha256':empty})
     for stream in ['stdout','stderr']:(cls.root/'logs'/(name+'.'+stream)).write_bytes(b'')
   cls.contract['owned_module_count']=2481;cls.contract['source_archive']={'sha256':'d'*64,'source_bytes':0}
   (cls.root/'source-extraction.json').write_text(json.dumps({'schema':'authenticated-source-extraction-v1','archive':cls.contract['source_archive'],'source_file_count':2481,'source_bytes':0,'exact_source_tree':True,'all_source_pins_verified':True}))
@@ -536,7 +537,7 @@ class CollectorReadbackTests(unittest.TestCase):
    with self.assertRaises(Exception):self.verify()
   finally:p.write_bytes(b'')
  def test_success_with_bad_evidence_fails_collector_step(self):
-  source=(ROOT/'ci/collect_evidence.py').read_text();self.assertIn("receipt['runner_status']==SUCCESS and not receipt['replay_acceptance_evidence_complete']",source)
+  source=(ROOT/'ci/collect_evidence.py').read_text();self.assertIn("receipt['runner_status'] in (SUCCESS,STAGE_SUCCESS) and not receipt['replay_acceptance_evidence_complete']",source)
 
 
 
@@ -595,7 +596,7 @@ class SourceArchiveTests(unittest.TestCase):
    self.assertEqual(receipt['source_file_count'],2);self.assertTrue(receipt['all_source_pins_verified'])
    c.f.exact_tree(target,set(contract['inputs']))
  def test_frozen_archive_roundtrip_and_source_pins(self):
-  contract=json.loads((ROOT/'contract.json').read_text());self.assertEqual(len(contract['distribution_files']),26);self.assertFalse((ROOT/'src').exists());self.assertEqual(contract['source_archive']['source_file_count'],2481)
+  contract=json.loads((ROOT/'contract.json').read_text());self.assertEqual(len(contract['distribution_files']),29);self.assertFalse((ROOT/'src').exists());self.assertEqual(contract['source_archive']['source_file_count'],2481)
   c.validate_distribution_layout(contract)
   for rel,pin in contract['inputs'].items():
    if rel.startswith('src/'):self.assertEqual(c.f.file_sha(SOURCE_ROOT/rel),pin['sha256'])
