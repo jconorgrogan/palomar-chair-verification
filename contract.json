@@ -11,7 +11,7 @@
     "Mathlib.Data.Finset.Lattice.Fold",
     "Mathlib.Topology.MetricSpace.Isometry"
   ],
-  "diagnostic_rss_gib": 2,
+  "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 120,
   "diagnostics": [
     {
@@ -38,12 +38,12 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 4280,
-      "sha256": "24e51f20eda6129bb7c518ad999aee447eced0470f23a8aab2a111f7ccb6c542"
+      "bytes": 4571,
+      "sha256": "ba521153cc1db19afc61dbd5e4d774781c8a991e8527d3081cdbe0b2e50f7715"
     },
     "ci/cache_diagnostic.py": {
-      "bytes": 24259,
-      "sha256": "9c1ea2ee2e3d0cf1c6e2596d3e606aca853483ec2df7ad15329dea8426e81108"
+      "bytes": 24362,
+      "sha256": "a15201cf2d7dd9a34f67899dd6256be4f326368b3c2ab0cc6e671a6a37cd7a71"
     },
     "ci/fresh_stage.py": {
       "bytes": 49212,
@@ -86,11 +86,11 @@
       "sha256": "411da8b60131a39924492882732ab28aa9c7a14ba42aee626852ff2addf04281"
     },
     "tests/test_cache_diagnostic.py": {
-      "bytes": 7651,
-      "sha256": "51eee84edfd81e24b7b9dfb1982672b5fedc109f0c78c6822156cffb42c8efa5"
+      "bytes": 8175,
+      "sha256": "f671dcae08e8f1791b6fb58408088557e6762f7498a378e2f05fc64837c332d3"
     }
   },
-  "lean_heap_mib": 1024,
+  "lean_heap_mib": 4096,
   "maximum_parallel_jobs": 1,
   "minimum_post_runtime_free_bytes": 9663676416,
   "no_forks_or_unsafe_cache_scope": true,

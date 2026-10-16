@@ -19,6 +19,8 @@ def load_helper(name):
 f=load_helper('fresh_stage')
 install_archive=load_helper('toolchain_install').install_archive
 GIB=1024**3
+DIAGNOSTIC_HEAP_MIB=4096
+DIAGNOSTIC_RSS_BYTES=8*GIB
 ARCHIVE_URL='https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst'
 ARCHIVE_BYTES=595391556
 RUNTIME_INVENTORY_SHA='42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea'
@@ -278,17 +280,17 @@ def main():
         prior={};expected_outputs=set()
         for entry in contract['diagnostics']:
             module=entry['module'];rel=module.replace('.','/');target=work/'objects'/(rel+'.olean');target.parent.mkdir(parents=True,exist_ok=True)
-            argv=[runtime/'bin/lean','-j1','-M1024','-Dcompiler.postponeCompile=false','-o',target,'-i',work/'objects'/(rel+'.ilean'),'-c',work/'objects'/(rel+'.c'),work/'src'/(rel+'.lean')]
+            argv=[runtime/'bin/lean','-j1','-M'+str(DIAGNOSTIC_HEAP_MIB),'-Dcompiler.postponeCompile=false','-o',target,'-i',work/'objects'/(rel+'.ilean'),'-c',work/'objects'/(rel+'.c'),work/'src'/(rel+'.lean')]
             kw=dict(runtime=runtime,sources=[work/'packages',work/'src'],writable=[work/'objects',work/'home',work/'tmp'],cwd=work/'src',env=env)
             namespace_providers([work/'objects',*[Path(s) for s in search],runtime/'lib/lean'])
             verify_prior_outputs(work/'objects',prior)
-            command('compile-'+module,sandbox(argv,**kw),env=env,seconds=120,rss=2*GIB,allowed_sessions=True)
+            command('compile-'+module,sandbox(argv,**kw),env=env,seconds=120,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
             for suffix in ['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']:
                 f.need((work/'objects'/(rel+suffix)).is_file(),'diagnostic missing fresh companion: '+module+suffix)
             now=verify_prior_outputs(work/'objects',prior)
             expected_outputs.update(rel+x for x in ['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c'])
             f.need(set(now)==expected_outputs,'unexpected fresh output path')
-            command('check-'+module,sandbox([runtime/'bin/leanchecker',module],**kw),env=env,seconds=120,rss=2*GIB,allowed_sessions=True)
+            command('check-'+module,sandbox([runtime/'bin/leanchecker',module],**kw),env=env,seconds=120,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
             prior=verify_prior_outputs(work/'objects',now)
         f.need(time.monotonic()<deadline,'diagnostic aggregate deadline exceeded')
         f.need(checked_inventory(work/'src',maximum=1024**2)==owned_before,'owned diagnostic source changed')

@@ -116,4 +116,9 @@ class ExactOfficialLinkTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md');link.unlink();link.write_text('../README.md')
    with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000',oid)
+
+
+class DiagnosticProfileTests(unittest.TestCase):
+ def test_contract_matches_bounded_profile(self):
+  x=json.loads((ROOT/'contract.json').read_text());self.assertEqual(x['lean_heap_mib'],c.DIAGNOSTIC_HEAP_MIB);self.assertEqual(x['diagnostic_rss_gib']*1024**3,c.DIAGNOSTIC_RSS_BYTES);self.assertEqual(c.DIAGNOSTIC_HEAP_MIB,4096);self.assertEqual(c.DIAGNOSTIC_RSS_BYTES,8*1024**3);self.assertEqual(len(x['diagnostics']),4);self.assertEqual(x['diagnostic_timeout_seconds'],120);self.assertEqual(x['outer_timeout_minutes'],90)
 if __name__=='__main__':unittest.main()
