@@ -1,6 +1,6 @@
-"""Bounded same-run transport of checked conditional Lean objects.
+"""Bounded exact-origin transport of checked conditional Lean objects.
 
-Only authenticated, successful producers from the current run/attempt are eligible.
+Successful current-run producers or explicitly host-locked earlier producers are eligible.
 Archives are data, never LEAN_PATH entries. Admission is a host-only copy into the
 single owned-object root after every byte and receipt has been checked.
 """
@@ -26,6 +26,10 @@ SCHEMA = 'same-run-conditional-checked-objects-v1'
 IDENTITY_KEYS = ('repository','run_id','run_attempt','workflow_commit')
 META_KEYS = ('identity','stage_id','stage_modules','admitted_stages','contract_sha256',
              'interface_identity','producer_work','runtime_inventory_sha256','predecessor_artifacts')
+ORIGIN_KEYS = ('identity','stage_id','artifact_name','artifact_id','producer_job_name','producer_job_id',
+               'producer_conclusion','artifact_zip_sha256','artifact_zip_bytes','workflow_path','workflow_id',
+               'producer_job_log_sha256')
+LOCKED_STAGES = ('F0_common','F1_curved_existence','F2_period_hierarchy')
 
 
 def paths(module):
@@ -75,7 +79,25 @@ def _identity(identity):
     f.need(isinstance(identity,dict) and set(identity)==set(IDENTITY_KEYS),'invalid run identity keys')
     f.need(identity['repository']==REPOSITORY and
            all(isinstance(identity[k],str) and re.fullmatch(r'[1-9][0-9]*',identity[k]) for k in ('run_id','run_attempt')) and
-           isinstance(identity['workflow_commit'],str) and f.COMMIT.fullmatch(identity['workflow_commit']), 'invalid same-run identity')
+           isinstance(identity['workflow_commit'],str) and f.COMMIT.fullmatch(identity['workflow_commit']), 'invalid run identity')
+
+
+def validate_origin_lock(origin):
+    """Validate a complete host-provided pin, not artifact-supplied provenance."""
+    f.need(isinstance(origin,dict) and set(origin)==set(ORIGIN_KEYS),'origin lock keys differ')
+    _identity(origin['identity']); identity=origin['identity']; stage=origin['stage_id']
+    f.need(stage in LOCKED_STAGES,'unapproved locked producer stage')
+    f.need(origin['producer_job_name']=='conditional '+stage and origin['producer_conclusion']=='success',
+           'locked producer role/conclusion differs')
+    f.need(origin['artifact_name']==f"conditional-geometry-{identity['run_id']}-{identity['run_attempt']}-{stage}-objects",
+           'locked artifact name differs')
+    f.need(all(type(origin[k]) is int and origin[k]>0 for k in ('artifact_id','producer_job_id','workflow_id')),
+           'invalid locked producer/artifact/workflow identifier')
+    f.need(type(origin['artifact_zip_bytes']) is int and 0<origin['artifact_zip_bytes']<=MAX_ARCHIVE+ZIP_ALLOWANCE,
+           'invalid locked artifact size')
+    f.need(all(isinstance(origin[k],str) and f.SHA256.fullmatch(origin[k]) for k in ('artifact_zip_sha256','producer_job_log_sha256')),
+           'invalid locked artifact/log digest')
+    f.need(origin['workflow_path']==WORKFLOW_PATH,'locked workflow path differs')
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -83,24 +105,44 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Transport:
-    def __init__(self,*,deadline=None):
+    origin_lock=None
+
+    def __init__(self,*,deadline=None,origin_lock=None):
         check_deadline(deadline); self.deadline=min(deadline,time.monotonic()+1800) if deadline is not None else time.monotonic()+1800
         f.need(os.environ.get('GITHUB_ACTIONS')=='true' and os.environ.get('GITHUB_REPOSITORY')==REPOSITORY,
                'not the approved repository/action context')
-        self.identity={'repository':REPOSITORY,'run_id':os.environ.get('GITHUB_RUN_ID',''),
+        self.consumer_identity={'repository':REPOSITORY,'run_id':os.environ.get('GITHUB_RUN_ID',''),
                        'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT',''),'workflow_commit':os.environ.get('GITHUB_SHA','')}
+        _identity(self.consumer_identity)
+        if origin_lock is not None:
+            validate_origin_lock(origin_lock)
+            f.need(int(origin_lock['identity']['run_id'])<int(self.consumer_identity['run_id']),'locked origin must be an earlier distinct run')
+            # Copy the host pin before any remote lookup; callers cannot mutate
+            # an in-progress transfer by later changing their input dictionary.
+            self.origin_lock=f.parse_json(f.json_bytes(origin_lock))
+        self.identity=dict(self.origin_lock['identity'] if self.origin_lock is not None else self.consumer_identity)
         _identity(self.identity); self.run_id=self.identity['run_id']; self.attempt=self.identity['run_attempt']
         self.commit=self.identity['workflow_commit']; self.token=os.environ.get('GH_TOKEN','')
         f.need(bool(self.token),'ephemeral read-only workflow token missing')
-        self.opener=urllib.request.build_opener(NoRedirect()); self._jobs=None; self._artifacts=None
-        run=self.get(f'/repos/{REPOSITORY}/actions/runs/{self.run_id}')
-        f.need(str(run['id'])==self.run_id and run['head_sha']==self.commit and str(run['run_attempt'])==self.attempt
-               and run['event']=='push' and run['repository']['full_name']==REPOSITORY,
-               'authenticated workflow run identity mismatch')
+        self.opener=urllib.request.build_opener(NoRedirect()); self._jobs=None; self._artifacts=None; self._accepted_stages=set()
         workflow=self.get(f'/repos/{REPOSITORY}/actions/workflows/conditional-geometry.yml')
-        f.need(workflow['path']==WORKFLOW_PATH and run['path']==WORKFLOW_PATH and type(workflow['id']) is int and
-               workflow['id']>0 and run['workflow_id']==workflow['id'],'authenticated workflow path/id differs')
+        f.need(workflow['path']==WORKFLOW_PATH and type(workflow['id']) is int and workflow['id']>0,
+               'authenticated workflow path/id differs')
         self.workflow_id=workflow['id']
+        self.authenticate_run(self.consumer_identity)
+        if self.origin_lock is not None:
+            f.need(self.workflow_id==self.origin_lock['workflow_id'],'locked workflow identifier differs')
+            run=self.authenticate_run(self.identity)
+            f.need(run.get('status')=='completed','locked producer run is not terminal')
+
+    def authenticate_run(self,identity):
+        run=self.get(f'/repos/{REPOSITORY}/actions/runs/{identity["run_id"]}')
+        f.need(str(run['id'])==identity['run_id'] and run['head_sha']==identity['workflow_commit'] and
+               str(run['run_attempt'])==identity['run_attempt'] and run['event']=='push' and
+               run['repository']['full_name']==REPOSITORY,'authenticated workflow run identity mismatch')
+        f.need(run['path']==WORKFLOW_PATH and run['workflow_id']==self.workflow_id,
+               'authenticated workflow path/id differs')
+        return run
 
     def request(self,path):
         f.need(path.startswith(f'/repos/{REPOSITORY}/actions/') and not any(x in path for x in ('..','\\','#')),'unapproved API path')
@@ -168,16 +210,22 @@ class Transport:
         return f'conditional-geometry-{self.run_id}-{self.attempt}-{stage}-objects'
 
     def download_stage(self,stage,producer_name,target,max_bytes=MAX_ARCHIVE):
+        if not hasattr(self,'_accepted_stages'): self._accepted_stages=set()
+        f.need(stage not in self._accepted_stages,'stage already accepted by this transport')
+        lock=self.origin_lock
+        if lock is not None:
+            f.need(stage==lock['stage_id'] and producer_name==lock['producer_job_name'],'requested stage differs from origin lock')
         f.need(type(max_bytes) is int and 0<max_bytes<=MAX_ARCHIVE,'invalid artifact payload cap')
         f.need(producer_name=='conditional '+stage,'unexpected producer job name')
         jobs=[j for j in self.jobs() if j['name']==producer_name]
         f.need(len(jobs)==1,'required producer job missing or duplicated'); job=jobs[0]
         f.need(job['status']=='completed' and job['conclusion']=='success' and type(job['id']) is int and job['id']>0
                and str(job['run_id'])==self.run_id and str(job['run_attempt'])==self.attempt and job['head_sha']==self.commit,
-               'producer unsuccessful or not current run/attempt/commit')
+               'producer unsuccessful or not selected run/attempt/commit')
         f.need(sum(row['id']==job['id'] for row in self.jobs())==1,'duplicate producer job identifier')
+        if lock is not None: f.need(job['id']==lock['producer_job_id'],'locked producer job identifier differs')
         matches=[a for a in self.artifacts() if a['name']==self.artifact_name(stage)]
-        f.need(len(matches)==1,'same-run artifact missing/duplicate'); artifact=matches[0]
+        f.need(len(matches)==1,'selected-run artifact missing/duplicate'); artifact=matches[0]
         f.need(artifact['expired'] is False and type(artifact['id']) is int and artifact['id']>0,'artifact expired/invalid')
         f.need(sum(a['id']==artifact['id'] for a in self.artifacts())==1,'duplicate artifact identifier')
         maximum=max_bytes+ZIP_ALLOWANCE
@@ -185,10 +233,15 @@ class Transport:
         digest=artifact.get('digest',''); f.need(isinstance(digest,str) and re.fullmatch(r'sha256:[0-9a-f]{64}',digest),'authoritative artifact digest absent')
         run=artifact.get('workflow_run',{})
         f.need(str(run.get('id'))==self.run_id and run.get('head_sha')==self.commit,'artifact run/commit mismatch')
+        if lock is not None:
+            f.need(artifact['id']==lock['artifact_id'] and artifact['name']==lock['artifact_name'] and
+                   artifact['size_in_bytes']==lock['artifact_zip_bytes'] and digest[7:]==lock['artifact_zip_sha256'],
+                   'locked artifact identifier/name/size/digest differs')
+        binding_sha=self.bind_producer(job,artifact,stage)
+        if lock is not None: f.need(binding_sha==lock['producer_job_log_sha256'],'locked producer log digest differs')
         target=Path(target); f.no_symlink_path(target); f.need(not target.exists(),'download destination must be new')
         require_disk(target,artifact['size_in_bytes'],entries=1,directories=1); target.mkdir(parents=True); archive=target/'download.zip'
         path=f'/repos/{REPOSITORY}/actions/artifacts/{artifact["id"]}/zip'
-        binding_sha=self.bind_producer(job,artifact,stage)
         response=self.response(path,signed_redirect=True)
         h=hashlib.sha256(); count=0
         with response,archive.open('xb') as out:
@@ -201,10 +254,13 @@ class Transport:
         f.need(count==artifact['size_in_bytes'] and h.hexdigest()==digest[7:],'artifact ZIP digest/size mismatch')
         _extract_zip(archive,target,max_bytes)
         archive.unlink()
-        return {'identity':dict(self.identity),'stage_id':stage,'artifact_name':artifact['name'],
+        origin={'identity':dict(self.identity),'stage_id':stage,'artifact_name':artifact['name'],
                 'artifact_id':artifact['id'],'producer_job_name':producer_name,'producer_job_id':job['id'],
                 'producer_conclusion':'success','artifact_zip_sha256':digest[7:],'artifact_zip_bytes':count,
                 'workflow_path':WORKFLOW_PATH,'workflow_id':self.workflow_id,'producer_job_log_sha256':binding_sha}
+        if lock is not None: f.need(origin==lock,'downloaded producer origin differs from exact host lock')
+        self._accepted_stages.add(stage)
+        return origin
 
 
 def _extra_fields(data):
@@ -421,6 +477,10 @@ def extract_stage(download_dir,destination,maximum=MAX_ARCHIVE,*,deadline=None):
 def command_specs(expected,api):
     """Reconstruct the complete approved command sequence, not receipt-supplied argv."""
     work=Path(expected['producer_work']); runtime=Path(expected['runtime']); contract=expected['contract']
+    legacy=contract.get('schema')=='conditional-geometry-staged-replay-v2'
+    f.need((legacy and 'module_compile_arguments' not in contract) or
+           (contract.get('schema')=='conditional-geometry-origin-continuation-v3' and
+            callable(getattr(api,'module_compile_arguments',None))), 'unrecognized producer scheduling policy')
     f.need(work.is_absolute() and str(work)==str(work.absolute()) and runtime==work/'runtime','producer work/runtime path differs')
     f.no_symlink_path(work); f.no_symlink_path(runtime)
     env=api.safe_env(runtime,work/'home',work/'tmp'); env['MATHLIB_CACHE_DIR']=str(work/'cache')
@@ -449,7 +509,8 @@ def command_specs(expected,api):
     for row in expected['stage_rows']:
         module=row['module']; rel=module.replace('.','/'); staging=work/'quarantine'/module
         kwargs=dict(runtime=runtime,sources=[work/'packages',work/'src',work/'objects'],writable=[staging,work/'home',work/'tmp'],cwd=work/'src',env=env)
-        argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false','-o',staging/(rel+'.olean'),'-i',staging/(rel+'.ilean'),'-c',staging/(rel+'.c'),work/'src'/(rel+'.lean')]
+        options=[] if legacy else api.module_compile_arguments(contract,module)
+        argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false',*options,'-o',staging/(rel+'.olean'),'-i',staging/(rel+'.ilean'),'-c',staging/(rel+'.c'),work/'src'/(rel+'.lean')]
         add('compile-'+module,api.sandbox(argv,**kwargs),contract['diagnostic_timeout_seconds'],True)
         kwargs['writable']=[work/'home',work/'tmp']
         add('check-'+module,api.sandbox([runtime/'bin/leanchecker',module],**kwargs),contract['check_timeout_seconds'],True)
@@ -525,6 +586,7 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
     _identity(expected['identity'])
     for key in META_KEYS: f.need(receipt[key]==expected[key],'stage metadata differs: '+key)
     origin=expected['origin']
+    f.need(isinstance(origin,dict) and set(origin)==set(ORIGIN_KEYS),'transport provenance keys differ')
     f.need(origin['identity']==expected['identity'] and origin['stage_id']==expected['stage_id'] and
            origin['producer_job_name']=='conditional '+expected['stage_id'] and origin['producer_conclusion']=='success',
            'transport provenance differs')
@@ -571,8 +633,10 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
     f.need(result.get('status')==success and result.get('complete_evidence') is True,'producer evidence incomplete/failed')
     for key in ('run_id','run_attempt','workflow_commit'): f.need(result.get(key)==expected['identity'][key],'result run identity differs')
     for key in ('stage_id','stage_modules','admitted_stages','contract_sha256'): f.need(result.get(key)==expected[key],'result stage identity differs: '+key)
+    freshness=contract.get('owned_objects_from_prior_runs_allowed')
+    f.need(type(freshness) is bool,'producer contract freshness policy missing')
     f.need(result.get('conditional_C_remains_explicit') is True and result.get('final_C_proof_certified') is False and
-           result.get('unconditional_monotile_proof_certified') is False and result.get('owned_objects_from_prior_runs') is False,
+           result.get('unconditional_monotile_proof_certified') is False and result.get('owned_objects_from_prior_runs') is freshness,
            'producer conditional/freshness scope differs')
     f.need(result.get('checked_fresh_module_count')==len(modules) and result.get('checked_owned_module_count')==len(producer_final)//len(SUFFIXES),'checked module count differs')
     required_hashes={'commands.jsonl':'command_receipts_sha256','owned-modules.jsonl':'owned_module_receipts_sha256',
@@ -580,6 +644,16 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
                      'cached-build-inventory.json':'cached_build_inventory_sha256','source-extraction.json':'source_extraction_receipt_sha256',
                      'interface-identity.json':'interface_identity_sha256','imported-stages.json':'imported_stages_sha256'}
     for name,key in required_hashes.items(): f.need(f.file_sha(evidence/name)==result.get(key),'result evidence hash differs: '+name)
+    if contract.get('schema')=='conditional-geometry-origin-continuation-v3':
+        certificate=evidence/'cross-origin-admissions.json'
+        f.need(f.file_sha(certificate)==result.get('cross_origin_admissions_sha256'),
+               'cross-origin admission certificate digest differs')
+        f.need(f.load_json(certificate)==api.cross_origin_certificate(contract,expected['contract_sha256'],
+               expected['identity'],expected['stage_id'],expected['interface_identity'],
+               expected['predecessor_artifacts'],producer_prior),'cross-origin admission certificate differs')
+    else:
+        f.need('cross_origin_admissions_sha256' not in result and
+               'evidence/cross-origin-admissions.json' not in files,'legacy producer asserts a cross-origin certificate')
     f.need(f.load_json(evidence/'interface-identity.json')==expected['interface_identity'] and
            f.load_json(evidence/'imported-stages.json')==expected['predecessor_artifacts'],'evidence interface/lineage differs')
     f.need(result['runtime_inventory_sha256']==expected['runtime_inventory_sha256'] and

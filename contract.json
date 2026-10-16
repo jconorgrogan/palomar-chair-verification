@@ -120,6 +120,7 @@
   "deadline_policy": "The original absolute320-minute deadline bounds all acceptance work. Host SIGALRM interrupts blocked I/O and starts one five-second failure-only collection grace. Only the pinned process runner defers the first alarm until its bounded cleanup finishes, then uses that same single-use failure grace. Repeated one-second alarms prevent swallowed expiry during failure handling. Every expiry unconditionally rejects acceptance; the outer330-minute job ceiling is unchanged.",
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 180,
+  "distribution_file_count": 33,
   "distribution_files": [
     ".github/workflows/conditional-geometry.yml",
     "LICENSE",
@@ -146,9 +147,13 @@
     "locks/source-lineage.json",
     "locks/visibility-exception.json",
     "locks/visibility-predictions.json",
+    "origin/locked-origins.json",
+    "origin/producer-contract.json",
     "owned-sources.tar.gz",
     "tests/test_conditional_geometry.py",
     "tests/test_conditional_transport.py",
+    "tests/test_continuation.py",
+    "tests/test_locked_origins.py",
     "tests/test_staged_replay.py"
   ],
   "early_static_visibility_test_module": "SpectreGeometry.DeformationHomeomorphism",
@@ -157,6 +162,10 @@
     "NativeFinalAssembly.keyed_product_monotile_of_parent"
   ],
   "evidence_max_bytes": 130023424,
+  "execution_stages": [
+    "F3_product_geometry",
+    "F4_bridge_and_endpoint_joins"
+  ],
   "failure_evidence_grace_seconds": 5,
   "final_C_proof_certified": false,
   "final_stage": "F4_bridge_and_endpoint_joins",
@@ -168,8 +177,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 6419,
-      "sha256": "16466823f4f47d08ca5f7f8b36ad57d46d1c41150ac36e2dcbac22cf28f0596b"
+      "bytes": 4884,
+      "sha256": "502275f930bc4d1adcbe247ae5b8a702af6862131a6c062d9742184007dca8ba"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -184,16 +193,16 @@
       "sha256": "fbe8548a25e24976bc8513fabf3a5dd19ade80b19fe40d906b86b999ac1e3565"
     },
     "ci/cache_diagnostic.py": {
-      "bytes": 65238,
-      "sha256": "bf2a94cb02d91ee1e3f38d434c2c0d803ba8e0d0f4e4161340d3b278269acd8f"
+      "bytes": 72280,
+      "sha256": "5b3c0c12dfff0818b1b609b64382a818c86dacdf5fecc2527e9fee75ed74d206"
     },
     "ci/collect_evidence.py": {
-      "bytes": 11526,
-      "sha256": "c4c7e49c4fd10b66a59db4d9b0ce88caff75b50e8a3996bf9bd737b02e377a78"
+      "bytes": 16509,
+      "sha256": "7ca7a19ee3916e344f00539e41cd17614c4bfd2982b466eca84f82b64f4c1851"
     },
     "ci/conditional_transport.py": {
-      "bytes": 47436,
-      "sha256": "428f66710069d857ce2c9e041ac0d789f434bfbd37f4fe022103b2a4ecbc76a3"
+      "bytes": 52874,
+      "sha256": "d216f92df7c50ab14666923da37afd1dd47290178325b521a44f0360b4b02b1f"
     },
     "ci/fresh_stage.py": {
       "bytes": 49212,
@@ -254,6 +263,14 @@
     "locks/visibility-predictions.json": {
       "bytes": 8758,
       "sha256": "e9ddcd28334d405da6dacfefecadab62510c9d8e17c4d6f513d06ee560000480"
+    },
+    "origin/locked-origins.json": {
+      "bytes": 4600,
+      "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
+    },
+    "origin/producer-contract.json": {
+      "bytes": 870879,
+      "sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38"
     },
     "src/FinalAssemblyDraft/UnmarkedBridge.lean": {
       "bytes": 4974,
@@ -10181,21 +10198,49 @@
     },
     "tests/test_conditional_geometry.py": {
       "bytes": 47249,
-      "sha256": "3f209c98f3dc020d6e0caf04f36229b2f2dcfff8a04943d86097716febfcb2d3"
+      "sha256": "eb107a523d0de5a3a8f82c7b2062c2e8ab0ce34e60c189143f508415c447c160"
     },
     "tests/test_conditional_transport.py": {
-      "bytes": 30461,
-      "sha256": "f742d8d5b57ecdc73e15b8659aade5b1d959754f27234bf60ef8fd64a59c2f45"
+      "bytes": 30569,
+      "sha256": "ebcf263a322e09084edaf84fba5248f691dd07b5348f466892ac14b8a94eebd8"
+    },
+    "tests/test_continuation.py": {
+      "bytes": 13229,
+      "sha256": "b582f17445e4ff6a9d61fa02bd4308f1d4c6fd115b193ff7e8783d744da99f5c"
+    },
+    "tests/test_locked_origins.py": {
+      "bytes": 24267,
+      "sha256": "d060d88fab576573c384520e0d5bb48994507b3c1d0dd3ec009fd62db622d640"
     },
     "tests/test_staged_replay.py": {
-      "bytes": 13687,
-      "sha256": "64bf02a976d890261050d174af69d0d7976cd0e7c99d426ab92399aa96e83457"
+      "bytes": 14591,
+      "sha256": "da7cfb717536e90c8afacf3ef7ffe051ad0f9b7802915c36c82eada47824e6d7"
     }
   },
   "lean_heap_mib": 4096,
-  "maximum_parallel_jobs": 3,
+  "locked_origin_stages": [
+    "F0_common",
+    "F1_curved_existence",
+    "F2_period_hierarchy"
+  ],
+  "maximum_parallel_jobs": 1,
   "minimum_free_disk_bytes": 1610612736,
   "minimum_post_runtime_free_bytes": 9663676416,
+  "module_compile_arguments": {
+    "SpectreGeometry.PolygonProductKeyReferenceFinite": [
+      "-DElab.async=false"
+    ]
+  },
+  "module_scheduling_evidence": {
+    "commit": "607502589a908faa189fd321c9dcd2f8e61ae62d",
+    "default_abort_reproduced": true,
+    "disabled_async_compile_check_raw_audit_passed": true,
+    "independent_review_sha256": "1897a2ec672f19b7f554ea7603b0ed35ff74c9864259f73d235e2559537ec59e",
+    "run_attempt": 1,
+    "run_id": 38924802546,
+    "source_sha256": "1bca6dbb7f17e7a897293c3cf8da9b5d686c02245ac5230be3b27c108953a45b",
+    "underlying_thread_virtual_memory_cause_proven": false
+  },
   "modules": [
     {
       "module": "SpectreGeometry.DeformationHomeomorphism",
@@ -20126,7 +20171,7 @@
   "no_forks_or_unsafe_cache_scope": true,
   "object_artifact_max_bytes": 4294967296,
   "object_artifact_zip_max_bytes": 4299161600,
-  "object_transport_policy": "Same-run same-attempt exact-commit successful producer jobs only; exact checked seven-companion slices, full producer evidence, authenticated API artifact digest and bounded tar payload. No artifact directory enters LEAN_PATH.",
+  "object_transport_policy": "Only exact reviewed terminal earlier-run successful F0/F1/F2 job/artifact origins, plus successful current-run F3. Full payload, source/import/runtime/cache interface and original producer-contract command/checker lineage validation precedes host admission. Original receipts remain unchanged; a separate consumer cross-origin admission certificate binds accepted origins. No artifact directory enters LEAN_PATH.",
   "official_cache_trust": "PalomarSubmission@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44 explicitly trusts bytes; no source-equivalence authentication",
   "official_lean_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
   "official_mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
@@ -20137,30 +20182,37 @@
     "KernelSeedPilot.ProductPhysicalExistence",
     "KernelParentPilot.ProductAperiodicityFromParent"
   ],
+  "origin_lock": {
+    "bytes": 4600,
+    "path": "origin/locked-origins.json",
+    "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
+  },
   "original_failed_contract_sha256": "4faee6e1fc9d7bfae73527908ad432a64fe3190f505acc9b6304c5ac809a79ff",
   "original_failed_run": 38867203693,
+  "original_stage_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
   "outer_timeout_minutes": 330,
   "owned_geometry_count": 2144,
   "owned_module_count": 2481,
-  "owned_objects_from_prior_runs_allowed": false,
+  "owned_objects_from_prior_runs_allowed": true,
   "owned_objects_from_same_run_checked_stages_allowed": true,
   "owned_output_max_bytes": 6442450944,
   "owned_source_max_bytes": 33554432,
   "partition_analysis_sha256": "7a311b0e1240e9dbe1490a926c550e895a916f24bbfe2b716b9dde81143a69c6",
   "partition_independent_review_sha256": "852b703941b5502cbdcecf15e6c1fd5e079778238740e2090d2c3bf2a7ea5e56",
+  "pending_origin_stages": [],
   "per_command_log_max_bytes": 1048576,
   "prior_failed_body_diagnostic_run_id": 38858268822,
   "prior_failed_body_diagnostic_workflow_commit": "37fe6fc9d4892c0623a8ad23c4e56e63f1be3758",
   "producer_job_log_max_bytes": 16777216,
-  "publication_branch": "verify/conditional-staged-20261016",
-  "publication_parent_commit": "bf5fe7c551b34ebb76ae05dfe6b58c4b2bcf96d4",
+  "publication_branch": "verify/conditional-continuation-20261016",
+  "publication_parent_commit": "318a6900eabfec550b4adf1b0f4bd634c20d67c5",
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
     "Init",
     "Init.Data.Rat"
   ],
-  "scheduling_scope": "Five isolated jobs, width three, each aggregate320 minutes and outer330 minutes. Maximum aggregate runner time1600 minutes and outer runner time1650 minutes. No prior-run object admission. Every owned module is compiled and checked fresh exactly once in this workflow.",
-  "schema": "conditional-geometry-staged-replay-v2",
+  "scheduling_scope": "Two new isolated jobs, F3 then F4, maximum parallelism one. Each retains the absolute 320-minute deadline and outer 330-minute job limit. New workflow aggregate maximum is 640 runner-minutes internally and 660 job-minutes externally, excluding queues. Exactly locked successful F0/F1/F2 payloads from the terminal earlier run supply their original checked lineage; all 109 F3 and 70 F4 modules are fresh in this continuation. No single-run freshness claim.",
+  "schema": "conditional-geometry-origin-continuation-v3",
   "session_policy": "Only the exact official pinned Git fetch commands and reviewed bwrap topology may create new sessions. All other commands reject escaped descendants. Complete cleanup remains mandatory for every command.",
   "shared_probe_admission": {
     "C_companion_payloads_independently_hashed": 18,
@@ -22776,6 +22828,7 @@
   },
   "transport_timeout_seconds": 1800,
   "unconditional_monotile_proof_certified": false,
-  "workflow_aggregate_seconds": 96000,
-  "workflow_outer_runner_minutes": 1650
+  "workflow_aggregate_seconds": 38400,
+  "workflow_job_count": 2,
+  "workflow_outer_runner_minutes": 660
 }

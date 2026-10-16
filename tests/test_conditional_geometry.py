@@ -596,7 +596,7 @@ class SourceArchiveTests(unittest.TestCase):
    self.assertEqual(receipt['source_file_count'],2);self.assertTrue(receipt['all_source_pins_verified'])
    c.f.exact_tree(target,set(contract['inputs']))
  def test_frozen_archive_roundtrip_and_source_pins(self):
-  contract=json.loads((ROOT/'contract.json').read_text());self.assertEqual(len(contract['distribution_files']),29);self.assertFalse((ROOT/'src').exists());self.assertEqual(contract['source_archive']['source_file_count'],2481)
+  contract=json.loads((ROOT/'contract.json').read_text());self.assertEqual(len(contract['distribution_files']),33);self.assertFalse((ROOT/'src').exists());self.assertEqual(contract['source_archive']['source_file_count'],2481)
   c.validate_distribution_layout(contract)
   for rel,pin in contract['inputs'].items():
    if rel.startswith('src/'):self.assertEqual(c.f.file_sha(SOURCE_ROOT/rel),pin['sha256'])

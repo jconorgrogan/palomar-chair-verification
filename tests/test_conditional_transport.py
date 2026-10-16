@@ -29,7 +29,8 @@ class Fixture:
         self.identity={'repository':t.REPOSITORY,'run_id':'900','run_attempt':'2','workflow_commit':'a'*40}
         self.rows=[{'module':'Fixture.A','path':'src/Fixture/A.lean','sha256':'1'*64,'bytes':1,'ordered_imports':[],'implicit_Init':True},
                    {'module':'Fixture.B','path':'src/Fixture/B.lean','sha256':'2'*64,'bytes':1,'ordered_imports':['Fixture.A'],'implicit_Init':True}]
-        self.contract={'stages':{'F0_common':{'modules':[r['module'] for r in self.rows],'admitted_stages':[],'needs':[]}},
+        self.contract={'schema':'conditional-geometry-staged-replay-v2','owned_objects_from_prior_runs_allowed':False,
+            'stages':{'F0_common':{'modules':[r['module'] for r in self.rows],'admitted_stages':[],'needs':[]}},
             'cache_roots':[],'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'auditor_timeout_seconds':600,
             'per_command_log_max_bytes':1024**2,'aggregate_log_max_bytes':64*1024**2,'aggregate_command_deadline_seconds':19200,
             'source_archive':{'sha256':'b'*64,'source_bytes':2},'owned_module_count':2}

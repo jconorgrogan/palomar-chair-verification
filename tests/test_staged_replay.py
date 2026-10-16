@@ -22,8 +22,8 @@ class StagePlanTests(unittest.TestCase):
   for field in ['stage_count','workflow_aggregate_seconds','workflow_outer_runner_minutes','object_artifact_max_bytes','object_artifact_zip_max_bytes','producer_job_log_max_bytes','transport_timeout_seconds','failure_evidence_grace_seconds','maximum_parallel_jobs']:
    x=self.contract();x[field]+=1
    with self.assertRaises(Exception):c.validate_diagnostic_profile(x)
- def test_five_jobs_width_three_bounds(self):
-  x=self.contract();self.assertEqual(x['workflow_aggregate_seconds'],5*x['aggregate_command_deadline_seconds']);self.assertEqual(x['workflow_outer_runner_minutes'],5*x['outer_timeout_minutes']);self.assertEqual([len(x['stages'][s]['modules']) for s in x['stage_order']],[186,890,1226,109,70])
+ def test_two_continuation_jobs_with_original_five_stage_partition(self):
+  x=self.contract();self.assertEqual(x['workflow_job_count'],2);self.assertEqual(x['maximum_parallel_jobs'],1);self.assertEqual(x['execution_stages'],['F3_product_geometry','F4_bridge_and_endpoint_joins']);self.assertEqual(x['workflow_aggregate_seconds'],2*x['aggregate_command_deadline_seconds']);self.assertEqual(x['workflow_outer_runner_minutes'],2*x['outer_timeout_minutes']);self.assertEqual([len(x['stages'][s]['modules']) for s in x['stage_order']],[186,890,1226,109,70])
  def test_native_interface_bytes_bound(self):
   inv={'mathlib':{'files':{'lib/a.so':{'sha256':'a'*64,'bytes':5}}}}
   a=c.cache_interface_identity({'A':{'sha256':'b'*64}},inv,'c'*64)
@@ -124,7 +124,12 @@ class HostDeadlineTests(unittest.TestCase):
   for n in ast.walk(tree):
    if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and isinstance(n.func.value,ast.Name) and n.func.value.id=='transport' and n.func.attr in ['Transport','extract_stage','admit_stage','write_stage']:calls.append(n)
   self.assertEqual(len(calls),4)
-  for call in calls:self.assertTrue(any(k.arg=='deadline' and isinstance(k.value,ast.Name) and k.value.id=='deadline' for k in call.keywords))
+  for call in calls:self.assertTrue(any(k.arg=='deadline' and isinstance(k.value,ast.Name) and k.value.id in ('deadline','import_deadline') for k in call.keywords))
+  restore=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='restore_stages')
+  bound=next(n for n in restore.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='import_deadline' for t in n.targets))
+  self.assertEqual(ast.unparse(bound.value),"min(deadline, time.monotonic() + contract['transport_timeout_seconds'])")
+  for call in [n for n in ast.walk(restore) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr in ('Transport','extract_stage','admit_stage')]:
+   self.assertTrue(any(k.arg=='deadline' and isinstance(k.value,ast.Name) and k.value.id=='import_deadline' for k in call.keywords))
 class StageCollectorTests(unittest.TestCase):
  def fixture(self,work):
   m=c.load_helper('collect_evidence');e=work/'evidence';(e/'logs').mkdir(parents=True);upload=work/'object-upload';upload.mkdir()

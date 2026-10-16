@@ -7,8 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
 HELPERS={'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'c4c7e49c4fd10b66a59db4d9b0ce88caff75b50e8a3996bf9bd737b02e377a78',
- 'conditional_transport.py':'428f66710069d857ce2c9e041ac0d789f434bfbd37f4fe022103b2a4ecbc76a3',
+ 'collect_evidence.py':'7ca7a19ee3916e344f00539e41cd17614c4bfd2982b466eca84f82b64f4c1851',
+ 'conditional_transport.py':'d216f92df7c50ab14666923da37afd1dd47290178325b521a44f0360b4b02b1f',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -154,6 +154,22 @@ SUFFIXES=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c
 SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
 STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
 
+CONTINUATION_SCHEMA='conditional-geometry-origin-continuation-v3'
+ORIGINAL_STAGE_CONTRACT_SHA='cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38'
+ASYNC_TARGET='SpectreGeometry.PolygonProductKeyReferenceFinite'
+ASYNC_TARGET_SHA='1bca6dbb7f17e7a897293c3cf8da9b5d686c02245ac5230be3b27c108953a45b'
+
+def module_compile_arguments(contract,module):
+    """A pinned, source-local scheduling exception, never a global Lean option."""
+    if contract.get('schema')==CONTINUATION_SCHEMA:
+        expected={ASYNC_TARGET:['-DElab.async=false']}
+        f.need(contract.get('module_compile_arguments')==expected,'module scheduling exception differs')
+        f.need(contract['inputs']['src/'+ASYNC_TARGET.replace('.','/')+'.lean']['sha256']==ASYNC_TARGET_SHA,'scheduled source bytes differ')
+        return list(expected.get(module,[]))
+    f.need(contract.get('schema')=='conditional-geometry-staged-replay-v2' and
+           'module_compile_arguments' not in contract,'unrecognized producer scheduling policy')
+    return []
+
 def validate_diagnostic_profile(contract):
     expected={'schema':'conditional-geometry-staged-replay-v2','owned_module_count':2481,
       'finite_prerequisite_count':333,'owned_geometry_count':2144,'ordinary_bridge_count':4,
@@ -167,10 +183,17 @@ def validate_diagnostic_profile(contract):
       'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,
       'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,
       'auditor_timeout_seconds':600,'cache_module_count':2786}
-    for key,value in expected.items():f.need(contract.get(key)==value,'conditional replay profile mismatch: '+key)
+    continuation=contract.get('schema')==CONTINUATION_SCHEMA
+    if continuation:
+        expected.update(schema=CONTINUATION_SCHEMA,maximum_parallel_jobs=1,
+          workflow_aggregate_seconds=38400,workflow_outer_runner_minutes=660)
+        f.need(contract.get('workflow_job_count')==2 and contract.get('execution_stages')==['F3_product_geometry','F4_bridge_and_endpoint_joins'],'continuation job graph differs')
+        f.need(contract.get('locked_origin_stages')==['F0_common','F1_curved_existence','F2_period_hierarchy'],'locked producer stage set differs')
+        module_compile_arguments(contract,ASYNC_TARGET)
+    for key,value in expected.items():f.need(type(contract.get(key)) is type(value) and contract.get(key)==value,'conditional replay profile mismatch: '+key)
     for key,value in {'conditional_C_remains_explicit':True,'final_C_proof_certified':False,
         'unconditional_monotile_proof_certified':False,'fresh_external_source_rebuild':False,
-        'owned_objects_from_prior_runs_allowed':False,'owned_objects_from_same_run_checked_stages_allowed':True}.items():
+        'owned_objects_from_prior_runs_allowed':continuation,'owned_objects_from_same_run_checked_stages_allowed':True}.items():
         f.need(contract.get(key) is value,'conditional replay trust/scope changed: '+key)
     f.need(contract['conditional_endpoints']==ENDPOINTS and contract['endpoint_theorems']==ENDPOINT_THEOREMS,'endpoint contract differs')
     f.need(set(contract['ordinary_bridges'])==set(BRIDGES),'ordinary bridge set differs')
@@ -178,7 +201,7 @@ def validate_diagnostic_profile(contract):
 
 def distribution_files(contract):
     expected={p for p in contract['inputs'] if not p.startswith('src/')}|{'contract.json','.github/workflows/conditional-geometry.yml','owned-sources.tar.gz'}
-    f.need(contract['distribution_files']==sorted(expected) and len(expected)==29,'distribution manifest differs')
+    f.need(contract['distribution_files']==sorted(expected) and len(expected)==contract.get('distribution_file_count',29),'distribution manifest differs')
     return expected
 
 
@@ -474,35 +497,85 @@ def stage_identity():
     return {'repository':os.environ['GITHUB_REPOSITORY'],'run_id':os.environ['GITHUB_RUN_ID'],
       'run_attempt':os.environ['GITHUB_RUN_ATTEMPT'],'workflow_commit':os.environ['GITHUB_SHA']}
 
+def validate_continuation_origins(contract):
+    f.need(contract['schema']==CONTINUATION_SCHEMA,'origin lock requires continuation schema')
+    producer=f.pinned_load(ROOT/'origin/producer-contract.json',ORIGINAL_STAGE_CONTRACT_SHA)
+    validate_diagnostic_profile(producer);validate_stage_plan(producer)
+    for key in ['modules','stages','stage_order','final_stage','source_archive','cache_roots','conditional_endpoints','endpoint_theorems','ordinary_bridges','official_lean_inventory_sha256']:
+        f.need(contract[key]==producer[key],'producer/consumer source or interface contract differs: '+key)
+    old_sources={n:r for n,r in producer['inputs'].items() if n.startswith('src/')}
+    new_sources={n:r for n,r in contract['inputs'].items() if n.startswith('src/')}
+    f.need(new_sources==old_sources,'producer/consumer exact source pins differ')
+    for name in ['lean-toolchain','locks/dependencies.json','locks/cache-client.json','locks/owned-sources.json','locks/required-modules.json','locks/source-lineage.json','locks/visibility-exception.json','locks/visibility-predictions.json','locks/auditor-variants.json','auditors/AuditOrdinaryBridges.lean','auditors/AuditConditionalEndpoints.lean']:
+        f.need(contract['inputs'][name]==producer['inputs'][name],'producer/consumer immutable input differs: '+name)
+    pointer=contract['origin_lock']
+    f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']=='origin/locked-origins.json' and
+           contract['inputs'][pointer['path']]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'origin lock pointer differs')
+    f.need((ROOT/pointer['path']).stat().st_size==pointer['bytes'],'origin lock byte size differs')
+    lock=f.pinned_load(ROOT/pointer['path'],pointer['sha256'])
+    f.need(set(lock)=={'schema','producer_contract_sha256','stages'} and lock['schema']=='conditional-exact-origin-lock-v1' and
+           lock['producer_contract_sha256']==ORIGINAL_STAGE_CONTRACT_SHA and
+           set(lock['stages'])==set(contract['locked_origin_stages']),'origin lock stage/contract coverage differs')
+    identity={'repository':'jconorgrogan/palomar-chair-verification','run_id':'38914223883','run_attempt':'1','workflow_commit':'318a6900eabfec550b4adf1b0f4bd634c20d67c5'}
+    for sid,row in lock['stages'].items():
+        transport.validate_origin_lock(row['origin'])
+        f.need(set(row)=={'origin','receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','stage_tar_bytes','independent_review_sha256'},'locked origin row schema differs')
+        f.need(row['origin']['identity']==identity and row['origin']['stage_id']==sid and row['origin']['workflow_id']==386423911,'locked original producer identity differs')
+        for key in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:
+            f.need(isinstance(row[key],str) and f.SHA256.fullmatch(row[key]),'locked producer digest missing: '+key)
+        f.need(type(row['stage_tar_bytes']) is int and 0<row['stage_tar_bytes']<=contract['object_artifact_max_bytes'],'locked producer tar size bound')
+    return producer,lock['stages']
+
+
+def cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,lineage,inventory):
+    collector=load_helper('collect_evidence')
+    return collector.make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,lineage,inventory,collector.locked_origin_rows(contract))
+
+
 def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cache_rows,runtime,deadline):
     prior={};checked=set();lineage=[]
     ancestors=contract['stages'][stage_id]['admitted_stages']
     if not ancestors:return prior,checked,lineage
-    client=transport.Transport(deadline=deadline);root=work/'stage-imports';root.mkdir()
+    producer_contract,locked=validate_continuation_origins(contract)
+    import_deadline=min(deadline,time.monotonic()+contract['transport_timeout_seconds'])
+    root=work/'stage-imports';root.mkdir()
     search=[str(work/'packages'/p['name']/'.lake/build/lib/lean') for p in f.load_json(ROOT/'locks/dependencies.json')['packages']]
     for sid in ancestors:
-        producer=contract['stages'][sid];download=root/(sid+'-download')
+        origin_row=locked.get(sid)
+        selected_contract=producer_contract if origin_row is not None else contract
+        selected_sha=ORIGINAL_STAGE_CONTRACT_SHA if origin_row is not None else contract_sha
+        producer=selected_contract['stages'][sid];download=root/(sid+'-download')
+        f.need(origin_row is not None or sid=='F3_product_geometry','unlocked earlier producer stage')
+        client=transport.Transport(deadline=import_deadline,origin_lock=origin_row['origin'] if origin_row is not None else None)
         origin=client.download_stage(sid,'conditional '+sid,download,contract['object_artifact_max_bytes'])
+        if origin_row is not None:
+            f.need(origin==origin_row['origin'],'downloaded origin differs from exact lock')
+            descriptor=f.load_json(download/'descriptor.json')
+            f.need(f.file_sha(download/'descriptor.json')==origin_row['descriptor_sha256'] and
+                   descriptor['archive_sha256']==origin_row['stage_tar_sha256'] and descriptor['archive_bytes']==origin_row['stage_tar_bytes'] and
+                   descriptor['receipt_sha256']==origin_row['receipt_sha256'],'locked descriptor/archive identity differs')
         extracted=root/(sid+'-extracted')
-        receipt=transport.extract_stage(download,extracted,maximum=contract['object_artifact_max_bytes'],deadline=deadline)
+        receipt=transport.extract_stage(download,extracted,maximum=contract['object_artifact_max_bytes'],deadline=import_deadline)
+        if origin_row is not None:
+            f.need(f.file_sha(extracted/'receipt.json')==origin_row['receipt_sha256'] and
+                   f.file_sha(extracted/'evidence/owned-modules.jsonl')==origin_row['checked_module_receipts_sha256'],'locked producer receipt chain differs')
         predecessor=[x for x in lineage if x['stage_id'] in producer['admitted_stages']]
-        imported_modules={m for dep in producer['admitted_stages'] for m in contract['stages'][dep]['modules']}
+        imported_modules={m for dep in producer['admitted_stages'] for m in selected_contract['stages'][dep]['modules']}
         producer_inventory={name:prior[name] for module in imported_modules for name in module_outputs(module)}
-        expected={'identity':stage_identity(),'stage_id':sid,'stage_modules':producer['modules'],
-          'admitted_stages':producer['admitted_stages'],'contract_sha256':contract_sha,
+        expected={'identity':origin['identity'],'stage_id':sid,'stage_modules':producer['modules'],
+          'admitted_stages':producer['admitted_stages'],'contract_sha256':selected_sha,
           'interface_identity':interface,'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,
-          'predecessor_artifacts':predecessor,'contract':contract,'stage_rows':[owned_rows[m] for m in producer['modules']],
+          'predecessor_artifacts':predecessor,'contract':selected_contract,'stage_rows':[owned_rows[m] for m in producer['modules']],
           'owned_rows':owned_rows,'cache_rows':cache_rows,'runtime':runtime,'cache_search':search,
           'producer_inventory':producer_inventory,'origin':origin,'dependency_pins':f.load_json(ROOT/'locks/dependencies.json')['packages']}
-        added,prior=transport.admit_stage(extracted,expected=expected,objects=work/'objects',prior=prior,checked=checked,api=sys.modules[__name__],deadline=deadline)
+        added,prior=transport.admit_stage(extracted,expected=expected,objects=work/'objects',prior=prior,checked=checked,api=sys.modules[__name__],deadline=import_deadline)
         f.need([r['module'] for r in added]==producer['modules'],'admitted producer coverage differs')
         checked.update(producer['modules'])
         lineage.append({'stage_id':sid,'origin':origin,'receipt_sha256':f.file_sha(extracted/'receipt.json'),
           'own_modules':producer['modules'],'checked_module_receipts_sha256':f.file_sha(extracted/'evidence/owned-modules.jsonl')})
-        # Download/extraction files are not import roots. Retain producer evidence
-        # locally, but remove payload duplicates after verified host admission.
         shutil.rmtree(download)
     verify_owned_final(work/'objects',prior,contract['owned_output_max_bytes'])
+    transport.check_deadline(import_deadline)
     return prior,checked,lineage
 
 def export_stage(work,contract,contract_sha,stage_id,interface,lineage,deadline):
@@ -579,7 +652,8 @@ def main():
     f.need(contract['review_status']=='reviewed_for_execution','INACTIVE: diagnostic is not reviewed')
     validate_diagnostic_profile(contract)
     validate_stage_plan(contract)
-    f.need(a.stage in contract['stages'],'unknown stage')
+    f.need(contract['schema']==CONTINUATION_SCHEMA,'this runner executes only the reviewed continuation contract')
+    f.need(a.stage in contract['execution_stages'],'unknown or nonexecuted continuation stage')
     f.need(not a.runtime and not a.runtime_inventory and not a.local_dependencies,'staged production runner requires fresh official acquisition')
     stage=contract['stages'][a.stage];final_stage=a.stage==contract['final_stage']
     f.need(f.file_sha(ROOT/'ci/fresh_stage.py')==HELPER_SHA,'bounded runner changed')
@@ -591,18 +665,19 @@ def main():
         if rel.startswith('src/'):continue  # Authenticated source archive is admitted below.
         f.safe_rel(rel);p=ROOT/rel;f.no_symlink_path(p)
         f.need(p.stat().st_size==row['bytes'] and f.file_sha(p)==row['sha256'],'diagnostic input changed: '+rel)
+    validate_continuation_origins(contract)
     owned=f.load_json(ROOT/'locks/owned-sources.json');required_lock=f.load_json(ROOT/'locks/required-modules.json')
     work=a.work.absolute();f.no_symlink_path(work);f.need(not work.exists(),'diagnostic workspace must be new');work.mkdir()
     for n in ['logs','evidence','packages','home','tmp','cache','objects','bootstrap','quarantine','auditor-objects']:(work/n).mkdir()
     deadline=time.monotonic()+contract['aggregate_command_deadline_seconds'];commands=[];runtime=None;terminal_ready=False
     global _ACTIVE_WATCHDOG
     watchdog=HostDeadline(deadline);_ACTIVE_WATCHDOG=watchdog;watchdog.arm()
-    result={'schema':'conditional-geometry-staged-replay-v2','status':'INCOMPLETE','proof_certified':False,
+    result={'schema':CONTINUATION_SCHEMA,'status':'INCOMPLETE','proof_certified':False,
       'fresh_external_source_rebuild':False,'cache_bytes_trusted_not_source_authenticated':True,
       'stage_id':a.stage,'stage_modules':stage['modules'],'admitted_stages':stage['admitted_stages'],
       'owned_module_count':2481,'finite_prerequisite_count':333,'conditional_C_remains_explicit':True,
       'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,
-      'owned_objects_from_prior_runs':False,'contract_sha256':a.contract_sha256,
+      'owned_objects_from_prior_runs':True,'contract_sha256':a.contract_sha256,
       'workflow_commit':os.environ.get('GITHUB_SHA'),'run_id':os.environ.get('GITHUB_RUN_ID'),
       'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT'),'command_count':0,'complete_log_bytes':0}
     write_json(work/'evidence/result.json',result)
@@ -755,6 +830,8 @@ def main():
         prior,checked,lineage=restore_stages(work,contract,a.contract_sha256,a.stage,interface,owned_rows,cache_rows,runtime,deadline)
         write_json(work/'evidence/imported-stages.json',lineage)
         result['imported_stages_sha256']=f.file_sha(work/'evidence/imported-stages.json')
+        write_json(work/'evidence/cross-origin-admissions.json',cross_origin_certificate(contract,a.contract_sha256,stage_identity(),a.stage,interface,lineage,prior))
+        result['cross_origin_admissions_sha256']=f.file_sha(work/'evidence/cross-origin-admissions.json')
         for module in stage['modules']:
             row=owned_rows[module];rel=module.replace('.','/')
             print(json.dumps({'phase':'compile_and_check','module':module,'stage':a.stage,'completed':len(receipts),'total':len(stage['modules'])}),flush=True)
@@ -764,7 +841,7 @@ def main():
             inputs=direct_import_receipt(row,owned_rows,checked,prior,cache_rows,runtime)
             result['current_module']=module;result['current_module_state']='COMPILING_WITH_READ_ONLY_PREDECESSORS'
             write_json(work/'evidence/result.json',result)
-            argv=[runtime/'bin/lean','-j1','-M'+str(DIAGNOSTIC_HEAP_MIB),'-Dcompiler.postponeCompile=false','-o',target,'-i',staging/(rel+'.ilean'),'-c',staging/(rel+'.c'),work/'src'/(rel+'.lean')]
+            argv=[runtime/'bin/lean','-j1','-M'+str(DIAGNOSTIC_HEAP_MIB),'-Dcompiler.postponeCompile=false',*module_compile_arguments(contract,module),'-o',target,'-i',staging/(rel+'.ilean'),'-c',staging/(rel+'.c'),work/'src'/(rel+'.lean')]
             sources=[work/'packages',work/'src',work/'objects']
             kw=dict(runtime=runtime,sources=sources,writable=[staging,work/'home',work/'tmp'],cwd=work/'src',env=env)
             f.need(str(staging) not in env['LEAN_PATH'].split(':'),'quarantine must never be an import root')
