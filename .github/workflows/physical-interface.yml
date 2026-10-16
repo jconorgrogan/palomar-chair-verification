@@ -1,0 +1,67 @@
+# INACTIVE: rename only after independent review and exact release authorization.
+name: Cache-backed physical interface diagnostic (work in progress)
+'on':
+  push:
+    branches: ['verify/physical-interface-20261016']
+permissions:
+  contents: read
+concurrency:
+  group: physical-interface-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    steps:
+      - name: Check out reviewed diagnostic
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Acquire official pinned cache and elaborate diagnostic sources
+        run: >-
+          python3 -I -B ci/cache_diagnostic.py
+          --contract-sha256 04b609079d64475e244b93abf73f24a0cbac8138af1155c8d132258f6fddbc0f
+          --work "${{ runner.temp }}/physical-interface-diagnostic"
+      - name: Preserve bounded interrupted-command logs
+        if: ${{ always() }}
+        continue-on-error: true
+        timeout-minutes: 1
+        run: |
+          python3 -I -B - <<'PY'
+          import json, os, shutil
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'physical-interface-diagnostic'
+          evidence=root/'evidence'; evidence.mkdir(parents=True,exist_ok=True)
+          if not (evidence/'result.json').exists():
+              (evidence/'result.json').write_text(json.dumps({'status':'INCOMPLETE_BEFORE_RECEIPT','proof_certified':False}))
+          logs=evidence/'logs';logs.mkdir(exist_ok=True)
+          for p in sorted((root/'logs').glob('*'))[:100]:
+              if not p.is_file() or p.is_symlink():continue
+              with p.open('rb') as h:
+                  h.seek(max(0,p.stat().st_size-262144));data=h.read(262144)
+              (logs/p.name).write_bytes(data)
+          upload=root/'upload';upload.mkdir(exist_ok=False)
+          total=0;omitted=[]
+          for p in sorted(evidence.rglob('*')):
+              if not p.is_file() or p.is_symlink():continue
+              rel=p.relative_to(evidence);size=p.stat().st_size
+              if total+size>31*1024*1024:
+                  omitted.append({'path':str(rel),'bytes':size});continue
+              out=upload/rel;out.parent.mkdir(parents=True,exist_ok=True)
+              shutil.copyfile(p,out);total+=size
+          (upload/'collection.json').write_text(json.dumps({'schema':'bounded-diagnostic-evidence-v1','proof_certified':False,'bytes_copied':total,'omitted':omitted,'complete_evidence':not omitted}))
+          PY
+      - name: Upload bounded diagnostic evidence only
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: physical-interface-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/physical-interface-diagnostic/upload/**
+          retention-days: 7
+          if-no-files-found: error

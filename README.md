@@ -1,70 +1,21 @@
-# The CLARK Tile: A Strongly Aperiodic Monotile in Five Dimensions
+# Cache-backed physical interface diagnostic (work in progress)
 
-Conor Grogan, author and responsible maintainer
+This small diagnostic freshly elaborates four exact modern Lean sources against the official Mathlib cache at commit `065356127b1dc0016f66b7283ce0ce2c4055aa55`, with Lean `4.35.0-rc2`. It does not certify either monotile theorem. The two standalone Challenge files intentionally contain their statement holes; the separate model-bridge smoke only proves two definition equalities.
 
-Companion preprint: [read the paper on Zenodo](https://zenodo.org/records/23197680), DOI [10.5281/zenodo.23197680](https://doi.org/10.5281/zenodo.23197680).
+## Trust and provenance
 
-Download version 2: [**An Arithmetic Family of Aperiodic Tilings in Odd Prime Dimensions** (PDF)](CLARK_paper.pdf?raw=1). Citation files: [CFF](CITATION.cff) and [BibTeX](CITATION.bib).
+The official [Palomar verification profile](https://github.com/PalomarRegistry/PalomarSubmission/blob/d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44/verification-profile.json) permits fresh submitted Lake state with pinned Mathlib cache artifacts. Its [cache trust note](https://github.com/PalomarRegistry/PalomarSubmission/blob/d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44/docs/mathlib-cache-trust.md) explicitly trusts the served compiled bytes. Source-derived cache keys identify requests; they do not authenticate the returned bytes as semantically equivalent to source. Our SHA-256 inventory records the bytes consumed, not a stronger source-equivalence guarantee. The user's separately requested fresh external-source replay remains pending.
 
-We call the five-dimensional construction **CLARK**, for **Chair with Local Asymmetric Registration Keys**. It retains the Lean identifier **T5**.
+Every official dependency is checked out at a full locked commit with canonical origin. The selected Mathlib manifest and cache-client source hashes are checked. The cache executable is freshly bootstrapped with networking disabled and copied to a read-only location. Its pinned current client uses only the official `master,legacy` trust chain. No fork scope, unsafe history search, endpoint override, credential, old Lake object or existing cache is admitted. The network-enabled phase cannot read candidate source files. All diagnostic elaboration/checking is network-disabled with dependencies mounted read-only, unique namespace providers, complete selected cached module/IR companion coverage, and source/output hash checks.
 
-![Planar section of a level-five CLARK carrier patch with matching-key zooms](CLARK_overview.png)
+The official Lean release archive is SHA-256 pinned, and its canonical 17,918-file/13-symlink inventory is verified. The four source files are preserved exactly from the reviewed drafts/owned source; `contract.json` binds all inputs. Actual cached archives, builds, generated IR, and available JS assets are inventoried. These inventories identify the official-cache trust boundary, not a fresh build of Mathlib or ProofWidgets.
 
-The main panel shows carrier sections. Matching keys are resolved in the 12× and 690× zooms of the same plane. Colours count negative coordinate signs; all displayed full frames preserve orientation. The small target ring is enlarged 2.2× for visibility. See [figure details and the sections/key diagrams](figures/README.md).
+## Resource and execution limits
 
-We give an explicit compact tile in five-dimensional Euclidean space and prove that it admits tilings but no periodic tiling. The construction modifies a chair made from 31 unit five-cubes with 256 rational pyramidal keys. Copies may be translated, rotated, or reflected. The theorem states that every tiling by these copies has no nonzero translation preserving its tile collection. It also proves that the full Euclidean symmetry group of every such tiling is finite, with at most **3,840** elements. Here, strongly aperiodic means finite full symmetry group; a trivial symmetry group is not asserted. The Lean formalization fixes the exact body and proves compactness, existence, and aperiodicity without assuming lattice registration or matching rules. See the [exact tile definition](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/Challenge.lean), the [selected theorem proof](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/Solution.lean), and the [complete physical monotile theorem](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/SparseMonotiles/T5Monotile.lean).
+One standard public Ubuntu 22.04 job, 90-minute outer bound, 80-minute aggregate command deadline. Cache bootstrap: 15 minutes; acquisition: 30 minutes; each small Lean compile/check: 120 seconds, `-j1 -M1024`, 2 GiB sampled process-tree RSS, 12 GiB per-process address-space ceiling. Acquisition/bootstrap use at most 8 GiB sampled tree RSS. No paid runner, billing change or security-policy change is used. Failure, missing cache, namespace conflict, unsupported modern interface, timeout or disk exhaustion is incomplete diagnostic evidence, never proof acceptance.
 
-## Proof and verification status
+After runtime setup, acquisition requires at least 9 GiB (3 GiB downloaded archives + 5 GiB admitted builds + 1 GiB overhead) measured free disk. Downloads and builds have per-file and post-phase aggregate inventory limits; the aggregate limits reject oversized results but are not filesystem quotas or a guarantee that those bytes cannot first consume disk during the bounded phase. Runner disk exhaustion fails closed. The local cloud `/tmp` filesystem is insufficient, so the intended execution is the reviewed GitHub runner. Preserved local proof snapshots are not deleted.
 
-**[Registered in Palomar as PALOMAR-2026-10-07-000006 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-10-07-000006&version=1) on 7 October 2026.** The registered result is `PalomarMonotiles.T5_strongAperiodicity` at immutable source commit `5f5ceedee770b76c21e8f1105e5e4e3b84b8d676`. The registry records successful mechanical verification and an automated review with no problems identified. This is not human peer review or a novelty certificate.
+Only bounded logs, source/cache/runtime inventories, fresh diagnostic object hashes and status receipts are uploaded, for seven days. Cache objects are not uploaded or reused across jobs. Workflow and contract remain inactive until independent review. Passing this diagnostic establishes only that these exact sources elaborate and replay under this declared cache trust; it does not close C, a physical monotile proof, clean-source reproducibility, Comparator or independent-kernel certification.
 
-The stronger selected theorem, independent Challenge, actual Solution and axiom audit have passed local Lean **4.35.0-rc2** checks. The whole statement-definition comparison passed with no exemptions. The audited theorem depends only on `propext`, `Classical.choice`, and `Quot.sound`. The [extension evidence](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/verification/STRONG_EXTENSION.md) records these local checks and their scope.
-
-**The stronger theorem’s [official full Palomar mechanical preflight passed](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631)** for immutable source commit `5f5ceedee770b76c21e8f1105e5e4e3b84b8d676`. Lean’s default kernel, NanoDa and verified con-ron all accepted the Solution; con-ron checked **69,558 declarations**. The clean build completed **4,137 Lake jobs**, and the source audit checked **1,357 Lean files**. The [full mechanical report](verification/STRONG_MECHANICAL_REPORT_37544058631.json) records `status: pass`, `stage: complete`, and no errors or warnings. The [verification receipt](verification/STRONG_PREFLIGHT_PASS_37544058631.json) binds the source, report and checker results; the [original GitHub artifact](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37544058631/artifacts/11454083416) remains available. Report JSON SHA-256: `82711b9d865e0441d453decdfebf5b4d071292f46b52a5e5ca77c385ed498884`.
-
-This is the full reusable-workflow check pinned at `d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44` under `palomar-standard-v1`, with no definition exemptions. It verifies the selected finite full-symmetry statement, including the **3,840** bound; a trivial symmetry group is not asserted. Registration and automated review are recorded in the versioned Palomar entry above.
-
-**The original theorem’s [official full Palomar mechanical preflight passed](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323)** for immutable source commit `9008dec3afc006a62d3d2fd6b49b12f189248f33`. The selected original T5 theorem covers compactness, tiling existence and no nonzero translation period in any physical tiling. Lean’s default kernel, NanoDa and verified con-ron all accepted the Solution; con-ron checked 69,348 declarations. The [mechanical report artifact](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37520435323/artifacts/11444507885) records `status: pass`, `stage: complete`, and no errors or warnings. The report JSON has SHA-256 `43edc2c785ceaa7ecff4b231a0a9738a5e320d6fd5b0461d6de88491f482f027`. This is the full pinned reusable-workflow preflight under `palomar-standard-v1` for the original theorem, without the finite-symmetry extension. Palomar registration applies to the stronger snapshot cited above; this original preflight remains part of the verification history.
-
-The [first full run](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37509737027) clean-built all 4,135 Lake jobs but rejected a generated statement-helper proof before the independent main kernels. The repair replaced only two bound-proof blocks with explicit terms; the complete helper function is definitionally unchanged. Local whole-statement dependency comparison and affected-binding/Solution checks passed before the successful official retry. The exact [repair evidence](https://github.com/jconorgrogan/palomar-chair-verification/blob/9008dec3afc006a62d3d2fd6b49b12f189248f33/verification/COMPARATOR_REPAIR.md) preserves that history.
-
-The selected result is `PalomarMonotiles.T5_strongAperiodicity`, with statement `T5StrongClaim`. It retains the original compactness, tiling-existence and translation-aperiodicity claim as a conjunct. The independent Challenge fixes the exact shape and the physical tiling statement; the Solution proves that statement without importing Challenge. The Comparator has no definition exemptions.
-
-## Exact source snapshot
-
-The complete stronger source is on [the T5 verification branch](https://github.com/jconorgrogan/palomar-chair-verification/tree/verification/palomar-strong1-20261006), frozen at commit [`5f5ceedee770b76c21e8f1105e5e4e3b84b8d676`](https://github.com/jconorgrogan/palomar-chair-verification/tree/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676).
-
-- [Full mathematical account and reproduction instructions](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/README.md)
-- [Finite full-symmetry proof](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/SparseMonotiles/FiniteSymmetry.lean)
-- [Independent Challenge](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/Challenge.lean) and [actual Solution](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/Solution.lean)
-- [Structured metadata, source relationships, automation and review account](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/formalization.yaml)
-- [Exact source manifest](https://github.com/jconorgrogan/palomar-chair-verification/blob/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676/SOURCE_MANIFEST.json)
-- [Verification runs](https://github.com/jconorgrogan/palomar-chair-verification/actions)
-
-The source manifest has SHA-256 `ec0ed3ed9927fe13aa654c713ce9eb83e2a52da7b3d6c6c6cea07efcebb998f3`. The full source contains the substantive proof development, not only a theorem wrapper. The `main` branch serves as this public index and retains its earlier history.
-
-## Reproduce this exact source
-
-[Download the complete pinned source ZIP](https://github.com/jconorgrogan/palomar-chair-verification/archive/5f5ceedee770b76c21e8f1105e5e4e3b84b8d676.zip).
-
-Use a Linux host meeting the official standard-profile floor: at least **14 GiB RAM and 20 GiB free disk**. Install Bash, Git, Python 3, curl 7.81 or newer with working TLS/network access, standard Unix utilities, and Bubblewrap with usable namespaces. The sandbox expects `/root`, `/home` and `/run/user` to exist. Use the official prebuilt **Lean 4.35.0-rc2** toolchain (directly or through Elan), with `lean`, `lake`, `leanexport`, `leanchecker`, `nanoda_bin`, `con-ron` and `leantar` available from that toolchain. Rust, Cargo and CMake are not required for this prebuilt route.
-
-From a directory without an existing `clark-replay` folder, run:
-
-```sh
-COMMIT=5f5ceedee770b76c21e8f1105e5e4e3b84b8d676; git clone https://github.com/jconorgrogan/palomar-chair-verification.git clark-replay && cd clark-replay && git checkout --detach "$COMMIT" && bash scripts/verify-t5-on-linux.sh
-```
-
-The script checks the exact source manifest, builds the selected proof and invokes the unchanged bundled Comparator with Lean, NanoDa and verified con-ron. It requires a host that supports Bubblewrap namespaces and can take an hour or more. The official reusable workflow additionally checks metadata, Challenge provenance, execution-profile limits and its mechanical report. The command above reproduces the proof/Comparator/kernel portion; it does not by itself replace the required full Palomar workflow report.
-
-## Companion work
-
-This submission formalizes the 5D construction. Companion work gives an ordinary computer-assisted proof for the seven-dimensional construction (T7) and a hierarchy theorem for registered chair matching rules in every odd-prime dimension. Those results are outside the selected T5 verification. This entry does not establish physical monotiles in every odd-prime dimension. The exact distinctions and retained source citations are in the [full mathematical account](https://github.com/jconorgrogan/palomar-chair-verification/blob/9008dec3afc006a62d3d2fd6b49b12f189248f33/README.md#broader-program).
-
-## Production, review and license
-
-AI systems made substantive contributions to mathematical analysis, Lean proofs, exact certificate generation, audits, migration and exposition. The metadata records those contributions separately from human authorship. No independent human mathematical peer review or novelty certification is claimed.
-
-The companion preprint (`CLARK_paper.pdf`) and its figures are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The proof code is licensed under [Apache License 2.0](https://github.com/jconorgrogan/palomar-chair-verification/blob/9008dec3afc006a62d3d2fd6b49b12f189248f33/LICENSE). Lean, Mathlib and other dependencies retain their own licenses and notices.
-
-An [earlier four-result compatibility pilot](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/37466588417) passed the official Comparator and three kernels. That result concerns four supporting statements and is separate from the full T5 preflight.
+Owned diagnostic sources and adapter are under the repository's Apache-2.0 license. Official dependencies retain their own licenses and notices; they are fetched from their official repositories rather than republished here.
