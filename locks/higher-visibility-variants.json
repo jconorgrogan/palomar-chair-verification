@@ -1,0 +1,82 @@
+{
+  "added_bytes": 176,
+  "added_commands": 4,
+  "baseline_contract_sha256": "d247ff7ec4dad3279c556bc28837146593870b27bf9c30fda6fdd12db5608ac1",
+  "baseline_source_archive_sha256": "c3e47ef8ff76055cad0fc6965409354f9bb97c57066ac31c6ea6844cc42c803c",
+  "direct_reference_expressions": {
+    "SparseMonotiles.CarrierHierarchy.RegisteredWorld.coarsen": [
+      "actual_centers_eq W j ht hs hclass"
+    ],
+    "SparseMonotiles.CarrierHierarchy.gaugeSetoid": [
+      "(rightGauge_twice r hr p).symm",
+      "rightGauge_twice r hr p"
+    ]
+  },
+  "export_visibility_disclosure": "The two existing private theorem helpers are exported under their existing private kernel names; each option applies to exactly one declaration command. Declaration names, types and proof bodies are otherwise unchanged.",
+  "files": [
+    {
+      "actual_research_variant_compiled": false,
+      "all_original_bytes_preserved_in_order": true,
+      "baseline_bytes": 6256,
+      "baseline_sha256": "aae84124171980f9a4167c60b84f249159083ff481941ecd6038effa3bc9e864",
+      "insertions": [
+        {
+          "anchor": "private theorem rightGauge_twice",
+          "declaration": "rightGauge_twice",
+          "insert_utf8": "set_option backward.privateInPublic true in\n",
+          "kind": "private theorem",
+          "original_byte_offset": 2872,
+          "original_line": 71
+        },
+        {
+          "anchor": "def gaugeSetoid",
+          "declaration": "gaugeSetoid",
+          "insert_utf8": "set_option backward.privateInPublic true in\n",
+          "kind": "public exposed def",
+          "original_byte_offset": 3407,
+          "original_line": 86
+        }
+      ],
+      "module": "SparseMonotiles.CarrierHierarchyParent",
+      "path": "src/SparseMonotiles/CarrierHierarchyParent.lean",
+      "variant_bytes": 6344,
+      "variant_sha256": "b9a4262d4003a9f1c25daab27a2abef1d2e075e6144c3994ed0b3dc7ffd83325"
+    },
+    {
+      "actual_research_variant_compiled": false,
+      "all_original_bytes_preserved_in_order": true,
+      "baseline_bytes": 6360,
+      "baseline_sha256": "9eb99b987725c065272ed93be849fe5b9a09e62bb4b7846445b7a3bc169a68d0",
+      "insertions": [
+        {
+          "anchor": "private theorem actual_centers_eq",
+          "declaration": "actual_centers_eq",
+          "insert_utf8": "set_option backward.privateInPublic true in\n",
+          "kind": "private theorem",
+          "original_byte_offset": 1854,
+          "original_line": 42
+        },
+        {
+          "anchor": "/-- The coarse world is a genuine covering, nonoverlapping registered chair",
+          "declaration": "RegisteredWorld.coarsen",
+          "insert_utf8": "set_option backward.privateInPublic true in\n",
+          "kind": "public exposed def",
+          "original_byte_offset": 4534,
+          "original_line": 99
+        }
+      ],
+      "module": "SparseMonotiles.CarrierHierarchyCoarsening",
+      "path": "src/SparseMonotiles/CarrierHierarchyCoarsening.lean",
+      "variant_bytes": 6448,
+      "variant_sha256": "681591d355e2109bea89482b334346fe684af56370e589c517f0c39c961bcedb"
+    }
+  ],
+  "global_option_enabled": false,
+  "prior_demonstrated_pattern_manifest_sha256": "ce0fd019df1a5fba30f0c290c8c057e9365ff371213ba65512bc1cd6d27a2b34",
+  "prior_manifest_sha256": "89d4e1e8352fef580fa1b7cd03d4de0e81353dd72291538a9a5b22af6da3d09f",
+  "prior_pattern_independent_review_sha256": "0c4e8c42ca67cc3184b3dad72663d47db334e8f9015eee702f3d8c0ed91fb4a8",
+  "private_keywords_removed": false,
+  "schema": "higher-scoped-visibility-variants-v1",
+  "source_module_count": 2,
+  "status": "STATIC_PREDICTION_UNCOMPILED_PENDING_INDEPENDENT_REVIEW"
+}

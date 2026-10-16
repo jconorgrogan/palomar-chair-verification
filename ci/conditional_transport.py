@@ -206,7 +206,7 @@ class Transport:
         return self._artifacts
 
     def artifact_name(self,stage):
-        f.need(isinstance(stage,str) and re.fullmatch(r'F[0-4]_[a-z][a-z0-9_]*',stage),'invalid stage role')
+        f.need(isinstance(stage,str) and re.fullmatch(r'(?:F[0-4]|H[0-5])_[a-z][a-z0-9_]*',stage),'invalid stage role')
         return f'conditional-geometry-{self.run_id}-{self.attempt}-{stage}-objects'
 
     def download_stage(self,stage,producer_name,target,max_bytes=MAX_ARCHIVE):
@@ -479,7 +479,7 @@ def command_specs(expected,api):
     work=Path(expected['producer_work']); runtime=Path(expected['runtime']); contract=expected['contract']
     legacy=contract.get('schema')=='conditional-geometry-staged-replay-v2'
     f.need((legacy and 'module_compile_arguments' not in contract) or
-           (contract.get('schema')=='conditional-geometry-origin-continuation-v3' and
+           (contract.get('schema') in ('conditional-geometry-origin-continuation-v3','higher-dimension-staged-replay-v1') and
             callable(getattr(api,'module_compile_arguments',None))), 'unrecognized producer scheduling policy')
     f.need(work.is_absolute() and str(work)==str(work.absolute()) and runtime==work/'runtime','producer work/runtime path differs')
     f.no_symlink_path(work); f.no_symlink_path(runtime)
@@ -505,6 +505,8 @@ def command_specs(expected,api):
     cache=work/'bootstrap/cache'; kwargs['sources'].append(work/'bootstrap')
     add('cache-get',api.sandbox([runtime/'bin/lake','env',cache,'get','--cache-from=master,legacy',*contract['cache_roots']],network=True,**kwargs),1800,True)
     add('cache-lookup',api.sandbox([runtime/'bin/lake','env',cache,'lookup',*expected['cache_rows']],**kwargs),180,True)
+    if contract.get('schema')=='higher-dimension-staged-replay-v1' and expected['stage_id'] in ['H0_common','H5_higher_assembly']:
+        specs.extend(api.higher.auditor_specs(contract,work,runtime,expected['cache_search'],api)[:-1])
     env['LEAN_PATH']=':'.join([str(work/'objects'),*map(str,expected['cache_search']),str(runtime/'lib/lean')])
     for row in expected['stage_rows']:
         module=row['module']; rel=module.replace('.','/'); staging=work/'quarantine'/module
@@ -513,7 +515,7 @@ def command_specs(expected,api):
         argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false',*options,'-o',staging/(rel+'.olean'),'-i',staging/(rel+'.ilean'),'-c',staging/(rel+'.c'),work/'src'/(rel+'.lean')]
         add('compile-'+module,api.sandbox(argv,**kwargs),contract['diagnostic_timeout_seconds'],True)
         kwargs['writable']=[work/'home',work/'tmp']
-        add('check-'+module,api.sandbox([runtime/'bin/leanchecker',module],**kwargs),contract['check_timeout_seconds'],True)
+        add('check-'+module,api.sandbox([runtime/'bin/leanchecker',module],**kwargs),api.higher.checker_seconds(contract,module) if contract.get('schema')=='higher-dimension-staged-replay-v1' else contract['check_timeout_seconds'],True)
     if expected['stage_id']=='F4_bridge_and_endpoint_joins':
         audit_env=api.safe_env(runtime,work/'home',work/'tmp'); audit_env['LEAN_PATH']=str(work/'auditor-objects')+':'+str(runtime/'lib/lean')
         for name in ['AuditOrdinaryBridges','AuditConditionalEndpoints']:
@@ -525,6 +527,8 @@ def command_specs(expected,api):
             run_env=dict(env); run_env['LEAN_PATH']=str(work/'auditor-objects')+':'+env['LEAN_PATH']
             kwargs=dict(runtime=runtime,sources=[work/'auditors',work/'auditor-objects',work/'objects',work/'packages'],writable=[work/'home',work/'tmp'],cwd=work/'auditors',env=run_env)
             add('audit-'+name,api.sandbox([runtime/'bin/lean','-j1','-M4096','--run',work/'auditors'/(name+'.lean')],**kwargs),contract['auditor_timeout_seconds'],True)
+    if contract.get('schema')=='higher-dimension-staged-replay-v1' and expected['stage_id']==contract['final_stage']:
+        specs.extend(api.higher.auditor_specs(contract,work,runtime,expected['cache_search'],api)[-1:])
     return specs
 
 
@@ -630,12 +634,14 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
     f.need(sum(row['bytes'] for row in combined.values())<=MAX_OWNED,'aggregate owned root cap exceeded')
     evidence=extracted/'evidence'; result=f.load_json(evidence/'result.json'); contract=expected['contract']
     success='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED' if expected['stage_id']=='F4_bridge_and_endpoint_joins' else 'CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
+    if contract.get('schema')=='higher-dimension-staged-replay-v1':success=api.higher.SUCCESS if expected['stage_id']==contract['final_stage'] else api.higher.STAGE_SUCCESS
     f.need(result.get('status')==success and result.get('complete_evidence') is True,'producer evidence incomplete/failed')
     for key in ('run_id','run_attempt','workflow_commit'): f.need(result.get(key)==expected['identity'][key],'result run identity differs')
     for key in ('stage_id','stage_modules','admitted_stages','contract_sha256'): f.need(result.get(key)==expected[key],'result stage identity differs: '+key)
     freshness=contract.get('owned_objects_from_prior_runs_allowed')
     f.need(type(freshness) is bool,'producer contract freshness policy missing')
-    f.need(result.get('conditional_C_remains_explicit') is True and result.get('final_C_proof_certified') is False and
+    scope_ok=(result.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and 'conditional_C_remains_explicit' not in result) if contract.get('schema')=='higher-dimension-staged-replay-v1' else result.get('conditional_C_remains_explicit') is True
+    f.need(scope_ok and result.get('final_C_proof_certified') is False and
            result.get('unconditional_monotile_proof_certified') is False and result.get('owned_objects_from_prior_runs') is freshness,
            'producer conditional/freshness scope differs')
     f.need(result.get('checked_fresh_module_count')==len(modules) and result.get('checked_owned_module_count')==len(producer_final)//len(SUFFIXES),'checked module count differs')
@@ -644,7 +650,7 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
                      'cached-build-inventory.json':'cached_build_inventory_sha256','source-extraction.json':'source_extraction_receipt_sha256',
                      'interface-identity.json':'interface_identity_sha256','imported-stages.json':'imported_stages_sha256'}
     for name,key in required_hashes.items(): f.need(f.file_sha(evidence/name)==result.get(key),'result evidence hash differs: '+name)
-    if contract.get('schema')=='conditional-geometry-origin-continuation-v3':
+    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','higher-dimension-staged-replay-v1'):
         certificate=evidence/'cross-origin-admissions.json'
         f.need(f.file_sha(certificate)==result.get('cross_origin_admissions_sha256'),
                'cross-origin admission certificate digest differs')
@@ -662,8 +668,14 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
     for module,row in expected['cache_rows'].items():
         f.need(all(producer_cached[row['package']]['files'].get(name)==value for name,value in row['companions'].items()),
                'producer cached companion bytes differ: '+module)
-    f.need(expected['interface_identity']==api.cache_interface_identity(expected['cache_rows'],producer_cached,expected['runtime_inventory_sha256']),
-           'producer external cache/native interface differs')
+    reconstructed_interface=api.cache_interface_identity(expected['cache_rows'],producer_cached,expected['runtime_inventory_sha256'])
+    if contract.get('schema')=='higher-dimension-staged-replay-v1':
+        reconstructed_interface=api.higher.cache_extension(contract,expected['cache_rows'],producer_cached,expected['runtime_inventory_sha256'],api)[2]
+    f.need(expected['interface_identity']==reconstructed_interface,'producer external cache/native interface differs')
+    if contract.get('schema')=='higher-dimension-staged-replay-v1':
+        _,_,_,extension=api.higher.cache_extension(contract,expected['cache_rows'],producer_cached,expected['runtime_inventory_sha256'],api)
+        f.need(result.get('higher_endpoints_have_no_C_premise') is True and result.get('all_dimension_uniform_proof_certified') is False,'higher producer claim scope differs')
+        f.need(f.file_sha(evidence/'cache-extension-admission.json')==result.get('cache_extension_receipt_sha256') and f.load_json(evidence/'cache-extension-admission.json')==extension,'higher cache extension certificate differs')
     f.need(f.load_json(evidence/'fresh-owned-objects.json')=={'files':producer_final,'bytes':sum(r['bytes'] for r in producer_final.values())},'producer final object inventory differs')
     source_receipt={'schema':'authenticated-source-extraction-v1','archive':contract['source_archive'],'source_file_count':contract['owned_module_count'],
                     'source_bytes':contract['source_archive']['source_bytes'],'exact_source_tree':True,'all_source_pins_verified':True}
@@ -675,16 +687,20 @@ def admit_stage(extracted,*,expected,objects,prior,checked,api,deadline=None):
     accepted=set(producer_checked); available=dict(producer_prior)
     for index,(row,record) in enumerate(zip(expected['stage_rows'],receipts)):
         module=row['module']; a=record.get('compiler_command'); b=record.get('checker_command')
-        f.need(set(record)=={'module','source_sha256','ordered_imports','outputs','compiler_command','checker_command','checker_passed','conditional_C_remains_explicit'},'module receipt schema differs')
+        scope_key='proof_scope' if contract.get('schema')=='higher-dimension-staged-replay-v1' else 'conditional_C_remains_explicit'
+        scope_value='higher-dimension-sources-and-c-free-endpoints' if scope_key=='proof_scope' else True
+        f.need(set(record)=={'module','source_sha256','ordered_imports','outputs','compiler_command','checker_command','checker_passed',scope_key},'module receipt schema differs')
         f.need(type(a) is int and type(b) is int and 0<=a<b<len(commands) and a+1==b and
                commands[a]['name']=='compile-'+module and commands[b]['name']=='check-'+module,'compile/check adjacency or indexes differ')
-        f.need(record['source_sha256']==row['sha256'] and record['checker_passed'] is True and record['conditional_C_remains_explicit'] is True,'module source/check/scope differs')
+        f.need(record['source_sha256']==row['sha256'] and record['checker_passed'] is True and record[scope_key]==scope_value,'module source/check/scope differs')
         f.need(record['outputs']=={n:own_inv[n] for n in sorted(paths(module))},'module companion inventory differs')
         imports=api.direct_import_receipt(row,expected['owned_rows'],accepted,available,expected['cache_rows'],Path(expected['runtime']))
         f.need(record['ordered_imports']==imports,'direct import checked-receipt linkage differs')
         accepted.add(module); available.update(record['outputs'])
     audits={'ordinary_bridges':True,'conditional_endpoints':True} if expected['stage_id']=='F4_bridge_and_endpoint_joins' else {}
+    if contract.get('schema')=='higher-dimension-staged-replay-v1':audits={'higher_physical_endpoints':True} if expected['stage_id']==contract['final_stage'] else {}
     f.need(result.get('raw_audits')==audits,'stage raw-audit scope differs')
+    if contract.get('schema')=='higher-dimension-staged-replay-v1':api.higher.validate_audit_evidence(contract,evidence,result,api)
     # No candidate is running here. Quarantine and downloaded roots never enter
     # LEAN_PATH. Validate all destinations before creating even the first file.
     own_dirs=layout_names(own)

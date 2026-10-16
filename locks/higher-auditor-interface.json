@@ -1,0 +1,277 @@
+{
+  "acceptance_does_not_include": [
+    "uniform all-dimension join",
+    "C discharge",
+    "unconditional all-dimension theorem",
+    "topological ball property",
+    "finite symmetry group bound",
+    "polyhedrality",
+    "Palomar acceptance"
+  ],
+  "axioms_allowed": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "compile_output_policy": "exactly seven named companions in fresh quarantine; quarantine is never an import root; host admits only after exact set/hash/path checks; all seven rehashed after checker and final inspector",
+  "control_module": "HigherInspectorControl",
+  "core_control_pass_count": 23,
+  "core_control_success_marker": "HIGHER_INSPECTOR_CORE_CONTROL_PASSED",
+  "exact_raw_equality": "Lean.Expr.equal after only fixed seven-name injection; binder names/annotations and universe args preserved",
+  "execution_plan": [
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/AuditHigherPhysicalEndpoints/AuditHigherPhysicalEndpoints.olean",
+        "-i",
+        "QUARANTINE/AuditHigherPhysicalEndpoints/AuditHigherPhysicalEndpoints.ilean",
+        "-c",
+        "QUARANTINE/AuditHigherPhysicalEndpoints/AuditHigherPhysicalEndpoints.c",
+        "AUDITOR_SOURCE/AuditHigherPhysicalEndpoints.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "AUDITOR_OBJECTS",
+      "phase": "compile-auditor-AuditHigherPhysicalEndpoints",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "AuditHigherPhysicalEndpoints"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-AuditHigherPhysicalEndpoints",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/HigherInspectorControl/HigherInspectorControl.olean",
+        "-i",
+        "QUARANTINE/HigherInspectorControl/HigherInspectorControl.ilean",
+        "-c",
+        "QUARANTINE/HigherInspectorControl/HigherInspectorControl.c",
+        "AUDITOR_SOURCE/HigherInspectorControl.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "AUDITOR_OBJECTS",
+      "phase": "compile-auditor-HigherInspectorControl",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "HigherInspectorControl"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-HigherInspectorControl",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/HigherPhysicalReference/HigherPhysicalReference.olean",
+        "-i",
+        "QUARANTINE/HigherPhysicalReference/HigherPhysicalReference.ilean",
+        "-c",
+        "QUARANTINE/HigherPhysicalReference/HigherPhysicalReference.c",
+        "AUDITOR_SOURCE/HigherPhysicalReference.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "REFERENCE_OBJECTS",
+      "phase": "compile-auditor-HigherPhysicalReference",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "HigherPhysicalReference"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-HigherPhysicalReference",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "--run",
+        "AUDITOR_SOURCE/AuditHigherPhysicalEndpoints.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "audit-AuditHigherPhysicalEndpoints",
+      "timeout_seconds": 600
+    }
+  ],
+  "expected_module_roots": {
+    "control_compile": "auditor objects + official runtime only",
+    "inspector_compile": "official runtime only",
+    "inspector_run": "reference objects + freshly replayed complete research root + official Mathlib/cache/runtime",
+    "reference_compile": "official runtime + authenticated Mathlib/cache only"
+  },
+  "fresh_companion_suffixes": [
+    ".olean",
+    ".olean.private",
+    ".olean.server",
+    ".ilean",
+    ".ir.sig",
+    ".ir",
+    ".c"
+  ],
+  "import_level": "private",
+  "inspector_arguments": [],
+  "inspector_module": "AuditHigherPhysicalEndpoints",
+  "inspector_success_marker": "HIGHER_PHYSICAL_ENDPOINT_AUDIT_PASSED",
+  "integration_source_mapping": {
+    "auditors/AuditHigherPhysicalEndpoints.lean": "auditors/AuditHigherPhysicalEndpoints.lean",
+    "control/HigherInspectorControl.lean": "auditors/HigherInspectorControl.lean",
+    "src/HigherPhysicalReference.lean": "auditors/HigherPhysicalReference.lean"
+  },
+  "load_extensions": false,
+  "local_execution": {
+    "evidence_path": "/tmp/modern_c_readonly_adapter_20261016T0638/BWRAP_PREFLIGHT.stderr",
+    "evidence_sha256": "31c2cb0dffdeb9049fa2269e24af62df15e4161d4f752a648faf9630259725fe",
+    "executed": false,
+    "reason": "required read-only namespace isolation unavailable; no retry or security change"
+  },
+  "mode": "higher-only",
+  "model_module": "SparseMonotiles.Model",
+  "model_names": [
+    "SparseMonotiles.Point",
+    "SparseMonotiles.IsTiling",
+    "SparseMonotiles.translate",
+    "SparseMonotiles.IsPeriod",
+    "SparseMonotiles.HasTiling",
+    "SparseMonotiles.IsAperiodic",
+    "SparseMonotiles.IsAperiodicMonotile"
+  ],
+  "output_records": {
+    "all_boolean_assertions": true,
+    "axiom_order": "Name.lt sorted; unique permitted names only",
+    "compile_control_stdout": "23 exact PASS <label> lines plus one HIGHER_INSPECTOR_CORE_CONTROL_PASSED line; no implicit claim from a partial log",
+    "exact_json_keys": [
+      "schema",
+      "status",
+      "mode",
+      "target",
+      "module",
+      "reference_module",
+      "reference_template",
+      "model_module",
+      "model_definitions",
+      "level_params",
+      "axioms",
+      "explicit_binders",
+      "explicit_hypotheses",
+      "raw_type_equal",
+      "raw_model_equal",
+      "closed_type_and_proof",
+      "selected_declaration_ownership",
+      "exact_reference_owned_set",
+      "trust_level",
+      "plugins_enabled",
+      "extensions_loaded"
+    ],
+    "final_stdout_line": "HIGHER_PHYSICAL_ENDPOINT_AUDIT_PASSED",
+    "total_stdout_lines": 3
+  },
+  "plugins": [],
+  "project_module": "ClarkSeed.PhysicalDimensions",
+  "reference_expected_owned_names": [
+    "HigherPhysicalReference.Point",
+    "HigherPhysicalReference.IsTiling",
+    "HigherPhysicalReference.translate",
+    "HigherPhysicalReference.IsPeriod",
+    "HigherPhysicalReference.HasTiling",
+    "HigherPhysicalReference.IsAperiodic",
+    "HigherPhysicalReference.IsAperiodicMonotile",
+    "HigherPhysicalReference.ExpectedGeFive",
+    "HigherPhysicalReference.ExpectedGeThreeNeFour"
+  ],
+  "reference_imports": [
+    "Mathlib.Analysis.InnerProductSpace.PiL2",
+    "Mathlib.Topology.MetricSpace.Isometry"
+  ],
+  "reference_module": "HigherPhysicalReference",
+  "remaining_gates": [
+    "cloud sandbox preflight",
+    "reference/inspector/control ordinary source compilation and leanchecker",
+    "23 core controls",
+    "exact reference owned set and actual raw model equality on serialized research objects",
+    "both actual target raw type/ownership/axiom audits",
+    "complete higher-source replay and final independent evidence review"
+  ],
+  "resource_profile_proposal": {
+    "address_space_bytes": 12884901888,
+    "aggregate_deadline": "must be clipped by the existing enclosing higher replay deadline; never reset",
+    "checker_seconds": 120,
+    "compile_seconds": 180,
+    "enclosing_aggregate_seconds": 19200,
+    "enclosing_job_minutes": 330,
+    "inspector_seconds": 600,
+    "lean_heap_MiB": 4096,
+    "one_cpu_per_command": true,
+    "profile_status": "matches existing higher replay candidate; final independent integration review required",
+    "rss_tree_bytes": 8589934592
+  },
+  "schema": "higher-physical-reference-inspector-v1",
+  "source_files": [
+    {
+      "bytes": 10780,
+      "path": "auditors/AuditHigherPhysicalEndpoints.lean",
+      "sha256": "ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13"
+    },
+    {
+      "bytes": 6975,
+      "path": "control/HigherInspectorControl.lean",
+      "sha256": "017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482"
+    },
+    {
+      "bytes": 2138,
+      "path": "src/HigherPhysicalReference.lean",
+      "sha256": "bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea"
+    }
+  ],
+  "status": "inactive-unelaborated",
+  "stdout_json_records": 2,
+  "target_templates": [
+    {
+      "binders": [
+        "d",
+        "hd"
+      ],
+      "hypotheses": [
+        "5 \u2264 d"
+      ],
+      "target": "ClarkSeed.exists_physical_aperiodic_monotile_of_ge_five",
+      "template": "HigherPhysicalReference.ExpectedGeFive"
+    },
+    {
+      "binders": [
+        "d",
+        "hd",
+        "hne"
+      ],
+      "hypotheses": [
+        "3 \u2264 d",
+        "d \u2260 4"
+      ],
+      "target": "ClarkSeed.exists_physical_aperiodic_monotile_of_ge_three_ne_four",
+      "template": "HigherPhysicalReference.ExpectedGeThreeNeFour"
+    }
+  ],
+  "trust_level": 0
+}

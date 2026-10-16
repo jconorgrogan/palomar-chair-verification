@@ -5,10 +5,11 @@ import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,sta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
-HELPERS={'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
+HELPERS={'higher_policy.py':'1b40d6ef80612cdaa4153c2526e9af1905d1fd4388e95b805fbed73cf164b896',
+ 'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'2d328e0c007cb76246501754ff736825a1712f792268ed1a630b7e7ec0c17b17',
- 'conditional_transport.py':'967573f953cb849f2afa2b814e4c8057cce6705df6becee05ebd1f6befc84e41',
+ 'collect_evidence.py':'65dbb0c0bb0d08034866ed00db7ad50201d11910a1b962381eba8fe0a7531453',
+ 'conditional_transport.py':'25dca67e7f3238a177463ea4d1508bf350b29b8ddf7904ce19a3736d9d73fa89',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -22,6 +23,7 @@ def load_helper(name):
 f=load_helper('fresh_stage')
 header_parser=load_helper('source_header')
 transport=load_helper('conditional_transport')
+higher=load_helper('higher_policy')
 install_archive=load_helper('toolchain_install').install_archive
 GIB=1024**3
 DIAGNOSTIC_HEAP_MIB=4096
@@ -163,6 +165,8 @@ ASYNC_TARGET_SHA='1bca6dbb7f17e7a897293c3cf8da9b5d686c02245ac5230be3b27c108953a4
 
 def module_compile_arguments(contract,module):
     """A pinned, source-local scheduling exception, never a global Lean option."""
+    if contract.get('schema')==higher.SCHEMA:
+        f.need('module_compile_arguments' not in contract,'unapproved higher compiler arguments');return []
     if contract.get('schema') in (CONTINUATION_SCHEMA,'conditional-geometry-final-origin-v4'):
         expected={ASYNC_TARGET:['-DElab.async=false']}
         f.need(contract.get('module_compile_arguments')==expected,'module scheduling exception differs')
@@ -173,6 +177,7 @@ def module_compile_arguments(contract,module):
     return []
 
 def validate_diagnostic_profile(contract):
+    if contract.get('schema')==higher.SCHEMA:return higher.profile(contract,sys.modules[__name__])
     expected={'schema':'conditional-geometry-staged-replay-v2','owned_module_count':2481,
       'finite_prerequisite_count':333,'owned_geometry_count':2144,'ordinary_bridge_count':4,
       'conditional_endpoint_count':2,'lean_heap_mib':4096,'diagnostic_rss_gib':8,
@@ -277,6 +282,7 @@ def extract_owned_sources(archive,destination,contract):
 
 
 def validate_owned_graph(contract,owned,required,source_root=ROOT):
+    if contract.get('schema')==higher.SCHEMA:return higher.owned_graph(contract,owned,required,source_root,sys.modules[__name__])
     rows=owned['sources'];names=[r['module'] for r in rows];order=owned['module_order']
     f.need(len(names)==2481 and len(set(names))==len(names),'owned module count or uniqueness differs')
     f.need(names==order==[r['module'] for r in contract['modules']],'owned topological order differs')
@@ -447,6 +453,7 @@ def readonly_boundary_preflight(runtime,work,env,command):
 
 
 def validate_stage_plan(contract):
+    if contract.get('schema')==higher.SCHEMA:return higher.stage_plan(contract,sys.modules[__name__])
     stages=contract['stages'];order=contract['stage_order']
     expected=['F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','F4_bridge_and_endpoint_joins']
     f.need(order==expected and set(stages)==set(order),'stage identity/order differs')
@@ -463,7 +470,7 @@ def validate_stage_plan(contract):
         all_modules+=names;seen_stages.append(sid)
     f.need(set(all_modules)=={r['module'] for r in contract['modules']} and len(all_modules)==2481,'stage partition differs from exact owned union')
     f.need(contract['final_stage']==order[-1],'wrong final audit stage')
-    owned=f.load_json(ROOT/'locks/owned-sources.json')['sources'];rows={r['module']:r for r in owned}
+    owned=f.pinned_load(ROOT/'origin/producer-owned-sources.json',contract['inputs']['locks/owned-sources.json']['sha256'])['sources'];rows={r['module']:r for r in owned}
     for sid in order:
         available={m for dep in stages[sid]['admitted_stages'] for m in stages[dep]['modules']}
         for module in stages[sid]['modules']:
@@ -580,6 +587,7 @@ def validate_final_origins(contract):
 
 
 def validate_continuation_origins(contract):
+    if contract.get('schema')==higher.SCHEMA:return higher.origins(contract,sys.modules[__name__])
     if contract.get('schema')=='conditional-geometry-final-origin-v4':return validate_final_origins(contract)
     f.need(contract['schema']==CONTINUATION_SCHEMA,'origin lock requires continuation schema')
     producer=f.pinned_load(ROOT/'origin/producer-contract.json',ORIGINAL_STAGE_CONTRACT_SHA)
@@ -615,7 +623,7 @@ def cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,l
     return collector.make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,lineage,inventory,collector.locked_origin_rows(contract))
 
 
-def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cache_rows,runtime,deadline):
+def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cache_rows,runtime,deadline,base_cache_rows=None,base_interface=None):
     prior={};checked=set();lineage=[]
     ancestors=contract['stages'][stage_id]['admitted_stages']
     if not ancestors:return prior,checked,lineage
@@ -625,14 +633,17 @@ def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cach
     search=[str(work/'packages'/p['name']/'.lake/build/lib/lean') for p in f.load_json(ROOT/'locks/dependencies.json')['packages']]
     for sid in ancestors:
         origin_row=locked.get(sid)
-        if contract['schema']==FINAL_SCHEMA:
+        if contract['schema']==higher.SCHEMA:
+            selected_contract=producer_contract[sid] if origin_row is not None else contract
+            selected_sha=origin_row['producer_contract_sha256'] if origin_row is not None else contract_sha
+        elif contract['schema']==FINAL_SCHEMA:
             f.need(origin_row is not None,'final-only replay forbids unlocked or same-run origin fallback')
             selected_contract=producer_contract[sid];selected_sha=origin_row['producer_contract_sha256']
         else:
             selected_contract=producer_contract if origin_row is not None else contract
             selected_sha=ORIGINAL_STAGE_CONTRACT_SHA if origin_row is not None else contract_sha
         producer=selected_contract['stages'][sid];download=root/(sid+'-download')
-        f.need(origin_row is not None or sid=='F3_product_geometry','unlocked earlier producer stage')
+        f.need(origin_row is not None or (contract['schema']==higher.SCHEMA and sid in higher.HSTAGES) or (contract['schema']!=higher.SCHEMA and sid=='F3_product_geometry'),'unlocked earlier producer stage')
         client=transport.Transport(deadline=import_deadline,origin_lock=origin_row['origin'] if origin_row is not None else None)
         origin=client.download_stage(sid,'conditional '+sid,download,contract['object_artifact_max_bytes'])
         if origin_row is not None:
@@ -649,11 +660,14 @@ def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cach
         predecessor=[x for x in lineage if x['stage_id'] in producer['admitted_stages']]
         imported_modules={m for dep in producer['admitted_stages'] for m in selected_contract['stages'][dep]['modules']}
         producer_inventory={name:prior[name] for module in imported_modules for name in module_outputs(module)}
+        selected_cache=base_cache_rows if contract['schema']==higher.SCHEMA and origin_row is not None else cache_rows
+        selected_interface=base_interface if contract['schema']==higher.SCHEMA and origin_row is not None else interface
+        f.need(selected_cache is not None and selected_interface is not None,'missing selected cache interface')
         expected={'identity':origin['identity'],'stage_id':sid,'stage_modules':producer['modules'],
           'admitted_stages':producer['admitted_stages'],'contract_sha256':selected_sha,
-          'interface_identity':interface,'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,
+          'interface_identity':selected_interface,'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,
           'predecessor_artifacts':predecessor,'contract':selected_contract,'stage_rows':[owned_rows[m] for m in producer['modules']],
-          'owned_rows':owned_rows,'cache_rows':cache_rows,'runtime':runtime,'cache_search':search,
+          'owned_rows':owned_rows,'cache_rows':selected_cache,'runtime':runtime,'cache_search':search,
           'producer_inventory':producer_inventory,'origin':origin,'dependency_pins':f.load_json(ROOT/'locks/dependencies.json')['packages']}
         added,prior=transport.admit_stage(extracted,expected=expected,objects=work/'objects',prior=prior,checked=checked,api=sys.modules[__name__],deadline=import_deadline)
         f.need([r['module'] for r in added]==producer['modules'],'admitted producer coverage differs')
@@ -739,7 +753,7 @@ def main():
     f.need(contract['review_status']=='reviewed_for_execution','INACTIVE: diagnostic is not reviewed')
     validate_diagnostic_profile(contract)
     validate_stage_plan(contract)
-    f.need(contract['schema']==FINAL_SCHEMA,'this runner executes only the reviewed final-stage contract')
+    f.need(contract['schema']==higher.SCHEMA,'this runner executes only the reviewed higher-dimension contract')
     f.need(a.stage in contract['execution_stages'],'unknown or nonexecuted continuation stage')
     f.need(not a.runtime and not a.runtime_inventory and not a.local_dependencies,'staged production runner requires fresh official acquisition')
     stage=contract['stages'][a.stage];final_stage=a.stage==contract['final_stage']
@@ -755,14 +769,15 @@ def main():
     validate_continuation_origins(contract)
     owned=f.load_json(ROOT/'locks/owned-sources.json');required_lock=f.load_json(ROOT/'locks/required-modules.json')
     work=a.work.absolute();f.no_symlink_path(work);f.need(not work.exists(),'diagnostic workspace must be new');work.mkdir()
-    for n in ['logs','evidence','packages','home','tmp','cache','objects','bootstrap','quarantine','auditor-objects']:(work/n).mkdir()
+    for n in ['logs','evidence','packages','home','tmp','cache','objects','bootstrap','quarantine','auditor-objects','reference-objects']:(work/n).mkdir()
     deadline=time.monotonic()+contract['aggregate_command_deadline_seconds'];commands=[];runtime=None;terminal_ready=False
     global _ACTIVE_WATCHDOG
     watchdog=HostDeadline(deadline);_ACTIVE_WATCHDOG=watchdog;watchdog.arm()
     result={'schema':contract['schema'],'status':'INCOMPLETE','proof_certified':False,
       'fresh_external_source_rebuild':False,'cache_bytes_trusted_not_source_authenticated':True,
       'stage_id':a.stage,'stage_modules':stage['modules'],'admitted_stages':stage['admitted_stages'],
-      'owned_module_count':2481,'finite_prerequisite_count':333,'conditional_C_remains_explicit':True,
+      'owned_module_count':contract['owned_module_count'],'proof_scope':'higher-dimension-sources-and-c-free-endpoints',
+      'higher_endpoints_have_no_C_premise':True,'all_dimension_uniform_proof_certified':False,
       'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,
       'owned_objects_from_prior_runs':True,'contract_sha256':a.contract_sha256,
       'workflow_commit':os.environ.get('GITHUB_SHA'),'run_id':os.environ.get('GITHUB_RUN_ID'),
@@ -842,6 +857,7 @@ def main():
         mathlib=work/'packages/mathlib';manifest=f.load_json(mathlib/'lake-manifest.json')
         expected={p['name']:(p['url'],p['rev']) for p in pins if p['name']!='mathlib'}
         f.need({p['name']:(p['url'],p['rev']) for p in manifest['packages']}==expected,'Mathlib manifest differs from dependency allowlist')
+        higher.validate_cache_sources(contract,work,before,sys.modules[__name__])
         client=f.load_json(ROOT/'locks/cache-client.json')
         for row in client['files']:
             p=mathlib/row['path'];f.need(p.stat().st_size==row['bytes'] and f.file_sha(p)==row['sha256'],'cache client source pin differs')
@@ -892,6 +908,7 @@ def main():
             stem=work/'packages'/name/'.lake/build/lib/lean'/m.replace('.','/')
             suffixes=['.olean','.ilean']+(['.olean.server','.olean.private','.ir.sig','.ir'] if row['modern_module'] else [])
             for suffix in suffixes:f.need(Path(str(stem)+suffix).is_file(),'missing required cached companion: '+m+suffix)
+        higher.validate_extension_companion_files(contract,work,sys.modules[__name__])
         for row in contract['modules']:f.need(row['module'] not in providers,'cached object shadows owned module')
         owners=namespace_providers([Path(s) for s in search]+[runtime/'lib/lean'])
         for row in required:
@@ -911,10 +928,15 @@ def main():
             cache_rows[r['module']]={**r,'companions':{prefix+suffix:inventories[r['package']]['files'][prefix+suffix] for suffix in suffixes}}
         result['cached_build_inventory_sha256']=f.file_sha(work/'evidence/cached-build-inventory.json')
         result['runtime_inventory_sha256']=f.file_sha(work/'evidence/runtime-inventory.json')
-        interface=cache_interface_identity(cache_rows,inventories,result['runtime_inventory_sha256'])
+        base_cache_rows,base_interface,interface,extension=higher.cache_extension(contract,cache_rows,inventories,result['runtime_inventory_sha256'],sys.modules[__name__])
+        write_json(work/'evidence/cache-extension-admission.json',extension)
+        result['cache_extension_receipt_sha256']=f.file_sha(work/'evidence/cache-extension-admission.json')
         write_json(work/'evidence/interface-identity.json',interface)
         result['interface_identity_sha256']=f.file_sha(work/'evidence/interface-identity.json')
-        prior,checked,lineage=restore_stages(work,contract,a.contract_sha256,a.stage,interface,owned_rows,cache_rows,runtime,deadline)
+        auditor_maps=higher.prepare_auditors(contract,work,runtime,search,command,sys.modules[__name__]) if a.stage in ['H0_common','H5_higher_assembly'] else {'auditor-objects':{},'reference-objects':{}}
+        result['independent_auditor_preflight_passed']=a.stage in ['H0_common','H5_higher_assembly']
+        if result['independent_auditor_preflight_passed']:result['independent_auditor_inventory_sha256']=f.file_sha(work/'evidence/independent-auditor-objects.json')
+        prior,checked,lineage=restore_stages(work,contract,a.contract_sha256,a.stage,interface,owned_rows,cache_rows,runtime,deadline,base_cache_rows,base_interface)
         write_json(work/'evidence/imported-stages.json',lineage)
         result['imported_stages_sha256']=f.file_sha(work/'evidence/imported-stages.json')
         write_json(work/'evidence/cross-origin-admissions.json',cross_origin_certificate(contract,a.contract_sha256,stage_identity(),a.stage,interface,lineage,prior))
@@ -941,7 +963,7 @@ def main():
             write_json(work/'evidence/result.json',result)
             namespace_providers([work/'objects',*[Path(s) for s in search],runtime/'lib/lean'])
             kw['writable']=[work/'home',work/'tmp']
-            command('check-'+module,sandbox([runtime/'bin/leanchecker',module],**kw),env=env,seconds=contract['check_timeout_seconds'],rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
+            command('check-'+module,sandbox([runtime/'bin/leanchecker',module],**kw),env=env,seconds=higher.checker_seconds(contract,module),rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
             # Check current companions after checker, while committed predecessors
             # were read-only in both commands. The final full scan also rejects
             # any unexpected host-side mutation or inventory addition.
@@ -952,33 +974,14 @@ def main():
             receipt={'module':module,'source_sha256':row['sha256'],'ordered_imports':inputs,
               'outputs':{name:prior[name] for name in sorted(module_outputs(module))},
               'compiler_command':len(commands)-2,'checker_command':len(commands)-1,
-              'checker_passed':True,'conditional_C_remains_explicit':True}
+              'checker_passed':True,'proof_scope':'higher-dimension-sources-and-c-free-endpoints'}
             receipts.append(receipt)
             with (work/'evidence/owned-modules.jsonl').open('a') as h:h.write(json.dumps(receipt,sort_keys=True,separators=(',',':'))+'\n')
             result['checked_owned_module_count']=len(checked)
             result['checked_fresh_module_count']=len(receipts)
             write_json(work/'evidence/result.json',result)
-        # Auditors compile and check against official runtime only, each in its
-        # own writable quarantine. Their runtime import environment is read-only.
-        audit_prior={};audit_env=safe_env(runtime,work/'home',work/'tmp')
-        audit_env['LEAN_PATH']=str(work/'auditor-objects')+':'+str(runtime/'lib/lean')
-        audits={}
-        for name,key,marker in ([('AuditOrdinaryBridges','ordinary_bridges','ALL_FOUR_EXACT_RAW_BRIDGE_CONTRACTS_PASSED'),('AuditConditionalEndpoints','conditional_endpoints','CONDITIONAL_ENDPOINT_AUDIT_PASSED')] if final_stage else []):
-            audit_stage=work/'quarantine'/name;audit_stage.mkdir()
-            argv=[runtime/'bin/lean','-j1','-M4096','-Dcompiler.postponeCompile=false','-o',audit_stage/(name+'.olean'),'-i',audit_stage/(name+'.ilean'),'-c',audit_stage/(name+'.c'),work/'auditors'/(name+'.lean')]
-            kw=dict(runtime=runtime,sources=[work/'auditors',work/'auditor-objects'],writable=[audit_stage,work/'home',work/'tmp'],cwd=work/'auditors',env=audit_env)
-            command('compile-auditor-'+name,sandbox(argv,**kw),env=audit_env,seconds=180,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
-            audit_prior=admit_quarantine(audit_stage,work/'auditor-objects',name,audit_prior,64*1024**2);shutil.rmtree(audit_stage)
-            kw['writable']=[work/'home',work/'tmp']
-            command('check-auditor-'+name,sandbox([runtime/'bin/leanchecker',name],**kw),env=audit_env,seconds=120,rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
-            run_env=dict(env);run_env['LEAN_PATH']=str(work/'auditor-objects')+':'+env['LEAN_PATH']
-            kw=dict(runtime=runtime,sources=[work/'auditors',work/'auditor-objects',work/'objects',work/'packages'],writable=[work/'home',work/'tmp'],cwd=work/'auditors',env=run_env)
-            output,_=command('audit-'+name,sandbox([runtime/'bin/lean','-j1','-M4096','--run',work/'auditors'/(name+'.lean')],**kw),env=run_env,seconds=contract['auditor_timeout_seconds'],rss=DIAGNOSTIC_RSS_BYTES,allowed_sessions=True)
-            f.need(output.read_text().splitlines().count(marker)==1,'missing or repeated mandatory audit marker')
-            parsed=audit_bridge_output(output.read_text()) if key=='ordinary_bridges' else audit_endpoint_output(output.read_text())
-            write_json(work/'evidence'/(key+'-raw-audit.json'),parsed)
-            audits[key]=True
-        verify_owned_final(work/'auditor-objects',audit_prior,64*1024**2)
+        audits=higher.run_auditors(contract,work,runtime,search,env,command,sys.modules[__name__]) if final_stage else {}
+        higher.verify_auditor_maps(work,auditor_maps,sys.modules[__name__])
         f.need(checked_inventory(work/'auditors',maximum=1024**2)==auditor_before,'auditor source changed')
         final_owned=verify_owned_final(work/'objects',prior,contract['owned_output_max_bytes'])
         write_json(work/'evidence/fresh-owned-objects.json',final_owned)
@@ -988,10 +991,10 @@ def main():
             name=pin['name'];p=work/'packages'/name
             f.need(source_snapshot(p,pin)==before[name],'dependency source changed during consumers')
             f.need(checked_inventory(p/'.lake/build',maximum=4*GIB,allow_links=True)==inventories[name],'cached dependency bytes changed during consumers')
-        validate_terminal_receipt(result,commands,[owned_rows[m] for m in stage['modules']],receipts,audits,final=final_stage)
+        higher.terminal_receipt(result,commands,[owned_rows[m] for m in stage['modules']],receipts,audits,final_stage,sys.modules[__name__])
         expected_checked={m for sid in [*stage['admitted_stages'],a.stage] for m in contract['stages'][sid]['modules']}
         f.need(checked==expected_checked,'stage checked coverage differs')
-        if final_stage:f.need(len(checked)==2481,'final all-module coverage missing')
+        if final_stage:f.need(len(checked)==1433,'final higher/context module coverage missing')
         result['raw_audits']=audits
         result['status']='ALL_PROOF_GATES_PASSED_EVIDENCE_COLLECTION_PENDING'
         result['owned_companion_bytes']=final_owned['bytes']
@@ -1011,7 +1014,7 @@ def main():
                 q=work/'evidence/logs'/p.name;q.parent.mkdir(exist_ok=True);shutil.copyfile(p,q)
             checked_inventory(work/'evidence',maximum=contract['evidence_max_bytes']-8192)
             if terminal_ready:
-                result['status']=SUCCESS if final_stage else STAGE_SUCCESS;result['complete_evidence']=True
+                result['status']=higher.SUCCESS if final_stage else higher.STAGE_SUCCESS;result['complete_evidence']=True
                 write_json(work/'evidence/result.json',result)
         except Exception as e:
             result['status']='FAILED_EVIDENCE_COLLECTION';result['complete_evidence']=False;result['collection_error']=str(e)

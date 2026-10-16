@@ -1,20 +1,109 @@
 {
-  "actual_production_loop_mocked": true,
-  "collection_manifest_reserve_bytes": 4194304,
-  "command_receipts_bytes": 20108925,
-  "estimated_runner_evidence_bytes": 122828207,
-  "extra_command_reserve": 1048576,
-  "extra_external_inventory_reserve_bytes": 4194304,
-  "headroom_bytes": 7195217,
-  "limitation": "Additional cache inventory paths, actual warning output and filesystem behavior remain runtime-dependent. Existing caps stay fail-closed; this estimate is not an admission guarantee.",
-  "maximum_complete_logs_bytes": 67108864,
-  "miscellaneous_metadata_reserve_bytes": 4194304,
-  "module_receipts_inflated_size_fields_bytes": 9386712,
-  "observed_69_module_cache_runtime_source_metadata_bytes": 13713102,
-  "owned_inventory_inflated_size_fields_bytes": 3073420,
+  "collector_manifest_reserve_bytes": 4194304,
+  "method": "Exact current module names, direct import maps, sandbox argv and inflated numeric fields; measured retained fixed metadata; explicit growth/misc reserves. No object bytes read. Runtime caps remain fail-closed.",
+  "old_observed_metadata_sources": {
+    "cache-client-binary.json": {
+      "bytes": 144,
+      "sha256": "a93e65676543c3bddf0361f75e1fb4e3a8643668db33b44501338ff03febc1d7"
+    },
+    "cache-downloads.json": {
+      "bytes": 398639,
+      "sha256": "2880b253d0341eb7ef04a57a4d083edc893502122af0e929694808b7e9f00f28"
+    },
+    "cached-build-inventory.json": {
+      "bytes": 7520914,
+      "sha256": "5ccc3cbc9bc6a8af9032d41470391247efa0d8fbdb0c3f50c9accc1d33ee998d"
+    },
+    "dependency-sources.json": {
+      "bytes": 2967913,
+      "sha256": "ee25f794c120fcd5915f30b27a5d5e7d13a82a063a19eb15536a11771dd55fee"
+    },
+    "runtime-inventory.json": {
+      "bytes": 3292808,
+      "sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+    }
+  },
   "runner_cap_bytes": 130023424,
-  "source_modules": 2481,
+  "stages": {
+    "H0_common": {
+      "accepted_with_ancestors": 339,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 94792356,
+      "fresh_pairs": 44,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 35231068,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 376668,
+      "synthetic_final_inventory_bytes": 407869,
+      "synthetic_module_receipts_bytes": 135625
+    },
+    "H1_coarse_contacts": {
+      "accepted_with_ancestors": 560,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 97670059,
+      "fresh_pairs": 221,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 32353365,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 1939281,
+      "synthetic_final_inventory_bytes": 709206,
+      "synthetic_module_receipts_bytes": 1149378
+    },
+    "H2_forward_contacts": {
+      "accepted_with_ancestors": 421,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 95431564,
+      "fresh_pairs": 82,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 34591860,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 713826,
+      "synthetic_final_inventory_bytes": 516337,
+      "synthetic_module_receipts_bytes": 329207
+    },
+    "H3_contact_binding": {
+      "accepted_with_ancestors": 799,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 101230849,
+      "fresh_pairs": 460,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 28792575,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 4014804,
+      "synthetic_final_inventory_bytes": 1022423,
+      "synthetic_module_receipts_bytes": 2321428
+    },
+    "H4_product_geometry": {
+      "accepted_with_ancestors": 599,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 98230614,
+      "fresh_pairs": 304,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 31792810,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 2570148,
+      "synthetic_final_inventory_bytes": 711034,
+      "synthetic_module_receipts_bytes": 1077238
+    },
+    "H5_higher_assembly": {
+      "accepted_with_ancestors": 1433,
+      "cache_extension_and_interface_growth_reserve_bytes": 4194304,
+      "estimated_runner_evidence_bytes": 96027553,
+      "fresh_pairs": 27,
+      "maximum_complete_log_bytes": 67108864,
+      "observed_fixed_inventory_bytes": 14180418,
+      "runner_headroom_bytes": 33995871,
+      "setup_helper_and_misc_receipt_reserve_bytes": 8388608,
+      "synthetic_command_receipts_bytes": 225531,
+      "synthetic_final_inventory_bytes": 1820053,
+      "synthetic_module_receipts_bytes": 109775
+    }
+  },
   "status": "DETERMINISTIC_METADATA_ESTIMATE_NOT_RUNTIME_PROOF_OR_HARD_MAXIMUM",
-  "synthetic_compile_check_pairs": 2481,
   "upload_cap_bytes": 134217728
 }

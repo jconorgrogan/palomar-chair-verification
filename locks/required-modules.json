@@ -7730,6 +7730,118 @@
     },
     {
       "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Basic",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Basic.lean",
+      "sha256": "97f49ff9b52fe1906b6a2071422b35ec496cd6b3d9d81043e77e56efceb0a73f"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Connectivity/Connected.lean",
+      "sha256": "1ecf2f0f44da9c66c45a94d86cce1607fe29767d4efdf6e785e052767e90d528"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Dart",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Dart.lean",
+      "sha256": "ab697791a370edecabbe58640e0337f770e232dfbff44c3d97a3b2b4fc4e99d5"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.DeleteEdges",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/DeleteEdges.lean",
+      "sha256": "8768e0a91e743bddbd282521547aff318141a362d86aab39ab02c1e275dad62e"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Finite",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Finite.lean",
+      "sha256": "0517648009f90f3488fc3058d93fe8d40d9bea984f5686d68f77ecf78b9546f0"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Init",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Init.lean",
+      "sha256": "a70b0ce6b3ce722ad347ae1f3ae6415f54e607cb4694c6683ea89eee12b34796"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Maps",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Maps.lean",
+      "sha256": "1cbcdb71178ac50a3be430a614c058db6eb993ab3c7925d6596b55101b6fdb37"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Operations",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Operations.lean",
+      "sha256": "157a828334fa9f4db1d7a8671618b4286498c9a42227a33937374b48d7cdb982"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Paths",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Paths.lean",
+      "sha256": "b614c61b85e8be3789a20a8a88b7a9ef4dfe3334640ffa9cbb32faa2b06e952c"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Subgraph",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Subgraph.lean",
+      "sha256": "b137eb55796eeaedc832cf8a5e30bfdc9576fc442ffc98ebe1e2b2bc642d76b6"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Basic",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Basic.lean",
+      "sha256": "e67eb2ac5f3c4e652d87058f1b500dc68c5d3b3a2f296808e91513a618b8cade"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Decomp",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Decomp.lean",
+      "sha256": "64c5eddba7b0bdb1a507ea593445e3f76261a837db60e9c15fd50f1440af3d98"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Maps",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Maps.lean",
+      "sha256": "9abbd2e4634c615fe66f45c28e2672d898cdece2122abe7e3bc4445a629c2bde"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Operations",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Operations.lean",
+      "sha256": "c3b8dc93b5adda45b049d08ecdef5645c777e899438f0993e1fc90afa9b7a726"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Subwalks",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Subwalks.lean",
+      "sha256": "724bde2a2be87c70dc62e1456adff5ed794be26e84e16caccefba250d2734427"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Combinatorics.SimpleGraph.Walk.Traversal",
+      "package": "mathlib",
+      "path": "Mathlib/Combinatorics/SimpleGraph/Walk/Traversal.lean",
+      "sha256": "a27ae8b1a0c887a45d3b27f7170d8018dfc134927a1b0d8622d75e77710c54a7"
+    },
+    {
+      "modern_module": true,
       "module": "Mathlib.Control.Applicative",
       "package": "mathlib",
       "path": "Mathlib/Control/Applicative.lean",
@@ -8567,6 +8679,13 @@
       "package": "mathlib",
       "path": "Mathlib/Data/FunLike/Equiv.lean",
       "sha256": "81698cce543042f2ba56ae6eaa0c54b29be4bc94b6849c07db04f20e19d58a89"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.Data.FunLike.Fintype",
+      "package": "mathlib",
+      "path": "Mathlib/Data/FunLike/Fintype.lean",
+      "sha256": "ab4d8492ce9c56f9a0b6db4f770aea14c0cf66356cdc0ef156bc86a26ddf77a5"
     },
     {
       "modern_module": true,
@@ -10173,6 +10292,13 @@
     },
     {
       "modern_module": true,
+      "module": "Mathlib.Data.Sym.Card",
+      "package": "mathlib",
+      "path": "Mathlib/Data/Sym/Card.lean",
+      "sha256": "28769ddd6c92eb3cd0f3690a1f00b6e0bb38a51f3e1510d40911ac60b1527f99"
+    },
+    {
+      "modern_module": true,
       "module": "Mathlib.Data.Sym.Sym2",
       "package": "mathlib",
       "path": "Mathlib/Data/Sym/Sym2.lean",
@@ -11626,6 +11752,13 @@
       "package": "mathlib",
       "path": "Mathlib/LinearAlgebra/Matrix/Notation.lean",
       "sha256": "f21435612c0f79cae3d2a591df0576466459b8cc92346f026f9b2c92c2c6bc3a"
+    },
+    {
+      "modern_module": true,
+      "module": "Mathlib.LinearAlgebra.Matrix.Orthogonal",
+      "package": "mathlib",
+      "path": "Mathlib/LinearAlgebra/Matrix/Orthogonal.lean",
+      "sha256": "cce77014628e5fa27099a0290b4c26480ae69edaf1f1b812b27c4c4890269fa0"
     },
     {
       "modern_module": true,
@@ -19508,11 +19641,16 @@
     "Mathlib.Algebra.BigOperators.Field",
     "Mathlib.Algebra.BigOperators.Fin",
     "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+    "Mathlib.Algebra.BigOperators.Pi",
     "Mathlib.Algebra.Group.Defs",
+    "Mathlib.Algebra.Order.Archimedean.Basic",
+    "Mathlib.Algebra.Order.BigOperators.Group.Finset",
     "Mathlib.Algebra.Order.Floor.Ring",
+    "Mathlib.Algebra.Order.Group.Unbundled.Int",
     "Mathlib.Algebra.Order.Ring.Unbundled.Rat",
     "Mathlib.Algebra.Polynomial.Degree.Lemmas",
     "Mathlib.Algebra.Polynomial.Roots",
+    "Mathlib.Algebra.Ring.Parity",
     "Mathlib.Analysis.Convex.Combination",
     "Mathlib.Analysis.Convex.Contractible",
     "Mathlib.Analysis.Convex.Extreme",
@@ -19526,9 +19664,11 @@
     "Mathlib.Analysis.InnerProductSpace.Projection.Submodule",
     "Mathlib.Analysis.Normed.Affine.Isometry",
     "Mathlib.Analysis.Normed.Affine.MazurUlam",
+    "Mathlib.Analysis.Normed.Group.AddTorsor",
     "Mathlib.Analysis.Normed.Group.Constructions",
     "Mathlib.Analysis.Normed.Group.Real",
     "Mathlib.Analysis.Normed.Lp.PiLp",
+    "Mathlib.Analysis.Normed.Lp.ProdLp",
     "Mathlib.Analysis.Normed.Module.Basic",
     "Mathlib.Analysis.Normed.Module.Connected",
     "Mathlib.Analysis.Normed.Module.Convex",
@@ -19538,16 +19678,24 @@
     "Mathlib.Analysis.SpecialFunctions.Trigonometric.Angle",
     "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
     "Mathlib.Basic.Real.Basic",
+    "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+    "Mathlib.Data.Fin.Tuple.Basic",
     "Mathlib.Data.Fin.VecNotation",
     "Mathlib.Data.Finset.Disjoint",
     "Mathlib.Data.Finset.Image",
     "Mathlib.Data.Finset.Lattice.Fold",
+    "Mathlib.Data.Finset.Option",
+    "Mathlib.Data.Finset.Sort",
+    "Mathlib.Data.Finset.Union",
     "Mathlib.Data.Fintype.Basic",
     "Mathlib.Data.Fintype.BigOperators",
+    "Mathlib.Data.Fintype.EquivFin",
     "Mathlib.Data.Fintype.Fin",
     "Mathlib.Data.Fintype.Pi",
     "Mathlib.Data.Fintype.Prod",
+    "Mathlib.Data.Int.Basic",
     "Mathlib.Data.Int.Sqrt",
+    "Mathlib.Data.List.FinRange",
     "Mathlib.Data.List.Nodup",
     "Mathlib.Data.List.Sort",
     "Mathlib.Data.Nat.Prime.Infinite",
@@ -19557,14 +19705,19 @@
     "Mathlib.Data.Set.Prod",
     "Mathlib.Data.Sym.Sym2.Init",
     "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic",
+    "Mathlib.GroupTheory.Perm.Fin",
     "Mathlib.LinearAlgebra.AffineSpace.AffineMap",
     "Mathlib.LinearAlgebra.AffineSpace.AffineSubspace.Basic",
+    "Mathlib.LinearAlgebra.Determinant",
     "Mathlib.LinearAlgebra.Dimension.Constructions",
     "Mathlib.LinearAlgebra.Dimension.DivisionRing",
     "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+    "Mathlib.LinearAlgebra.Matrix.Orthogonal",
     "Mathlib.Logic.Relation",
     "Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic",
+    "Mathlib.Order.Filter.Finite",
     "Mathlib.Order.Interval.Set.Infinite",
+    "Mathlib.Order.PiLex",
     "Mathlib.Tactic.Abel",
     "Mathlib.Tactic.ComputeDegree",
     "Mathlib.Tactic.FieldSimp",
@@ -19575,6 +19728,7 @@
     "Mathlib.Tactic.Ring",
     "Mathlib.Topology.Algebra.ConstMulAction",
     "Mathlib.Topology.Algebra.ContinuousAffineEquiv",
+    "Mathlib.Topology.Algebra.ContinuousAffineMap",
     "Mathlib.Topology.Algebra.MetricSpace.Lipschitz",
     "Mathlib.Topology.Algebra.Module.Cardinality",
     "Mathlib.Topology.Algebra.Module.FiniteDimension",
@@ -19585,6 +19739,7 @@
     "Mathlib.Topology.ClusterPt",
     "Mathlib.Topology.Compactness.SigmaCompact",
     "Mathlib.Topology.Connected.Basic",
+    "Mathlib.Topology.Constructions",
     "Mathlib.Topology.Constructions.SumProd",
     "Mathlib.Topology.Covering.Basic",
     "Mathlib.Topology.Homeomorph.Defs",
@@ -19598,7 +19753,10 @@
     "Mathlib.Topology.MetricSpace.Contracting",
     "Mathlib.Topology.MetricSpace.Isometry",
     "Mathlib.Topology.MetricSpace.Lipschitz",
+    "Mathlib.Topology.MetricSpace.Pseudo.Defs",
     "Mathlib.Topology.Neighborhoods",
+    "Mathlib.Topology.NhdsWithin",
+    "Mathlib.Topology.Order.Compact",
     "Mathlib.Topology.Order.IntermediateValue",
     "Mathlib.Topology.Order.LeftRight"
   ],

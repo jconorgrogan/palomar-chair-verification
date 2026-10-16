@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Collect bounded available evidence; only complete verified receipts admit replay."""
-import argparse,hashlib,json,os,re,shutil,stat
+import argparse,hashlib,json,os,re,shutil,stat,importlib.util,sys
 from pathlib import Path
 MAXIMUM=128*1024**2
 RESERVE=4*1024**2
 SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
 STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
+HIGHER_SCHEMA='higher-dimension-staged-replay-v1'
+HIGHER_SUCCESS='HIGHER_DIMENSIONS_THREE_AND_GE_FIVE_RAW_AUDITED'
+HIGHER_STAGE_SUCCESS='CHECKED_HIGHER_DIMENSION_STAGE_COMPLETED'
 def need(ok,message):
     if not ok:raise ValueError(message)
 def sha(path):
@@ -23,15 +26,16 @@ def regular(path):
     s=path.lstat();need(stat.S_ISREG(s.st_mode) and s.st_nlink==1,'nonregular or hardlinked evidence');return s.st_size
 def make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,lineage,inventory,locked):
     """A new consumer certificate; original producer receipts remain unchanged."""
-    need(contract['schema'] in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'),'certificate requires continuation schema')
-    final=contract['schema']=='conditional-geometry-final-origin-v4'
+    need(contract['schema'] in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4',HIGHER_SCHEMA),'certificate requires known origin schema')
+    higher=contract['schema']==HIGHER_SCHEMA
+    final=contract['schema']=='conditional-geometry-final-origin-v4' or higher
     ancestors=contract['stages'][stage_id]['admitted_stages']
     need([r['stage_id'] for r in lineage]==ancestors,'certificate imported stage coverage differs')
     rows=[];suffixes=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
     for record in lineage:
         sid=record['stage_id']
         if sid not in locked:
-            need(not final and sid=='F3_product_geometry' and record['origin']['identity']==identity,'unlocked or third-origin stage')
+            need(((higher and sid in contract['execution_stages']) or (not final and sid=='F3_product_geometry')) and record['origin']['identity']==identity,'unlocked or third-origin stage')
             continue
         pin=locked[sid]
         need(record['origin']==pin['origin'] and record['receipt_sha256']==pin['receipt_sha256'] and
@@ -42,7 +46,7 @@ def make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interf
           'producer_receipt_sha256':record['receipt_sha256'],'checked_module_receipts_sha256':record['checked_module_receipts_sha256'],
           'accepted_module_count':len(modules),'exact_own_output_inventory_sha256':hashlib.sha256((json.dumps(own,sort_keys=True,indent=2)+'\n').encode()).hexdigest()})
     need([r['stage_id'] for r in rows]==[sid for sid in ancestors if sid in contract['locked_origin_stages']],'cross-origin certificate coverage differs')
-    return {'schema':'conditional-locked-origin-admissions-v2' if final else 'conditional-locked-origin-admissions-v1','consumer_identity':identity,'consumer_contract_sha256':contract_sha,
+    return {'schema':'higher-locked-origin-admissions-v1' if higher else 'conditional-locked-origin-admissions-v2' if final else 'conditional-locked-origin-admissions-v1','consumer_identity':identity,'consumer_contract_sha256':contract_sha,
       'consumer_stage_id':stage_id,'source_archive_sha256':contract['source_archive']['sha256'],
       'runtime_inventory_sha256':contract['official_lean_inventory_sha256'],'interface_identity':interface,
       'complete_original_checker_lineage_verified':True,'fresh_in_one_run':False,'admissions':rows}
@@ -51,7 +55,8 @@ def make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interf
 def locked_origin_rows(contract):
     root=Path(__file__).resolve().parents[1];pointer=contract['origin_lock']
     need(pointer['path']=='origin/locked-origins.json','unexpected origin lock path')
-    final=contract.get('schema')=='conditional-geometry-final-origin-v4'
+    higher=contract.get('schema')==HIGHER_SCHEMA
+    final=contract.get('schema')=='conditional-geometry-final-origin-v4' or higher
     if final:
         path=root/pointer['path']
     else:
@@ -61,7 +66,7 @@ def locked_origin_rows(contract):
     need(regular(path)==pointer['bytes'] and sha(path)==pointer['sha256'],'origin lock bytes/hash differ')
     lock=load(path)
     if final:
-        need(set(lock)=={'schema','producer_contracts','stages'} and lock['schema']=='conditional-exact-mixed-origin-lock-v2' and
+        need(set(lock)=={'schema','producer_contracts','stages'} and lock['schema']==('higher-exact-mixed-origin-lock-v1' if higher else 'conditional-exact-mixed-origin-lock-v2') and
              lock['producer_contracts']==['cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38','288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070'],'mixed origin producer contracts differ')
         for sid,row in lock['stages'].items():
             expected='288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070' if sid=='F3_product_geometry' else 'cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38'
@@ -77,7 +82,7 @@ def validate_module_scheduling_commands(contract,commands):
     for command in commands:
         argv=command.get('argv');need(isinstance(argv,list) and all(isinstance(x,str) for x in argv),'missing exact command argv for scheduling audit')
         options=[x for x in argv if x.startswith('-DElab.async')]
-        expected=['-DElab.async=false'] if command['name']=='compile-'+target else []
+        expected=['-DElab.async=false'] if contract.get('schema')!=HIGHER_SCHEMA and command['name']=='compile-'+target else []
         need(options==expected,'source-local scheduling option appears on wrong command or differs')
 
 
@@ -85,8 +90,11 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     result=load(evidence/'result.json')
     need(result['contract_sha256']==contract_sha,'result contract identity differs')
     expected_status=STAGE_SUCCESS if 'stages' in contract and result.get('stage_id')!=contract['final_stage'] else SUCCESS
+    if contract.get('schema')==HIGHER_SCHEMA:expected_status=HIGHER_SUCCESS if result.get('stage_id')==contract['final_stage'] else HIGHER_STAGE_SUCCESS
     need(result['status']==expected_status and result.get('complete_evidence') is True,'runner did not reach complete stage/replay success')
-    need(result.get('conditional_C_remains_explicit') is True and result.get('final_C_proof_certified') is False and result.get('unconditional_monotile_proof_certified') is False,'conditional claim changed')
+    higher=contract.get('schema')==HIGHER_SCHEMA
+    scope_ok=(result.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and 'conditional_C_remains_explicit' not in result) if higher else result.get('conditional_C_remains_explicit') is True
+    need(scope_ok and result.get('final_C_proof_certified') is False and result.get('unconditional_monotile_proof_certified') is False,'proof scope changed')
     extraction=load(evidence/'source-extraction.json')
     need(sha(evidence/'source-extraction.json')==result['source_extraction_receipt_sha256'],'source extraction receipt hash differs')
     need(result['source_archive_sha256']==contract['source_archive']['sha256'],'source archive receipt identity differs')
@@ -112,7 +120,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
         for row in imported:
             need(row['own_modules']==contract['stages'][row['stage_id']]['modules'],'imported module coverage differs')
             origin=row['origin']
-            if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4') and row['stage_id'] in contract['locked_origin_stages']:
+            if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4',HIGHER_SCHEMA) and row['stage_id'] in contract['locked_origin_stages']:
                 pin=locked_origin_rows(contract)[row['stage_id']]
                 need(origin==pin['origin'] and row['receipt_sha256']==pin['receipt_sha256'] and row['checked_module_receipts_sha256']==pin['checked_module_receipts_sha256'],'locked cross-origin lineage differs')
             else:
@@ -121,7 +129,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     else:
         own_names=[r['module'] for r in contract['modules']];expected_names=own_names
     commands=lines(evidence/'commands.jsonl');modules=lines(evidence/'owned-modules.jsonl')
-    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'):validate_module_scheduling_commands(contract,commands)
+    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4',HIGHER_SCHEMA):validate_module_scheduling_commands(contract,commands)
     need(len(commands)==result['command_count'] and len(modules)==len(own_names) and result['checked_owned_module_count']==len(expected_names),'receipt counts differ')
     need([r['module'] for r in modules]==own_names,'module receipt coverage differs')
     for name,key in [('commands.jsonl','command_receipts_sha256'),('owned-modules.jsonl','owned_module_receipts_sha256'),('fresh-owned-objects.json','owned_output_inventory_sha256'),('cached-build-inventory.json','cached_build_inventory_sha256'),('runtime-inventory.json','runtime_inventory_sha256')]:
@@ -130,7 +138,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     suffixes=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
     expected_outputs={name.replace('.','/')+suffix for name in expected_names for suffix in suffixes}
     need(set(objects)==expected_outputs,'owned object inventory coverage differs')
-    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'):
+    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4',HIGHER_SCHEMA):
         need(sid in contract['execution_stages'] and result.get('owned_objects_from_prior_runs') is True,'continuation execution/freshness scope differs')
         identity={'repository':'jconorgrogan/palomar-chair-verification','workflow_commit':result['workflow_commit'],'run_id':str(result['run_id']),'run_attempt':str(result['run_attempt'])}
         cert=make_cross_origin_certificate(contract,contract_sha,identity,sid,load(evidence/'interface-identity.json'),imported,objects,locked_origin_rows(contract))
@@ -158,15 +166,33 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
         need(row['checker_passed'] is True,'module has no successful checker')
         need(commands[row['compiler_command']]['name']=='compile-'+row['module'] and commands[row['checker_command']]['name']=='check-'+row['module'],'module command indexes differ')
     final=not staged or sid==contract['final_stage']
-    need(result['raw_audits']==({'conditional_endpoints':True,'ordinary_bridges':True} if final else {}),'raw audit completion differs')
-    if staged and final:need(len(expected_names)==len(set(expected_names))==2481,'final exact union coverage differs')
+    if contract.get('schema')==HIGHER_SCHEMA:
+        need(result.get('higher_endpoints_have_no_C_premise') is True and result.get('all_dimension_uniform_proof_certified') is False,'higher claim scope differs')
+        need(sha(evidence/'cache-extension-admission.json')==result.get('cache_extension_receipt_sha256'),'higher cache certificate missing or changed')
+        extension=load(evidence/'cache-extension-admission.json')
+        need(extension.get('schema')=='verified-official-cache-extension-v1' and extension.get('full_interface')==load(evidence/'interface-identity.json') and extension.get('base_module_count')==2786 and extension.get('extension_module_count')==19 and extension.get('full_module_count')==2805 and extension.get('all_old_companions_identical') is True and extension.get('native_library_rows')=={},'higher cache certificate scope differs')
+        need(result['raw_audits']==({'higher_physical_endpoints':True} if final else {}),'higher raw audit completion differs')
+        if final:need(len(expected_names)==len(set(expected_names))==1433,'higher final union differs')
+        root=Path(__file__).resolve().parents[1]
+        for name in ['cache_diagnostic.py','higher_policy.py','conditional_transport.py','fresh_stage.py','toolchain_install.py','source_header.py']:
+            pin=contract['inputs']['ci/'+name];path=root/'ci'/name
+            need(regular(path)==pin['bytes'] and sha(path)==pin['sha256'],'collector verifier helper pin differs')
+        spec=importlib.util.spec_from_file_location('higher_collection_verifier',root/'ci/cache_diagnostic.py')
+        api=importlib.util.module_from_spec(spec);sys.modules[spec.name]=api;spec.loader.exec_module(api)
+        api.higher.validate_current_evidence(contract,evidence,result,commands,api)
+    else:
+        need(result['raw_audits']==({'conditional_endpoints':True,'ordinary_bridges':True} if final else {}),'raw audit completion differs')
+        if staged and final:need(len(expected_names)==len(set(expected_names))==2481,'final exact union coverage differs')
     return result
 
 def collect(work,contract,contract_sha=None):
     if contract_sha is None:contract_sha=hashlib.sha256((json.dumps(contract,sort_keys=True,indent=2)+'\n').encode()).hexdigest()
     evidence=work/'evidence';evidence.mkdir(parents=True,exist_ok=True)
     result=evidence/'result.json'
-    if not result.exists():result.write_text(json.dumps({'status':'INCOMPLETE_BEFORE_RECEIPT','conditional_C_remains_explicit':True,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False}))
+    if not result.exists():
+        empty={'status':'INCOMPLETE_BEFORE_RECEIPT','final_C_proof_certified':False,'unconditional_monotile_proof_certified':False}
+        empty.update({'proof_scope':'higher-dimension-sources-and-c-free-endpoints'} if contract.get('schema')==HIGHER_SCHEMA else {'conditional_C_remains_explicit':True})
+        result.write_text(json.dumps(empty))
     # An outer interruption may have prevented the runner's finally block.
     logs=evidence/'logs';logs.mkdir(exist_ok=True);log_total=0;interrupted_log_omissions=[]
     for p in sorted((work/'logs').glob('*')):
@@ -189,6 +215,8 @@ def collect(work,contract,contract_sha=None):
         q=upload/rel;q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,q);total+=size
         rows.append({'path':str(rel),'bytes':size,'sha256':sha(q)})
     receipt={'schema':'bounded-conditional-evidence-v1','conditional_C_remains_explicit':True,'unconditional_monotile_proof_certified':False,'bytes_copied':total,'files':rows,'omitted':omitted,'interrupted_log_omissions':interrupted_log_omissions,'all_available_files_copied':not omitted and not interrupted_log_omissions,'replay_acceptance_evidence_complete':verified and not omitted and not interrupted_log_omissions,'acceptance_blocker':issue,'runner_status':load(result).get('status')}
+    if contract.get('schema')==HIGHER_SCHEMA:
+        receipt.pop('conditional_C_remains_explicit');receipt.update(schema='bounded-higher-dimension-evidence-v1',proof_scope='higher-dimension-sources-and-c-free-endpoints')
     data=(json.dumps(receipt,sort_keys=True,indent=2)+'\n').encode();need(len(data)<=RESERVE and total+len(data)<=MAXIMUM,'collection manifest exceeds reserved envelope')
     (upload/'collection.json').write_bytes(data)
     return receipt
@@ -197,7 +225,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--work',type=Path,required=True);a=p.parse_args()
     root=Path(__file__).resolve().parents[1];receipt=collect(a.work,load(root/'contract.json'),sha(root/'contract.json'))
     if not receipt['all_available_files_copied']:raise SystemExit('Evidence cap exceeded; incomplete available-file collection.')
-    if receipt['runner_status'] in (SUCCESS,STAGE_SUCCESS) and not receipt['replay_acceptance_evidence_complete']:raise SystemExit('Claimed replay success has incomplete or inconsistent acceptance evidence.')
+    if receipt['runner_status'] in (SUCCESS,STAGE_SUCCESS,HIGHER_SUCCESS,HIGHER_STAGE_SUCCESS) and not receipt['replay_acceptance_evidence_complete']:raise SystemExit('Claimed replay success has incomplete or inconsistent acceptance evidence.')
     # The replay command supplies the failure status; an interrupted collector may
     # still upload diagnostic evidence without inventing a successful replay.
     print(json.dumps({k:v for k,v in receipt.items() if k not in ['files','omitted']},sort_keys=True))
