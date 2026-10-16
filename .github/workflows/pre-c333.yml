@@ -1,0 +1,297 @@
+# Bounded modern prerequisite verification, work in progress.
+name: Modern pre-C333 prerequisites (work in progress)
+'on':
+  push:
+    branches: ['verify/pre-c333-modern-20261016']
+    paths: ['ci/**', '.github/workflows/pre-c333.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: pre-c333-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+      - name: Check out reviewed pipeline commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: pipeline
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check out immutable source snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 74af951d38ff967ee1fbb10a0ad075bceea337fa
+          path: source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run fail-closed prerequisite verifier
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -B pipeline/ci/ci_driver.py prepare
+          --contract-sha256 e86954335aeb8eb7f8848b6487cb7a2862b4668f03726f2417476ca01722919e
+          --pipeline "$GITHUB_WORKSPACE/pipeline"
+          --source "$GITHUB_WORKSPACE/source"
+      - name: Upload only this job's new evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-prepare
+          path: ${{ runner.temp }}/pre-c333-prepare/upload/*
+      - name: Collect bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        timeout-minutes: 1
+        continue-on-error: true
+        run: >-
+          python3 -B pipeline/ci/ci_failure.py prepare
+      - name: Upload bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-prepare
+          path: ${{ runner.temp }}/hierarchy-c-failure-prepare/*
+  pre_c_000:
+    name: stage pre_c_000
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs: [prepare]
+    steps:
+      - name: Check out reviewed pipeline commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: pipeline
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check out immutable source snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 74af951d38ff967ee1fbb10a0ad075bceea337fa
+          path: source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run fail-closed prerequisite verifier
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -B pipeline/ci/ci_driver.py build --stage pre_c_000
+          --contract-sha256 e86954335aeb8eb7f8848b6487cb7a2862b4668f03726f2417476ca01722919e
+          --pipeline "$GITHUB_WORKSPACE/pipeline"
+          --source "$GITHUB_WORKSPACE/source"
+      - name: Upload only this job's new evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_000
+          path: ${{ runner.temp }}/pre-c333-build-pre_c_000/upload/*
+      - name: Collect bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        timeout-minutes: 1
+        continue-on-error: true
+        run: >-
+          python3 -B pipeline/ci/ci_failure.py build --stage pre_c_000
+      - name: Upload bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_000
+          path: ${{ runner.temp }}/hierarchy-c-failure-build-pre_c_000/*
+  pre_c_001:
+    name: stage pre_c_001
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs: [pre_c_000]
+    steps:
+      - name: Check out reviewed pipeline commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: pipeline
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check out immutable source snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 74af951d38ff967ee1fbb10a0ad075bceea337fa
+          path: source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run fail-closed prerequisite verifier
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -B pipeline/ci/ci_driver.py build --stage pre_c_001
+          --contract-sha256 e86954335aeb8eb7f8848b6487cb7a2862b4668f03726f2417476ca01722919e
+          --pipeline "$GITHUB_WORKSPACE/pipeline"
+          --source "$GITHUB_WORKSPACE/source"
+      - name: Upload only this job's new evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_001
+          path: ${{ runner.temp }}/pre-c333-build-pre_c_001/upload/*
+      - name: Collect bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        timeout-minutes: 1
+        continue-on-error: true
+        run: >-
+          python3 -B pipeline/ci/ci_failure.py build --stage pre_c_001
+      - name: Upload bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_001
+          path: ${{ runner.temp }}/hierarchy-c-failure-build-pre_c_001/*
+  pre_c_002:
+    name: stage pre_c_002
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs: [pre_c_001]
+    steps:
+      - name: Check out reviewed pipeline commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: pipeline
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check out immutable source snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 74af951d38ff967ee1fbb10a0ad075bceea337fa
+          path: source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run fail-closed prerequisite verifier
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -B pipeline/ci/ci_driver.py build --stage pre_c_002
+          --contract-sha256 e86954335aeb8eb7f8848b6487cb7a2862b4668f03726f2417476ca01722919e
+          --pipeline "$GITHUB_WORKSPACE/pipeline"
+          --source "$GITHUB_WORKSPACE/source"
+      - name: Upload only this job's new evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_002
+          path: ${{ runner.temp }}/pre-c333-build-pre_c_002/upload/*
+      - name: Collect bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        timeout-minutes: 1
+        continue-on-error: true
+        run: >-
+          python3 -B pipeline/ci/ci_failure.py build --stage pre_c_002
+      - name: Upload bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-pre_c_002
+          path: ${{ runner.temp }}/hierarchy-c-failure-build-pre_c_002/*
+  collect_prerequisites:
+    name: collect_prerequisites
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs: [pre_c_002]
+    steps:
+      - name: Check out reviewed pipeline commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: pipeline
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check out immutable source snapshot
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 74af951d38ff967ee1fbb10a0ad075bceea337fa
+          path: source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run fail-closed prerequisite verifier
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -B pipeline/ci/ci_driver.py collect_prerequisites
+          --contract-sha256 e86954335aeb8eb7f8848b6487cb7a2862b4668f03726f2417476ca01722919e
+          --pipeline "$GITHUB_WORKSPACE/pipeline"
+          --source "$GITHUB_WORKSPACE/source"
+      - name: Upload only this job's new evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-collect_prerequisites
+          path: ${{ runner.temp }}/pre-c333-collect_prerequisites/upload/*
+      - name: Collect bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        timeout-minutes: 1
+        continue-on-error: true
+        run: >-
+          python3 -B pipeline/ci/ci_failure.py collect_prerequisites
+      - name: Upload bounded incomplete diagnostics
+        if: ${{ failure() || cancelled() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+          name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-collect_prerequisites
+          path: ${{ runner.temp }}/hierarchy-c-failure-collect_prerequisites/*
