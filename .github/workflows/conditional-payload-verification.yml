@@ -1,0 +1,53 @@
+name: Verify retained conditional artifact bytes
+'on':
+  push:
+    branches: ['verify/conditional-payloads-20261016']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: conditional-payloads-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify_payloads:
+    name: Verify exact retained payload bytes
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out the exact reviewed verifier
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Require the exact clean source checkout
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain --untracked-files=all)"
+      - name: Verify every byte of the pinned original artifacts
+        timeout-minutes: 31
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          umask 077
+          mkdir "${{ runner.temp }}/conditional-payload-verification"
+          /usr/bin/timeout --signal=KILL 1800s \
+            /usr/bin/python3 -I -S -B ci/verify_official_payload.py \
+            --plan payload-verification-plan.json \
+            --plan-sha256 78cec777b18c0b9c3c5c0681164d6fe024e165f914d0cb8d9320590019ee3697 \
+            --core ci/stream_verify.py \
+            --receipt "${{ runner.temp }}/conditional-payload-verification/receipt.json" \
+            --seconds 1740
+      - name: Preserve the small byte-verification receipt
+        id: upload_receipt
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: conditional-payload-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/conditional-payload-verification/*.json
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Bind the receipt to this successful verification job
+        if: ${{ success() }}
+        run: |
+          printf '%s\n' 'CONDITIONAL_PAYLOAD_VERIFIED_V1 {"plan_sha256":"78cec777b18c0b9c3c5c0681164d6fe024e165f914d0cb8d9320590019ee3697","artifact_id":"${{ steps.upload_receipt.outputs.artifact-id }}","artifact_sha256":"${{ steps.upload_receipt.outputs.artifact-digest }}","artifact_name":"conditional-payload-verification-${{ github.run_id }}-${{ github.run_attempt }}"}'

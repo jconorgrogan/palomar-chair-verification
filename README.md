@@ -1,41 +1,13 @@
-# Staged conditional geometry replay: C remains an assumption
+# Retained conditional artifact byte verification
 
-This is a new five-job execution contract for the same frozen 2,481-source conditional geometry union. It builds the exact 333 finite prerequisites, geometry support, four ordinary bridges and two conditional assemblies. The final hierarchy theorem C remains one explicit premise of both aperiodicity endpoints. No unconditional monotile theorem or completed hierarchy proof is claimed.
+This independently reviewed diagnostic verifies the exact retained object artifacts from successful conditional-geometry stages. It performs no Lean compilation, kernel checking, object import, object admission, or final theorem audit. The hierarchy premise C remains explicit in the underlying research results.
 
-The source archive, source pins, official dependency revisions, Lean runtime, five disclosed local visibility variants and exact raw auditors are unchanged from the reviewed archive-backed attempt. The local visibility options change selected helpers' export visibility while retaining their private keywords and kernel names. Previously unelaborated variants remain predictions until their actual fresh compile/check pairs pass.
+The original F1 stage completed 890 fresh compile/check pairs, including the curved whole-plane existence bridge. Its evidence and command/import chains were separately reconciled. The 1,067,827,748-byte object ZIP exceeds the local GitHub connector's 536,870,912-byte download limit. This diagnostic uses the official GitHub Actions API from a standard GitHub-hosted runner and its existing ephemeral read-only Actions token. It neither changes the original artifact nor expands persistent access.
 
-## Why this is a new contract
+The fixed plan pins each expectation, producer identity, successful producer job, artifact ID/name/size/digest/expiry, producer log digest, and a host-provided evidence certificate. The new verifier run authenticates its own identity separately. Its token is used only for the approved GitHub API; a single approved HTTPS storage redirect carries no authorization header or cookies. No arbitrary URL, retry, range request, resume, or local connector workaround is used.
 
-Run 38867203693 at bf5fe7c551b34ebb76ae05dfe6b58c4b2bcf96d4 reached 1,843 successful compiles and 1,842 successful kernel checks before its aggregate time allowance expired during the next checker. The checker did not report a kernel rejection. The uploaded evidence contains no compiled object payloads. Those individual passes remain historical evidence; this successor imports none of their objects or receipt-only substitutes.
+The unchanged streaming verifier consumes the entire original ZIP and checks its exact framing, descriptor, canonical tar, receipt, every member and companion hash, byte counts, whole-ZIP digest, and final EOF. No object bytes are written to disk. Only a small data-only receipt can be published after all selected streams, connection cleanup, and final deadline checks succeed. That receipt records byte verification only. Subsequent continuation still requires its original full source/runtime/cache/receipt checks and fail-closed object admission.
 
-Nine original official Git-fetch receipts reported escaped descendants without explicit session authorization. Cleanup completed, but the old success predicate did not reject that flag. This successor explicitly authorizes new sessions only for exact pinned official Git fetch commands and the reviewed bubblewrap topology; all other commands reject escaped descendants. It retains complete cleanup requirements and records requested and effective timeouts and invocation resource limits. A host-work alarm enforces the same absolute deadline. Only child cleanup defers that alarm. Every expiry starts at most one five-second failure-only receipt/collection grace and can never be accepted; repeated alarms prevent failure handlers from swallowing the bound.
+One standard Ubuntu 22.04 job processes the fixed stages sequentially. The helper has one CPU, a 1 GiB address-space bound, a 600-second CPU-time cap and bounded metadata, and one 1,740-second absolute processing deadline. An absolute 1,800-second kill supervisor bounds the helper including cleanup, while the entire checkout/verification/upload job has a 35-minute ceiling. There is no parallel proof workload, additional machine class, billing change, or package installation.
 
-## Exact five-job graph
-
-| Stage | Fresh modules | Predecessors | Historical observed command minutes |
-| --- | ---: | --- | ---: |
-| F0 common | 186 | none | 18.01 |
-| F1 curved existence | 890 | F0 | 146.86 |
-| F2 period hierarchy | 1,226 | F0 | 149.19 |
-| F3 product geometry | 109 | F0 | 0.10 |
-| F4 bridges and endpoint joins | 70 | F0, F1, F2, F3 | 3.62 |
-
-The partition is disjoint and covers all 2,481 modules exactly once. The three branches can run concurrently. The 638 previously uncompiled modules, one incomplete checker, artifact transfers, repeated setup and final audits remain unmeasured; observed times are not completion forecasts.
-
-Each job retains the original 320-minute runner deadline and 330-minute outer job ceiling. The new explicit workflow budget is at most 1,600 runner-minutes and 1,650 outer job-minutes across five jobs, with maximum width three. Its three dependency waves have at most 990 minutes of runner occupancy on the critical path, excluding queue delays. This deliberately replaces the original single-job aggregate allowance; it does not reset a supposedly unchanged whole-workflow limit.
-
-## Persisted checked objects and admission
-
-Each successful producer uploads a separately bounded artifact containing its own seven companions per module: `.olean`, `.olean.private`, `.olean.server`, `.ilean`, `.ir.sig`, `.ir` and `.c`, plus complete bounded producer evidence. Raw object/evidence tar payloads are bounded to 4 GiB per stage, with 4 MiB additional ZIP framing allowance; the existing evidence-only envelope remains 128 MiB, including its 4 MiB collection-manifest reserve. Temporary transfer/extraction space must pass measured free-disk checks. Seven-day retention applies.
-
-Consumers authenticate the exact repository, workflow run, attempt, head commit, contract, producer job success, unique artifact identity, API digest and size. The authenticated producer job log must contain the exact artifact ID/name/digest emitted from that job’s pinned upload action; same-run artifact naming alone is insufficient. Producer logs are capped at 16 MiB, and one transport session at 30 minutes within the original stage deadline. They reject altered, missing, duplicate, linked, unexpected, oversized or noncanonical members. They verify the exact source/module schedule, successful adjacent compile/check commands, ordered import receipts, all companion bytes, runtime identity, full required cache companion interface and all cached native-library identities. Official cached bytes remain explicitly trusted; they are not claimed to be rebuilt from source.
-
-The host merges only validated producer slices into one complete owned namespace. Artifact directories and per-module quarantine never enter LEAN_PATH. Every compiler sees read-only committed predecessors and writes only its own quarantine. Host admission precedes the read-only checker; a module becomes accepted only after a successful checker and output readback. An interrupted or failed admission aborts the fresh workspace. It cannot resume or feed a later compiler.
-
-Final joins validate the exact complete 2,481-module coverage and full owned inventory, rerun both exact raw type/proof/universe/axiom/ownership auditors, and recheck source/cache inventories. The C-free existence routes and C-dependent universal aperiodicity endpoints retain their separate mathematical meanings. Final acceptance requires both raw auditors, not only module compilation.
-
-## Unchanged command bounds
-
-Owned compilation: 180 seconds; kernel checking: 120 seconds. Lean uses one worker and a 4 GiB heap ceiling. Process-tree RSS is bounded to 8 GiB, address space to 12 GiB, and a newly created file to 512 MiB. The owned namespace remains bounded to 6 GiB, with 1.5 GiB free reserve before module execution. Logs remain at most 1 MiB per command and 64 MiB per job. Official source/cache acquisition and sandbox boundaries retain the pinned original policies.
-
-This package passed independent source, transport, scheduling, resource and workflow review, together with all 244 bounded offline tests. This activation enables only the reviewed five-job workflow. Actual stage builds and final raw audits remain pending until a successful cloud run. The original failed contract, sources and evidence remain preserved.
+This F1-only plan contains the authenticated F1 expectation. F2 remains in progress and has no selected expectation here. A later F2-only plan requires its own successful, reconciled terminal evidence and independent seal; it need not repeat F1. This activation carries the reviewed diagnostic implementation and is prepared for exact final publication review. Publication and launch require the exact approved activation tree.

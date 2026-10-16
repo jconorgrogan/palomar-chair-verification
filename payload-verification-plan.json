@@ -1,0 +1,64 @@
+{
+  "consumer_workflow_path": ".github/workflows/conditional-payload-verification.yml",
+  "core_sha256": "7fffe6644346845193ee2e8d4213590816f00858fb1948862de2f50e5b198bdc",
+  "helper_sha256": "d60e9d4d756259a830a7d75afc61e07e46297b98c546e39756c13463ef9b0ffa",
+  "input_files": [
+    {
+      "path": "README.md",
+      "sha256": "9e2eef569d70b80570b08d581581943cf2b38bf524e7352eaec3346d43573369"
+    },
+    {
+      "path": "certificates/F1_curved_existence.json",
+      "sha256": "7f8334cb458c00e54b3c38df938e2d0684b46d176d949bf4e9bb466fc457b162"
+    },
+    {
+      "path": "ci/stream_verify.py",
+      "sha256": "7fffe6644346845193ee2e8d4213590816f00858fb1948862de2f50e5b198bdc"
+    },
+    {
+      "path": "ci/verify_official_payload.py",
+      "sha256": "d60e9d4d756259a830a7d75afc61e07e46297b98c546e39756c13463ef9b0ffa"
+    },
+    {
+      "path": "expectations/F1_curved_existence.json",
+      "sha256": "bea496165d77b2ff1184b9e88cdc1263f8a96be908ac385fdf316aeed8f6c75a"
+    },
+    {
+      "path": "tests/test_public_package.py",
+      "sha256": "a4ba2419cf19477576bfc090c2c7e097b6ce81737b23a966adac95705594ae35"
+    },
+    {
+      "path": "tests/test_stream_verify.py",
+      "sha256": "1715d96975204b62d15ac827de173ef38bc2b8863ab4cc04aabe30f78a916979"
+    },
+    {
+      "path": "tests/test_verify_official_payload.py",
+      "sha256": "4dd1af3f087e82f5a7d7406a1835b58c2689ef77cde6cae3a9c88eedf1f7df50"
+    }
+  ],
+  "producer": {
+    "identity": {
+      "repository": "jconorgrogan/palomar-chair-verification",
+      "run_attempt": "1",
+      "run_id": "38914223883",
+      "workflow_commit": "318a6900eabfec550b4adf1b0f4bd634c20d67c5"
+    },
+    "status_policy": "allow_in_progress_byte_verification_only",
+    "workflow_id": 386423911,
+    "workflow_path": ".github/workflows/conditional-geometry.yml"
+  },
+  "review_status": "independently_reviewed_for_activation",
+  "schema": "conditional-official-payload-plan-v1",
+  "stages": [
+    {
+      "artifact_expires_at": "2026-10-23T16:37:58Z",
+      "certificate_file": "certificates/F1_curved_existence.json",
+      "certificate_sha256": "7f8334cb458c00e54b3c38df938e2d0684b46d176d949bf4e9bb466fc457b162",
+      "expectation_file": "expectations/F1_curved_existence.json",
+      "expectation_sha256": "bea496165d77b2ff1184b9e88cdc1263f8a96be908ac385fdf316aeed8f6c75a",
+      "independent_review_sha256": "3247485596bcb5bddf0c4836e8a174bbd496ca3719292a914c425bd0154d7dc8",
+      "stage_id": "F1_curved_existence"
+    }
+  ],
+  "storage_host_pattern": "productionresultssa[0-9]+\\.blob\\.core\\.windows\\.net"
+}
