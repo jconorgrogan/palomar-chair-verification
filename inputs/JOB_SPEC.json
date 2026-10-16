@@ -1,0 +1,75 @@
+{
+  "acquisition_files": {
+    "ci_transport.py": {
+      "bytes": 6885,
+      "sha256": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95"
+    },
+    "continuation_policy.py": {
+      "bytes": 29913,
+      "sha256": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2"
+    },
+    "fresh_stage.py": {
+      "bytes": 67375,
+      "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
+    },
+    "historical_acquisition.py": {
+      "bytes": 36704,
+      "sha256": "b33959f460cb73992dfbdd86a5ab7a073f64277e2b0c28b135e640fa5a94f3ee"
+    },
+    "historical_acquisition_pins.json": {
+      "bytes": 108352,
+      "sha256": "427f4a4b8a6c1b324650703979b833127ce729cc8668a4ccfddbca430c2df6af"
+    },
+    "origin_transport.py": {
+      "bytes": 45816,
+      "sha256": "c5ba140113b98460f8267f55fcdad098c391e4918fdc3a9e8e2f90e8ff5b110b"
+    }
+  },
+  "admission_spec_sha256": "7c0430716f672d1ef884b718861e93b80d65c9c1ccbbc6b0f4d09c6ecf329111",
+  "bundle_sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
+  "implementation_sha256": {
+    "three_context_admit.py": "22bfd7948df693307e9e5b094705f102e24b9c286d48c2c02a5fb6b95fc2bb2b",
+    "three_context_evidence.py": "83cbc31804d6c30aa444b984a0e7256b7a5076e7e6d1c421ba5a7a8b4ec116f3",
+    "three_context_job.py": "4015d259f99b121a1e538c23640b4cbaf30b9aadf82f3908700c52c5af572825",
+    "three_context_local.py": "0ea2d6be51208e03248f5dd062b57c85bbc6b5768d156b27032891c15d10a06a",
+    "three_context_policy.py": "edc4852bcfe3cd8ca980733229859c98ca20fb7120edddaa61f0c55ed19f53d4"
+  },
+  "max_evidence_bytes": 67108864,
+  "max_log_bytes": 16777216,
+  "max_seconds": 19800,
+  "memory_bytes": 8589934592,
+  "outer_job_minutes": 350,
+  "prior_files_sha256": "9618bc2900517a9234254ddf2a2ea6fb3c78f643bd12f11967f986f49e7dde1d",
+  "review_status": "reviewed_for_admission_only",
+  "schema": "fixed-historical-admission-job-v1",
+  "source_files": {
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "README.md": {
+      "bytes": 2453,
+      "sha256": "e1ed661ddeb7184036914b6259822aed2fdaae1ef2d9014a879662a5d1250552"
+    },
+    "SOURCE_MANIFEST.json": {
+      "bytes": 3094487,
+      "sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392"
+    },
+    "SpectreFinite/RadiusFivePrivateFamilyExport.lean": {
+      "bytes": 249,
+      "sha256": "fae623a710e5888f41a37adcb5016e640e39688cfb199186895369afefce05a5"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 1007,
+      "sha256": "cb2191d8c106d0727320f68b1db19285cc87c51e54487dff47aa3d8669fbc753"
+    },
+    "hierarchy-c-sources.tar.gz": {
+      "bytes": 4684110,
+      "sha256": "0275377e3a3dfb2bc757606334326b327569d8c164c234bb42d5ea9242f51446"
+    },
+    "lean-toolchain": {
+      "bytes": 29,
+      "sha256": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"
+    }
+  }
+}

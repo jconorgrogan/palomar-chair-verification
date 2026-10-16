@@ -1,4 +1,5 @@
 {
+  "context_bundle_sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
   "old_origin": {
     "identity": {
       "contract_sha256": "a0ad861b7f8b9eb857d8a44ce811dcae7149ffc1f81bd9cdd7a788536ce15555",
@@ -1262,7 +1263,872 @@
       "workflow_id": 386371571
     }
   },
-  "schema": "verified-continuation-selection-v1",
+  "prior_origin": {
+    "frozen_runtime_files_manifest_sha256": "b21175f8c62de611096c8e2e099954dadc12558a6ad813f5cf52a6d763e92590",
+    "frozen_transport_sha256": "c5ba140113b98460f8267f55fcdad098c391e4918fdc3a9e8e2f90e8ff5b110b",
+    "identity": {
+      "contract_sha256": "36c247a2b3ae182004b71a0d3a82479eefc856ce0f31a9e2bf20c2731ba23637",
+      "evidence_mode": "verified_continuation",
+      "lean_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+      "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
+      "pipeline_commit": "fca406f6c52a622762d9c75167a92f895c3ddd00",
+      "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
+      "profiles_sha256": "0af17b85b2b469be445bdcb68acbc07bb38507382fc818ffc4bd2bac5e3ce1ee",
+      "run_attempt": "1",
+      "run_id": "38917565694",
+      "run_started_at": "2026-10-16T14:39:44Z",
+      "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
+      "selection_sha256": "aa0b6a98f084db7c469effee548041900b79d5dd623549df89b2f462028d3436",
+      "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
+      "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392",
+      "toolchain_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+    },
+    "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+    "original_selection_sha256": "aa0b6a98f084db7c469effee548041900b79d5dd623549df89b2f462028d3436",
+    "pipeline_commit": "fca406f6c52a622762d9c75167a92f895c3ddd00",
+    "prepare": {
+      "artifact_id": 12053071727,
+      "artifact_name": "hierarchy-c-38917565694-1-prepare",
+      "artifact_zip_bytes": 3294158,
+      "artifact_zip_sha256": "88c4b1bd7f8b24c7fea615a6817d9b3047a93931df59cd38642fa30bebedfdbe",
+      "expires_at": "2026-10-23T14:40:35Z",
+      "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+      "inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+      "producer_job_id": 117028871245
+    },
+    "repository": "jconorgrogan/palomar-chair-verification",
+    "repository_id": 1407290933,
+    "run_attempt": 1,
+    "run_id": 38917565694,
+    "snapshot_sha256": {
+      "ARTIFACTS_TERMINAL.json": "5a1de0d2335295b5318faacddd37609f53d40e705d3e0ac91c5e33fd3bc1a8a2",
+      "JOBS_TERMINAL.json": "e88fb187dae07955ba35993f84ce54b6e12c976ca5aaa10f5bc54dfeec558c41",
+      "OBSERVATION_TERMINAL.json": "71e377b6bdd143a94d8c8b27273b863aa1ce596da117cb7c8c90c5a09975d02f",
+      "RUN_TERMINAL.json": "3e5bd4e967c3d5f8f99837bb1d502b65d0008d88322c1d803bb79b0ad60e56ae"
+    },
+    "terminal": {
+      "conclusion": "failure",
+      "run_started_at": "2026-10-16T14:39:44Z",
+      "status": "completed",
+      "updated_at": "2026-10-16T17:35:17Z"
+    },
+    "workflow": {
+      "head_branch": "verify/hierarchy-c-meta-continuation-20261016",
+      "name": "Continued modern hierarchy C verification (clean rebuild pending)",
+      "path": ".github/workflows/hierarchy-c-meta-continuation.yml",
+      "roles": {
+        "build_036": {
+          "job_name": "stage build_036",
+          "producer_job": "wave_07",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_037": {
+          "job_name": "stage build_037",
+          "producer_job": "wave_08",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_038": {
+          "job_name": "stage build_038",
+          "producer_job": "wave_09",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_039": {
+          "job_name": "stage build_039",
+          "producer_job": "wave_10",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_040": {
+          "job_name": "stage build_040",
+          "producer_job": "wave_11",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_041": {
+          "job_name": "stage build_041",
+          "producer_job": "wave_12",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_042": {
+          "job_name": "stage build_042",
+          "producer_job": "wave_13",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_043": {
+          "job_name": "stage build_043",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_044": {
+          "job_name": "stage build_044",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_045": {
+          "job_name": "stage build_045",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_046": {
+          "job_name": "stage build_046",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_047": {
+          "job_name": "stage build_047",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_048": {
+          "job_name": "stage build_048",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_049": {
+          "job_name": "stage build_049",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_050": {
+          "job_name": "stage build_050",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_051": {
+          "job_name": "stage build_051",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_052": {
+          "job_name": "stage build_052",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_053": {
+          "job_name": "stage build_053",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_054": {
+          "job_name": "stage build_054",
+          "producer_job": "wave_06",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_056": {
+          "job_name": "stage build_056",
+          "producer_job": "wave_14",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_057": {
+          "job_name": "stage build_057",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_058": {
+          "job_name": "stage build_058",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_059": {
+          "job_name": "stage build_059",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_060": {
+          "job_name": "stage build_060",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_061": {
+          "job_name": "stage build_061",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_062": {
+          "job_name": "stage build_062",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_063": {
+          "job_name": "stage build_063",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_064": {
+          "job_name": "stage build_064",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_065": {
+          "job_name": "stage build_065",
+          "producer_job": "wave_15",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_066": {
+          "job_name": "stage build_066",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_067": {
+          "job_name": "stage build_067",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_068": {
+          "job_name": "stage build_068",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_069": {
+          "job_name": "stage build_069",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_070": {
+          "job_name": "stage build_070",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_071": {
+          "job_name": "stage build_071",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_072": {
+          "job_name": "stage build_072",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_073": {
+          "job_name": "stage build_073",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_074": {
+          "job_name": "stage build_074",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_075": {
+          "job_name": "stage build_075",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_076": {
+          "job_name": "stage build_076",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_077": {
+          "job_name": "stage build_077",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_078": {
+          "job_name": "stage build_078",
+          "producer_job": "wave_18",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_079": {
+          "job_name": "stage build_079",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_080": {
+          "job_name": "stage build_080",
+          "producer_job": "wave_18",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_081": {
+          "job_name": "stage build_081",
+          "producer_job": "wave_19",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_082": {
+          "job_name": "stage build_082",
+          "producer_job": "wave_20",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_083": {
+          "job_name": "stage build_083",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_084": {
+          "job_name": "stage build_084",
+          "producer_job": "wave_18",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_085": {
+          "job_name": "stage build_085",
+          "producer_job": "wave_19",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_086": {
+          "job_name": "stage build_086",
+          "producer_job": "wave_21",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_087": {
+          "job_name": "stage build_087",
+          "producer_job": "wave_22",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_088": {
+          "job_name": "stage build_088",
+          "producer_job": "wave_16",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_089": {
+          "job_name": "stage build_089",
+          "producer_job": "wave_17",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_090": {
+          "job_name": "stage build_090",
+          "producer_job": "wave_18",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_091": {
+          "job_name": "stage build_091",
+          "producer_job": "wave_23",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "build_092": {
+          "job_name": "stage build_092",
+          "producer_job": "wave_24",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "conron": {
+          "job_name": "conron",
+          "producer_job": "conron",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "export_target": {
+          "job_name": "export_target",
+          "producer_job": "export_target",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "fresh_kernel": {
+          "job_name": "fresh_kernel",
+          "producer_job": "fresh_kernel",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "lean_export": {
+          "job_name": "lean_export",
+          "producer_job": "lean_export",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "nanoda": {
+          "job_name": "nanoda",
+          "producer_job": "nanoda",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        },
+        "prepare": {
+          "job_name": "prepare",
+          "producer_job": "prepare",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 6
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 5
+          }
+        }
+      },
+      "source_sha256": "b72c789b0fef3ce2dc2e76180285fec9815fc8db30e89c4df3b1851a298c3e49",
+      "workflow_id": 386750066
+    }
+  },
+  "schema": "verified-continuation-selection-v2",
   "stages": [
     {
       "origin": "OldOrigin",
@@ -1877,31 +2743,122 @@
       "stage_id": "build_035"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12054710369,
+        "artifact_name": "hierarchy-c-38917565694-1-build_036",
+        "artifact_zip_bytes": 22847347,
+        "artifact_zip_sha256": "0cc38afcc4b0b1f3997a8908856223ceb969f70ed10256d5a2ad938500be2743",
+        "expires_at": "2026-10-23T15:03:01Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117031493555,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_036"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12055206549,
+        "artifact_name": "hierarchy-c-38917565694-1-build_037",
+        "artifact_zip_bytes": 70483827,
+        "artifact_zip_sha256": "4b56f635a8c34e8b42db2170bc5a221a99c3e56a4c4c7cc644d30af92085c565",
+        "expires_at": "2026-10-23T15:14:48Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117039753217,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_037"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12055418999,
+        "artifact_name": "hierarchy-c-38917565694-1-build_038",
+        "artifact_zip_bytes": 135896948,
+        "artifact_zip_sha256": "53c1936618f6b1c05a7039d38a85c55b68a0d43f0f2fc5113aef8969ca3c12ab",
+        "expires_at": "2026-10-23T15:33:25Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117045226392,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_038"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12058035133,
+        "artifact_name": "hierarchy-c-38917565694-1-build_039",
+        "artifact_zip_bytes": 173324148,
+        "artifact_zip_sha256": "c1aba61ab07b4560655f98f9726a65cc40ed4e956d957c4530434e865a8f0f43",
+        "expires_at": "2026-10-23T15:51:49Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117053872857,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_039"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12059447273,
+        "artifact_name": "hierarchy-c-38917565694-1-build_040",
+        "artifact_zip_bytes": 251158388,
+        "artifact_zip_sha256": "c8a6631a1300f0d795eff5ef322e4f3de83f86be78ea0d596be29b249dfe4e9e",
+        "expires_at": "2026-10-23T16:31:37Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117062239167,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_040"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12060990239,
+        "artifact_name": "hierarchy-c-38917565694-1-build_041",
+        "artifact_zip_bytes": 80949107,
+        "artifact_zip_sha256": "3e3491e5dadc955e03aa4bd7b6dd8891bf6c85d6ebd0176bd04e51809c0c4139",
+        "expires_at": "2026-10-23T16:48:04Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117080257410,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_041"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12062296066,
+        "artifact_name": "hierarchy-c-38917565694-1-build_042",
+        "artifact_zip_bytes": 190558068,
+        "artifact_zip_sha256": "918c20872a4e5e42058356415e03d16e10bda5a3251a5368b216eeb231e537b5",
+        "expires_at": "2026-10-23T17:17:04Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117087398610,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_042"
     },
     {
@@ -1929,7 +2886,20 @@
       "stage_id": "build_048"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12062910046,
+        "artifact_name": "hierarchy-c-38917565694-1-build_049",
+        "artifact_zip_bytes": 104305,
+        "artifact_zip_sha256": "6b6c8c4ac647c20bbd9967d392c6f043987b244da55e12d4bd46b9d81b6ffc52",
+        "expires_at": "2026-10-23T17:22:06Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117099930158,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_049"
     },
     {
@@ -1937,7 +2907,20 @@
       "stage_id": "build_050"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12062800667,
+        "artifact_name": "hierarchy-c-38917565694-1-build_051",
+        "artifact_zip_bytes": 104305,
+        "artifact_zip_sha256": "a19ac9857bd78aa3f16b01c09d86b367182223d59d408ceb1db1e5e5a1f23e3f",
+        "expires_at": "2026-10-23T17:24:00Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117099930040,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_051"
     },
     {
@@ -1949,7 +2932,20 @@
       "stage_id": "build_053"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12052838297,
+        "artifact_name": "hierarchy-c-38917565694-1-build_054",
+        "artifact_zip_bytes": 1025906,
+        "artifact_zip_sha256": "5dc60bbe59eee48e0c0106c517181b41f60a3c43e67a17a307939b2fe1e38416",
+        "expires_at": "2026-10-23T14:45:19Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117029291138,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_054"
     },
     {
@@ -1970,7 +2966,20 @@
       "stage_id": "build_055"
     },
     {
-      "origin": "CurrentOrigin",
+      "origin": "PriorSuccessorOrigin",
+      "pin": {
+        "archive_bytes": null,
+        "archive_sha256": null,
+        "artifact_id": 12063126793,
+        "artifact_name": "hierarchy-c-38917565694-1-build_056",
+        "artifact_zip_bytes": 221595508,
+        "artifact_zip_sha256": "8fa7e043857c772d47279dfdb90d47b49c0b09441b8b6d0f40de15aac0e37c5e",
+        "expires_at": "2026-10-23T17:35:08Z",
+        "identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "producer_job_id": 117099930024,
+        "raw_descriptor_sha256": null,
+        "receipt_sha256": null
+      },
       "stage_id": "build_056"
     },
     {

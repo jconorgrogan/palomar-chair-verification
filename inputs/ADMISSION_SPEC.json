@@ -1,0 +1,22 @@
+{
+  "implementation_sha256": {
+    "three_context_admit.py": "22bfd7948df693307e9e5b094705f102e24b9c286d48c2c02a5fb6b95fc2bb2b",
+    "three_context_evidence.py": "83cbc31804d6c30aa444b984a0e7256b7a5076e7e6d1c421ba5a7a8b4ec116f3",
+    "three_context_job.py": "4015d259f99b121a1e538c23640b4cbaf30b9aadf82f3908700c52c5af572825",
+    "three_context_local.py": "0ea2d6be51208e03248f5dd062b57c85bbc6b5768d156b27032891c15d10a06a",
+    "three_context_policy.py": "edc4852bcfe3cd8ca980733229859c98ca20fb7120edddaa61f0c55ed19f53d4"
+  },
+  "inputs": {
+    "CANDIDATE_SELECTION.json": "6e89215b1c8e738da2c9333a08db39bfde6d6d69663927acebcdfbed09c41bdc",
+    "CONTEXT_BUNDLE.json": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
+    "EXPECTED_PRIOR_IDENTITY.json": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+    "PRIOR_FILES.json": "9618bc2900517a9234254ddf2a2ea6fb3c78f643bd12f11967f986f49e7dde1d"
+  },
+  "max_evidence_bytes": 67108864,
+  "max_seconds": 19800,
+  "proof_pass_claimed": false,
+  "raw_archive_cap": 4294967296,
+  "review_status": "reviewed_for_admission_only",
+  "runtime_installed": false,
+  "schema": "fixed-historical-semantic-admission-v1"
+}

@@ -1,0 +1,17 @@
+{
+  "contract_sha256": "36c247a2b3ae182004b71a0d3a82479eefc856ce0f31a9e2bf20c2731ba23637",
+  "evidence_mode": "verified_continuation",
+  "lean_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+  "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
+  "pipeline_commit": "fca406f6c52a622762d9c75167a92f895c3ddd00",
+  "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
+  "profiles_sha256": "0af17b85b2b469be445bdcb68acbc07bb38507382fc818ffc4bd2bac5e3ce1ee",
+  "run_attempt": "1",
+  "run_id": "38917565694",
+  "run_started_at": "2026-10-16T14:39:44Z",
+  "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
+  "selection_sha256": "aa0b6a98f084db7c469effee548041900b79d5dd623549df89b2f462028d3436",
+  "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
+  "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392",
+  "toolchain_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+}
