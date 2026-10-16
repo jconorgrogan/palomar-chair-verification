@@ -5,11 +5,11 @@
   "input_files": [
     {
       "path": "README.md",
-      "sha256": "9e2eef569d70b80570b08d581581943cf2b38bf524e7352eaec3346d43573369"
+      "sha256": "b44d68dd7c0083ec8f337cadb810b0a8eb1838b8c16d898e08f9dcb8a57ddac3"
     },
     {
-      "path": "certificates/F1_curved_existence.json",
-      "sha256": "7f8334cb458c00e54b3c38df938e2d0684b46d176d949bf4e9bb466fc457b162"
+      "path": "certificates/F2_period_hierarchy.json",
+      "sha256": "601bbf15e4b1661fc3239527a8a838fe486b7a327bfa87c3266f43f5a4e1c52f"
     },
     {
       "path": "ci/stream_verify.py",
@@ -20,12 +20,12 @@
       "sha256": "d60e9d4d756259a830a7d75afc61e07e46297b98c546e39756c13463ef9b0ffa"
     },
     {
-      "path": "expectations/F1_curved_existence.json",
-      "sha256": "bea496165d77b2ff1184b9e88cdc1263f8a96be908ac385fdf316aeed8f6c75a"
+      "path": "expectations/F2_period_hierarchy.json",
+      "sha256": "b90e3c4fc54e69bd01110ad26bbbd0a89eef63c0e1469dbc6a3e666b266cbe5f"
     },
     {
       "path": "tests/test_public_package.py",
-      "sha256": "a4ba2419cf19477576bfc090c2c7e097b6ce81737b23a966adac95705594ae35"
+      "sha256": "422ff9a9f2a7ee783c9a8481fb4e41b8c62422d9341d4f2b40d0b446536974b8"
     },
     {
       "path": "tests/test_stream_verify.py",
@@ -43,7 +43,7 @@
       "run_id": "38914223883",
       "workflow_commit": "318a6900eabfec550b4adf1b0f4bd634c20d67c5"
     },
-    "status_policy": "allow_in_progress_byte_verification_only",
+    "status_policy": "completed_only",
     "workflow_id": 386423911,
     "workflow_path": ".github/workflows/conditional-geometry.yml"
   },
@@ -51,13 +51,13 @@
   "schema": "conditional-official-payload-plan-v1",
   "stages": [
     {
-      "artifact_expires_at": "2026-10-23T16:37:58Z",
-      "certificate_file": "certificates/F1_curved_existence.json",
-      "certificate_sha256": "7f8334cb458c00e54b3c38df938e2d0684b46d176d949bf4e9bb466fc457b162",
-      "expectation_file": "expectations/F1_curved_existence.json",
-      "expectation_sha256": "bea496165d77b2ff1184b9e88cdc1263f8a96be908ac385fdf316aeed8f6c75a",
-      "independent_review_sha256": "3247485596bcb5bddf0c4836e8a174bbd496ca3719292a914c425bd0154d7dc8",
-      "stage_id": "F1_curved_existence"
+      "artifact_expires_at": "2026-10-23T17:37:04Z",
+      "certificate_file": "certificates/F2_period_hierarchy.json",
+      "certificate_sha256": "601bbf15e4b1661fc3239527a8a838fe486b7a327bfa87c3266f43f5a4e1c52f",
+      "expectation_file": "expectations/F2_period_hierarchy.json",
+      "expectation_sha256": "b90e3c4fc54e69bd01110ad26bbbd0a89eef63c0e1469dbc6a3e666b266cbe5f",
+      "independent_review_sha256": "e136591f3f9d098b4563bd13e5e783f2bd027508d0af5e9e171dadb06308117b",
+      "stage_id": "F2_period_hierarchy"
     }
   ],
   "storage_host_pattern": "productionresultssa[0-9]+\\.blob\\.core\\.windows\\.net"

@@ -1,7 +1,7 @@
 name: Verify retained conditional artifact bytes
 'on':
   push:
-    branches: ['verify/conditional-payloads-20261016']
+    branches: ['verify/conditional-payloads-f2-20261016']
 permissions:
   contents: read
   actions: read
@@ -34,7 +34,7 @@ jobs:
           /usr/bin/timeout --signal=KILL 1800s \
             /usr/bin/python3 -I -S -B ci/verify_official_payload.py \
             --plan payload-verification-plan.json \
-            --plan-sha256 78cec777b18c0b9c3c5c0681164d6fe024e165f914d0cb8d9320590019ee3697 \
+            --plan-sha256 117dee970ef102883701b7c5e8f7eb4eb8946bdcab869aa6cbcbf52dd5b6839f \
             --core ci/stream_verify.py \
             --receipt "${{ runner.temp }}/conditional-payload-verification/receipt.json" \
             --seconds 1740
@@ -50,4 +50,4 @@ jobs:
       - name: Bind the receipt to this successful verification job
         if: ${{ success() }}
         run: |
-          printf '%s\n' 'CONDITIONAL_PAYLOAD_VERIFIED_V1 {"plan_sha256":"78cec777b18c0b9c3c5c0681164d6fe024e165f914d0cb8d9320590019ee3697","artifact_id":"${{ steps.upload_receipt.outputs.artifact-id }}","artifact_sha256":"${{ steps.upload_receipt.outputs.artifact-digest }}","artifact_name":"conditional-payload-verification-${{ github.run_id }}-${{ github.run_attempt }}"}'
+          printf '%s\n' 'CONDITIONAL_PAYLOAD_VERIFIED_V1 {"plan_sha256":"117dee970ef102883701b7c5e8f7eb4eb8946bdcab869aa6cbcbf52dd5b6839f","artifact_id":"${{ steps.upload_receipt.outputs.artifact-id }}","artifact_sha256":"${{ steps.upload_receipt.outputs.artifact-digest }}","artifact_name":"conditional-payload-verification-${{ github.run_id }}-${{ github.run_attempt }}"}'
