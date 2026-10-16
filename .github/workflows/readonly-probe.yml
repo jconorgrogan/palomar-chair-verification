@@ -29,7 +29,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -I -B ci/probe.py
-          --contract-sha256 f478a290b4cbce4a77ede0f7f896eda64e5ef02fba2ba5aacd557b61026617f3
+          --contract-sha256 3c8bf4459d2df28ac3e8c0ad1cf975604731d416d3e2ce397f385bac0d9cec3c
           --work "$RUNNER_TEMP/readonly-probe"
       - name: Admit bounded probe evidence
         id: evidence

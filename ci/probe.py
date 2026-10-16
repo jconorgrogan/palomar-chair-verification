@@ -40,7 +40,7 @@ def main():
  work=a.work.absolute();f.no_symlink_path(work);need(not work.exists(),'probe work must be new');work.mkdir(parents=True)
  evidence=work/'evidence';evidence.mkdir();deadline=time.monotonic()+c['total_wall_seconds'];signal.alarm(c['total_wall_seconds'])
  if hasattr(os,'sched_setaffinity'):os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
- resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,8*1024**3));resource.setrlimit(resource.RLIMIT_CPU,(c['total_wall_seconds'],c['total_wall_seconds']))
+ resource.setrlimit(resource.RLIMIT_AS,(12*1024**3,12*1024**3));resource.setrlimit(resource.RLIMIT_CPU,(c['total_wall_seconds'],c['total_wall_seconds']))
  result={'schema':'readonly-namespace-probe-v1','status':'INCOMPLETE','research_theorem_claimed':False,'fresh_full_C_claimed':False,'pipeline_commit':commit,'run_id':os.environ.get('GITHUB_RUN_ID'),'run_attempt':os.environ.get('GITHUB_RUN_ATTEMPT'),'contract_sha256':a.contract_sha256}
  write(evidence/'RESULT.json',result)
  stage=None
@@ -85,7 +85,7 @@ def main():
    files.append({'module':module,'path':rel,'bytes':len(data),'sha256':f.sha(data),'ordered_imports':imports,'implicit_Init':implicit})
   manifest={'source_count':3,'source_bytes':sum(x['bytes'] for x in files),'files':files,'external_imports':['Init']}
   plan={'stages':[{'stage_id':'tiny_chain','modules':MODULES,'required_predecessors':[],'producer_job':'tiny_probe'}]}
-  profile={'review_status':'reviewed','compile_flags':['-j1','-M512','-Dcompiler.postponeCompile=false'],'check_flags':['--silent'],'address_space_bytes':4*1024**3,'rss_tree_bytes':2*1024**3,'max_created_file_bytes':64*1024**2,'compile_timeout_seconds':60,'check_timeout_seconds':60}
+  profile={'review_status':'reviewed','compile_flags':['-j1','-M512','-Dcompiler.postponeCompile=false'],'check_flags':['--silent'],'address_space_bytes':8*1024**3,'rss_tree_bytes':2*1024**3,'max_created_file_bytes':64*1024**2,'compile_timeout_seconds':60,'check_timeout_seconds':60}
   profiles={'profiles':{'tiny':profile},'module_profiles':{m:'tiny' for m in MODULES}}
   identity={'source_commit':commit,'run_id':os.environ['GITHUB_RUN_ID'],'run_attempt':os.environ['GITHUB_RUN_ATTEMPT'],'run_started_at':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(),'scope':'TINY_READONLY_NAMESPACE_PROBE_ONLY','runner_sha256':sha(ROOT/'ci/fresh_stage.py')}
   stage=work/'stage';runner=f.StageRunner(contract=tiny_contract,manifest=manifest,plan=plan,profiles=profiles,identity=identity,source_root=ROOT/'src',toolchain_root=runtime,toolchain_inventory=inventory,workspace=stage)
@@ -103,7 +103,7 @@ def main():
    remaining=int(deadline-time.monotonic());need(remaining>0,'total probe deadline')
    out=evidence/(name+'.stdout');err=evidence/(name+'.stderr')
    r=conditional.f.run_process(list(map(str,argv)),cwd=cwd,env=env,timeout=min(seconds,remaining),stdout=out,stderr=err,max_log_bytes=256*1024,
-      limits={'address_space_bytes':4*1024**3,'rss_tree_bytes':rss,'max_created_file_bytes':64*1024**2},allow_new_sessions=True)
+      limits={'address_space_bytes':12*1024**3,'rss_tree_bytes':rss,'max_created_file_bytes':64*1024**2},allow_new_sessions=True)
    r.update(name=name,argv=list(map(str,argv)),cwd=str(cwd),stdout_sha256=sha(out),stderr_sha256=sha(err))
    conditional_commands.append(r);write(evidence/'conditional-commands.json',conditional_commands)
    ok=r['exit_code']==0 and not any(r[k] for k in ['timed_out','log_overflow','memory_exceeded','surviving_children']) and r['process_group_empty'] and r['descendants_empty'] and r['new_sessions_explicitly_allowed']

@@ -22,8 +22,8 @@
       "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
     },
     "ci/probe.py": {
-      "bytes": 13604,
-      "sha256": "0aadb88611612b40ca030307e818b6dd9cbb805622e2965730c0e531dfa184a3"
+      "bytes": 13607,
+      "sha256": "f552b181d45db80c38facde7c5e279769f15271c665d02ec69ce32e807abf730"
     },
     "ci/toolchain_install.py": {
       "bytes": 6752,
@@ -46,8 +46,12 @@
   "maximum_parallel_jobs": 1,
   "no_old_owned_artifact_admission": true,
   "no_research_imports": true,
+  "parent_address_space_bytes": 12884901888,
   "per_command_caps": {
-    "address_space_bytes": 4294967296,
+    "address_space_bytes_by_configuration": {
+      "C_stage": 8589934592,
+      "conditional": 12884901888
+    },
     "checker_seconds": 60,
     "compile_seconds": 60,
     "lean_heap_mib": 512,
@@ -63,6 +67,7 @@
   "scope": "TINY_READONLY_NAMESPACE_PROBE_ONLY",
   "session_configurations": [
     {
+      "address_space_bytes": 8589934592,
       "allow_new_sessions": false,
       "companions": 18,
       "compile_check_pairs": 3,
@@ -70,6 +75,7 @@
       "new_session": false
     },
     {
+      "address_space_bytes": 12884901888,
       "allow_new_sessions": true,
       "companions": 21,
       "compile_check_pairs": 3,
