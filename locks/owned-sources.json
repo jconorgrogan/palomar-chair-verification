@@ -1,5 +1,6 @@
 {
   "body_union_count": 65,
+  "modern_body_map_scope": "unchanged baseline provenance; one exact source exception is pinned in visibility-exception.json",
   "modern_body_map_sha256": "012c126e8cc9c405b859c15c98cc815f9e7e884aee3ac011127206cb349e6a86",
   "module_count": 69,
   "module_order": [
@@ -76,7 +77,7 @@
   "no_C_dependency": true,
   "original_body_closure_sha256": "23521b2fe06432f0ba65631282a9946abeb779499e6d760f60a8ff8266f94996",
   "schema": "body-diagnostic-owned-source-topology-v1",
-  "source_migration_status": "candidate_header_visibility_migration_not_full_research_acceptance",
+  "source_migration_status": "header_visibility_migration_with_one_explicit_two_command_scoped_compatibility_exception",
   "source_staging_manifest_sha256": "a75a42221652a45910380d572351b64cdc6c5ed0d426651b5a9d8190f622e872",
   "sources": [
     {
@@ -952,8 +953,9 @@
       "sha256": "72de4b516c0659c36d43ee84b762535fea19d5be2935812f6958cf3e1faf0086"
     },
     {
+      "baseline_modern_sha256": "119969fd5d59f2ad09623d39f57e9860c042a3f42e117cde321e40a30f89d960",
       "body_bytes_preserved": true,
-      "bytes": 11951,
+      "bytes": 12039,
       "module": "SpectreGeometry.PolygonProductKeyBody",
       "ordered_imports": [
         "SpectreGeometry.PolygonProductKeyCollarSeparation",
@@ -963,7 +965,8 @@
       "original_sha256": "b909fed61b999ec82a68281527aadefe04bfbdc92792ef75f7a557e20ede4d0f",
       "path": "src/SpectreGeometry/PolygonProductKeyBody.lean",
       "role": "modern_body_dependency",
-      "sha256": "119969fd5d59f2ad09623d39f57e9860c042a3f42e117cde321e40a30f89d960"
+      "sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758",
+      "visibility_exception_lock": "locks/visibility-exception.json"
     },
     {
       "bytes": 1432,

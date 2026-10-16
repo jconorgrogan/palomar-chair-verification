@@ -296,4 +296,23 @@ class ActualOutputLoopTests(unittest.TestCase):
    if phase=='check':(objects/'escape.olean').symlink_to('/etc/passwd')
   with self.assertRaisesRegex(Exception,'escaping or disallowed artifact link'):self.run_loop(self.at_last(action))
 
+class ScopedVisibilitySourceTests(unittest.TestCase):
+ def test_exact_two_source_insertions(self):
+  lock=json.loads((ROOT/'locks/visibility-exception.json').read_text());source=(ROOT/lock['source']).read_text()
+  option=lock['added_command']+'\n';self.assertEqual(source.count(option),2)
+  original=source
+  for anchor in lock['insert_before_anchors']:
+   self.assertEqual(original.count(option+anchor),1);original=original.replace(option+anchor,anchor,1)
+  self.assertEqual(c.f.sha(original.encode()),lock['baseline_source_sha256']);self.assertEqual(c.f.sha(source.encode()),lock['candidate_source_sha256'])
+ def test_compatibility_option_only_in_target_module(self):
+  lock=json.loads((ROOT/'locks/visibility-exception.json').read_text());matches=[]
+  for path in sorted((ROOT/'src').rglob('*.lean')):
+   if 'backward.privateInPublic' in path.read_text():matches.append(path.relative_to(ROOT).as_posix())
+  self.assertEqual(matches,[lock['source']]);self.assertNotIn('backward.privateInPublic.warn', (ROOT/lock['source']).read_text())
+ def test_private_helper_and_exact_proof_source_retained(self):
+  source=(ROOT/'src/SpectreGeometry/PolygonProductKeyBody.lean').read_text()
+  self.assertEqual(source.count('private theorem product_key_collar_interior_disjoint'),1)
+  self.assertIn('isOpen_interior hx (product_key_collar_interior_disjoint s)',source)
+  self.assertNotIn('sorry',source);self.assertNotIn('axiom ',source)
+
 if __name__=='__main__':unittest.main()

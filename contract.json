@@ -50,6 +50,7 @@
     "Mathlib.Topology.MetricSpace.Lipschitz",
     "Mathlib.Topology.Order.LeftRight"
   ],
+  "compatibility_exception_lock": "locks/visibility-exception.json",
   "diagnostic_module_count": 69,
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 120,
@@ -338,8 +339,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 5461,
-      "sha256": "0eaf93152e58ed905f1eed8391a5bdedee3d7814624feb2a33f0004cb11a2eac"
+      "bytes": 7181,
+      "sha256": "6bf5561587058fdddda246d06e6fa00d670332176e3cebb36796a14800d57e71"
     },
     "ci/cache_diagnostic.py": {
       "bytes": 28858,
@@ -366,12 +367,16 @@
       "sha256": "088a495e385c8a712ba00c0a4017da6a35f536003b029dd641208baa99b6e99e"
     },
     "locks/owned-sources.json": {
-      "bytes": 39695,
-      "sha256": "2850d606e50214ce6bc77e9d1fb328e0d14ed115a1c349f5781d9254314361cb"
+      "bytes": 40014,
+      "sha256": "b60a76c1626d1027d349488ac048e1b25ed395a816b9ccf807730df9c11c3d58"
     },
     "locks/required-modules.json": {
       "bytes": 687884,
       "sha256": "74a7f2c46b9ce8e33beb3e1ff42d36b5c042791ea94cbd28cfcb859b0257e117"
+    },
+    "locks/visibility-exception.json": {
+      "bytes": 2320,
+      "sha256": "db5445add6cf12ff1fb56fffeb9731a04da968e87d2161a8a3169fb182a92753"
     },
     "src/ContractBodyBridgeSmoke.lean": {
       "bytes": 1432,
@@ -578,8 +583,8 @@
       "sha256": "f3d81a6e3730f14ebed5a6e93d6d544c4038d438535ec353a4e3eceda1853b22"
     },
     "src/SpectreGeometry/PolygonProductKeyBody.lean": {
-      "bytes": 11951,
-      "sha256": "119969fd5d59f2ad09623d39f57e9860c042a3f42e117cde321e40a30f89d960"
+      "bytes": 12039,
+      "sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758"
     },
     "src/SpectreGeometry/PolygonProductKeyCenterSeparation.lean": {
       "bytes": 7247,
@@ -650,8 +655,8 @@
       "sha256": "a8d3a3fe7a74a59262d0dd73ffc7ab53da7517e4e48d73d522c08bff2f1f7b71"
     },
     "tests/test_cache_diagnostic.py": {
-      "bytes": 20144,
-      "sha256": "017f1b074cdc76d9a1abe26ddc7e66043166e99ed5b7b3ec6e79a17fcbd2afa9"
+      "bytes": 21570,
+      "sha256": "c152288f16c513f05bd6602420f64032422c8a85fc2904f2222caff1c6b09da0"
     }
   },
   "lean_heap_mib": 4096,
@@ -663,6 +668,8 @@
   "official_lean_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
   "official_mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
   "outer_timeout_minutes": 90,
+  "prior_failed_run_id": 38858268822,
+  "prior_failed_workflow_commit": "37fe6fc9d4892c0623a8ad23c4e56e63f1be3758",
   "prior_passed_run_id": 38855692931,
   "prior_passed_workflow_commit": "749d0aea89efd63eda76d58524d9fd1575fcbdcf",
   "publication_branch": "verify/physical-body-20261016",

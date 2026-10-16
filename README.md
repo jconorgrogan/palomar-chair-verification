@@ -1,4 +1,4 @@
-# Cache-backed native body equality diagnostic (work in progress)
+# Cache-backed native body equality diagnostic (work-in-progress visibility retry)
 
 This extends the successful four-source diagnostic at commit
 749d0aea89efd63eda76d58524d9fd1575fcbdcf, run38855692931. It is a bounded
@@ -16,12 +16,16 @@ aperiodic-monotile Challenge and does not use hierarchy C.
    Quot.sound (a subset is allowed). Both Challenge sorries are intentional;
    sorryAx in either body/model proof audit fails this diagnostic.
 
-The total is69 freshly compiled source modules,320606 bytes. All65 body union
-sources match the frozen migration map byte-for-byte. The migration changes
-module/public import/expose headers only; proof and definition bodies are
-unchanged. Explicit private helpers remain private. No compatibility option,
-private-to-public promotion, semantic rewrite, axiom or proof admission was
-added. Real elaboration may expose a migration or body equality error, which
+The total is69 freshly compiled source modules,320694 bytes. The baseline65-body union is retained with one explicit source exception:
+PolygonProductKeyBody adds two command-local privateInPublic scopes, one on its
+existing private theorem and one on the affected documented public definition.
+All original source bytes, declaration names, type/definition/proof bodies and
+private keywords are preserved. All other68 sources are byte-identical. This
+is an explicit reviewed exception to the earlier header-only/no-options
+migration, not a claim that the baseline map already contained it. No private
+keywords are removed and no private kernel names change. Helper export visibility
+changes only for the two scoped commands. No global option, axiom, admission or
+theorem change is added. Real elaboration may expose a migration or body equality error, which
 must be corrected and reviewed rather than bypassed.
 
 locks/owned-sources.json binds69 source hashes and all explicit import edges.
@@ -30,9 +34,9 @@ C dependencies, cached shadowing, extra source pins and changed topology.
 locks/required-modules.json binds the needed2627 authenticated pinned external
 sources,221 more than the successful first stage, reached from29 Mathlib roots.
 The source manifest's modern-map envelope hash was already012c126e8cc9c405b859c15c98cc815f9e7e884aee3ac011127206cb349e6a86;
-an older handoff's ae77ed… value was stale metadata. All65 source hashes are
-unchanged against the independent earlier readback. Both source identities are
-recorded in derivation evidence outside this publication candidate.
+an older handoff's ae77ed… value was stale metadata. The map remains the
+unchanged baseline provenance; the one source exception is pinned separately
+in locks/visibility-exception.json and reverses exactly to the baseline hash.
 
 ## Trust and resource limits
 
@@ -57,13 +61,12 @@ Palomar standard-profile full preflight and is not a full source replay.
 
 ## Activation and result
 
-The source, cache admission, resource limits, and actual 69-module output-loop
-controls have passed independent review and 74 synthetic tests. This bounded
-attempt uses the separate verify/physical-body-20261016 branch, with the exact
-reviewed contract SHA pinned by its workflow. Existing verification branches
-and the successful original diagnostic remain unchanged. Live compilation and
-checking of these body sources is still required; review alone is not proof.
-
+The baseline adapter and actual 69-module output-loop controls passed independent
+review. This separate source visibility variant also passed independent review
+and 77 synthetic tests, including exact source-delta checks. The workflow pins
+the resealed reviewed contract for its retry on verify/physical-body-20261016.
+Actual research compilation and checking remain pending; no cache objects
+from the failed run are reused.
 A complete result is CACHE_BACKED_BODY_EQUALITY_DIAGNOSTIC_COMPLETED, with all138
 owned compile/check commands successful and explicit standard-only axiom
 reports for both model and body pairs. proof_certified and
@@ -85,3 +88,25 @@ missing companions, final compiler/checker extra files, empty-prefix shadowing
 in both phases, a later-owned cached namespace collision, checker-phase prior
 mutation/removal/current mutation, and escaping symlinks. These synthetic files
 are never passed off as Lean proof objects or published as source inputs.
+
+## Exact failed-run visibility repair
+
+Run38858268822 at commit37fe6fc9d4892c0623a8ad23c4e56e63f1be3758 passed67
+fresh compile/leanchecker pairs and then failed at the private theorem reference
+in polygonProductKeyBody_local_graph. It was not a timeout or memory failure.
+The failure and source are preserved. BodySmoke was never attempted.
+
+locks/visibility-exception.json pins the exact two insertions and hashes. The
+helper retains its private keyword and existing kernel name, while its export
+visibility changes at the scoped commands. Each option applies only to one
+command; the public definition's scope begins before its doc comment.
+Warnings remain enabled. Core-only controls show the two-scope pattern passes
+and retains exact legacy declaration Expr tuples, while unpatched, helper-only,
+def-only and subsequent unscoped-access controls fail. Those controls are not
+a raw-expression audit of the actual research module; actual elaboration and
+all body equality/axiom checks remain mandatory. No resources, cache boundaries,
+runner admission gates, theorem statements or proof bodies change.
+
+Current Palomar source/build rules have no ban on this supported module-porting
+option. Lean's own ResolveName/AddDecl code implements visibility export, not a
+kernel checking bypass. Full official Comparator and NanoDa remain required.

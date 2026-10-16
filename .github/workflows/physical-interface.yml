@@ -26,7 +26,7 @@ jobs:
       - name: Acquire official pinned cache and elaborate diagnostic sources
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 68ce7dc8c1069f97e0089d5c66f3dc9b7516b08de6bc098228c6194bd54b3510
+          --contract-sha256 ecdd8d55fd81ff51d0bd6b933deb277f3bf43e7cc70aed5452c35b64a55487e5
           --work "${{ runner.temp }}/physical-body-diagnostic"
       - name: Preserve bounded interrupted-command logs
         if: ${{ always() }}

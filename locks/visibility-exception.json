@@ -1,0 +1,37 @@
+{
+  "actual_research_module_elaboration_pending": true,
+  "actual_research_raw_expression_identity_not_yet_audited": true,
+  "added_command": "set_option backward.privateInPublic true in",
+  "affected_declarations": [
+    "SpectreGeometry.product_key_collar_interior_disjoint (private kernel name preserved)",
+    "SpectreGeometry.polygonProductKeyBody_local_graph"
+  ],
+  "all_original_source_bytes_preserved_in_order": true,
+  "baseline_artifact_id": 12028131356,
+  "baseline_artifact_sha256": "49b290e74802b66f773885ab65be65bd81dcbe9801ad2c77fa29055c29c84439",
+  "baseline_failed_run_id": 38858268822,
+  "baseline_source_sha256": "119969fd5d59f2ad09623d39f57e9860c042a3f42e117cde321e40a30f89d960",
+  "baseline_workflow_commit": "37fe6fc9d4892c0623a8ad23c4e56e63f1be3758",
+  "candidate_source_sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758",
+  "evidence_sha256": {
+    "checker_controls": "39fdbbc1bc3a4506c3a0bd67f1b9e702896332b6c8267fa82cef962c0e447dea",
+    "controls_detail": "8a1e768a8f0886aae1237416a75d08c2703858f4ca64b6aa5ce438c6a9533eaa",
+    "controls_summary": "3f47cea9385cf33b3bdb414c4e57862982421bd58c80f7f0bb94cf38dfa54dc1",
+    "insertion_certificate": "e7ac6b605a38517a6ce5068739ef33a37eeff7837a3828e5481da235d10e8f04",
+    "policy_compatibility": "ec51fb1cc77fb173fec93be764b562179249e592c41996031f7f437916c60281",
+    "policy_pins": "d6dd8518eb577be3c381030105563081bc885b8227f46de4882434f6f8dbc3e3"
+  },
+  "global_compatibility_enabled": false,
+  "insert_before_anchors": [
+    "private theorem product_key_collar_interior_disjoint",
+    "/-- Every actual graph point inside its collar has an inward Lipschitz chart"
+  ],
+  "module": "SpectreGeometry.PolygonProductKeyBody",
+  "original_legacy_source_sha256": "b909fed61b999ec82a68281527aadefe04bfbdc92792ef75f7a557e20ede4d0f",
+  "proof_and_type_source_bodies_unchanged": true,
+  "schema": "two-command-scoped-private-visibility-exception-v1",
+  "source": "src/SpectreGeometry/PolygonProductKeyBody.lean",
+  "standalone_control_scope": "Five core-only analogue declarations, identical legacy raw names/universe lists/types/definition and theorem values; no actual research declaration raw Expr identity claim.",
+  "standalone_control_status": "TWO_SCOPED_COMMAND_CONTROL_REPAIR_VERIFIED",
+  "warnings_disabled": false
+}

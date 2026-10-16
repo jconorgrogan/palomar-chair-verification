@@ -194,6 +194,7 @@ theorem product_key_active_graph_mem_window (s : ProductKeySite) (x : EFour)
     x ∈ productKeyGraphWindow s :=
   ⟨hx, product_key_height_support s (x - productKeyCenter s) hactive⟩
 
+set_option backward.privateInPublic true in
 private theorem product_key_collar_interior_disjoint (s t : ProductKeySite) (hne : t ≠ s) :
     Disjoint (interior (productKeyCollar s)) (productKeyCollar t) :=
   (product_key_collars_disjoint s t hne.symm).mono_left interior_subset
@@ -212,6 +213,7 @@ theorem polygon_product_key_body_local_outward_iff (s : ProductKeySite) (x : EFo
       (x - productKeyCenter s) ≤ productKeyHeight s (x - productKeyCenter s) :=
   polygon_product_key_body_local_iff s x hx
 
+set_option backward.privateInPublic true in
 /-- Every actual graph point inside its collar has an inward Lipschitz chart
 on the literal bounded body, with the recipe's exact constant 34/4357. -/
 def polygonProductKeyBody_local_graph (s : ProductKeySite) (x : EFour)
