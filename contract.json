@@ -1,19 +1,36 @@
 {
   "activation_admission": {
-    "actual_research_elaboration_and_raw_audits_pending": true,
-    "all_implementation_and_resource_bytes_unchanged": true,
-    "inactive_content_digest": "c3cf80a5522e2ab069c6cd5dd05ca6962d11dae3b96c37a0e506e496065ef024",
-    "inactive_contract_sha256": "655ee0be37407c437117a2135dcab5facd71f938052b40ddea6a4ad69513615d",
-    "independent_review_sha256": "c40517f270342a73f4a4c3fed50dad885a64bcc052e5e6752c7e3fa22d7dca87",
-    "owner_offline_test_receipt_sha256": "deb47ea0bddcd9ced8a1720dac188e1485d2d5dbe81d417d0efc5d6b3a2e120c",
-    "schema": "higher-replay-reviewed-activation-v1",
-    "source_archive_unchanged": true
+    "actual_cache_metadata_reconciliation_sha256": "30c65fadb37006f659ba88ba0806b29c61d4632eb66144728aff16113a3b6710",
+    "inactive_content_digest": "90ce02bd9d491e465823e2cf8624033e225f1122eb77ade019ac19a82432f2d9",
+    "inactive_contract_sha256": "6a9de646ff593a3af2e5fbff77bab4fa23ed4afd73049d30b49738d388460efb",
+    "inactive_manifest_sha256": "c77b3f6d8f0276d6d46ef507280d6ef450e68e2824b4a3fa83cabca216e676d7",
+    "independent_review_sha256": "081855a1b0077c55da30399ec57c6f4520c96e8dede1a82a6d3bad27af03a339",
+    "owner_test_receipt_sha256": "98aefab0938ef050e843cbd54e5b4587696492bfd5dbbb7b234c753595f0d2c2",
+    "research_elaboration_and_raw_audits_pending": true,
+    "research_sources_and_native_origin_locks_unchanged": true,
+    "resource_limits_unchanged": true,
+    "schema": "higher-cache-layout-reviewed-activation-v1"
   },
   "aggregate_command_deadline_seconds": 19200,
   "aggregate_log_max_bytes": 67108864,
   "all_dimension_uniform_proof_certified": false,
   "auditor_timeout_seconds": 600,
   "cache_acquisition_timeout_seconds": 1800,
+  "cache_layout_repair": {
+    "H0_cached_build_inventory_sha256": "44f5a3780c89d9f9603b8c31a7c42b0b249254078300862ffb1d945aee4c8ab9",
+    "H0_evidence_artifact_id": 12080837903,
+    "H0_evidence_zip_sha256": "019bf281f698f839d58625cad4ae15d5a8fca32221016671f54875abfbd4b064",
+    "actual_zero_provider_package": "Cli",
+    "all_existing_resource_limits_unchanged": true,
+    "failed_run_attempt": "1",
+    "failed_run_id": "38980644196",
+    "failed_run_objects_reused": false,
+    "failed_workflow_commit": "b38300c66d4d2b154bc1a0c087e745c83907227c",
+    "independent_failure_review_sha256": "c617cf48a847ace0f56260c25f03e7216da0043e511d494bcb20577c88fcae7e",
+    "original_contract_sha256": "ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411",
+    "research_sources_unchanged": true,
+    "schema": "zero-provider-cache-root-repair-v1"
+  },
   "cache_module_count": 2805,
   "cache_retention": "Delete downloaded archives only after recording their hashes; retain all admitted package builds.",
   "cache_roots": [
@@ -240,8 +257,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 5651,
-      "sha256": "cc162292f6b57f9fe40b5f7363afa9d1a264a8de7b37d398b5312822501c18cd"
+      "bytes": 6618,
+      "sha256": "78f4c27996c228afb7feb41c3bbd210918a183c32eaca1e7ad13af5572d04c3a"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -269,7 +286,7 @@
     },
     "ci/cache_diagnostic.py": {
       "bytes": 81582,
-      "sha256": "0e0fd63adb4fcef57816954a359244e20e7a9d9621656821754b8ff5a94565dd"
+      "sha256": "4d253a63cce3891bd443919aa73d7a5bbce48d127ae2d0e27f68a3424778ad81"
     },
     "ci/collect_evidence.py": {
       "bytes": 21249,
@@ -284,8 +301,8 @@
       "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
     },
     "ci/higher_policy.py": {
-      "bytes": 34384,
-      "sha256": "1b40d6ef80612cdaa4153c2526e9af1905d1fd4388e95b805fbed73cf164b896"
+      "bytes": 35036,
+      "sha256": "a27875c7dbdca2ecf9f006e4c82a228f00995cb036671450f45c7d4259fa2871"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -6160,12 +6177,12 @@
       "sha256": "ebcf263a322e09084edaf84fba5248f691dd07b5348f466892ac14b8a94eebd8"
     },
     "tests/test_higher_composition.py": {
-      "bytes": 12846,
-      "sha256": "1d056b03a62c2cc3ec7666c817a6e6c4f6fb663527573da625af3243bde01186"
+      "bytes": 15016,
+      "sha256": "eab185359a547d6a26a6d573af626418e0a9697fe2ee03f8f38e958e6732f1a6"
     },
     "tests/test_higher_replay.py": {
-      "bytes": 12675,
-      "sha256": "583eaf65eb05705c97da2da1983e60fa17e3e9ef6736542018fdda5092063c15"
+      "bytes": 12974,
+      "sha256": "25abd2d59cfc87aedb1a234b3763b6d6bdb2e83ebf587bf07466efa6464a066e"
     },
     "tests/test_higher_visibility.py": {
       "bytes": 2243,
@@ -11974,8 +11991,8 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-dimensions-20261016",
-  "publication_parent_commit": "62da52d4a30561fa933b8ecd0a95f80e7aedbbe1",
+  "publication_branch": "verify/higher-cache-layout-20261016",
+  "publication_parent_commit": "b38300c66d4d2b154bc1a0c087e745c83907227c",
   "retained_context_outside_higher_closure_count": 279,
   "retained_historical_module_count": 295,
   "review_status": "reviewed_for_execution",

@@ -137,6 +137,9 @@ class CurrentImportTests(unittest.TestCase):
   with self.assertRaises(Exception):self.run_case(lambda r:r.update(conditional_C_remains_explicit=True))
 
 class ExtraCacheTests(ExtensionTests):
+ def test_unlisted_zero_provider_package_rejected(self):
+  inv=copy.deepcopy(self.inv);inv.setdefault('Cli',{'files':{},'bytes':0})['files']['lib/lean/Cli/Unlisted.olean']={'bytes':1,'sha256':'0'*64}
+  with self.assertRaisesRegex(Exception,'unlisted or missing cache/bootstrap'):self.check(inv=inv)
  def test_unlisted_same_root_provider_rejected(self):
   inv=copy.deepcopy(self.inv);inv['mathlib']['files']['lib/lean/Mathlib/Unlisted.olean']={'bytes':1,'sha256':'0'*64}
   with self.assertRaises(Exception):self.check(inv=inv)

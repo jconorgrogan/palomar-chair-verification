@@ -1,7 +1,7 @@
 name: Higher dimensions three and at least five
 'on':
   push:
-    branches: ['verify/higher-dimensions-20261016']
+    branches: ['verify/higher-cache-layout-20261016']
 permissions:
   contents: read
   actions: read
@@ -29,7 +29,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H0_common
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -79,7 +79,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H1_coarse_contacts
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -129,7 +129,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H2_forward_contacts
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -179,7 +179,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H3_contact_binding
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -228,7 +228,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H4_product_geometry
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -278,7 +278,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 ab2160e3cb05b271cff0b396d235186e25faf94d4781ae2e4ad0d83ed7415411
+          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
           --stage H5_higher_assembly
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence

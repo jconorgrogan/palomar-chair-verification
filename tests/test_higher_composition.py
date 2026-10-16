@@ -46,6 +46,36 @@ class CacheFilesystemTests(unittest.TestCase):
   with self.assertRaises(Exception):self.run_case(mutate)
  def test_missing_companion(self):
   with self.assertRaises(Exception):self.run_case(lambda w,ps:ps[0].unlink())
+ def test_absent_zero_provider_root(self):self.run_case(lambda w,ps:(w/'packages/Cli/.lake/build/lib/lean').rmdir())
+ def test_absent_zero_provider_build_tree(self):
+  import shutil
+  self.run_case(lambda w,ps:shutil.rmtree(w/'packages/Cli/.lake/build'))
+ def test_absent_required_provider_root(self):
+  with self.assertRaisesRegex(Exception,'required cache search root is absent: aesop'):self.run_case(lambda w,ps:(w/'packages/aesop/.lake/build/lib/lean').rmdir())
+ def test_zero_provider_root_file(self):
+  def mutate(w,ps):p=w/'packages/Cli/.lake/build/lib/lean';p.rmdir();p.write_bytes(b'not a directory')
+  with self.assertRaises(Exception):self.run_case(mutate)
+ def test_zero_provider_ancestor_file(self):
+  def mutate(w,ps):p=w/'packages/Cli/.lake/build/lib';(p/'lean').rmdir();p.rmdir();p.write_bytes(b'not a directory')
+  with self.assertRaises(Exception):self.run_case(mutate)
+ def test_zero_provider_dangling_root(self):
+  def mutate(w,ps):p=w/'packages/Cli/.lake/build/lib/lean';p.rmdir();p.symlink_to('absent-target',target_is_directory=True)
+  with self.assertRaises(Exception):self.run_case(mutate)
+ def test_zero_provider_existing_root_alias(self):
+  def mutate(w,ps):p=w/'packages/Cli/.lake/build/lib/lean';p.rmdir();target=p.with_name('real');target.mkdir();p.symlink_to(target,target_is_directory=True)
+  with self.assertRaises(Exception):self.run_case(mutate)
+ def test_zero_provider_dangling_ancestor(self):
+  def mutate(w,ps):p=w/'packages/Cli/.lake/build/lib';(p/'lean').rmdir();p.rmdir();p.symlink_to('absent-target',target_is_directory=True)
+  with self.assertRaises(Exception):self.run_case(mutate)
+ def test_bootstrap_provider_requires_root(self):
+  original=a.f.load_json
+  def read(path):
+   r=original(path)
+   if Path(path)==ROOT/'locks/cache-extension.json':r=copy.deepcopy(r);r['approved_bootstrap_modules']['Cache.Synthetic']={'package':'Cli','companion_suffixes':['.olean','.ilean']}
+   return r
+  with patch.object(a.f,'load_json',side_effect=read):
+   import shutil
+   with self.assertRaisesRegex(Exception,'required cache search root is absent: Cli'):self.run_case(lambda w,ps:shutil.rmtree(w/'packages/Cli/.lake/build/lib/lean'))
 class RawReceiptTests(unittest.TestCase):
  def rows(self):
   rows=[]

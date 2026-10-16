@@ -205,9 +205,18 @@ def run_auditors(c,work,runtime,search,env,command,a):
 def validate_extension_companion_files(c,work,a):
     import stat
     lock=a.f.load_json(a.ROOT/'locks/cache-extension.json')
-    for pin in a.f.load_json(a.ROOT/'locks/dependencies.json')['packages']:
+    packages=a.f.load_json(a.ROOT/'locks/dependencies.json')['packages']
+    required=a.f.load_json(a.ROOT/'locks/required-modules.json')['modules']
+    provider_packages={r['package'] for r in required}|{r['package'] for r in lock['approved_bootstrap_modules'].values()}
+    a.f.need(provider_packages<={p['name'] for p in packages},'cache provider package is not pinned')
+    for pin in packages:
         root=work/'packages'/pin['name']/'.lake/build/lib/lean';a.f.no_symlink_path(root)
-        a.f.need(root.is_dir(),'cache search root is not a directory')
+        for parent in root.parents:
+            a.f.need(not parent.exists() or parent.is_dir(),'cache search root ancestor is not a directory: '+str(parent))
+        if root.exists():
+            a.f.need(root.is_dir(),'cache search root is not a directory: '+pin['name'])
+        else:
+            a.f.need(pin['name'] not in provider_packages,'required cache search root is absent: '+pin['name'])
     for m,r in {**lock['extension_modules'],**lock['approved_bootstrap_modules']}.items():
         for suffix in r.get('companion_suffixes',lock['cached_modern_companion_suffixes']):
             path=work/'packages'/r['package']/'.lake/build/lib/lean'/(m.replace('.','/')+suffix)
