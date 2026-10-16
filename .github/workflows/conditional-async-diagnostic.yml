@@ -1,0 +1,35 @@
+name: One-module async scheduling diagnostic (no final theorem claim)
+on:
+  push:
+    branches: [verify/conditional-async-20261016]
+permissions:
+  contents: read
+jobs:
+  async-diagnostic:
+    name: One-module default and async-off controls
+    runs-on: ubuntu-22.04
+    timeout-minutes: 330
+    steps:
+      - name: Check out exact reviewed diagnostic
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run bounded default and disabled-async profiles
+        run: python3 -I -B probe_async.py --contract-sha256 86d91c0dbac73847065e0de04f2b960ae2306766c7c58fc2f3a3c54dd9dc0c64 --work "${{ runner.temp }}/conditional-geometry"
+      - name: Preserve full bounded diagnostic evidence
+        if: always()
+        run: python3 -I -B collect_async_evidence.py --work "${{ runner.temp }}/conditional-geometry"
+      - name: Upload bounded diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: conditional-async-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/conditional-geometry/upload/**
+          retention-days: 7
+          if-no-files-found: error
