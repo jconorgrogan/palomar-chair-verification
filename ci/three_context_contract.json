@@ -672,19 +672,6 @@
           "name": "Run fail-closed verifier",
           "number": 7
         }
-      },
-      "verdict": {
-        "job_name": "verdict",
-        "producer_job": "verdict",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 8
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 7
-        }
       }
     },
     "source_sha256": null,
