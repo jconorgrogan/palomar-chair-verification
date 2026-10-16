@@ -1,0 +1,3723 @@
+{
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "archive": {
+    "bytes": 162634,
+    "format": "deterministic USTAR in gzip mtime zero; regular files only",
+    "path": "pre-c333-sources.tar.gz",
+    "sha256": "9785080e329f82795c7679a1532399b1faf986b28f66d6c9d23ba74d56c1be7a"
+  },
+  "external_imports": {
+    "Init": {
+      "provider": "official Lean v4.35.0-rc2",
+      "source_redistribution": false
+    },
+    "Init.Data.List.Nat.TakeDrop": {
+      "provider": "official Lean v4.35.0-rc2",
+      "source_redistribution": false
+    },
+    "Init.Data.List.OfFn": {
+      "provider": "official Lean v4.35.0-rc2",
+      "source_redistribution": false
+    }
+  },
+  "file_order": "topological module order, preserving each source ordered explicit import header",
+  "files": [
+    {
+      "bytes": 6147,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ListedPatches",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "SpectreFinite/ListedPatches.lean",
+      "sha256": "e99075e7bcd6513338bb3475b2fd44f6fa4a8e6537f006ba4e97f15a7e6c734d"
+    },
+    {
+      "bytes": 3171,
+      "implicit_Init": true,
+      "module": "SpectreFinite.PatchEnumeration",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "SpectreFinite/PatchEnumeration.lean",
+      "sha256": "b4b0634caf140769b7babc5ac280e069e1b8b0b9c28fc0959dd03cb8ae6565e4"
+    },
+    {
+      "bytes": 3272,
+      "implicit_Init": true,
+      "module": "SpectreFinite.HexSearchModel",
+      "ordered_imports": [
+        "SpectreFinite.ListedPatches",
+        "SpectreFinite.PatchEnumeration"
+      ],
+      "path": "SpectreFinite/HexSearchModel.lean",
+      "sha256": "b34d538ab6921fe1242348ad0d87f34a45d882e4e8cd27c3f7f68077b6236838"
+    },
+    {
+      "bytes": 2067,
+      "implicit_Init": true,
+      "module": "SpectreFinite.GlobalRestrictions",
+      "ordered_imports": [
+        "SpectreFinite.HexSearchModel"
+      ],
+      "path": "SpectreFinite/GlobalRestrictions.lean",
+      "sha256": "aa094adb8fe7ce80424da98e8145a9fadfe4644a8b1e57990d1cb556e330e890"
+    },
+    {
+      "bytes": 7251,
+      "implicit_Init": true,
+      "module": "SpectreFinite.HexRotation",
+      "ordered_imports": [
+        "SpectreFinite.GlobalRestrictions"
+      ],
+      "path": "SpectreFinite/HexRotation.lean",
+      "sha256": "dd957f7d47b34794de4857b0b59e4b8fa020523d7c6b6271f490e11ca5351094"
+    },
+    {
+      "bytes": 3085,
+      "implicit_Init": true,
+      "module": "SpectreFinite.WindowTranslation",
+      "ordered_imports": [
+        "SpectreFinite.GlobalRestrictions"
+      ],
+      "path": "SpectreFinite/WindowTranslation.lean",
+      "sha256": "833b92136b1e04fe5ec3260681105dd27c87f469f1df999c4891fdefbf6ac6b8"
+    },
+    {
+      "bytes": 6572,
+      "implicit_Init": true,
+      "module": "SpectreFinite.OverlapPruning",
+      "ordered_imports": [
+        "SpectreFinite.WindowTranslation"
+      ],
+      "path": "SpectreFinite/OverlapPruning.lean",
+      "sha256": "9de3590e59a23b4a288a3db26f9da602c11441a1c28623e409cbecd4d0c7b77b"
+    },
+    {
+      "bytes": 1711,
+      "implicit_Init": true,
+      "module": "SpectreFinite.RadiusOneSearch",
+      "ordered_imports": [
+        "SpectreFinite.GlobalRestrictions"
+      ],
+      "path": "SpectreFinite/RadiusOneSearch.lean",
+      "sha256": "3b3e46da3630a7d39f4da0410d854570e4815079adca26ab7ac29efc9f06567d"
+    },
+    {
+      "bytes": 5473,
+      "implicit_Init": true,
+      "module": "SpectreFinite.RotatedWindows",
+      "ordered_imports": [
+        "SpectreFinite.HexRotation",
+        "SpectreFinite.OverlapPruning",
+        "SpectreFinite.RadiusOneSearch"
+      ],
+      "path": "SpectreFinite/RotatedWindows.lean",
+      "sha256": "f997f93c3191827d351ffef0058bab40348cc120d95fed6e23b76deb55495161"
+    },
+    {
+      "bytes": 2475,
+      "implicit_Init": true,
+      "module": "SpectreFinite.HexRegionGeometry",
+      "ordered_imports": [
+        "SpectreFinite.HexRotation"
+      ],
+      "path": "SpectreFinite/HexRegionGeometry.lean",
+      "sha256": "7de621fc664727965ea0c3973461ec6f4eca2f32bef51d2a8dd837600c767d1e"
+    },
+    {
+      "bytes": 9898,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnership",
+      "ordered_imports": [
+        "SpectreFinite.RotatedWindows"
+      ],
+      "path": "SpectreFinite/ParentOwnership.lean",
+      "sha256": "0f6d6aca7b37043d12b14ca78e16b642cf16fc9b9d3b05d8dde88cf0f1f1e014"
+    },
+    {
+      "bytes": 1422,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipCoverage",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnership",
+        "SpectreFinite.HexRegionGeometry"
+      ],
+      "path": "SpectreFinite/ParentOwnershipCoverage.lean",
+      "sha256": "e37af508bea60ea7433443e932e885b25ec0b597778a5a18afef63fc8ed7e99b"
+    },
+    {
+      "bytes": 5367,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentPatterns",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipCoverage"
+      ],
+      "path": "SpectreFinite/ParentPatterns.lean",
+      "sha256": "2a836fca35fc6231316a86cf8f46b8ffbbad8bb85852a559b58b5424a0d6ccd6"
+    },
+    {
+      "bytes": 5059,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFiniteEncoding",
+      "ordered_imports": [
+        "SpectreFinite.ParentPatterns"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFiniteEncoding.lean",
+      "sha256": "7735c7d297a7d3e818ff993cb31ddddf02a0a17cd51fa260b396b7e880e51970"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart004",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart004.lean",
+      "sha256": "10ddbda3b5fb5ac9f466a41c5df57812894147783124dc12007ad3eff6b92a1b"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart080",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart080.lean",
+      "sha256": "aee8b61596670b3d5849c0294af15521f11add467f1ff89b37fa24a059ec6e28"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart005",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart005.lean",
+      "sha256": "5c6b98fd389490912be17cbd9f03b0cdf02c34d10ab7a796a002d3c29bffa999"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart006",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart006.lean",
+      "sha256": "de8af04efafcf467b9b37c245632499076bc6b4eae5be52aca1a1f05775d05a4"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart019",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart019.lean",
+      "sha256": "857e6a8faa4e71a41df9f2fb032d12e2ffaeeb4901be8723288450ef70421d0b"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart067",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart067.lean",
+      "sha256": "25b8bffa82faa9ea8cf4f82f199363676767c307ad5c5034b769acb73adf76bb"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart007",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart007.lean",
+      "sha256": "69ece06038c18d54e4a1ad20f0b1db50ad6a65f288968ffff210d2675fca60fb"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart032",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart032.lean",
+      "sha256": "20304b54f49797f13c679f890d0db336508de2aae21ebd01f74a80b1c8bfb186"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart078",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart078.lean",
+      "sha256": "77c08b537be1e99e8046b61fbcaa9e34bbd2fbe1a8e1e2ee397c940023eac5ab"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart079",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart079.lean",
+      "sha256": "90bc95850173d2a64cf78439cb540c82e9f220ed9513b1c8fc5a8fbee0ba6b74"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart107",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart107.lean",
+      "sha256": "0ac0c2c9ea5781f147990bc49c5b030d8f0ac809e6ab15bde7bed7394b14da22"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart109",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart109.lean",
+      "sha256": "87db0e017bf172d307c4c2eaca932eefcb29fddcd994f093255a8640f9c8d657"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart128",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart128.lean",
+      "sha256": "6f4a916eaf40de9ac1c7ffd23007824f931d760f2016439bd4e39102457f9ad9"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart129",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart129.lean",
+      "sha256": "64a3e5c3ecfdd86ec1ac14191b3a5c8566116cfe78d5747b09cbb7fcae9a74dd"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart020",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart020.lean",
+      "sha256": "975eaf7f4e5091ff93f0cf952c86ae2c16467569d2f9c2a54fccc677f040a6de"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart031",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart031.lean",
+      "sha256": "81947d0fb8e8900871d592ab58e460257fb73af088e6bcbe7f60cc25602e54d6"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart104",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart104.lean",
+      "sha256": "eae53a0b7f650714b21b15a6e763b5209ccae1bf42c2ef17970e98a62513d4fc"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart105",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart105.lean",
+      "sha256": "97c96af0d784b793eb537a4032a79257962a2e0c648ff9e3f13d8d902ffbb351"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart106",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart106.lean",
+      "sha256": "e2aac8819b78cc1ac124268e5ee07cb4e42ff6abb42e1eb445765284f5f974c9"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart055",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart055.lean",
+      "sha256": "a21f02ad1886d960831261adf226899a78eb34d59a8baeadc69ebee9e03e9174"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart120",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart120.lean",
+      "sha256": "0e329123b04d63f807874bced648d55b0034b5d20e5d18d555f20dd9679bffc9"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart121",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart121.lean",
+      "sha256": "ef0edbf690691c701b14423f1f5771142d439e3a09af5612a2cc0b36be189f99"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart043",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart043.lean",
+      "sha256": "e7fc1f16d2b41a8140219cfbec2f12006839fad009f71f04d87e4ff887c53c13"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart083",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart083.lean",
+      "sha256": "9c08ba3617bbc0f35a37248a3a3711e1bfd62c25ccafc44c8cc3b61fa979ae15"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart085",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart085.lean",
+      "sha256": "085eac64b263a880fa32c9de3dc9310a7cc3889a1fb5562ce917549d6e713749"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart118",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart118.lean",
+      "sha256": "945a8109659880db61109663eaee6de131d64b00059c4bba4a6cfd257325ee15"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart119",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart119.lean",
+      "sha256": "942e1e5b429b7c75f984cffdcf64eea64fa0bd5a383546ed993a1e4cee6940e6"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart062",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart062.lean",
+      "sha256": "f6e5a8e6e054345ce6604cfe765039470f469598fd7ab2d0e132f020c4d27919"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart039",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart039.lean",
+      "sha256": "5b9846d1623696803827da763d366f9e54e5191e806164cbb9474b977aefa597"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart040",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart040.lean",
+      "sha256": "7f7c59af07fa9d7692f237108c9c30064abdfce3732a5b705788cee627103ea4"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart113",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart113.lean",
+      "sha256": "a858a6194689f098f6a08d8cf73dfe2dd03dc1e1cf56ddf00a340840fa348cbe"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart084",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart084.lean",
+      "sha256": "a983f6feec79a73e658849b202ea07dfcfd9afdb19f0754a0f961500e8484a58"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart086",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart086.lean",
+      "sha256": "5ddba5655576a9a2284a3a99ea8e68e063e9a0aa0255d7f2e41be941374a1b72"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart114",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart114.lean",
+      "sha256": "3df18843f6d4519df0a50c5d047f352910ed9cf7f11c577b994f18dbf9bd40fa"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart047",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart047.lean",
+      "sha256": "dea3cf1a0f29da9951651d8b4ef57bb6eb7e930aa9bce1848063fff5a072d196"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart057",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart057.lean",
+      "sha256": "513bd999d92fee328ef9937e7af64129f66abbf38f16c1cbcb985525419cb291"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart124",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart124.lean",
+      "sha256": "0d5874f80d5f9d396d3501c1c65265d8b13e62ff1c631fa35bc004e7f46ed783"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart018",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart018.lean",
+      "sha256": "b9c060a42bb6cd1f3cf150ea6daf8d559a70ca916e42a2ff42399d1b85f064e4"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart008",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart008.lean",
+      "sha256": "c3f25dc9d3db5d7117ea2fa763d9e1afc11ffe7c338a0c930b59d3cd51213125"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart017",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart017.lean",
+      "sha256": "92c22598c6b6bc77fcba7c4ed0ffe2cfc5aaa8bed9bf51d7f0396c96fc3f29c4"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart081",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart081.lean",
+      "sha256": "b15bb55a0b27c576e75acaf4ad987144a56056666ff4f848f4daeea7dafd7be2"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart036",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart036.lean",
+      "sha256": "ad8da755137ff9e064fd669e2893f254cee9486d3899c4fdf6bf24a059946501"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart051",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart051.lean",
+      "sha256": "ffa2eae886791384352ea6f69910b598f685c9cbe9ee0a005e17cdb53fbfe7d5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart012",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart012.lean",
+      "sha256": "1f6edbe8a452d07df521d56e1b7a27b65ad5fecc21f7b34acc814c48163e51cc"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart068",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart068.lean",
+      "sha256": "cb2024880041b8302551efecf4cbbceb2efdc3689fa9abe1f778078bd59a2d57"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart066",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart066.lean",
+      "sha256": "12da1e1a9cd6f6c300fe0ff217900ed77977ce6f56f45e7e1b964b3771988ede"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart009",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart009.lean",
+      "sha256": "0036eee22149b8b96d33e805332234da748178197648eea795f0a06291f0659c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart065",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart065.lean",
+      "sha256": "6699f61d0d2e108cf5790b2ad3458fa3cf9fea055705d1df67b0856ed4f77ea7"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart010",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart010.lean",
+      "sha256": "989fd1447df08619fb6f534299bbc9f492ad2ab907136130ba0d4d1525e0659e"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart011",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart011.lean",
+      "sha256": "82a2b846f635b8e2680d204ee85e22d74212f6dffdd3ad47a04a2332f84a3319"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart069",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart069.lean",
+      "sha256": "aa42efdfbb0145bee0db38f1df243cf6e83cadfb8cec169d61852db0f2f1abdb"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart044",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart044.lean",
+      "sha256": "0321a3d551ae23912dc0a343f70e511f487bbc38d4b8a117ffb0000ba39538bf"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart045",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart045.lean",
+      "sha256": "1e0b1e46819f85aa73b057fd1d7389623eaa869a791ad479055c28878e977276"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart042",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart042.lean",
+      "sha256": "b15a127a68153b333a269e5f73ed05968a30b3d5b1932f3b563263687df989f2"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart034",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart034.lean",
+      "sha256": "20a3fc04edc8c169ef71bf572bf471659df78fae558e490e274151fa5bf4e262"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart035",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart035.lean",
+      "sha256": "38bc959597238708565e1ad3392a5931c448322dc0c5cd1e92fdb7b573467ab4"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart110",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart110.lean",
+      "sha256": "14dd3b0473e4346b3efc4f6da061111c2e153494d82aa6e7fa836e14ce4a7198"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart111",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart111.lean",
+      "sha256": "d998ea28f7868bf75ca30cff473ac1ee866dbfcdd76efbe7bef4b11a079f78dd"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart112",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart112.lean",
+      "sha256": "9b05502ba80040aa2873af3629b152486c757212dcf5365a32e37af1a1d89806"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart052",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart052.lean",
+      "sha256": "c9e017c6a22b6b3783ed8eab5e6e721d709a4e63ff4bf86c4b6553956537626f"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart053",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart053.lean",
+      "sha256": "9931c661ad0a5ddc035ffb13199788887ab86aeb6639779e0d72d1259b08d661"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart021",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart021.lean",
+      "sha256": "d458fdc081649260ae673932477e601dbf39817e2f6b24f157318112acc7f77e"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart022",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart022.lean",
+      "sha256": "96e635968a5b8f0cd51d9b6f216b4f4b529dde391c6638b45787f97dcd0bf561"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart090",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart090.lean",
+      "sha256": "7cb39487d7658cb045121258e96ea042d0aa213763b7342dda30c4d39597657a"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart070",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart070.lean",
+      "sha256": "7b382056c808ee4b18c139260ecda333100f3b7a8c7a197b40d4cf5ad8dca703"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart013",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart013.lean",
+      "sha256": "3f57964e23944a43765331349ff34dedbd281fe6eeac15647a4213b8ca7bfc20"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart023",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart023.lean",
+      "sha256": "09d44ccd48397daf0a87bda9e37863f0a154dff5456e9bbbbcc108f5afad477c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart002",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart002.lean",
+      "sha256": "aaa240739ea553ea2274b3cb47555afe85db678dfb6d4957b7c0c50779465816"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart064",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart064.lean",
+      "sha256": "8f2c6f163111c844df23f59422103167fc22b7d92afb1b3286be6bc047406ab8"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart076",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart076.lean",
+      "sha256": "043a3ed8b63ae81c45b966984551fb105468f7d4212fb700aa4270374a62e688"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart003",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart003.lean",
+      "sha256": "6b2a647f6fb851960718e32874a87a9e40378a8a99e0abc10fd8f3cdb627ae2b"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart033",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart033.lean",
+      "sha256": "7c7b8cf0a9a21c4b7b1483855c037f67a5231feb13c358793fdb6c024230736a"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart108",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart108.lean",
+      "sha256": "ca6f97857cbbb5a8f44c8a5ee1d8b447f037cf7239f89192525203f3c5bdc342"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart063",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart063.lean",
+      "sha256": "3c43a1ba959aee7fb8c25ae596c5f72539aa73fa95f1a7349425333612533afa"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart130",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart130.lean",
+      "sha256": "324f0622a5dc27cf00dee839297cc9109767a4acaafb019bc2d24d1b6fd91435"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart049",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart049.lean",
+      "sha256": "968fe418e7137d7af9ad88146c160bd0c3f8cd78ba633f303d42c8e473a7df91"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart056",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart056.lean",
+      "sha256": "23229c109f6d18c946e866bccc0b73c2b04aecd96053d07eb6fed49015bbac44"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart037",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart037.lean",
+      "sha256": "3e485a66d7939e634ba03b056b70393326bd772749d82432d3e844cf71b4b1be"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart091",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart091.lean",
+      "sha256": "61cb3f6bd712472169d37915a57e2c3ed4a4db0002afc43b66f7ea4aaeef3a0a"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart060",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart060.lean",
+      "sha256": "55e548fdbedb94cd4a54436cbd168bef9f55353c3b752defd39f2ee97db9c60c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart097",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart097.lean",
+      "sha256": "e62a678a689d42bc39725958903fdcf652be62afb599b3fd1653ceeef7940583"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart099",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart099.lean",
+      "sha256": "bd663e299cb3ba6ab9b9b27182c6a2748af7ffe14339fdbf70e909057926ac5e"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart100",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart100.lean",
+      "sha256": "434e955dc328b6b661a1a849307d4a870ea920675503b85dec58f987bd9e7b21"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart054",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart054.lean",
+      "sha256": "3629d04a4a72ceee12155d8cbe2796aefd1b325235425a2e4f1c6244042d7aa6"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart026",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart026.lean",
+      "sha256": "caf7e089d03b2503f2d30783e8c2f48af4de45033b7ad59e5758f7e33cbdeaee"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart028",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart028.lean",
+      "sha256": "b41d589f1e3ac7993c28876592ea4f53786cd430d66795833b16d22089b40f02"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart027",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart027.lean",
+      "sha256": "b2d8f83fdde1a7f35898cb541003f592b54793a6c439ffd8fd21fea923437344"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart101",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart101.lean",
+      "sha256": "dab097071ca4ed26705206e9c8daf719796289be98f09d752661391465d3a689"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart102",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart102.lean",
+      "sha256": "cb2c57d7223fd642ee2b08ef38abcefdab3cf6951d50ae9f306bac611dd9ff72"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart123",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart123.lean",
+      "sha256": "163e213abed9968b3284f9d676bb926984d1910a3df6dc4d0b98bd200271afb8"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart071",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart071.lean",
+      "sha256": "769036ddaaa098c143ce0570647d8118060ee838ab848bcbded74dbcc396d7d3"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart061",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart061.lean",
+      "sha256": "a683a3db0bedfd06520564b7cd1d44b7fb7e770f320acedb67d50241b70cffe0"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart127",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart127.lean",
+      "sha256": "83329f652dc2a6cad0c0b93edbd0e77835aa4ab93836f28a811642d18e6dbcc1"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart038",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart038.lean",
+      "sha256": "e7b53e2f36089d6c3bc91bdbb4f51e74e233d60bc06332d186475e964627f54e"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart059",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart059.lean",
+      "sha256": "4db431900272d1281e95f76f73cb2ce45c600d22c01bca2d5edd9ef7d75f7491"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart096",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart096.lean",
+      "sha256": "f956d506ab3a0e1992e3cf2092a8d4e7f445503d5be1b6d879a68766d6e44334"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart098",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart098.lean",
+      "sha256": "5a5c33e1cb53096737287e9d367cca71b1319f5723a57781455d5e04910561b1"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart122",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart122.lean",
+      "sha256": "a3a98f2ef3fdbc35e71a941966d3c1f032ca94779a9a171cc3631a2bb60a7882"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart050",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart050.lean",
+      "sha256": "d974ab1c961a1daaefb90a510d40a3fc5cd62257087e7915a6ee8c66ff4acd2d"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart095",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart095.lean",
+      "sha256": "0a2e8df954b53d7f0b55312a94a18a15d6939e7b9d12d1b2ce4d86c97c43364d"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart024",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart024.lean",
+      "sha256": "c32a3378d8abe4843fe1303be12baf84f0d76cca99ac3d53f5adadc5cc1212aa"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart092",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart092.lean",
+      "sha256": "5b93db3adf7d228df776b7e9852ad43a6941de311e2fb88b15a9839d80736870"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart094",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart094.lean",
+      "sha256": "93964af9eacec03e7ec67b19cb6c2938982a51c109d2a2b49f99338352b3aa35"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart000",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart000.lean",
+      "sha256": "62787e37d56714fd7180a10d2c319cd5022f59bb217c6978a0e7e4d06c600f76"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart075",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart075.lean",
+      "sha256": "9644a0f5f904e35d8d6d6d16a488e4bcea48039b30e2dd6d0d89183c90834603"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart001",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart001.lean",
+      "sha256": "d44f30b2d14ad0f9b0ec4825bbfd470dd30d3eae5224f00e85599c35781f4f68"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart087",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart087.lean",
+      "sha256": "68a9aa4648195253970b359bcfde724825f619c594d6f17e3cd9bfb20b6c9088"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart117",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart117.lean",
+      "sha256": "5d5a17b011e1831c949d48d12eb2cfd6760e9c0ede7ba6e72ffd2cbbc153b55d"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart089",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart089.lean",
+      "sha256": "5f34160cbabdd1d155591e5b7af3c309e2c8f9bff4e149b33b4a6d3dc9da6f80"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart016",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart016.lean",
+      "sha256": "40790ca7282336c920d5137a59359396f4040e7707af47e1d49655368283c086"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart072",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart072.lean",
+      "sha256": "36154214bdd0ac99608ece626c4fde44e71cde550522d4ab1403a2a953dca62c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart073",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart073.lean",
+      "sha256": "b15bb65369a8e48b7337fd2629fcd255f7ac5e5b0ec04359a416c5ae58397b29"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart030",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart030.lean",
+      "sha256": "3609d81220993a6707335487f7a1f792e1a3d1975a0e5bff81b69232d8941aae"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart103",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart103.lean",
+      "sha256": "356397cb0e7905dc7170c5d323747807490fbbc2d6e186f2b396263596eb88be"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart125",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart125.lean",
+      "sha256": "acc3f8bd2c075b057b46b8715fa4e7be3e9b15a9ae5e7bb4c509b592b6289bb5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart088",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart088.lean",
+      "sha256": "a3203b88e90cbecc3290510b0ddaf86d85851eb45a36e801b14fecadc4296a69"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart046",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart046.lean",
+      "sha256": "eee3f590576359ad7d2a3d344320b8bab33e7f1de0362c60d314331a4cbda1b5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart093",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart093.lean",
+      "sha256": "883dcc0560567af602c6a04f47c7dcec02dcf648e6a3334b3a66084a6dae9e75"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart015",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart015.lean",
+      "sha256": "c468c833fee92459fa374ed1d9a8b43b0ad1292ea9c103151740045de735ec1c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart025",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart025.lean",
+      "sha256": "4e4b97323e3e916feecd326c1d473fb6365ae8749fadaaced32c81766ae0f6a5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart041",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart041.lean",
+      "sha256": "d7b497e18943f026f5a641b538f1dcf7d08fe582ebbed6c7aaff14ad8b4a8cdc"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart014",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart014.lean",
+      "sha256": "184f938f2755f74caeea680fae213a706df2435faf634d3c3a30702bb5fe4e94"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart082",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart082.lean",
+      "sha256": "92c266dbf70bb344cc6ea4b95588ed4edf3a21d2275a9e7b56f574276dd2dfa5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart048",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart048.lean",
+      "sha256": "2f7efe4e95b9c2c8507ff2df82b9e3f6dbe2567bf97e2acb75f12179ab2ff6f6"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart126",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart126.lean",
+      "sha256": "a8b5a4cde539b664edc174bfb8f9ec9200a264507aedef2a52c10b825bd1ab2c"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart058",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart058.lean",
+      "sha256": "8f8d3086753fa708250d2d6d43f68053e69f1b543acdd40ee373906a3f9bcfd5"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart074",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart074.lean",
+      "sha256": "1d1d808a900264d2db52ffce70722aa41cc4e76d1bd03f65d7fceac902f438d8"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart077",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart077.lean",
+      "sha256": "2f0672f25a7ad6a24c720a65cfae2f538982def4e03f2a1497783b23a421311a"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart115",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart115.lean",
+      "sha256": "0e488b389b2e0f515cf4a357627b9986d5262bb77a1b7846a82d78cbf6552d60"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart116",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart116.lean",
+      "sha256": "efd8dcdd93fa66c47ae3d52d53e69426d264fc64e83b31a69149e4849727e816"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart131",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart131.lean",
+      "sha256": "f6385575285cda347ce79cba161e8ff7dcbfb601e95496140e6ab1eac2a59f23"
+    },
+    {
+      "bytes": 11665,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinitePart029",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinitePart029.lean",
+      "sha256": "ee3be89c2b2c95e0c887f3b6d2bcdc902eec432948c3e6e411ea13ada4b69008"
+    },
+    {
+      "bytes": 16069,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFinite",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFinitePart000",
+        "SpectreFinite.ParentOwnershipFinitePart001",
+        "SpectreFinite.ParentOwnershipFinitePart002",
+        "SpectreFinite.ParentOwnershipFinitePart003",
+        "SpectreFinite.ParentOwnershipFinitePart004",
+        "SpectreFinite.ParentOwnershipFinitePart005",
+        "SpectreFinite.ParentOwnershipFinitePart006",
+        "SpectreFinite.ParentOwnershipFinitePart007",
+        "SpectreFinite.ParentOwnershipFinitePart008",
+        "SpectreFinite.ParentOwnershipFinitePart009",
+        "SpectreFinite.ParentOwnershipFinitePart010",
+        "SpectreFinite.ParentOwnershipFinitePart011",
+        "SpectreFinite.ParentOwnershipFinitePart012",
+        "SpectreFinite.ParentOwnershipFinitePart013",
+        "SpectreFinite.ParentOwnershipFinitePart014",
+        "SpectreFinite.ParentOwnershipFinitePart015",
+        "SpectreFinite.ParentOwnershipFinitePart016",
+        "SpectreFinite.ParentOwnershipFinitePart017",
+        "SpectreFinite.ParentOwnershipFinitePart018",
+        "SpectreFinite.ParentOwnershipFinitePart019",
+        "SpectreFinite.ParentOwnershipFinitePart020",
+        "SpectreFinite.ParentOwnershipFinitePart021",
+        "SpectreFinite.ParentOwnershipFinitePart022",
+        "SpectreFinite.ParentOwnershipFinitePart023",
+        "SpectreFinite.ParentOwnershipFinitePart024",
+        "SpectreFinite.ParentOwnershipFinitePart025",
+        "SpectreFinite.ParentOwnershipFinitePart026",
+        "SpectreFinite.ParentOwnershipFinitePart027",
+        "SpectreFinite.ParentOwnershipFinitePart028",
+        "SpectreFinite.ParentOwnershipFinitePart029",
+        "SpectreFinite.ParentOwnershipFinitePart030",
+        "SpectreFinite.ParentOwnershipFinitePart031",
+        "SpectreFinite.ParentOwnershipFinitePart032",
+        "SpectreFinite.ParentOwnershipFinitePart033",
+        "SpectreFinite.ParentOwnershipFinitePart034",
+        "SpectreFinite.ParentOwnershipFinitePart035",
+        "SpectreFinite.ParentOwnershipFinitePart036",
+        "SpectreFinite.ParentOwnershipFinitePart037",
+        "SpectreFinite.ParentOwnershipFinitePart038",
+        "SpectreFinite.ParentOwnershipFinitePart039",
+        "SpectreFinite.ParentOwnershipFinitePart040",
+        "SpectreFinite.ParentOwnershipFinitePart041",
+        "SpectreFinite.ParentOwnershipFinitePart042",
+        "SpectreFinite.ParentOwnershipFinitePart043",
+        "SpectreFinite.ParentOwnershipFinitePart044",
+        "SpectreFinite.ParentOwnershipFinitePart045",
+        "SpectreFinite.ParentOwnershipFinitePart046",
+        "SpectreFinite.ParentOwnershipFinitePart047",
+        "SpectreFinite.ParentOwnershipFinitePart048",
+        "SpectreFinite.ParentOwnershipFinitePart049",
+        "SpectreFinite.ParentOwnershipFinitePart050",
+        "SpectreFinite.ParentOwnershipFinitePart051",
+        "SpectreFinite.ParentOwnershipFinitePart052",
+        "SpectreFinite.ParentOwnershipFinitePart053",
+        "SpectreFinite.ParentOwnershipFinitePart054",
+        "SpectreFinite.ParentOwnershipFinitePart055",
+        "SpectreFinite.ParentOwnershipFinitePart056",
+        "SpectreFinite.ParentOwnershipFinitePart057",
+        "SpectreFinite.ParentOwnershipFinitePart058",
+        "SpectreFinite.ParentOwnershipFinitePart059",
+        "SpectreFinite.ParentOwnershipFinitePart060",
+        "SpectreFinite.ParentOwnershipFinitePart061",
+        "SpectreFinite.ParentOwnershipFinitePart062",
+        "SpectreFinite.ParentOwnershipFinitePart063",
+        "SpectreFinite.ParentOwnershipFinitePart064",
+        "SpectreFinite.ParentOwnershipFinitePart065",
+        "SpectreFinite.ParentOwnershipFinitePart066",
+        "SpectreFinite.ParentOwnershipFinitePart067",
+        "SpectreFinite.ParentOwnershipFinitePart068",
+        "SpectreFinite.ParentOwnershipFinitePart069",
+        "SpectreFinite.ParentOwnershipFinitePart070",
+        "SpectreFinite.ParentOwnershipFinitePart071",
+        "SpectreFinite.ParentOwnershipFinitePart072",
+        "SpectreFinite.ParentOwnershipFinitePart073",
+        "SpectreFinite.ParentOwnershipFinitePart074",
+        "SpectreFinite.ParentOwnershipFinitePart075",
+        "SpectreFinite.ParentOwnershipFinitePart076",
+        "SpectreFinite.ParentOwnershipFinitePart077",
+        "SpectreFinite.ParentOwnershipFinitePart078",
+        "SpectreFinite.ParentOwnershipFinitePart079",
+        "SpectreFinite.ParentOwnershipFinitePart080",
+        "SpectreFinite.ParentOwnershipFinitePart081",
+        "SpectreFinite.ParentOwnershipFinitePart082",
+        "SpectreFinite.ParentOwnershipFinitePart083",
+        "SpectreFinite.ParentOwnershipFinitePart084",
+        "SpectreFinite.ParentOwnershipFinitePart085",
+        "SpectreFinite.ParentOwnershipFinitePart086",
+        "SpectreFinite.ParentOwnershipFinitePart087",
+        "SpectreFinite.ParentOwnershipFinitePart088",
+        "SpectreFinite.ParentOwnershipFinitePart089",
+        "SpectreFinite.ParentOwnershipFinitePart090",
+        "SpectreFinite.ParentOwnershipFinitePart091",
+        "SpectreFinite.ParentOwnershipFinitePart092",
+        "SpectreFinite.ParentOwnershipFinitePart093",
+        "SpectreFinite.ParentOwnershipFinitePart094",
+        "SpectreFinite.ParentOwnershipFinitePart095",
+        "SpectreFinite.ParentOwnershipFinitePart096",
+        "SpectreFinite.ParentOwnershipFinitePart097",
+        "SpectreFinite.ParentOwnershipFinitePart098",
+        "SpectreFinite.ParentOwnershipFinitePart099",
+        "SpectreFinite.ParentOwnershipFinitePart100",
+        "SpectreFinite.ParentOwnershipFinitePart101",
+        "SpectreFinite.ParentOwnershipFinitePart102",
+        "SpectreFinite.ParentOwnershipFinitePart103",
+        "SpectreFinite.ParentOwnershipFinitePart104",
+        "SpectreFinite.ParentOwnershipFinitePart105",
+        "SpectreFinite.ParentOwnershipFinitePart106",
+        "SpectreFinite.ParentOwnershipFinitePart107",
+        "SpectreFinite.ParentOwnershipFinitePart108",
+        "SpectreFinite.ParentOwnershipFinitePart109",
+        "SpectreFinite.ParentOwnershipFinitePart110",
+        "SpectreFinite.ParentOwnershipFinitePart111",
+        "SpectreFinite.ParentOwnershipFinitePart112",
+        "SpectreFinite.ParentOwnershipFinitePart113",
+        "SpectreFinite.ParentOwnershipFinitePart114",
+        "SpectreFinite.ParentOwnershipFinitePart115",
+        "SpectreFinite.ParentOwnershipFinitePart116",
+        "SpectreFinite.ParentOwnershipFinitePart117",
+        "SpectreFinite.ParentOwnershipFinitePart118",
+        "SpectreFinite.ParentOwnershipFinitePart119",
+        "SpectreFinite.ParentOwnershipFinitePart120",
+        "SpectreFinite.ParentOwnershipFinitePart121",
+        "SpectreFinite.ParentOwnershipFinitePart122",
+        "SpectreFinite.ParentOwnershipFinitePart123",
+        "SpectreFinite.ParentOwnershipFinitePart124",
+        "SpectreFinite.ParentOwnershipFinitePart125",
+        "SpectreFinite.ParentOwnershipFinitePart126",
+        "SpectreFinite.ParentOwnershipFinitePart127",
+        "SpectreFinite.ParentOwnershipFinitePart128",
+        "SpectreFinite.ParentOwnershipFinitePart129",
+        "SpectreFinite.ParentOwnershipFinitePart130",
+        "SpectreFinite.ParentOwnershipFinitePart131"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFinite.lean",
+      "sha256": "efb661eebec332beb9016a721355ae9675565f8130a2df3cc1e031ce02ae034c"
+    },
+    {
+      "bytes": 14931,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryCensus",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFinite"
+      ],
+      "path": "SpectreFinite/ParentBoundaryCensus.lean",
+      "sha256": "ff58de07783f289c1a5c8d85e5d0f4913e5307324d99061228c269508804e85d"
+    },
+    {
+      "bytes": 14235,
+      "implicit_Init": true,
+      "module": "SpectreFinite.BoundaryWords",
+      "ordered_imports": [
+        "SpectreFinite.ListedPatches"
+      ],
+      "path": "SpectreFinite/BoundaryWords.lean",
+      "sha256": "7c8e11f95d5c10c9fe7a1baf5889bd200172f28aa2cc64e5939c5411e95cc9b1"
+    },
+    {
+      "bytes": 5484,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundary",
+      "ordered_imports": [
+        "SpectreFinite.BoundaryWords",
+        "SpectreFinite.ParentOwnershipFiniteEncoding"
+      ],
+      "path": "SpectreFinite/ParentBoundary.lean",
+      "sha256": "eac8b185dd31982abf0a3556394ecb2d9840172a4b712bf48fb60063567e8a82"
+    },
+    {
+      "bytes": 5691,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryGeometry",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundary"
+      ],
+      "path": "SpectreFinite/ParentBoundaryGeometry.lean",
+      "sha256": "b7678e7ec8e6a707bfdb602e00ca40ee322e97d108304da9d34a425540f7c92b"
+    },
+    {
+      "bytes": 5083,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTransfer",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryGeometry"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTransfer.lean",
+      "sha256": "f5eec5545a9204693d837e111c27de05497f3dd84bda69c93de5a4fdd67e8e3a"
+    },
+    {
+      "bytes": 4491,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryConsequences",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryConsequences.lean",
+      "sha256": "a6ade665a64bff4a504aa2bf1392462b7c00b428a53e77415185227791af9d6f"
+    },
+    {
+      "bytes": 5639,
+      "implicit_Init": true,
+      "module": "SpectreFinite.HexRotationComposition",
+      "ordered_imports": [
+        "SpectreFinite.HexRotation"
+      ],
+      "path": "SpectreFinite/HexRotationComposition.lean",
+      "sha256": "d2b12aaf3cf47173e31c74c0614095879e012f35eb9c691a99e588866cf03105"
+    },
+    {
+      "bytes": 5981,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentRotation",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnership",
+        "SpectreFinite.HexRotationComposition"
+      ],
+      "path": "SpectreFinite/ParentRotation.lean",
+      "sha256": "ae8c6bd7249f5c301310f61acad2c32f3b811a9558bae7c5a72d1763096a0c9c"
+    },
+    {
+      "bytes": 4612,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrames",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryConsequences",
+        "SpectreFinite.ParentRotation"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrames.lean",
+      "sha256": "7e09c970a63577f1d9bb0ae65adc300db9c0e864bb576f2009bd13080b93c8ab"
+    },
+    {
+      "bytes": 5761,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTransfer",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrames"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTransfer.lean",
+      "sha256": "5c6333f18c2895c361476fe1472b150f0342e9e0113c0b6a411102aa343f4c41"
+    },
+    {
+      "bytes": 1092,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable00",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable00.lean",
+      "sha256": "a85aa8e00197ad92d2ecca9d93095057a82d6f0f564b0781faab47df5190a7eb"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable00",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable00"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable00.lean",
+      "sha256": "3e5fb46c5e25d883d7c8eaeba7c40b6364f262d0cb738b2b2b833fa0ecd0614c"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0064",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable00",
+        "SpectreFinite.ParentOwnershipFinitePart004"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0064.lean",
+      "sha256": "9ff55cb60d1882bae1c4ff134e9b156cbe46bec0993eaf67c9461175cdb6c403"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0064",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable00",
+        "SpectreFinite.ParentBoundaryRow0064"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0064.lean",
+      "sha256": "09a650dd9009d01d0678f8d12e41c8fc5e001486017323c2f7e4a851287207fd"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable01",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable00"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable01.lean",
+      "sha256": "812f0ea1b0bb14f2f0b0fb604cc0d39e8617fcfa6250fea419467f5665ed924f"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0065",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable00",
+        "SpectreFinite.ParentOwnershipFinitePart004"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0065.lean",
+      "sha256": "8e54f70b2f9cc3c368ebfe3f136ff4b5c7125d54e8fd2aabca9a157af0a9724a"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0065",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable01",
+        "SpectreFinite.ParentBoundaryRow0065"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0065.lean",
+      "sha256": "f3e73e4644b33f075df961c1daab5340b82b42bb62051c00db4ff3cd19955936"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable02",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable00"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable02.lean",
+      "sha256": "e8320fdba41ea3204afd91b4cb6c0cd796ad29aa644009be04102dd6dabd8932"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0070",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable00",
+        "SpectreFinite.ParentOwnershipFinitePart004"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0070.lean",
+      "sha256": "b3ccd09bd0cfd7fe13d2756af6cd412d7e9b509622b73081c8408736ef80ff8d"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0070",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable02",
+        "SpectreFinite.ParentBoundaryRow0070"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0070.lean",
+      "sha256": "e7a142aa456858492955a4bdb281514b7c76be840adc9948e4e108fb03a99a2f"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable03",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable00"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable03.lean",
+      "sha256": "86984d2c3b530b67305b3bd7f004fcebacd198759014f29dc31ef6241cf14019"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0071",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable00",
+        "SpectreFinite.ParentOwnershipFinitePart004"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0071.lean",
+      "sha256": "e0adfe86a709d6519a3f589b7af1c36196d73ae854e0f064e2bc1cb3460c9c6b"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0071",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable03",
+        "SpectreFinite.ParentBoundaryRow0071"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0071.lean",
+      "sha256": "2cfc048e6df797ca5d6513b1db9d648ad203377ea8dffca9ec7c6e43578a437a"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable04",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable00"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable04.lean",
+      "sha256": "6ac1ee079856e04641b484aa66b881cde86ff59615d35798e3cc039d3f7aec99"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0072",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable00",
+        "SpectreFinite.ParentOwnershipFinitePart004"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0072.lean",
+      "sha256": "cff545a2b51e54289981823f58c012d8d95b5e41ebd72d582987c2de5a9bcf9b"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0072",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable04",
+        "SpectreFinite.ParentBoundaryRow0072"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0072.lean",
+      "sha256": "6eebb4ba5bad4109897de044019d73310cad01d8f2ab6ad6f5736c450b634588"
+    },
+    {
+      "bytes": 1064,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable01",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable01.lean",
+      "sha256": "9e1f40026fd9423e8795a40e52747fb57eaa21af0f7b69bcee749a49c2d99490"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable05",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable01"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable05.lean",
+      "sha256": "d67859af93389a93581d768c5bdc15d5e6e8414e7f270efd2f2f6c108d173603"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0080",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable01",
+        "SpectreFinite.ParentOwnershipFinitePart005"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0080.lean",
+      "sha256": "c803a84034915a18bcb948f140b56f0238cd2deee433657ecddc995ff203f1cc"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0080",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable05",
+        "SpectreFinite.ParentBoundaryRow0080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0080.lean",
+      "sha256": "3fd41820d851d2edb6de01205142983da0aa7afc6ed2dba196f9e10657cc569a"
+    },
+    {
+      "bytes": 1098,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable02",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable02.lean",
+      "sha256": "52273797834a51fdeb687a0aaa1ed4917f21c62bffdba3666b6caac11bb1aeac"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable06",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable02"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable06.lean",
+      "sha256": "02dbf3ccad01a360a90027445ed414368a105a0c8642095b36593bb22715f397"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0102",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable02",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0102.lean",
+      "sha256": "6dc06cb36bad030ebcb2458c5b6da4db1259f6b2593199a8b59b055d6c48bd8c"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0102",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable06",
+        "SpectreFinite.ParentBoundaryRow0102"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0102.lean",
+      "sha256": "617329eafa5085128f7aaff4ddc356009789ba78c4dd9cc056e255274b975a5a"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable07",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable02"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable07.lean",
+      "sha256": "b9878be81fe8d7bb706a82fa913fecafb638c77fd7a526853e1eb4dc073d7bbd"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0103",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable02",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0103.lean",
+      "sha256": "3d0fa999985803c613ee552d3bf8cd8bd51d5e4679e05163e5d1a4e81ee7a8cd"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0103",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable07",
+        "SpectreFinite.ParentBoundaryRow0103"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0103.lean",
+      "sha256": "dda54224a90f4336db2294004a2b15c47d9b5aa39ffc531b73f6dc02b35166fa"
+    },
+    {
+      "bytes": 1086,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable03",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable03.lean",
+      "sha256": "c342fb7ee85f0f19baf3104b8d2dd5b4f9fb06e8c29e93cfaeb091fa00142569"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable08",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable03"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable08.lean",
+      "sha256": "89c26a9a371b1e4f97c7a24642c323b6f6a01714be498bcd63aeb0d985e017ef"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0104",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable03",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0104.lean",
+      "sha256": "b113dcad07712ca8c941dc9ee88dfd1bb1983961c5d1e50e2c5d9e4968ed8d54"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0104",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable08",
+        "SpectreFinite.ParentBoundaryRow0104"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0104.lean",
+      "sha256": "f9213823b3d77933e3b57da82bbb9dccf8bc0a8a9aa6b9d9389a6c689fe962e0"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0105",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable03",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0105.lean",
+      "sha256": "eec8b69236470b7ee11bede07b5d1e7788c3f657bb443dd8e61eecab05cd4fa5"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0105",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable08",
+        "SpectreFinite.ParentBoundaryRow0105"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0105.lean",
+      "sha256": "d5ad35a89f3e1ee931a15d16b5168a478697ad88ad613857c4dce950aaa09815"
+    },
+    {
+      "bytes": 1098,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable04",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable04.lean",
+      "sha256": "325b368a29c32c309465fcc3f98b270dd9a11b8161f851cfdcc3b024d8ef1c7c"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable09",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable04"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable09.lean",
+      "sha256": "66c5645b2463b6439e1656c49603fbedd07ff982c8a912d26d7b03f29f6bf235"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0106",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable04",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0106.lean",
+      "sha256": "cff81428532d57de9ba2a33a68de56c159d938f9f19a4dab17052bfcb6391a57"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0106",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable09",
+        "SpectreFinite.ParentBoundaryRow0106"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0106.lean",
+      "sha256": "93ef7ed9fba42e480ea15a2b58bfd4c9deaf49b3d34ff395f02b37b25b711638"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable10",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable04"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable10.lean",
+      "sha256": "27d3de7593710b1b16d12d857fc701a38c8027dcd3c6f119f752e953f039dd15"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0107",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable04",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0107.lean",
+      "sha256": "a45f2a86c916678f5be89ef5dc345aad47b65b97be15dc46e4e017326c31b2be"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0107",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable10",
+        "SpectreFinite.ParentBoundaryRow0107"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0107.lean",
+      "sha256": "65c287de2cb9c75decb2ce98c651321ab768940d15262b076a1d54f57f008726"
+    },
+    {
+      "bytes": 1064,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable05",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable05.lean",
+      "sha256": "180c5c24d7e3ea16c4740991e9125db12c890ef5aca903f7237b34461f8497ac"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable11",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable05"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable11.lean",
+      "sha256": "608142da7cc44849b9606df919a7fbf5d75349fec43a15aeac5f9e30ea5242f0"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0108",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable05",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0108.lean",
+      "sha256": "12382b9c1a59d6643da305ca55838606c19baa65c7e98ffd1c6248a7160c5530"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0108",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable11",
+        "SpectreFinite.ParentBoundaryRow0108"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0108.lean",
+      "sha256": "1ea96a68149ec2994ed9042c435a6b01b2cae264ecd861abb4d4214eb202b22a"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable12",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable02"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable12.lean",
+      "sha256": "9df7993302635b9b5d80a25deaf46832f78da56455d5ab7e8705a0fb24364c69"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0109",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable02",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0109.lean",
+      "sha256": "7b14f368bf6ece1f647182c31e50444853b7c9595e082c1e569f88f6372564f7"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0109",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable12",
+        "SpectreFinite.ParentBoundaryRow0109"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0109.lean",
+      "sha256": "cce6f35eef84cec15ebe4f6f870cc8437e6f0310943e74777504762cdcaa0ede"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable13",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable03"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable13.lean",
+      "sha256": "c212c781e7b5f314c329e365adf70d6964c4ea5cd8fb8f7e0cce45154f201834"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0110",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable03",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0110.lean",
+      "sha256": "ccf66fa2985836b5107d8018bcce90026018a6dbbbdfc94daa483aba16f1f109"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0110",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable13",
+        "SpectreFinite.ParentBoundaryRow0110"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0110.lean",
+      "sha256": "5c3f027b5b91624440e4f3784d6cdf97bf9a5d6d40fa616e1fbd58fb6417c817"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0111",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable03",
+        "SpectreFinite.ParentOwnershipFinitePart006"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0111.lean",
+      "sha256": "b75134b2e03c9ee36abaf726523de332a842fbcb39fb10e5601fa229a529a886"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0111",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable13",
+        "SpectreFinite.ParentBoundaryRow0111"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0111.lean",
+      "sha256": "cf012d09fe86ff08d12e3174b59f5e426a776e95806efca7cf1d6f17710e458e"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable14",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable04"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable14.lean",
+      "sha256": "6d090bdcf24325bb7a450ab5c02b5d1a3ce1d3519a4618757a351f4e2703a613"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0112",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable04",
+        "SpectreFinite.ParentOwnershipFinitePart007"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0112.lean",
+      "sha256": "3c344b58f2c7ee7a7912b828044d9a5b446324647549991ccafd2514558861ed"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0112",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable14",
+        "SpectreFinite.ParentBoundaryRow0112"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0112.lean",
+      "sha256": "fb5376dc2d670348e7929c2a06e2e08551ab957278926dfab7dc3cafc5036ac4"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable15",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable01"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable15.lean",
+      "sha256": "978dcb2b5b664f0c35f7ac18fa9e58a2d9cd5a835cc8f51115cefc74fd92ad5b"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0308",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable01",
+        "SpectreFinite.ParentOwnershipFinitePart019"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0308.lean",
+      "sha256": "00a555109853c4f107e52ee91383d82a0d1677decd31c51d7681f1b49d986abc"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0308",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable15",
+        "SpectreFinite.ParentBoundaryRow0308"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0308.lean",
+      "sha256": "0a8f711ab9ccf8bce3c5664c534c9bfde65a1e744c2d615028f6b5d3b1644090"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable16",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable01"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable16.lean",
+      "sha256": "285fe93d4013c98402d380096376fc65dc4a8953592c40abf14d04350886046e"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0309",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable01",
+        "SpectreFinite.ParentOwnershipFinitePart019"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0309.lean",
+      "sha256": "b10370f2a1e19c3fbe43abf1f1362d8cc8c5ab15845feb364393d127675d580e"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0309",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable16",
+        "SpectreFinite.ParentBoundaryRow0309"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0309.lean",
+      "sha256": "d495fefad52be71ffb7997ce4006ee504391379efc184e60ac7bc077194953f7"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable17",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable02"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable17.lean",
+      "sha256": "9d84ea72531fff7b0aabb5d976cad2f8a208b1ab9e17c737210882b3a5a66b25"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow0514",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable02",
+        "SpectreFinite.ParentOwnershipFinitePart032"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow0514.lean",
+      "sha256": "a524e8239a2e14a7c849c77881df2ce696c1ec1ed4ed0683a2c4e1acc4fe1cb2"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow0514",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable17",
+        "SpectreFinite.ParentBoundaryRow0514"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow0514.lean",
+      "sha256": "0e898a8ad3a131f33bbe363ecf80f00851cfc03061061228b01b37ce6dc44bb1"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1074",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable01",
+        "SpectreFinite.ParentOwnershipFinitePart067"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1074.lean",
+      "sha256": "33eac1cbdca877635d01e0ad5af7e623be84f59c5dfb9e9b9e0a59e7f8b6e81a"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1074",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable16",
+        "SpectreFinite.ParentBoundaryRow1074"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1074.lean",
+      "sha256": "e941ac4ff3a26604c77c8ae618ae09642c1e265699412483089c01b9b18d45e7"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1075",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable01",
+        "SpectreFinite.ParentOwnershipFinitePart067"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1075.lean",
+      "sha256": "1985790800eaf2b66eafd8718a11af95df32e1f092c35c28b6534170dca64bcd"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1075",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable16",
+        "SpectreFinite.ParentBoundaryRow1075"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1075.lean",
+      "sha256": "ef669635c7f932aeca2b5ebb93b510fd4e9b6e4726b8384d621ca6f96afc3966"
+    },
+    {
+      "bytes": 1101,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable06",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable06.lean",
+      "sha256": "7aebfe036b7bbd36356b27c8833620094a886acd9f25fcff1070490622520f2d"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable18",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable06"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable18.lean",
+      "sha256": "b06a8f47dfafbbd13148598a7666a8b676d7387e19e8f9db4db87d9e169acf26"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1262",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable06",
+        "SpectreFinite.ParentOwnershipFinitePart078"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1262.lean",
+      "sha256": "048f3b02af00ccd68e19c6e5b933278fac2588c0b01d4b4360492021c29e555d"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1262",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable18",
+        "SpectreFinite.ParentBoundaryRow1262"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1262.lean",
+      "sha256": "3a8ec23d7e950456bc00cd543f18b66ac77be6542c7bb4e3525eee361a4879c6"
+    },
+    {
+      "bytes": 1092,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable07",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable07.lean",
+      "sha256": "88ae05a106e97fbf0c188daf19791c0fbe53f1368f410145b49f470783d8ee71"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable19",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable07"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable19.lean",
+      "sha256": "8b02cf6a12abed8ffccdfc0d2d141019f1d8c5e1804c534bc014945e9f026fc5"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1263",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable07",
+        "SpectreFinite.ParentOwnershipFinitePart078"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1263.lean",
+      "sha256": "9b5a363a7f7a323a4038fa0ce864f7d811030032f0fbaca62ce9e26e6d23a040"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1263",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable19",
+        "SpectreFinite.ParentBoundaryRow1263"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1263.lean",
+      "sha256": "2b3898fbbfd56c4f1bebf4161d8f0dd8c53d609bfccc158f5564baf2cc4ac457"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable20",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable07"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable20.lean",
+      "sha256": "f6b7feb978b5c24300188b93d5698dacfa5ae507d61f5fff83cff1db38e15e76"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1264",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable07",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1264.lean",
+      "sha256": "6d1dc9da516e90ab8c3cfcbece32599c07e78c933a917376697fd1a480479e26"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1264",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable20",
+        "SpectreFinite.ParentBoundaryRow1264"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1264.lean",
+      "sha256": "c08241225768b5208a04c12b4164227128a8e0259771d5397a74d32d740a0872"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable21",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable06"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable21.lean",
+      "sha256": "8227db248bc139504b239ec044c38e60ba3d0bd5fd028ee8eda78a73c02f02c3"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1265",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable06",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1265.lean",
+      "sha256": "a54ad541f8618769de4477b512398cfbb621c0f66cf0ec58f7cd7bb16502bfde"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1265",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable21",
+        "SpectreFinite.ParentBoundaryRow1265"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1265.lean",
+      "sha256": "55cc5b4124b204ebf10e2a03e8379106f50684530a42d0a2651d6c0a54b19616"
+    },
+    {
+      "bytes": 1089,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable08",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable08.lean",
+      "sha256": "f7f82f20f9c7f85809ae8f6893013ef3db05a8be7f04c47c4385f1b2a98f2d5a"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable22",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable08"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable22.lean",
+      "sha256": "525fb30b8cca1ccf7be87ec117e3f2604a177c31118081ed74f939c170ceed69"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1266",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable08",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1266.lean",
+      "sha256": "456fe99ed215372837f8dbca2d1a07c0c0f3df6c6d58a122df262e9cd76dbcf3"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1266",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable22",
+        "SpectreFinite.ParentBoundaryRow1266"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1266.lean",
+      "sha256": "7c919607e72cb7e42dfd72ea8d1e6bb2dae2cc8e3f75adf17337a0023102b8db"
+    },
+    {
+      "bytes": 1098,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable09",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable09.lean",
+      "sha256": "40ad547f20d0cafcbd7217ec8c16a6ccb590e1853f60b71b10df1aedce379317"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable23",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable09"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable23.lean",
+      "sha256": "6d427097519e8b300cfde4d01a43000bd21b58eaf080d2469e3c35495f105f82"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1273",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable09",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1273.lean",
+      "sha256": "983535e42aea79701645bc1af48184ca06758fb04d3c61a1ff4cac9de28a0cc2"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1273",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable23",
+        "SpectreFinite.ParentBoundaryRow1273"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1273.lean",
+      "sha256": "398294fb3e0e9c7a8d1024ce1de2fa6c372bb9adefb5cadec7ed114d43378b3b"
+    },
+    {
+      "bytes": 1086,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable10",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable10.lean",
+      "sha256": "f60e9198aa97c77639f170ee3e7d879f20440388ee53e051176181085dd7d05f"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable24",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable10"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable24.lean",
+      "sha256": "d38b6277c67c92ed4bdaa434b1e20c18bb2374f8285cb1cde3402fb609550bb8"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1274",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable10",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1274.lean",
+      "sha256": "aa637c2b5eff3c2b28fa7d5a872a7932cba2e82a0f548c3610816becd00a2cc1"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1274",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable24",
+        "SpectreFinite.ParentBoundaryRow1274"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1274.lean",
+      "sha256": "6a9868fce59ebfae3255b341bc5a58af1b8170189c2e61e1d51f3689c8eb3395"
+    },
+    {
+      "bytes": 1098,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable11",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable11.lean",
+      "sha256": "343abe78b58d6f50f23e04a4f8770e117f1de0dc450af5639963f25ff91b18da"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable25",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable11"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable25.lean",
+      "sha256": "581edffaf903f8b1c972f2a3a929f7ac0b29e97cbb8a62be695470ceb7e00dc4"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1275",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable11",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1275.lean",
+      "sha256": "030570cbae15c7e64c1c0505dd5e69afe10d175b860023d25f4016a0e574a3f4"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1275",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable25",
+        "SpectreFinite.ParentBoundaryRow1275"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1275.lean",
+      "sha256": "77ac200bacb1d3312e5e50bc288374ae0b9e4b273ea72869368428d7387838fc"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable26",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable11"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable26.lean",
+      "sha256": "13f25075608ab17381f15d519946ed0e834210b16ee8fa8f8455d7a822acdf2d"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1276",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable11",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1276.lean",
+      "sha256": "73e2d22b6111d7e7a3459000bac0502278b1edba75325204d0a540acaebe92e1"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1276",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable26",
+        "SpectreFinite.ParentBoundaryRow1276"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1276.lean",
+      "sha256": "f87d5c84749c3209fddc3aa9b4493ca208364470fb19231d581d664f30c042dc"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable27",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable11"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable27.lean",
+      "sha256": "e3be5dd747f6487124fcaaa094f54096c398a73586d69c4b35c6d5185e8a3c64"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1277",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable11",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1277.lean",
+      "sha256": "f50648b1c57567f45ca4a05d899f5bfa453dffa6e6c95922d9f4b3aedd02fb9c"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1277",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable27",
+        "SpectreFinite.ParentBoundaryRow1277"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1277.lean",
+      "sha256": "85b2923b7647140022e673aa0d85f3a72c28046549c76357b72e0d917c4762f1"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable28",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable11"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable28.lean",
+      "sha256": "acbc637081e77a945cbe4e62f4c92cf82cbfe8038549136525f9370bff9bf19d"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1278",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable11",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1278.lean",
+      "sha256": "1174e29472a92e9d3d19b3010757a4999ee2680f82379e7cb54d4aa554d85eaa"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1278",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable28",
+        "SpectreFinite.ParentBoundaryRow1278"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1278.lean",
+      "sha256": "fe37f66bce42a2ed73bab5a2bc6ff42343f42fc5a54c9a48deb266232080845c"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable29",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable10"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable29.lean",
+      "sha256": "56aa7ca428784dab0289e44ab3149e6867269fac07d7197d5835ea85571145b5"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1279",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable10",
+        "SpectreFinite.ParentOwnershipFinitePart079"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1279.lean",
+      "sha256": "8ff5cda6f9ab67b7c1dc31a3c2c404cb303342bb25c39ced7d50392f442871c6"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1279",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable29",
+        "SpectreFinite.ParentBoundaryRow1279"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1279.lean",
+      "sha256": "1212b3e131966e523d7c6a99b2cc23e72bc4f744c712566ce1f492f0ebc7b442"
+    },
+    {
+      "bytes": 1101,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable12",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable12.lean",
+      "sha256": "55ff0c8df3c2156240e80d65eb3440752a90a31927b7eccb971b95beb7b9f9b3"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable30",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable12"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable30.lean",
+      "sha256": "596e8905034da44ddc7f7892aec33908e403b650cb3fd67a8abe79589c57c815"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1280",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable12",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1280.lean",
+      "sha256": "8944f0212102a977305aaca41c9a062f40a42a96d93296aac00acf05493edc84"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1280",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable30",
+        "SpectreFinite.ParentBoundaryRow1280"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1280.lean",
+      "sha256": "8e59b014dfc2aab09c6f0f1670677992975551f8efde28a9756deb6189478beb"
+    },
+    {
+      "bytes": 1101,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable13",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable13.lean",
+      "sha256": "a47ce855678abf7f26288575ff97281b77478c34df9d8b2b6fb78fbfec4f3ef9"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable31",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable13"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable31.lean",
+      "sha256": "2d4744ddf66755b3fecdad435cc23e14e93f58ccd0e798c17ece1883d7c6048f"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1281",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable13",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1281.lean",
+      "sha256": "031c0ba6036870c31552c6e6268e4a451137796964f64bbc2721a285c52e7bfa"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1281",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable31",
+        "SpectreFinite.ParentBoundaryRow1281"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1281.lean",
+      "sha256": "104474ac4b014a7f392ab3915d6097522ad957b888b41877174311d83e4df6f9"
+    },
+    {
+      "bytes": 1092,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable14",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable14.lean",
+      "sha256": "0420148fb780e4bbdecdbee6f25063825fdf1de33910412226aa72fa3d3cbcea"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable32",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable14"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable32.lean",
+      "sha256": "d004b5aa1692138a30a1fafaf2c5831feb8c4941191bbc19cc263436bcf33ce1"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1282",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable14",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1282.lean",
+      "sha256": "638f9054bba475364d348fcdc2bc7ffe4347de4b132853ad60def1f5b560e7a0"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1282",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable32",
+        "SpectreFinite.ParentBoundaryRow1282"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1282.lean",
+      "sha256": "32ad8d8ee696960fc3d622f2577896f031ae76607bab34e5ad77f225bc957f54"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable33",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable14"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable33.lean",
+      "sha256": "f8701598436cefc22b6caeef3302fb07dc838f0727a82aa434881cf0663e397a"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1283",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable14",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1283.lean",
+      "sha256": "cb9208f7cb614f374212afc602bc84ac957bccaa7afb052ef11588810e795290"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1283",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable33",
+        "SpectreFinite.ParentBoundaryRow1283"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1283.lean",
+      "sha256": "4b617d0c1c35885ccd69fe10ce67cf384aae398d81253eecc4e6a53e4ee89fad"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable34",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable13"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable34.lean",
+      "sha256": "d23d16ea59d64aa8271fb2a39b405b7d3fe82aab707dcdcfcd65427342a95aa2"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1284",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable13",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1284.lean",
+      "sha256": "f7d75d7c2b6afdbaeaeae4fccae7c7de72bbd73e49a3d74f0821e22e48e820b5"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1284",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable34",
+        "SpectreFinite.ParentBoundaryRow1284"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1284.lean",
+      "sha256": "99873cf77b4273c355129b4083322e43aadbc81314ce8ec90d279b4de68c6b7f"
+    },
+    {
+      "bytes": 1092,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable15",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable15.lean",
+      "sha256": "bf168e50ff78cb900aef44de0736720fcf428cf333550115ea040a8970e5b083"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable35",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable15"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable35.lean",
+      "sha256": "502138ca3dc4eeafebd836ba0cc527c52f0c1f2e2fe6416fa3b04dac6cf966ab"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1285",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable15",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1285.lean",
+      "sha256": "cf1b8b46075b730b394b000135978e7c20348399ce366ea8876c4d6d6dcb4ce9"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1285",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable35",
+        "SpectreFinite.ParentBoundaryRow1285"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1285.lean",
+      "sha256": "c36f1af6219cdec8f20853bcb33c91551bde0cf5034e09d811070c3dfbceba6e"
+    },
+    {
+      "bytes": 1101,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryTable16",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTransfer"
+      ],
+      "path": "SpectreFinite/ParentBoundaryTable16.lean",
+      "sha256": "b9f61be686d5c175955f03d293e27892b8d84f6d39809d977be020736884773b"
+    },
+    {
+      "bytes": 652,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable36",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable16"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable36.lean",
+      "sha256": "6f783df72ca3954a471a28d7658575a34cf6abf14713bde3642e079aaf7008c1"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1287",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable16",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1287.lean",
+      "sha256": "7cc4b75e21f1c71cf0af060dcb6980fc17d91fbcbf7528bd1a87e8edae23705d"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1287",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable36",
+        "SpectreFinite.ParentBoundaryRow1287"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1287.lean",
+      "sha256": "3ab063734f952fe2615d0a506acf36c96b7dd9680f26f50bce509666e17e3a44"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1288",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable15",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1288.lean",
+      "sha256": "8ff7f764c2504b2b02b8740e78cb261cc6a5b859245024ce2fa8d09be604c4cc"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1288",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable35",
+        "SpectreFinite.ParentBoundaryRow1288"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1288.lean",
+      "sha256": "2e2295f0da5493e4e9d24bb901eda907116d22196edbc9397dd36db611896454"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable37",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable15"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable37.lean",
+      "sha256": "25595fb1d489897669e4875836114010ada093cbcd77bbafb8fff6aaac666336"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1289",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable15",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1289.lean",
+      "sha256": "1b089df2db93017d41cf33e21eb7e833d259c6f5c4c8fb0df16e37fb5ad94c69"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1289",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable37",
+        "SpectreFinite.ParentBoundaryRow1289"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1289.lean",
+      "sha256": "985b1c2f80c77c6b6e72ccb1998ea46f6f42b78c6ea78e0fbde9256aadbf6582"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable38",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable15"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable38.lean",
+      "sha256": "352804ccf2c780c601decf2fa921811d8bf5b461e66f0b38d2c6a24aabe4794c"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1290",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable15",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1290.lean",
+      "sha256": "57c8ae74c425d5883eac44b13f546e8551feace4ba1972dcb34fd17748438dcb"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1290",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable38",
+        "SpectreFinite.ParentBoundaryRow1290"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1290.lean",
+      "sha256": "cd11772319e89314627b1ac6e5aadf2812b22bea4973c9083d8f6405cf4def76"
+    },
+    {
+      "bytes": 649,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameTable39",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.ParentBoundaryTable15"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameTable39.lean",
+      "sha256": "7266416e59cea6bf6dce1d35da4d304a5f829efef76f94ad8a3302a1c9324eee"
+    },
+    {
+      "bytes": 840,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryRow1291",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryTable15",
+        "SpectreFinite.ParentOwnershipFinitePart080"
+      ],
+      "path": "SpectreFinite/ParentBoundaryRow1291.lean",
+      "sha256": "736a612b4eaefe76f3452474e27f64c289a80d70a10b842f7f5dd861dd769ed4"
+    },
+    {
+      "bytes": 982,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameRow1291",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTable39",
+        "SpectreFinite.ParentBoundaryRow1291"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameRow1291.lean",
+      "sha256": "a87e30266944b27a4d471f5f549648d2cc28fe48a8bc5de52ecc717d973037b3"
+    },
+    {
+      "bytes": 5964,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameFinite",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryCensus",
+        "SpectreFinite.ParentBoundaryFrameRow0064",
+        "SpectreFinite.ParentBoundaryFrameRow0065",
+        "SpectreFinite.ParentBoundaryFrameRow0070",
+        "SpectreFinite.ParentBoundaryFrameRow0071",
+        "SpectreFinite.ParentBoundaryFrameRow0072",
+        "SpectreFinite.ParentBoundaryFrameRow0080",
+        "SpectreFinite.ParentBoundaryFrameRow0102",
+        "SpectreFinite.ParentBoundaryFrameRow0103",
+        "SpectreFinite.ParentBoundaryFrameRow0104",
+        "SpectreFinite.ParentBoundaryFrameRow0105",
+        "SpectreFinite.ParentBoundaryFrameRow0106",
+        "SpectreFinite.ParentBoundaryFrameRow0107",
+        "SpectreFinite.ParentBoundaryFrameRow0108",
+        "SpectreFinite.ParentBoundaryFrameRow0109",
+        "SpectreFinite.ParentBoundaryFrameRow0110",
+        "SpectreFinite.ParentBoundaryFrameRow0111",
+        "SpectreFinite.ParentBoundaryFrameRow0112",
+        "SpectreFinite.ParentBoundaryFrameRow0308",
+        "SpectreFinite.ParentBoundaryFrameRow0309",
+        "SpectreFinite.ParentBoundaryFrameRow0514",
+        "SpectreFinite.ParentBoundaryFrameRow1074",
+        "SpectreFinite.ParentBoundaryFrameRow1075",
+        "SpectreFinite.ParentBoundaryFrameRow1262",
+        "SpectreFinite.ParentBoundaryFrameRow1263",
+        "SpectreFinite.ParentBoundaryFrameRow1264",
+        "SpectreFinite.ParentBoundaryFrameRow1265",
+        "SpectreFinite.ParentBoundaryFrameRow1266",
+        "SpectreFinite.ParentBoundaryFrameRow1273",
+        "SpectreFinite.ParentBoundaryFrameRow1274",
+        "SpectreFinite.ParentBoundaryFrameRow1275",
+        "SpectreFinite.ParentBoundaryFrameRow1276",
+        "SpectreFinite.ParentBoundaryFrameRow1277",
+        "SpectreFinite.ParentBoundaryFrameRow1278",
+        "SpectreFinite.ParentBoundaryFrameRow1279",
+        "SpectreFinite.ParentBoundaryFrameRow1280",
+        "SpectreFinite.ParentBoundaryFrameRow1281",
+        "SpectreFinite.ParentBoundaryFrameRow1282",
+        "SpectreFinite.ParentBoundaryFrameRow1283",
+        "SpectreFinite.ParentBoundaryFrameRow1284",
+        "SpectreFinite.ParentBoundaryFrameRow1285",
+        "SpectreFinite.ParentBoundaryFrameRow1287",
+        "SpectreFinite.ParentBoundaryFrameRow1288",
+        "SpectreFinite.ParentBoundaryFrameRow1289",
+        "SpectreFinite.ParentBoundaryFrameRow1290",
+        "SpectreFinite.ParentBoundaryFrameRow1291"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameFinite.lean",
+      "sha256": "191f55e3edf4ae22f4081bc2a426bbda6596d5f03d5d48bf528d9ad37f6af56f"
+    },
+    {
+      "bytes": 6363,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentFramedPatterns",
+      "ordered_imports": [
+        "SpectreFinite.ParentPatterns",
+        "SpectreFinite.ParentRotation"
+      ],
+      "path": "SpectreFinite/ParentFramedPatterns.lean",
+      "sha256": "90d74e35fc55bf02a9828f930113c6dcebae65b81753ab5c7c33b69b8dd5ad9c"
+    },
+    {
+      "bytes": 1675,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentOwnershipFiniteGlobal",
+      "ordered_imports": [
+        "SpectreFinite.ParentOwnershipFinite",
+        "SpectreFinite.ParentFramedPatterns"
+      ],
+      "path": "SpectreFinite/ParentOwnershipFiniteGlobal.lean",
+      "sha256": "b95007843946884c8160b287a1ffb81889daa227da5bbf485fdbb4c5e5dee466"
+    },
+    {
+      "bytes": 4195,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentPartition",
+      "ordered_imports": [
+        "SpectreFinite.ParentRotation"
+      ],
+      "path": "SpectreFinite/ParentPartition.lean",
+      "sha256": "99f16bfbf9289ba753963b8fab5e0cd0038b5f2e9ff8be561df5096a8fd8ba3e"
+    },
+    {
+      "bytes": 3552,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentSizes",
+      "ordered_imports": [
+        "SpectreFinite.ParentFramedPatterns",
+        "SpectreFinite.ParentPartition"
+      ],
+      "path": "SpectreFinite/ParentSizes.lean",
+      "sha256": "3493dc3cba5c3f5aa2183d868f6f9eeeaaeacf937d5564dc66b424f6b42d98f1"
+    },
+    {
+      "bytes": 886,
+      "implicit_Init": true,
+      "module": "SpectreFinite.BoundaryGrowth",
+      "ordered_imports": [
+        "SpectreFinite.BoundaryWords"
+      ],
+      "path": "SpectreFinite/BoundaryGrowth.lean",
+      "sha256": "b01a02fbff4bfe37f39c7b2745ae4da530451d7c61c2d2d44589bb2236f2b99e"
+    },
+    {
+      "bytes": 4666,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeCoarseNeighbors",
+      "ordered_imports": [
+        "SpectreFinite.ParentSizes",
+        "SpectreFinite.BoundaryGrowth",
+        "SpectreFinite.ParentBoundary"
+      ],
+      "path": "SpectreFinite/NativeCoarseNeighbors.lean",
+      "sha256": "8c214cee5d8dff26215e68ab766196cd050e40210b35f09f24b121965a7ca4a9"
+    },
+    {
+      "bytes": 1921,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryGlobal",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameFinite",
+        "SpectreFinite.ParentOwnershipFiniteGlobal",
+        "SpectreFinite.NativeCoarseNeighbors"
+      ],
+      "path": "SpectreFinite/ParentBoundaryGlobal.lean",
+      "sha256": "0575a49c6297c3762c234140db1c4893c0df0d3508aa3d2a1bea720cf4961221"
+    },
+    {
+      "bytes": 4763,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryNativeBinding",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameTransfer",
+        "SpectreFinite.NativeCoarseNeighbors"
+      ],
+      "path": "SpectreFinite/ParentBoundaryNativeBinding.lean",
+      "sha256": "3f35a24d4788c710c78a5f6304982666eb06b66a1ca9db67c30bb962fba5326c"
+    },
+    {
+      "bytes": 806,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ChildBoundaryWitness",
+      "ordered_imports": [
+        "SpectreFinite.BoundaryWords"
+      ],
+      "path": "SpectreFinite/ChildBoundaryWitness.lean",
+      "sha256": "a05f0249e9e3e172f9464291c74c1390b837c2cd6272a500ce4739173a2124b7"
+    },
+    {
+      "bytes": 4101,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeCoarseAdjacency",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryNativeBinding",
+        "SpectreFinite.ChildBoundaryWitness"
+      ],
+      "path": "SpectreFinite/NativeCoarseAdjacency.lean",
+      "sha256": "7608fcab02c786c5c84daca74757f8997bc0fb7f4aac6dbd1601cb4ca5232f9f"
+    },
+    {
+      "bytes": 3834,
+      "implicit_Init": true,
+      "module": "SpectreFinite.IntegerStepAction",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "SpectreFinite/IntegerStepAction.lean",
+      "sha256": "e89bc4e056d35314d17a8e249a7c5f9c4105915d2496abda73fa5cd33aaa4512"
+    },
+    {
+      "bytes": 3181,
+      "implicit_Init": true,
+      "module": "SpectreFinite.HexStepAction",
+      "ordered_imports": [
+        "SpectreFinite.HexRotationComposition",
+        "SpectreFinite.IntegerStepAction"
+      ],
+      "path": "SpectreFinite/HexStepAction.lean",
+      "sha256": "18b5a663605957341f0abb92c55debb8a1371b5c056201789a0b1fcbd6fb4cf4"
+    },
+    {
+      "bytes": 3310,
+      "implicit_Init": true,
+      "module": "SpectreFinite.FiniteBoundaryEstimate",
+      "ordered_imports": [
+        "SpectreFinite.ParentRotation"
+      ],
+      "path": "SpectreFinite/FiniteBoundaryEstimate.lean",
+      "sha256": "7095371f9e900b36f588de73451d5a32b69dd54d7dcc35edf59f6d6af5be82f5"
+    },
+    {
+      "bytes": 3297,
+      "implicit_Init": true,
+      "module": "SpectreFinite.AxialTranslationWords",
+      "ordered_imports": [
+        "SpectreFinite.FiniteBoundaryEstimate"
+      ],
+      "path": "SpectreFinite/AxialTranslationWords.lean",
+      "sha256": "40e55d235e0a625a078666c85db4f6ff79c4c27c51cd0d1701aeb3e07ebe4a4b"
+    },
+    {
+      "bytes": 2664,
+      "implicit_Init": true,
+      "module": "SpectreFinite.AxialFiniteBoxes",
+      "ordered_imports": [
+        "SpectreFinite.HexRegionGeometry"
+      ],
+      "path": "SpectreFinite/AxialFiniteBoxes.lean",
+      "sha256": "44b685fbfede5dd860ad2f2d7f6b95dc901ea13f0d8f953b63f5cce647d860a0"
+    },
+    {
+      "bytes": 3456,
+      "implicit_Init": true,
+      "module": "SpectreFinite.CoarseAddressBounds",
+      "ordered_imports": [
+        "SpectreFinite.HexStepAction",
+        "SpectreFinite.AxialTranslationWords",
+        "SpectreFinite.AxialFiniteBoxes"
+      ],
+      "path": "SpectreFinite/CoarseAddressBounds.lean",
+      "sha256": "940b0793e3d14d64b509b1772f7d6ed6e2264a849eb9c5eb411ef6b960490fed"
+    },
+    {
+      "bytes": 2970,
+      "implicit_Init": true,
+      "module": "SpectreFinite.AxialQuotientReduction",
+      "ordered_imports": [
+        "SpectreFinite.AxialFiniteBoxes"
+      ],
+      "path": "SpectreFinite/AxialQuotientReduction.lean",
+      "sha256": "1d2f584d64eee3eb582b59f11aa6d796805b409a8e064c00d0edf07a246e3528"
+    },
+    {
+      "bytes": 8089,
+      "implicit_Init": true,
+      "module": "SpectreFinite.CoarseActionFreeness",
+      "ordered_imports": [
+        "SpectreFinite.AxialQuotientReduction",
+        "SpectreFinite.HexStepAction"
+      ],
+      "path": "SpectreFinite/CoarseActionFreeness.lean",
+      "sha256": "c90b1ffc04b562dad60b8dd07004ebb2fc5eb271458c81a3f6241c5f48ea2b22"
+    },
+    {
+      "bytes": 3493,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryFrameAgreement",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryNativeBinding"
+      ],
+      "path": "SpectreFinite/ParentBoundaryFrameAgreement.lean",
+      "sha256": "45eb2fc016a6d98260f6b5f2f7680e84fb0edce58d603b7aea53a0099280a941"
+    },
+    {
+      "bytes": 5826,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryNativeMating",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryFrameAgreement"
+      ],
+      "path": "SpectreFinite/ParentBoundaryNativeMating.lean",
+      "sha256": "5716b0ad5eca35447d6b92c23b221c391265d6d74ac23bed2c1fd17aa6a49c0a"
+    },
+    {
+      "bytes": 6049,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryNeighborLaws",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryNativeMating"
+      ],
+      "path": "SpectreFinite/ParentBoundaryNeighborLaws.lean",
+      "sha256": "577f12822c3bce00e0adbf3d088e05163124fba10a9bfce570cc802a1078bc53"
+    },
+    {
+      "bytes": 1830,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ReflectedMacroLabels",
+      "ordered_imports": [
+        "SpectreFinite.BoundaryWords",
+        "SpectreFinite.HexRotationComposition"
+      ],
+      "path": "SpectreFinite/ReflectedMacroLabels.lean",
+      "sha256": "6cd8e24898d69877e06d5febcb6361f20cad928ae3489d0a03b2883958e0fda3"
+    },
+    {
+      "bytes": 3075,
+      "implicit_Init": true,
+      "module": "SpectreFinite.ParentBoundaryNeighborLabels",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryNeighborLaws",
+        "SpectreFinite.ReflectedMacroLabels"
+      ],
+      "path": "SpectreFinite/ParentBoundaryNeighborLabels.lean",
+      "sha256": "987828a65f3021790308e794f6ae375716efc6afaf6820f66a8a6fa6a3761dc0"
+    },
+    {
+      "bytes": 4796,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeCoarseCoordinates",
+      "ordered_imports": [
+        "SpectreFinite.NativeCoarseAdjacency",
+        "SpectreFinite.CoarseAddressBounds",
+        "SpectreFinite.CoarseActionFreeness",
+        "SpectreFinite.ParentBoundaryNeighborLabels"
+      ],
+      "path": "SpectreFinite/NativeCoarseCoordinates.lean",
+      "sha256": "b9647315575171e121dcf384cf45f64e7623f6da946b57ebb71be87d213d3147"
+    },
+    {
+      "bytes": 3361,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeCoarsePeriods",
+      "ordered_imports": [
+        "SpectreFinite.NativeCoarseCoordinates"
+      ],
+      "path": "SpectreFinite/NativeCoarsePeriods.lean",
+      "sha256": "e22328a865331e634bd2e415bc4ba22a5f9d444103401534efbc37263a0079b9"
+    },
+    {
+      "bytes": 6760,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeBoundaryRefinement",
+      "ordered_imports": [
+        "SpectreFinite.NativeCoarseCoordinates"
+      ],
+      "path": "SpectreFinite/NativeBoundaryRefinement.lean",
+      "sha256": "767abb241cca1b9dcb7033ed177dc25fde42e556bae5c018b12cbba450f68b27"
+    },
+    {
+      "bytes": 13344,
+      "implicit_Init": true,
+      "module": "SpectreFinite.FinitePartitionRefinement",
+      "ordered_imports": [
+        "SpectreFinite.AxialTranslationWords"
+      ],
+      "path": "SpectreFinite/FinitePartitionRefinement.lean",
+      "sha256": "7f501835039ee845b8964186dd6f6604669a524d18c2a7144bb98b8022dd83b1"
+    },
+    {
+      "bytes": 4610,
+      "implicit_Init": true,
+      "module": "SpectreFinite.NativeCoarsening",
+      "ordered_imports": [
+        "SpectreFinite.ParentBoundaryGlobal",
+        "SpectreFinite.NativeCoarsePeriods",
+        "SpectreFinite.NativeBoundaryRefinement",
+        "SpectreFinite.FinitePartitionRefinement"
+      ],
+      "path": "SpectreFinite/NativeCoarsening.lean",
+      "sha256": "7a880be093b4c4b82004e94cfa4484d5fbe35fe606033bf6912f5072f6e42659"
+    }
+  ],
+  "license": {
+    "owned_source": "Apache-2.0",
+    "third_party": "Original third-party notices and licenses, if present, are preserved; external toolchain is distributed separately."
+  },
+  "modern_module_interface": {
+    "all_sources_module": true,
+    "compatibility_options_added": false,
+    "legacy_body_bytes_preserved": true,
+    "migration_map_sha256": "f9e09df41d772873bdf272c815d8dac617196d4658be331dc867c49531478e86",
+    "modern_tree_inventory_sha256": "c673496b5147462ccf415bbdb11319efe631069c5d4388beb2d1e1ab1db0c74e",
+    "ordinary_imports_public": true,
+    "original_source_manifest_sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61",
+    "private_declarations_promoted": false
+  },
+  "proof_pass_claimed": false,
+  "schema": "radius-five-source-manifest-v1",
+  "scope": "Exact 333 independent finite prerequisites of owned geometry; excludes final C theorem; no final theorem acceptance role.",
+  "source_bytes": 1940133,
+  "source_content_hash_encoding": "sorted UTF-8 path + NUL + binary SHA256 + unsigned big-endian uint64 source bytes, concatenated",
+  "source_content_sha256": "e920038fc6ea126c365449d19929cf83495883b85c5b154bb82aa062d689c8b3",
+  "source_count": 333,
+  "status": "exact_modern_pre_C_prerequisite_subset_uncompiled",
+  "toolchain": {
+    "archive_bytes": 595391556,
+    "archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+    "archive_url": "https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst",
+    "lean_commit": "11acb17ec6b07a8f9e9173e6845197929540936b",
+    "lean_toolchain": "leanprover/lean4:v4.35.0-rc2"
+  }
+}

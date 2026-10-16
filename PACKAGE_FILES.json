@@ -1,0 +1,41 @@
+{
+  "count": 7,
+  "files": [
+    {
+      "bytes": 11358,
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "bytes": 528600,
+      "path": "MIGRATION_SUBSET.json",
+      "sha256": "6f28d5fe7eac5dfee47b72019abf9ea84b4ee24d5954f5960792387415e7bb14"
+    },
+    {
+      "bytes": 991,
+      "path": "README.md",
+      "sha256": "6f18bc6fadebfa205eb4913ea55f7fb9631ad47b0d6cc6109c78e31b4da7b34a"
+    },
+    {
+      "bytes": 137012,
+      "path": "SOURCE_MANIFEST.json",
+      "sha256": "d06e0ed581bf0bd1bc52a1f577f78c77ccda2d95d4647c8dd7994b46a0f9d166"
+    },
+    {
+      "bytes": 1007,
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "cb2191d8c106d0727320f68b1db19285cc87c51e54487dff47aa3d8669fbc753"
+    },
+    {
+      "bytes": 29,
+      "path": "lean-toolchain",
+      "sha256": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"
+    },
+    {
+      "bytes": 162634,
+      "path": "pre-c333-sources.tar.gz",
+      "sha256": "9785080e329f82795c7679a1532399b1faf986b28f66d6c9d23ba74d56c1be7a"
+    }
+  ],
+  "status": "SOURCE_ONLY_PUBLICATION_CANDIDATE"
+}
