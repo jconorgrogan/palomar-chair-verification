@@ -1,0 +1,1050 @@
+{
+  "adjacent_copy_checks": {
+    "11": [
+      {
+        "first_copy_index": 1,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 128,
+              "vertices": 8
+            }
+          ],
+          "components": 128,
+          "degree": 4,
+          "edges": 2048,
+          "vertices": 1024
+        }
+      },
+      {
+        "first_copy_index": 2,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 128,
+              "vertices": 8
+            }
+          ],
+          "components": 128,
+          "degree": 4,
+          "edges": 2048,
+          "vertices": 1024
+        }
+      },
+      {
+        "first_copy_index": 3,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 128,
+              "vertices": 8
+            }
+          ],
+          "components": 128,
+          "degree": 4,
+          "edges": 2048,
+          "vertices": 1024
+        }
+      },
+      {
+        "first_copy_index": 4,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 128,
+              "vertices": 8
+            }
+          ],
+          "components": 128,
+          "degree": 4,
+          "edges": 2048,
+          "vertices": 1024
+        }
+      }
+    ],
+    "5": [
+      {
+        "first_copy_index": 1,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 2,
+              "vertices": 8
+            }
+          ],
+          "components": 2,
+          "degree": 4,
+          "edges": 32,
+          "vertices": 16
+        }
+      }
+    ],
+    "7": [
+      {
+        "first_copy_index": 1,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 8,
+              "vertices": 8
+            }
+          ],
+          "components": 8,
+          "degree": 4,
+          "edges": 128,
+          "vertices": 64
+        }
+      },
+      {
+        "first_copy_index": 2,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 8,
+              "vertices": 8
+            }
+          ],
+          "components": 8,
+          "degree": 4,
+          "edges": 128,
+          "vertices": 64
+        }
+      }
+    ],
+    "9": [
+      {
+        "first_copy_index": 1,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 32,
+              "vertices": 8
+            }
+          ],
+          "components": 32,
+          "degree": 4,
+          "edges": 512,
+          "vertices": 256
+        }
+      },
+      {
+        "first_copy_index": 2,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 32,
+              "vertices": 8
+            }
+          ],
+          "components": 32,
+          "degree": 4,
+          "edges": 512,
+          "vertices": 256
+        }
+      },
+      {
+        "first_copy_index": 3,
+        "graph": {
+          "component_types": [
+            {
+              "bipartite": true,
+              "bipartition_sizes": [
+                4,
+                4
+              ],
+              "complete_bipartite": true,
+              "edges": 16,
+              "multiplicity": 32,
+              "vertices": 8
+            }
+          ],
+          "components": 32,
+          "degree": 4,
+          "edges": 512,
+          "vertices": 256
+        }
+      }
+    ]
+  },
+  "all_assertions_passed": true,
+  "henry_explicit_triangle_axes_1_to_7": [
+    "0000000",
+    "1001000",
+    "1000010"
+  ],
+  "henry_first_adjacent_pair": {
+    "component_types": [
+      {
+        "bipartite": true,
+        "bipartition_sizes": [
+          4,
+          4
+        ],
+        "complete_bipartite": true,
+        "edges": 16,
+        "multiplicity": 8,
+        "vertices": 8
+      }
+    ],
+    "components": 8,
+    "degree": 4,
+    "edges": 128,
+    "vertices": 64
+  },
+  "method": "Independent enumeration of even-weight vectors; standard library only",
+  "odd_dimensions": {
+    "11": {
+      "direct_sum_addresses_are_unique": true,
+      "expected_edges": 7680,
+      "found_edges": 28160,
+      "full_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 28160,
+            "multiplicity": 1,
+            "vertices": 1024
+          }
+        ],
+        "components": 1,
+        "degree": 55,
+        "edges": 28160,
+        "vertices": 1024
+      },
+      "local_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "surplus": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 20480,
+            "multiplicity": 1,
+            "vertices": 1024
+          }
+        ],
+        "components": 1,
+        "degree": 40,
+        "edges": 20480,
+        "vertices": 1024
+      },
+      "surplus_pairs": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          8,
+          11
+        ]
+      ],
+      "within_copy_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 7680,
+            "multiplicity": 1,
+            "vertices": 1024
+          }
+        ],
+        "components": 1,
+        "degree": 15,
+        "edges": 7680,
+        "vertices": 1024
+      }
+    },
+    "3": {
+      "direct_sum_addresses_are_unique": true,
+      "expected_edges": 6,
+      "found_edges": 6,
+      "full_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 6,
+            "multiplicity": 1,
+            "vertices": 4
+          }
+        ],
+        "components": 1,
+        "degree": 3,
+        "edges": 6,
+        "vertices": 4
+      },
+      "local_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "surplus": {
+        "component_types": [
+          {
+            "bipartite": true,
+            "bipartition_sizes": [
+              1
+            ],
+            "complete_bipartite": false,
+            "edges": 0,
+            "multiplicity": 4,
+            "vertices": 1
+          }
+        ],
+        "components": 4,
+        "degree": 0,
+        "edges": 0,
+        "vertices": 4
+      },
+      "surplus_pairs": [],
+      "within_copy_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 6,
+            "multiplicity": 1,
+            "vertices": 4
+          }
+        ],
+        "components": 1,
+        "degree": 3,
+        "edges": 6,
+        "vertices": 4
+      }
+    },
+    "5": {
+      "direct_sum_addresses_are_unique": true,
+      "expected_edges": 48,
+      "found_edges": 80,
+      "full_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 80,
+            "multiplicity": 1,
+            "vertices": 16
+          }
+        ],
+        "components": 1,
+        "degree": 10,
+        "edges": 80,
+        "vertices": 16
+      },
+      "local_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "surplus": {
+        "component_types": [
+          {
+            "bipartite": true,
+            "bipartition_sizes": [
+              4,
+              4
+            ],
+            "complete_bipartite": true,
+            "edges": 16,
+            "multiplicity": 2,
+            "vertices": 8
+          }
+        ],
+        "components": 2,
+        "degree": 4,
+        "edges": 32,
+        "vertices": 16
+      },
+      "surplus_pairs": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "within_copy_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 48,
+            "multiplicity": 1,
+            "vertices": 16
+          }
+        ],
+        "components": 1,
+        "degree": 6,
+        "edges": 48,
+        "vertices": 16
+      }
+    },
+    "7": {
+      "direct_sum_addresses_are_unique": true,
+      "expected_edges": 288,
+      "found_edges": 672,
+      "full_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 672,
+            "multiplicity": 1,
+            "vertices": 64
+          }
+        ],
+        "components": 1,
+        "degree": 21,
+        "edges": 672,
+        "vertices": 64
+      },
+      "local_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "surplus": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 384,
+            "multiplicity": 1,
+            "vertices": 64
+          }
+        ],
+        "components": 1,
+        "degree": 12,
+        "edges": 384,
+        "vertices": 64
+      },
+      "surplus_pairs": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ]
+      ],
+      "within_copy_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 288,
+            "multiplicity": 1,
+            "vertices": 64
+          }
+        ],
+        "components": 1,
+        "degree": 9,
+        "edges": 288,
+        "vertices": 64
+      }
+    },
+    "9": {
+      "direct_sum_addresses_are_unique": true,
+      "expected_edges": 1536,
+      "found_edges": 4608,
+      "full_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 4608,
+            "multiplicity": 1,
+            "vertices": 256
+          }
+        ],
+        "components": 1,
+        "degree": 36,
+        "edges": 4608,
+        "vertices": 256
+      },
+      "local_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          8,
+          9
+        ]
+      ],
+      "surplus": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 3072,
+            "multiplicity": 1,
+            "vertices": 256
+          }
+        ],
+        "components": 1,
+        "degree": 24,
+        "edges": 3072,
+        "vertices": 256
+      },
+      "surplus_pairs": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "within_copy_graph": {
+        "component_types": [
+          {
+            "bipartite": false,
+            "bipartition_sizes": null,
+            "complete_bipartite": false,
+            "edges": 1536,
+            "multiplicity": 1,
+            "vertices": 256
+          }
+        ],
+        "components": 1,
+        "degree": 12,
+        "edges": 1536,
+        "vertices": 256
+      }
+    }
+  },
+  "proof_status": "Finite checks supplement ordinary mathematical proofs; not Lean-verified"
+}
