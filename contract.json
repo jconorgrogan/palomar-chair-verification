@@ -1,0 +1,82 @@
+{
+  "evidence_max_bytes": 16777216,
+  "inputs": {
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "README.md": {
+      "bytes": 1628,
+      "sha256": "5c80fee6f43e5e3af54a573aa6b23d90e1280bd19c36990d98829b61c3f885b8"
+    },
+    "ci/conditional_probe.py": {
+      "bytes": 11740,
+      "sha256": "4cea1f2f5b2b955b0d9eb0fd8be87243cc86caf4819b5d800290c60fae6279ab"
+    },
+    "ci/conditional_process.py": {
+      "bytes": 49212,
+      "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
+    },
+    "ci/fresh_stage.py": {
+      "bytes": 67375,
+      "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
+    },
+    "ci/probe.py": {
+      "bytes": 13604,
+      "sha256": "0aadb88611612b40ca030307e818b6dd9cbb805622e2965730c0e531dfa184a3"
+    },
+    "ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    },
+    "src/ProbeShared/Consumer.lean": {
+      "bytes": 171,
+      "sha256": "33e5b1e5f49ac4a5beef2f2a24b8d3ad0cf25b54cbf997076cfb04234a33e132"
+    },
+    "src/ProbeShared/Middle.lean": {
+      "bytes": 136,
+      "sha256": "0bac3e09a2aefe529983aea26ba28f969e8882cf36fe9ec0c8e760434640281d"
+    },
+    "src/ProbeShared/Seed.lean": {
+      "bytes": 110,
+      "sha256": "8f09e9e0775195dcc751d2d007d7796114e13cb21ba468ed1fa5d72304aceb8a"
+    }
+  },
+  "local_sandbox_test_status": "BLOCKED_NETLINK_ROUTE_OPERATION_NOT_PERMITTED",
+  "maximum_parallel_jobs": 1,
+  "no_old_owned_artifact_admission": true,
+  "no_research_imports": true,
+  "per_command_caps": {
+    "address_space_bytes": 4294967296,
+    "checker_seconds": 60,
+    "compile_seconds": 60,
+    "lean_heap_mib": 512,
+    "log_bytes": 262144,
+    "rss_bytes": 2147483648
+  },
+  "publication_branch": "verify/readonly-stage-probe-20261016",
+  "review_status": "reviewed_for_execution",
+  "runner": "ubuntu-22.04",
+  "runtime_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "schema": "tiny-readonly-probe-contract-v1",
+  "scope": "TINY_READONLY_NAMESPACE_PROBE_ONLY",
+  "session_configurations": [
+    {
+      "allow_new_sessions": false,
+      "companions": 18,
+      "compile_check_pairs": 3,
+      "name": "C_stage",
+      "new_session": false
+    },
+    {
+      "allow_new_sessions": true,
+      "companions": 21,
+      "compile_check_pairs": 3,
+      "name": "conditional",
+      "new_session": true
+    }
+  ],
+  "total_wall_seconds": 900,
+  "workflow_job_timeout_minutes": 20
+}

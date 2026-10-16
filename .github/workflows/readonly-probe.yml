@@ -1,0 +1,69 @@
+# Tiny runtime-boundary control only; no research theorem claim.
+name: Tiny read-only namespace probe (work in progress)
+'on':
+  push:
+    branches: ['verify/readonly-stage-probe-20261016']
+permissions:
+  contents: read
+concurrency:
+  group: readonly-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  tiny_probe:
+    name: Tiny read-only namespace probe
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the reviewed probe commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu archive and sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Run the bounded fresh namespace probe
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: >-
+          python3 -I -B ci/probe.py
+          --contract-sha256 f478a290b4cbce4a77ede0f7f896eda64e5ef02fba2ba5aacd557b61026617f3
+          --work "$RUNNER_TEMP/readonly-probe"
+      - name: Admit bounded probe evidence
+        id: evidence
+        if: ${{ always() }}
+        timeout-minutes: 1
+        run: |
+          python3 -I -B - <<'PY'
+          import os, pathlib, stat
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'readonly-probe' / 'evidence'
+          if not root.is_dir() or root.is_symlink():
+              raise SystemExit('No regular probe evidence directory exists')
+          total = 0
+          files = 0
+          for path in root.rglob('*'):
+              info = path.lstat()
+              mode = info.st_mode
+              if stat.S_ISDIR(mode):
+                  continue
+              if not stat.S_ISREG(mode) or info.st_nlink != 1:
+                  raise SystemExit('Non-regular evidence is not admitted')
+              total += path.stat().st_size
+              files += 1
+          if not 0 < files <= 128 or total > 16 * 1024 * 1024:
+              raise SystemExit('Probe evidence exceeds the upload bound')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('admitted=true\n')
+          print(f'Admitted {files} regular evidence files, {total} bytes')
+          PY
+      - name: Retain the bounded probe result and diagnostics
+        if: ${{ always() && steps.evidence.outputs.admitted == 'true' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 1
+          name: readonly-probe-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/readonly-probe/evidence/**
