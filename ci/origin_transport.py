@@ -9,7 +9,15 @@ from __future__ import annotations
 
 import base64
 import copy
+import contextlib
+import errno
+import math
+import signal
+import socket
+import ssl
+import threading
 import hashlib
+import http.client
 import re
 import stat
 import time
@@ -51,6 +59,92 @@ MAX_DESCRIPTOR_BYTES = 1024**2
 MAX_WORKFLOW_BYTES = 1024**2
 MAX_REDIRECTS = 5
 MAX_RUN_AGE_SECONDS = 518400
+MAX_METADATA_ATTEMPTS = 4
+METADATA_BACKOFF_SECONDS = (1, 2, 4)
+MAX_METADATA_ATTEMPT_SECONDS = 60
+MAX_METADATA_TOTAL_SECONDS = 180
+RETRYABLE_METADATA_STATUSES = frozenset({408, 500, 502, 503, 504})
+
+
+class _MetadataWallTimeout(TimeoutError):
+    """Soft transport interruption with cleanup time reserved inside the cap."""
+
+
+class _MetadataHardTimeout(BaseException):
+    """Terminal budget exhaustion; cleanup Exception handlers cannot swallow it."""
+
+
+@contextlib.contextmanager
+def _metadata_wall_limit(seconds, *, deadline=None):
+    """Linux CI main-thread wall guard, including blocked or slow response reads.
+
+    Never overwrite a caller's active alarm. Restore the inactive timer and the
+    exact previous handler on every exit. No background thread/request survives.
+    """
+    f.need(type(seconds) in (int, float) and math.isfinite(seconds) and seconds > 0,
+           'invalid metadata wall limit')
+    f.need(threading.current_thread() is threading.main_thread(),
+           'metadata wall guard requires the main thread')
+    previous_timer = signal.getitimer(signal.ITIMER_REAL)
+    f.need(previous_timer == (0.0, 0.0), 'metadata wall guard refuses an existing timer')
+    previous_handler = signal.getsignal(signal.SIGALRM)
+    monotonic_now = time.monotonic()
+    hard_deadline = monotonic_now + seconds
+    if deadline is not None:
+        f.need(type(deadline) in (int, float) and math.isfinite(deadline),
+               'invalid absolute metadata deadline')
+        hard_deadline = min(hard_deadline, deadline)
+    seconds = hard_deadline - monotonic_now
+    f.need(seconds > 0, 'metadata absolute deadline exceeded')
+    cleanup_reserve = min(1.0, seconds / 4)
+    interrupted = False
+    def expired(signum, frame):
+        nonlocal interrupted
+        remaining = hard_deadline - time.monotonic()
+        if interrupted or remaining <= 0:
+            raise _MetadataHardTimeout('metadata request hard deadline exceeded')
+        interrupted = True
+        signal.setitimer(signal.ITIMER_REAL, remaining)
+        raise _MetadataWallTimeout('metadata transport deadline exceeded')
+    signal.signal(signal.SIGALRM, expired)
+    try:
+        signal.setitimer(signal.ITIMER_REAL, seconds - cleanup_reserve)
+        yield
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous_handler)
+
+
+def _retryable_metadata_error(error):
+    """Only explicit transient transport failures, never TLS/auth/parse errors."""
+    if isinstance(error, ssl.SSLError):
+        return False
+    reason = error.reason if isinstance(error, urllib.error.URLError) else error
+    if isinstance(reason, ssl.SSLError):
+        return False
+    if type(reason) in (_MetadataWallTimeout, TimeoutError, ConnectionResetError,
+                        ConnectionAbortedError, ConnectionRefusedError, BrokenPipeError):
+        return True
+    if isinstance(reason, socket.gaierror):
+        return reason.errno == socket.EAI_AGAIN
+    return type(reason) is OSError and reason.errno in {
+        errno.ETIMEDOUT, errno.ECONNRESET, errno.ECONNABORTED,
+        errno.ECONNREFUSED, errno.EPIPE,
+    }
+
+
+def _metadata_backoff(attempt, retry_after):
+    """Server waits can only fit within the fixed, already bounded schedule.
+
+    Unsupported/date-valued or longer Retry-After is a terminal rejection, not
+    permission to ignore the server wait or expand this request's budget.
+    """
+    delay = METADATA_BACKOFF_SECONDS[attempt - 1]
+    if retry_after is not None:
+        f.need(type(retry_after) is str and re.fullmatch(r'[0-9]{1,3}', retry_after),
+               'unsupported metadata Retry-After')
+        f.need(int(retry_after) <= delay, 'metadata Retry-After exceeds fixed backoff')
+    return delay
 STAGE_PIN_KEYS = {'artifact_id', 'producer_job_id', 'artifact_name',
                   'artifact_zip_sha256', 'artifact_zip_bytes', 'archive_sha256',
                   'archive_bytes', 'receipt_sha256', 'raw_descriptor_sha256',
@@ -209,24 +303,95 @@ class OriginTransport:
         headers['User-Agent'] = 'hierarchy-c-verified-continuation'
         return urllib.request.Request(url, headers=headers, method='GET')
 
+    def _metadata_remaining(self, budget):
+        self._check_age()
+        monotonic_now = time.monotonic()
+        elapsed = monotonic_now - budget['started']
+        f.need(math.isfinite(elapsed) and elapsed >= 0, 'invalid metadata monotonic clock')
+        now = self.now()
+        f.need(isinstance(now, datetime) and now.tzinfo is not None, 'trusted aware clock required')
+        origin_remaining = min(
+            (timestamp(context['identity']['run_started_at']) +
+             timedelta(seconds=MAX_RUN_AGE_SECONDS) - now).total_seconds()
+            for context in self.contexts.values())
+        # Fix the origin slack to monotonic time on first use and only tighten.
+        # A later backward wall-clock jump cannot renew either origin's budget.
+        budget['deadline'] = min(budget['deadline'], monotonic_now + origin_remaining)
+        remaining = budget['deadline'] - monotonic_now
+        f.need(remaining > 0, 'metadata aggregate/origin deadline exceeded')
+        return remaining
+
     def _json(self, path):
+        # Only this authenticated metadata GET is retried. Each attempt starts
+        # from a new response; no bytes or failed parse result are reused.
         self._check_age()
-        try:
-            with self.opener.open(self._request(path), timeout=60) as response:
-                f.need(response.getcode() == 200, 'GitHub metadata status is not 200')
-                data = response.read(MAX_METADATA_BYTES + 1)
-        except urllib.error.HTTPError as error:
-            raise f.Rejected('authenticated GitHub metadata failed with status ' + str(error.code)) from None
-        except (OSError, ValueError) as error:
-            raise f.Rejected('authenticated GitHub metadata read failed') from error
-        f.need(len(data) <= MAX_METADATA_BYTES, 'oversized GitHub metadata')
-        self._check_age()
-        try:
-            result = f.parse_json(data)
-        except (TypeError, ValueError) as error:
-            raise f.Rejected('invalid GitHub metadata JSON') from error
-        f.need(type(result) is dict, 'GitHub metadata object required')
-        return result
+        started = time.monotonic()
+        budget = {'started': started, 'deadline': started + MAX_METADATA_TOTAL_SECONDS}
+        for attempt in range(1, MAX_METADATA_ATTEMPTS + 1):
+            seconds = min(MAX_METADATA_ATTEMPT_SECONDS, self._metadata_remaining(budget))
+            retry_after = None
+            phase = 'transport'
+            try:
+                with _metadata_wall_limit(seconds, deadline=budget['deadline']):
+                    try:
+                        response = self.opener.open(self._request(path), timeout=seconds)
+                        try:
+                            f.need(response.getcode() == 200, 'GitHub metadata status is not 200')
+                            data = response.read(MAX_METADATA_BYTES + 1)
+                        except _MetadataHardTimeout:
+                            phase = 'hard_timeout'
+                            raise
+                        finally:
+                            # Never start further cleanup after terminal hard expiry.
+                            # Failed soft-timeout reads retry only after successful close.
+                            if phase != 'hard_timeout':
+                                phase = 'cleanup'
+                                try:
+                                    response.close()
+                                except Exception:
+                                    raise f.Rejected('metadata response cleanup failed') from None
+                                phase = 'transport'
+                    except urllib.error.HTTPError as error:
+                        phase = 'cleanup'
+                        code = error.code
+                        retry_after = error.headers.get('Retry-After') if error.headers is not None else None
+                        try:
+                            error.close()
+                        except Exception:
+                            raise f.Rejected('metadata error-response cleanup failed') from None
+                        phase = 'http_status'
+                        if type(code) is not int or code not in RETRYABLE_METADATA_STATUSES or attempt == MAX_METADATA_ATTEMPTS:
+                            label = str(code) if type(code) is int else 'invalid'
+                            raise f.Rejected('authenticated GitHub metadata failed with status ' + label) from None
+                    else:
+                        phase = 'parse'
+                        f.need(len(data) <= MAX_METADATA_BYTES, 'oversized GitHub metadata')
+                        try:
+                            result = f.parse_json(data)
+                        except (TypeError, ValueError):
+                            raise f.Rejected('invalid GitHub metadata JSON') from None
+                        f.need(type(result) is dict, 'GitHub metadata object required')
+                        self._metadata_remaining(budget)
+                        return result
+            except _MetadataHardTimeout:
+                raise f.Rejected('metadata request hard deadline exceeded') from None
+            except (urllib.error.URLError, OSError) as error:
+                if phase != 'transport' or not _retryable_metadata_error(error) or attempt == MAX_METADATA_ATTEMPTS:
+                    raise f.Rejected('authenticated GitHub metadata read or cleanup failed') from None
+            except f.Rejected:
+                raise
+            except (ValueError, http.client.HTTPException):
+                raise f.Rejected('authenticated GitHub metadata read failed') from None
+            delay = _metadata_backoff(attempt, retry_after)
+            remaining = self._metadata_remaining(budget)
+            f.need(delay < remaining, 'metadata backoff would exceed aggregate/origin deadline')
+            try:
+                with _metadata_wall_limit(remaining, deadline=budget['deadline']):
+                    time.sleep(delay)
+            except (_MetadataWallTimeout, _MetadataHardTimeout):
+                raise f.Rejected('metadata backoff deadline exceeded') from None
+            self._metadata_remaining(budget)
+        raise f.Rejected('metadata retry bound exceeded')
 
     def _collection(self, path, key):
         result = []
