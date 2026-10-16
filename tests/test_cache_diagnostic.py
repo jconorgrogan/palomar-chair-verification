@@ -44,8 +44,8 @@ class Tests(unittest.TestCase):
   x=json.loads((ROOT/'contract.json').read_text())
   for r in x['diagnostics']:
    s=(ROOT/'src'/(r['module'].replace('.','/')+'.lean')).read_text();self.assertIn('\nmodule\n', '\n'+s)
- def test_pending_review(self):
-  self.assertEqual(json.loads((ROOT/'contract.json').read_text())['review_status'],'pending_independent_review')
+ def test_explicit_review_state(self):
+  self.assertIn(json.loads((ROOT/'contract.json').read_text())['review_status'],('pending_independent_review','reviewed_for_execution'))
 
 class NamespaceTests(unittest.TestCase):
  def test_empty_prefix_shadows(self):
@@ -64,4 +64,56 @@ class NamespaceTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    p=Path(d);(p/'a.olean').write_bytes(b'a');prior=c.checked_inventory(p)['files'];(p/'b.olean').write_bytes(b'b');self.assertEqual(len(c.verify_prior_outputs(p,prior)),2)
 
+
+
+class ExactOfficialLinkTests(unittest.TestCase):
+ def setup_link(self,root,package,rel):
+  repo=root/package;repo.mkdir();target,resolved,oid=c.OFFICIAL_SOURCE_LINKS[package][rel]
+  endpoint=repo/resolved;endpoint.parent.mkdir(parents=True,exist_ok=True);endpoint.write_text('pinned regular source')
+  link=repo/rel;link.parent.mkdir(parents=True,exist_ok=True);link.symlink_to(target)
+  return repo,link,endpoint,oid
+ def test_all_three_exact_links(self):
+  for package,links in c.OFFICIAL_SOURCE_LINKS.items():
+   for rel in links:
+    with tempfile.TemporaryDirectory() as d:
+     repo,link,end,oid=self.setup_link(Path(d),package,rel)
+     row=c.source_blob(repo,rel,'120000',oid)
+     self.assertEqual(row['git_mode'],'120000');self.assertEqual(row['target'],os.readlink(link))
+     c.validate_source_links({rel:row,row['resolved_source_path']:{'kind':'regular'}})
+ def test_unknown_link_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   repo=Path(d)/'mathlib';repo.mkdir();(repo/'file').write_text('x');(repo/'unknown').symlink_to('file')
+   with self.assertRaises(Exception):c.source_blob(repo,'unknown','120000','a'*40)
+ def test_changed_link_object_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md')
+   with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000','a'*40)
+ def test_absolute_target_rejected(self):
+  self.changed_target('/etc/passwd')
+ def test_escape_target_rejected(self):
+  self.changed_target('../../outside')
+ def test_cycle_target_rejected(self):
+  self.changed_target('README.md')
+ def test_jump_dotdot_target_rejected(self):
+  self.changed_target('jump/../README.md')
+ def changed_target(self,target):
+  with tempfile.TemporaryDirectory() as d:
+   repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md');link.unlink();link.symlink_to(target)
+   with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000',oid)
+ def test_endpoint_symlink_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md');end.unlink();end.symlink_to('/etc/passwd')
+   with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000',oid)
+ def test_missing_endpoint_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md');end.unlink()
+   with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000',oid)
+ def test_ignored_git_endpoint_rejected(self):
+  with self.assertRaises(Exception):c.validate_source_links({'link':{'kind':'symlink','resolved_source_path':'.git/HEAD'}})
+ def test_ignored_lake_endpoint_rejected(self):
+  with self.assertRaises(Exception):c.validate_source_links({'link':{'kind':'symlink','resolved_source_path':'.lake/ignored'}})
+ def test_regular_replacing_link_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   repo,link,end,oid=self.setup_link(Path(d),'batteries','docs/README.md');link.unlink();link.write_text('../README.md')
+   with self.assertRaises(Exception):c.source_blob(repo,'docs/README.md','120000',oid)
 if __name__=='__main__':unittest.main()

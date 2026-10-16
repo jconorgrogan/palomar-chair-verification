@@ -42,8 +42,8 @@
       "sha256": "24e51f20eda6129bb7c518ad999aee447eced0470f23a8aab2a111f7ccb6c542"
     },
     "ci/cache_diagnostic.py": {
-      "bytes": 22588,
-      "sha256": "5d2eadb70a87d2e74622f0721ca3b2c5bb8de413712fd6f2d56d72371feec4cb"
+      "bytes": 24259,
+      "sha256": "9c1ea2ee2e3d0cf1c6e2596d3e606aca853483ec2df7ad15329dea8426e81108"
     },
     "ci/fresh_stage.py": {
       "bytes": 49212,
@@ -86,8 +86,8 @@
       "sha256": "411da8b60131a39924492882732ab28aa9c7a14ba42aee626852ff2addf04281"
     },
     "tests/test_cache_diagnostic.py": {
-      "bytes": 4428,
-      "sha256": "c763c7e649dbc5f5ca2bb93c215aaa887c049e509ca89ec9d616d54a6cd82a43"
+      "bytes": 7651,
+      "sha256": "51eee84edfd81e24b7b9dfb1982672b5fedc109f0c78c6822156cffb42c8efa5"
     }
   },
   "lean_heap_mib": 1024,

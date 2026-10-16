@@ -89,6 +89,36 @@ def git_capture(repo,*args):
     f.need(len(p.stdout)<=16*1024**2 and len(p.stderr)<=65536,'Git metadata bound')
     return p.stdout
 
+OFFICIAL_SOURCE_LINKS={
+ 'mathlib':{
+  'scripts/bench/build/fake-root/bin/lean.py':('lean','scripts/bench/build/fake-root/bin/lean','819298943e1a8c331413fb55e2c4bbc98d05e562'),
+  'scripts/bench/size/run.py':('run','scripts/bench/size/run','e5224d533ef27b001224859a9b36696846a7e7fe')},
+ 'batteries':{'docs/README.md':('../README.md','README.md','32d46ee883b58d6a383eed06eb98f33aa6530ded')}}
+
+def validate_source_links(rows):
+    for rel,row in rows.items():
+        if row['kind']=='symlink':
+            target=rows.get(row['resolved_source_path'])
+            f.need(target is not None and target['kind']=='regular','source symlink target is not a pinned regular Git entry')
+
+def source_blob(repo,rel,mode,oid):
+    p=repo/f.safe_rel(rel);f.no_symlink_path(p.parent)
+    if mode=='120000':
+        f.need(p.is_symlink(),'pinned source symlink replaced by ordinary file')
+        expected=OFFICIAL_SOURCE_LINKS.get(repo.name,{}).get(rel)
+        f.need(expected is not None and oid==expected[2],'source symlink not in exact official pin allowlist')
+        target=os.readlink(p);f.need(target==expected[0],'official symlink target bytes changed')
+        resolved=expected[1];endpoint=repo/resolved;f.no_symlink_path(endpoint)
+        f.need(endpoint.is_file(),'official symlink endpoint is not a regular file')
+        data=target.encode('utf-8')
+        extra={'kind':'symlink','target':target,'resolved_source_path':resolved}
+    else:
+        f.need(mode in ('100644','100755') and not p.is_symlink() and p.is_file(),'unsupported or replaced regular source')
+        data=p.read_bytes();extra={'kind':'regular'}
+    actual=hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+    f.need(actual==oid,'official source does not equal pinned Git blob')
+    return {'bytes':len(data),'sha256':f.sha(data),'git_blob':oid,'git_mode':mode,**extra}
+
 def source_snapshot(repo,pin):
     f.need(git_capture(repo,'rev-parse','HEAD').decode().strip()==pin['rev'],'dependency HEAD differs')
     f.need(git_capture(repo,'remote','get-url','origin').decode().strip()==pin['url'],'dependency origin differs')
@@ -97,12 +127,10 @@ def source_snapshot(repo,pin):
     for entry in git_capture(repo,'ls-tree','-rz','HEAD').split(b'\0'):
         if not entry:continue
         meta,name=entry.split(b'\t',1);mode,kind,oid=meta.decode().split();rel=name.decode();f.safe_rel(rel)
-        f.need(kind=='blob' and mode in ('100644','100755'),'unsupported official source entry')
-        p=repo/rel;f.no_symlink_path(p);data=p.read_bytes();total+=len(data)
+        f.need(kind=='blob' and mode in ('100644','100755','120000'),'unsupported official source entry: '+rel)
+        rows[rel]=source_blob(repo,rel,mode,oid);total+=rows[rel]['bytes']
         f.need(total<=512*1024**2,'official source snapshot bound')
-        actual=hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
-        f.need(actual==oid,'official source does not equal pinned Git blob')
-        rows[rel]={'bytes':len(data),'sha256':f.sha(data),'git_blob':oid}
+    validate_source_links(rows)
     return {'revision':pin['rev'],'repository':pin['url'],'files':rows,'bytes':total}
 
 def validate_dependencies(pins):
