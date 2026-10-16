@@ -1,0 +1,372 @@
+{
+  "observed_at": "2026-10-16T06:00:36Z",
+  "legacy_run_id": 38834608889,
+  "legacy_stage_count": 43,
+  "legacy_stage_zip_bytes": 2101555497,
+  "legacy_artifacts": [
+    {
+      "id": 12028141283,
+      "name": "hierarchy-c-38834608889-1-build_040",
+      "bytes": 202815115,
+      "digest": "sha256:07b58c0eb5028db5237b31b12d7b16d6b2eaa5187ce54c8385480b2d5939fb03",
+      "expires_at": "2026-10-23T05:58:23Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12026572903,
+      "name": "hierarchy-c-38834608889-1-build_039",
+      "bytes": 135835275,
+      "digest": "sha256:9fae8e4078624372366cfb869aa3e2c590f5a149661f328cc0c90b74bd2b418f",
+      "expires_at": "2026-10-23T05:28:04Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12025869619,
+      "name": "hierarchy-c-38834608889-1-build_038",
+      "bytes": 105657995,
+      "digest": "sha256:4715051bded1ec9675997ff2a235c592d48dda8674aee4ecc17918420e924fc8",
+      "expires_at": "2026-10-23T05:00:20Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12025405556,
+      "name": "hierarchy-c-38834608889-1-build_036",
+      "bytes": 18495114,
+      "digest": "sha256:a3b4072b3d1347989a52fd098159797d26cd4c8dd815401e3b1fe3ce7b2a72ea",
+      "expires_at": "2026-10-23T04:24:26Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12025316432,
+      "name": "hierarchy-c-38834608889-1-build_037",
+      "bytes": 62557834,
+      "digest": "sha256:29c1bfe23a2a5636d2448dc27750b3a9a3a47888a9a8c966977c67e1a3a84b1f",
+      "expires_at": "2026-10-23T04:35:11Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12024456074,
+      "name": "hierarchy-c-38834608889-1-build_023",
+      "bytes": 126342795,
+      "digest": "sha256:b9da022368785ae73b9f59211aa7ed744b690237fc416253c73ce92da735f6da",
+      "expires_at": "2026-10-23T03:59:48Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12023600676,
+      "name": "hierarchy-c-38834608889-1-build_035",
+      "bytes": 93288074,
+      "digest": "sha256:a2b61a64230b99b0e61b231a5d7fedc4e600b87e19667d1e4a5bbe7fe6154447",
+      "expires_at": "2026-10-23T03:33:36Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12023260680,
+      "name": "hierarchy-c-38834608889-1-build_054",
+      "bytes": 1015433,
+      "digest": "sha256:1a696fe18a1b5ce57ac6d6b0e75e5cdab1708ea543c24dd45adb3c44b1ee219a",
+      "expires_at": "2026-10-23T03:26:26Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12023156089,
+      "name": "hierarchy-c-38834608889-1-build_034",
+      "bytes": 17481354,
+      "digest": "sha256:e4b570069dc7042aa971777b1abacebd3134e2c45fe777b660a08afec9a5d7b8",
+      "expires_at": "2026-10-23T03:24:26Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12022586585,
+      "name": "hierarchy-c-38834608889-1-build_019",
+      "bytes": 168736395,
+      "digest": "sha256:4b3284f71139cebb0219bcad6637233174b7d76a5a0cebab69375ffa484646ed",
+      "expires_at": "2026-10-23T03:09:55Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12022464732,
+      "name": "hierarchy-c-38834608889-1-build_055",
+      "bytes": 102063755,
+      "digest": "sha256:d659d81d1efa6e9579d7cfc419f356acd9114c5fdc1ab7dfd5dd15317fbd8132",
+      "expires_at": "2026-10-23T03:36:10Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12022038453,
+      "name": "hierarchy-c-38834608889-1-build_022",
+      "bytes": 6022793,
+      "digest": "sha256:a779146d3f04609b49fd44c7fc1d309d0339e2cfba5ad647fa0dda26815baff2",
+      "expires_at": "2026-10-23T03:19:36Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12021922856,
+      "name": "hierarchy-c-38834608889-1-build_021",
+      "bytes": 114312,
+      "digest": "sha256:12690ea50e536a6f57091232da8c77f855c8a67f4c8a31a52d9b90e47c0014b6",
+      "expires_at": "2026-10-23T03:11:42Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12021898813,
+      "name": "hierarchy-c-38834608889-1-build_020",
+      "bytes": 140740235,
+      "digest": "sha256:25482bb1c558dc00b47e9b05948ed975ea137e8d28aa721a21959498c99176bb",
+      "expires_at": "2026-10-23T03:07:33Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12021687505,
+      "name": "hierarchy-c-38834608889-1-build_033",
+      "bytes": 44187274,
+      "digest": "sha256:89e89c83956af7f9c82025c84f3e5776a0d53fb5a538c58ea8b6471f3d25a63b",
+      "expires_at": "2026-10-23T02:43:57Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12021111428,
+      "name": "hierarchy-c-38834608889-1-build_017",
+      "bytes": 81952394,
+      "digest": "sha256:dcc631a5ba75c2f6b7edcf2059365474bc6e1c11571589c0dc4396dafddb37d2",
+      "expires_at": "2026-10-23T02:27:51Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020866863,
+      "name": "hierarchy-c-38834608889-1-build_013",
+      "bytes": 131729035,
+      "digest": "sha256:3d21eaa56d757889f5e4346dc5269444a3a757aec2be7c6006b27ee4b744c1c9",
+      "expires_at": "2026-10-23T02:27:14Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020702856,
+      "name": "hierarchy-c-38834608889-1-build_018",
+      "bytes": 137330315,
+      "digest": "sha256:55d0d8ad7eaf34a96814d4b3dfacec445a4edad8eb6efb672830b7028411c112",
+      "expires_at": "2026-10-23T02:33:08Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020683202,
+      "name": "hierarchy-c-38834608889-1-build_016",
+      "bytes": 100036235,
+      "digest": "sha256:c70ef9df645407a385127ccd0f4f98a6b9657f3c8b2e93dce459bd8f588d8147",
+      "expires_at": "2026-10-23T02:36:00Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020565797,
+      "name": "hierarchy-c-38834608889-1-build_012",
+      "bytes": 11972234,
+      "digest": "sha256:9c8e976f496390aef1fd6a6200378f2d202d5c7ed08f4636c37bb12d0845c3d9",
+      "expires_at": "2026-10-23T02:13:23Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020565276,
+      "name": "hierarchy-c-38834608889-1-build_014",
+      "bytes": 13620874,
+      "digest": "sha256:4471484c3c65bed11f59e3a9b86a4f453972aad8c04081fa5dca0d1479bbacf1",
+      "expires_at": "2026-10-23T02:09:05Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020221740,
+      "name": "hierarchy-c-38834608889-1-build_031",
+      "bytes": 6852233,
+      "digest": "sha256:748aa09aefe40039ddba9591378de1fe893e4c03676a4477f71b5dba9191efeb",
+      "expires_at": "2026-10-23T02:03:04Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020187575,
+      "name": "hierarchy-c-38834608889-1-build_015",
+      "bytes": 13866634,
+      "digest": "sha256:188e24a7559f6da41d2cb6e3e814e0cd68c58cc12cdfa72efe069d2cd4fc8b3d",
+      "expires_at": "2026-10-23T02:08:03Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020180896,
+      "name": "hierarchy-c-38834608889-1-build_029",
+      "bytes": 2111113,
+      "digest": "sha256:217135f7147183bb34e64e398c707491b9665efc73a95bb960b666c9530310eb",
+      "expires_at": "2026-10-23T01:56:52Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020141392,
+      "name": "hierarchy-c-38834608889-1-build_011",
+      "bytes": 40705674,
+      "digest": "sha256:f9ea19d913f773a6417248b3a0b024de47fb0ab096569137d2c9a00d851929f8",
+      "expires_at": "2026-10-23T01:58:20Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12020026634,
+      "name": "hierarchy-c-38834608889-1-build_028",
+      "bytes": 2049673,
+      "digest": "sha256:cf360a18ab44be44c0a2d2cbd4ac9c8bd1bf4cb614d75a33690ede583933049a",
+      "expires_at": "2026-10-23T01:55:57Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019951403,
+      "name": "hierarchy-c-38834608889-1-build_026",
+      "bytes": 2602633,
+      "digest": "sha256:68c50dbf519eb7645a4db52b53ba2afd6386e971941625092601f09419e2b5be",
+      "expires_at": "2026-10-23T01:51:38Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019731842,
+      "name": "hierarchy-c-38834608889-1-build_010",
+      "bytes": 129547915,
+      "digest": "sha256:74650f241e2e06d8bbb2f6d6451fdb3df1e2144583a2ab62b45a675090bdcdb6",
+      "expires_at": "2026-10-23T01:49:14Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019598488,
+      "name": "hierarchy-c-38834608889-1-build_030",
+      "bytes": 4753033,
+      "digest": "sha256:d132ea3664b2197fc322c030c37b24f867f260c1bca5a1e5dce0ead3bae4a4cc",
+      "expires_at": "2026-10-23T01:58:05Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019559262,
+      "name": "hierarchy-c-38834608889-1-build_025",
+      "bytes": 2213513,
+      "digest": "sha256:bf5de4713b5c18eb5ed5a0ed2bc86e5a814a77beb9b8dabe23de005d994a3929",
+      "expires_at": "2026-10-23T01:52:43Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019553952,
+      "name": "hierarchy-c-38834608889-1-build_032",
+      "bytes": 3421833,
+      "digest": "sha256:e3bcd36d0cc6c14d55ad5a912238368f5716a5e90b90503995d3f39d30bc9231",
+      "expires_at": "2026-10-23T02:02:04Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019510111,
+      "name": "hierarchy-c-38834608889-1-build_002",
+      "bytes": 14798474,
+      "digest": "sha256:23443c6e3361a062aaf1623b651ce1931c5a0af148f2d284ef034de81fcf1e78",
+      "expires_at": "2026-10-23T01:26:35Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019369904,
+      "name": "hierarchy-c-38834608889-1-build_027",
+      "bytes": 646792,
+      "digest": "sha256:bad9663c7a00044d4474ca0777bc0b0137a0ee9ae281027efc334b8aebe7f288",
+      "expires_at": "2026-10-23T01:53:45Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019295972,
+      "name": "hierarchy-c-38834608889-1-build_009",
+      "bytes": 22150794,
+      "digest": "sha256:a10d038cb1885a862830c8a052d8f89a58b3e73a38853a0e8a508a79ee330d7a",
+      "expires_at": "2026-10-23T01:29:57Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019260213,
+      "name": "hierarchy-c-38834608889-1-build_000",
+      "bytes": 56249994,
+      "digest": "sha256:651c62ac33e05ba1ec206da7a7e6fb5fe725be25fc04967c16cccd29bf37559b",
+      "expires_at": "2026-10-23T01:25:05Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019185564,
+      "name": "hierarchy-c-38834608889-1-build_003",
+      "bytes": 2111113,
+      "digest": "sha256:69a351448230fd5c12da414b2b2a7cdcf164fd08988d9394ad9ec34a2049463f",
+      "expires_at": "2026-10-23T01:26:19Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019135908,
+      "name": "hierarchy-c-38834608889-1-build_005",
+      "bytes": 12473994,
+      "digest": "sha256:a5393eb9392189305424ec819e2c65fd053fa1f3e73c28e4d449771883fdee40",
+      "expires_at": "2026-10-23T01:27:42Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12019060297,
+      "name": "hierarchy-c-38834608889-1-build_004",
+      "bytes": 1967753,
+      "digest": "sha256:f41b52f11290481dd5a4f18a0affccb3435003aab7ad82c69648729cdade96f8",
+      "expires_at": "2026-10-23T01:26:06Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12018903883,
+      "name": "hierarchy-c-38834608889-1-build_024",
+      "bytes": 2274953,
+      "digest": "sha256:231791bf0c77db6e23dc945022ab78c85a412a335776565c9d787224236dda4c",
+      "expires_at": "2026-10-23T01:53:11Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12018851815,
+      "name": "hierarchy-c-38834608889-1-build_006",
+      "bytes": 13231754,
+      "digest": "sha256:7191b35826f810d9bf51b252927fa017f7edab8f1768afe30cbd576201ed3189",
+      "expires_at": "2026-10-23T01:28:12Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12018802065,
+      "name": "hierarchy-c-38834608889-1-build_007",
+      "bytes": 17337994,
+      "digest": "sha256:b72e5e62211e546c2bc31cdd5265e7c30b5df5867c56b58505e452e2a165f09f",
+      "expires_at": "2026-10-23T01:27:48Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12018608516,
+      "name": "hierarchy-c-38834608889-1-build_008",
+      "bytes": 33158794,
+      "digest": "sha256:5d0a26a32dd0b6618b42dea4acb47487eb73c77ce1b997485173493cf5e07115",
+      "expires_at": "2026-10-23T01:29:17Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    },
+    {
+      "id": 12018529632,
+      "name": "hierarchy-c-38834608889-1-build_001",
+      "bytes": 15033994,
+      "digest": "sha256:e8a279c182bff6d6a94acecffe772a75bbfbe8a4991de5b7fba45dc3c10c47f9",
+      "expires_at": "2026-10-23T01:26:50Z",
+      "head_sha": "9f7884ebda8fbfd7126fa092f3ccb5d678ec8b98"
+    }
+  ],
+  "c333_run_id": 38857037473,
+  "c333_artifacts": [
+    {
+      "id": 12027663750,
+      "name": "hierarchy-c-38857037473-1-pre_c_000",
+      "bytes": 202559114,
+      "digest": "sha256:afb2e799317b00c941656265e0b470cdd96b88c8cc592c4ab2ecbdd1353ce816",
+      "expires_at": "2026-10-23T05:53:14Z",
+      "head_sha": "166080adb4e3ce3a882cbf44e0470170e994d57a"
+    },
+    {
+      "id": 12027168717,
+      "name": "hierarchy-c-38857037473-1-prepare",
+      "bytes": 3293931,
+      "digest": "sha256:18d63ceb1053123f40dff086d4345baf05d8afc7840d7822db11257eff3f784a",
+      "expires_at": "2026-10-23T05:41:34Z",
+      "head_sha": "166080adb4e3ce3a882cbf44e0470170e994d57a"
+    }
+  ],
+  "note": "Partial metadata only; ZIP size at compression level zero is not exact restored-object size. No all-module or modern size extrapolation."
+}
