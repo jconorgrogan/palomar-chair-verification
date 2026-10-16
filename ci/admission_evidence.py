@@ -435,7 +435,7 @@ def _read_marker(transport, pin, check, diagnostic=None):
         raise AdmissionRejected('unsupported admission log encoding') from None
     _phase(diagnostic, 'log_marker')
     emitted = []
-    pattern = re.compile(r'^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,9})?Z) ' + MARKER + r'(.+)$')
+    pattern = re.compile(r'^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,9})?Z) ' + MARKER + r'(.+)$', flags=re.ASCII)
     for line in text.splitlines():
         _remaining(check)
         match = pattern.fullmatch(line)
@@ -449,9 +449,10 @@ def _read_marker(transport, pin, check, diagnostic=None):
                 'run_attempt': '1', 'run_id': str(pin['run_id']), 'spec_sha256': pin['job_spec_sha256']}
     marker = parse(emitted[0].group(2))
     need(type(marker) is dict and canonical(marker) == canonical(expected), 'admission upload marker mismatch')
-    marker_time = datetime.fromisoformat(emitted[0].group(1).replace('Z', '+00:00'))
     # API steps have whole-second resolution while logs contain subsecond times.
-    marker_second = marker_time.replace(microsecond=0)
+    # The full timestamp grammar matched above. Parse only the whole-second
+    # UTC prefix, avoiding version-dependent fractional fromisoformat support.
+    marker_second = utc(emitted[0].group(1)[:19] + 'Z')
     step = pin['steps'][-1]
     need(utc(step['started_at']) <= marker_second <= utc(step['completed_at']),
          'admission marker outside successful marker step')
