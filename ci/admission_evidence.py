@@ -47,6 +47,74 @@ class AdmissionRejected(RuntimeError):
     """Sanitized, terminal fail-closed rejection."""
 
 
+# Diagnostics are fixed local labels only. They cannot authorize continuation.
+_DIAGNOSTIC_PHASES = frozenset({
+    'pin_validation', 'deadline', 'destination', 'reconciliation_read', 'review_read',
+    'capacity', 'snapshot_deadline', 'run_metadata', 'job_metadata', 'workflow_metadata',
+    'commit_metadata', 'workflow_source', 'artifact_listing', 'artifact_metadata',
+    'log_request', 'log_guard', 'log_open', 'log_redirect', 'log_read', 'log_decode',
+    'log_marker', 'projection_binding', 'create_destination', 'copy_witnesses',
+    'zip_guard', 'zip_open', 'zip_read', 'zip_hash', 'evidence_guard', 'evidence_extract',
+    'evidence_validate', 'identity_comparison', 'rehash_evidence', 'rehash_zip',
+    'rehash_witnesses', 'final_identity', 'complete'})
+_DIAGNOSTIC_CLASSES = frozenset({
+    'Rejected', 'Expired', 'HTTPError', 'URLError', 'TimeoutError', '_MetadataWallTimeout',
+    '_MetadataHardTimeout', 'FileNotFoundError', 'PermissionError', 'FileExistsError',
+    'OSError', 'InterruptedError', 'ConnectionError', 'ConnectionResetError',
+    'ConnectionAbortedError', 'BrokenPipeError', 'BadZipFile', 'LargeZipFile',
+    'ValueError', 'TypeError', 'KeyError', 'AttributeError', 'RuntimeError',
+    'UnicodeDecodeError', 'UnicodeEncodeError', 'OverflowError', 'MemoryError',
+    'RecursionError', 'KeyboardInterrupt', 'SystemExit'})
+
+
+def _phase(diagnostic, value):
+    if diagnostic is not None:
+        diagnostic['phase'] = value if value in _DIAGNOSTIC_PHASES else 'unknown'
+
+
+def _safe_failure_diagnostic(error, diagnostic):
+    """Bounded labels; never stringify an exception or copy external data.
+
+    Only the standard HTTPError integer status and allowlisted class names may
+    cross the failure boundary. Exception-chain traversal is capped at eight,
+    cycle-safe, and cannot modify retries, deadlines, or acceptance decisions.
+    """
+    try:
+        phase = diagnostic.get('phase')
+        phase = phase if phase in _DIAGNOSTIC_PHASES else 'unknown'
+        round_ = diagnostic.get('round')
+        round_ = round_ if round_ in ('initial', 'before', 'body', 'after', 'final') else 'unknown'
+        name = type(error).__name__
+        name = name if name in _DIAGNOSTIC_CLASSES else 'OtherError'
+        timeout, http, seen, current = False, 'none', set(), error
+        for _ in range(8):
+            if not isinstance(current, BaseException) or id(current) in seen:
+                break
+            seen.add(id(current))
+            current_name = type(current).__name__
+            if current_name in ('TimeoutError', '_MetadataWallTimeout', '_MetadataHardTimeout'):
+                timeout = True
+            if http == 'none' and isinstance(current, urllib.error.HTTPError):
+                code = current.code
+                if type(code) is int:
+                    if code in (401, 403, 404, 408, 429):
+                        http = 'http_' + str(code)
+                    elif 300 <= code <= 399:
+                        http = 'http_redirect'
+                    elif 400 <= code <= 499:
+                        http = 'http_other_4xx'
+                    elif 500 <= code <= 599:
+                        http = 'http_5xx'
+                    else:
+                        http = 'http_other'
+                else:
+                    http = 'http_invalid'
+            current = current.__cause__ if current.__cause__ is not None else current.__context__
+        return 'phase=' + round_ + '.' + phase + '; exception=' + name + '; http=' + http + '; timeout=' + ('true' if timeout else 'false')
+    except BaseException:
+        return 'phase=unknown.unknown; exception=OtherError; http=none; timeout=false'
+
+
 def need(value, message):
     if not value:
         raise AdmissionRejected(message)
@@ -154,9 +222,11 @@ def _validate_pin(pin):
     return copy.deepcopy(pin)
 
 
-def _snapshot(transport, pin, check):
+def _snapshot(transport, pin, check, diagnostic=None):
+    _phase(diagnostic, 'snapshot_deadline')
     _tick(transport, pin, check)
     rid, jid, wid, aid = (pin[k] for k in ('run_id', 'producer_job_id', 'workflow_id', 'artifact_id'))
+    _phase(diagnostic, 'run_metadata')
     run = _json(transport, f'{PREFIX}/actions/runs/{rid}', check)
     for name in ('repository', 'head_repository'):
         repo = run.get(name)
@@ -169,6 +239,7 @@ def _snapshot(transport, pin, check):
                 'updated_at': pin['run_updated_at'], 'run_started_at': pin['run_created_at']}
     need(all(type(run.get(k)) is type(v) and run.get(k) == v for k, v in expected.items()),
          'admission run failed or identity changed')
+    _phase(diagnostic, 'job_metadata')
     jobs = _collection(transport, f'{PREFIX}/actions/runs/{rid}/attempts/1/jobs', 'jobs', check)
     need(len(jobs) == 1, 'admission producer job missing or duplicated')
     job = jobs[0]
@@ -192,13 +263,16 @@ def _snapshot(transport, pin, check):
         need(len(selected) == 1 and all(selected[0].get(k) == v for k, v in expected_step.items()) and
              selected[0].get('status') == 'completed' and selected[0].get('conclusion') == 'success',
              'admission controller collector upload or marker step failed')
+    _phase(diagnostic, 'workflow_metadata')
     workflow = _json(transport, f'{PREFIX}/actions/workflows/{wid}', check)
     need(type(workflow.get('id')) is int and workflow['id'] == wid and
          workflow.get('name') == pin['workflow_name'] and workflow.get('path') == pin['workflow_path'],
          'admission workflow metadata mismatch')
+    _phase(diagnostic, 'commit_metadata')
     commit = _json(transport, f'{PREFIX}/git/commits/{pin["pipeline_commit"]}', check)
     need(commit.get('sha') == pin['pipeline_commit'] and type(commit.get('tree')) is dict and
          commit['tree'].get('sha') == pin['source_tree'], 'admission source tree mismatch')
+    _phase(diagnostic, 'workflow_source')
     source = _json(transport, f'{PREFIX}/contents/{pin["workflow_path"]}?ref={pin["pipeline_commit"]}', check)
     need(source.get('type') == 'file' and source.get('path') == pin['workflow_path'] and
          source.get('encoding') == 'base64' and type(source.get('size')) is int and
@@ -212,8 +286,10 @@ def _snapshot(transport, pin, check):
         raise AdmissionRejected('invalid admission workflow encoding') from None
     need(len(raw) == pin['workflow_source_bytes'] and sha(raw) == pin['workflow_source_sha256'],
          'admission workflow source hash mismatch')
+    _phase(diagnostic, 'artifact_listing')
     artifacts = _collection(transport, f'{PREFIX}/actions/runs/{rid}/artifacts', 'artifacts', check)
     need(len(artifacts) == 1, 'admission artifact missing or duplicated')
+    _phase(diagnostic, 'artifact_metadata')
     artifact = _json(transport, f'{PREFIX}/actions/artifacts/{aid}', check)
     expected_artifact = {'id': aid, 'name': pin['artifact_name'], 'size_in_bytes': pin['artifact_zip_bytes'],
                          'digest': 'sha256:' + pin['artifact_zip_sha256'], 'expired': False,
@@ -227,7 +303,8 @@ def _snapshot(transport, pin, check):
         wr = item.get('workflow_run')
         need(type(wr) is dict and all(type(wr.get(k)) is type(v) and wr.get(k) == v
                                      for k, v in expected_wr.items()), 'admission artifact repository binding changed')
-    marker = _read_marker(transport, pin, check)
+    marker = _read_marker(transport, pin, check, diagnostic)
+    _phase(diagnostic, 'snapshot_deadline')
     _tick(transport, pin, check)
     bound_run = dict(expected)
     for key in ('repository', 'head_repository'):
@@ -240,17 +317,21 @@ def _snapshot(transport, pin, check):
             'upload_marker': marker}
 
 
-def _read_marker(transport, pin, check):
+def _read_marker(transport, pin, check, diagnostic=None):
     # The connector's decoded log file hash is not a raw remote-byte identity.
     # Bind the unique emitted marker to the exact authenticated successful job.
+    _phase(diagnostic, 'log_request')
     request = transport._request(f'{PREFIX}/actions/jobs/{pin["producer_job_id"]}/logs')
     raw = bytearray()
+    _phase(diagnostic, 'log_guard')
     with _guard(transport, check):
         for redirects in range(6):
             _remaining(check)
             try:
+                _phase(diagnostic, 'log_open')
                 response = transport.opener.open(request, timeout=min(60, _remaining(check)))
             except urllib.error.HTTPError as error:
+                _phase(diagnostic, 'log_redirect')
                 code = error.code
                 location = error.headers.get('Location', '') if error.headers else ''
                 error.close()
@@ -264,6 +345,7 @@ def _read_marker(transport, pin, check):
                 need(response.getcode() == 200, 'authenticated admission log response failed')
                 while True:
                     _remaining(check)
+                    _phase(diagnostic, 'log_read')
                     chunk = response.read(min(CHUNK, MAX_LOG + 1 - len(raw)))
                     _remaining(check)
                     need(type(chunk) is bytes, 'invalid admission log response bytes')
@@ -274,11 +356,13 @@ def _read_marker(transport, pin, check):
             break
         else:
             raise AdmissionRejected('admission log redirect bound exceeded')
+    _phase(diagnostic, 'log_decode')
     try:
         encoding = 'utf-16' if raw[:2] in (b'\xff\xfe', b'\xfe\xff') else 'utf-8-sig'
         text = raw.decode(encoding, errors='strict')
     except UnicodeError:
         raise AdmissionRejected('unsupported admission log encoding') from None
+    _phase(diagnostic, 'log_marker')
     emitted = []
     pattern = re.compile(r'^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,9})?Z) ' + MARKER + r'(.+)$')
     for line in text.splitlines():
@@ -382,15 +466,19 @@ def _write(fd, chunk):
         view = view[count:]
 
 
-def _download(transport, pin, rootfd, check):
+def _download(transport, pin, rootfd, check, diagnostic=None):
+    _phase(diagnostic, 'zip_open')
     fd = _make_file(rootfd, 'evidence.zip')
     h, count = hashlib.sha256(), 0
     try:
+        _phase(diagnostic, 'zip_guard')
         with _guard(transport, check):
+            _phase(diagnostic, 'zip_open')
             with transport._open_zip(pin['artifact_id']) as response:
                 need(response.getcode() == 200, 'admission ZIP response failed')
                 while True:
                     _remaining(check)
+                    _phase(diagnostic, 'zip_read')
                     chunk = response.read(min(CHUNK, pin['artifact_zip_bytes'] + 1 - count))
                     _remaining(check)
                     need(type(chunk) is bytes, 'invalid admission ZIP response bytes')
@@ -400,6 +488,7 @@ def _download(transport, pin, rootfd, check):
                     _write(fd, chunk)
                     if not chunk:
                         break
+            _phase(diagnostic, 'zip_hash')
             need(count == pin['artifact_zip_bytes'] and h.hexdigest() == pin['artifact_zip_sha256'],
                  'admission ZIP exact size or digest mismatch')
     finally:
@@ -513,21 +602,30 @@ def load_verified_admission(transport, pin, destination, check_deadline):
     Failure preserves this new owned destination for diagnosis; never deletes or
     overwrites an older snapshot. All external errors are sanitized.
     """
+    diagnostic = {'phase': 'pin_validation', 'round': 'initial'}
     try:
         pin = _validate_pin(pin)
+        _phase(diagnostic, 'deadline')
         _tick(transport, pin, check_deadline)
+        _phase(diagnostic, 'destination')
         destination = _no_links(destination)
         need(not destination.exists() and destination.parent.is_dir(), 'admission destination must be new')
+        _phase(diagnostic, 'reconciliation_read')
         witness_path = Path(__file__).absolute().parent / 'ADMISSION_RECONCILIATION.json'
         witness = _read_file(witness_path, MAX_RECONCILIATION, check_deadline)
         need(sha(witness) == pin['reconciliation_sha256'] and type(parse(witness)) is dict,
              'static admission reconciliation witness mismatch')
+        _phase(diagnostic, 'review_read')
         review_path = Path(__file__).absolute().parent / 'ADMISSION_INDEPENDENT_REVIEW.json'
         review = _read_file(review_path, MAX_RECONCILIATION, check_deadline)
         need(sha(review) == pin['independent_review_sha256'] == INDEPENDENT_REVIEW_SHA256,
              'independent admission review witness mismatch')
+        _phase(diagnostic, 'capacity')
         _preflight(destination.parent, pin, len(witness) + len(review))
-        before = _snapshot(transport, pin, check_deadline)
+        diagnostic['round'] = 'before'
+        before = _snapshot(transport, pin, check_deadline, diagnostic)
+        diagnostic['round'] = 'body'
+        _phase(diagnostic, 'projection_binding')
         projection = parse(witness)
         need(projection.get('schema') == 'fixed-three-context-admission-reconciliation-v1' and
              projection.get('independent_review_sha256') == sha(review) and
@@ -535,10 +633,12 @@ def load_verified_admission(transport, pin, destination, check_deadline):
              projection.get('upload_marker') == {'artifact_id': pin['artifact_id'],
                  'artifact_zip_sha256': pin['artifact_zip_sha256'], 'occurrences': 1},
              'static admission projection does not match runtime authentication')
+        _phase(diagnostic, 'create_destination')
         destination.mkdir(mode=0o700)
         rootfd = os.open(destination, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
         root_identity = os.fstat(rootfd)
         try:
+            _phase(diagnostic, 'copy_witnesses')
             fd = _make_file(rootfd, 'ADMISSION_RECONCILIATION.json')
             try:
                 _write(fd, witness)
@@ -549,25 +649,37 @@ def load_verified_admission(transport, pin, destination, check_deadline):
                 _write(fd, review)
             finally:
                 os.close(fd)
-            _download(transport, pin, rootfd, check_deadline)
+            _download(transport, pin, rootfd, check_deadline, diagnostic)
+            _phase(diagnostic, 'evidence_guard')
             with _guard(transport, check_deadline):
+                _phase(diagnostic, 'evidence_extract')
                 _extract(destination / 'evidence.zip', destination / 'evidence', pin['files'], check_deadline)
+                _phase(diagnostic, 'evidence_validate')
                 _semantic_sanity(destination / 'evidence', pin, check_deadline)
-            after = _snapshot(transport, pin, check_deadline)
+            diagnostic['round'] = 'after'
+            after = _snapshot(transport, pin, check_deadline, diagnostic)
+            diagnostic['round'] = 'final'
+            _phase(diagnostic, 'identity_comparison')
             need(before == after, 'admission authenticated identity mutated')
+            _phase(diagnostic, 'rehash_evidence')
             _rehash_tree(destination / 'evidence', pin['files'], check_deadline)
+            _phase(diagnostic, 'rehash_zip')
             need(sha(_read_file(destination / 'evidence.zip', pin['artifact_zip_bytes'], check_deadline)) ==
                  pin['artifact_zip_sha256'], 'admission ZIP changed after extraction')
+            _phase(diagnostic, 'rehash_witnesses')
             need(_read_file(destination / 'ADMISSION_RECONCILIATION.json', len(witness), check_deadline) == witness,
                  'admission reconciliation changed after copy')
             need(_read_file(destination / 'ADMISSION_INDEPENDENT_REVIEW.json', len(review), check_deadline) == review,
                  'admission independent review changed after copy')
+            _phase(diagnostic, 'final_identity')
             current = destination.lstat()
             need((current.st_dev, current.st_ino) == (root_identity.st_dev, root_identity.st_ino),
                  'admission destination identity changed')
+            _phase(diagnostic, 'deadline')
             _tick(transport, pin, check_deadline)
         finally:
             os.close(rootfd)
+        _phase(diagnostic, 'complete')
         evidence = destination / 'evidence'
         return {'schema': 'verified-admission-evidence-paths-v1', 'evidence_root': str(evidence),
                 'completion_path': str(evidence / COMPLETION), 'selection_path': str(evidence / SELECTION),
@@ -583,7 +695,9 @@ def load_verified_admission(transport, pin, destination, check_deadline):
                              'native_objects_created': False, 'final_component_rechecks_required': True}}
     except AdmissionRejected:
         raise
-    except BaseException:
+    except BaseException as error:
         # Never expose bearer material, signed URLs, remote error bodies, or
         # original exceptions through chained traceback output.
-        raise AdmissionRejected('admission loading failed; external details suppressed') from None
+        raise AdmissionRejected('admission loading failed (' +
+                                _safe_failure_diagnostic(error, diagnostic) +
+                                '); external details suppressed') from None
