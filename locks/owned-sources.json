@@ -1,0 +1,982 @@
+{
+  "body_union_count": 65,
+  "modern_body_map_sha256": "012c126e8cc9c405b859c15c98cc815f9e7e884aee3ac011127206cb349e6a86",
+  "module_count": 69,
+  "module_order": [
+    "SparseMonotiles.Model",
+    "PalomarCurvedChallenge",
+    "PalomarKeyedProductChallenge",
+    "ContractModelBridgeSmoke",
+    "SpectreGeometry.PolygonData",
+    "SpectreGeometry.PolygonFanData",
+    "LiteralPlanar.FanBoundsData",
+    "LiteralPlanar.QuinticArc",
+    "LiteralPlanar.QuinticFanLipschitz",
+    "SpectreGeometry.QuadraticReal",
+    "SpectreGeometry.PolygonReal",
+    "LiteralPlanar.FanBoundsReal",
+    "SpectreGeometry.PolygonSegments",
+    "SpectreGeometry.PolygonBody",
+    "SpectreGeometry.TriangleGeometry",
+    "SpectreGeometry.FanRealGeometry",
+    "LiteralPlanar.FanDomain",
+    "SpectreGeometry.FanSeparation",
+    "SpectreGeometry.FanCoverage",
+    "SpectreGeometry.PolygonBoundary",
+    "LiteralPlanar.FanCoordinates",
+    "SpectreGeometry.EdgeNeighborhood",
+    "SpectreGeometry.EuclideanCarrier",
+    "SpectreGeometry.PlacedEdgeForms",
+    "SpectreGeometry.UnitEdgeDirections",
+    "LiteralPlanar.FanBoundsEuclidean",
+    "LiteralPlanar.TileResidual",
+    "LiteralPlanar.LiteralCandidate",
+    "LiteralPlanar.FanTileMapImage",
+    "SpectreGeometry.PolygonProductKeySeparationData",
+    "SpectreGeometry.RotationData",
+    "SpectreGeometry.CornerSteps",
+    "SpectreGeometry.CornerGermData",
+    "SpectreGeometry.CornerNeighborhood",
+    "SpectreGeometry.CornerSignData",
+    "SpectreGeometry.CornerSectorReal",
+    "SpectreGeometry.EdgeSectorData",
+    "SpectreGeometry.BoundaryNonvertex",
+    "SpectreGeometry.BoundarySectorGerms",
+    "SpectreGeometry.LocalConeGerm",
+    "SpectreGeometry.PolygonLocalConeGerms",
+    "SpectreGeometry.PolygonProductConeGerms",
+    "SpectreGeometry.PolygonBoundaryNormalRank",
+    "SpectreGeometry.PolygonProductBoundaryNormals",
+    "SpectreGeometry.PolygonProductKeyFrames",
+    "SpectreGeometry.PolygonProductKeyCenterSeparation",
+    "SpectreGeometry.PolygonProductKeyCollarMargins",
+    "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+    "SpectreGeometry.PolygonBoundaryNormalAngles",
+    "SpectreGeometry.PolygonProductNormalAngles",
+    "PhysicalRegistration.PlanarSectorMeasure",
+    "SpectreGeometry.NormalPlaneSectorMeasure",
+    "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+    "SpectreGeometry.PolygonFactorSectionMass",
+    "SpectreGeometry.NormalPlaneRankObstruction",
+    "SpectreGeometry.PolygonProductNormalPlane",
+    "SpectreGeometry.PolygonProductSectionMass",
+    "SpectreGeometry.PolygonProductBoundaryGerm",
+    "SpectreGeometry.PolygonProductKeyCollar",
+    "SpectreGeometry.PolygonProductKeyCollarSeparation",
+    "PhysicalRegistration.ThreeCones",
+    "PhysicalRegistration.LocalGraphs",
+    "PhysicalRegistration.KeyTent",
+    "PhysicalRegistration.KeyHypograph",
+    "PhysicalRegistration.TubeAssembly",
+    "PhysicalRegistration.KeyTube",
+    "SpectreGeometry.PolygonProductKeyHypographs",
+    "SpectreGeometry.PolygonProductKeyBody",
+    "ContractBodyBridgeSmoke"
+  ],
+  "no_C_dependency": true,
+  "original_body_closure_sha256": "23521b2fe06432f0ba65631282a9946abeb779499e6d760f60a8ff8266f94996",
+  "schema": "body-diagnostic-owned-source-topology-v1",
+  "source_migration_status": "candidate_header_visibility_migration_not_full_research_acceptance",
+  "source_staging_manifest_sha256": "a75a42221652a45910380d572351b64cdc6c5ed0d426651b5a9d8190f622e872",
+  "sources": [
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2679,
+      "module": "SparseMonotiles.Model",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Analysis.Convex.Hull",
+        "Mathlib.Topology.MetricSpace.Isometry"
+      ],
+      "original_sha256": "411da8b60131a39924492882732ab28aa9c7a14ba42aee626852ff2addf04281",
+      "path": "src/SparseMonotiles/Model.lean",
+      "role": "modern_body_dependency",
+      "sha256": "411da8b60131a39924492882732ab28aa9c7a14ba42aee626852ff2addf04281"
+    },
+    {
+      "bytes": 4957,
+      "module": "PalomarCurvedChallenge",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Topology.MetricSpace.Isometry"
+      ],
+      "path": "src/PalomarCurvedChallenge.lean",
+      "role": "challenge_statement_with_intentional_hole",
+      "sha256": "9a57bad846fcd4bcbbb8296a017b218581c28ddbdc7f35805f37ddeb4285ae3b"
+    },
+    {
+      "bytes": 7668,
+      "module": "PalomarKeyedProductChallenge",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Topology.MetricSpace.Isometry",
+        "Mathlib.Analysis.Convex.Topology",
+        "Mathlib.Data.Finset.Lattice.Fold",
+        "Mathlib.Data.Fin.VecNotation"
+      ],
+      "path": "src/PalomarKeyedProductChallenge.lean",
+      "role": "challenge_statement_with_intentional_hole",
+      "sha256": "a8af1f82fff6a5133899c5f6626577fdfb590a3d2f3c73dd891d58e92d81a934"
+    },
+    {
+      "bytes": 710,
+      "module": "ContractModelBridgeSmoke",
+      "ordered_imports": [
+        "PalomarCurvedChallenge",
+        "PalomarKeyedProductChallenge",
+        "SparseMonotiles.Model"
+      ],
+      "path": "src/ContractModelBridgeSmoke.lean",
+      "role": "bridge_diagnostic",
+      "sha256": "0c524c40a5a79130446776b1c6dfd8966410ae9c5012c3548e68c823e1eacf87"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4294,
+      "module": "SpectreGeometry.PolygonData",
+      "ordered_imports": [
+        "Init"
+      ],
+      "original_sha256": "a7e2cb155e475022b24410de4d85c320506d53d78eab787369df13f003bc65e8",
+      "path": "src/SpectreGeometry/PolygonData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "67c0652db73302f374e56f5bac4156b60d7a35a96b649a3605ba537fc231e251"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1920,
+      "module": "SpectreGeometry.PolygonFanData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "original_sha256": "f828b87b61f1c62fd3b9b4cbe69195bbe375306418525a1441983a1a994fe33e",
+      "path": "src/SpectreGeometry/PolygonFanData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "53450cb083c43fa136a429455d9e3e7599fabe6f956f5aa067762ed859856d95"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 869,
+      "module": "LiteralPlanar.FanBoundsData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonFanData"
+      ],
+      "original_sha256": "28a1633aa27910bc27528acfb61ff3982067b04064866bfd2ecd7bceec053091",
+      "path": "src/LiteralPlanar/FanBoundsData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "6a3a222ce4479eaf855929b6a25f5ed007ba7e4069ba8e4c85aceec4896a4b1b"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2296,
+      "module": "LiteralPlanar.QuinticArc",
+      "ordered_imports": [
+        "Mathlib.Basic.Real.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "original_sha256": "8a6f4aacac4dbe54dec8c6c906cccde66aa942a2dddbd1244fd1214e8fda02bd",
+      "path": "src/LiteralPlanar/QuinticArc.lean",
+      "role": "modern_body_dependency",
+      "sha256": "6301dfe1735287baa0b563ceac666f8c5a56e779f13672da9d3e1327af8efc65"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4468,
+      "module": "LiteralPlanar.QuinticFanLipschitz",
+      "ordered_imports": [
+        "LiteralPlanar.QuinticArc"
+      ],
+      "original_sha256": "cc412f434d5f36df4644b0712bb8855ac038179115e2c5eb92654cc8ac94ae48",
+      "path": "src/LiteralPlanar/QuinticFanLipschitz.lean",
+      "role": "modern_body_dependency",
+      "sha256": "6d66b9ba26b388dcd29a500a049d0657564c43854176bd564d3ae1869d4ec205"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3291,
+      "module": "SpectreGeometry.QuadraticReal",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "original_sha256": "e5ede46e89b392440ac08d1845333220e22d12b19b26a9e42b7d1ede479fa12f",
+      "path": "src/SpectreGeometry/QuadraticReal.lean",
+      "role": "modern_body_dependency",
+      "sha256": "99857d78120aae4a1d91633e07c85efb796ca2d4d8fc3271be2b4ece442d2172"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4061,
+      "module": "SpectreGeometry.PolygonReal",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticReal"
+      ],
+      "original_sha256": "cb897f3bcf9bd0b6e837050d7297b599d4c9e4436697523e4d8792d129a9e15d",
+      "path": "src/SpectreGeometry/PolygonReal.lean",
+      "role": "modern_body_dependency",
+      "sha256": "352faff97f8cc296bbbba1eac5c1802a07fa6317ac4c9c1a688e7d6588b76279"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 5393,
+      "module": "LiteralPlanar.FanBoundsReal",
+      "ordered_imports": [
+        "LiteralPlanar.FanBoundsData",
+        "LiteralPlanar.QuinticFanLipschitz",
+        "SpectreGeometry.PolygonReal"
+      ],
+      "original_sha256": "42f3f3aa6cd8664b8df589620e93a72d962768e1e68bbaf03102bd0d8b1ab239",
+      "path": "src/LiteralPlanar/FanBoundsReal.lean",
+      "role": "modern_body_dependency",
+      "sha256": "a2885fa79d10bec23584c7d7dba26f04efbb9b195b542b75db793a5a47a12e11"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4565,
+      "module": "SpectreGeometry.PolygonSegments",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonReal"
+      ],
+      "original_sha256": "13b9b75d90d4c776c85d3cd32afcada3fa19f08d6648b9c1e13e5f0dc14da1dd",
+      "path": "src/SpectreGeometry/PolygonSegments.lean",
+      "role": "modern_body_dependency",
+      "sha256": "26d23d3e984613a181dec028c74bdb93b8d5729c5b017f8886010321935e1935"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3395,
+      "module": "SpectreGeometry.PolygonBody",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonSegments",
+        "SpectreGeometry.PolygonFanData",
+        "Mathlib.Analysis.Convex.Topology",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "original_sha256": "79473baaa1a1ddd0b05425c2fbab6e209a0e68f9a9d5415fee80639dcc65c96d",
+      "path": "src/SpectreGeometry/PolygonBody.lean",
+      "role": "modern_body_dependency",
+      "sha256": "7c6c53a9fa8727cab45a0a6355e440a8e3cb3f58f0ddcb8ff1ca6402a5990a65"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 7776,
+      "module": "SpectreGeometry.TriangleGeometry",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBody",
+        "Mathlib.Topology.Order.LeftRight",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "original_sha256": "e169f44f4eff520c3a06c8b2b830c21c0b0111cb93fbaddeb25d8e231411a231",
+      "path": "src/SpectreGeometry/TriangleGeometry.lean",
+      "role": "modern_body_dependency",
+      "sha256": "415c3376d7864347e354874fb9291742e044f55e2a286b1684d0191cfb41979b"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3096,
+      "module": "SpectreGeometry.FanRealGeometry",
+      "ordered_imports": [
+        "SpectreGeometry.TriangleGeometry"
+      ],
+      "original_sha256": "53af034a51e0b436d523b2499652c2de2b481485e45ef8e9e271cb05c107be7f",
+      "path": "src/SpectreGeometry/FanRealGeometry.lean",
+      "role": "modern_body_dependency",
+      "sha256": "66395d316110e85e8e5d8f7e6aefe18f5fc60d58dc3e874241951d6d0afb808e"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2757,
+      "module": "LiteralPlanar.FanDomain",
+      "ordered_imports": [
+        "LiteralPlanar.FanBoundsReal",
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "original_sha256": "ec664934855f9e2e4cdc959540cf40cc25d6d0437b572b27a3dd747779a6d3ec",
+      "path": "src/LiteralPlanar/FanDomain.lean",
+      "role": "modern_body_dependency",
+      "sha256": "638518c11601982ff7857e3736618deeec93777e2047e96390057103f6c8b295"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4547,
+      "module": "SpectreGeometry.FanSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "original_sha256": "5d23450c0e4f47ca75cf7430959dd66a7d2ac831dd30eac6e9903fc478ed8027",
+      "path": "src/SpectreGeometry/FanSeparation.lean",
+      "role": "modern_body_dependency",
+      "sha256": "079ccdbfc8f708401d83ad0116a04126c933fe15c7f5e5abf1d4f53e971df6b4"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 5191,
+      "module": "SpectreGeometry.FanCoverage",
+      "ordered_imports": [
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "original_sha256": "06ea7077102ac82097641741f9f84e0aa10327fdc42b0fb4f309769e6544b0af",
+      "path": "src/SpectreGeometry/FanCoverage.lean",
+      "role": "modern_body_dependency",
+      "sha256": "cfbebe021e9bd12a05b2aa10720a9a3fca9648ca9112bbf93b61dd891edf582d"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 8239,
+      "module": "SpectreGeometry.PolygonBoundary",
+      "ordered_imports": [
+        "SpectreGeometry.FanSeparation",
+        "SpectreGeometry.FanCoverage"
+      ],
+      "original_sha256": "e9112beca75e74d13e61a31f64eceb09308c8ed00bea70e33488daead9d14f0c",
+      "path": "src/SpectreGeometry/PolygonBoundary.lean",
+      "role": "modern_body_dependency",
+      "sha256": "842e1b37f77d02676699d5fa9f5ee3eb94ce5588498767b0f9b2937c5bb331d4"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3607,
+      "module": "LiteralPlanar.FanCoordinates",
+      "ordered_imports": [
+        "LiteralPlanar.FanDomain",
+        "SpectreGeometry.PolygonBoundary",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "original_sha256": "eeadf262642f960b086c29c5859512b2bf049a9351e1ba0e4aa697ccb6e25b8c",
+      "path": "src/LiteralPlanar/FanCoordinates.lean",
+      "role": "modern_body_dependency",
+      "sha256": "41e2ae7ecfb2bc3426470d5f028bc06b5cf7444ee5afbbec77e77c50be2ae52e"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4278,
+      "module": "SpectreGeometry.EdgeNeighborhood",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBoundary"
+      ],
+      "original_sha256": "819666d0efc8dd48011e55b19877691c3c3f9a1aaa0087079a60da531fd34f46",
+      "path": "src/SpectreGeometry/EdgeNeighborhood.lean",
+      "role": "modern_body_dependency",
+      "sha256": "6d0d7fd8efd2a5e417449e5b26c4c46313de23684021e1fb2f21afcccbc236f0"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1989,
+      "module": "SpectreGeometry.EuclideanCarrier",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBody",
+        "Mathlib.Analysis.InnerProductSpace.PiL2"
+      ],
+      "original_sha256": "a99147e19a54cdd9df660e9e81e10fbe2050d7a92d92e3493c7f25848d604d4f",
+      "path": "src/SpectreGeometry/EuclideanCarrier.lean",
+      "role": "modern_body_dependency",
+      "sha256": "678f726e22665f372b5e2f4eebdd5b5a7f542d5dd86fa3ba6d06fe6dbbd2c8dd"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4637,
+      "module": "SpectreGeometry.PlacedEdgeForms",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeNeighborhood",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Analysis.Normed.Affine.MazurUlam"
+      ],
+      "original_sha256": "280f2e57f825e8b4b1dd52c1c8f38fa7964fd42b8de942158772442e6137d296",
+      "path": "src/SpectreGeometry/PlacedEdgeForms.lean",
+      "role": "modern_body_dependency",
+      "sha256": "4a78b41bb97ffe377776cf7541877880a971289ff5d681d7d45b09a47763c382"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4044,
+      "module": "SpectreGeometry.UnitEdgeDirections",
+      "ordered_imports": [
+        "SpectreGeometry.PlacedEdgeForms"
+      ],
+      "original_sha256": "cee045a718075ad812e0b1b3ccd06554e6cde9773af74205146d71dbae200675",
+      "path": "src/SpectreGeometry/UnitEdgeDirections.lean",
+      "role": "modern_body_dependency",
+      "sha256": "a8d3a3fe7a74a59262d0dd73ffc7ab53da7517e4e48d73d522c08bff2f1f7b71"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2256,
+      "module": "LiteralPlanar.FanBoundsEuclidean",
+      "ordered_imports": [
+        "LiteralPlanar.FanBoundsReal",
+        "SpectreGeometry.UnitEdgeDirections",
+        "Mathlib.Topology.MetricSpace.Lipschitz"
+      ],
+      "original_sha256": "9fcc613000293058474c5e0819536962b0ae81cc5a5dfa48f59685e17f5958d0",
+      "path": "src/LiteralPlanar/FanBoundsEuclidean.lean",
+      "role": "modern_body_dependency",
+      "sha256": "d86d4f4f53c9c5a4d87bc43f42c11431ef7779180bf06ca9614ea4722ff2d6b8"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4022,
+      "module": "LiteralPlanar.TileResidual",
+      "ordered_imports": [
+        "LiteralPlanar.FanCoordinates",
+        "LiteralPlanar.FanBoundsEuclidean"
+      ],
+      "original_sha256": "0b1a3b671507cd311652519fcd1836a964ca4a9fa7256afcedb25112f8b08292",
+      "path": "src/LiteralPlanar/TileResidual.lean",
+      "role": "modern_body_dependency",
+      "sha256": "eab687ab12330880a0d472d05da394cbf5f116865a3f8dee921be4f476fcd509"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1791,
+      "module": "LiteralPlanar.LiteralCandidate",
+      "ordered_imports": [
+        "LiteralPlanar.QuinticArc",
+        "SpectreGeometry.PolygonReal",
+        "SpectreGeometry.PolygonFanData"
+      ],
+      "original_sha256": "7a66448e57cac57f785d00f72a2cba5ea84f820008684fad8687bbbe5e44d506",
+      "path": "src/LiteralPlanar/LiteralCandidate.lean",
+      "role": "modern_body_dependency",
+      "sha256": "4f6ab63e0e6d10868b6f7402a3695bdf5faa4ab806ada597b7ad4dd7eb16e4f5"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2919,
+      "module": "LiteralPlanar.FanTileMapImage",
+      "ordered_imports": [
+        "LiteralPlanar.TileResidual",
+        "LiteralPlanar.LiteralCandidate"
+      ],
+      "original_sha256": "504ea4326b7d4096a29963d17ef42cf1de361a78e30e52e530bc140ecc9fe6d8",
+      "path": "src/LiteralPlanar/FanTileMapImage.lean",
+      "role": "modern_body_dependency",
+      "sha256": "1781996834f69729def5ba67c46c458da05fe436377d121d4bdd64161eb5b49f"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2396,
+      "module": "SpectreGeometry.PolygonProductKeySeparationData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "original_sha256": "8dbdf76c5b12b43036abc457dec511e628d311f29aa0151d958d2252a79d858e",
+      "path": "src/SpectreGeometry/PolygonProductKeySeparationData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "fbd4fcf4cd533e5cd2f76426e2c3b097c1507edf7e8b3eb8f7b0574a4ea17963"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1447,
+      "module": "SpectreGeometry.RotationData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "original_sha256": "102aab300d4353e0801adf83eba9283c86b31a9b91c1df387194a38381e13689",
+      "path": "src/SpectreGeometry/RotationData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "3f60a0112659ae526251d3bfb5119a293e66d705ed4e98ab2bc73379a56289c4"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2511,
+      "module": "SpectreGeometry.CornerSteps",
+      "ordered_imports": [
+        "SpectreGeometry.RotationData"
+      ],
+      "original_sha256": "90bbd01aec959123a16c7b48ec184d51536d0e963fadb9629939eed9c7ae44cd",
+      "path": "src/SpectreGeometry/CornerSteps.lean",
+      "role": "modern_body_dependency",
+      "sha256": "d8dca75bf5f22dde0cbefd6756b60d5ede42e509d492a53239452040cc779728"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1960,
+      "module": "SpectreGeometry.CornerGermData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonFanData",
+        "SpectreGeometry.CornerSteps"
+      ],
+      "original_sha256": "df76996690789019523c922ca0df6753e71484eca7b463d716ecaf4e2d757516",
+      "path": "src/SpectreGeometry/CornerGermData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "5d9e4780a5095b40df87b4f9e6a89aba4a8ac4896a941d0ab5e5d67c484b758b"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 5245,
+      "module": "SpectreGeometry.CornerNeighborhood",
+      "ordered_imports": [
+        "SpectreGeometry.CornerGermData",
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "original_sha256": "c2526f40b69ebc294e4f9f5c8e43b87c60719a28a210d1385d9134640ef13949",
+      "path": "src/SpectreGeometry/CornerNeighborhood.lean",
+      "role": "modern_body_dependency",
+      "sha256": "e9cba698de68eb88d4aa57c1fe0b943d3849a1af9084c18d5c483f76b0327868"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 647,
+      "module": "SpectreGeometry.CornerSignData",
+      "ordered_imports": [
+        "SpectreGeometry.CornerGermData"
+      ],
+      "original_sha256": "1255d32ad1172463b5efbd9fd667f92aeaa97cfb9a83d75663f2ebdc95f5c070",
+      "path": "src/SpectreGeometry/CornerSignData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "7a6bab5404aae6c160ab35df99f1c68bf2031d52665748575fe47b20ac9e9588"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 5881,
+      "module": "SpectreGeometry.CornerSectorReal",
+      "ordered_imports": [
+        "SpectreGeometry.CornerNeighborhood",
+        "SpectreGeometry.CornerSignData"
+      ],
+      "original_sha256": "e61aebbd0e188f747a109f4425a0bda8fec8e85fa4ddc1d440bce23bab1710a7",
+      "path": "src/SpectreGeometry/CornerSectorReal.lean",
+      "role": "modern_body_dependency",
+      "sha256": "0ab8d86030e7e4a1a2fa090d08a1dd73ef66db860ad0958bef95c4ca7dbfc499"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2120,
+      "module": "SpectreGeometry.EdgeSectorData",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSignData"
+      ],
+      "original_sha256": "70b6389d4a3897cbfc601ea1baddcdbd40c3699bc678c16cbb7ef14baafadadc",
+      "path": "src/SpectreGeometry/EdgeSectorData.lean",
+      "role": "modern_body_dependency",
+      "sha256": "df8483b50c1468f7b4f0994d8a3931e38e5610e0a3b113db55030c395d03c62c"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1504,
+      "module": "SpectreGeometry.BoundaryNonvertex",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "original_sha256": "b51f1a235517acb33738c3ff9802be5942df2dfc7ab207905d6bbbd8e3e603e2",
+      "path": "src/SpectreGeometry/BoundaryNonvertex.lean",
+      "role": "modern_body_dependency",
+      "sha256": "2712b175406d890c85e4bf8be25a9cce188a667c274b561a8ac6c81ad964916c"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 5563,
+      "module": "SpectreGeometry.BoundarySectorGerms",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSectorReal",
+        "SpectreGeometry.EdgeSectorData",
+        "SpectreGeometry.BoundaryNonvertex"
+      ],
+      "original_sha256": "4aa4ee763bd72bf6c5356a74933c0acc25558264729ebd41c2acc6e3bfdc2321",
+      "path": "src/SpectreGeometry/BoundarySectorGerms.lean",
+      "role": "modern_body_dependency",
+      "sha256": "0df8f5a553d69d170c07ef16159ee38afc8e4b3e3f9bac955fa49cb45cd29626"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4864,
+      "module": "SpectreGeometry.LocalConeGerm",
+      "ordered_imports": [
+        "Mathlib.Analysis.Normed.Affine.MazurUlam",
+        "Mathlib.Topology.Algebra.ContinuousAffineEquiv",
+        "Mathlib.Tactic.Abel"
+      ],
+      "original_sha256": "1face0fe4d703c587d3f52465bb8657ba23b7e02b2951ccb3253308b413ffd90",
+      "path": "src/SpectreGeometry/LocalConeGerm.lean",
+      "role": "modern_body_dependency",
+      "sha256": "7d752967562ab709f6fe577f862c0d8bfdb4d088084707350e7e29a39b1b3d00"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4405,
+      "module": "SpectreGeometry.PolygonLocalConeGerms",
+      "ordered_imports": [
+        "SpectreGeometry.BoundarySectorGerms",
+        "SpectreGeometry.LocalConeGerm"
+      ],
+      "original_sha256": "fcf0500a7458aeb1fb7c4bced40e3b1c4723d549afa46558ed442e271ee4dbb4",
+      "path": "src/SpectreGeometry/PolygonLocalConeGerms.lean",
+      "role": "modern_body_dependency",
+      "sha256": "b0b85a90de1bf85de0d243e275af4e2f67ddd74d6c0f481157b7cc810bc9db56"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3217,
+      "module": "SpectreGeometry.PolygonProductConeGerms",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonLocalConeGerms",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Topology.Algebra.Module.FiniteDimension"
+      ],
+      "original_sha256": "4aa764b22b0d69abcba1a2bcc47552d136864b1a96faf00d3098708188099009",
+      "path": "src/SpectreGeometry/PolygonProductConeGerms.lean",
+      "role": "modern_body_dependency",
+      "sha256": "f3d81a6e3730f14ebed5a6e93d6d544c4038d438535ec353a4e3eceda1853b22"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3281,
+      "module": "SpectreGeometry.PolygonBoundaryNormalRank",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSectorReal",
+        "Mathlib.LinearAlgebra.LinearIndependent.Lemmas"
+      ],
+      "original_sha256": "ff1f8441528a74fbb2c335b32fc3b7268c823d5afdafe0732fb44eee271ada91",
+      "path": "src/SpectreGeometry/PolygonBoundaryNormalRank.lean",
+      "role": "modern_body_dependency",
+      "sha256": "8afee3fbb7e4f54255b9d38c6d22b4dabb09ea59c64ace91625026bcadacf890"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3436,
+      "module": "SpectreGeometry.PolygonProductBoundaryNormals",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductConeGerms",
+        "SpectreGeometry.PolygonBoundaryNormalRank"
+      ],
+      "original_sha256": "c48eb07a9c7a6db48a214317668ac555549c93e413b256fb31dcc5ebd809e75c",
+      "path": "src/SpectreGeometry/PolygonProductBoundaryNormals.lean",
+      "role": "modern_body_dependency",
+      "sha256": "6d5f88dec3ae79cd421f7d87b7e90d8fb8de53400bbeb7cd1ca0da322053ea12"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 9418,
+      "module": "SpectreGeometry.PolygonProductKeyFrames",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductBoundaryNormals",
+        "Mathlib.Analysis.Normed.Affine.Isometry"
+      ],
+      "original_sha256": "80c6dc76412905d50ab65e57f8eae0b73d564a64e50ab04cd587b5ea43b896d1",
+      "path": "src/SpectreGeometry/PolygonProductKeyFrames.lean",
+      "role": "modern_body_dependency",
+      "sha256": "e80b362f967d679b999189343f31aa067147024ed2f3985345e22bae7006db48"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 7247,
+      "module": "SpectreGeometry.PolygonProductKeyCenterSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeySeparationData",
+        "SpectreGeometry.PolygonProductKeyFrames"
+      ],
+      "original_sha256": "0fbca64ff90c642c658d1243622a377ea2d199601755ac09b244507cf88818e6",
+      "path": "src/SpectreGeometry/PolygonProductKeyCenterSeparation.lean",
+      "role": "modern_body_dependency",
+      "sha256": "3cd8bd59d222ada1fd7791e7407b1d6b4bafeefe78756a41c4f5c6827e6f3832"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4746,
+      "module": "SpectreGeometry.PolygonProductKeyCollarMargins",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyFrames",
+        "SpectreGeometry.FanSeparation"
+      ],
+      "original_sha256": "85d6b2f4ad35a3bcf6bfbef337f4ebc14d6d9845fe9fe7e0a18a5d094a7d2655",
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarMargins.lean",
+      "role": "modern_body_dependency",
+      "sha256": "8c88960588df593a75d3492849e417f0cc26e3cca2181be8819b93ce2b0a1411"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 8360,
+      "module": "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarMargins",
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "original_sha256": "008e7f4d5234983b8b9e1a2ffdbf142ecc5ea3066eeb931e7dbf5d405cdeecd1",
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarHalfplanes.lean",
+      "role": "modern_body_dependency",
+      "sha256": "084c64b95fa143832e3c6aa342e784030c0ba597e81b57db9473a0b4f0a49030"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3987,
+      "module": "SpectreGeometry.PolygonBoundaryNormalAngles",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBoundaryNormalRank",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic"
+      ],
+      "original_sha256": "c4dfc914130857f42cf5c6e7796e5bc6cfa1e45e26bb5eab8167e886adbc8aa6",
+      "path": "src/SpectreGeometry/PolygonBoundaryNormalAngles.lean",
+      "role": "modern_body_dependency",
+      "sha256": "319aad93f75242c127ed7940e83ebc2ed8190cf19b8b79a0d5944f0d8de7000f"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 2697,
+      "module": "SpectreGeometry.PolygonProductNormalAngles",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductBoundaryNormals",
+        "SpectreGeometry.PolygonBoundaryNormalAngles"
+      ],
+      "original_sha256": "0f826f80e17197890b4ccd72387ad7ef454cf6a3b298cf6407c10fc036734278",
+      "path": "src/SpectreGeometry/PolygonProductNormalAngles.lean",
+      "role": "modern_body_dependency",
+      "sha256": "09104ca25375baaa95e96f552daf7e0e57aeacca80a54643be311758024e5975"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 27578,
+      "module": "PhysicalRegistration.PlanarSectorMeasure",
+      "ordered_imports": [
+        "Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Angle",
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg"
+      ],
+      "original_sha256": "4128e8df0d03d716aa7cbd394d4cbade8a78345d39536909167fcbef5fbf2428",
+      "path": "src/PhysicalRegistration/PlanarSectorMeasure.lean",
+      "role": "modern_body_dependency",
+      "sha256": "05fe9376a84e5b2a81dc167cf9b89ffd3fcd498465343ae5f1af9aa12ac13ac6"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3765,
+      "module": "SpectreGeometry.NormalPlaneSectorMeasure",
+      "ordered_imports": [
+        "PhysicalRegistration.PlanarSectorMeasure"
+      ],
+      "original_sha256": "08309a1309a388e8684d71519fe55e9f78c0a0824f7030fc4cf48722b21ba187",
+      "path": "src/SpectreGeometry/NormalPlaneSectorMeasure.lean",
+      "role": "modern_body_dependency",
+      "sha256": "446f9b6498ba7e73e7c0236641cc7a6173c8747cd329172cca7d7385e2db5e84"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4746,
+      "module": "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonLocalConeGerms"
+      ],
+      "original_sha256": "8fc4d68bda53ee75e3ce4c19ee69a5ec83da0afb332a13c7f903a1835af4c0c5",
+      "path": "src/SpectreGeometry/PolygonBoundaryConeHalfplanes.lean",
+      "role": "modern_body_dependency",
+      "sha256": "d3c64cbbf773cfc50a5934e6f8904c71300217509bdb67e8cb4d841c83aa4378"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 6161,
+      "module": "SpectreGeometry.PolygonFactorSectionMass",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductNormalAngles",
+        "SpectreGeometry.NormalPlaneSectorMeasure",
+        "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+        "PhysicalRegistration.PlanarSectorMeasure"
+      ],
+      "original_sha256": "7a4fa7a30e30e92bf0c5e515a25d425785cc200b75bd1ee4f892a5b5a3d657ed",
+      "path": "src/SpectreGeometry/PolygonFactorSectionMass.lean",
+      "role": "modern_body_dependency",
+      "sha256": "193ac8b84d3ac6702df66a9d7a5919a02d813237deee0bd20ad8b24de22c2af1"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3047,
+      "module": "SpectreGeometry.NormalPlaneRankObstruction",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+        "Mathlib.LinearAlgebra.Dimension.Constructions"
+      ],
+      "original_sha256": "572c6dd9f8396cf17a59dfd04bdd4323ca450a8643076dd74b030e1437f83dc6",
+      "path": "src/SpectreGeometry/NormalPlaneRankObstruction.lean",
+      "role": "modern_body_dependency",
+      "sha256": "522942d172e7e62f43b0658cae5fd99559bef3d5516dc86e0e9a46ab614c4760"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 1588,
+      "module": "SpectreGeometry.PolygonProductNormalPlane",
+      "ordered_imports": [
+        "SpectreGeometry.NormalPlaneRankObstruction",
+        "SpectreGeometry.PolygonProductBoundaryNormals"
+      ],
+      "original_sha256": "2a7f0ca487d8d793e224758707244f7e75f7f9641998aff363f25c7a59f2af12",
+      "path": "src/SpectreGeometry/PolygonProductNormalPlane.lean",
+      "role": "modern_body_dependency",
+      "sha256": "f798642e172a9b875cfc601232cc268bb49fa0ca508ffc1283b49b1a3aca8022"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 6256,
+      "module": "SpectreGeometry.PolygonProductSectionMass",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonFactorSectionMass",
+        "SpectreGeometry.PolygonProductNormalPlane"
+      ],
+      "original_sha256": "2ed48ba05b2985eb28a924186652d018319a2dfdd7a2449e68b16ddfe681b0e9",
+      "path": "src/SpectreGeometry/PolygonProductSectionMass.lean",
+      "role": "modern_body_dependency",
+      "sha256": "f1a6fca2a921461ca9fa83f3ad1f80100859b3e8d610eb7953f9a1895c5a26d0"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3591,
+      "module": "SpectreGeometry.PolygonProductBoundaryGerm",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductSectionMass"
+      ],
+      "original_sha256": "47ba2818b9fdd69cf814e6a54744099e6ef91d80508bfb4f14aa25568ff57ae7",
+      "path": "src/SpectreGeometry/PolygonProductBoundaryGerm.lean",
+      "role": "modern_body_dependency",
+      "sha256": "f3e7e5f052207349a1a97f2031992a8e02afaaed6d6781cac0dd83ab62e50633"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4492,
+      "module": "SpectreGeometry.PolygonProductKeyCollar",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+        "SpectreGeometry.PolygonProductBoundaryGerm"
+      ],
+      "original_sha256": "55a3b03cc6d168e4beec60105f48aa1a9c6f5cbdd5f01b87ad6e2f5ca7e6d99c",
+      "path": "src/SpectreGeometry/PolygonProductKeyCollar.lean",
+      "role": "modern_body_dependency",
+      "sha256": "8d2671833d985a0d8229797b2a3c0ecb9fa21ea097ad6f99535e543f38ec5a24"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4506,
+      "module": "SpectreGeometry.PolygonProductKeyCollarSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCenterSeparation",
+        "SpectreGeometry.PolygonProductKeyCollar"
+      ],
+      "original_sha256": "fb3234954bce70effdbd951c487bc65ce1a6bbfcbec18fbe878f58f97864e90d",
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarSeparation.lean",
+      "role": "modern_body_dependency",
+      "sha256": "93c5cfb9875d116880340a282f1409fcde667fac11fbb94106ad0903c87e4766"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 3493,
+      "module": "PhysicalRegistration.ThreeCones",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.Basic",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "original_sha256": "1bdb615ae97dea5c72779129824b6dc3e5f4d85080ee90d51cf7d822376b5bf8",
+      "path": "src/PhysicalRegistration/ThreeCones.lean",
+      "role": "modern_body_dependency",
+      "sha256": "fcadcc5a37758ac70722a974483e32a9e11aefbfee079353a7ff58e8c44891f2"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4905,
+      "module": "PhysicalRegistration.LocalGraphs",
+      "ordered_imports": [
+        "PhysicalRegistration.ThreeCones"
+      ],
+      "original_sha256": "cd0b9d7a36bf8a6fc60e5355a3076ba6aa25722d13cbd1ec08bdfed08fe18892",
+      "path": "src/PhysicalRegistration/LocalGraphs.lean",
+      "role": "modern_body_dependency",
+      "sha256": "06723c18c82f8bac3d2c18611c5ad2328d6dc3c0070a174cba229560667e4bcd"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 11357,
+      "module": "PhysicalRegistration.KeyTent",
+      "ordered_imports": [
+        "PhysicalRegistration.LocalGraphs",
+        "Mathlib.Data.Finset.Lattice.Fold"
+      ],
+      "original_sha256": "edabf1400e18aeb776d34cc5e029388f078d877dfe77113e8c061548c60f5ab0",
+      "path": "src/PhysicalRegistration/KeyTent.lean",
+      "role": "modern_body_dependency",
+      "sha256": "f3f9a5bc6e1cadfc7f2b9b8241ed395946a04af5487508de06871b319c927995"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4639,
+      "module": "PhysicalRegistration.KeyHypograph",
+      "ordered_imports": [
+        "PhysicalRegistration.KeyTent"
+      ],
+      "original_sha256": "47182e7de8b8e66360a7ff20538242188913dde4fa44eac8db6df8df2630db53",
+      "path": "src/PhysicalRegistration/KeyHypograph.lean",
+      "role": "modern_body_dependency",
+      "sha256": "2dd0914d60188755c98a1dab41cdaf35ae5bec7a8f7a840d5fe84fa1360741a1"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 6287,
+      "module": "PhysicalRegistration.TubeAssembly",
+      "ordered_imports": [
+        "PhysicalRegistration.KeyHypograph"
+      ],
+      "original_sha256": "3d2eaa501858b88773d3fbb2194b3288bf992eee0f8a3da1cc027aae50d88d3b",
+      "path": "src/PhysicalRegistration/TubeAssembly.lean",
+      "role": "modern_body_dependency",
+      "sha256": "66e6cd0750c5706829be6f48ebb726795ec521ed3a74e465a6516401eb8a86d6"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 9992,
+      "module": "PhysicalRegistration.KeyTube",
+      "ordered_imports": [
+        "PhysicalRegistration.TubeAssembly"
+      ],
+      "original_sha256": "75cbed491b0f7d873f883e0db7060594ca112df097c9bcf9ee2533b869a924a4",
+      "path": "src/PhysicalRegistration/KeyTube.lean",
+      "role": "modern_body_dependency",
+      "sha256": "9eec498ed113e56421eb760d3494517801b3a3ddd568da82032140081558436a"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 4173,
+      "module": "SpectreGeometry.PolygonProductKeyHypographs",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyFrames",
+        "PhysicalRegistration.KeyTube"
+      ],
+      "original_sha256": "fcc55c4d631886c7a67f15f731fa749506811d32de348d27f47817dc61fe4b38",
+      "path": "src/SpectreGeometry/PolygonProductKeyHypographs.lean",
+      "role": "modern_body_dependency",
+      "sha256": "72de4b516c0659c36d43ee84b762535fea19d5be2935812f6958cf3e1faf0086"
+    },
+    {
+      "body_bytes_preserved": true,
+      "bytes": 11951,
+      "module": "SpectreGeometry.PolygonProductKeyBody",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarSeparation",
+        "SpectreGeometry.PolygonProductKeyHypographs",
+        "Mathlib.Topology.MetricSpace.Bounded"
+      ],
+      "original_sha256": "b909fed61b999ec82a68281527aadefe04bfbdc92792ef75f7a557e20ede4d0f",
+      "path": "src/SpectreGeometry/PolygonProductKeyBody.lean",
+      "role": "modern_body_dependency",
+      "sha256": "119969fd5d59f2ad09623d39f57e9860c042a3f42e117cde321e40a30f89d960"
+    },
+    {
+      "bytes": 1432,
+      "module": "ContractBodyBridgeSmoke",
+      "ordered_imports": [
+        "PalomarCurvedChallenge",
+        "PalomarKeyedProductChallenge",
+        "LiteralPlanar.FanTileMapImage",
+        "SpectreGeometry.PolygonProductKeyBody"
+      ],
+      "path": "src/ContractBodyBridgeSmoke.lean",
+      "role": "bridge_diagnostic",
+      "sha256": "6aad40972400966609345655f9e6b92da0b9866c7231a0b8293415307cb2f873"
+    }
+  ]
+}
