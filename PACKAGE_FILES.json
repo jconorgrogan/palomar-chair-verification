@@ -1,0 +1,42 @@
+{
+  "count": 7,
+  "files": [
+    {
+      "bytes": 11358,
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "bytes": 3093434,
+      "path": "ORIGINAL_SOURCE_MANIFEST.json",
+      "sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61"
+    },
+    {
+      "bytes": 3094001,
+      "path": "SOURCE_MANIFEST.json",
+      "sha256": "401320e96ea5a511678892c359af43131fae75494a55d8ea1df0e1dc606a326f"
+    },
+    {
+      "bytes": 1007,
+      "path": "SOURCE_PACKAGE_RECEIPT.json",
+      "sha256": "02edc766ae0396b59de88bfc6a608aff7a063b18ea37aabdbc19cb01419a45e9"
+    },
+    {
+      "bytes": 1007,
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "cb2191d8c106d0727320f68b1db19285cc87c51e54487dff47aa3d8669fbc753"
+    },
+    {
+      "bytes": 5108799,
+      "path": "hierarchy-c-sources.tar.gz",
+      "sha256": "c0695b86ae8566f76f88795b7c6856d82a88e7bfde0c2f51420198ccff0a3be1"
+    },
+    {
+      "bytes": 29,
+      "path": "lean-toolchain",
+      "sha256": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"
+    }
+  ],
+  "schema": 1,
+  "status": "MODERN_C6369_SOURCE_ONLY_PUBLICATION_CANDIDATE"
+}

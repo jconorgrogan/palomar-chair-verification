@@ -1,0 +1,23 @@
+{
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "archive": {
+    "bytes": 5108799,
+    "format": "deterministic USTAR in gzip, gzip mtime zero, no path prefix; regular files only",
+    "path": "hierarchy-c-sources.tar.gz",
+    "sha256": "c0695b86ae8566f76f88795b7c6856d82a88e7bfde0c2f51420198ccff0a3be1"
+  },
+  "expected_type": "SpectreFinite.HexSearch.NativeHierarchy.ParentOccurrenceTheorem",
+  "manifest_sha256": "401320e96ea5a511678892c359af43131fae75494a55d8ea1df0e1dc606a326f",
+  "module_and_import_order_unchanged": true,
+  "no_old_objects_admitted": true,
+  "original_source_manifest_sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61",
+  "source_bytes": 98630486,
+  "source_content_sha256": "8433580e9a74be6fd0adfea4d73f123044e18938ca04272f724de816c93eec50",
+  "source_count": 6369,
+  "status": "SOURCE_ONLY_ROUNDTRIP_VERIFIED_NO_COMPILATION",
+  "target": "SpectreFinite.HexSearch.RadiusFivePruning.certifiedParentOccurrenceTheorem"
+}
