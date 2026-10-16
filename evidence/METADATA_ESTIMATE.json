@@ -1,0 +1,20 @@
+{
+  "actual_production_loop_mocked": true,
+  "collection_manifest_reserve_bytes": 4194304,
+  "command_receipts_bytes": 20108925,
+  "estimated_runner_evidence_bytes": 122828207,
+  "extra_command_reserve": 1048576,
+  "extra_external_inventory_reserve_bytes": 4194304,
+  "headroom_bytes": 7195217,
+  "limitation": "Additional cache inventory paths, actual warning output and filesystem behavior remain runtime-dependent. Existing caps stay fail-closed; this estimate is not an admission guarantee.",
+  "maximum_complete_logs_bytes": 67108864,
+  "miscellaneous_metadata_reserve_bytes": 4194304,
+  "module_receipts_inflated_size_fields_bytes": 9386712,
+  "observed_69_module_cache_runtime_source_metadata_bytes": 13713102,
+  "owned_inventory_inflated_size_fields_bytes": 3073420,
+  "runner_cap_bytes": 130023424,
+  "source_modules": 2481,
+  "status": "DETERMINISTIC_METADATA_ESTIMATE_NOT_RUNTIME_PROOF_OR_HARD_MAXIMUM",
+  "synthetic_compile_check_pairs": 2481,
+  "upload_cap_bytes": 134217728
+}
