@@ -6433,12 +6433,12 @@
       "check_timeout_seconds": 120,
       "compile_flags": [
         "-j1",
-        "-M1280",
+        "-M4096",
         "-DElab.async=false"
       ],
       "compile_timeout_seconds": 240,
       "max_created_file_bytes": 536870912,
-      "note": "Proposed fresh CI limits; not evidence of historical execution or success. Source-local options and any extra compiler option require review.",
+      "note": "Reviewed bounded memory correction for the existing 318-module private whole-part family after Lean internal -M1280 exhaustion in RadiusFiveRoot6Part6, run 38828001179. Same 240/120-second compile/check timeouts, one thread, async=false and 8-GiB OS guards; no success inferred.",
       "option_source": "Pinned Lean CLI option syntax; same exact historical wrapper option. Resource profile still needs integrated review.",
       "review_status": "reviewed",
       "rss_tree_bytes": 8589934592

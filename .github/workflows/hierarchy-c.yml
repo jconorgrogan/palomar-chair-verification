@@ -40,7 +40,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py prepare
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -74,7 +74,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_000"]
@@ -104,7 +104,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -138,7 +138,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_00]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_001", "build_002", "build_003", "build_004", "build_005", "build_006", "build_007", "build_008", "build_009"]
@@ -168,7 +168,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -202,7 +202,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_01]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_010"]
@@ -232,7 +232,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -266,7 +266,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_02]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_011", "build_024", "build_025", "build_026", "build_027", "build_028", "build_029", "build_030", "build_031", "build_032"]
@@ -296,7 +296,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -330,7 +330,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_03]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_012", "build_013", "build_014", "build_015", "build_016", "build_017", "build_018", "build_019", "build_020", "build_033"]
@@ -360,7 +360,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -394,7 +394,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_04]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_021", "build_022", "build_034"]
@@ -424,7 +424,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -458,7 +458,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_05]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_023", "build_035", "build_054", "build_055"]
@@ -488,7 +488,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -522,7 +522,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_06]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_036"]
@@ -552,7 +552,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -586,7 +586,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_07]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_037"]
@@ -616,7 +616,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -650,7 +650,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_08]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_038"]
@@ -680,7 +680,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -714,7 +714,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_09]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_039"]
@@ -744,7 +744,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -778,7 +778,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_10]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_040"]
@@ -808,7 +808,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -842,7 +842,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_11]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_041"]
@@ -872,7 +872,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -906,7 +906,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_12]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_042"]
@@ -936,7 +936,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -970,7 +970,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_13]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_043", "build_044", "build_045", "build_046", "build_047", "build_048", "build_049", "build_050", "build_051", "build_056"]
@@ -1000,7 +1000,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1034,7 +1034,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_14]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_052", "build_057", "build_058", "build_059", "build_060", "build_061", "build_062", "build_063", "build_064", "build_065"]
@@ -1064,7 +1064,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1098,7 +1098,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_15]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_053", "build_066", "build_067", "build_069", "build_071", "build_073", "build_075", "build_076", "build_088"]
@@ -1128,7 +1128,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1162,7 +1162,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_16]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_068", "build_070", "build_072", "build_074", "build_077", "build_079", "build_083", "build_089"]
@@ -1192,7 +1192,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1226,7 +1226,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_17]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_078", "build_080", "build_084", "build_090"]
@@ -1256,7 +1256,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1290,7 +1290,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_18]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_081", "build_085"]
@@ -1320,7 +1320,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1354,7 +1354,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_19]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_082"]
@@ -1384,7 +1384,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1418,7 +1418,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_20]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_086"]
@@ -1448,7 +1448,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1482,7 +1482,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_21]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_087"]
@@ -1512,7 +1512,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1546,7 +1546,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_22]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_091"]
@@ -1576,7 +1576,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1610,7 +1610,7 @@ jobs:
     timeout-minutes: 350
     needs: [prepare, wave_23]
     strategy:
-      fail-fast: true
+      fail-fast: false
       max-parallel: 4
       matrix:
         stage: ["build_092"]
@@ -1640,7 +1640,7 @@ jobs:
         run: >-
           python3 -B pipeline/ci/ci_driver.py build
           --stage ${{ matrix.stage }}
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1698,7 +1698,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py export_target
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1756,7 +1756,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py fresh_kernel
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1814,7 +1814,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py lean_export
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1872,7 +1872,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py nanoda
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1930,7 +1930,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py conron
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
@@ -1988,7 +1988,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: >-
           python3 -B pipeline/ci/ci_driver.py verdict
-          --contract-sha256 c2ecb1e6f9ae6d179f799d21a52dbf0d7de9e0fd77e6e151dae996b0c9aec7b7
+          --contract-sha256 8aa05fbd6654da83d6d2a10d029b59a814a46b0c074a4834b667b38cefca5733
           --pipeline "$GITHUB_WORKSPACE/pipeline"
           --source "$GITHUB_WORKSPACE/source"
       - name: Upload only this job's new evidence
