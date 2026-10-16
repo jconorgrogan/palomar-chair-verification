@@ -135,7 +135,7 @@ def simpleAnchors (env : Environment) (fourD : Bool) : Except String Unit := do
   let mkPrefix := fun body => mkLambda `d .implicit (mkConst `Nat [])
     (mkLambda `T .default (setOf (pointAt (.bvar 0))) body)
   let hasTiling ← definition env `SparseMonotiles.HasTiling
-  let hasValue := mkPrefix (mkApp2 (mkConst `Exists [.zero])
+  let hasValue := mkPrefix (mkApp2 (mkConst `Exists [.succ .zero])
     (setOf (setOf (pointAt (.bvar 1))))
     (mkLambda `tiles .default (setOf (setOf (pointAt (.bvar 1))))
       (mkApp3 (mkConst `SparseMonotiles.IsTiling []) (.bvar 2) (.bvar 1) (.bvar 0))))

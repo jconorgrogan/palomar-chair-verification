@@ -95,7 +95,7 @@ class CertificateTests(unittest.TestCase):
 class OriginReadinessTests(unittest.TestCase):
     def fixture(self,root):
         old=(ROOT/'origin/producer-contract.json').read_bytes();(root/'origin').mkdir();(root/'origin/producer-contract.json').write_bytes(old)
-        c=json.loads((ROOT/'contract.json').read_text());lock=json.loads((ROOT/'origin/locked-origins.json').read_text())
+        c=json.loads((ROOT/'origin/continuation-producer-contract.json').read_text());lock=json.loads((ROOT/'origin/continuation-producer-origins.json').read_text())
         seed=copy.deepcopy(lock['stages']['F0_common'])
         for index,sid in enumerate(c['locked_origin_stages']):
             row=copy.deepcopy(seed);row['origin']['stage_id']=sid;row['origin']['producer_job_name']='conditional '+sid;row['origin']['artifact_name']='conditional-geometry-38914223883-1-'+sid+'-objects';row['origin']['artifact_id']+=index;row['origin']['producer_job_id']+=index;lock['stages'][sid]=row

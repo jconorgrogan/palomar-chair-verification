@@ -22,8 +22,8 @@ class StagePlanTests(unittest.TestCase):
   for field in ['stage_count','workflow_aggregate_seconds','workflow_outer_runner_minutes','object_artifact_max_bytes','object_artifact_zip_max_bytes','producer_job_log_max_bytes','transport_timeout_seconds','failure_evidence_grace_seconds','maximum_parallel_jobs']:
    x=self.contract();x[field]+=1
    with self.assertRaises(Exception):c.validate_diagnostic_profile(x)
- def test_two_continuation_jobs_with_original_five_stage_partition(self):
-  x=self.contract();self.assertEqual(x['workflow_job_count'],2);self.assertEqual(x['maximum_parallel_jobs'],1);self.assertEqual(x['execution_stages'],['F3_product_geometry','F4_bridge_and_endpoint_joins']);self.assertEqual(x['workflow_aggregate_seconds'],2*x['aggregate_command_deadline_seconds']);self.assertEqual(x['workflow_outer_runner_minutes'],2*x['outer_timeout_minutes']);self.assertEqual([len(x['stages'][s]['modules']) for s in x['stage_order']],[186,890,1226,109,70])
+ def test_one_final_job_with_original_five_stage_partition(self):
+  x=self.contract();self.assertEqual(x['workflow_job_count'],1);self.assertEqual(x['maximum_parallel_jobs'],1);self.assertEqual(x['execution_stages'],['F4_bridge_and_endpoint_joins']);self.assertEqual(x['workflow_aggregate_seconds'],x['aggregate_command_deadline_seconds']);self.assertEqual(x['workflow_outer_runner_minutes'],x['outer_timeout_minutes']);self.assertEqual([len(x['stages'][s]['modules']) for s in x['stage_order']],[186,890,1226,109,70])
  def test_native_interface_bytes_bound(self):
   inv={'mathlib':{'files':{'lib/a.so':{'sha256':'a'*64,'bytes':5}}}}
   a=c.cache_interface_identity({'A':{'sha256':'b'*64}},inv,'c'*64)

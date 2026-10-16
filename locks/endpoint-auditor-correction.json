@@ -1,0 +1,10 @@
+{
+  "control_manifest_sha256": "04037c1f86f98f31bd253dab4e8b06ad9c70b0def71604ea9513840c17ce03d3",
+  "corrected_sha256": "5307d99c4b75d47d36824c15b6393f4946b38ec849ed1c93f988362d6336c860",
+  "independent_control_review_sha256": "19f3cca30a58c4a4c13ad428b39eb94f62d7578f46c8b8de1d3383277eee829f",
+  "new_bytes": "mkConst `Exists [.succ .zero]",
+  "official_runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "old_bytes": "mkConst `Exists [.zero]",
+  "original_sha256": "03667b287bf01d51e4ce122fca5a4db73c6cb573b690bffad2e7a25ef7abbf94",
+  "schema": "exact-endpoint-exists-universe-correction-v1"
+}

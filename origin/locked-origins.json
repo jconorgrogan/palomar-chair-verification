@@ -1,6 +1,9 @@
 {
-  "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
-  "schema": "conditional-exact-origin-lock-v1",
+  "producer_contracts": [
+    "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
+    "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070"
+  ],
+  "schema": "conditional-exact-mixed-origin-lock-v2",
   "stages": {
     "F0_common": {
       "checked_module_receipts_sha256": "cd4cbe6098330c78724ba3b7d4c18fe5a5f0300605d43986255a48b93fa31c20",
@@ -25,6 +28,7 @@
         "workflow_id": 386423911,
         "workflow_path": ".github/workflows/conditional-geometry.yml"
       },
+      "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
       "receipt_sha256": "3cc9b05bbb5bc8fa90cfb9ecbb5f0ebe7d313d9c6c78d0db8b2aa6677e0bc916",
       "stage_tar_bytes": 64419840,
       "stage_tar_sha256": "28edd746d817edada39be5c3b6e8cd784b34abe4c559ddaf0f6a535d1fed8a6c"
@@ -52,6 +56,7 @@
         "workflow_id": 386423911,
         "workflow_path": ".github/workflows/conditional-geometry.yml"
       },
+      "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
       "receipt_sha256": "b5492c51901d51e095dd193857dbd988f0f34b1b68cafbdd22104058ee317a85",
       "stage_tar_bytes": 1067827200,
       "stage_tar_sha256": "08e6cff98c7673b35a995f53ff29e178a3ec13e6ba82142c49508c1d96e3de24"
@@ -79,9 +84,38 @@
         "workflow_id": 386423911,
         "workflow_path": ".github/workflows/conditional-geometry.yml"
       },
+      "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
       "receipt_sha256": "1968afccfa47fa29d001e96cfe4a97c84c57b116526dced1a6792901df1ae900",
       "stage_tar_bytes": 971939840,
       "stage_tar_sha256": "196ba1f19dbc801a28edeee6a17b181e996c03fac2e28872c1fc97ed2fff9023"
+    },
+    "F3_product_geometry": {
+      "checked_module_receipts_sha256": "8df1e658e5062bf4b06c284fc72ef742477d5e66c5943f2add6072f91dc2f098",
+      "descriptor_sha256": "cdc56247a043e2f12f29b2414e94caf9291bffe457f3121f7a56bd5519125908",
+      "independent_review_sha256": "d31acac8b786154338eb14233436942702d1f010784a1836ea00bd09d4294301",
+      "origin": {
+        "artifact_id": 12065872737,
+        "artifact_name": "conditional-geometry-38944907835-1-F3_product_geometry-objects",
+        "artifact_zip_bytes": 62822946,
+        "artifact_zip_sha256": "9a80bec564064b1c53b6ed3fa079c902546dd6ac4bdbd84b46e89354ead7269d",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38944907835",
+          "workflow_commit": "3a2ec654097b5259679816e81ccfab6fe3948d41"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117121459810,
+        "producer_job_log_sha256": "e629f46e27d3d210800ab433a110e62021085a165bc2acf48d9d28096f4b4814",
+        "producer_job_name": "conditional F3_product_geometry",
+        "stage_id": "F3_product_geometry",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070",
+      "receipt_sha256": "e0f94b718e1664430229fd3c33938cb9cdd5bb7da8ab627ffdd2286e4ca31008",
+      "stage_tar_bytes": 62822400,
+      "stage_tar_sha256": "e04c4859ed3baf56f646eb2b00895b10014e260399da1eb1fde9590ee3288bf6"
     }
   }
 }

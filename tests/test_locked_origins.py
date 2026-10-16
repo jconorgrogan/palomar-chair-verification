@@ -167,8 +167,8 @@ class LockedOriginTests(unittest.TestCase):
     def test_same_run_cannot_masquerade_as_locked_earlier_origin(self):
         self.env['GITHUB_RUN_ID']='900'; self.reject_constructor()
 
-    def test_failed_f3_and_diagnostic_stages_cannot_be_locked(self):
-        for stage in ['F3_product_geometry','F4_bridge_and_endpoint_joins','profile_target']:
+    def test_final_and_diagnostic_stages_cannot_be_locked(self):
+        for stage in ['F4_bridge_and_endpoint_joins','profile_target']:
             with self.subTest(stage=stage):
                 lock=copy.deepcopy(self.lock); lock.update(stage_id=stage,producer_job_name='conditional '+stage,
                     artifact_name='conditional-geometry-900-2-'+stage+'-objects')

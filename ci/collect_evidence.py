@@ -23,25 +23,26 @@ def regular(path):
     s=path.lstat();need(stat.S_ISREG(s.st_mode) and s.st_nlink==1,'nonregular or hardlinked evidence');return s.st_size
 def make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interface,lineage,inventory,locked):
     """A new consumer certificate; original producer receipts remain unchanged."""
-    need(contract['schema']=='conditional-geometry-origin-continuation-v3','certificate requires continuation schema')
+    need(contract['schema'] in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'),'certificate requires continuation schema')
+    final=contract['schema']=='conditional-geometry-final-origin-v4'
     ancestors=contract['stages'][stage_id]['admitted_stages']
     need([r['stage_id'] for r in lineage]==ancestors,'certificate imported stage coverage differs')
     rows=[];suffixes=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
     for record in lineage:
         sid=record['stage_id']
         if sid not in locked:
-            need(sid=='F3_product_geometry' and record['origin']['identity']==identity,'unlocked or third-origin stage')
+            need(not final and sid=='F3_product_geometry' and record['origin']['identity']==identity,'unlocked or third-origin stage')
             continue
         pin=locked[sid]
         need(record['origin']==pin['origin'] and record['receipt_sha256']==pin['receipt_sha256'] and
              record['checked_module_receipts_sha256']==pin['checked_module_receipts_sha256'],'cross-origin producer differs from lock')
         modules=contract['stages'][sid]['modules'];need(record['own_modules']==modules,'certificate module set differs')
         own={m.replace('.','/')+s:inventory[m.replace('.','/')+s] for m in modules for s in suffixes}
-        rows.append({'stage_id':sid,'origin':record['origin'],'producer_contract_sha256':contract['original_stage_contract_sha256'],
+        rows.append({'stage_id':sid,'origin':record['origin'],'producer_contract_sha256':pin['producer_contract_sha256'] if final else contract['original_stage_contract_sha256'],
           'producer_receipt_sha256':record['receipt_sha256'],'checked_module_receipts_sha256':record['checked_module_receipts_sha256'],
           'accepted_module_count':len(modules),'exact_own_output_inventory_sha256':hashlib.sha256((json.dumps(own,sort_keys=True,indent=2)+'\n').encode()).hexdigest()})
     need([r['stage_id'] for r in rows]==[sid for sid in ancestors if sid in contract['locked_origin_stages']],'cross-origin certificate coverage differs')
-    return {'schema':'conditional-locked-origin-admissions-v1','consumer_identity':identity,'consumer_contract_sha256':contract_sha,
+    return {'schema':'conditional-locked-origin-admissions-v2' if final else 'conditional-locked-origin-admissions-v1','consumer_identity':identity,'consumer_contract_sha256':contract_sha,
       'consumer_stage_id':stage_id,'source_archive_sha256':contract['source_archive']['sha256'],
       'runtime_inventory_sha256':contract['official_lean_inventory_sha256'],'interface_identity':interface,
       'complete_original_checker_lineage_verified':True,'fresh_in_one_run':False,'admissions':rows}
@@ -50,10 +51,24 @@ def make_cross_origin_certificate(contract,contract_sha,identity,stage_id,interf
 def locked_origin_rows(contract):
     root=Path(__file__).resolve().parents[1];pointer=contract['origin_lock']
     need(pointer['path']=='origin/locked-origins.json','unexpected origin lock path')
-    path=root/pointer['path'];need(regular(path)==pointer['bytes'] and sha(path)==pointer['sha256'],'origin lock bytes/hash differ')
+    final=contract.get('schema')=='conditional-geometry-final-origin-v4'
+    if final:
+        path=root/pointer['path']
+    else:
+        need(contract.get('schema')=='conditional-geometry-origin-continuation-v3' and
+             hashlib.sha256((json.dumps(contract,sort_keys=True,indent=2)+'\n').encode()).hexdigest()=='288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070','unrecognized native continuation producer contract')
+        path=root/'origin/continuation-producer-origins.json'
+    need(regular(path)==pointer['bytes'] and sha(path)==pointer['sha256'],'origin lock bytes/hash differ')
     lock=load(path)
-    need(lock['schema']=='conditional-exact-origin-lock-v1' and lock['producer_contract_sha256']==contract['original_stage_contract_sha256'] and
-         set(lock['stages'])==set(contract['locked_origin_stages']),'origin lock scope differs')
+    if final:
+        need(set(lock)=={'schema','producer_contracts','stages'} and lock['schema']=='conditional-exact-mixed-origin-lock-v2' and
+             lock['producer_contracts']==['cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38','288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070'],'mixed origin producer contracts differ')
+        for sid,row in lock['stages'].items():
+            expected='288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070' if sid=='F3_product_geometry' else 'cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38'
+            need(row['producer_contract_sha256']==expected,'wrong per-stage producer contract')
+    else:
+        need(lock['schema']=='conditional-exact-origin-lock-v1' and lock['producer_contract_sha256']==contract['original_stage_contract_sha256'],'native origin lock scope differs')
+    need(set(lock['stages'])==set(contract['locked_origin_stages']),'origin lock stage coverage differs')
     return lock['stages']
 
 
@@ -97,7 +112,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
         for row in imported:
             need(row['own_modules']==contract['stages'][row['stage_id']]['modules'],'imported module coverage differs')
             origin=row['origin']
-            if contract.get('schema')=='conditional-geometry-origin-continuation-v3' and row['stage_id'] in contract['locked_origin_stages']:
+            if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4') and row['stage_id'] in contract['locked_origin_stages']:
                 pin=locked_origin_rows(contract)[row['stage_id']]
                 need(origin==pin['origin'] and row['receipt_sha256']==pin['receipt_sha256'] and row['checked_module_receipts_sha256']==pin['checked_module_receipts_sha256'],'locked cross-origin lineage differs')
             else:
@@ -106,7 +121,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     else:
         own_names=[r['module'] for r in contract['modules']];expected_names=own_names
     commands=lines(evidence/'commands.jsonl');modules=lines(evidence/'owned-modules.jsonl')
-    if contract.get('schema')=='conditional-geometry-origin-continuation-v3':validate_module_scheduling_commands(contract,commands)
+    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'):validate_module_scheduling_commands(contract,commands)
     need(len(commands)==result['command_count'] and len(modules)==len(own_names) and result['checked_owned_module_count']==len(expected_names),'receipt counts differ')
     need([r['module'] for r in modules]==own_names,'module receipt coverage differs')
     for name,key in [('commands.jsonl','command_receipts_sha256'),('owned-modules.jsonl','owned_module_receipts_sha256'),('fresh-owned-objects.json','owned_output_inventory_sha256'),('cached-build-inventory.json','cached_build_inventory_sha256'),('runtime-inventory.json','runtime_inventory_sha256')]:
@@ -115,7 +130,7 @@ def verify_complete(evidence,contract,contract_sha,*,require_export=True):
     suffixes=['.olean','.olean.private','.olean.server','.ilean','.ir.sig','.ir','.c']
     expected_outputs={name.replace('.','/')+suffix for name in expected_names for suffix in suffixes}
     need(set(objects)==expected_outputs,'owned object inventory coverage differs')
-    if contract.get('schema')=='conditional-geometry-origin-continuation-v3':
+    if contract.get('schema') in ('conditional-geometry-origin-continuation-v3','conditional-geometry-final-origin-v4'):
         need(sid in contract['execution_stages'] and result.get('owned_objects_from_prior_runs') is True,'continuation execution/freshness scope differs')
         identity={'repository':'jconorgrogan/palomar-chair-verification','workflow_commit':result['workflow_commit'],'run_id':str(result['run_id']),'run_attempt':str(result['run_attempt'])}
         cert=make_cross_origin_certificate(contract,contract_sha,identity,sid,load(evidence/'interface-identity.json'),imported,objects,locked_origin_rows(contract))

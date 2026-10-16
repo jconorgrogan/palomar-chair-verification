@@ -1,67 +1,17 @@
-# New two-job continuation contract. C remains an explicit assumption.
-name: Conditional geometry continuation (C remains an assumption)
+# One final-stage job with two exact producer origins. C remains an explicit assumption.
+name: Conditional geometry final joins (C remains an assumption)
 'on':
   push:
-    branches: ['verify/conditional-continuation-20261016']
+    branches: ['verify/conditional-final-20261016']
 permissions:
   contents: read
   actions: read
 concurrency:
-  group: conditional-continuation-${{ github.ref }}
+  group: conditional-final-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  F3_product_geometry:
-    name: conditional F3_product_geometry
-    runs-on: ubuntu-22.04
-    timeout-minutes: 330
-    steps:
-      - name: Check out the exact staged candidate
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          ref: ${{ github.sha }}
-          persist-credentials: false
-          fetch-depth: 1
-      - name: Install official Ubuntu sandbox dependencies
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install --no-install-recommends -y bubblewrap zstd
-      - name: Replay this exact checked-object stage
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: >-
-          python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070
-          --stage F3_product_geometry
-          --work "${{ runner.temp }}/conditional-geometry"
-      - name: Preserve bounded stage evidence
-        if: ${{ always() }}
-        timeout-minutes: 2
-        run: >-
-          python3 -I -B ci/collect_evidence.py
-          --work "${{ runner.temp }}/conditional-geometry"
-      - name: Upload complete checked stage objects
-        id: upload_objects
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: conditional-geometry-${{ github.run_id }}-${{ github.run_attempt }}-F3_product_geometry-objects
-          path: ${{ runner.temp }}/conditional-geometry/object-upload/*
-          compression-level: 0
-          retention-days: 7
-          if-no-files-found: error
-      - name: Bind checked objects to this successful producer job
-        run: |
-          printf '%s\n' 'CONDITIONAL_STAGE_ARTIFACT_V1 {"stage_id":"F3_product_geometry","artifact_id":"${{ steps.upload_objects.outputs.artifact-id }}","artifact_sha256":"${{ steps.upload_objects.outputs.artifact-digest }}","artifact_name":"conditional-geometry-${{ github.run_id }}-${{ github.run_attempt }}-F3_product_geometry-objects"}'
-      - name: Upload bounded diagnostic evidence
-        if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: conditional-evidence-${{ github.run_id }}-${{ github.run_attempt }}-F3_product_geometry
-          path: ${{ runner.temp }}/conditional-geometry/upload/**
-          retention-days: 7
-          if-no-files-found: error
   F4_bridge_and_endpoint_joins:
     name: conditional F4_bridge_and_endpoint_joins
-    needs: [F3_product_geometry]
     runs-on: ubuntu-22.04
     timeout-minutes: 330
     steps:
@@ -80,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070
+          --contract-sha256 4219f35f2be9bb436a1cd438143ec2d0ba17e8c33a8fbc5a28291a543e53ccd2
           --stage F4_bridge_and_endpoint_joins
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence

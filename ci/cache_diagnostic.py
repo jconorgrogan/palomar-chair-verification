@@ -7,8 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
 HELPERS={'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'7ca7a19ee3916e344f00539e41cd17614c4bfd2982b466eca84f82b64f4c1851',
- 'conditional_transport.py':'d216f92df7c50ab14666923da37afd1dd47290178325b521a44f0360b4b02b1f',
+ 'collect_evidence.py':'2d328e0c007cb76246501754ff736825a1712f792268ed1a630b7e7ec0c17b17',
+ 'conditional_transport.py':'967573f953cb849f2afa2b814e4c8057cce6705df6becee05ebd1f6befc84e41',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -155,13 +155,15 @@ SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
 STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
 
 CONTINUATION_SCHEMA='conditional-geometry-origin-continuation-v3'
+FINAL_SCHEMA='conditional-geometry-final-origin-v4'
+CONTINUATION_PRODUCER_SHA='288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070'
 ORIGINAL_STAGE_CONTRACT_SHA='cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38'
 ASYNC_TARGET='SpectreGeometry.PolygonProductKeyReferenceFinite'
 ASYNC_TARGET_SHA='1bca6dbb7f17e7a897293c3cf8da9b5d686c02245ac5230be3b27c108953a45b'
 
 def module_compile_arguments(contract,module):
     """A pinned, source-local scheduling exception, never a global Lean option."""
-    if contract.get('schema')==CONTINUATION_SCHEMA:
+    if contract.get('schema') in (CONTINUATION_SCHEMA,'conditional-geometry-final-origin-v4'):
         expected={ASYNC_TARGET:['-DElab.async=false']}
         f.need(contract.get('module_compile_arguments')==expected,'module scheduling exception differs')
         f.need(contract['inputs']['src/'+ASYNC_TARGET.replace('.','/')+'.lean']['sha256']==ASYNC_TARGET_SHA,'scheduled source bytes differ')
@@ -183,12 +185,13 @@ def validate_diagnostic_profile(contract):
       'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,
       'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,
       'auditor_timeout_seconds':600,'cache_module_count':2786}
-    continuation=contract.get('schema')==CONTINUATION_SCHEMA
+    final=contract.get('schema')==FINAL_SCHEMA
+    continuation=contract.get('schema') in (CONTINUATION_SCHEMA,FINAL_SCHEMA)
     if continuation:
-        expected.update(schema=CONTINUATION_SCHEMA,maximum_parallel_jobs=1,
-          workflow_aggregate_seconds=38400,workflow_outer_runner_minutes=660)
-        f.need(contract.get('workflow_job_count')==2 and contract.get('execution_stages')==['F3_product_geometry','F4_bridge_and_endpoint_joins'],'continuation job graph differs')
-        f.need(contract.get('locked_origin_stages')==['F0_common','F1_curved_existence','F2_period_hierarchy'],'locked producer stage set differs')
+        expected.update(schema=FINAL_SCHEMA if final else CONTINUATION_SCHEMA,maximum_parallel_jobs=1,
+          workflow_aggregate_seconds=19200 if final else 38400,workflow_outer_runner_minutes=330 if final else 660)
+        f.need(contract.get('workflow_job_count')==(1 if final else 2) and contract.get('execution_stages')==(['F4_bridge_and_endpoint_joins'] if final else ['F3_product_geometry','F4_bridge_and_endpoint_joins']),'continuation job graph differs')
+        f.need(contract.get('locked_origin_stages')==(['F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry'] if final else ['F0_common','F1_curved_existence','F2_period_hierarchy']),'locked producer stage set differs')
         module_compile_arguments(contract,ASYNC_TARGET)
     for key,value in expected.items():f.need(type(contract.get(key)) is type(value) and contract.get(key)==value,'conditional replay profile mismatch: '+key)
     for key,value in {'conditional_C_remains_explicit':True,'final_C_proof_certified':False,
@@ -497,7 +500,87 @@ def stage_identity():
     return {'repository':os.environ['GITHUB_REPOSITORY'],'run_id':os.environ['GITHUB_RUN_ID'],
       'run_attempt':os.environ['GITHUB_RUN_ATTEMPT'],'workflow_commit':os.environ['GITHUB_SHA']}
 
+def validate_final_auditor_variant(contract,producer):
+    """Permit only the separately reviewed exact universe-instantiation correction."""
+    name='auditors/AuditConditionalEndpoints.lean'
+    old='evidence/auditor-provenance/AuditConditionalEndpoints.original.lean'
+    old_sha='03667b287bf01d51e4ce122fca5a4db73c6cb573b690bffad2e7a25ef7abbf94'
+    f.need(producer['inputs'][name]['sha256']==old_sha,'unknown producer endpoint auditor')
+    f.need(contract.get('pending_auditor_correction') is False,'endpoint correction still awaiting reviewed runtime control')
+    pointer=contract['endpoint_auditor_correction']
+    f.need(pointer['path']=='locks/endpoint-auditor-correction.json' and set(pointer)=={'path','bytes','sha256'},'auditor correction pointer differs')
+    f.need(contract['inputs'][pointer['path']]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'auditor correction input differs')
+    lock=f.pinned_load(ROOT/pointer['path'],pointer['sha256'])
+    f.need((ROOT/pointer['path']).stat().st_size==pointer['bytes'],'auditor correction lock size differs')
+    f.need(set(lock)=={'schema','original_sha256','corrected_sha256','old_bytes','new_bytes','official_runtime_inventory_sha256','control_manifest_sha256','independent_control_review_sha256'},'auditor correction schema differs')
+    f.need(lock['schema']=='exact-endpoint-exists-universe-correction-v1' and lock['original_sha256']==old_sha and
+           lock['old_bytes']=='mkConst `Exists [.zero]' and lock['new_bytes']=='mkConst `Exists [.succ .zero]' and
+           lock['official_runtime_inventory_sha256']==RUNTIME_INVENTORY_SHA,'unapproved endpoint correction')
+    for key in ['corrected_sha256','control_manifest_sha256','independent_control_review_sha256']:
+        f.need(isinstance(lock[key],str) and f.SHA256.fullmatch(lock[key]),'missing auditor correction evidence digest')
+    original=(ROOT/old).read_bytes();corrected=(ROOT/name).read_bytes()
+    f.need(f.sha(original)==old_sha and contract['inputs'][old]=={'bytes':len(original),'sha256':old_sha},'original endpoint auditor provenance changed')
+    before=lock['old_bytes'].encode();after=lock['new_bytes'].encode()
+    f.need(original.count(before)==1 and corrected==original.replace(before,after,1),'endpoint correction differs from sole reviewed universe change')
+    f.need(f.sha(corrected)==lock['corrected_sha256'] and contract['inputs'][name]=={'bytes':len(corrected),'sha256':lock['corrected_sha256']},'corrected endpoint auditor pin differs')
+
+
+def validate_final_origins(contract):
+    """Exactly two immutable producer contracts, with a fixed stage-to-origin assignment."""
+    f.need(contract['schema']==FINAL_SCHEMA,'final origin selection schema differs')
+    expected_paths={ORIGINAL_STAGE_CONTRACT_SHA:'origin/producer-contract.json',CONTINUATION_PRODUCER_SHA:'origin/continuation-producer-contract.json'}
+    f.need(set(contract['producer_contracts'])==set(expected_paths),'unknown or missing producer contract')
+    producers={}
+    for sha,path in expected_paths.items():
+        pointer=contract['producer_contracts'][sha]
+        f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']==path and pointer['sha256']==sha and
+               contract['inputs'][path]=={'bytes':pointer['bytes'],'sha256':sha},'producer contract pointer differs')
+        f.need((ROOT/path).stat().st_size==pointer['bytes'],'producer contract byte size differs')
+        producer=f.pinned_load(ROOT/path,sha);validate_diagnostic_profile(producer);validate_stage_plan(producer)
+        for key in ['modules','stages','stage_order','final_stage','source_archive','cache_roots','conditional_endpoints','endpoint_theorems','ordinary_bridges','official_lean_inventory_sha256']:
+            f.need(contract[key]==producer[key],'producer/consumer source or interface differs: '+key)
+        f.need({n:r for n,r in contract['inputs'].items() if n.startswith('src/')}==
+               {n:r for n,r in producer['inputs'].items() if n.startswith('src/')},'producer/consumer exact source pins differ')
+        for name in ['lean-toolchain','locks/dependencies.json','locks/cache-client.json','locks/owned-sources.json','locks/required-modules.json','locks/source-lineage.json','locks/visibility-exception.json','locks/visibility-predictions.json','locks/auditor-variants.json','auditors/AuditOrdinaryBridges.lean']:
+            f.need(contract['inputs'][name]==producer['inputs'][name],'producer/consumer immutable input differs: '+name)
+        validate_final_auditor_variant(contract,producer);producers[sha]=producer
+    pointer=contract['origin_lock'];path='origin/locked-origins.json'
+    f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']==path and contract['inputs'][path]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'mixed origin lock pointer differs')
+    f.need((ROOT/path).stat().st_size==pointer['bytes'],'mixed origin lock byte size differs')
+    lock=f.pinned_load(ROOT/path,pointer['sha256'])
+    stages=['F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry']
+    f.need(set(lock)=={'schema','producer_contracts','stages'} and lock['schema']=='conditional-exact-mixed-origin-lock-v2' and
+           lock['producer_contracts']==[ORIGINAL_STAGE_CONTRACT_SHA,CONTINUATION_PRODUCER_SHA] and
+           set(lock['stages'])==set(stages)==set(contract['locked_origin_stages']),'mixed origin scope differs')
+    selected={}
+    for sid,row in lock['stages'].items():
+        transport.validate_origin_lock(row['origin'])
+        f.need(set(row)=={'origin','producer_contract_sha256','receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','stage_tar_bytes','independent_review_sha256'},'mixed origin row schema differs')
+        newer=sid=='F3_product_geometry';sha=CONTINUATION_PRODUCER_SHA if newer else ORIGINAL_STAGE_CONTRACT_SHA
+        identity={'repository':'jconorgrogan/palomar-chair-verification','run_id':'38944907835' if newer else '38914223883','run_attempt':'1','workflow_commit':'3a2ec654097b5259679816e81ccfab6fe3948d41' if newer else '318a6900eabfec550b4adf1b0f4bd634c20d67c5'}
+        f.need(row['producer_contract_sha256']==sha and row['origin']['identity']==identity and
+               row['origin']['stage_id']==sid and row['origin']['workflow_id']==386423911,'wrong stage producer contract or origin')
+        for key in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:
+            f.need(isinstance(row[key],str) and f.SHA256.fullmatch(row[key]),'invalid mixed origin digest')
+        f.need(type(row['stage_tar_bytes']) is int and 0<row['stage_tar_bytes']<=contract['object_artifact_max_bytes'],'mixed origin tar size bound')
+        selected[sid]=producers[sha]
+    native=contract['native_continuation_origin_lock'];path='origin/continuation-producer-origins.json';producer=producers[CONTINUATION_PRODUCER_SHA]
+    f.need(set(native)=={'path','bytes','sha256'} and native['path']==path and
+           contract['inputs'][path]=={'bytes':native['bytes'],'sha256':native['sha256']} and
+           {'path':'origin/locked-origins.json','bytes':native['bytes'],'sha256':native['sha256']}==producer['origin_lock'],
+           'native continuation origin lock pointer differs')
+    f.need((ROOT/path).stat().st_size==native['bytes'],'native continuation origin lock size differs')
+    native_lock=f.pinned_load(ROOT/path,native['sha256'])
+    f.need(set(native_lock)=={'schema','producer_contract_sha256','stages'} and native_lock['schema']=='conditional-exact-origin-lock-v1' and
+           native_lock['producer_contract_sha256']==ORIGINAL_STAGE_CONTRACT_SHA and set(native_lock['stages'])==set(stages[:3]),'native producer lock shape differs')
+    for sid in stages[:3]:
+        row={k:v for k,v in lock['stages'][sid].items() if k!='producer_contract_sha256'}
+        f.need(native_lock['stages'][sid]==row,'original producer predecessor lock changed')
+    return selected,lock['stages']
+
+
 def validate_continuation_origins(contract):
+    if contract.get('schema')=='conditional-geometry-final-origin-v4':return validate_final_origins(contract)
     f.need(contract['schema']==CONTINUATION_SCHEMA,'origin lock requires continuation schema')
     producer=f.pinned_load(ROOT/'origin/producer-contract.json',ORIGINAL_STAGE_CONTRACT_SHA)
     validate_diagnostic_profile(producer);validate_stage_plan(producer)
@@ -542,8 +625,12 @@ def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cach
     search=[str(work/'packages'/p['name']/'.lake/build/lib/lean') for p in f.load_json(ROOT/'locks/dependencies.json')['packages']]
     for sid in ancestors:
         origin_row=locked.get(sid)
-        selected_contract=producer_contract if origin_row is not None else contract
-        selected_sha=ORIGINAL_STAGE_CONTRACT_SHA if origin_row is not None else contract_sha
+        if contract['schema']==FINAL_SCHEMA:
+            f.need(origin_row is not None,'final-only replay forbids unlocked or same-run origin fallback')
+            selected_contract=producer_contract[sid];selected_sha=origin_row['producer_contract_sha256']
+        else:
+            selected_contract=producer_contract if origin_row is not None else contract
+            selected_sha=ORIGINAL_STAGE_CONTRACT_SHA if origin_row is not None else contract_sha
         producer=selected_contract['stages'][sid];download=root/(sid+'-download')
         f.need(origin_row is not None or sid=='F3_product_geometry','unlocked earlier producer stage')
         client=transport.Transport(deadline=import_deadline,origin_lock=origin_row['origin'] if origin_row is not None else None)
@@ -652,7 +739,7 @@ def main():
     f.need(contract['review_status']=='reviewed_for_execution','INACTIVE: diagnostic is not reviewed')
     validate_diagnostic_profile(contract)
     validate_stage_plan(contract)
-    f.need(contract['schema']==CONTINUATION_SCHEMA,'this runner executes only the reviewed continuation contract')
+    f.need(contract['schema']==FINAL_SCHEMA,'this runner executes only the reviewed final-stage contract')
     f.need(a.stage in contract['execution_stages'],'unknown or nonexecuted continuation stage')
     f.need(not a.runtime and not a.runtime_inventory and not a.local_dependencies,'staged production runner requires fresh official acquisition')
     stage=contract['stages'][a.stage];final_stage=a.stage==contract['final_stage']
@@ -672,7 +759,7 @@ def main():
     deadline=time.monotonic()+contract['aggregate_command_deadline_seconds'];commands=[];runtime=None;terminal_ready=False
     global _ACTIVE_WATCHDOG
     watchdog=HostDeadline(deadline);_ACTIVE_WATCHDOG=watchdog;watchdog.arm()
-    result={'schema':CONTINUATION_SCHEMA,'status':'INCOMPLETE','proof_certified':False,
+    result={'schema':contract['schema'],'status':'INCOMPLETE','proof_certified':False,
       'fresh_external_source_rebuild':False,'cache_bytes_trusted_not_source_authenticated':True,
       'stage_id':a.stage,'stage_modules':stage['modules'],'admitted_stages':stage['admitted_stages'],
       'owned_module_count':2481,'finite_prerequisite_count':333,'conditional_C_remains_explicit':True,
