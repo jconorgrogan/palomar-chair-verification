@@ -1,113 +1,26 @@
 {
+  "admission_certificate_sha256": "960327a4aa27b657d6e0107408f98d7a149771fd478ee3a27400fe5bc818288f",
+  "admission_pin_sha256": "549cd565aad5dc8b68ab5c86a3d2f49131705ae82ab89d9faf790a3b29dc1ca4",
+  "admission_reconciliation_sha256": "d259eea653bf446a90607ded5add7176cfb50388e261327cf5e136b03e7da190",
   "compiler_adapter_review_status": "reviewed",
+  "context_bundle_sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
   "continuation_review_status": "independently_reviewed",
   "current_workflow": {
-    "head_branch": "verify/hierarchy-c-meta-continuation-20261016",
-    "name": "Continued modern hierarchy C verification (clean rebuild pending)",
-    "path": ".github/workflows/hierarchy-c-meta-continuation.yml",
+    "head_branch": "verify/hierarchy-c-three-context-20261016",
+    "name": "Verify hierarchy C with authenticated historical stages",
+    "path": ".github/workflows/hierarchy-c-three-context.yml",
     "roles": {
-      "build_036": {
-        "job_name": "stage build_036",
-        "producer_job": "wave_07",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_037": {
-        "job_name": "stage build_037",
-        "producer_job": "wave_08",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_038": {
-        "job_name": "stage build_038",
-        "producer_job": "wave_09",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_039": {
-        "job_name": "stage build_039",
-        "producer_job": "wave_10",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_040": {
-        "job_name": "stage build_040",
-        "producer_job": "wave_11",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_041": {
-        "job_name": "stage build_041",
-        "producer_job": "wave_12",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_042": {
-        "job_name": "stage build_042",
-        "producer_job": "wave_13",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
       "build_043": {
         "job_name": "stage build_043",
         "producer_job": "wave_14",
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_044": {
@@ -116,11 +29,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_045": {
@@ -129,11 +42,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_046": {
@@ -142,11 +55,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_047": {
@@ -155,11 +68,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_048": {
@@ -168,24 +81,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_049": {
-        "job_name": "stage build_049",
-        "producer_job": "wave_14",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_050": {
@@ -194,24 +94,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_051": {
-        "job_name": "stage build_051",
-        "producer_job": "wave_14",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_052": {
@@ -220,11 +107,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_053": {
@@ -233,37 +120,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_054": {
-        "job_name": "stage build_054",
-        "producer_job": "wave_06",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
-        }
-      },
-      "build_056": {
-        "job_name": "stage build_056",
-        "producer_job": "wave_14",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 6
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_057": {
@@ -272,11 +133,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_058": {
@@ -285,11 +146,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_059": {
@@ -298,11 +159,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_060": {
@@ -311,11 +172,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_061": {
@@ -324,11 +185,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_062": {
@@ -337,11 +198,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_063": {
@@ -350,11 +211,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_064": {
@@ -363,11 +224,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_065": {
@@ -376,11 +237,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_066": {
@@ -389,11 +250,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_067": {
@@ -402,11 +263,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_068": {
@@ -415,11 +276,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_069": {
@@ -428,11 +289,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_070": {
@@ -441,11 +302,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_071": {
@@ -454,11 +315,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_072": {
@@ -467,11 +328,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_073": {
@@ -480,11 +341,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_074": {
@@ -493,11 +354,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_075": {
@@ -506,11 +367,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_076": {
@@ -519,11 +380,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_077": {
@@ -532,11 +393,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_078": {
@@ -545,11 +406,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_079": {
@@ -558,11 +419,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_080": {
@@ -571,11 +432,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_081": {
@@ -584,11 +445,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_082": {
@@ -597,11 +458,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_083": {
@@ -610,11 +471,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_084": {
@@ -623,11 +484,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_085": {
@@ -636,11 +497,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_086": {
@@ -649,11 +510,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_087": {
@@ -662,11 +523,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_088": {
@@ -675,11 +536,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_089": {
@@ -688,11 +549,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_090": {
@@ -701,11 +562,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_091": {
@@ -714,11 +575,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "build_092": {
@@ -727,11 +588,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "conron": {
@@ -740,11 +601,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "export_target": {
@@ -753,11 +614,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "fresh_kernel": {
@@ -766,11 +627,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "lean_export": {
@@ -779,11 +640,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "nanoda": {
@@ -792,11 +653,11 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
         }
       },
       "prepare": {
@@ -805,41 +666,49 @@
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
-          "number": 6
+          "number": 8
         },
         "verifier_step": {
           "name": "Run fail-closed verifier",
-          "number": 5
+          "number": 7
+        }
+      },
+      "verdict": {
+        "job_name": "verdict",
+        "producer_job": "verdict",
+        "upload_locations": 1,
+        "upload_step": {
+          "name": "Upload only this job's new evidence",
+          "number": 8
+        },
+        "verifier_step": {
+          "name": "Run fail-closed verifier",
+          "number": 7
         }
       }
     },
     "source_sha256": null,
     "workflow_id": null
   },
-  "evidence_mode": "verified_continuation",
+  "evidence_mode": "verified_three_context_continuation",
   "final_checks_review_status": "reviewed",
   "implementation_sha256": {
     "FinalExportAudit.lean": "594df90549cc67c2708d7950a3df43e76e2f46348009903226aced8afd9e9859",
+    "admission_evidence.py": "4957f5ddbdfcdf810b9b35cbd373f2389ade0a39c9c72329bc1610f70f2d94aa",
+    "checked_transfer.py": "d5177a68fd63821d57c995ed84ed73131cd7681c45665133be667ec1ef9d94cc",
     "ci_failure.py": "cba1435d41113c3aa7f5d3cb50179503f86a64f5ef787aa2dab11fbac0adeb8b",
     "ci_transport.py": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95",
-    "continuation_driver.py": "e66b18006b43a52dd7b64cb6c55f7673e5299cf4d3773c5b4828741658fd7c32",
-    "continuation_final.py": "084653e1fb67b47a851c87e099f27207fcab8edd1e819dc4f4fa19818ac8483c",
     "continuation_policy.py": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2",
-    "continuation_runner.py": "fb22e6e58e20788425ee46cf4a401f6b119dc3b7b46c3e15bc182605dc3f28fe",
-    "continuation_workflow.py": "8c8118e2eaef0eaa58e7d684c073cf246f49f58a588d8bda830ed9ac7b03eff7",
     "fresh_stage.py": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
-    "origin_transport.py": "c5ba140113b98460f8267f55fcdad098c391e4918fdc3a9e8e2f90e8ff5b110b",
-    "original/FinalExportAudit.lean": "594df90549cc67c2708d7950a3df43e76e2f46348009903226aced8afd9e9859",
-    "original/SOURCE_MANIFEST.json": "401320e96ea5a511678892c359af43131fae75494a55d8ea1df0e1dc606a326f",
-    "original/ci_driver.py": "5bf9e215ececf0464ece9b0a88b286ae3b2208846eff777fe84154e8eb5ae3be",
-    "original/ci_failure.py": "cba1435d41113c3aa7f5d3cb50179503f86a64f5ef787aa2dab11fbac0adeb8b",
-    "original/ci_transport.py": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95",
-    "original/contract.json": "a0ad861b7f8b9eb857d8a44ce811dcae7149ffc1f81bd9cdd7a788536ce15555",
-    "original/fresh_stage.py": "a8cbd69f9904b6f2645177de722f3466cb762045a7cd8c3e6230f1ceaa9c9c1d",
-    "original/plan.json": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
-    "original/profiles.json": "0af17b85b2b469be445bdcb68acbc07bb38507382fc818ffc4bd2bac5e3ce1ee",
-    "original/toolchain_install.py": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038",
-    "source_delta.json": "12541d2a57fac6c4e6a2e36e849d1bf400d284f968d77c2d43580d40aa7696ef",
+    "origin_transport.py": "36aaf72618c9547434de9d82cf95a633565c29b0557449b41d8dc8d10adf9ec8",
+    "three_context_current_transport.py": "a3816e306b635401d0c406590953a384a4bda170eeb24ed972df7d05bd2bec43",
+    "three_context_driver.py": "9aa5bec65c2d92d01326a1f178a19b216c2fec1ec65b47c3a574d23731adb529",
+    "three_context_execution_policy.py": "c64b886e85610b72b4ac9b5a8157b49c3d3d2ecdcf6967c4b591f2ecc15675fa",
+    "three_context_final.py": "3ef7e29c6e4507ac6a2469c09b62f917cafa6768f51ad14e169446f0cc1686d6",
+    "three_context_io.py": "7ebaf768041582fd6818901cde82e333a72eb5b741724deeb85eac2ea018a811",
+    "three_context_local.py": "0ea2d6be51208e03248f5dd062b57c85bbc6b5768d156b27032891c15d10a06a",
+    "three_context_policy.py": "edc4852bcfe3cd8ca980733229859c98ca20fb7120edddaa61f0c55ed19f53d4",
+    "three_context_runner.py": "24ac8abf92d4b2c40e53eed2e0bc06c30e808f30c5939094cf7eae804db3d47b",
     "toolchain_install.py": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
   },
   "job_timeout_seconds": 19800,
@@ -855,7 +724,7 @@
   "modern_migration_map_sha256": "f9e09df41d772873bdf272c815d8dac617196d4658be331dc867c49531478e86",
   "modern_tree_inventory_sha256": "c673496b5147462ccf415bbdb11319efe631069c5d4388beb2d1e1ab1db0c74e",
   "module_interface": "modern_exposed_v1",
-  "note": "Reviewed fixed-origin modern hierarchy C continuation. Exact 37 original stages were admitted with the unchanged original validator and independently reconciled locally; every CI job must authenticate both origins and revalidate required payloads. All 6369 sources and 93 stages remain in scope; 56 stages are newly built, with the sole 47-byte diagnostic meta-import repair. Current workflow ID and source hash are derived only from authenticated current-run metadata and clean event-pinned checkout, then reauthenticated. All final theorem gates repeat. A successful continued result leaves separate clean-source replay pending. Original six-day deadline, artifact expiries and resource/storage caps remain binding.",
+  "note": "INACTIVE. Fixed 37 original plus 11 prior stages are selected from independently reconciled cloud native admission. All 45 future stages and every final theorem gate remain required. Every consumer repeats exact historical ancestor payload/native validation under unchanged frozen validators. Original receipts, source/plan/profiles, six companions, 4 GiB cap and original 2026-10-22T06:15:54Z deadline remain binding. This is continued verification; separate clean replay remains pending.",
   "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
   "original_legacy_source_commit": "c8e274d7833c9e2e1ede5aa61fc042fba8035715",
   "original_legacy_source_manifest_sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61",
@@ -868,6 +737,7 @@
     ".ir.sig"
   ],
   "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
+  "prior_identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
   "process_containment_review_status": "reviewed",
   "profiles_sha256": "0af17b85b2b469be445bdcb68acbc07bb38507382fc818ffc4bd2bac5e3ce1ee",
   "readonly_commit_review_status": "reviewed",
@@ -878,12 +748,13 @@
   "runner": "ubuntu-22.04",
   "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
   "schema": "fresh-stage-contract-v1",
-  "selection_sha256": "aa0b6a98f084db7c469effee548041900b79d5dd623549df89b2f462028d3436",
+  "selection_sha256": "e7565dcc7925d05aa44225bc916bfd1a18d50b75c5438b07b1ea67d376b33549",
   "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
   "source_delta_sha256": "12541d2a57fac6c4e6a2e36e849d1bf400d284f968d77c2d43580d40aa7696ef",
   "source_interface": "modern_module_v1",
   "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392",
   "storage_adapter_review_status": "reviewed",
+  "three_context_integration_review_status": "reviewed",
   "toolchain_inventory_mode": "derive_from_pinned_archive_v1",
   "toolchain_inventory_note": "Canonical inventory derived from the pinned official archive and independently matched to all installed files; exact hash required before execution.",
   "toolchain_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",

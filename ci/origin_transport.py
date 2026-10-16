@@ -12,6 +12,7 @@ import copy
 import contextlib
 import errno
 import math
+import json
 import signal
 import socket
 import ssl
@@ -64,6 +65,13 @@ METADATA_BACKOFF_SECONDS = (1, 2, 4)
 MAX_METADATA_ATTEMPT_SECONDS = 60
 MAX_METADATA_TOTAL_SECONDS = 180
 RETRYABLE_METADATA_STATUSES = frozenset({408, 500, 502, 503, 504})
+MAX_CURRENT_STATUS_POLLS = 6
+MAX_CURRENT_STATUS_SECONDS = 120
+CURRENT_STATUS_BACKOFF_SECONDS = (2, 4, 8, 16, 30)
+WAITABLE_CURRENT_STATUSES = frozenset({'queued', 'requested', 'waiting', 'pending'})
+KNOWN_RUN_STATUSES = WAITABLE_CURRENT_STATUSES | {'in_progress', 'completed'}
+KNOWN_RUN_CONCLUSIONS = frozenset({'success', 'failure', 'neutral', 'cancelled',
+                                  'skipped', 'timed_out', 'action_required', 'stale', 'startup_failure'})
 
 
 class _MetadataWallTimeout(TimeoutError):
@@ -321,12 +329,22 @@ class OriginTransport:
         f.need(remaining > 0, 'metadata aggregate/origin deadline exceeded')
         return remaining
 
-    def _json(self, path):
+    def _json(self, path, *, budget=None, poll_headers=False):
         # Only this authenticated metadata GET is retried. Each attempt starts
         # from a new response; no bytes or failed parse result are reused.
         self._check_age()
+        f.need(type(poll_headers) is bool, 'invalid metadata header mode')
         started = time.monotonic()
-        budget = {'started': started, 'deadline': started + MAX_METADATA_TOTAL_SECONDS}
+        if budget is None:
+            budget = {'started': started, 'deadline': started + MAX_METADATA_TOTAL_SECONDS}
+        else:
+            # A status-poll sequence shares one tighter budget across fresh GETs.
+            # The dictionary is retained and only tightened by _metadata_remaining.
+            f.need(type(budget) is dict and set(budget) == {'started', 'deadline'} and
+                   all(type(v) in (int, float) and math.isfinite(v) for v in budget.values()) and
+                   budget['started'] <= started and
+                   0 < budget['deadline'] - budget['started'] <= MAX_METADATA_TOTAL_SECONDS,
+                   'invalid shared metadata budget')
         for attempt in range(1, MAX_METADATA_ATTEMPTS + 1):
             seconds = min(MAX_METADATA_ATTEMPT_SECONDS, self._metadata_remaining(budget))
             retry_after = None
@@ -338,6 +356,20 @@ class OriginTransport:
                         try:
                             f.need(response.getcode() == 200, 'GitHub metadata status is not 200')
                             data = response.read(MAX_METADATA_BYTES + 1)
+                            interval = None
+                            if poll_headers:
+                                headers = getattr(response, 'headers', {})
+                                if type(headers) is dict:
+                                    values = [value for key, value in headers.items()
+                                              if type(key) is str and key.lower() == 'x-poll-interval']
+                                else:
+                                    f.need(callable(getattr(headers, 'get_all', None)),
+                                           'invalid metadata polling headers')
+                                    values = headers.get_all('X-Poll-Interval', [])
+                                f.need(type(values) is list and len(values) <= 1 and
+                                       all(type(value) is str for value in values),
+                                       'duplicate or invalid metadata X-Poll-Interval')
+                                interval = values[0] if values else None
                         except _MetadataHardTimeout:
                             phase = 'hard_timeout'
                             raise
@@ -372,7 +404,7 @@ class OriginTransport:
                             raise f.Rejected('invalid GitHub metadata JSON') from None
                         f.need(type(result) is dict, 'GitHub metadata object required')
                         self._metadata_remaining(budget)
-                        return result
+                        return (result, interval) if poll_headers else result
             except _MetadataHardTimeout:
                 raise f.Rejected('metadata request hard deadline exceeded') from None
             except (urllib.error.URLError, OSError) as error:
@@ -407,26 +439,80 @@ class OriginTransport:
     def _run(self, origin):
         context = self._context(origin)
         identity, workflow = context['identity'], context['workflow']
-        run = self._json(f'/repos/{REPOSITORY}/actions/runs/{identity["run_id"]}')
-        for key in ('repository', 'head_repository'):
-            repo = run.get(key)
-            f.need(type(repo) is dict and type(repo.get('id')) is int and repo['id'] == REPOSITORY_ID and
-                   repo.get('full_name') == REPOSITORY, 'run repository/head-repository mismatch')
-        f.need(type(run.get('id')) is int and str(run['id']) == identity['run_id'] and
-               type(run.get('run_attempt')) is int and str(run['run_attempt']) == identity['run_attempt'] and
-               run.get('head_sha') == identity['pipeline_commit'] and run.get('event') == 'push' and
-               run.get('head_branch') == workflow['head_branch'] and
-               type(run.get('workflow_id')) is int and run['workflow_id'] == workflow['workflow_id'] and
-               run.get('path') == workflow['path'] and run.get('name') == workflow['name'], 'run/workflow identity mismatch or rerun')
-        f.need(run.get('created_at') == identity['run_started_at'], 'trusted run start mismatch')
-        created, updated = timestamp(run['created_at']), timestamp(run.get('updated_at'))
-        f.need(created <= updated <= self.now(), 'inconsistent run timestamps')
-        if origin == OLD_ORIGIN:
-            f.need(run.get('status') == 'completed' and run.get('conclusion') == 'failure', 'old run is not terminal failure')
-        else:
-            f.need((run.get('status') == 'in_progress' and run.get('conclusion') is None) or
-                   (run.get('status') == 'completed' and run.get('conclusion') == 'success'), 'current run is not active/successful')
-        return run
+        path = f'/repos/{REPOSITORY}/actions/runs/{identity["run_id"]}'
+        current = origin == CURRENT_ORIGIN
+        started = time.monotonic()
+        budget = {'started': started, 'deadline': started + MAX_CURRENT_STATUS_SECONDS}
+        for observation in range(1, (MAX_CURRENT_STATUS_POLLS if current else 1) + 1):
+            if current:
+                run, poll_interval = self._json(path, budget=budget, poll_headers=True)
+            else:
+                run = self._json(path)
+            guard = (_metadata_wall_limit(self._metadata_remaining(budget), deadline=budget['deadline'])
+                     if current else contextlib.nullcontext())
+            try:
+                with guard:
+                    if current:
+                        # Allowlisted, bounded observation only, before identity validation.
+                        # Never include arbitrary API strings, URLs, headers, tokens or bodies.
+                        number = lambda value: value if type(value) is int and 0 < value < 2**64 else 'invalid'
+                        status = run.get('status')
+                        conclusion = run.get('conclusion')
+                        commit = run.get('head_sha')
+                        record = {
+                            'event': 'current_origin_run_status_observation',
+                            'observation': observation,
+                            'run_id': number(run.get('id')),
+                            'run_attempt': number(run.get('run_attempt')),
+                            'workflow_id': number(run.get('workflow_id')),
+                            'head_sha': commit if type(commit) is str and f.COMMIT.fullmatch(commit) else 'invalid',
+                            'status': status if type(status) is str and status in KNOWN_RUN_STATUSES else 'invalid',
+                            'conclusion': conclusion if conclusion is None or
+                                (type(conclusion) is str and conclusion in KNOWN_RUN_CONCLUSIONS) else 'invalid',
+                            'identity_validation': 'pending',
+                        }
+                        print(json.dumps(record, sort_keys=True, separators=(',', ':')), flush=True)
+                    for key in ('repository', 'head_repository'):
+                        repo = run.get(key)
+                        f.need(type(repo) is dict and type(repo.get('id')) is int and repo['id'] == REPOSITORY_ID and
+                               repo.get('full_name') == REPOSITORY, 'run repository/head-repository mismatch')
+                    f.need(type(run.get('id')) is int and str(run['id']) == identity['run_id'] and
+                           type(run.get('run_attempt')) is int and str(run['run_attempt']) == identity['run_attempt'] and
+                           run.get('head_sha') == identity['pipeline_commit'] and run.get('event') == 'push' and
+                           run.get('head_branch') == workflow['head_branch'] and
+                           type(run.get('workflow_id')) is int and run['workflow_id'] == workflow['workflow_id'] and
+                           run.get('path') == workflow['path'] and run.get('name') == workflow['name'], 'run/workflow identity mismatch or rerun')
+                    f.need(run.get('created_at') == identity['run_started_at'], 'trusted run start mismatch')
+                    created, updated = timestamp(run['created_at']), timestamp(run.get('updated_at'))
+                    f.need(created <= updated <= self.now(), 'inconsistent run timestamps')
+                    if origin == OLD_ORIGIN:
+                        f.need(run.get('status') == 'completed' and run.get('conclusion') == 'failure', 'old run is not terminal failure')
+                        return run
+                    f.need('status' in run and 'conclusion' in run, 'current run status/conclusion missing')
+                    accepted = ((run.get('status') == 'in_progress' and run.get('conclusion') is None) or
+                                (run.get('status') == 'completed' and run.get('conclusion') == 'success'))
+                    if accepted:
+                        self._metadata_remaining(budget)
+                        return run
+                    f.need(type(run.get('status')) is str and run['status'] in WAITABLE_CURRENT_STATUSES and
+                           run.get('conclusion') is None, 'current run is not active/successful; terminal or invalid state')
+                    f.need(observation < MAX_CURRENT_STATUS_POLLS, 'current run status poll count exhausted')
+            except (_MetadataWallTimeout, _MetadataHardTimeout):
+                raise f.Rejected('current run status diagnostic/validation deadline exceeded') from None
+            delay = CURRENT_STATUS_BACKOFF_SECONDS[observation - 1]
+            if poll_interval is not None:
+                f.need(type(poll_interval) is str and re.fullmatch(r'[0-9]{1,4}', poll_interval),
+                       'invalid current run X-Poll-Interval')
+                delay = max(delay, int(poll_interval))
+            remaining = self._metadata_remaining(budget)
+            f.need(delay < remaining, 'current run status wait exceeds aggregate/origin deadline')
+            try:
+                with _metadata_wall_limit(remaining, deadline=budget['deadline']):
+                    time.sleep(delay)
+            except (_MetadataWallTimeout, _MetadataHardTimeout):
+                raise f.Rejected('current run status wait deadline exceeded') from None
+            self._metadata_remaining(budget)
+        raise f.Rejected('current run status poll bound exceeded')
 
     def _verify_workflow_source(self, origin):
         if origin in self._source_verified:
