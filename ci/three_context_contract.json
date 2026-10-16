@@ -5,6 +5,424 @@
   "compiler_adapter_review_status": "reviewed",
   "context_bundle_sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
   "continuation_review_status": "independently_reviewed",
+  "current_consumer_roles": {
+    "build_043": {
+      "job_name": "stage build_043",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_044": {
+      "job_name": "stage build_044",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_045": {
+      "job_name": "stage build_045",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_046": {
+      "job_name": "stage build_046",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_047": {
+      "job_name": "stage build_047",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_048": {
+      "job_name": "stage build_048",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_050": {
+      "job_name": "stage build_050",
+      "producer_job": "wave_14",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_052": {
+      "job_name": "stage build_052",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_053": {
+      "job_name": "stage build_053",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_057": {
+      "job_name": "stage build_057",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_058": {
+      "job_name": "stage build_058",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_059": {
+      "job_name": "stage build_059",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_060": {
+      "job_name": "stage build_060",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_061": {
+      "job_name": "stage build_061",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_062": {
+      "job_name": "stage build_062",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_063": {
+      "job_name": "stage build_063",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_064": {
+      "job_name": "stage build_064",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_065": {
+      "job_name": "stage build_065",
+      "producer_job": "wave_15",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_066": {
+      "job_name": "stage build_066",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_067": {
+      "job_name": "stage build_067",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_068": {
+      "job_name": "stage build_068",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_069": {
+      "job_name": "stage build_069",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_070": {
+      "job_name": "stage build_070",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_071": {
+      "job_name": "stage build_071",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_072": {
+      "job_name": "stage build_072",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_073": {
+      "job_name": "stage build_073",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_074": {
+      "job_name": "stage build_074",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_075": {
+      "job_name": "stage build_075",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_076": {
+      "job_name": "stage build_076",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_077": {
+      "job_name": "stage build_077",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_078": {
+      "job_name": "stage build_078",
+      "producer_job": "wave_18",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_079": {
+      "job_name": "stage build_079",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_080": {
+      "job_name": "stage build_080",
+      "producer_job": "wave_18",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_081": {
+      "job_name": "stage build_081",
+      "producer_job": "wave_19",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_082": {
+      "job_name": "stage build_082",
+      "producer_job": "wave_20",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_083": {
+      "job_name": "stage build_083",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_084": {
+      "job_name": "stage build_084",
+      "producer_job": "wave_18",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_085": {
+      "job_name": "stage build_085",
+      "producer_job": "wave_19",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_086": {
+      "job_name": "stage build_086",
+      "producer_job": "wave_21",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_087": {
+      "job_name": "stage build_087",
+      "producer_job": "wave_22",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_088": {
+      "job_name": "stage build_088",
+      "producer_job": "wave_16",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_089": {
+      "job_name": "stage build_089",
+      "producer_job": "wave_17",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_090": {
+      "job_name": "stage build_090",
+      "producer_job": "wave_18",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_091": {
+      "job_name": "stage build_091",
+      "producer_job": "wave_23",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "build_092": {
+      "job_name": "stage build_092",
+      "producer_job": "wave_24",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "conron": {
+      "job_name": "conron",
+      "producer_job": "conron",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "export_target": {
+      "job_name": "export_target",
+      "producer_job": "export_target",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "fresh_kernel": {
+      "job_name": "fresh_kernel",
+      "producer_job": "fresh_kernel",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "lean_export": {
+      "job_name": "lean_export",
+      "producer_job": "lean_export",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "nanoda": {
+      "job_name": "nanoda",
+      "producer_job": "nanoda",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "prepare": {
+      "job_name": "prepare",
+      "producer_job": "prepare",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    },
+    "verdict": {
+      "job_name": "verdict",
+      "producer_job": "verdict",
+      "verifier_step": {
+        "name": "Run fail-closed verifier",
+        "number": 7
+      }
+    }
+  },
   "current_workflow": {
     "head_branch": "verify/hierarchy-c-three-context-20261016",
     "name": "Verify hierarchy C with authenticated historical stages",
@@ -688,8 +1106,8 @@
     "continuation_policy.py": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2",
     "fresh_stage.py": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
     "origin_transport.py": "36aaf72618c9547434de9d82cf95a633565c29b0557449b41d8dc8d10adf9ec8",
-    "three_context_current_transport.py": "a3816e306b635401d0c406590953a384a4bda170eeb24ed972df7d05bd2bec43",
-    "three_context_driver.py": "9aa5bec65c2d92d01326a1f178a19b216c2fec1ec65b47c3a574d23731adb529",
+    "three_context_current_transport.py": "ef05bc4e8688a361ea5bd4cfc625a9b48b9cecf84a3cfa4150c4f3ace1f7afa2",
+    "three_context_driver.py": "6641a4f0f6b49de122461e7de8c44a55018c6797ebddf8cee3e7f60493192173",
     "three_context_execution_policy.py": "c64b886e85610b72b4ac9b5a8157b49c3d3d2ecdcf6967c4b591f2ecc15675fa",
     "three_context_final.py": "3ef7e29c6e4507ac6a2469c09b62f917cafa6768f51ad14e169446f0cc1686d6",
     "three_context_io.py": "7ebaf768041582fd6818901cde82e333a72eb5b741724deeb85eac2ea018a811",

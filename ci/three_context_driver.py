@@ -85,7 +85,9 @@ def execute(args,code,contract,budget,f,p,local,dio,cf,ep,current,Runner,load_ve
     def observed_now():budget.check();return budget.last_wall
     origins=current.CurrentOriginTransport(transport,bundle_bytes=bundle_raw,selection_bytes=selection_raw,
         selection_sha256=selection.raw_sha256,plan=plan,current_context={'identity':identity,'workflow':workflow},
-        pipeline_commit=transport.commit,contract_sha256=args.contract_sha256,now=observed_now)
+        pipeline_commit=transport.commit,contract_sha256=args.contract_sha256,now=observed_now,
+        consumer_roles=contract['current_consumer_roles'],consumer_role=args.stage if args.role=='build' else args.role,
+        github_job=os.environ.get('GITHUB_JOB'))
     pins={'current_pipeline_commit':transport.commit,'current_contract_sha256':args.contract_sha256,
         'selection_sha256':selection.raw_sha256,'admission_certificate_sha256':contract['admission_certificate_sha256'],
         'admission_reconciliation_sha256':contract['admission_reconciliation_sha256'],'current_workflow_id':workflow['workflow_id']}

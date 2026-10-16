@@ -53,7 +53,7 @@ FIXED_WORKFLOW={'path':'.github/workflows/hierarchy-c-three-context.yml',
 
 class CurrentOriginTransport(base.OriginTransport):
     def __init__(self,current_transport,*,bundle_bytes,selection_bytes,selection_sha256,plan,
-                 current_context,pipeline_commit,contract_sha256,opener=None,now=None):
+                 current_context,pipeline_commit,contract_sha256,consumer_roles,consumer_role,github_job,opener=None,now=None):
         _verify_dependencies()
         f.need(isinstance(current_transport,Transport),'authenticated current Transport required')
         f.need(type(current_transport.token) is str and bool(current_transport.token),'read-only workflow token missing')
@@ -82,6 +82,24 @@ class CurrentOriginTransport(base.OriginTransport):
                run.get('created_at')==cur['run_started_at'] and
                type(run.get('workflow_id')) is int and run['workflow_id']==workflow['workflow_id'] and
                all(run.get(k)==v for k,v in FIXED_WORKFLOW.items()),'authenticated current workflow identity mismatch')
+        # Consumer roles are distinct from downloadable provider roles. Verdict
+        # remains a mandatory consumer/final job, never an artifact provider.
+        f.need(type(consumer_roles) is dict and set(consumer_roles)==expected_roles|{'verdict'},
+               'current consumer role coverage changed')
+        for role,binding in consumer_roles.items():
+            base.exact_keys(binding,{'producer_job','job_name','verifier_step'},'consumer role')
+            expected = ({k:workflow['roles'][role][k] for k in binding} if role!='verdict' else
+                        {'producer_job':'verdict','job_name':'verdict',
+                         'verifier_step':{'number':7,'name':'Run fail-closed verifier'}})
+            f.need(binding==expected,'current consumer/provider workflow mapping changed')
+            f.need(type(binding['verifier_step']['number']) is int and binding['verifier_step']['number']==7 and
+                   binding['verifier_step']['name']=='Run fail-closed verifier','current verifier step changed')
+        f.need(type(consumer_role) is str and consumer_role in consumer_roles and
+               type(github_job) is str and github_job==consumer_roles[consumer_role]['producer_job'],
+               'current invocation role/GITHUB_JOB mismatch')
+        self.consumer_role=consumer_role
+        self.consumer_binding=copy.deepcopy(consumer_roles[consumer_role])
+        self.github_job=github_job
         self.current=current_transport
         self.opener=opener if opener is not None else base.urllib.request.build_opener(base.NoRedirect())
         clock=now or (lambda:datetime.now(timezone.utc))
@@ -111,6 +129,156 @@ class CurrentOriginTransport(base.OriginTransport):
         now=self.now()
         p.deadline_check(self.bundle,self.selection,now,current_identity=self.contexts[base.CURRENT_ORIGIN]['identity'],previous_now=self._last_wall)
         self._last_wall=now
+
+    def _current_run_observation(self,budget,observation):
+        f.need(type(observation) is int and 1<=observation<=base.MAX_CURRENT_STATUS_POLLS,
+               'current run status poll count exhausted')
+        context=self._context(base.CURRENT_ORIGIN);identity=context['identity'];workflow=context['workflow']
+        run,poll=self._json(f'/repos/{base.REPOSITORY}/actions/runs/{identity["run_id"]}',
+                            budget=budget,poll_headers=True)
+        try:
+            with base._metadata_wall_limit(self._metadata_remaining(budget),deadline=budget['deadline']):
+                for key in ('repository','head_repository'):
+                    repo=run.get(key)
+                    f.need(type(repo) is dict and type(repo.get('id')) is int and repo['id']==base.REPOSITORY_ID and
+                           repo.get('full_name')==base.REPOSITORY,'run repository/head-repository mismatch')
+                f.need(type(run.get('id')) is int and str(run['id'])==identity['run_id'] and
+                       type(run.get('run_attempt')) is int and str(run['run_attempt'])==identity['run_attempt'] and
+                       run.get('head_sha')==identity['pipeline_commit'] and run.get('event')=='push' and
+                       run.get('head_branch')==workflow['head_branch'] and
+                       type(run.get('workflow_id')) is int and run['workflow_id']==workflow['workflow_id'] and
+                       run.get('path')==workflow['path'] and run.get('name')==workflow['name'],
+                       'run/workflow identity mismatch or rerun')
+                f.need(run.get('created_at')==identity['run_started_at'],'trusted run start mismatch')
+                f.need(base.timestamp(run['created_at'])<=base.timestamp(run.get('updated_at'))<=self.now(),
+                       'inconsistent run timestamps')
+                f.need('status' in run and 'conclusion' in run,'current run status/conclusion missing')
+                accepted=((run['status']=='in_progress' and run['conclusion'] is None) or
+                          (run['status']=='completed' and run['conclusion']=='success'))
+                f.need(accepted or (type(run['status']) is str and run['status'] in base.WAITABLE_CURRENT_STATUSES and
+                                   run['conclusion'] is None),'current run is not active/successful; terminal or invalid state')
+                # This post-validation record preserves the actual API status.
+                record={k:run[k] for k in ('id','run_attempt','workflow_id','head_sha','status','conclusion','created_at','updated_at')}
+                record.update(event='current_origin_run_status_observation',observation=observation,identity_validation='passed')
+                print(json.dumps(record,sort_keys=True,separators=(',',':')),flush=True)
+                self._metadata_remaining(budget)
+                return run,poll,accepted,record
+        except (base._MetadataWallTimeout,base._MetadataHardTimeout):
+            raise f.Rejected('current run status diagnostic/validation deadline exceeded') from None
+
+    def _active_consumer(self,budget,job_id=None):
+        context=self._context(base.CURRENT_ORIGIN);identity=context['identity'];workflow=context['workflow']
+        binding=self.consumer_binding
+        if job_id is None:
+            data=self._json(f'/repos/{base.REPOSITORY}/actions/runs/{identity["run_id"]}/attempts/{identity["run_attempt"]}/jobs?per_page=100&page=1',budget=budget)
+            try:
+                with base._metadata_wall_limit(self._metadata_remaining(budget),deadline=budget['deadline']):
+                    rows=data.get('jobs');count=data.get('total_count')
+                    f.need(type(rows) is list and type(count) is int and count==len(rows) and 0<count<=52 and
+                           all(type(row) is dict for row in rows),'invalid bounded current consumer jobs')
+                    ids=[row.get('id') for row in rows]
+                    f.need(all(type(n) is int and n>0 for n in ids) and len(set(ids))==len(ids),'duplicate/invalid current job IDs')
+                    matches=[row for row in rows if row.get('name')==binding['job_name']]
+                    f.need(len(matches)==1,'current consumer job missing or ambiguous')
+                    job=matches[0]
+                    self._metadata_remaining(budget)
+            except (base._MetadataWallTimeout,base._MetadataHardTimeout):
+                raise f.Rejected('current consumer list deadline exceeded') from None
+        else:
+            base.positive(job_id,'current consumer job ID')
+            job=self._json(f'/repos/{base.REPOSITORY}/actions/jobs/{job_id}',budget=budget)
+        try:
+            with base._metadata_wall_limit(self._metadata_remaining(budget),deadline=budget['deadline']):
+                f.need(type(job.get('id')) is int and job['id']>0 and (job_id is None or job['id']==job_id) and
+                       type(job.get('run_id')) is int and str(job['run_id'])==identity['run_id'] and
+                       type(job.get('run_attempt')) is int and str(job['run_attempt'])==identity['run_attempt'] and
+                       job.get('head_sha')==identity['pipeline_commit'] and job.get('head_branch')==workflow['head_branch'] and
+                       job.get('workflow_name')==workflow['name'] and job.get('name')==binding['job_name'],
+                       'current consumer job identity mismatch')
+                f.need(job.get('status')=='in_progress' and 'conclusion' in job and job['conclusion'] is None and
+                       'completed_at' in job and job['completed_at'] is None,'current consumer job is not active')
+                created=base.timestamp(job.get('created_at'));started=base.timestamp(job.get('started_at'))
+                f.need(base.timestamp(identity['run_started_at'])<=created<=started<=self.now(),'current consumer job timestamps inconsistent')
+                steps=job.get('steps')
+                f.need(type(steps) is list and 0<len(steps)<=100 and all(type(step) is dict for step in steps),
+                       'invalid bounded current consumer steps')
+                numbers=[step.get('number') for step in steps];names=[step.get('name') for step in steps]
+                f.need(all(type(n) is int and n>0 for n in numbers) and len(set(numbers))==len(numbers) and
+                       all(type(n) is str and n for n in names) and len(set(names))==len(names),
+                       'ambiguous current consumer steps')
+                matches=[step for step in steps if step.get('number')==binding['verifier_step']['number'] or
+                         step.get('name')==binding['verifier_step']['name']]
+                f.need(len(matches)==1,'current consumer verifier step missing or ambiguous')
+                step=matches[0]
+                f.need(step['number']==binding['verifier_step']['number'] and step['name']==binding['verifier_step']['name'] and
+                       step.get('status')=='in_progress' and 'conclusion' in step and step['conclusion'] is None and
+                       'completed_at' in step and step['completed_at'] is None,'current consumer verifier step is not active')
+                f.need(started<=base.timestamp(step.get('started_at'))<=self.now(),'current verifier timestamp inconsistent')
+                result={k:job[k] for k in ('id','run_id','run_attempt','head_sha','head_branch','workflow_name','name',
+                                         'status','conclusion','created_at','started_at','completed_at')}
+                result['step']={k:step[k] for k in ('number','name','status','conclusion','started_at','completed_at')}
+                self._metadata_remaining(budget)
+                return result
+        except (base._MetadataWallTimeout,base._MetadataHardTimeout):
+            raise f.Rejected('current consumer validation deadline exceeded') from None
+
+    def _current_status_wait(self,budget,poll,observation):
+        delay=base.CURRENT_STATUS_BACKOFF_SECONDS[observation-1]
+        if poll is not None:
+            f.need(type(poll) is str and base.re.fullmatch(r'[0-9]{1,4}',poll),'invalid current run X-Poll-Interval')
+            delay=max(delay,int(poll))
+        remaining=self._metadata_remaining(budget)
+        f.need(delay<remaining,'current run status wait exceeds aggregate/origin deadline')
+        try:
+            with base._metadata_wall_limit(remaining,deadline=budget['deadline']):base.time.sleep(delay)
+        except (base._MetadataWallTimeout,base._MetadataHardTimeout):
+            raise f.Rejected('current run status wait deadline exceeded') from None
+        self._metadata_remaining(budget)
+
+    def _run(self,origin):
+        if origin!=base.CURRENT_ORIGIN:
+            return super()._run(origin)
+        started=base.time.monotonic()
+        budget={'started':started,'deadline':started+base.MAX_CURRENT_STATUS_SECONDS}
+        observation=0
+        while observation<base.MAX_CURRENT_STATUS_POLLS:
+            observation+=1
+            run,poll,accepted,first_run=self._current_run_observation(budget,observation)
+            if accepted:
+                self._metadata_remaining(budget)
+                return run
+            if run['status']=='queued':
+                f.need(observation<base.MAX_CURRENT_STATUS_POLLS,'current run status poll count exhausted')
+                first=self._active_consumer(budget)
+                self._current_status_wait(budget,poll,observation)
+                second=self._active_consumer(budget,first['id'])
+                f.need(first==second,'current active consumer changed between authenticated reads')
+                observation+=1
+                run,poll,accepted,last_run=self._current_run_observation(budget,observation)
+                f.need(base.timestamp(first_run['updated_at'])<=base.timestamp(last_run['updated_at']),
+                       'current run update timestamp moved backward')
+                if accepted:
+                    self._metadata_remaining(budget)
+                    return run
+                if run['status']=='queued':
+                    # Separate live eligibility witness; native receipt metadata
+                    # remains byte-identical and still requires successful producers.
+                    witness={'event':'current_queued_active_consumer_witness','schema':'current-consumer-v1',
+                        'acceptance':'queued_run_with_exact_active_consumer','identity':self.contexts[origin]['identity'],
+                        'consumer_role':self.consumer_role,'github_job':self.github_job,'binding':self.consumer_binding,
+                        'run_observations':[first_run,last_run],'consumer_observations':[first,second]}
+                    try:
+                        with base._metadata_wall_limit(self._metadata_remaining(budget),deadline=budget['deadline']):
+                            encoded=json.dumps(witness,sort_keys=True,separators=(',',':'))
+                            f.need(len(encoded.encode('utf-8'))<=16384,'current consumer witness exceeds bound')
+                            print(encoded,flush=True)
+                            self._metadata_remaining(budget)
+                            return run
+                    except (base._MetadataWallTimeout,base._MetadataHardTimeout):
+                        raise f.Rejected('current consumer witness deadline exceeded') from None
+            f.need(observation<base.MAX_CURRENT_STATUS_POLLS,'current run status poll count exhausted')
+            self._current_status_wait(budget,poll,observation)
+        raise f.Rejected('current run status poll bound exceeded')
 
     def download_stage(self,origin,stage_id,destination,max_bytes,pin=None):
         # This graph handles fresh current only. Historical transfer has its own
