@@ -1,4 +1,18 @@
-# The CLARK Tile: A Strongly Aperiodic Monotile in Five Dimensions
+# Aperiodic Monotiles in Every Dimension d ≥ 2
+
+**Working paper · 16 October 2026. The all-dimension proof and its uniform formal verification remain unfinished.**
+
+- [Read the working paper (PDF)](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.pdf)
+- [Download the editable paper (Word)](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.docx)
+- [Read the editable text](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.md) and [current claim scope](papers/all-dimensions-working/README.md)
+
+The working paper records accepted modern results for the exact two- and four-dimensional bodies with one explicit parent-occurrence premise C, together with retained unconditional verification in dimension three and every dimension at least five. C and the unified all-dimension proof remain pending. The four-dimensional count of 362 connected flat three-dimensional boundary pieces is a source-level geometric and exact-arithmetic result; the exact-body polyhedrality and count are not completed Lean theorems. The proposed publication abstract is clearly marked for future completion in the paper's appendix.
+
+**Completed prior result:** the original five-dimensional CLARK tile is [registered in Palomar as PALOMAR-2026-10-07-000006 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-10-07-000006&version=1). Its [original paper](CLARK_paper.pdf?raw=1), immutable proof links, verification history and citation files remain available below. This all-dimension working paper does not replace that registered result.
+
+The repository URL remains `jconorgrogan/palomar-chair-verification`, preserving existing source and registry links.
+
+## The CLARK Tile: A Strongly Aperiodic Monotile in Five Dimensions
 
 Conor Grogan, author and responsible maintainer
 
