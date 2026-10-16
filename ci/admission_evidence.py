@@ -72,7 +72,56 @@ def _phase(diagnostic, value):
         diagnostic['phase'] = value if value in _DIAGNOSTIC_PHASES else 'unknown'
 
 
-def _safe_failure_diagnostic(error, diagnostic):
+_LOCAL_REJECTION_REASONS = {
+    'invalid shared metadata budget': 'shared_metadata_budget_invalid',
+    'invalid metadata monotonic clock': 'metadata_clock_invalid',
+    'metadata aggregate/origin deadline exceeded': 'metadata_deadline_exceeded',
+    'metadata request hard deadline exceeded': 'metadata_hard_deadline_exceeded',
+    'metadata wall guard refuses an existing timer': 'metadata_alarm_already_active',
+    'metadata wall guard requires the main thread': 'metadata_main_thread_required',
+    'invalid absolute metadata deadline': 'metadata_absolute_deadline_invalid',
+    'metadata absolute deadline exceeded': 'metadata_absolute_deadline_exceeded',
+    'invalid metadata wall limit': 'metadata_wall_limit_invalid',
+    'origin deadline exceeded; no age renewal': 'origin_deadline_exceeded',
+    'trusted aware clock required': 'aware_clock_required',
+    'current clock moved backward': 'current_clock_backward',
+    'GitHub metadata status is not 200': 'metadata_non_success_status',
+    'GitHub metadata object required': 'metadata_object_required',
+    'invalid GitHub metadata JSON': 'metadata_json_invalid',
+    'oversized GitHub metadata': 'metadata_size_exceeded',
+    'metadata response cleanup failed': 'metadata_cleanup_failed',
+    'metadata error-response cleanup failed': 'metadata_error_cleanup_failed',
+    'authenticated GitHub metadata read or cleanup failed': 'metadata_read_or_cleanup_failed',
+    'authenticated GitHub metadata read failed': 'metadata_read_failed',
+    'metadata backoff deadline exceeded': 'metadata_backoff_deadline_exceeded',
+    'metadata backoff would exceed aggregate/origin deadline': 'metadata_backoff_budget_exceeded',
+    'metadata retry bound exceeded': 'metadata_retry_bound_exceeded',
+}
+
+
+def _trusted_rejection_type(transport):
+    # Caller already requires the exact hash-authenticated CurrentOriginTransport.
+    # Missing or replaced test seams cannot make arbitrary error classes trusted.
+    try:
+        candidate = transport._json.__func__.__globals__['f'].Rejected
+        return candidate if type(candidate) is type and issubclass(candidate, BaseException) else None
+    except BaseException:
+        return None
+
+
+def _safe_rejection_reason(error, rejection_type):
+    # Never stringify or return arguments. Only the exact reviewed local class,
+    # exact tuple shape and exact builtin string can match a fixed local label.
+    if rejection_type is None or type(error) is not rejection_type:
+        return 'unknown'
+    arguments = BaseException.args.__get__(error, type(error))
+    if (type(arguments) is not tuple or len(arguments) != 1 or type(arguments[0]) is not str or
+            len(arguments[0]) > 160):
+        return 'unknown'
+    return _LOCAL_REJECTION_REASONS.get(arguments[0], 'unknown')
+
+
+def _safe_failure_diagnostic(error, diagnostic, rejection_type=None):
     """Bounded labels; never stringify an exception or copy external data.
 
     Only the standard HTTPError integer status and allowlisted class names may
@@ -86,11 +135,13 @@ def _safe_failure_diagnostic(error, diagnostic):
         round_ = round_ if round_ in ('initial', 'before', 'body', 'after', 'final') else 'unknown'
         name = type(error).__name__
         name = name if name in _DIAGNOSTIC_CLASSES else 'OtherError'
-        timeout, http, seen, current = False, 'none', set(), error
+        timeout, http, reason, seen, current = False, 'none', 'unknown', set(), error
         for _ in range(8):
             if not isinstance(current, BaseException) or id(current) in seen:
                 break
             seen.add(id(current))
+            if reason == 'unknown':
+                reason = _safe_rejection_reason(current, rejection_type)
             current_name = type(current).__name__
             if current_name in ('TimeoutError', '_MetadataWallTimeout', '_MetadataHardTimeout'):
                 timeout = True
@@ -110,9 +161,9 @@ def _safe_failure_diagnostic(error, diagnostic):
                 else:
                     http = 'http_invalid'
             current = current.__cause__ if current.__cause__ is not None else current.__context__
-        return 'phase=' + round_ + '.' + phase + '; exception=' + name + '; http=' + http + '; timeout=' + ('true' if timeout else 'false')
+        return 'phase=' + round_ + '.' + phase + '; exception=' + name + '; http=' + http + '; timeout=' + ('true' if timeout else 'false') + '; reason=' + reason
     except BaseException:
-        return 'phase=unknown.unknown; exception=OtherError; http=none; timeout=false'
+        return 'phase=unknown.unknown; exception=OtherError; http=none; timeout=false; reason=unknown'
 
 
 def need(value, message):
@@ -186,9 +237,29 @@ def _guard(transport, check, cap=60):
     _remaining(check)
 
 
+def _metadata_budget(started, remaining):
+    """Build a representably positive deadline strictly inside the original cap.
+
+    Addition/subtraction roundoff must never broaden the unchanged transport's
+    strict 180-second validation. Unrepresentably tiny slack is rejected.
+    """
+    try:
+        valid_start = type(started) in (int, float) and math.isfinite(started) and started >= 0
+        valid_slack = type(remaining) in (int, float) and math.isfinite(remaining) and remaining > 0
+    except (OverflowError, TypeError):
+        valid_start = valid_slack = False
+    need(valid_start and valid_slack, 'invalid admission metadata clock or slack')
+    limit = min(180, remaining)
+    ceiling = started + limit
+    deadline = math.nextafter(ceiling, -math.inf)
+    need(math.isfinite(deadline) and started < deadline <= ceiling and
+         0 < deadline - started <= limit, 'admission metadata slack is not representably positive')
+    return {'started': started, 'deadline': deadline}
+
+
 def _json(transport, path, check):
     started = time.monotonic()
-    budget = {'started': started, 'deadline': started + min(180, _remaining(check))}
+    budget = _metadata_budget(started, _remaining(check))
     value = transport._json(path, budget=budget)
     _remaining(check)
     need(type(value) is dict, 'authenticated admission metadata object required')
@@ -699,5 +770,5 @@ def load_verified_admission(transport, pin, destination, check_deadline):
         # Never expose bearer material, signed URLs, remote error bodies, or
         # original exceptions through chained traceback output.
         raise AdmissionRejected('admission loading failed (' +
-                                _safe_failure_diagnostic(error, diagnostic) +
+                                _safe_failure_diagnostic(error, diagnostic, _trusted_rejection_type(transport)) +
                                 '); external details suppressed') from None
