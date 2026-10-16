@@ -1,6 +1,6 @@
 # Conditional geometry replay: C remains an explicit assumption
 
-This is an inactive review candidate. It does not launch a workflow, publish sources, change billing, modify an existing run, or certify any unconditional theorem. The executable refuses to run until a separately reviewed contract explicitly changes its review state. The proposed workflow is manual-only.
+This is a reviewed, bounded conditional verification attempt. The workflow runs only on the verify/conditional-geometry-20261016 branch, using one standard Ubuntu runner. Successful source publication or startup does not certify an unconditional theorem; C remains an explicit assumption throughout.
 
 ## Exact scope
 
@@ -41,7 +41,7 @@ The old 69-module body runner is extended, rather than replaced by a new distrib
 6. Compile and check two core-only auditors against only the official runtime. Execute them against the read-only fresh owned closure and trusted package roots. They use importModules with trustLevel 0 and loadExts false; no project extension is executed by those imports. Per-module leanchecker success remains a separate required gate.
 7. Rehash the complete owned outputs and all external build/source inputs once at the end. Verify every compile/check pair and both raw audits, preserve complete bounded logs, and only then issue the terminal conditional-success receipt.
 
-This removes the old quadratic whole-output rehash around every command. The replacement security boundary is read-only predecessor mounts plus an exact, host-only admission operation, per-current-module post-check hashes, import receipts, and a final whole-tree comparison. It requires independent review before activation. Synthetic tests specifically exercise same-prefix imports and checker resolution without a quarantine search path.
+This removes the old quadratic whole-output rehash around every command. The replacement security boundary is read-only predecessor mounts plus an exact, host-only admission operation, per-current-module post-check hashes, import receipts, and a final whole-tree comparison. This boundary has passed independent static review and the separate tiny shared Ubuntu probe described below. Synthetic tests specifically exercise same-prefix imports and checker resolution without a quarantine search path.
 
 Owned .ir and .ir.sig files are freshly emitted interpreter/native-compilation interfaces. Generated .c is retained as a compiler output but is not compiled or linked into owned shared libraries. There are no owned native_decide, #eval, run_tac, run_cmd, unsafe or implemented_by commands in the selected source scan. Cached package elaborators and native libraries remain part of the explicit official-cache trust boundary. Original bridge generators are replaced by four fresh ordinary theorem sources.
 
@@ -73,18 +73,22 @@ Run the static/synthetic suite without loading research objects:
 
     PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests -v
 
-The inactive runner is:
+The pinned runner command is:
 
     python3 -I -B ci/cache_diagnostic.py --contract-sha256 <reviewed contract hash> --work <new empty workspace>
 
 The frozen metadata-size estimate exercises all 2,481 production-loop pairs with synthetic outputs. With inflated size fields, observed external inventories, additional metadata reserves, and the full 64 MiB log budget, it estimates 122,828,207 bytes of runner evidence, leaving 7,195,217 bytes below the 124 MiB cap. This is not a runtime admission guarantee. The collector verifies contract identity, exact ordered pair coverage, adjacent indexes, source/output maps, complete log hashes, inventory hashes, and terminal status. Copying all files from a failed or interrupted run never means acceptance evidence is complete.
 
-The workflow pins that contract hash and the checkout/upload action commits. Activation requires a separately reviewed change to review_status and its workflow hash; no activation or launch was performed while preparing this candidate. Root review must cover the changed read-only/quarantine architecture, receipt semantics, resource bounds, raw auditors, complete input identities, and actual runner feasibility. Source, static tests, and synthetic controls are not research replay success.
+The workflow pins the reviewed contract hash and checkout/upload action commits. The activation changes only review metadata, this documentation and the exact-branch push trigger. The reviewed read-only/quarantine architecture, receipt semantics, resource bounds, raw auditors and complete source identities remain unchanged. Actual research elaboration and endpoint audits are still pending. Source, static tests and tiny controls are not research replay success.
 
 ## Source-archive distribution variant
 
-This inactive distribution keeps the 25 non-source files in ordinary plaintext and replaces the 2,481 individual source blobs with one deterministic source-only archive, `owned-sources.tar.gz`. The original reviewed candidate and all source bytes remain unchanged. The contract retains every original source path, size and SHA-256 pin; it separately lists the exact 26-file distribution tree and archive identity.
+This distribution keeps the 25 non-source files in ordinary plaintext and replaces the 2,481 individual source blobs with one deterministic source-only archive, `owned-sources.tar.gz`. The original reviewed candidate and all source bytes remain unchanged. The contract retains every original source path, size and SHA-256 pin; it separately lists the exact 26-file distribution tree and archive identity.
 
 After exact-tree and clean-Git checks, the host authenticates the complete compressed archive before bounded single-gzip decompression. It accepts only canonical USTAR regular-file records, in exact manifest order, with exact per-file hashes and sizes. Links, directories, extensions, duplicates, aliases, traversal, unlisted files, oversized data and trailing gzip/tar payload are refused. No tar extraction API is used. Files are created exclusively in a new `work/source-input` root, then the existing modern source-header, import graph, reachable-union and per-file checks run against that root before any runtime acquisition, cache acquisition or research compilation. A failed partial extraction cannot be resumed. An extraction receipt is retained in the evidence.
 
-The compiler/checker sandbox, ordinary bridges, conditional endpoint auditors, mathematical scope, resource limits and official-cache trust are unchanged. The additional bounded extraction can hold at most 8 MiB of compressed data and 64 MiB of tar framing in host memory; pinned source content is still bounded by 32 MiB. The shared Ubuntu boundary probe remains a separate activation gate.
+The compiler/checker sandbox, ordinary bridges, conditional endpoint auditors, mathematical scope, resource limits and official-cache trust are unchanged. The additional bounded extraction can hold at most 8 MiB of compressed data and 64 MiB of tar framing in host memory; pinned source content is still bounded by 32 MiB. The shared Ubuntu boundary probe passed before this activation; its exact run and evidence hashes are bound in contract.json.
+
+## Shared boundary preflight
+
+The prerequisite probe succeeded at https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/38866342200, commit 0038bfec18995c396224f70acb2565db8a811dfd. It checked both the C-stage session configuration and this conditional runner's explicit new-session configuration, with six tiny compile/check pairs, write-denial controls and successful process cleanup for all sixteen commands. Eighteen C companion payloads were independently rehashed; twenty-one conditional companion hash receipts were validated, with those conditional payload bytes absent from the diagnostic artifact. This small Init-only test establishes the exercised execution boundary, not any research theorem. The conditional runner's seven sandbox/admission functions are byte-identical to those exercised by the probe.
