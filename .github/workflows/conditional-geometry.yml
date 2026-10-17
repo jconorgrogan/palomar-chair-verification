@@ -1,7 +1,7 @@
 name: Higher dimensions three and at least five
 'on':
   push:
-    branches: ['verify/higher-cache-layout-20261016']
+    branches: ['verify/higher-control-continuation-20261016']
 permissions:
   contents: read
   actions: read
@@ -29,7 +29,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
+          --contract-sha256 fdbe9bcb94a1d283a38368878c2c63d43ef9fb40fd829a8925a1a02bf904ef7b
           --stage H0_common
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -79,7 +79,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
+          --contract-sha256 fdbe9bcb94a1d283a38368878c2c63d43ef9fb40fd829a8925a1a02bf904ef7b
           --stage H1_coarse_contacts
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -129,7 +129,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
+          --contract-sha256 fdbe9bcb94a1d283a38368878c2c63d43ef9fb40fd829a8925a1a02bf904ef7b
           --stage H2_forward_contacts
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -179,7 +179,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
+          --contract-sha256 fdbe9bcb94a1d283a38368878c2c63d43ef9fb40fd829a8925a1a02bf904ef7b
           --stage H3_contact_binding
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence
@@ -208,58 +208,9 @@ jobs:
           path: ${{ runner.temp }}/conditional-geometry/upload/**
           retention-days: 7
           if-no-files-found: error
-  H4_product_geometry:
-    name: conditional H4_product_geometry
-    runs-on: ubuntu-22.04
-    timeout-minutes: 330
-    steps:
-      - name: Check out the exact staged candidate
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          ref: ${{ github.sha }}
-          persist-credentials: false
-          fetch-depth: 1
-      - name: Install official Ubuntu sandbox dependencies
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install --no-install-recommends -y bubblewrap zstd
-      - name: Replay this exact checked-object stage
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: >-
-          python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
-          --stage H4_product_geometry
-          --work "${{ runner.temp }}/conditional-geometry"
-      - name: Preserve bounded stage evidence
-        if: ${{ always() }}
-        timeout-minutes: 2
-        run: >-
-          python3 -I -B ci/collect_evidence.py
-          --work "${{ runner.temp }}/conditional-geometry"
-      - name: Upload complete checked stage objects
-        id: upload_objects
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: conditional-geometry-${{ github.run_id }}-${{ github.run_attempt }}-H4_product_geometry-objects
-          path: ${{ runner.temp }}/conditional-geometry/object-upload/*
-          compression-level: 0
-          retention-days: 7
-          if-no-files-found: error
-      - name: Bind checked objects to this successful producer job
-        run: |
-          printf '%s\n' 'CONDITIONAL_STAGE_ARTIFACT_V1 {"stage_id":"H4_product_geometry","artifact_id":"${{ steps.upload_objects.outputs.artifact-id }}","artifact_sha256":"${{ steps.upload_objects.outputs.artifact-digest }}","artifact_name":"conditional-geometry-${{ github.run_id }}-${{ github.run_attempt }}-H4_product_geometry-objects"}'
-      - name: Upload bounded diagnostic evidence
-        if: ${{ always() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: conditional-evidence-${{ github.run_id }}-${{ github.run_attempt }}-H4_product_geometry
-          path: ${{ runner.temp }}/conditional-geometry/upload/**
-          retention-days: 7
-          if-no-files-found: error
   H5_higher_assembly:
     name: conditional H5_higher_assembly
-    needs: ["H0_common", "H1_coarse_contacts", "H2_forward_contacts", "H3_contact_binding", "H4_product_geometry"]
+    needs: ["H0_common", "H1_coarse_contacts", "H2_forward_contacts", "H3_contact_binding"]
     runs-on: ubuntu-22.04
     timeout-minutes: 330
     steps:
@@ -278,7 +229,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5
+          --contract-sha256 fdbe9bcb94a1d283a38368878c2c63d43ef9fb40fd829a8925a1a02bf904ef7b
           --stage H5_higher_assembly
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence

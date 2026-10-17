@@ -1,3 +1,15 @@
+# Higher-only reviewed continuation
+
+This reviewed five-job continuation admits the exact successful H4 output from run 38982023996 and executes H0, H1, H2, H3 and H5 only. Independent review reconciled all 304 H4 compile/check pairs and every byte of its 118,149,667-byte object ZIP. The original whole run failed because its H0 helper control had a parser-layout error; that failure remains preserved. The selected H4 job succeeded, and its original contract, predecessor lock and extended cache interface remain immutable. Every future consumer must reauthenticate the native origin, receipts and complete payload before admission. The corrected helper control still requires its real pinned-runtime compile/check.
+
+The research source archive is unchanged. The 834 newly executed modules, 304 retained H4 modules and 295 retained F0/F3 context modules reconstruct the exact 1,433-module context. The two audited higher endpoints are C-free; no all-dimension or final hierarchy conclusion is claimed.
+
+Each job retains the 320-minute internal and 330-minute outer caps, all existing per-command/resource limits and the two exact checker exceptions. Five jobs give upper bounds of 1,600 internal runner-minutes and 1,650 outer runner-minutes. H1/H2/H3 run at width three.
+
+## Preserved producer documentation
+
+The following describes the original six-job producer. The continuation changes above govern its own scheduling.
+
 # Higher-dimensional physical monotiles: reviewed bounded cache-layout repair
 
 This reviewed repair diagnostic freshly compiles and kernel-checks exactly 1,138 higher-dimensional research modules. The two selected endpoints assert physical aperiodic monotiles for every dimension at least five, and for every dimension at least three except four. Their statements contain only the dimension hypotheses and no hierarchy assumption C. Actual modern elaboration and the independent physical-model/type/axiom audits remain pending.

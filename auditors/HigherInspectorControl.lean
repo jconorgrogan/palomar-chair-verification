@@ -56,7 +56,8 @@ def succeeds {α : Type} : Except String α → Bool
 run_cmd do
   let .ok mappedType := mappedReference refDefinition.type | throwError "reference type mapping failed"
   let .ok mappedValue := mappedReference refDefinition.value | throwError "reference value mapping failed"
-  let native := { refDefinition with name := `SparseMonotiles.HasTiling,
+  let native := { refDefinition with
+    name := `SparseMonotiles.HasTiling,
     type := mappedType, value := mappedValue }
   assertTrue (succeeds (validateDefinitionPair refDefinition native)) "exact mapped model definition"
   assertTrue (!succeeds (validateDefinitionPair refDefinition {native with

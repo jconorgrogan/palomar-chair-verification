@@ -9,7 +9,11 @@ class HigherTests(unittest.TestCase):
  def contract(self):return a.f.load_json(ROOT/'contract.json')
  def test_current_profile(self):a.validate_diagnostic_profile(self.contract())
  def test_current_partition(self):a.validate_stage_plan(self.contract())
- def test_exact_native_origins(self):a.validate_continuation_origins(self.contract())
+ def test_exact_native_origins(self):
+  c=self.contract();lock=a.f.load_json(ROOT/c['origin_lock']['path'])
+  if lock['stages'].get(h.H4_STAGE,{}).get('selection_pending') is True:
+   with self.assertRaises(Exception):a.validate_continuation_origins(c)
+  else:a.validate_continuation_origins(c)
  def test_distribution_exact(self):a.validate_distribution_layout(self.contract())
  def test_no_fresh_async_options(self):
   c=self.contract()
@@ -25,7 +29,7 @@ class HigherTests(unittest.TestCase):
  def test_no_uniform_claim(self):
   c=self.contract();self.assertFalse(c['all_dimension_uniform_proof_certified']);self.assertTrue(c['higher_endpoints_have_no_C_premise']);self.assertEqual(len(c['higher_endpoints']),2)
  def test_higher_width_four(self):
-  c=self.contract();self.assertEqual(c['maximum_parallel_jobs'],4);self.assertEqual(c['workflow_aggregate_seconds'],6*19200);self.assertEqual(c['workflow_outer_runner_minutes'],6*330)
+  c=self.contract();self.assertEqual(c['maximum_parallel_jobs'],4);self.assertEqual(c['workflow_aggregate_seconds'],5*19200);self.assertEqual(c['workflow_outer_runner_minutes'],5*330)
  def test_fresh_partition_exactly_once(self):
   c=self.contract();names=[m for sid in h.HSTAGES for m in c['stages'][sid]['modules']];self.assertEqual(len(names),len(set(names)));self.assertEqual(len(names),1138);self.assertFalse(set(names)&{m for sid in h.OLD for m in c['stages'][sid]['modules']})
  def test_h5_has_every_ancestor(self):self.assertEqual(self.contract()['stages'][h.HSTAGES[-1]]['admitted_stages'],h.OLD+h.HSTAGES[:-1])
@@ -39,7 +43,7 @@ class HigherTests(unittest.TestCase):
   c=self.contract();self.assertEqual(c['source_archive']['source_file_count'],1433);self.assertLess(c['source_archive']['source_bytes'],c['owned_source_max_bytes'])
  def test_no_final_C_source(self):self.assertNotIn('SpectreFinite.RadiusFivePruningHierarchy',{r['module'] for r in self.contract()['modules']})
  def test_freshness_certificate_rejects_wrong_origin(self):
-  c=self.contract();collector=a.load_helper('collect_evidence');locked=collector.locked_origin_rows(c);self.assertEqual(set(locked),set(h.OLD))
+  c=a.f.load_json(ROOT/'origin/higher-producer-contract.json');collector=a.load_helper('collect_evidence');locked=collector.locked_origin_rows(c);self.assertEqual(set(locked),set(h.OLD))
   with self.assertRaises(Exception):collector.make_cross_origin_certificate(c,'a'*64,{},h.HSTAGES[0],{},[],{},locked)
 
 def mutation_test(key,value):

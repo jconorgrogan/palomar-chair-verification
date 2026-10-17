@@ -5,11 +5,11 @@ import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,sta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
-HELPERS={'higher_policy.py':'a27875c7dbdca2ecf9f006e4c82a228f00995cb036671450f45c7d4259fa2871',
+HELPERS={'higher_policy.py':'a9117fa63a1bb30d957b15bb3c1b13ddcef3fffa92055d383a9bb7f76b091c92',
  'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'65dbb0c0bb0d08034866ed00db7ad50201d11910a1b962381eba8fe0a7531453',
- 'conditional_transport.py':'25dca67e7f3238a177463ea4d1508bf350b29b8ddf7904ce19a3736d9d73fa89',
+ 'collect_evidence.py':'fa4e88ba002ec2b60d6aeea60cc0cbb0dec2bdb26025875dc6050e1e80cbb12c',
+ 'conditional_transport.py':'b19080a4426f1a6dbd79a909eb3d10dd46f85f8e4008bc3cb5c54daeda5af39e',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -643,7 +643,7 @@ def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cach
             selected_contract=producer_contract if origin_row is not None else contract
             selected_sha=ORIGINAL_STAGE_CONTRACT_SHA if origin_row is not None else contract_sha
         producer=selected_contract['stages'][sid];download=root/(sid+'-download')
-        f.need(origin_row is not None or (contract['schema']==higher.SCHEMA and sid in higher.HSTAGES) or (contract['schema']!=higher.SCHEMA and sid=='F3_product_geometry'),'unlocked earlier producer stage')
+        f.need(origin_row is not None or (contract['schema']==higher.SCHEMA and sid in contract['execution_stages']) or (contract['schema']!=higher.SCHEMA and sid=='F3_product_geometry'),'unlocked earlier producer stage')
         client=transport.Transport(deadline=import_deadline,origin_lock=origin_row['origin'] if origin_row is not None else None)
         origin=client.download_stage(sid,'conditional '+sid,download,contract['object_artifact_max_bytes'])
         if origin_row is not None:
@@ -660,9 +660,11 @@ def restore_stages(work,contract,contract_sha,stage_id,interface,owned_rows,cach
         predecessor=[x for x in lineage if x['stage_id'] in producer['admitted_stages']]
         imported_modules={m for dep in producer['admitted_stages'] for m in selected_contract['stages'][dep]['modules']}
         producer_inventory={name:prior[name] for module in imported_modules for name in module_outputs(module)}
-        selected_cache=base_cache_rows if contract['schema']==higher.SCHEMA and origin_row is not None else cache_rows
-        selected_interface=base_interface if contract['schema']==higher.SCHEMA and origin_row is not None else interface
+        cache_role=higher.producer_cache_role(selected_contract,sid,sys.modules[__name__]) if contract['schema']==higher.SCHEMA else 'extended'
+        selected_cache=base_cache_rows if cache_role=='base' else cache_rows
+        selected_interface=base_interface if cache_role=='base' else interface
         f.need(selected_cache is not None and selected_interface is not None,'missing selected cache interface')
+        if contract['schema']==higher.SCHEMA:selected_interface=higher.require_native_interface(contract,sid,selected_interface,sys.modules[__name__])
         expected={'identity':origin['identity'],'stage_id':sid,'stage_modules':producer['modules'],
           'admitted_stages':producer['admitted_stages'],'contract_sha256':selected_sha,
           'interface_identity':selected_interface,'producer_work':str(work),'runtime_inventory_sha256':RUNTIME_INVENTORY_SHA,

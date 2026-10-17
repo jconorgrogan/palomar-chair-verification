@@ -1,15 +1,16 @@
 {
   "activation_admission": {
-    "actual_cache_metadata_reconciliation_sha256": "30c65fadb37006f659ba88ba0806b29c61d4632eb66144728aff16113a3b6710",
-    "inactive_content_digest": "90ce02bd9d491e465823e2cf8624033e225f1122eb77ade019ac19a82432f2d9",
-    "inactive_contract_sha256": "6a9de646ff593a3af2e5fbff77bab4fa23ed4afd73049d30b49738d388460efb",
-    "inactive_manifest_sha256": "c77b3f6d8f0276d6d46ef507280d6ef450e68e2824b4a3fa83cabca216e676d7",
-    "independent_review_sha256": "081855a1b0077c55da30399ec57c6f4520c96e8dede1a82a6d3bad27af03a339",
-    "owner_test_receipt_sha256": "98aefab0938ef050e843cbd54e5b4587696492bfd5dbbb7b234c753595f0d2c2",
-    "research_elaboration_and_raw_audits_pending": true,
-    "research_sources_and_native_origin_locks_unchanged": true,
-    "resource_limits_unchanged": true,
-    "schema": "higher-cache-layout-reviewed-activation-v1"
+    "corrected_control_elaboration_and_endpoint_audits_pending": true,
+    "fresh_native_readmission_required": true,
+    "h4_evidence_and_payload_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
+    "implementation_review_sha256": "282c33ba8e779f4aff085cd6a0d3db305ed767be15412bac6c619634e78536b1",
+    "inactive_content_digest": "d8ef61e36565de00c65f0748871caa9059d8c198ee096dbcc349287704f4df78",
+    "inactive_contract_sha256": "b0e800ae2a6b8ac71d054db1e892a511f29bd94e5136a469fc20345b2cec7854",
+    "inactive_manifest_sha256": "0173386fd78121abf191fb5ddeb6ff516d73481a9253d96cd335b57a6d8ce934",
+    "independent_selection_review_sha256": "c8038cf1beb679a59e43d63202c01e95f3c28f09b097f35f8c83f329d53f7477",
+    "owner_test_receipt_sha256": "0aacda1b5b6841383253b5ae7980cff34954a5fcc17048f80b49b54998f8bfc0",
+    "schema": "higher-five-job-reviewed-activation-v1",
+    "source_code_origin_resource_bytes_unchanged_from_selection": true
   },
   "aggregate_command_deadline_seconds": 19200,
   "aggregate_log_max_bytes": 67108864,
@@ -161,7 +162,7 @@
   "deadline_policy": "The original absolute320-minute deadline bounds all acceptance work. Host SIGALRM interrupts blocked I/O and starts one five-second failure-only collection grace. Only the pinned process runner defers the first alarm until its bounded cleanup finishes, then uses that same single-use failure grace. Repeated one-second alarms prevent swallowed expiry during failure handling. Every expiry unconditionally rejects acceptance; the outer330-minute job ceiling is unchanged.",
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 180,
-  "distribution_file_count": 56,
+  "distribution_file_count": 62,
   "distribution_files": [
     ".github/workflows/conditional-geometry.yml",
     "LICENSE",
@@ -191,6 +192,7 @@
     "locks/dependencies.json",
     "locks/endpoint-auditor-correction.json",
     "locks/higher-auditor-interface.json",
+    "locks/higher-control-layout-repair.json",
     "locks/higher-partition.json",
     "locks/higher-source-lineage.json",
     "locks/higher-visibility-variants.json",
@@ -200,10 +202,14 @@
     "locks/source-lineage.json",
     "locks/visibility-exception.json",
     "locks/visibility-predictions.json",
+    "origin/HigherInspectorControl.original.lean",
     "origin/base-interface-identity.json",
     "origin/base-required-modules.json",
     "origin/continuation-producer-contract.json",
     "origin/continuation-producer-origins.json",
+    "origin/higher-interface-identity.json",
+    "origin/higher-producer-contract.json",
+    "origin/higher-producer-origins.json",
     "origin/historical-tests/test_conditional_geometry.py",
     "origin/historical-tests/test_continuation.py",
     "origin/historical-tests/test_final_origins.py",
@@ -215,6 +221,7 @@
     "owned-sources.tar.gz",
     "tests/test_conditional_transport.py",
     "tests/test_higher_composition.py",
+    "tests/test_higher_recovery.py",
     "tests/test_higher_replay.py",
     "tests/test_higher_visibility.py",
     "tests/test_historical_origin_transport.py",
@@ -226,22 +233,28 @@
     "H1_coarse_contacts",
     "H2_forward_contacts",
     "H3_contact_binding",
-    "H4_product_geometry",
     "H5_higher_assembly"
   ],
   "failure_evidence_grace_seconds": 5,
   "final_C_proof_certified": false,
   "final_stage": "H5_higher_assembly",
+  "fresh_execution_module_count": 834,
   "fresh_external_source_rebuild": false,
   "fresh_higher_module_count": 1138,
   "fresh_research_modules_exactly_once": true,
   "higher_auditor_static_review_sha256": "392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd",
+  "higher_control_layout_review_sha256": "8aca4fc5f247cfe7ba5cab59e5f876cfcb3166784d50fd05c5912a58ee689d93",
   "higher_endpoints": [
     "ClarkSeed.exists_physical_aperiodic_monotile_of_ge_five",
     "ClarkSeed.exists_physical_aperiodic_monotile_of_ge_three_ne_four"
   ],
   "higher_endpoints_have_no_C_premise": true,
+  "higher_h4_byte_witness_sha256": "9cca4e9a49876bc12b44d7e3415811a8b6e406b6c6d3e338ed61582ad8e279e5",
+  "higher_h4_original_run_terminal_conclusion": "failure",
+  "higher_h4_payload_selection_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
   "higher_mathematical_closure_count": 1154,
+  "higher_recovery_implementation_review_sha256": "282c33ba8e779f4aff085cd6a0d3db305ed767be15412bac6c619634e78536b1",
+  "higher_recovery_mode": "exact-historical-H4-v1",
   "higher_reference_static_review_sha256": "392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd",
   "higher_target": "ClarkSeed.PhysicalDimensions",
   "higher_visibility_actual_elaboration_pending": true,
@@ -257,8 +270,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 6618,
-      "sha256": "78f4c27996c228afb7feb41c3bbd210918a183c32eaca1e7ad13af5572d04c3a"
+      "bytes": 8044,
+      "sha256": "7cc22f2ab17710f2e5a78a4d7df56a31d4eefb1823f1a5d586a830588b3dbe66"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -277,32 +290,32 @@
       "sha256": "fbe8548a25e24976bc8513fabf3a5dd19ade80b19fe40d906b86b999ac1e3565"
     },
     "auditors/HigherInspectorControl.lean": {
-      "bytes": 6975,
-      "sha256": "017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482"
+      "bytes": 6979,
+      "sha256": "bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992"
     },
     "auditors/HigherPhysicalReference.lean": {
       "bytes": 2138,
       "sha256": "bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea"
     },
     "ci/cache_diagnostic.py": {
-      "bytes": 81582,
-      "sha256": "4d253a63cce3891bd443919aa73d7a5bbce48d127ae2d0e27f68a3424778ad81"
+      "bytes": 81807,
+      "sha256": "c21c3c9aa67bf9d7476624c8c7e4c7138d45022943494f710b3f9f181962bfa1"
     },
     "ci/collect_evidence.py": {
-      "bytes": 21249,
-      "sha256": "65dbb0c0bb0d08034866ed00db7ad50201d11910a1b962381eba8fe0a7531453"
+      "bytes": 21952,
+      "sha256": "fa4e88ba002ec2b60d6aeea60cc0cbb0dec2bdb26025875dc6050e1e80cbb12c"
     },
     "ci/conditional_transport.py": {
-      "bytes": 55319,
-      "sha256": "25dca67e7f3238a177463ea4d1508bf350b29b8ddf7904ce19a3736d9d73fa89"
+      "bytes": 55341,
+      "sha256": "b19080a4426f1a6dbd79a909eb3d10dd46f85f8e4008bc3cb5c54daeda5af39e"
     },
     "ci/fresh_stage.py": {
       "bytes": 49212,
       "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
     },
     "ci/higher_policy.py": {
-      "bytes": 35036,
-      "sha256": "a27875c7dbdca2ecf9f006e4c82a228f00995cb036671450f45c7d4259fa2871"
+      "bytes": 42693,
+      "sha256": "a9117fa63a1bb30d957b15bb3c1b13ddcef3fffa92055d383a9bb7f76b091c92"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -354,7 +367,11 @@
     },
     "locks/higher-auditor-interface.json": {
       "bytes": 9153,
-      "sha256": "e13b14a4168e22a6b1af6ba79b87a329e9df155447210637b3a6280e0a555eab"
+      "sha256": "25f21aefdf932a18d6fd9b841464cf9f1b4473f1e1ba582d1cd2c9e0d6574121"
+    },
+    "locks/higher-control-layout-repair.json": {
+      "bytes": 672,
+      "sha256": "0783b5c5b34c66ec4e8367d0920eb90c78820f22ab24712e2a9b233e37b3c45d"
     },
     "locks/higher-partition.json": {
       "bytes": 314832,
@@ -392,6 +409,10 @@
       "bytes": 8758,
       "sha256": "e9ddcd28334d405da6dacfefecadab62510c9d8e17c4d6f513d06ee560000480"
     },
+    "origin/HigherInspectorControl.original.lean": {
+      "bytes": 6975,
+      "sha256": "017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482"
+    },
     "origin/base-interface-identity.json": {
       "bytes": 373,
       "sha256": "36af6080c57f29004a04af0e3d50ad6157a3c887b0eca59b51eba0a706c9705b"
@@ -407,6 +428,18 @@
     "origin/continuation-producer-origins.json": {
       "bytes": 4600,
       "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
+    },
+    "origin/higher-interface-identity.json": {
+      "bytes": 482,
+      "sha256": "8bb12cf8cb212d1f42b5cd0dab44b8e04200e8cd408b442068061c540c1c9955"
+    },
+    "origin/higher-producer-contract.json": {
+      "bytes": 539193,
+      "sha256": "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5"
+    },
+    "origin/higher-producer-origins.json": {
+      "bytes": 3386,
+      "sha256": "420fe2f6b088df0fdf91d14ab7424eaca278e7531696440c719f147f6580bdea"
     },
     "origin/historical-tests/test_conditional_geometry.py": {
       "bytes": 47249,
@@ -429,8 +462,8 @@
       "sha256": "6cd0db87069c817f3f71e6a13683012d3e15593154160e40a645d043dfde0543"
     },
     "origin/locked-origins.json": {
-      "bytes": 3386,
-      "sha256": "420fe2f6b088df0fdf91d14ab7424eaca278e7531696440c719f147f6580bdea"
+      "bytes": 5051,
+      "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
     },
     "origin/producer-contract.json": {
       "bytes": 870879,
@@ -6180,9 +6213,13 @@
       "bytes": 15016,
       "sha256": "eab185359a547d6a26a6d573af626418e0a9697fe2ee03f8f38e958e6732f1a6"
     },
+    "tests/test_higher_recovery.py": {
+      "bytes": 13370,
+      "sha256": "595218f115e170da7c31fd572d2600468bddb48b90555f2e2fdbefbbf31416cd"
+    },
     "tests/test_higher_replay.py": {
-      "bytes": 12974,
-      "sha256": "25abd2d59cfc87aedb1a234b3763b6d6bdb2e83ebf587bf07466efa6464a066e"
+      "bytes": 13226,
+      "sha256": "4ee39935602cc92a8efd64b3c16f8601613b40e7eb1489a053ab6b57c25362f1"
     },
     "tests/test_higher_visibility.py": {
       "bytes": 2243,
@@ -6200,7 +6237,8 @@
   "lean_heap_mib": 4096,
   "locked_origin_stages": [
     "F0_common",
-    "F3_product_geometry"
+    "F3_product_geometry",
+    "H4_product_geometry"
   ],
   "maximum_parallel_jobs": 4,
   "minimum_free_disk_bytes": 1610612736,
@@ -11957,6 +11995,16 @@
     "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
   },
   "native_dependency_policy": "Official runtime and explicitly trusted byte-inventoried pinned package cache, with an empty global native-library inventory. New owned IR is freshly emitted; prior owned IR is admitted only through exact checked producer provenance. No owned native shared libraries or original generators are executed.",
+  "native_higher_interface": {
+    "bytes": 482,
+    "path": "origin/higher-interface-identity.json",
+    "sha256": "8bb12cf8cb212d1f42b5cd0dab44b8e04200e8cd408b442068061c540c1c9955"
+  },
+  "native_higher_origin_lock": {
+    "bytes": 3386,
+    "path": "origin/higher-producer-origins.json",
+    "sha256": "420fe2f6b088df0fdf91d14ab7424eaca278e7531696440c719f147f6580bdea"
+  },
   "no_forks_or_unsafe_cache_scope": true,
   "object_artifact_max_bytes": 4294967296,
   "object_artifact_zip_max_bytes": 4299161600,
@@ -11965,9 +12013,9 @@
   "official_lean_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
   "official_mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
   "origin_lock": {
-    "bytes": 3386,
+    "bytes": 5051,
     "path": "origin/locked-origins.json",
-    "sha256": "420fe2f6b088df0fdf91d14ab7424eaca278e7531696440c719f147f6580bdea"
+    "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
   },
   "original_stage_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
   "outer_timeout_minutes": 330,
@@ -11983,6 +12031,11 @@
       "path": "origin/continuation-producer-contract.json",
       "sha256": "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070"
     },
+    "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5": {
+      "bytes": 539193,
+      "path": "origin/higher-producer-contract.json",
+      "sha256": "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5"
+    },
     "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38": {
       "bytes": 870879,
       "path": "origin/producer-contract.json",
@@ -11991,9 +12044,10 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-cache-layout-20261016",
+  "publication_branch": "verify/higher-control-continuation-20261016",
   "publication_parent_commit": "b38300c66d4d2b154bc1a0c087e745c83907227c",
   "retained_context_outside_higher_closure_count": 279,
+  "retained_higher_module_count": 304,
   "retained_historical_module_count": 295,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -13597,7 +13651,7 @@
   },
   "transport_timeout_seconds": 1800,
   "unconditional_monotile_proof_certified": false,
-  "workflow_aggregate_seconds": 115200,
-  "workflow_job_count": 6,
-  "workflow_outer_runner_minutes": 1980
+  "workflow_aggregate_seconds": 96000,
+  "workflow_job_count": 5,
+  "workflow_outer_runner_minutes": 1650
 }

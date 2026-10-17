@@ -1,0 +1,7 @@
+{
+  "all_package_native_library_files_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+  "approved_bootstrap_companion_rows_sha256": "46c6d3d1bead5e8505df515845105032fdeda6f7f99f8a1f87366b2ed768ce04",
+  "required_cache_companion_rows_sha256": "963c90d2289e10ccf6d57c3f4ade1b982411b4a8fac0bb1b0629de58d4bd5bab",
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "schema": "higher-external-interface-v1"
+}

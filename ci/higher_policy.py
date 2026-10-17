@@ -6,25 +6,52 @@ SUCCESS='HIGHER_DIMENSIONS_THREE_AND_GE_FIVE_RAW_AUDITED'
 STAGE_SUCCESS='CHECKED_HIGHER_DIMENSION_STAGE_COMPLETED'
 HSTAGES=['H0_common','H1_coarse_contacts','H2_forward_contacts','H3_contact_binding','H4_product_geometry','H5_higher_assembly']
 OLD=['F0_common','F3_product_geometry']
+RECOVERY_MODE='exact-historical-H4-v1'
+H4_STAGE='H4_product_geometry'
+H4_PRODUCER_SHA='36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5'
+CONTROL_LAYOUT_REVIEW_SHA='8aca4fc5f247cfe7ba5cab59e5f876cfcb3166784d50fd05c5912a58ee689d93'
+H4_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','run_id':'38982023996','run_attempt':'1','workflow_commit':'31e580fd4246e2d60dd6393ac8571abfe1cd2ba0'}
+def recovery(c):return c.get('higher_recovery_mode')==RECOVERY_MODE
+def producer_cache_role(c,sid,a):
+    a.f.need(sid in OLD+HSTAGES,'unknown native cache role')
+    if sid in OLD:
+        expected=a.ORIGINAL_STAGE_CONTRACT_SHA if sid==OLD[0] else a.CONTINUATION_PRODUCER_SHA
+        a.f.need(digest(c)==expected,'legacy stage producer contract differs');return 'base'
+    a.f.need(c.get('schema')==SCHEMA,'higher stage lacks higher producer profile');return 'extended'
 COUNTS=[44,221,82,460,304,27]
 CHECKS={'SparseMonotiles.CoarseContactCertificates5PackedRows':(240,'914a3ddef7a5674a9bb2f7a5725b30521c80bdb1f988663b1a167e89bf5660bf',163.708),'SparseMonotiles.CoarseContactCertificates5SymmetryCoverage':(720,'283a5e1d00ead57526fd7bb70227b1cb1b77d12aba41bdee54d8d0236e592816',572.843)}
 CONTROL_LABELS=['exact mapped model definition', 'renamed native model constant rejected', 'extra reference model constant rejected', 'nested extra reference model constant rejected', 'changed HasTiling predicate rejected', 'changed HasTiling existential universe rejected', 'missing HasTiling existential rejected', 'exact collection-period surrogate', 'collection period changed to union period rejected', 'model extra universe rejected', 'unsafe model rejected', 'open model body rejected', 'exact quantified endpoint surrogate', 'dimension quantifier removed rejected', 'dimension binder renamed rejected', 'dimension binder visibility changed rejected', 'dimension lower bound changed rejected', 'extra hypothesis rejected', 'axiom substituted for theorem rejected', 'three standard axioms accepted', 'sorryAx rejected', 'extra axiom rejected', 'fixed seven model names and two endpoints']
 TARGETS=['ClarkSeed.exists_physical_aperiodic_monotile_of_ge_five','ClarkSeed.exists_physical_aperiodic_monotile_of_ge_three_ne_four']
 def digest(value):return hashlib.sha256((json.dumps(value,sort_keys=True,indent=2)+'\n').encode()).hexdigest()
 def profile(c,a):
+    a.f.need('higher_recovery_mode' not in c or recovery(c),'unknown higher recovery mode')
     expected={'schema':SCHEMA,'owned_module_count':1433,'fresh_higher_module_count':1138,'retained_historical_module_count':295,'higher_mathematical_closure_count':1154,'retained_context_outside_higher_closure_count':279,'lean_heap_mib':4096,'diagnostic_rss_gib':8,'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'outer_timeout_minutes':330,'aggregate_command_deadline_seconds':19200,'maximum_parallel_jobs':4,'stage_count':8,'workflow_job_count':6,'workflow_aggregate_seconds':115200,'workflow_outer_runner_minutes':1980,'object_artifact_max_bytes':4*a.GIB,'object_artifact_zip_max_bytes':4*a.GIB+4*1024**2,'producer_job_log_max_bytes':16*1024**2,'transport_timeout_seconds':1800,'failure_evidence_grace_seconds':5,'owned_output_max_bytes':6*a.GIB,'owned_source_max_bytes':32*1024**2,'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,'auditor_timeout_seconds':600,'cache_module_count':2805}
+    if recovery(c):expected.update(workflow_job_count=5,workflow_aggregate_seconds=96000,workflow_outer_runner_minutes=1650,fresh_execution_module_count=834,retained_higher_module_count=304)
+    else:a.f.need('fresh_execution_module_count' not in c and 'retained_higher_module_count' not in c,'legacy higher profile asserts recovery counts')
     for k,v in expected.items():a.f.need(type(c.get(k)) is type(v) and c[k]==v,'higher profile differs: '+k)
     for k,v in {'all_dimension_uniform_proof_certified':False,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,'higher_endpoints_have_no_C_premise':True,'fresh_external_source_rebuild':False,'owned_objects_from_prior_runs_allowed':True,'owned_objects_from_same_run_checked_stages_allowed':True,'fresh_research_modules_exactly_once':True}.items():a.f.need(c.get(k) is v,'higher claim/trust differs: '+k)
     a.f.need(c.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and c.get('independent_auditor_preflight_stages')==['H0_common','H5_higher_assembly'],'higher proof/preflight scope differs')
     a.f.need(c.get('higher_reference_static_review_sha256')=='392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd','higher reference review differs')
-    for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':(6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482')}.items():
+    for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((6979,'bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
         a.f.need(c['inputs'].get('auditors/'+name+'.lean')=={'bytes':pin[0],'sha256':pin[1]},'higher independent source pin differs')
     a.f.need(c.get('higher_visibility_variant_lock_sha256')=='3621fde9a869de3f0fc4f3f312c142e13df0d5672f34b1402b10cf9b99f475be' and c.get('higher_visibility_independent_review_sha256')=='a583afc1d571b60f41a349d0797fd8f373ac190b92598ec35ee85d2777338373' and c.get('higher_visibility_actual_elaboration_pending') is True,'higher visibility provenance differs')
-    a.f.need(c['execution_stages']==HSTAGES and c['locked_origin_stages']==OLD and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
+    a.f.need(c['execution_stages']==([s for s in HSTAGES if s!=H4_STAGE] if recovery(c) else HSTAGES) and c['locked_origin_stages']==(OLD+[H4_STAGE] if recovery(c) else OLD) and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
     a.f.need('module_compile_arguments' not in c and 'conditional_C_remains_explicit' not in c,'higher replay has an unapproved compiler option or misleading C premise field')
     wanted={m:{'proposed_check_timeout_seconds':v[0],'source_sha256':v[1],'observed_historical_checker_seconds':v[2]} for m,v in CHECKS.items()}
     a.f.need(c.get('module_checker_timeout_exceptions')==wanted,'checker exceptions differ')
     for m,v in CHECKS.items():a.f.need(c['inputs']['src/'+m.replace('.','/')+'.lean']['sha256']==v[1],'checker exception source differs')
+    if recovery(c):validate_control_layout(c,a)
+def validate_control_layout(c,a):
+    old_path='origin/HigherInspectorControl.original.lean';new_path='auditors/HigherInspectorControl.lean';lock_path='locks/higher-control-layout-repair.json'
+    before=b'  let native := { refDefinition with name := `SparseMonotiles.HasTiling,\n'
+    after=b'  let native := { refDefinition with\n    name := `SparseMonotiles.HasTiling,\n'
+    expected={'schema':'higher-control-layout-repair-v1','old_bytes':6975,'new_bytes':6979,'old_sha256':'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482','new_sha256':'bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992','byte_offset':2629,'old_exact_utf8':before.decode(),'new_exact_utf8':after.decode(),'preserved_control_count':23,'independent_review_sha256':CONTROL_LAYOUT_REVIEW_SHA,'actual_corrected_control_elaboration_pending':True}
+    a.f.need(a.f.SHA256.fullmatch(CONTROL_LAYOUT_REVIEW_SHA) and c.get('higher_control_layout_review_sha256')==CONTROL_LAYOUT_REVIEW_SHA,'control layout review is missing or changed')
+    a.f.need(a.f.load_json(a.ROOT/lock_path)==expected,'control layout lineage differs')
+    for path,size,sha in [(old_path,6975,expected['old_sha256']),(new_path,6979,expected['new_sha256'])]:
+        a.f.need(c['inputs'][path]=={'bytes':size,'sha256':sha} and (a.ROOT/path).stat().st_size==size and a.f.file_sha(a.ROOT/path)==sha,'control layout source pin differs')
+    old=(a.ROOT/old_path).read_bytes();new=(a.ROOT/new_path).read_bytes()
+    a.f.need(old.count(before)==1 and old.index(before)==2629 and new==old.replace(before,after,1),'control correction is not the sole reviewed whitespace edit')
 def checker_seconds(c,m):return CHECKS[m][0] if c.get('schema')==SCHEMA and m in CHECKS else c['check_timeout_seconds']
 def stage_plan(c,a):
     a.f.need(c['stage_order']==OLD+HSTAGES and set(c['stages'])==set(OLD+HSTAGES) and c['final_stage']==HSTAGES[-1],'higher stage set differs')
@@ -79,16 +106,23 @@ def owned_graph(c,owned,required,source_root,a):
 def origins(c,a):
     a.f.need(c['schema']==SCHEMA,'higher origin schema differs')
     paths={a.ORIGINAL_STAGE_CONTRACT_SHA:'origin/producer-contract.json',a.CONTINUATION_PRODUCER_SHA:'origin/continuation-producer-contract.json'};producers={}
+    if recovery(c):paths[H4_PRODUCER_SHA]='origin/higher-producer-contract.json'
     original_owned=a.f.load_json(a.ROOT/'origin/producer-owned-sources.json');oldrows={r['module']:r for r in original_owned['sources']};current={r['module']:r for r in a.f.load_json(a.ROOT/'locks/owned-sources.json')['sources']}
     for sha,path in paths.items():
         p=c['producer_contracts'][sha];a.f.need(p=={'path':path,'sha256':sha,'bytes':(a.ROOT/path).stat().st_size} and c['inputs'][path]=={'bytes':p['bytes'],'sha256':sha},'higher producer pointer differs')
         producer=a.f.pinned_load(a.ROOT/path,sha);a.validate_diagnostic_profile(producer);a.validate_stage_plan(producer);producers[sha]=producer
         for name in ['lean-toolchain','locks/dependencies.json','locks/cache-client.json']:a.f.need(c['inputs'][name]==producer['inputs'][name],'higher immutable runtime/cache pin differs')
-        a.f.need(a.f.file_sha(a.ROOT/'origin/producer-owned-sources.json')==producer['inputs']['locks/owned-sources.json']['sha256'],'original source graph changed')
-        a.f.need(a.f.file_sha(a.ROOT/'origin/base-required-modules.json')==producer['inputs']['locks/required-modules.json']['sha256'],'original cache graph changed')
+        if sha==H4_PRODUCER_SHA:
+            a.f.need(not recovery(producer),'historical H4 producer cannot be a recovery contract')
+            for name in ['locks/owned-sources.json','locks/required-modules.json','locks/cache-extension.json','origin/base-interface-identity.json','origin/base-required-modules.json']:
+                a.f.need(c['inputs'][name]==producer['inputs'][name],'historical H4 source/cache lock changed')
+            a.f.need(c['source_archive']==producer['source_archive'],'historical H4 source archive changed')
+        else:
+            a.f.need(a.f.file_sha(a.ROOT/'origin/producer-owned-sources.json')==producer['inputs']['locks/owned-sources.json']['sha256'],'original source graph changed')
+            a.f.need(a.f.file_sha(a.ROOT/'origin/base-required-modules.json')==producer['inputs']['locks/required-modules.json']['sha256'],'original cache graph changed')
     a.f.need(set(c['producer_contracts'])==set(paths),'higher unknown producer contract')
     p=c['origin_lock'];a.f.need(p['path']=='origin/locked-origins.json' and c['inputs'][p['path']]=={'bytes':p['bytes'],'sha256':p['sha256']},'higher origin pointer differs')
-    lock=a.f.pinned_load(a.ROOT/p['path'],p['sha256']);a.f.need(lock['schema']=='higher-exact-mixed-origin-lock-v1' and lock['producer_contracts']==list(paths) and set(lock['stages'])==set(OLD),'higher origin set differs')
+    lock=a.f.pinned_load(a.ROOT/p['path'],p['sha256']);a.f.need(lock['schema']==('higher-exact-mixed-origin-lock-v2' if recovery(c) else 'higher-exact-mixed-origin-lock-v1') and lock['producer_contracts']==list(paths) and set(lock['stages'])==set(c['locked_origin_stages']),'higher origin set differs')
     selected={}
     for sid in OLD:
         row=lock['stages'][sid];a.transport.validate_origin_lock(row['origin']);sha=a.CONTINUATION_PRODUCER_SHA if sid==OLD[1] else a.ORIGINAL_STAGE_CONTRACT_SHA
@@ -100,7 +134,41 @@ def origins(c,a):
         for k in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:a.f.need(a.f.SHA256.fullmatch(row[k]),'higher missing origin digest')
         selected[sid]=producer
     native=c['native_continuation_origin_lock'];a.f.need(native['path']=='origin/continuation-producer-origins.json' and a.f.file_sha(a.ROOT/native['path'])==native['sha256']==producers[a.CONTINUATION_PRODUCER_SHA]['origin_lock']['sha256'],'native F3 predecessor certificate changed')
+    if recovery(c):
+        row=lock['stages'][H4_STAGE];producer=producers[H4_PRODUCER_SHA]
+        validate_h4_origin_row(row,c,producer,current,a)
+        native=c['native_higher_origin_lock'];path='origin/higher-producer-origins.json'
+        a.f.need(native=={'path':path,'bytes':producer['origin_lock']['bytes'],'sha256':producer['origin_lock']['sha256']} and c['inputs'][path]=={'bytes':native['bytes'],'sha256':native['sha256']},'native H4 predecessor lock pointer differs')
+        native_lock=a.f.pinned_load(a.ROOT/path,native['sha256'])
+        a.f.need((a.ROOT/path).stat().st_size==native['bytes'] and native_lock=={'schema':'higher-exact-mixed-origin-lock-v1','producer_contracts':list(paths)[:2],'stages':{sid:lock['stages'][sid] for sid in OLD}},'native H4 predecessor origins changed')
+        pointer=c['native_higher_interface'];path='origin/higher-interface-identity.json'
+        a.f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']==path and c['inputs'][path]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']} and (a.ROOT/path).stat().st_size==pointer['bytes'],'native H4 interface pointer differs')
+        interface=a.f.pinned_load(a.ROOT/path,pointer['sha256'])
+        fields={'schema','runtime_inventory_sha256','required_cache_companion_rows_sha256','all_package_native_library_files_sha256','approved_bootstrap_companion_rows_sha256'}
+        a.f.need(set(interface)==fields and interface['schema']=='higher-external-interface-v1' and interface['runtime_inventory_sha256']==a.RUNTIME_INVENTORY_SHA and interface['all_package_native_library_files_sha256']==digest({}),'native H4 extended interface scope differs')
+        for k in fields-{'schema'}:a.f.need(a.f.SHA256.fullmatch(interface[k]),'native H4 interface digest differs')
+        selected[H4_STAGE]=producer
     return selected,lock['stages']
+def validate_h4_origin_row(row,c,producer,current,a):
+    """Pinned metadata policy only; Transport separately authenticates the API and every payload byte."""
+    a.transport.validate_origin_lock(row['origin'])
+    a.f.need(set(row)=={'origin','producer_contract_sha256','receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','stage_tar_bytes','independent_review_sha256'},'H4 origin fields differ')
+    a.f.need(row['producer_contract_sha256']==H4_PRODUCER_SHA and row['origin']['identity']==H4_IDENTITY and row['origin']['stage_id']==H4_STAGE and row['origin']['workflow_id']==386423911,'historical H4 identity or contract differs')
+    a.f.need(c['stages'][H4_STAGE]==producer['stages'][H4_STAGE],'native H4 stage schedule changed')
+    for m in producer['stages'][H4_STAGE]['modules']:
+        a.f.need(c['inputs'][current[m]['path']]==producer['inputs'][current[m]['path']],'native H4 source changed')
+    for k in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:a.f.need(a.f.SHA256.fullmatch(row[k]),'missing H4 origin digest')
+    a.f.need(type(row['stage_tar_bytes']) is int and 0<row['stage_tar_bytes']<=c['object_artifact_max_bytes'],'H4 tar bound differs')
+
+def require_native_interface(c,sid,interface,a):
+    if recovery(c) and sid==H4_STAGE:
+        pointer=c['native_higher_interface'];path='origin/higher-interface-identity.json'
+        a.f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']==path and c['inputs'][path]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'native H4 interface pointer differs')
+        a.f.need((a.ROOT/path).stat().st_size==pointer['bytes'],'native H4 interface byte size differs')
+        expected=a.f.pinned_load(a.ROOT/path,pointer['sha256'])
+        a.f.need(interface==expected,'native H4 extended interface changed')
+    return interface
+
 def cache_extension(c,cache_rows,inventories,runtime_sha,a):
     lock=a.f.load_json(a.ROOT/'locks/cache-extension.json');base_lock=a.f.load_json(a.ROOT/'origin/base-required-modules.json');base_names={r['module'] for r in base_lock['modules']};extra=lock['extension_modules']
     a.f.need(lock['schema']=='exact-official-cache-extension-v1' and lock['base_module_count']==2786 and lock['full_module_count']==2805 and len(extra)==19 and not base_names.intersection(extra),'cache extension exact count differs')
