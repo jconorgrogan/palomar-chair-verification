@@ -164,6 +164,25 @@ def _safe_native_result(result):
 def _observe_native_result(owner,phase,result):
  owner._last_native_phase=phase;owner._last_native_result=_safe_native_result(result)
 
+# Fixed source-owned sequence indexes, never argv, module paths or child text.
+PROBE_PHASES={'lookup_preflight':('compile','check')*6+('audit',),
+              'async_off_only':('compile','check')*6+('compile','check','audit')}
+def _validated_probe_native(value):
+ if type(value) is not dict or set(value)!={'schema','sequence','command_index','phase','effective_timeout_seconds','native_result'}:return None
+ sequence=value['sequence'];index=value['command_index'];effective=value['effective_timeout_seconds']
+ if type(value['schema']) is not str or type(value['phase']) is not str or value['schema']!='c087-probe-native-observation-v1' or type(sequence) is not str or sequence not in PROBE_PHASES:return None
+ if type(index) is not int or not 0<=index<len(PROBE_PHASES[sequence]) or value['phase']!=PROBE_PHASES[sequence][index]:return None
+ if type(effective) not in (int,float) or not math.isfinite(effective) or not 0<effective<=120:return None
+ result=_safe_native_result(value['native_result'])
+ if value['native_result'] is not None and result is None:return None
+ return {'schema':'c087-probe-native-observation-v1','sequence':sequence,'command_index':index,'phase':PROBE_PHASES[sequence][index],'effective_timeout_seconds':effective,'native_result':result}
+
+def _observe_probe_native(owner,sequence,index,effective,result):
+ # A malformed native shape is represented only by null; it still meets the
+ # original rejection predicate immediately afterward and is never authority.
+ phase=PROBE_PHASES[sequence][index]
+ owner._probe_native=_validated_probe_native({'schema':'c087-probe-native-observation-v1','sequence':sequence,'command_index':index,'phase':phase,'effective_timeout_seconds':effective,'native_result':_safe_native_result(result)})
+
 def _setup_mark(owner,gate,position):
  owner._setup_gate=gate;owner._setup_position=position
  if position=='after':owner._setup_completed.append(gate)
@@ -592,7 +611,7 @@ def _safe_failure(work,phase,error,*,setup_owner=None):
   completion=out/'COMPLETED.json'
   if completion.exists():
    need(completion.is_file() and not completion.is_symlink(),'owned completion marker');completion.unlink()
-  value={'schema':'c087-minimal-failure-v1','status':'failed_closed','phase':phase,'exception_class':{ValueError:'ValueError',RuntimeError:'RuntimeError',OSError:'OSError',TimeoutError:'TimeoutError',MemoryError:'MemoryError',TypeError:'TypeError',KeyError:'KeyError',FileNotFoundError:'FileNotFoundError',PermissionError:'PermissionError',AssertionError:'AssertionError'}.get(type(error),'ReviewedComponentRejected'),'reason_code':'REQUIRED_GATE_FAILED','proof_pass_claimed':False,'resume_allowed':False}
+  value={'schema':'c087-minimal-failure-v1','status':'failed_closed','selected_mode':'async_off_only','phase':phase,'exception_class':{ValueError:'ValueError',RuntimeError:'RuntimeError',OSError:'OSError',TimeoutError:'TimeoutError',MemoryError:'MemoryError',TypeError:'TypeError',KeyError:'KeyError',FileNotFoundError:'FileNotFoundError',PermissionError:'PermissionError',AssertionError:'AssertionError'}.get(type(error),'ReviewedComponentRejected'),'reason_code':'REQUIRED_GATE_FAILED','proof_pass_claimed':False,'resume_allowed':False}
   value['exception_category'],value['reason_code']=_setup_reason(error)
   if setup_owner is not None:
    gate=getattr(setup_owner,'_run_gate',None);position=getattr(setup_owner,'_run_position',None);completed=getattr(setup_owner,'_run_completed',None)
@@ -602,6 +621,8 @@ def _safe_failure(work,phase,error,*,setup_owner=None):
    native_phase=getattr(setup_owner,'_last_native_phase',None)
    if result is not None and native_phase in ('compatibility','acquisition','admission'):
     value['native_phase']=native_phase;value['native_result']=result
+   probe=_validated_probe_native(getattr(setup_owner,'_probe_native',None))
+   if probe is not None:value['probe_native']=probe
    child=_validated_acquisition_failure(getattr(setup_owner,'_acquisition_failure',None))
    if child is not None:value['acquisition_child']=child
    resolver=_validated_resolver_observation(getattr(setup_owner,'_resolver_observation',None))
@@ -715,7 +736,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   _phase_mark(owner,'compatibility_revalidate','after')
   owner._phase='lookup_preflight'
   _phase_mark(owner,'lookup_preflight','before')
-  owner._lookup_evidence=engine.import_lookup_preflight(f,fixture_root=pipeline/'ci/c087/lookup_fixture',toolchain_root=roots['official_runtime'],helper_root=roots['helper_source'],work=work/'lookup-preflight',remaining=lambda:math.nextafter(budget.check()-3,-math.inf),verify_inputs=budget.check,executor=f.run_process,process=budget.process)
+  owner._lookup_evidence=engine.import_lookup_preflight(f,fixture_root=pipeline/'ci/c087/lookup_fixture',toolchain_root=roots['official_runtime'],helper_root=roots['helper_source'],work=work/'lookup-preflight',remaining=lambda:math.nextafter(budget.check()-3,-math.inf),verify_inputs=budget.check,executor=f.run_process,process=budget.process,observe_native=lambda index,effective,result:_observe_probe_native(owner,'lookup_preflight',index,effective,result))
   _phase_mark(owner,'lookup_preflight','after')
   _phase_mark(owner,'lookup_revalidate','before');fixed_check();_phase_mark(owner,'lookup_revalidate','after')
   owner._phase='acquisition'
@@ -807,7 +828,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   diagnostic=work/'diagnostic';diagnostic.mkdir(mode=0o700)
   predecessor_files={name.removeprefix('objects/'):pin for name,pin in protocol.contents(admitted_snap['admitted']).items() if name.startswith('objects/')}
   manifest={'schema':'c087-fixed-engine-manifest-v1','native_source_path':str(latest/'ci/fresh_stage.py'),'native_source_sha256':engine.base.NATIVE_SHA,'source_root':str(roots['research_source']),'toolchain_root':str(roots['official_runtime']),'helper_root':str(roots['helper_source']),'predecessor_objects':str(admitted/'objects'),'diagnostic_output':str(diagnostic),'predecessor_files':predecessor_files,'control_expectations':parse(read(pipeline/'ci/c087/engine/CONTROL_EXPECTATIONS.json')),'code_pins':{name:contract['files']['ci/c087/engine/'+name] for name in ('probe_engine.py','probe_policy.py','original_probe_commands.py')}}
-  engine_invocation=jb({'schema':'c087-minimal-owned-engine-invocation-v1','session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'manifest_sha256':sha(jb(manifest)),'admission_map_sha256':sha(jb(evidence))})
+  engine_invocation=jb({'schema':'c087-minimal-owned-engine-invocation-v2','selected_mode':'async_off_only','session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'manifest_sha256':sha(jb(manifest)),'admission_map_sha256':sha(jb(evidence))})
   protocol.write_new(diagnostic/'engine-invocation.json',engine_invocation,budget.check)
   need(owner._phase=='admitted' and not owner._poisoned,'same live owner admission required')
   owner._phase='diagnostic_consumed' # One-shot issuance consumed before checking.
@@ -817,6 +838,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   context.input_roots=tuple((k,str(v)) for k,v in roots.items() if k in ('latest_pipeline','research_source','official_runtime','helper_source'))
   context.admitted_objects=str(admitted/'objects');context.diagnostic_output=str(diagnostic)
   context.engine_invocation_sha256=sha(engine_invocation);context.checkpoint=checkpoint
+  context.observe_native=lambda index,effective,result:_observe_probe_native(owner,'async_off_only',index,effective,result)
   checkpoint()
   _phase_mark(owner,'engine_prepare','after')
   _phase_mark(owner,'engine_dispatch','before')
@@ -829,7 +851,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   _phase_mark(owner,'engine_response','before')
   final_snapshot=_snapshot(protocol,diagnostic,budget,max_bytes=4*1024**3,max_entries=100000)
   output_files=protocol.contents(final_snapshot)
-  need(response=={'schema':'c087-fixed-engine-result-v1','status':'diagnostic_complete','session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'engine_manifest_sha256':context.manifest_sha256,'result_sha256':output_files['RESULT.json']['sha256'],'proof_pass_claimed':False,'output_files':{k:v for k,v in output_files.items() if k!='engine-invocation.json'}},'independent complete engine response')
+  need(response=={'schema':'c087-fixed-engine-result-v2','status':'diagnostic_complete','selected_mode':'async_off_only','default_target_attempted':False,'session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'engine_manifest_sha256':context.manifest_sha256,'result_sha256':output_files['RESULT.json']['sha256'],'proof_pass_claimed':False,'output_files':{k:v for k,v in output_files.items() if k!='engine-invocation.json'}},'independent complete engine response')
   _phase_mark(owner,'engine_response','after')
   owner._phase='evidence'
   _phase_mark(owner,'evidence_copy','before')
@@ -842,7 +864,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   need(protocol.contents(copied)=={**manifest['files'],'MANIFEST.json':{'bytes':len(manifest_raw),'sha256':sha(manifest_raw)}},'final complete evidence output map')
   _phase_mark(owner,'evidence_revalidate','after')
   _phase_mark(owner,'evidence_complete','before')
-  checkpoint();protocol.write_new(work/'upload/COMPLETED.json',jb({'schema':'c087-minimal-completed-v1','status':'diagnostic_completed_pending_terminal_reconciliation','manifest_sha256':sha(manifest_raw),'session_nonce':owner.nonce,'original_deadline_monotonic':owner.deadline,'proof_pass_claimed':False}),budget.check)
+  checkpoint();protocol.write_new(work/'upload/COMPLETED.json',jb({'schema':'c087-minimal-completed-v2','status':'diagnostic_completed_pending_terminal_reconciliation','selected_mode':'async_off_only','manifest_sha256':sha(manifest_raw),'session_nonce':owner.nonce,'original_deadline_monotonic':owner.deadline,'proof_pass_claimed':False}),budget.check)
   budget.check()
   _phase_mark(owner,'evidence_complete','after')
   owner._phase='complete';return response

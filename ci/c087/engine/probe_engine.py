@@ -73,7 +73,7 @@ def durable_new(path,value):
  finally:os.close(dfd)
  return digest(raw)
 
-def command_plan(native, *, source_root,toolchain_root,predecessor_objects,helper_root,diagnostic_output):
+def _original_ab_command_plan(native, *, source_root,toolchain_root,predecessor_objects,helper_root,diagnostic_output):
  source_root=base.canonical(str(source_root));toolchain_root=base.canonical(str(toolchain_root))
  predecessor_objects=base.canonical(str(predecessor_objects));helper_root=base.canonical(str(helper_root));diagnostic_output=base.canonical(str(diagnostic_output))
  roots=list(map(Path,(source_root,toolchain_root,predecessor_objects,helper_root,diagnostic_output)))
@@ -93,6 +93,12 @@ def command_plan(native, *, source_root,toolchain_root,predecessor_objects,helpe
   if row['phase'] in ('check','audit'):
    replacement=with_import_view(row,Path(diagnostic_output)/'receipts'/(_root(row).name+'-imports'));row.clear();row.update(replacement)
  return rows
+
+def command_plan(native,**kwargs):
+ """Fixed current-run async-off-only research plan; no current default attempt."""
+ rows=_original_ab_command_plan(native,**kwargs)
+ return rows[:12]+rows[15:]
+
 
 def _view_identity(st):
  return (st.st_dev,st.st_ino,st.st_mode,st.st_uid,st.st_gid,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
@@ -274,7 +280,7 @@ def run_probe(*args,**kwargs):
  raise Rejected('production capability/controller binding is not yet sealed')
 
 def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_objects,helper_root,diagnostic_output,
-                         predecessor_files,control_expectations,remaining,verify_inputs,executor,initial_files=None):
+                         predecessor_files,control_expectations,remaining,verify_inputs,executor,initial_files=None,observe_native=None):
  """Private integration/test seam. Only a sealed parent may bind real execution."""
  out=Path(diagnostic_output);initial_files={} if initial_files is None else copy.deepcopy(initial_files)
  need(set(initial_files)<= {'engine-invocation.json'},'unapproved initial engine file')
@@ -291,7 +297,7 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
  need(tree(helper_root)[0]==HELPER_FILES,'fixed helper source bytes required')
  for root in dict.fromkeys(_root(r) for r in rows):workspace(root)
  (out/'receipts').mkdir(mode=0o700)
- records=[];frozen={};failed_frozen={};completed_profiles={};outputs={};audits={};classes={};logs_total=0;import_views={}
+ records=[];frozen={};completed_profiles={};outputs={};audits={};classes={};logs_total=0;import_views={}
  def check_frozen():
   need(all(pinned_file(out/name)==row for name,row in initial_files.items()),'parent engine invocation changed')
   verify_inputs();policy.effective_timeout(120,remaining())
@@ -300,7 +306,6 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
    actual,dirs=tree(root/'objects');allowed={p.as_posix() for name in expected for p in Path(name).parents if p.as_posix()!='.'}
    need(actual==expected and dirs==allowed,'committed diagnostic output changed')
   for view in import_views.values():verify_import_view(view,remaining)
-  for root,expected in failed_frozen.items():need(retained_tree(root)==expected,'retained failed-profile evidence changed')
   for root,expected in completed_profiles.items():need(retained_tree(root)==expected,'retained complete profile changed')
   for root in frozen:
    need(not (set(frozen[root]) & set(expected_predecessors)),'diagnostic/predecessor provider collision')
@@ -319,6 +324,7 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
   need(not stdout.exists() and not stderr.exists(),'command logs already exist')
   result=executor(row['argv'],cwd=Path(row['sandbox']['cwd']),env=row['sandbox']['environment'],timeout=effective,
     stdout=stdout,stderr=stderr,max_log_bytes=row['max_log_bytes'],limits=row['resource_limits'],allow_new_sessions=False)
+  if observe_native is not None:observe_native(rows.index(row),effective,result)
   prevalidate_native_exit(result,effective);policy.effective_timeout(120,remaining())
   rawout=_read_log(stdout,row['max_log_bytes']);rawerr=_read_log(stderr,row['max_log_bytes']);logs_total+=len(rawout)+len(rawerr)
   need(logs_total<=AGGREGATE_LOG_BYTES,'aggregate complete logs exceeded')
@@ -343,15 +349,10 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
     outputs.setdefault(str(root),{}).update(owned);frozen[root]=copy.deepcopy(outputs[str(root)])
    else:need(stdout==b'','unexpected helper checker stdout')
    check_frozen()
-  for label,offset in (('default',12),('async_off',15)):
+  for label,offset in (('async_off',12),):
    compile_row,check_row,audit_row=rows[offset:offset+3]
    result,stdout,stderr=execute(compile_row);classification=policy.classify_compile(label,result,stdout,stderr);classes[label]=classification
    root=_root(compile_row)
-   if classification=='observed_default_thread_creation_abort_no_outputs_admitted':
-    # Preserve every failed output and log in place. Never promote or search it.
-    tree(root/'module-quarantine',byte_limit=PROFILE_BYTES)
-    failed=retained_tree(root,byte_limit=PROFILE_BYTES+16*1024**2+1024**2);failed_frozen[root]=failed;durable_new(out/'receipts'/'default-abort-retained.json',{'tree':failed,'classification':classification})
-    continue
    before,total=native.StageRunner.promote_quarantine(_PromotionWorkspace(root),TARGET,PROFILE_BYTES)
    own={name.removeprefix('objects/'):pinned_file(root/name) for name in before};policy.validate_output_map(TARGET,{'objects/'+k:v for k,v in own.items()})
    outputs[str(root)]=own;frozen[root]=copy.deepcopy(own)
@@ -364,8 +365,7 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
    durable_new(out/'receipts'/(label+'-accepted.json'),{'profile':label,'outputs':own,'audit_sha256':digest(stdout),'checked':True,'exact_raw_audit':True,'proof_pass_claimed':False})
    completed_profiles[root]=retained_tree(root);check_frozen()
   need('async_off' in audits,'async-off audit missing')
-  comparison=policy.compare_successful_profiles(audits['default'],audits['async_off']) if 'default' in audits else {'both_profiles_compiled_checked_audited':False,'raw_type_and_proof_equal':None,'olean_byte_identity_claimed':False,'os_failure_cause_proven':False,'final_C_proof_claimed':False}
-  check_frozen();result={'schema':'c087-bounded-ab-diagnostic-v1','status':'both_required_profile_outcomes_validated','commands':records,'profile_classifications':classes,'outputs':outputs,'audit_rows':{k:policy.parse_audit(v) for k,v in audits.items()},'comparison':comparison,'original_source_sha256':SOURCE_SHA,'predecessor_companion_count':len(expected_predecessors),'proof_pass_claimed':False,'native_build087_artifact_claimed':False,'parent_acceptance_pending':True}
+  check_frozen();result={'schema':'c087-bounded-async-off-diagnostic-v1','status':'required_async_off_outcome_validated','selected_mode':'async_off_only','default_target_attempted':False,'commands':records,'profile_classifications':classes,'outputs':outputs,'audit_rows':{k:policy.parse_audit(v) for k,v in audits.items()},'comparison_to_historical_default_claimed':False,'original_source_sha256':SOURCE_SHA,'predecessor_companion_count':len(expected_predecessors),'proof_pass_claimed':False,'native_build087_artifact_claimed':False,'parent_acceptance_pending':True}
   durable_new(out/'RESULT.json',result);check_frozen();return result
  except BaseException:
   # Never delete a preexisting or partially produced tree and never accept a
@@ -373,7 +373,7 @@ def _run_fixed_sequence(native, *, source_root,toolchain_root,predecessor_object
   raise
 
 ENGINE_DIRS=('helpers','helpers-control-C087NegativeControls','helpers-control-C087SourceShapeControl',
- 'helpers-control-DefaultOptionControl','helpers-control-DisabledOptionControl','default','async_off','receipts')
+ 'helpers-control-DefaultOptionControl','helpers-control-DisabledOptionControl','async_off','receipts')
 
 def engine(context):
  """Fixed in-process consumer. It is usable only through the reviewed parent factory.
@@ -412,12 +412,12 @@ def engine(context):
   predecessor_objects=manifest['predecessor_objects'],helper_root=manifest['helper_root'],diagnostic_output=manifest['diagnostic_output'],
   predecessor_files=manifest['predecessor_files'],control_expectations=manifest['control_expectations'],
   remaining=context.checkpoint,verify_inputs=pins,executor=native.run_process,
-  initial_files={'engine-invocation.json':pinned_file(Path(context.diagnostic_output)/'engine-invocation.json')})
+  initial_files={'engine-invocation.json':pinned_file(Path(context.diagnostic_output)/'engine-invocation.json')},observe_native=context.observe_native)
  pins();files,dirs=tree(context.diagnostic_output)
  need(set(p.split('/')[0] for p in files)==set(ENGINE_DIRS)|{'RESULT.json','engine-invocation.json'},'diagnostic output top-level files differ')
  need(all(p.split('/')[0] in ENGINE_DIRS for p in dirs),'diagnostic output directory differs')
  need(files['RESULT.json']['sha256']==digest(jb(result)),'fixed engine RESULT changed')
- response={'schema':'c087-fixed-engine-result-v1','status':'diagnostic_complete','session_nonce':context.nonce,
+ response={'schema':'c087-fixed-engine-result-v2','status':'diagnostic_complete','selected_mode':'async_off_only','default_target_attempted':False,'session_nonce':context.nonce,
   'deadline_monotonic':context.deadline_monotonic,'engine_manifest_sha256':context.manifest_sha256,
   'result_sha256':files['RESULT.json']['sha256'],'proof_pass_claimed':False,'output_files':{k:v for k,v in files.items() if k!='engine-invocation.json'}}
  pins();return response
@@ -431,7 +431,7 @@ LOOKUP_FIXTURE_FILES={'C087SerializedFixture/Model.lean': {'bytes': 910, 'sha256
 
 def lookup_preflight_plan(native,*,fixture_root,toolchain_root,helper_root,work):
  work=Path(work);pred=work/'predecessors'
- rows=command_plan(native,source_root=fixture_root,toolchain_root=toolchain_root,predecessor_objects=pred/'objects',helper_root=helper_root,diagnostic_output=work/'diagnostic')
+ rows=_original_ab_command_plan(native,source_root=fixture_root,toolchain_root=toolchain_root,predecessor_objects=pred/'objects',helper_root=helper_root,diagnostic_output=work/'diagnostic')
  selected=rows[:4]
  for module in ('C087SerializedFixture.Model','SpectreFinite.RadiusFiveCertified','SpectreFinite.RadiusFivePruningRounds'):
   for phase in ('compile','check'):
@@ -439,7 +439,7 @@ def lookup_preflight_plan(native,*,fixture_root,toolchain_root,helper_root,work)
    selected.append({'name':phase+'-lookup-'+module,'execution_condition':'all_prior_required_gates_passed','argv':argv,'inner_argv':inner,'sandbox':layout,'phase':phase,'nominal_timeout_seconds':120,'resource_limits':dict(policy.LIMITS),'max_log_bytes':16*1024**2,'new_sessions_explicitly_allowed':False})
  return selected+rows[12:15]
 
-def import_lookup_preflight(native,*,fixture_root,toolchain_root,helper_root,work,remaining,verify_inputs,executor,process):
+def import_lookup_preflight(native,*,fixture_root,toolchain_root,helper_root,work,remaining,verify_inputs,executor,process,observe_native=None):
  """Fixed synthetic split-root checker+raw-auditor gate, before acquisition."""
  fixture_root=Path(fixture_root);helper_root=Path(helper_root);work=Path(work)
  need(tree(fixture_root)[0]==LOOKUP_FIXTURE_FILES and tree(helper_root)[0]==HELPER_FILES,'fixed lookup fixture/helper sources')
@@ -465,6 +465,7 @@ def import_lookup_preflight(native,*,fixture_root,toolchain_root,helper_root,wor
   effective=policy.effective_timeout(120,remaining());stdout=root/'logs'/(row['name']+'.stdout');stderr=root/'logs'/(row['name']+'.stderr')
   def invoke():
    result=executor(row['argv'],cwd=Path(row['sandbox']['cwd']),env=row['sandbox']['environment'],timeout=effective,stdout=stdout,stderr=stderr,max_log_bytes=row['max_log_bytes'],limits=row['resource_limits'],allow_new_sessions=False)
+   if observe_native is not None:observe_native(index,effective,result)
    prevalidate_native_exit(result,effective);return result
   result=process(invoke);policy.effective_timeout(120,remaining())
   rawout=_read_log(stdout,row['max_log_bytes']);rawerr=_read_log(stderr,row['max_log_bytes']);log_bytes+=len(rawout)+len(rawerr)
