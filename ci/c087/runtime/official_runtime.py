@@ -2,8 +2,10 @@
 
 The sibling inventory is digest-pinned. No public API accepts an inventory,
 alias allowlist, replacement deadline, executor, or completed receipt. This
-module neither installs nor executes a runtime and does not alter the generic
-no-symlink input/output scanner or enable any production controller.
+module observes the fixed parent-verified installer without changing its checks,
+never executes a runtime, and does not alter the generic no-symlink scanner.
+Archive directory observations are live same-parent objects, never caller lists
+or serialized receipts.
 
 Filesystem checking is not an atomic snapshot against a hostile writer. The
 parent must own and exclude untrusted writers from the runtime through use,
@@ -18,7 +20,7 @@ import hashlib
 import json
 import os
 import stat
-from types import MappingProxyType
+from types import MappingProxyType, ModuleType, MethodType, SimpleNamespace
 from typing import Callable
 import weakref
 
@@ -31,6 +33,8 @@ _CHUNK = 256 * 1024
 _MAX_INVENTORY = 4 * 1024 * 1024
 _FLAGS = os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK
 _ISSUED = weakref.WeakKeyDictionary()
+_INSTALLATIONS = weakref.WeakKeyDictionary()
+_MAX_ARCHIVE_DIRECTORIES = 100000
 
 
 class Rejected(RuntimeError):
@@ -460,7 +464,120 @@ def _snapshot(root, inv, tick):
         return tuple(nodes[p] for p in sorted(nodes)), ancestors
 
 
-def bind_official_runtime(root: str, *, check_deadline: Callable[[], None]) -> OfficialRuntimeBinding:
+@dataclass(frozen=True, eq=False)
+class _InstallationObservation:
+    """Opaque same-owner result; constructed lookalikes have no authority."""
+    root: str
+
+
+def _clock_identity(callback):
+    # Repeated budget.check lookups produce distinct bound-method objects.
+    if type(callback) is MethodType:
+        return (callback.__self__, callback.__func__)
+    return (callback,)
+
+
+def _observe_install(install, archive, destination, tick, *, synthetic):
+    """Observe only the unchanged, parent-pinned installer's one archive walk."""
+    _need(type(install) is ModuleType and callable(tick), "fixed installer module and original clock required")
+    archive = os.path.abspath(archive)
+    destination = os.path.abspath(destination)
+    _absolute(archive); _absolute(destination)
+    tick()
+    archive_before = os.stat(archive, follow_symlinks=False)
+    _owned(archive_before)
+    original = install.tarfile
+    directories = {"."}
+    opens = 0
+    members = 0
+    exhausted = False
+
+    class Reader:
+        def __init__(self, reader):
+            self.reader = reader
+        def __enter__(self):
+            _need(self.reader.__enter__() is self.reader, "fixed tar reader context")
+            return self
+        def __exit__(self, *args):
+            return self.reader.__exit__(*args)
+        def extractfile(self, member):
+            return self.reader.extractfile(member)
+        def __iter__(self):
+            nonlocal members, exhausted
+            for member in self.reader:
+                yield member  # Identical object; record only after installer accepts it.
+                tick()
+                relative = install.relative_member(member.name, install.PREFIX)
+                if relative:
+                    _relative(relative)
+                    members += 1
+                    _need(members <= 100000, "archive observation member bound")
+                    parts = relative.split("/")
+                    directories.update("/".join(parts[:i]) for i in range(1, len(parts)))
+                    if member.isdir(): directories.add(relative)
+                    _need(len(directories) <= _MAX_ARCHIVE_DIRECTORIES, "archive directory count bound")
+                tick()
+            exhausted = True
+
+    def observed_open(*, fileobj, mode):
+        nonlocal opens
+        opens += 1
+        _need(opens == 1 and mode == 'r|', "single unchanged installer stream required")
+        return Reader(original.open(fileobj=fileobj, mode=mode))
+
+    proxy = SimpleNamespace(open=observed_open)
+    install.tarfile = proxy  # Never modify tarfile.open globally.
+    try:
+        inventory = install.install_archive(archive, destination)  # Exact original defaults.
+    finally:
+        unchanged = install.tarfile is proxy
+        install.tarfile = original
+    _need(unchanged and install.tarfile is original and opens == 1 and exhausted,
+          "complete restored installer observation required")
+    tick()
+    _same(archive_before, os.stat(archive, follow_symlinks=False))
+    raw = (json.dumps(inventory, sort_keys=True, indent=2, allow_nan=False) + '\n').encode()
+    _need(inventory['archive_sha256'] == ARCHIVE_SHA256 and inventory['archive_prefix'] == ARCHIVE_PREFIX,
+          "observed official archive identity")
+    if not synthetic:
+        _need(hashlib.sha256(raw).hexdigest() == INVENTORY_SHA256, "observed canonical inventory pin")
+    root = os.stat(destination, follow_symlinks=False)
+    _owned(root, directory=True)
+    tick()  # No observation is issued after expiry or incomplete cleanup.
+    observation = _InstallationObservation(destination)
+    _INSTALLATIONS[observation] = (frozenset(directories), _identity(root),
+        _clock_identity(tick), hashlib.sha256(raw).hexdigest(), synthetic)
+    return inventory, observation
+
+
+def install_official_archive(install, archive, destination, *, check_deadline):
+    """Fixed controller supplies its freshly source-verified installer module."""
+    return _observe_install(install, archive, destination, check_deadline, synthetic=False)
+
+
+def _consume_installation(observation, root, tick, inv, *, synthetic):
+    _need(type(observation) is _InstallationObservation and observation in _INSTALLATIONS,
+          "unissued or consumed archive directory observation")
+    directories, identity, clock, digest, kind = _INSTALLATIONS.pop(observation)
+    _need(kind is synthetic and observation.root == root and len(clock) == len(_clock_identity(tick))
+          and all(a is b for a, b in zip(clock, _clock_identity(tick)))
+          and digest == inv.digest, "archive directory observation scope")
+    tick()
+    _need(_identity(os.stat(root, follow_symlinks=False)) == identity, "installed destination identity changed")
+    _need(inv.directories <= directories and not (directories & (inv.files.keys() | inv.aliases.keys())),
+          "archive directory membership conflicts with inventory")
+    children = {p: set() for p in directories}
+    for path in (inv.files.keys() | inv.aliases.keys() | directories) - {"."}:
+        tick()
+        parent, sep, name = path.rpartition("/")
+        _need((parent if sep else ".") in children, "archive directory parent missing")
+        children[parent if sep else "."].add(name)
+    tick()
+    return _Inventory(inv.files, inv.aliases, directories,
+        MappingProxyType({p: frozenset(v) for p, v in children.items()}), inv.terminals, inv.digest)
+
+
+def bind_official_runtime(root: str, *, check_deadline: Callable[[], None], installation) -> OfficialRuntimeBinding:
     """Hash exact official runtime; retain this same parent's deadline callback.
 
     This expensive read is deliberately never run by the offline test suite.
@@ -470,6 +587,7 @@ def bind_official_runtime(root: str, *, check_deadline: Callable[[], None]) -> O
     try:
         raw, inventory_binding = _read_inventory(check_deadline)
         inv = _inventory(raw, check_deadline, official=True)
+        inv = _consume_installation(installation, root, check_deadline, inv, synthetic=False)
         entries, ancestors = _snapshot(root, inv, check_deadline)
         # The pin document must also still denote the exact original inode.
         _, final_inventory = _read_inventory(check_deadline)
@@ -508,11 +626,13 @@ def _revalidate(binding):
         raise Rejected("runtime revalidation filesystem check failed") from exc
 
 
-def _bind_synthetic_inventory_for_tests(root: str, inventory_bytes: bytes, *, check_deadline):
+def _bind_synthetic_inventory_for_tests(root: str, inventory_bytes: bytes, *, check_deadline, installation=None):
     """Explicit synthetic seam. No production binding or execution authority."""
     _need(callable(check_deadline), "synthetic deadline callback required")
     try:
         inv = _inventory(inventory_bytes, check_deadline, official=False)
+        if installation is not None:
+            inv = _consume_installation(installation, root, check_deadline, inv, synthetic=True)
         entries, ancestors = _snapshot(root, inv, check_deadline)
         binding = _SyntheticRuntimeBinding(root, inv.digest, entries)
         _ISSUED[binding] = _State(inv, check_deadline, ancestors, None)

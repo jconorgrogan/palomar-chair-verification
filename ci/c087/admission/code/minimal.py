@@ -293,7 +293,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   install=load('toolchain_install',latest/'ci/toolchain_install.py',loader.GRAPH.pins['files']['ci/toolchain_install.py'])
   _setup_mark(owner,'runtime_installer_load','after')
   _setup_mark(owner,'runtime_install','before')
-  inventory=install.install_archive(archive,work/'runtime');budget.check()
+  inventory,directory_observation=mods['official_runtime'].install_official_archive(install,archive,work/'runtime',check_deadline=budget.check);budget.check()
   _setup_mark(owner,'runtime_install','after')
   _setup_mark(owner,'runtime_inventory_write','before')
   protocol.write_new(work/'runtime-inventory.json',f.json_bytes(inventory),budget.check)
@@ -308,7 +308,8 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   f.verify_toolchain(work/'runtime',archive,work/'runtime-inventory.json',native_contract,derived_inventory_sha256=INVENTORY_SHA);budget.check()
   _setup_mark(owner,'runtime_verify','after')
   _setup_mark(owner,'official_runtime_bind','before')
-  runtime=mods['official_runtime'].bind_official_runtime(str(work/'runtime'),check_deadline=budget.check)
+  runtime=mods['official_runtime'].bind_official_runtime(str(work/'runtime'),check_deadline=budget.check,installation=directory_observation)
+  protocol.write_new(work/'runtime-directories.json',jb({'schema':'c087-authenticated-runtime-directories-v1','archive_sha256':inventory['archive_sha256'],'inventory_sha256':INVENTORY_SHA,'directories':[entry.path for entry in runtime.entries if entry.kind=='directory']}),budget.check)
   _setup_mark(owner,'official_runtime_bind','after')
   _setup_mark(owner,'owned_layout','before')
   (work/'empty-runtime').mkdir(mode=0o700);(work/'admission').mkdir(mode=0o700);(work/'transfer').mkdir(mode=0o700)
@@ -576,7 +577,7 @@ def _retain_failure(owner,protocol,engine,native,budget):
 
 def _package_evidence(owner,protocol,budget,diagnostic_files):
  work=owner.work;acquired=owner.roots['acquisition'];container=owner.roots['container'];selection={}
- for name in ('entry.json','acquisition-process.json','compatibility-process.json','admission-process.json','independent-admission.json','capacity.json'):selection[name]=work/name
+ for name in ('entry.json','runtime-directories.json','acquisition-process.json','compatibility-process.json','admission-process.json','independent-admission.json','capacity.json'):selection[name]=work/name
  for name in ('request.json','admission-invocation.json','native-report.json','response.json','admission.stdout','admission.stderr','admitted/historical-transfer-state.json','admitted/historical-transfer-certificate.json'):selection['admission/'+name]=container/name
  certificate=parse(read(acquired/'TRANSPORT_RECEIPT.json'));selection['acquisition/TRANSPORT_RECEIPT.json']=acquired/'TRANSPORT_RECEIPT.json'
  for name in certificate['files']:
