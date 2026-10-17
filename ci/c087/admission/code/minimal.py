@@ -179,6 +179,17 @@ def _setup_reason(error):
   if type(module) is types.ModuleType and type(error) is vars(module).get('Rejected'):
    category=label;reviewed=True;break
  reasons={
+  'bounded resolver alias':'RESOLVER_ALIAS_BOUND',
+  'known resolver alias target':'RESOLVER_UNKNOWN_LAYOUT',
+  'regular resolver source or known alias':'RESOLVER_SOURCE_TYPE',
+  'real protected resolver parent':'RESOLVER_PARENT_TYPE_MODE',
+  'bounded protected regular resolver target':'RESOLVER_TARGET_TYPE_MODE_BOUND',
+  'resolver target changed before read':'RESOLVER_TARGET_CHANGED',
+  'resolver byte bound':'RESOLVER_BYTE_BOUND',
+  'resolver target changed during read':'RESOLVER_TARGET_CHANGED',
+  'resolver alias changed during read':'RESOLVER_ALIAS_CHANGED',
+  'resolver parent changed during read':'RESOLVER_PARENT_CHANGED',
+  'acquisition resolver changed':'RESOLVER_CHANGED_DURING_ACQUISITION',
   'Boolean/floating raw ledger rejected':'CERTIFICATE_BOOLEAN_FLOATING_RAW_LEDGER_REJECTED',
   'C087 only':'OUTPUT_C087_ONLY',
   'actual invocation/effective timeout mismatch':'PROBE_ACTUAL_INVOCATION_EFFECTIVE_TIMEOUT_MISMATCH',
@@ -555,6 +566,8 @@ def _safe_failure(work,phase,error,*,setup_owner=None):
     value['native_phase']=native_phase;value['native_result']=result
    child=_validated_acquisition_failure(getattr(setup_owner,'_acquisition_failure',None))
    if child is not None:value['acquisition_child']=child
+   resolver=_validated_resolver_observation(getattr(setup_owner,'_resolver_observation',None))
+   if resolver is not None:value['acquisition_resolver']=resolver
   if phase=='setup':
    if setup_owner is not None:
     gate=setup_owner._setup_gate;position=setup_owner._setup_position;completed=setup_owner._setup_completed
@@ -811,16 +824,69 @@ def _download_runtime(archive,budget):
    downloaded+=len(block);need(downloaded<=595391556 and time.monotonic()-started<900,'original official release download bound');out.write(block)
  need(downloaded==595391556,'official release archive length');budget.check()
 
+# Only these fixed host layouts may supply acquisition DNS. The proof/native
+# child layout is separate and never receives these mounts or --share-net.
+_RESOLVER_SYSTEM_ROOT=Path('/')
+_RESOLVER_TARGETS={'etc_regular':'/etc/resolv.conf','systemd_stub':'/run/systemd/resolve/stub-resolv.conf','systemd_uplink':'/run/systemd/resolve/resolv.conf'}
+
+def _resolver_observation(budget):
+ budget.check();source=Path('/etc/resolv.conf');root=_RESOLVER_SYSTEM_ROOT
+ def physical(path):return root/str(path).lstrip('/')
+ def identity(st):return (st.st_dev,st.st_ino,st.st_mode,st.st_uid,st.st_gid,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
+ before=physical(source).lstat();alias=None
+ if stat.S_ISLNK(before.st_mode):
+  alias=os.readlink(physical(source));need(type(alias) is str and 0<len(alias)<=1024,'bounded resolver alias')
+  aliases={target:target for target in (_RESOLVER_TARGETS['systemd_stub'],_RESOLVER_TARGETS['systemd_uplink'])}
+  aliases.update({'..'+target:target for target in (_RESOLVER_TARGETS['systemd_stub'],_RESOLVER_TARGETS['systemd_uplink'])})
+  need(alias in aliases,'known resolver alias target');target=Path(aliases[alias])
+  layout='systemd_stub' if str(target)==_RESOLVER_TARGETS['systemd_stub'] else 'systemd_uplink'
+ else:
+  need(stat.S_ISREG(before.st_mode),'regular resolver source or known alias');target=source;layout='etc_regular'
+ parents={}
+ for path in sorted(set(source.parents)|set(target.parents),key=str):
+  st=physical(path).lstat();need(stat.S_ISDIR(st.st_mode) and not st.st_mode&0o022,'real protected resolver parent')
+  parents[str(path)]=(st.st_dev,st.st_ino,st.st_mode,st.st_uid,st.st_gid)
+ target_path=physical(target);target_before=target_path.lstat()
+ need(stat.S_ISREG(target_before.st_mode) and target_before.st_nlink==1 and not target_before.st_mode&0o022 and 0<target_before.st_size<=64*1024,'bounded protected regular resolver target')
+ fd=os.open(target_path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+ try:
+  need(identity(os.fstat(fd))==identity(target_before),'resolver target changed before read')
+  chunks=[];count=0
+  while block:=os.read(fd,min(8192,64*1024+1-count)):
+   chunks.append(block);count+=len(block);need(count<=64*1024,'resolver byte bound')
+  raw=b''.join(chunks)
+  need(count==target_before.st_size and identity(os.fstat(fd))==identity(target_before)==identity(target_path.lstat()),'resolver target changed during read')
+ finally:os.close(fd)
+ need(identity(target_path.lstat())==identity(target_before),'resolver target changed during read')
+ need(identity(physical(source).lstat())==identity(before) and (alias is None or os.readlink(physical(source))==alias),'resolver alias changed during read')
+ for name,prior in parents.items():
+  st=physical(Path(name)).lstat();need((st.st_dev,st.st_ino,st.st_mode,st.st_uid,st.st_gid)==prior,'resolver parent changed during read')
+ observation={'schema':'c087-acquisition-resolver-v1','layout':layout,'target':str(target),'bytes':count,'sha256':sha(raw)}
+ private={'source_identity':identity(before),'alias_text':alias,'target_identity':identity(target_before),'parents':parents,'observation':observation}
+ budget.check();return private
+
+def _validated_resolver_observation(value):
+ if type(value) is not dict or set(value)!={'schema','layout','target','bytes','sha256'}:return None
+ if value['schema']!='c087-acquisition-resolver-v1' or type(value['layout']) is not str or value['layout'] not in _RESOLVER_TARGETS:return None
+ if type(value['target']) is not str or value['target']!=_RESOLVER_TARGETS[value['layout']]:return None
+ if type(value['bytes']) is not int or not 0<value['bytes']<=64*1024:return None
+ digest=value['sha256']
+ if type(digest) is not str or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest):return None
+ return dict(value)
+
 def _acquire_owned(owner,native,protocol,pipeline,budget,acquisition_token):
  _phase_mark(owner,'acquisition_layout','before')
  package=pipeline/'ci/c087/acquisition';container=owner.work/'transfer';root=owner.roots['acquisition']
  need(not root.exists(),'fresh acquisition root')
+ resolver=_resolver_observation(budget);owner._resolver_observation=resolver['observation']
  environment={**ENV,'GITHUB_ACTIONS':'true','GH_TOKEN':acquisition_token}
  # The repository literal is source-pinned by the unchanged acquisition spec.
  spec=parse(read(package/'ci/C087_ACQUISITION_SPEC.json'));environment['GITHUB_REPOSITORY']=spec['repository']
  need(environment['GH_TOKEN'],'acquisition credential absent')
  argv=['/usr/bin/bwrap','--unshare-all','--share-net','--die-with-parent','--proc','/proc','--dev','/dev','--tmpfs','/tmp']
  for path in ['/usr','/bin','/lib','/lib64','/etc',str(package)]:argv+=['--ro-bind',path,path]
+ if resolver['observation']['layout']!='etc_regular':
+  target=resolver['observation']['target'];argv+=['--ro-bind',target,target]
  argv+=['--bind',str(container),str(container),'--chdir',str(container),'--','/usr/bin/python3','-I','-S','-B',str(package/'ci/c087_acquisition.py'),'--quarantine',str(root),'--deadline-monotonic',repr(owner.deadline),'--session-nonce',owner.nonce]
  timeout=sys.modules['job_budget'].command_timeout(19800,budget.deadline_monotonic,time.monotonic())
  _phase_mark(owner,'acquisition_layout','after')
@@ -830,6 +896,7 @@ def _acquire_owned(owner,native,protocol,pipeline,budget,acquisition_token):
   _observe_native_result(owner,'acquisition',result)
   _accept_result_safety(result,timeout)
   if result['exit_code']!=0:_read_acquisition_failure(owner,container,budget)
+  need(_resolver_observation(budget)==resolver,'acquisition resolver changed')
   accept_child_result(result,timeout);return result
  _phase_mark(owner,'acquisition_process','before')
  try:result=budget.process(dispatch_acquisition)
@@ -838,7 +905,7 @@ def _acquire_owned(owner,native,protocol,pipeline,budget,acquisition_token):
  _phase_mark(owner,'acquisition_completion','before')
  accept_child_result(result,timeout);budget.check()
  need(read(container/'acquisition.stdout',16*1024**2)==b'C087 transport bytes authenticated; native semantic admission still required.\n' and read(container/'acquisition.stderr',16*1024**2)==b'','exact bounded acquisition completion')
- protocol.write_new(owner.work/'acquisition-process.json',jb({'schema':'c087-owned-acquisition-completion-v1','result':result,'session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'argv':argv,'environment_keys':sorted(environment),'credential_retained':False}),budget.check)
+ protocol.write_new(owner.work/'acquisition-process.json',jb({'schema':'c087-owned-acquisition-completion-v1','result':result,'session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'argv':argv,'environment_keys':sorted(environment),'credential_retained':False,'resolver':resolver['observation']}),budget.check)
  _phase_mark(owner,'acquisition_completion','after')
 
 def _read_acquisition_failure(owner,container,budget):
