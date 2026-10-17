@@ -9,8 +9,8 @@
       "sha256": "9c77059b0a48a300e6ae9be0c826812057d0305a61c444736c246389d52b9b80"
     },
     "ci/c087/acquisition/ci/c087_acquisition.py": {
-      "bytes": 44902,
-      "sha256": "1eabdfa0c696037f77cebedcea8b99bc2883d79217ee4002afe5f1e8b2ca76bf"
+      "bytes": 46329,
+      "sha256": "064db323de663c2cdc72fedc95baf781b3400b1a5dac34b3ee408639ba5f2cff"
     },
     "ci/c087/acquisition/frozen_downloader/ci/ci_transport.py": {
       "bytes": 6885,
@@ -49,8 +49,8 @@
       "sha256": "8de2e7078fee89db75e13bf8ef2ce10f5f87d1b533a98fd141ec6fa517fe0c72"
     },
     "ci/c087/admission/code/minimal.py": {
-      "bytes": 90370,
-      "sha256": "aa7f8d500386729eea875eaa93d1b61cd8f83c565af4fcb8a00154d6cc21b633"
+      "bytes": 91017,
+      "sha256": "87f8d544fdb0c0abf33fe8532006cfd34b7f5bc9852312d9a0d39aeeabc24135"
     },
     "ci/c087/admission/code/output_model.py": {
       "bytes": 17966,

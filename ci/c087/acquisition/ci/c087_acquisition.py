@@ -24,9 +24,11 @@ import urllib.parse
 from datetime import datetime, timezone
 
 # Failure-only observability. No values from response bodies, URLs, headers,
-# credentials or exception strings are emitted. All messages below are static
+# credentials or exception strings are emitted. Validated quota integers are the
+# sole response-value exception. All messages below are static
 # source literals selected by exact equality, never by substring or formatting.
-DIAGNOSTIC_PREFIX = 'C087_ACQUISITION_FAILURE_V1 '
+# Only canonical quota integers and a fixed CORE/OTHER resource enum may be retained.
+DIAGNOSTIC_PREFIX = 'C087_ACQUISITION_FAILURE_V2 '
 DIAGNOSTIC_PHASES = ('bootstrap','arguments','runtime_envelope','quarantine_create',
  'constructor','initial_snapshots','prepare_transfer','stage_transfer','receipt_copy',
  'historical_ledger','stage_reauthentication','final_snapshots','prepare_reauthentication',
@@ -36,6 +38,11 @@ DIAGNOSTIC_MESSAGES = {
  'quota header missing, duplicated or malformed':('QUOTA_SCHEMA','QUOTA_HEADER_SHAPE'),
  'invalid numeric quota header':('QUOTA_SCHEMA','QUOTA_NUMERIC_HEADER'),
  'conflicting or unexpected quota headers':('QUOTA_SCHEMA','QUOTA_HEADER_CONFLICT'),
+ 'unexpected authenticated quota limit':('QUOTA_SCHEMA','QUOTA_LIMIT_UNEXPECTED'),
+ 'quota remaining outside limit':('QUOTA_SCHEMA','QUOTA_REMAINING_RANGE'),
+ 'quota used outside limit':('QUOTA_SCHEMA','QUOTA_USED_RANGE'),
+ 'quota used and remaining conflict':('QUOTA_SCHEMA','QUOTA_USED_REMAINING_MISMATCH'),
+ 'unexpected authenticated quota resource':('QUOTA_SCHEMA','QUOTA_RESOURCE_UNEXPECTED'),
  'invalid quota Date header':('QUOTA_SCHEMA','QUOTA_DATE'),
  'invalid authenticated quota metadata':('QUOTA_SCHEMA','QUOTA_METADATA'),
  'quota reset outside bounded server window':('QUOTA_WINDOW','QUOTA_RESET_WINDOW'),
@@ -99,13 +106,15 @@ DIAGNOSTIC_GENERIC = {
 _diagnostic_phase = 'bootstrap'
 _diagnostic_last = None
 _diagnostic_http_status = None
+_diagnostic_quota = None
 
 def _diagnostic_mark(phase):
-    global _diagnostic_phase, _diagnostic_last, _diagnostic_http_status
+    global _diagnostic_phase, _diagnostic_last, _diagnostic_http_status, _diagnostic_quota
     if phase not in DIAGNOSTIC_PHASES: raise RuntimeError('invalid fixed diagnostic phase')
     _diagnostic_phase = phase
     _diagnostic_last = None
     _diagnostic_http_status = None
+    _diagnostic_quota = None
 
 def _diagnostic_classify(error):
     # BaseException's own storage avoids invoking a hostile __str__/repr/property.
@@ -142,9 +151,9 @@ def _diagnostic_record(error):
     if selected == DIAGNOSTIC_GENERIC['UNKNOWN'] and _diagnostic_last is not None:
         selected = _diagnostic_last
     _diagnostic_http(error)
-    return {'schema':'c087-acquisition-failure-v1','phase':_diagnostic_phase,
+    return {'schema':'c087-acquisition-failure-v2','phase':_diagnostic_phase,
             'category':selected[0],'reason_code':selected[1],
-            'http_status':_diagnostic_http_status}
+            'http_status':_diagnostic_http_status, 'quota':copy.deepcopy(_diagnostic_quota)}
 
 def _diagnostic_emit(error):
     record = _diagnostic_record(error)
@@ -229,7 +238,8 @@ class QuotaPacedOpener:
     MIN_INTERVAL = 3.7
     RESET_SAFETY = 2.0
     NETWORK_RESERVE = 1.0
-    LIMIT = 1000
+    LIMIT = 1000  # Fixed conservative local ceiling, even for larger server quotas.
+    SERVER_LIMITS = (1000, 15000)  # Official GITHUB_TOKEN repository limits.
     HEADER_NAMES = ('X-RateLimit-Limit', 'X-RateLimit-Remaining',
                     'X-RateLimit-Used', 'X-RateLimit-Reset',
                     'X-RateLimit-Resource', 'Date')
@@ -255,6 +265,8 @@ class QuotaPacedOpener:
 
     @classmethod
     def _headers(cls, response):
+        global _diagnostic_quota
+        _diagnostic_quota = None
         headers = response.headers
         f.need(callable(getattr(headers, 'get_all', None)), 'quota headers unavailable')
         values = {}
@@ -269,8 +281,13 @@ class QuotaPacedOpener:
                    'invalid numeric quota header')
             values[name] = int(values[name])
         limit, remaining, used, reset = (values[k] for k in cls.HEADER_NAMES[:4])
-        f.need(limit == cls.LIMIT and 0 <= remaining < limit and used + remaining == limit and
-               values['X-RateLimit-Resource'] == 'core', 'conflicting or unexpected quota headers')
+        _diagnostic_quota = {'limit':limit, 'remaining':remaining, 'used':used, 'reset':reset,
+                             'resource':'CORE' if values['X-RateLimit-Resource'] == 'core' else 'OTHER'}
+        f.need(limit in cls.SERVER_LIMITS, 'unexpected authenticated quota limit')
+        f.need(0 <= remaining < limit, 'quota remaining outside limit')
+        f.need(0 <= used <= limit, 'quota used outside limit')
+        f.need(used + remaining == limit, 'quota used and remaining conflict')
+        f.need(values['X-RateLimit-Resource'] == 'core', 'unexpected authenticated quota resource')
         try:
             date = datetime.strptime(values['Date'], '%a, %d %b %Y %H:%M:%S GMT').replace(tzinfo=timezone.utc)
             f.need(date.strftime('%a, %d %b %Y %H:%M:%S GMT') == values['Date'], 'invalid quota Date header')
@@ -278,7 +295,7 @@ class QuotaPacedOpener:
             raise f.Rejected('invalid quota Date header') from None
         epoch = int(date.timestamp())
         f.need(0 <= reset - epoch <= 3600, 'quota reset outside bounded server window')
-        return remaining, reset, epoch
+        return min(remaining, cls.LIMIT), reset, epoch
 
     def _observe(self, response):
         try:
@@ -290,7 +307,8 @@ class QuotaPacedOpener:
                 f.need(date >= self.server_date and reset >= self.reset_epoch,
                        'backward authenticated quota clock or reset')
                 if reset == self.reset_epoch:
-                    f.need(remaining <= self.remote_remaining, 'quota remaining increased within one window')
+                    # GitHub documents regional count increases. Never refund
+                    # an already decremented local slot when one is observed.
                     remaining = min(remaining, self.local_remaining)
                     reset_at = min(reset_at, self.reset_monotonic)
                 else:
@@ -342,9 +360,10 @@ class QuotaPacedOpener:
         return left
 
     def open(self, request, timeout):
-        global _diagnostic_last, _diagnostic_http_status
+        global _diagnostic_last, _diagnostic_http_status, _diagnostic_quota
         _diagnostic_last = None
         _diagnostic_http_status = None
+        _diagnostic_quota = None
         try:
             result = self._open_observed(request, timeout)
         except BaseException as error:
@@ -353,6 +372,7 @@ class QuotaPacedOpener:
             raise
         _diagnostic_last = None
         _diagnostic_http_status = None
+        _diagnostic_quota = None
         return result
 
     def _open_observed(self, request, timeout):
