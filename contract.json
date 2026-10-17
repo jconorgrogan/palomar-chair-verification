@@ -5,8 +5,8 @@
   "fixtures_allowed": false,
   "inputs": {
     "ci/fingerprint_observer.py": {
-      "bytes": 4212,
-      "sha256": "5770ce36bc6b3aaf434b80352de2315ff642d303f60fc8db2152fd5e0052f3e3"
+      "bytes": 4255,
+      "sha256": "6872c108e7f014d0dabe93dcd74d8bf63c099d8148827d852413488ba6fc0f7d"
     },
     "ci/fingerprint_preflight.py": {
       "bytes": 15270,

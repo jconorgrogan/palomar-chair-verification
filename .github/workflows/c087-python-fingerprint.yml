@@ -38,7 +38,7 @@ jobs:
         run: >-
           /usr/bin/timeout --signal=KILL 210
           /usr/bin/python3 -I -S -B ci/fingerprint_preflight.py
-          --contract-sha256 2120c9c0fb47f3962cfa2f4cfb766918f888c9aa34b4ec2b91d655cb6adff963
+          --contract-sha256 127955f1e0ad1325e6cc3fc76f8da3276e56189314d5cb80fa64a574c553044a
           --work "${{ runner.temp }}/c087-python-fingerprint"
       - name: Upload bounded fingerprint observation evidence
         if: ${{ always() }}
@@ -72,7 +72,7 @@ jobs:
           /usr/bin/timeout --signal=KILL 10 /usr/bin/python3 -I -S -B - <<'PY'
           import hashlib,json,os,re,resource,stat
           from pathlib import Path
-          CONTRACT_SHA256='2120c9c0fb47f3962cfa2f4cfb766918f888c9aa34b4ec2b91d655cb6adff963'
+          CONTRACT_SHA256='127955f1e0ad1325e6cc3fc76f8da3276e56189314d5cb80fa64a574c553044a'
           PREFIX='C087_PYTHON_FINGERPRINT_OBSERVATION_UPLOADED '
           def marker(work,values):
               def need(ok):

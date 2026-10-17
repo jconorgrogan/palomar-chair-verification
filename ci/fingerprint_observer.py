@@ -56,7 +56,7 @@ def fingerprint():
 def main():
     need(sys.flags.isolated and sys.flags.no_site and sys.dont_write_bytecode, 'fresh isolated source-only interpreter')
     need(len(sys.argv)==1, 'no arguments')
-    need(dict(os.environ)=={'LANG':'C.UTF-8','LC_ALL':'C.UTF-8','TZ':'UTC'}, 'exact token-free environment')
+    need(dict(os.environ)=={'LANG':'C.UTF-8','LC_ALL':'C.UTF-8','TZ':'UTC','PWD':str(Path(__file__).resolve().parent)}, 'exact token-free environment')
     need(len(os.sched_getaffinity(0))==1, 'one CPU')
     need(Path(sys.executable).resolve()==Path('/usr/bin/python3').resolve(), 'exact interpreter')
     observed=fingerprint()
