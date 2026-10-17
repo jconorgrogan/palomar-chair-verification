@@ -1,0 +1,87 @@
+# Exact independently reviewed C087 diagnostic activation.
+name: C087 exact-source default and async-off diagnostic
+'on':
+  push:
+    branches: [verify/c087-minimal-diagnostic-20261017]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: c087-minimal-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  c087_diagnostic:
+    if: ${{ true }}
+    name: C087 authenticated ancestors and exact-source A/B
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+    - name: Check out exact diagnostic pipeline
+      id: checkout_pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out exact latest hierarchy producer
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out exact prior hierarchy producer
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out exact repaired hierarchy sources
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source-package
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: clean_checkouts
+      shell: bash
+      run: |
+        set -euo pipefail
+        verify_checkout() {
+          test "$(/usr/bin/git -C "$GITHUB_WORKSPACE/$1" rev-parse HEAD)" = "$2"
+          test -z "$(/usr/bin/git -C "$GITHUB_WORKSPACE/$1" status --porcelain=v1 --untracked-files=all --ignored=matching)"
+        }
+        verify_checkout pipeline "$GITHUB_SHA"
+        verify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42
+        verify_checkout prior fca406f6c52a622762d9c75167a92f895c3ddd00
+        verify_checkout source-package 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+    - name: Install original official Ubuntu archive and sandbox dependencies
+      shell: bash
+      run: |
+        set -euo pipefail
+        sudo apt-get update -qq
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+    - name: Run bounded native admission and exact-source A/B diagnostic
+      id: diagnostic
+      working-directory: pipeline
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      shell: bash
+      run: |
+        set -euo pipefail
+        /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B ci/c087_minimal.py --contract-sha256 dd18d01a5e321770aec8ec5fba17163e0fab5d889d64eb0c692b9d3c89b32e3d --work "$RUNNER_TEMP/c087-minimal"
+    - name: Upload bounded diagnostic evidence
+      id: upload
+      if: ${{ always() && steps.checkout_pipeline.outcome == 'success' && steps.clean_checkouts.outcome == 'success' }}
+      # A failed producer or missing COMPLETED.json remains ineligible.
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 1
+        name: c087-minimal-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/c087-minimal/upload/*

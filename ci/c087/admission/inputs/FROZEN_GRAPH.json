@@ -1,0 +1,432 @@
+{
+  "files": {
+    ".github/workflows/hierarchy-c-three-context.yml": {
+      "bytes": 61933,
+      "sha256": "4238023a78d4e0ee8a7127dedd0ae98fca1a943a4862cc8b1f161b5be007dddc"
+    },
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "README.md": {
+      "bytes": 5683,
+      "sha256": "8a101790e52d37f3ba4042734013820e62ae856ef80fdfce9f90ab32cb577e23"
+    },
+    "acquisition/ci/ci_transport.py": {
+      "bytes": 6885,
+      "sha256": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95"
+    },
+    "acquisition/ci/continuation_policy.py": {
+      "bytes": 29913,
+      "sha256": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2"
+    },
+    "acquisition/ci/fresh_stage.py": {
+      "bytes": 67375,
+      "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
+    },
+    "acquisition/ci/historical_acquisition.py": {
+      "bytes": 36704,
+      "sha256": "b33959f460cb73992dfbdd86a5ab7a073f64277e2b0c28b135e640fa5a94f3ee"
+    },
+    "acquisition/ci/historical_acquisition_pins.json": {
+      "bytes": 108352,
+      "sha256": "427f4a4b8a6c1b324650703979b833127ce729cc8668a4ccfddbca430c2df6af"
+    },
+    "acquisition/ci/origin_transport.py": {
+      "bytes": 45816,
+      "sha256": "c5ba140113b98460f8267f55fcdad098c391e4918fdc3a9e8e2f90e8ff5b110b"
+    },
+    "admission/code/three_context_admit.py": {
+      "bytes": 15774,
+      "sha256": "22bfd7948df693307e9e5b094705f102e24b9c286d48c2c02a5fb6b95fc2bb2b"
+    },
+    "admission/code/three_context_local.py": {
+      "bytes": 6981,
+      "sha256": "0ea2d6be51208e03248f5dd062b57c85bbc6b5768d156b27032891c15d10a06a"
+    },
+    "admission/code/three_context_policy.py": {
+      "bytes": 32686,
+      "sha256": "edc4852bcfe3cd8ca980733229859c98ca20fb7120edddaa61f0c55ed19f53d4"
+    },
+    "admission/inputs/PRIOR_FILES.json": {
+      "bytes": 4816,
+      "sha256": "9618bc2900517a9234254ddf2a2ea6fb3c78f643bd12f11967f986f49e7dde1d"
+    },
+    "ci/ADMISSION_INDEPENDENT_REVIEW.json": {
+      "bytes": 4743,
+      "sha256": "2003b7484bdb5b0fa2961f7ea77a78c8edcec6c754e96a5db12d149b760aef26"
+    },
+    "ci/ADMISSION_PIN.json": {
+      "bytes": 21242,
+      "sha256": "549cd565aad5dc8b68ab5c86a3d2f49131705ae82ab89d9faf790a3b29dc1ca4"
+    },
+    "ci/ADMISSION_RECONCILIATION.json": {
+      "bytes": 4546,
+      "sha256": "d259eea653bf446a90607ded5add7176cfb50388e261327cf5e136b03e7da190"
+    },
+    "ci/CONTEXT_BUNDLE.json": {
+      "bytes": 107890,
+      "sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c"
+    },
+    "ci/FinalExportAudit.lean": {
+      "bytes": 2693,
+      "sha256": "594df90549cc67c2708d7950a3df43e76e2f46348009903226aced8afd9e9859"
+    },
+    "ci/admission_evidence.py": {
+      "bytes": 40491,
+      "sha256": "5ea872c970a72df41f12c610e149cf689ef8caf139dcbf54a266ee13f59d64ca"
+    },
+    "ci/checked_transfer.py": {
+      "bytes": 42191,
+      "sha256": "d5177a68fd63821d57c995ed84ed73131cd7681c45665133be667ec1ef9d94cc"
+    },
+    "ci/ci_failure.py": {
+      "bytes": 3265,
+      "sha256": "cba1435d41113c3aa7f5d3cb50179503f86a64f5ef787aa2dab11fbac0adeb8b"
+    },
+    "ci/ci_transport.py": {
+      "bytes": 6885,
+      "sha256": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95"
+    },
+    "ci/continuation_policy.py": {
+      "bytes": 29913,
+      "sha256": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2"
+    },
+    "ci/fresh_stage.py": {
+      "bytes": 67375,
+      "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
+    },
+    "ci/origin_transport.py": {
+      "bytes": 51982,
+      "sha256": "36aaf72618c9547434de9d82cf95a633565c29b0557449b41d8dc8d10adf9ec8"
+    },
+    "ci/plan.json": {
+      "bytes": 439072,
+      "sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed"
+    },
+    "ci/profiles.json": {
+      "bytes": 504961,
+      "sha256": "0af17b85b2b469be445bdcb68acbc07bb38507382fc818ffc4bd2bac5e3ce1ee"
+    },
+    "ci/three_context_contract.json": {
+      "bytes": 33813,
+      "sha256": "2848fad58bf59da1958c7e1632e841c1bae78f22ab728b1098a9426977aef334"
+    },
+    "ci/three_context_current_transport.py": {
+      "bytes": 23232,
+      "sha256": "ef05bc4e8688a361ea5bd4cfc625a9b48b9cecf84a3cfa4150c4f3ace1f7afa2"
+    },
+    "ci/three_context_driver.py": {
+      "bytes": 22415,
+      "sha256": "6641a4f0f6b49de122461e7de8c44a55018c6797ebddf8cee3e7f60493192173"
+    },
+    "ci/three_context_execution_policy.py": {
+      "bytes": 10301,
+      "sha256": "c64b886e85610b72b4ac9b5a8157b49c3d3d2ecdcf6967c4b591f2ecc15675fa"
+    },
+    "ci/three_context_final.py": {
+      "bytes": 42683,
+      "sha256": "3ef7e29c6e4507ac6a2469c09b62f917cafa6768f51ad14e169446f0cc1686d6"
+    },
+    "ci/three_context_io.py": {
+      "bytes": 7557,
+      "sha256": "7ebaf768041582fd6818901cde82e333a72eb5b741724deeb85eac2ea018a811"
+    },
+    "ci/three_context_local.py": {
+      "bytes": 6981,
+      "sha256": "0ea2d6be51208e03248f5dd062b57c85bbc6b5768d156b27032891c15d10a06a"
+    },
+    "ci/three_context_policy.py": {
+      "bytes": 32686,
+      "sha256": "edc4852bcfe3cd8ca980733229859c98ca20fb7120edddaa61f0c55ed19f53d4"
+    },
+    "ci/three_context_runner.py": {
+      "bytes": 12270,
+      "sha256": "24ac8abf92d4b2c40e53eed2e0bc06c30e808f30c5939094cf7eae804db3d47b"
+    },
+    "ci/three_context_selection.json": {
+      "bytes": 108884,
+      "sha256": "e7565dcc7925d05aa44225bc916bfd1a18d50b75c5438b07b1ea67d376b33549"
+    },
+    "ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    }
+  },
+  "methods": {
+    "ci/fresh_stage.py:__init__": {
+      "line": 672,
+      "sha256": "93f01c6bf1e887e800100be6874974ffed8a152e8e98c26dc4464e2cfccc453e"
+    },
+    "ci/fresh_stage.py:_identity": {
+      "line": 521,
+      "sha256": "70e4976a7d802a92963e9d011a806c39c59c431d8012e840b795d3300e8873cd"
+    },
+    "ci/fresh_stage.py:_pairs": {
+      "line": 54,
+      "sha256": "30f3bbdf532ffbb77c12faf055620a629ea55a4f84bb0550fb4704fdb3a4c700"
+    },
+    "ci/fresh_stage.py:apply_limits": {
+      "line": 408,
+      "sha256": "49a38438b57f8c0c6e63b7f93ed0d394508a6bd8f888de2f29f7ade9a031e5fb"
+    },
+    "ci/fresh_stage.py:check_run_age": {
+      "line": 688,
+      "sha256": "731cdab7d7d91accc2d4f7c4c6991909cc50878c47a11f91820dfcf7051c95dd"
+    },
+    "ci/fresh_stage.py:claim": {
+      "line": 526,
+      "sha256": "e301746f296e4da74f34a8ed046290e26956e08da3660fd6095e1bb5e5b2c9f7"
+    },
+    "ci/fresh_stage.py:cli": {
+      "line": 979,
+      "sha256": "2b35b0ee16b24a87f8b5c1341635a4105aa7cee8df48f5d1e44cf2a0efa36152"
+    },
+    "ci/fresh_stage.py:command": {
+      "line": 878,
+      "sha256": "1237eb0b2bf019035b9f126fde0dc21bd788e7a94a374a4ae927bb6b40f70885"
+    },
+    "ci/fresh_stage.py:exact_tree": {
+      "line": 97,
+      "sha256": "2ef36001744c2e02fd220cf666c778344de960b991716f9533d7379900a890cd"
+    },
+    "ci/fresh_stage.py:execution_paths": {
+      "line": 697,
+      "sha256": "759330c862277a3fe3943e06146074698a5c71edca41357eb20066935fdf7253"
+    },
+    "ci/fresh_stage.py:expected_argv": {
+      "line": 700,
+      "sha256": "9687a98d86a9e06bd5ec41c85c49e33f882c6b74aadd564eb07beaff47531485"
+    },
+    "ci/fresh_stage.py:extract_sources": {
+      "line": 196,
+      "sha256": "67b68fc7096c44b6862c6f9c447574babfa6a7685e86eb01cea910976d9e095b"
+    },
+    "ci/fresh_stage.py:extract_verified_archive": {
+      "line": 474,
+      "sha256": "edbbe26a588466469e781d90a78b27667ef4504a61f9d5c98a4b9d1fd43a2bf5"
+    },
+    "ci/fresh_stage.py:file_sha": {
+      "line": 43,
+      "sha256": "c3f88338df34883b1600286a4cbffb4fce1dcfd9a1b74fa1a0d75f496765ac57"
+    },
+    "ci/fresh_stage.py:git": {
+      "line": 998,
+      "sha256": "b7036037f7b00705d169c5299d574749261dd8cff44b33094f139fbce26d9daf"
+    },
+    "ci/fresh_stage.py:import_header": {
+      "line": 108,
+      "sha256": "e390cb65c53acd301e46d1f11983751c4c59037593e3fb5b484ee37b486d0cb2"
+    },
+    "ci/fresh_stage.py:imported": {
+      "line": 737,
+      "sha256": "1b55340cae9b221a07601d3d0a898ec9eeddefeed497c1d922439ca02690c4d7"
+    },
+    "ci/fresh_stage.py:json_bytes": {
+      "line": 51,
+      "sha256": "a72c809503d008f117acc697ae038e52f7e215d1d589a2e5dbb01e892af2edc5"
+    },
+    "ci/fresh_stage.py:load_json": {
+      "line": 65,
+      "sha256": "cc608c813f8273b2b592259701061524602c2c4cec13324754fd4b62b7c82506"
+    },
+    "ci/fresh_stage.py:log_paths": {
+      "line": 450,
+      "sha256": "b70ec7f88d952a4b1d9594279fe23fa13e6a1337c465ee35d5400a0ac158b5ca"
+    },
+    "ci/fresh_stage.py:manifest_index": {
+      "line": 139,
+      "sha256": "c56366066f5a5cb5921c1ae9f2ee3fc2f9062413db9d83a67d8ee94beaf8a8a0"
+    },
+    "ci/fresh_stage.py:need": {
+      "line": 36,
+      "sha256": "98fe66c98145ed2d8f42af6e17a630fab6a058167fb1e5b0dfb8a42db9ad85b0"
+    },
+    "ci/fresh_stage.py:no_symlink_path": {
+      "line": 76,
+      "sha256": "eee9023bd0ed4385e8a726c32f15e91177d8cb234fc412fa8d80ace89d851f08"
+    },
+    "ci/fresh_stage.py:object_paths": {
+      "line": 447,
+      "sha256": "1d8005dc2920f21ca730cbff9ff7c66083c7dc231c99fb2d41884aae95a28d75"
+    },
+    "ci/fresh_stage.py:owned_processes": {
+      "line": 346,
+      "sha256": "f2809d188326f5bdfc2c40cb754497cf5a6b9b559ee910e783112bcf33a7be22"
+    },
+    "ci/fresh_stage.py:parse_json": {
+      "line": 61,
+      "sha256": "4e08c4786534542a442bde318c28643d6eab71237bc4f315361ec986ff567ec9"
+    },
+    "ci/fresh_stage.py:pinned_load": {
+      "line": 974,
+      "sha256": "3cbbdca229def4e0b2e7afd448635882060c7f0f4369e444087b315b17b619ac"
+    },
+    "ci/fresh_stage.py:positive_int": {
+      "line": 245,
+      "sha256": "534e9b21d1bf271c2c07c8af3a418d64744d4299b9ea32610e12261e0008a418"
+    },
+    "ci/fresh_stage.py:proc_snapshot": {
+      "line": 333,
+      "sha256": "62151b1c891c19502c59524ea43f7a2e4cc96fcc9fd241949d110e86553a7a19"
+    },
+    "ci/fresh_stage.py:promote_quarantine": {
+      "line": 704,
+      "sha256": "f181e819caef813e8330d177045ae89801a710e6f19734cb4adfd1fba21fe3a9"
+    },
+    "ci/fresh_stage.py:read_artifacts": {
+      "line": 756,
+      "sha256": "f289a8accfa8cb93f85803c1a3bc77e31d85e8185ebb1f95a4bb29f1a4aa32df"
+    },
+    "ci/fresh_stage.py:read_predecessors": {
+      "line": 753,
+      "sha256": "4329743f8bc8731cf9ecd9917ebced56b89e7a07278a8fbf7b5ed0dd2364d565"
+    },
+    "ci/fresh_stage.py:readonly_command_layout": {
+      "line": 638,
+      "sha256": "cfdf505eca53d79a931e58d40f513c9e099dd6d48096647cc07c67eba506ec10"
+    },
+    "ci/fresh_stage.py:regular_tree": {
+      "line": 81,
+      "sha256": "060da861ff3e6633dc2bff875d6db753e00485e9aec8d2df4ee1473077f1971a"
+    },
+    "ci/fresh_stage.py:release_after_validation": {
+      "line": 542,
+      "sha256": "e69c6f1dca0ac8413e45eedcfa216bee9c83880ff10a7ae9b0f3f5c48c694f8d"
+    },
+    "ci/fresh_stage.py:require_modern_header": {
+      "line": 165,
+      "sha256": "09681522bfaddd22e4a53f34954dbdad0d377b79e8e3d08babebdd032f2d0295"
+    },
+    "ci/fresh_stage.py:run": {
+      "line": 909,
+      "sha256": "b1f1f0163555039dd0a78ac8a8114b429f01d634a47e4295002b15c6b887dd7a"
+    },
+    "ci/fresh_stage.py:run_process": {
+      "line": 404,
+      "sha256": "e5199c9372b51133f1c003548b6bc2932bcd14610214b71f1f3db71996e4524e"
+    },
+    "ci/fresh_stage.py:safe_rel": {
+      "line": 68,
+      "sha256": "62e31bf5b2c6b13ef7961cf55c40af046984e2b8d60c9c76c1e457eab93d4e52"
+    },
+    "ci/fresh_stage.py:set_child_subreaper": {
+      "line": 361,
+      "sha256": "8424c8e56869fe6e1601d39bdfe9a256b3022d3637efcceb11475f1e5ea2e8dc"
+    },
+    "ci/fresh_stage.py:sha": {
+      "line": 40,
+      "sha256": "1df43b2240b453fcc7d0876dc994f2d1c60cd9017c32dd2c03a610c74c0076a1"
+    },
+    "ci/fresh_stage.py:signal_same_process": {
+      "line": 371,
+      "sha256": "8265f5b11f1e3d80e2c2f96d1ecbfb899b337f0a77a1db469e1bb19e842d009d"
+    },
+    "ci/fresh_stage.py:stage_dependencies": {
+      "line": 221,
+      "sha256": "377a7c21868ffb97e4013ec2a04cf05df287c9cbc715ed6c2bbe0fca0f7c2b72"
+    },
+    "ci/fresh_stage.py:storage_restore_budget": {
+      "line": 583,
+      "sha256": "0e69cd9a3d1f6a08570f96f4bfa474fc366d0fc35d36a0d6a6fae58ae386fef9"
+    },
+    "ci/fresh_stage.py:terminate_owned_processes": {
+      "line": 378,
+      "sha256": "1b7c8975e1009d3f1156297dfdabe324fcd7e2a2c2f4e80cdeebfb69362a20f3"
+    },
+    "ci/fresh_stage.py:validate_contract": {
+      "line": 267,
+      "sha256": "b76b42ee78ca107f7a874a2651ce27d029b75c67dc2c341a94d7197a36a53c4d"
+    },
+    "ci/fresh_stage.py:validate_profile": {
+      "line": 248,
+      "sha256": "bc02f27912e363a9ef90757f0d4a4da3ca047e0951ec9fd96a101d775b8c80d8"
+    },
+    "ci/fresh_stage.py:verify_checked_objects": {
+      "line": 866,
+      "sha256": "3a77095f6a2d57f3b120f58c05c7343ff96c0bf4df606818e300909628fbec7d"
+    },
+    "ci/fresh_stage.py:verify_sources": {
+      "line": 184,
+      "sha256": "8d75c4f1626f48633f00043d85df2ed0e6d3eb0988d359b5190c3e42e625484a"
+    },
+    "ci/fresh_stage.py:verify_toolchain": {
+      "line": 300,
+      "sha256": "8cff702b15d2e2339ba040780143c729de9a00a4744682595ed238f5231c1930"
+    },
+    "ci/fresh_stage.py:write_tar": {
+      "line": 454,
+      "sha256": "58ee4cd8b037b23175e1fe4583740544ef24b4096a61ce0c0b97a0277f46ac01"
+    },
+    "ci/three_context_execution_policy.py:archive_ledger_after_build": {
+      "line": 133,
+      "sha256": "3a488dae78b455234a86a31f72ba4a07d95c5d7d67f6293830ac3fcc0bd42bca"
+    },
+    "ci/three_context_execution_policy.py:canonical_native_order": {
+      "line": 126,
+      "sha256": "a44d024b349391baa7ffd51e6ca5b5e35440d0d4af0a5abb1776b74021178570"
+    },
+    "ci/three_context_execution_policy.py:data": {
+      "line": 26,
+      "sha256": "b0727348b9c2084deb0ca6801d53fc120f8d14277e3be0acc5e4baafa2a856bc"
+    },
+    "ci/three_context_execution_policy.py:scope_stage_ids": {
+      "line": 59,
+      "sha256": "a8c4154612ed605009a45a8872943c8fb4cbcd867f1de7c79ba1bdd1d8c4fc05"
+    },
+    "ci/three_context_execution_policy.py:sha256": {
+      "line": 28,
+      "sha256": "6fd5c0e00f6c130c1e7d9cc942feb00645b4058627cde575bde498f742e31058"
+    },
+    "ci/three_context_execution_policy.py:validate_execution_context": {
+      "line": 31,
+      "sha256": "13ade0ce9fb12578d1af7f0d42319c5515da80e7e6e8a31cdcea80cd6c7a449e"
+    },
+    "ci/three_context_execution_policy.py:validate_restore_scope": {
+      "line": 76,
+      "sha256": "ce6dd6dd23228b42df2ea05cc56bf729d01c75874f8d7f2b635c7f9596aa31c3"
+    },
+    "ci/three_context_runner.py:__init__": {
+      "line": 21,
+      "sha256": "28acbda9afe0a11b732eb4ca31e4107b952c140f1753bb14e97c92bc3a6172b8"
+    },
+    "ci/three_context_runner.py:_current_envelope": {
+      "line": 77,
+      "sha256": "2b1ccf28c76b388298c00bc3ad2654604645348e8fa79fd0416115f18ce22728"
+    },
+    "ci/three_context_runner.py:_for_runner": {
+      "line": 58,
+      "sha256": "051a7f9cd50ea3c5a77aecebc51210bfb1d6add926377a433680b846b2d2c709"
+    },
+    "ci/three_context_runner.py:_native_inputs": {
+      "line": 62,
+      "sha256": "4423301e9964db33bbd8fd05775951471d63cf8d374f3985aec501420406febb"
+    },
+    "ci/three_context_runner.py:_restore_scope": {
+      "line": 107,
+      "sha256": "145271311e0be74c365877b9c49aed694f346255e7ddb2b615342f355f233366"
+    },
+    "ci/three_context_runner.py:check_run_age": {
+      "line": 47,
+      "sha256": "d4b4790e861f330ccc60b2b19fccc2a52155ca84a524a4ecd71442aca37f74c2"
+    },
+    "ci/three_context_runner.py:command": {
+      "line": 54,
+      "sha256": "71645157ac268395621fae48b2c3c172a6fddb4addd77149c567646e27e92a0f"
+    },
+    "ci/three_context_runner.py:read_predecessors": {
+      "line": 102,
+      "sha256": "2255b93e28156c9baf91e96885990f4226c6f3fe65c2d6cbbced210cde90289f"
+    },
+    "ci/three_context_runner.py:restore_final": {
+      "line": 151,
+      "sha256": "f6916a986b567b9c469cd1fe30506ca97236a82381d2708f62da1862cd162d2b"
+    },
+    "ci/three_context_runner.py:run": {
+      "line": 84,
+      "sha256": "4b45b63ebe3178e458f1e1eaf61ddcb9e3e1488c73679b1d9039584ec8b0bcdb"
+    }
+  },
+  "schema": "c087-frozen-native-graph-pins-v1",
+  "source_root": "/tmp/modern_c_active_consumer_20261016T2033/pipeline"
+}
