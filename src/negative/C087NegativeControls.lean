@@ -3,7 +3,7 @@ LOCAL SOURCE-ONLY DRAFT. Pure data controls, never research declarations.
 Synthetic ConstantInfo values are not admitted to any kernel environment.
 -/
 module
-import Lean
+public import Lean
 import C087RawContract
 meta import C087RawContract
 meta import Lean.Elab.Command

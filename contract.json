@@ -178,8 +178,8 @@
       "sha256": "061b0c9c608eec98f31b6e7c12a58046a56453042211b0ffe93b05f2a9dcc636"
     },
     "src/negative/C087NegativeControls.lean": {
-      "bytes": 7066,
-      "sha256": "8f3e86a6466484dcd4532bcfac99fd9b6701e319d5eeee4ef9f969baf2ed9982"
+      "bytes": 7073,
+      "sha256": "8c058c63f822dcebb7e77baba0fc2a59aa19bbba4b3df0a339e4918db81ae27d"
     },
     "src/shape/C087SourceShapeControl.lean": {
       "bytes": 2836,
