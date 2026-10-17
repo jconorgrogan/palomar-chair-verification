@@ -1,0 +1,131 @@
+# Reviewed fingerprint observation workflow; the observed profile remains unapproved.
+name: C087 deployed interpreter fingerprint observation
+'on':
+  push:
+    branches: ['verify/c087-python-fingerprint-20261017']
+permissions:
+  contents: read
+concurrency:
+  group: c087-python-fingerprint-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  fingerprint_observation:
+    name: C087 deployed interpreter fingerprint observation
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact fingerprint observation pipeline
+        id: pipeline_checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Verify exact clean fingerprint checkout
+        id: clean_checkout
+        run: |
+          test "$GITHUB_REPOSITORY" = 'jconorgrogan/palomar-chair-verification'
+          test "$GITHUB_REF" = 'refs/heads/verify/c087-python-fingerprint-20261017'
+          test "$GITHUB_RUN_ATTEMPT" = '1'
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all --ignored)"
+      - name: Install official Ubuntu fingerprint sandbox dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap
+      - name: Observe exact deployed interpreter fingerprint
+        id: observe
+        run: >-
+          /usr/bin/timeout --signal=KILL 210
+          /usr/bin/python3 -I -S -B ci/fingerprint_preflight.py
+          --contract-sha256 2120c9c0fb47f3962cfa2f4cfb766918f888c9aa34b4ec2b91d655cb6adff963
+          --work "${{ runner.temp }}/c087-python-fingerprint"
+      - name: Upload bounded fingerprint observation evidence
+        if: ${{ always() }}
+        id: evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: c087-python-fingerprint-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/c087-python-fingerprint/stdout.log
+            ${{ runner.temp }}/c087-python-fingerprint/stderr.log
+            ${{ runner.temp }}/c087-python-fingerprint/command.json
+            ${{ runner.temp }}/c087-python-fingerprint/result.json
+            ${{ runner.temp }}/c087-python-fingerprint/collection.json
+            ${{ runner.temp }}/c087-python-fingerprint/completion.json
+            ${{ runner.temp }}/c087-python-fingerprint/incomplete.json
+          retention-days: 7
+          if-no-files-found: error
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
+      - name: Bind successful fingerprint observation upload
+        if: ${{ success() && steps.observe.outcome == 'success' && steps.evidence.outcome == 'success' }}
+        env:
+          FINGERPRINT_WORK: ${{ runner.temp }}/c087-python-fingerprint
+          FP_ARTIFACT_ID: ${{ steps.evidence.outputs.artifact-id }}
+          FP_ARTIFACT_SHA256: ${{ steps.evidence.outputs.artifact-digest }}
+          FP_RUN_ID: ${{ github.run_id }}
+          FP_RUN_ATTEMPT: ${{ github.run_attempt }}
+          FP_COMMIT: ${{ github.sha }}
+        run: |
+          /usr/bin/timeout --signal=KILL 10 /usr/bin/python3 -I -S -B - <<'PY'
+          import hashlib,json,os,re,resource,stat
+          from pathlib import Path
+          CONTRACT_SHA256='2120c9c0fb47f3962cfa2f4cfb766918f888c9aa34b4ec2b91d655cb6adff963'
+          PREFIX='C087_PYTHON_FINGERPRINT_OBSERVATION_UPLOADED '
+          def marker(work,values):
+              def need(ok):
+                  if not ok:raise ValueError('fingerprint upload binding refused')
+              work=Path(work);need(work.is_absolute() and '..' not in work.parts and len(work.parts)<=32)
+              want={'artifact_id':r'[1-9][0-9]{0,19}','artifact_sha256':r'[0-9a-f]{64}','run_id':r'[1-9][0-9]{0,19}','run_attempt':'1','commit':r'[0-9a-f]{40}'}
+              need(type(values) is dict and set(values)==set(want))
+              for k,pattern in want.items():need(type(values[k]) is str and re.fullmatch(pattern,values[k]) is not None)
+              need(re.fullmatch(r'[0-9a-f]{64}',CONTRACT_SHA256) is not None)
+              sig=lambda s:(s.st_dev,s.st_ino,s.st_mode,s.st_nlink,s.st_size,s.st_mtime_ns,s.st_ctime_ns)
+              dsig=lambda s:(s.st_dev,s.st_ino,s.st_mode,s.st_nlink)
+              paths=list(reversed((work,*work.parents)));held=[];identities=[]
+              def path_bindings():
+                  for p,identity in zip(paths,identities):
+                      s=p.lstat();need(stat.S_ISDIR(s.st_mode) and dsig(s)==identity)
+              def held_bindings():
+                  path_bindings()
+                  for i,fd in enumerate(held):
+                      need(dsig(os.fstat(fd))==identities[i])
+                      if i:need(dsig(os.stat(paths[i].name,dir_fd=held[i-1],follow_symlinks=False))==identities[i])
+              def absent(fd=None):
+                  try:
+                      if fd is None:(work/'incomplete.json').lstat()
+                      else:os.stat('incomplete.json',dir_fd=fd,follow_symlinks=False)
+                  except FileNotFoundError:return
+                  need(False)
+              try:
+                  for i,p in enumerate(paths):
+                      s=p.lstat();need(stat.S_ISDIR(s.st_mode));identity=dsig(s)
+                      fd=os.open(p if i==0 else p.name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,**({} if i==0 else {'dir_fd':held[-1]}))
+                      held.append(fd);identities.append(identity);need(dsig(os.fstat(fd))==identity)
+                  held_bindings();rootfd=held[-1];absent(rootfd)
+                  before=os.stat('completion.json',dir_fd=rootfd,follow_symlinks=False)
+                  need(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<before.st_size<=1024**2)
+                  fd=os.open('completion.json',os.O_RDONLY|os.O_NOFOLLOW,dir_fd=rootfd)
+                  try:
+                      need(sig(os.fstat(fd))==sig(before));data=b''
+                      while block:=os.read(fd,65536):
+                          data+=block;need(len(data)<=1024**2)
+                      need(sig(os.fstat(fd))==sig(before) and sig(os.stat('completion.json',dir_fd=rootfd,follow_symlinks=False))==sig(before) and len(data)==before.st_size)
+                  finally:os.close(fd)
+                  need(sig(os.stat('completion.json',dir_fd=rootfd,follow_symlinks=False))==sig(before))
+                  result={**values,'contract_sha256':CONTRACT_SHA256,'completion_sha256':hashlib.sha256(data).hexdigest()}
+                  line=PREFIX+json.dumps(result,sort_keys=True,separators=(',',':'))
+                  held_bindings();absent(rootfd)
+              finally:
+                  for fd in reversed(held):os.close(fd)
+              path_bindings();need(sig((work/'completion.json').lstat())==sig(before));absent()
+              return line
+          def main():
+              os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
+              for limit,value in ((resource.RLIMIT_AS,1024**3),(resource.RLIMIT_CPU,5),(resource.RLIMIT_NOFILE,64),(resource.RLIMIT_FSIZE,16384),(resource.RLIMIT_CORE,0)):resource.setrlimit(limit,(value,value))
+              print(marker(os.environ['FINGERPRINT_WORK'],{k:os.environ['FP_'+k.upper()] for k in ('artifact_id','artifact_sha256','run_id','run_attempt','commit')}))
+          
+          if __name__=='__main__':main()
+          PY

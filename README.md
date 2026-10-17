@@ -1,27 +1,9 @@
-# C087 core-only preflight: reviewed activation candidate
+# C087 deployed interpreter fingerprint observation
 
-This package tests only new helper/control sources against the authenticated
-Lean 4.35.0-rc2 runtime. It compiles and independently checks ten modules, then
-runs the exact fixed auditor against a four-module synthetic serialized fixture.
-It loads no research objects, downloads no proof artifacts and uses no Mathlib.
-Synthetic project names exist only in a dedicated fixture object namespace.
+This small verification packet records the Python interpreter and selected standard-library identities on an official Ubuntu 22.04 runner. Its output is an **unapproved fingerprint observation**. It does not execute either synthetic guard mode, install the Lean runtime, restore research objects, or establish a proof result.
 
-The profile is explicit: one Ubuntu 22 job, one CPU, -j1/-M768, 120 seconds per
-Lean/checker command, AS/RSS 8 GiB, 1,800-second aggregate and 1,860-second outer
-supervisor. Seven helper companions include generated C, matching the reviewed
-core sandbox/admission implementation; the later C087 target A/B profile instead
-requires its original six companions. No target source/profile repair is adopted.
-Every source, command, complete log and output map is pinned/rechecked, with
-per-command1MiB/aggregate8MiB logs,64MiB outputs,32MiB uploaded evidence.
+The single job is bounded to 10 minutes. Its controller has one original 180-second budget and an external 210-second watchdog; the observation child has at most 120 seconds, one CPU, and 1 GiB address-space and target-tree RSS limits. The separately bounded parent has its own 1 GiB address-space allowance, so these are not a combined 1 GiB limit. The child has no network or workflow token. Its system and code mounts are read-only; it has a writable private /tmp tmpfs and no writable evidence mount. The fixed observer contains no temporary-file creation path. Accepted stdout and stderr total at most 256 KiB; physical capture reserves remain larger and explicit.
 
-Expected23 commands:2 boundary controls,10 compile/check pairs and1 serialized
-auditor run. All45 negative PASS lines,2 source-shape records,2 option markers
-and both exact raw-auditor JSON rows plus final marker are mandatory. Native
-kernel checking occurs separately for all10 synthetic/helper modules. The raw
-auditor records do not assert research provenance or independent kernel work.
+Only seven fixed evidence paths can be uploaded. A successful upload marker binds the artifact ID/digest, run/attempt/commit, contract, and completion hash. Partial evidence remains incomplete. Terminal job success and independent reconciliation of the exact observation are required before any later profile decision. A separate reviewed exact-profile binding and fresh guard-mode run are still required.
 
-The contract is enabled for the reviewed preflight. Publication and dispatch
-require the separate exact release. Actual compilation, cloud runtime, terminal job success,
-unique upload marker and independently reconciled evidence are still required.
-A successful preflight only opens the later exact85-stage native-admission and
-C087 default/async-off diagnostic gates; it proves no hierarchy endpoint.
+The repository identity remains `jconorgrogan/palomar-chair-verification`. Earlier proof attempts and the working paper remain in their original commits and branches. This packet does not change the status of the unfinished hierarchy proof or authorize an official Palomar submission.
