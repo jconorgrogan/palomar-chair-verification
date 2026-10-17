@@ -49,8 +49,8 @@
       "sha256": "8de2e7078fee89db75e13bf8ef2ce10f5f87d1b533a98fd141ec6fa517fe0c72"
     },
     "ci/c087/admission/code/minimal.py": {
-      "bytes": 91017,
-      "sha256": "87f8d544fdb0c0abf33fe8532006cfd34b7f5bc9852312d9a0d39aeeabc24135"
+      "bytes": 94960,
+      "sha256": "ec468d529e3e16afbb857363ba0271e5ce2f18e4a44a9400a7dbf181ccc1a0c3"
     },
     "ci/c087/admission/code/output_model.py": {
       "bytes": 17966,
@@ -77,8 +77,8 @@
       "sha256": "e86ba8bcbfd3f3ee7b5a77c9187de18c84a1843f2f18132a230c865b96347e8c"
     },
     "ci/c087/engine/probe_engine.py": {
-      "bytes": 20582,
-      "sha256": "43daa006c13604fcdf9b8d0db49e52d26ba42c854882388951389381b6a18ef1"
+      "bytes": 37827,
+      "sha256": "74429edf267f081e79e7c7ebadba7414baadc82bc387b54dd8b0067d11e5fcbf"
     },
     "ci/c087/engine/probe_policy.py": {
       "bytes": 9795,
@@ -107,6 +107,22 @@
     "ci/c087/helpers/DisabledOptionControl.lean": {
       "bytes": 773,
       "sha256": "3d4f5734ae2a49d98347722fb2b4bcae570adddcd6c3481152acf726ea6a17ec"
+    },
+    "ci/c087/lookup_fixture/C087SerializedFixture/Model.lean": {
+      "bytes": 910,
+      "sha256": "4378210e049bd2488ba176995ca79305a2de4b6e8894b4bac8edbc2cb1de96e6"
+    },
+    "ci/c087/lookup_fixture/SpectreFinite/RadiusFiveCertified.lean": {
+      "bytes": 416,
+      "sha256": "a56e08cab450bd4c3ebb51a954ef8738598cfc1b837bd34db54eef3cb4c57c7d"
+    },
+    "ci/c087/lookup_fixture/SpectreFinite/RadiusFivePruningCertified.lean": {
+      "bytes": 1021,
+      "sha256": "4216e599b4f7c5fc9384da88c0498620e78ee115e1fd295f8b0a01e038baae5d"
+    },
+    "ci/c087/lookup_fixture/SpectreFinite/RadiusFivePruningRounds.lean": {
+      "bytes": 512,
+      "sha256": "2073b2239828117313062ef8584b76c45740986fb582e432bee195ef9f736083"
     },
     "ci/c087/runtime/inventory.json": {
       "bytes": 3292808,

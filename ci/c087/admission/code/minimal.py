@@ -144,7 +144,7 @@ SETUP_GATES=('fixed_modules','entry_record','native_graph_load','native_seam_loa
  'official_runtime_bind','owned_layout','snapshot_latest_pipeline','snapshot_prior_pipeline',
  'snapshot_research_source','snapshot_helper_source','snapshot_runtime_placeholder','snapshot_controller')
 
-RUN_GATES=('compatibility_smoke', 'compatibility_revalidate', 'acquisition_revalidate', 'acquisition_layout', 'acquisition_process', 'acquisition_completion', 'acquisition_certificate', 'acquisition_snapshot', 'native_inputs', 'native_expected_map', 'admission_prepare', 'admission_process', 'admission_inputs_revalidate', 'admission_expected_transfer', 'admission_outputs', 'admission_report', 'admission_final_revalidate', 'engine_prepare', 'engine_dispatch', 'engine_inputs_revalidate', 'engine_response', 'evidence_copy', 'evidence_revalidate', 'evidence_complete')
+RUN_GATES=('compatibility_smoke', 'compatibility_revalidate', 'lookup_preflight', 'lookup_revalidate', 'acquisition_revalidate', 'acquisition_layout', 'acquisition_process', 'acquisition_completion', 'acquisition_certificate', 'acquisition_snapshot', 'native_inputs', 'native_expected_map', 'admission_prepare', 'admission_process', 'admission_inputs_revalidate', 'admission_expected_transfer', 'admission_outputs', 'admission_report', 'admission_final_revalidate', 'engine_prepare', 'engine_dispatch', 'engine_inputs_revalidate', 'engine_response', 'evidence_copy', 'evidence_revalidate', 'evidence_complete')
 
 def _phase_mark(owner,gate,position):
  owner._run_gate=gate;owner._run_position=position
@@ -179,6 +179,39 @@ def _setup_reason(error):
   if type(module) is types.ModuleType and type(error) is vars(module).get('Rejected'):
    category=label;reviewed=True;break
  reasons={
+  'duplicate import view search path':'ENGINE_DUPLICATE_IMPORT_VIEW_SEARCH_PATH',
+  'fixed lookup fixture/helper sources':'ENGINE_FIXED_LOOKUP_FIXTURE_HELPER_SOURCES',
+  'fixed lookup preflight command count':'ENGINE_FIXED_LOOKUP_PREFLIGHT_COMMAND_COUNT',
+  'fresh import view required':'ENGINE_FRESH_IMPORT_VIEW_REQUIRED',
+  'fresh lookup preflight required':'ENGINE_FRESH_LOOKUP_PREFLIGHT_REQUIRED',
+  'import view backing root changed':'ENGINE_IMPORT_VIEW_BACKING_ROOT_CHANGED',
+  'import view backing root required':'ENGINE_IMPORT_VIEW_BACKING_ROOT_REQUIRED',
+  'import view backing roots overlap':'ENGINE_IMPORT_VIEW_BACKING_ROOTS_OVERLAP',
+  'import view bounded exact namespace':'ENGINE_IMPORT_VIEW_BOUNDED_EXACT_NAMESPACE',
+  'import view cleanup final binding':'ENGINE_IMPORT_VIEW_CLEANUP_FINAL_BINDING',
+  'import view cleanup directory changed':'ENGINE_IMPORT_VIEW_CLEANUP_DIRECTORY_CHANGED',
+  'import view cleanup link changed':'ENGINE_IMPORT_VIEW_CLEANUP_LINK_CHANGED',
+  'import view cleanup parent changed':'ENGINE_IMPORT_VIEW_CLEANUP_PARENT_CHANGED',
+  'import view cleanup root changed':'ENGINE_IMPORT_VIEW_CLEANUP_ROOT_CHANGED',
+  'import view descriptor close failed':'ENGINE_IMPORT_VIEW_DESCRIPTOR_CLOSE_FAILED',
+  'import view directory type/owner':'ENGINE_IMPORT_VIEW_DIRECTORY_TYPE_OWNER',
+  'import view exact membership changed':'ENGINE_IMPORT_VIEW_EXACT_MEMBERSHIP_CHANGED',
+  'import view inode changed':'ENGINE_IMPORT_VIEW_INODE_CHANGED',
+  'import view link binding changed':'ENGINE_IMPORT_VIEW_LINK_BINDING_CHANGED',
+  'import view parent changed':'ENGINE_IMPORT_VIEW_PARENT_CHANGED',
+  'import view pinned companion':'ENGINE_IMPORT_VIEW_PINNED_COMPANION',
+  'import view provider collision':'ENGINE_IMPORT_VIEW_PROVIDER_COLLISION',
+  'import view relative path':'ENGINE_IMPORT_VIEW_RELATIVE_PATH',
+  'import view root changed':'ENGINE_IMPORT_VIEW_ROOT_CHANGED',
+  'lookup checker and auditor required':'ENGINE_LOOKUP_CHECKER_AND_AUDITOR_REQUIRED',
+  'lookup fixture axioms must be empty':'ENGINE_LOOKUP_FIXTURE_AXIOMS_MUST_BE_EMPTY',
+  'lookup preflight aggregate logs':'ENGINE_LOOKUP_PREFLIGHT_AGGREGATE_LOGS',
+  'lookup preflight backing map changed':'ENGINE_LOOKUP_PREFLIGHT_BACKING_MAP_CHANGED',
+  'lookup preflight checker stdout':'ENGINE_LOOKUP_PREFLIGHT_CHECKER_STDOUT',
+  'lookup preflight compile stdout':'ENGINE_LOOKUP_PREFLIGHT_COMPILE_STDOUT',
+  'lookup preflight complete evidence bound':'ENGINE_LOOKUP_PREFLIGHT_COMPLETE_EVIDENCE_BOUND',
+  'lookup preflight stderr':'ENGINE_LOOKUP_PREFLIGHT_STDERR',
+  'measured import view link capacity':'ENGINE_MEASURED_IMPORT_VIEW_LINK_CAPACITY',
   'bounded resolver alias':'RESOLVER_ALIAS_BOUND',
   'known resolver alias target':'RESOLVER_UNKNOWN_LAYOUT',
   'regular resolver source or known alias':'RESOLVER_SOURCE_TYPE',
@@ -680,6 +713,11 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   _phase_mark(owner,'compatibility_revalidate','before')
   fixed_check()
   _phase_mark(owner,'compatibility_revalidate','after')
+  owner._phase='lookup_preflight'
+  _phase_mark(owner,'lookup_preflight','before')
+  owner._lookup_evidence=engine.import_lookup_preflight(f,fixture_root=pipeline/'ci/c087/lookup_fixture',toolchain_root=roots['official_runtime'],helper_root=roots['helper_source'],work=work/'lookup-preflight',remaining=lambda:math.nextafter(budget.check()-3,-math.inf),verify_inputs=budget.check,executor=f.run_process,process=budget.process)
+  _phase_mark(owner,'lookup_preflight','after')
+  _phase_mark(owner,'lookup_revalidate','before');fixed_check();_phase_mark(owner,'lookup_revalidate','after')
   owner._phase='acquisition'
   _phase_mark(owner,'acquisition_revalidate','before')
   fixed_check()
@@ -1008,9 +1046,10 @@ def _retain_failure(owner,protocol,engine,native,budget):
   root=owner.roots['container'];stdout=read(root/'admission.stdout',16*1024**2);stderr=read(root/'admission.stderr',16*1024**2)
   need(len(stdout)+len(stderr)<=16*1024**2,'complete safe admission capture limit')
   selected={'admission.stdout':stdout,'admission.stderr':stderr,'admission-process.json':jb({'invocation':invocation,'result':result})}
- elif owner._phase=='diagnostic_consumed':
-  roots=owner.roots;out=work/'diagnostic'
-  rows=engine.command_plan(native,source_root=roots['research_source'],toolchain_root=roots['official_runtime'],predecessor_objects=roots['container']/'admitted/objects',helper_root=roots['helper_source'],diagnostic_output=out)
+ elif owner._phase in ('lookup_preflight','diagnostic_consumed'):
+  roots=owner.roots;out=work/('lookup-preflight' if owner._phase=='lookup_preflight' else 'diagnostic')
+  if owner._phase=='lookup_preflight':rows=engine.lookup_preflight_plan(native,fixture_root=roots['helper_source'].parent/'lookup_fixture',toolchain_root=roots['official_runtime'],helper_root=roots['helper_source'],work=out)
+  else:rows=engine.command_plan(native,source_root=roots['research_source'],toolchain_root=roots['official_runtime'],predecessor_objects=roots['container']/'admitted/objects',helper_root=roots['helper_source'],diagnostic_output=out)
   by_name={row['name']:row for row in rows};receipts=out/'receipts'
   # Engine source writes these parent-owned receipts only after live cleanup,
   # resource and complete-log checks. Never read an unreceipted child capture.
@@ -1027,6 +1066,7 @@ def _retain_failure(owner,protocol,engine,native,budget):
    engine.policy.validate_live_command(spec,record,stdout,stderr,expected_effective_timeout=effective)
    selected['receipts/'+path.name]=record_raw
    selected['logs/'+spec['name']+'.stdout']=stdout;selected['logs/'+spec['name']+'.stderr']=stderr
+ if hasattr(owner,'_lookup_evidence') and 'RESULT.json' in owner._lookup_evidence:selected['lookup-preflight.json']=read(work/'lookup-preflight/RESULT.json',4*1024**2,owner._lookup_evidence['RESULT.json'])
  if not selected:return
  need(sum(map(len,selected.values()))<=50*1024**2,'small complete failure packet')
  budget.check();root=work/'upload/failure';need(not root.exists(),'fresh failure evidence');root.mkdir(mode=0o700)
@@ -1040,6 +1080,8 @@ def _package_evidence(owner,protocol,budget,diagnostic_files):
  work=owner.work;acquired=owner.roots['acquisition'];container=owner.roots['container'];selection={}
  for name in ('entry.json','runtime-directories.json','acquisition-process.json','compatibility-process.json','admission-process.json','independent-admission.json','capacity.json'):selection[name]=work/name
  for name in ('request.json','admission-invocation.json','native-report.json','response.json','admission.stdout','admission.stderr','admitted/historical-transfer-state.json','admitted/historical-transfer-certificate.json'):selection['admission/'+name]=container/name
+ for name,pin in getattr(owner,'_lookup_evidence',{}).items():
+  path=work/'lookup-preflight'/name;read(path,4*1024**2,pin);selection['lookup-preflight/'+name]=path
  certificate=parse(read(acquired/'TRANSPORT_RECEIPT.json'));selection['acquisition/TRANSPORT_RECEIPT.json']=acquired/'TRANSPORT_RECEIPT.json'
  for name in certificate['files']:
   if not name.endswith('/delta.tar'):selection['acquisition/'+name]=acquired/name
