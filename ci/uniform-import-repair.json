@@ -1,0 +1,23 @@
+{
+  "baseline_control_sha256": "dce61da1a8cd50439386ed48efef0fc5701544bf3cf364cba02c9914a1e523ff",
+  "baseline_root": "/tmp/uniform_physical_reference_v4_20261016T2344",
+  "candidate_control_sha256": "f5071c1d97542bd184715f66c7d520dde30851aaf519fb2817d735ee01311cd7",
+  "control": "control/UniformInspectorControl.lean",
+  "control_count": 45,
+  "edit_count": 1,
+  "exact_anchor_utf8": "meta import AuditUniformPhysicalEndpoints\n",
+  "exact_insert_utf8": "meta import Lean.Elab.Command\n",
+  "failed_higher_run": 38987327408,
+  "family": "Uniform",
+  "insert_bytes": 30,
+  "local_Lean_execution": false,
+  "marker": "UNIFORM_INSPECTOR_CORE_CONTROL_PASSED",
+  "official_Command_source_path": "/workspace/scratch/8b3aff9fe1f4/prime_family_lean/.runtime/lean-4.35.0-rc2-linux/src/lean/Lean/Elab/Command.lean",
+  "official_Command_source_sha256": "829047d7681916f3bb3d8688c05910051eada45816e79e816a5e4c7646b12f1e",
+  "official_runtime_inventory_path": "/tmp/radius_five_cloud_ci_design_20261015T2140/implementation/PREPARE_SUCCESS_38822063969/inventory.json",
+  "official_runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "original_log_sha256": "b88097e8f6b0cae06eb4a8045e90a46ba0e5685962a201b23f14b87be45d6e35",
+  "remaining_gate": "Actual bounded core-only cloud compile/check must pass before replay; plain meta import sufficiency is not yet execution-confirmed.",
+  "schema": "helper-command-meta-import-repair-v1",
+  "status": "inactive-unelaborated-static-only"
+}

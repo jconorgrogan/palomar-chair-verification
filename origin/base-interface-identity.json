@@ -1,6 +1,0 @@
-{
-  "all_package_native_library_files_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
-  "required_cache_companion_rows_sha256": "6db7a8ebb1b3227482483fec93be3947bcf2534fe1190ac63171c3634bb58703",
-  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
-  "schema": "conditional-external-interface-v1"
-}

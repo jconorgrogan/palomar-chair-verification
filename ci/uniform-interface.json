@@ -1,0 +1,328 @@
+{
+  "acceptance_does_not_include": [
+    "topological ball property",
+    "finite symmetry group bound",
+    "finite polyhedrality",
+    "boundary patch count",
+    "historical priority",
+    "Palomar acceptance"
+  ],
+  "axioms_allowed": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "compile_output_policy": "exactly seven named companions in fresh quarantine; quarantine is never an import root; host admits only after exact set/hash/path checks; all seven rehashed after checker and final inspector",
+  "conditional_substitution": "one Expr.instantiate1 of bound CType : Prop with exact checked ParentOccurrenceTheorem constant; no general reduction",
+  "control_module": "UniformInspectorControl",
+  "core_control_pass_count": 45,
+  "core_control_pass_labels": [
+    "exact mapped model definition",
+    "renamed native model constant rejected",
+    "extra reference model constant rejected",
+    "nested extra reference model constant rejected",
+    "changed HasTiling predicate rejected",
+    "changed HasTiling existential universe rejected",
+    "missing HasTiling existential rejected",
+    "exact collection-period surrogate",
+    "collection period changed to union period rejected",
+    "model extra universe rejected",
+    "unsafe model rejected",
+    "open model body rejected",
+    "exact quantified endpoint surrogate",
+    "dimension quantifier removed rejected",
+    "dimension binder renamed rejected",
+    "dimension binder visibility changed rejected",
+    "dimension lower bound changed rejected",
+    "extra hypothesis rejected",
+    "axiom substituted for theorem rejected",
+    "three standard axioms accepted",
+    "sorryAx rejected",
+    "extra axiom rejected",
+    "fixed model maps and four templates",
+    "one capture-safe bound CType substitution",
+    "C substitution preserves binding depth",
+    "unbound CType axiom rejected",
+    "renamed CType binder rejected",
+    "implicit CType binder rejected",
+    "CType not Prop rejected",
+    "exact one-C conditional surrogate",
+    "conditional C binder removed rejected",
+    "wrong C proposition rejected",
+    "C left on closed target rejected",
+    "exact closed C theorem application",
+    "changed C proof application rejected",
+    "changed conditional application rejected",
+    "Challenge hole explicitly labeled",
+    "Challenge extra axiom rejected",
+    "Challenge expected hole missing rejected",
+    "independent registration model equality",
+    "registration extra model constant rejected",
+    "exact ParentOccurrence expansion",
+    "C radius changed rejected",
+    "C family changed rejected",
+    "C extra hypothesis rejected"
+  ],
+  "core_control_success_marker": "UNIFORM_INSPECTOR_CORE_CONTROL_PASSED",
+  "exact_raw_equality": "Expr.equal, retaining binder names/visibility and universe arguments, after only the fixed injective native or registration namespace map and specified CType substitution",
+  "execution_plan": [
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/AuditUniformPhysicalEndpoints/AuditUniformPhysicalEndpoints.olean",
+        "-i",
+        "QUARANTINE/AuditUniformPhysicalEndpoints/AuditUniformPhysicalEndpoints.ilean",
+        "-c",
+        "QUARANTINE/AuditUniformPhysicalEndpoints/AuditUniformPhysicalEndpoints.c",
+        "AUDITOR_SOURCE/AuditUniformPhysicalEndpoints.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "AUDITOR_OBJECTS",
+      "phase": "compile-auditor-AuditUniformPhysicalEndpoints",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "AuditUniformPhysicalEndpoints"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-AuditUniformPhysicalEndpoints",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/UniformInspectorControl/UniformInspectorControl.olean",
+        "-i",
+        "QUARANTINE/UniformInspectorControl/UniformInspectorControl.ilean",
+        "-c",
+        "QUARANTINE/UniformInspectorControl/UniformInspectorControl.c",
+        "AUDITOR_SOURCE/UniformInspectorControl.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "AUDITOR_OBJECTS",
+      "phase": "compile-auditor-UniformInspectorControl",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "UniformInspectorControl"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-UniformInspectorControl",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "-Dcompiler.postponeCompile=false",
+        "-o",
+        "QUARANTINE/UniformPhysicalReference/UniformPhysicalReference.olean",
+        "-i",
+        "QUARANTINE/UniformPhysicalReference/UniformPhysicalReference.ilean",
+        "-c",
+        "QUARANTINE/UniformPhysicalReference/UniformPhysicalReference.c",
+        "AUDITOR_SOURCE/UniformPhysicalReference.lean"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "output_root_after_host_admission": "REFERENCE_OBJECTS",
+      "phase": "compile-auditor-UniformPhysicalReference",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "LEANCHECKER",
+        "UniformPhysicalReference"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "phase": "check-auditor-UniformPhysicalReference",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "LEAN",
+        "-j1",
+        "-M4096",
+        "--run",
+        "AUDITOR_SOURCE/AuditUniformPhysicalEndpoints.lean",
+        "MODE"
+      ],
+      "cwd": "AUDITOR_SOURCE",
+      "mode_choices": [
+        "conditional",
+        "closed",
+        "registration"
+      ],
+      "phase": "audit-AuditUniformPhysicalEndpoints",
+      "timeout_seconds": 600
+    }
+  ],
+  "expected_module_roots": {
+    "control_compile": "auditor objects + official runtime only",
+    "inspector_compile": "official runtime only",
+    "inspector_run": "reference objects + freshly replayed complete research root + official Mathlib/cache/runtime",
+    "reference_compile": "official runtime + authenticated Mathlib/cache only"
+  },
+  "fresh_companion_suffixes": [
+    ".olean",
+    ".olean.private",
+    ".olean.server",
+    ".ilean",
+    ".ir.sig",
+    ".ir",
+    ".c"
+  ],
+  "import_level": "private",
+  "inspector_arguments": [
+    "MODE"
+  ],
+  "inspector_module": "AuditUniformPhysicalEndpoints",
+  "integration_source_mapping": {
+    "auditors/AuditUniformPhysicalEndpoints.lean": "auditors/AuditUniformPhysicalEndpoints.lean",
+    "control/UniformInspectorControl.lean": "auditors/UniformInspectorControl.lean",
+    "src/UniformPhysicalReference.lean": "auditors/UniformPhysicalReference.lean"
+  },
+  "load_extensions": false,
+  "local_execution": {
+    "evidence_path": "/tmp/modern_c_readonly_adapter_20261016T0638/BWRAP_PREFLIGHT.stderr",
+    "evidence_sha256": "31c2cb0dffdeb9049fa2269e24af62df15e4161d4f752a648faf9630259725fe",
+    "executed": false,
+    "reason": "required read-only namespace isolation unavailable; no retry or security change"
+  },
+  "local_isolation_available": false,
+  "modes": {
+    "closed": {
+      "C_binders": [
+        1,
+        1,
+        0
+      ],
+      "exact_closed_application": true,
+      "final_marker": "UNIFORM_PHYSICAL_ENDPOINT_AUDIT_PASSED closed",
+      "project_module": "NativeFinalAssembly.AllDimensions",
+      "target_records": 3
+    },
+    "conditional": {
+      "C_binders": [
+        1,
+        1
+      ],
+      "final_marker": "UNIFORM_PHYSICAL_ENDPOINT_AUDIT_PASSED conditional",
+      "project_module": "NativeFinalAssembly.AllDimensionsOfParent",
+      "target_records": 2
+    },
+    "registration": {
+      "C_binders": [
+        0
+      ],
+      "Challenge_axioms": "standard subset plus required sorryAx, explicitly no proof pass",
+      "Solution_axioms": "standard subset only; Challenge module forbidden",
+      "final_marker": "UNIFORM_PHYSICAL_ENDPOINT_AUDIT_PASSED registration",
+      "proved_Solution_records": 1,
+      "separate_project_environments": [
+        "PalomarAllDimensionsChallenge",
+        "PalomarAllDimensionsSolution"
+      ],
+      "statement_only_Challenge_records": 1
+    }
+  },
+  "native_model_definitions": [
+    "Point",
+    "IsTiling",
+    "translate",
+    "IsPeriod",
+    "HasTiling",
+    "IsAperiodic",
+    "IsAperiodicMonotile"
+  ],
+  "plugins": [],
+  "reference_exact_owned_count": 11,
+  "reference_expected_owned_names": [
+    "UniformPhysicalReference.Point",
+    "UniformPhysicalReference.IsTiling",
+    "UniformPhysicalReference.translate",
+    "UniformPhysicalReference.IsPeriod",
+    "UniformPhysicalReference.HasTiling",
+    "UniformPhysicalReference.IsAperiodic",
+    "UniformPhysicalReference.IsAperiodicMonotile",
+    "UniformPhysicalReference.ExpectedConditionalModel",
+    "UniformPhysicalReference.ExpectedConditionalExpanded",
+    "UniformPhysicalReference.ExpectedClosedExpanded",
+    "UniformPhysicalReference.ExpectedRegistration"
+  ],
+  "reference_imports": [
+    "Mathlib.Analysis.InnerProductSpace.PiL2",
+    "Mathlib.Topology.MetricSpace.Isometry"
+  ],
+  "reference_module": "UniformPhysicalReference",
+  "reference_templates": [
+    "ExpectedConditionalModel",
+    "ExpectedConditionalExpanded",
+    "ExpectedClosedExpanded",
+    "ExpectedRegistration"
+  ],
+  "registration_model_definitions": [
+    "Point",
+    "IsTiling",
+    "translate",
+    "IsPeriod",
+    "HasTiling",
+    "IsAperiodic"
+  ],
+  "remaining_gates": [
+    "independent static review",
+    "separate cloud sandbox preflight",
+    "runtime-only inspector/control compile and leanchecker",
+    "45 synthetic core controls",
+    "Mathlib-only reference compile and leanchecker before research imports",
+    "exact conditional uniform join and mode-specific raw audit",
+    "exact C theorem and closed native application",
+    "separate Challenge/Solution compile, kernel, statement/model and axiom gates",
+    "full package and official Palomar preflight"
+  ],
+  "resource_profile_proposal": {
+    "address_space_bytes": 12884901888,
+    "aggregate_deadline": "must be clipped to the separately reviewed enclosing uniform join deadline; never reset",
+    "checker_seconds": 120,
+    "compile_seconds": 180,
+    "enclosing_aggregate_seconds": 19200,
+    "enclosing_job_minutes": 330,
+    "inspector_seconds": 600,
+    "lean_heap_MiB": 4096,
+    "one_cpu_per_command": true,
+    "profile_status": "existing helper caps proposed only; full uniform serialized-closure memory/time feasibility is unmeasured and needs separate integration review",
+    "rss_tree_bytes": 8589934592
+  },
+  "schema": "uniform-physical-reference-proposed-interface-v1",
+  "source_files": [
+    {
+      "bytes": 18573,
+      "path": "auditors/AuditUniformPhysicalEndpoints.lean",
+      "sha256": "17e422b15fb166d6a964cc95680bf64fcfc7a57fbbc0fdb39caec11040844ff3"
+    },
+    {
+      "bytes": 12198,
+      "path": "control/UniformInspectorControl.lean",
+      "sha256": "f5071c1d97542bd184715f66c7d520dde30851aaf519fb2817d735ee01311cd7"
+    },
+    {
+      "bytes": 4077,
+      "path": "src/UniformPhysicalReference.lean",
+      "sha256": "33d4172ec82a205bcd18992b102c8241c540b3da699722d2ff8ea2a71ebe2bbe"
+    }
+  ],
+  "status": "source_only_unelaborated_no_execution",
+  "trust_level": 0
+}

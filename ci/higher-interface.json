@@ -235,9 +235,9 @@
       "sha256": "ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13"
     },
     {
-      "bytes": 6979,
+      "bytes": 7009,
       "path": "control/HigherInspectorControl.lean",
-      "sha256": "bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992"
+      "sha256": "c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4"
     },
     {
       "bytes": 2138,

@@ -7,6 +7,7 @@ module
 import Lean.Elab.BuiltinEvalCommand
 import AuditHigherPhysicalEndpoints
 meta import AuditHigherPhysicalEndpoints
+meta import Lean.Elab.Command
 open Lean Elab Command
 open HigherPhysicalAudit
 
