@@ -1,0 +1,44 @@
+name: C087 core helpers and serialized auditor preflight
+'on':
+  push:
+    branches: ['verify/c087-core-preflight-20261017']
+permissions:
+  contents: read
+concurrency:
+  group: core-controls-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  core_controls:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out exact reviewed helpers
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Compile check and run isolated C087 core fixtures
+        run: >-
+          /usr/bin/timeout --signal=KILL 1860
+          /usr/bin/python3 -I -S -B ci/core_preflight.py
+          --contract-sha256 e25df334a21d453e185de5d5eb813026f9849250d70c580f0ea541ebfcf25d44
+          --work "${{ runner.temp }}/core-controls"
+      - name: Upload bounded core-only evidence
+        if: ${{ always() }}
+        id: evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: core-controls-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/core-controls/evidence/**
+          retention-days: 7
+          if-no-files-found: error
+      - name: Bind successful core preflight evidence
+        if: ${{ success() }}
+        run: |
+          test -f "${{ runner.temp }}/core-controls/evidence/completion.json"
+          printf '%s\n' 'C087_CORE_EVIDENCE_V1 {"artifact_id":"${{ steps.evidence.outputs.artifact-id }}","artifact_sha256":"${{ steps.evidence.outputs.artifact-digest }}","contract_sha256":"e25df334a21d453e185de5d5eb813026f9849250d70c580f0ea541ebfcf25d44"}'

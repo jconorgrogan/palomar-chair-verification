@@ -1,0 +1,209 @@
+{
+  "address_space_bytes": 8589934592,
+  "aggregate_log_bytes": 8388608,
+  "aggregate_seconds": 1800,
+  "check_seconds": 120,
+  "compile_seconds": 120,
+  "controls": {
+    "default": {
+      "exact_stdout_lines": [
+        "ASYNC_OPTION_CONTROL_DEFAULT_TRUE"
+      ],
+      "module": "DefaultOptionControl"
+    },
+    "disabled": {
+      "exact_stdout_lines": [
+        "ASYNC_OPTION_CONTROL_DISABLED_FALSE"
+      ],
+      "module": "DisabledOptionControl"
+    },
+    "negative": {
+      "exact_stdout_lines": [
+        "PASS exact synthetic raw pair accepted",
+        "PASS nonempty declaration universes rejected",
+        "PASS wrong declaration name rejected",
+        "PASS axiom endpoint rejected",
+        "PASS open proof rejected",
+        "PASS open type universe rejected",
+        "PASS alpha-renamed binder rejected",
+        "PASS implicit f binder rejected",
+        "PASS anonymous arrow binder rejected",
+        "PASS wrong radius rejected",
+        "PASS raw-literal replacement rejected",
+        "PASS changed certified family rejected",
+        "PASS unrelated closed proof rejected",
+        "PASS exact synthetic raw pair accepted",
+        "PASS nonempty declaration universes rejected",
+        "PASS wrong declaration name rejected",
+        "PASS axiom endpoint rejected",
+        "PASS open proof rejected",
+        "PASS open type universe rejected",
+        "PASS alpha-renamed binder rejected",
+        "PASS implicit f binder rejected",
+        "PASS anonymous arrow binder rejected",
+        "PASS wrong radius rejected",
+        "PASS raw-literal replacement rejected",
+        "PASS changed certified family rejected",
+        "PASS unrelated closed proof rejected",
+        "PASS changed source proof dependency rejected",
+        "PASS changed membership dictionary rejected",
+        "PASS exact owned-name set accepted",
+        "PASS missing module theorem rejected",
+        "PASS duplicate owner rejected",
+        "PASS extra declaration rejected",
+        "PASS empty axiom set accepted",
+        "PASS three standard axiom names accepted",
+        "PASS sorryAx rejected",
+        "PASS native-reduction axiom rejected",
+        "PASS hidden value axiom rejected",
+        "PASS missing dependency rejected",
+        "PASS missing root rejected",
+        "PASS standard axiom walk accepted",
+        "PASS graph-cap failure rejected",
+        "PASS partial dependency rejected",
+        "PASS opaque value axiom rejected",
+        "PASS recursor rule RHS axiom rejected",
+        "PASS inductive constructor type axiom rejected",
+        "C087_NEGATIVE_CONTROLS_PASSED"
+      ],
+      "module": "C087NegativeControls"
+    },
+    "shape": {
+      "exact_stdout_lines": [
+        "C087_SYNTHETIC_SOURCE_SHAPE_PASSED: SpectreFinite.HexSearch.RadiusFivePruning.certifiedFamily_occurrenceComplete",
+        "C087_SYNTHETIC_SOURCE_SHAPE_PASSED: SpectreFinite.HexSearch.RadiusFivePruning.extract_mem_certifiedFamily",
+        "C087_SOURCE_SHAPE_CONTROL_PASSED"
+      ],
+      "module": "C087SourceShapeControl"
+    }
+  },
+  "evidence_max_bytes": 33554432,
+  "expected_command_count": 23,
+  "expected_companion_count": 70,
+  "families": {
+    "default": [
+      "DefaultOptionControl"
+    ],
+    "disabled": [
+      "DisabledOptionControl"
+    ],
+    "fixture": [
+      "C087SerializedFixture.Model",
+      "SpectreFinite.RadiusFiveCertified",
+      "SpectreFinite.RadiusFivePruningRounds",
+      "SpectreFinite.RadiusFivePruningCertified"
+    ],
+    "helpers": [
+      "C087RawContract",
+      "AuditC087Raw"
+    ],
+    "negative": [
+      "C087NegativeControls"
+    ],
+    "shape": [
+      "C087SourceShapeControl"
+    ]
+  },
+  "inputs": {
+    "CONTROL_EXPECTATIONS.json": {
+      "bytes": 2751,
+      "sha256": "8242c078f3a61c8968c4929e0275ff2fb6bfee26be03f2f86594693bbe3ed5dc"
+    },
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "README.md": {
+      "bytes": 1804,
+      "sha256": "54b4c73d688ca72b03adc6d1db6e286cc7ebb09fe76b4f518c03c1b855ccd8b9"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 465,
+      "sha256": "2a4e265907c71cbfbe8556ff628d48f2e721e34cf5a924fb503d9d6643143e68"
+    },
+    "ci/boundary-lineage.json": {
+      "bytes": 1351,
+      "sha256": "b8dcf034f4652244c096ab698b99b6e0a4daaf6834efd4da92734d4f7945258b"
+    },
+    "ci/boundary.py": {
+      "bytes": 8149,
+      "sha256": "eb6c58a3be6336fdc6d9cbf762c20cd4d8054f8f23600eb6cb31eb88ec2c6330"
+    },
+    "ci/core_preflight.py": {
+      "bytes": 20816,
+      "sha256": "41eabb12c9db14313820458d1ea87772a6a87133896561196474daf31796c791"
+    },
+    "ci/fresh_stage.py": {
+      "bytes": 49212,
+      "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
+    },
+    "ci/probe_policy.py": {
+      "bytes": 9795,
+      "sha256": "29ef7f85cb5619bfbd89f66cc56edb846aceca963c89dbb76742a4f326d92657"
+    },
+    "ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    },
+    "src/default/DefaultOptionControl.lean": {
+      "bytes": 766,
+      "sha256": "1f374ac965af4025fcf757f1d666eb239cc726477a5cb79bd61a540e14bde4a6"
+    },
+    "src/disabled/DisabledOptionControl.lean": {
+      "bytes": 773,
+      "sha256": "3d4f5734ae2a49d98347722fb2b4bcae570adddcd6c3481152acf726ea6a17ec"
+    },
+    "src/fixture/C087SerializedFixture/Model.lean": {
+      "bytes": 910,
+      "sha256": "4378210e049bd2488ba176995ca79305a2de4b6e8894b4bac8edbc2cb1de96e6"
+    },
+    "src/fixture/SpectreFinite/RadiusFiveCertified.lean": {
+      "bytes": 416,
+      "sha256": "a56e08cab450bd4c3ebb51a954ef8738598cfc1b837bd34db54eef3cb4c57c7d"
+    },
+    "src/fixture/SpectreFinite/RadiusFivePruningCertified.lean": {
+      "bytes": 1021,
+      "sha256": "4216e599b4f7c5fc9384da88c0498620e78ee115e1fd295f8b0a01e038baae5d"
+    },
+    "src/fixture/SpectreFinite/RadiusFivePruningRounds.lean": {
+      "bytes": 512,
+      "sha256": "2073b2239828117313062ef8584b76c45740986fb582e432bee195ef9f736083"
+    },
+    "src/helpers/AuditC087Raw.lean": {
+      "bytes": 1985,
+      "sha256": "d9352bcb8aa19b94ed4f8cb0f87bf379c9b10fef6094b4bddc2755e8bdcd6b69"
+    },
+    "src/helpers/C087RawContract.lean": {
+      "bytes": 8397,
+      "sha256": "061b0c9c608eec98f31b6e7c12a58046a56453042211b0ffe93b05f2a9dcc636"
+    },
+    "src/negative/C087NegativeControls.lean": {
+      "bytes": 7066,
+      "sha256": "8f3e86a6466484dcd4532bcfac99fd9b6701e319d5eeee4ef9f969baf2ed9982"
+    },
+    "src/shape/C087SourceShapeControl.lean": {
+      "bytes": 2836,
+      "sha256": "78f693315b050d126fc472941eee2f398d208bfdc101fc62658e615fb2942a10"
+    }
+  },
+  "job_timeout_minutes": 35,
+  "lean_heap_mib": 768,
+  "mathlib_cache_used": false,
+  "max_created_file_bytes": 536870912,
+  "maximum_parallel_jobs": 1,
+  "minimum_free_disk_bytes": 1610612736,
+  "original_deadline_utc": "2026-10-22T06:15:54Z",
+  "output_max_bytes": 67108864,
+  "per_command_log_bytes": 1048576,
+  "publication_branch": "verify/c087-core-preflight-20261017",
+  "research_objects_loaded": false,
+  "research_theorem_claimed": false,
+  "review_status": "reviewed_for_execution",
+  "rss_tree_bytes": 8589934592,
+  "runtime_archive_bytes": 595391556,
+  "runtime_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+  "runtime_archive_url": "https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst",
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "schema": "c087-core-preflight-v1",
+  "scope": "C087_CORE_HELPERS_CONTROLS_AND_SYNTHETIC_SERIALIZED_TARGET"
+}

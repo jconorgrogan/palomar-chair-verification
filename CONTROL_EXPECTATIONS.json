@@ -1,0 +1,73 @@
+{
+  "default": {
+    "exact_stdout_lines": [
+      "ASYNC_OPTION_CONTROL_DEFAULT_TRUE"
+    ],
+    "module": "DefaultOptionControl"
+  },
+  "disabled": {
+    "exact_stdout_lines": [
+      "ASYNC_OPTION_CONTROL_DISABLED_FALSE"
+    ],
+    "module": "DisabledOptionControl"
+  },
+  "negative": {
+    "exact_stdout_lines": [
+      "PASS exact synthetic raw pair accepted",
+      "PASS nonempty declaration universes rejected",
+      "PASS wrong declaration name rejected",
+      "PASS axiom endpoint rejected",
+      "PASS open proof rejected",
+      "PASS open type universe rejected",
+      "PASS alpha-renamed binder rejected",
+      "PASS implicit f binder rejected",
+      "PASS anonymous arrow binder rejected",
+      "PASS wrong radius rejected",
+      "PASS raw-literal replacement rejected",
+      "PASS changed certified family rejected",
+      "PASS unrelated closed proof rejected",
+      "PASS exact synthetic raw pair accepted",
+      "PASS nonempty declaration universes rejected",
+      "PASS wrong declaration name rejected",
+      "PASS axiom endpoint rejected",
+      "PASS open proof rejected",
+      "PASS open type universe rejected",
+      "PASS alpha-renamed binder rejected",
+      "PASS implicit f binder rejected",
+      "PASS anonymous arrow binder rejected",
+      "PASS wrong radius rejected",
+      "PASS raw-literal replacement rejected",
+      "PASS changed certified family rejected",
+      "PASS unrelated closed proof rejected",
+      "PASS changed source proof dependency rejected",
+      "PASS changed membership dictionary rejected",
+      "PASS exact owned-name set accepted",
+      "PASS missing module theorem rejected",
+      "PASS duplicate owner rejected",
+      "PASS extra declaration rejected",
+      "PASS empty axiom set accepted",
+      "PASS three standard axiom names accepted",
+      "PASS sorryAx rejected",
+      "PASS native-reduction axiom rejected",
+      "PASS hidden value axiom rejected",
+      "PASS missing dependency rejected",
+      "PASS missing root rejected",
+      "PASS standard axiom walk accepted",
+      "PASS graph-cap failure rejected",
+      "PASS partial dependency rejected",
+      "PASS opaque value axiom rejected",
+      "PASS recursor rule RHS axiom rejected",
+      "PASS inductive constructor type axiom rejected",
+      "C087_NEGATIVE_CONTROLS_PASSED"
+    ],
+    "module": "C087NegativeControls"
+  },
+  "shape": {
+    "exact_stdout_lines": [
+      "C087_SYNTHETIC_SOURCE_SHAPE_PASSED: SpectreFinite.HexSearch.RadiusFivePruning.certifiedFamily_occurrenceComplete",
+      "C087_SYNTHETIC_SOURCE_SHAPE_PASSED: SpectreFinite.HexSearch.RadiusFivePruning.extract_mem_certifiedFamily",
+      "C087_SOURCE_SHAPE_CONTROL_PASSED"
+    ],
+    "module": "C087SourceShapeControl"
+  }
+}
