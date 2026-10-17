@@ -144,6 +144,26 @@ SETUP_GATES=('fixed_modules','entry_record','native_graph_load','native_seam_loa
  'official_runtime_bind','owned_layout','snapshot_latest_pipeline','snapshot_prior_pipeline',
  'snapshot_research_source','snapshot_helper_source','snapshot_runtime_placeholder','snapshot_controller')
 
+RUN_GATES=('compatibility_smoke', 'compatibility_revalidate', 'acquisition_revalidate', 'acquisition_layout', 'acquisition_process', 'acquisition_completion', 'acquisition_certificate', 'acquisition_snapshot', 'native_inputs', 'native_expected_map', 'admission_prepare', 'admission_process', 'admission_inputs_revalidate', 'admission_expected_transfer', 'admission_outputs', 'admission_report', 'admission_final_revalidate', 'engine_prepare', 'engine_dispatch', 'engine_inputs_revalidate', 'engine_response', 'evidence_copy', 'evidence_revalidate', 'evidence_complete')
+
+def _phase_mark(owner,gate,position):
+ owner._run_gate=gate;owner._run_position=position
+ if position=='after':owner._run_completed.append(gate)
+
+def _safe_native_result(result):
+ """Numeric/boolean result only; never argv, environment, logs or arbitrary repr."""
+ booleans=('timed_out','log_overflow','memory_exceeded','surviving_children','escaped_descendants','new_sessions_explicitly_allowed','process_group_empty','descendants_empty')
+ times=('cleanup_bound_seconds','cleanup_elapsed_seconds','elapsed_seconds')
+ if type(result) is not dict or set(result)!={*booleans,*times,'exit_code','peak_sampled_tree_rss_bytes'}:return None
+ if any(type(result[k]) is not bool for k in booleans):return None
+ if type(result['exit_code']) is not int or not -255<=result['exit_code']<=255:return None
+ if type(result['peak_sampled_tree_rss_bytes']) is not int or not 0<=result['peak_sampled_tree_rss_bytes']<2**63:return None
+ if any(type(result[k]) not in (int,float) or not math.isfinite(result[k]) or not 0<=result[k]<=10**9 for k in times):return None
+ return dict(result)
+
+def _observe_native_result(owner,phase,result):
+ owner._last_native_phase=phase;owner._last_native_result=_safe_native_result(result)
+
 def _setup_mark(owner,gate,position):
  owner._setup_gate=gate;owner._setup_position=position
  if position=='after':owner._setup_completed.append(gate)
@@ -154,11 +174,273 @@ def _setup_reason(error):
  category='UNCLASSIFIED_EXCEPTION'
  reviewed=type(error) is Rejected
  if reviewed:category='CONTROLLER_REJECTED'
- for name,label in (('frozen_native','FROZEN_SOURCE_REJECTED'),('checked_transfer','FIXED_TRANSFER_REJECTED'),('fresh_stage','NATIVE_SETUP_REJECTED'),('official_runtime','RUNTIME_BIND_REJECTED'),('protocol','INPUT_SNAPSHOT_REJECTED'),('job_budget','BUDGET_REJECTED')):
+ for name,label in (('frozen_native','FROZEN_SOURCE_REJECTED'),('checked_transfer','FIXED_TRANSFER_REJECTED'),('fresh_stage','NATIVE_SETUP_REJECTED'),('official_runtime','RUNTIME_BIND_REJECTED'),('protocol','INPUT_SNAPSHOT_REJECTED'),('job_budget','BUDGET_REJECTED'),('probe_engine','ENGINE_REJECTED'),('probe_policy','PROBE_POLICY_REJECTED'),('output_model','OUTPUT_MODEL_REJECTED'),('three_context_policy','NATIVE_POLICY_REJECTED'),('three_context_local','NATIVE_LOCAL_REJECTED'),('three_context_final','NATIVE_FINAL_REJECTED'),('three_context_execution_policy','NATIVE_EXECUTION_POLICY_REJECTED'),('three_context_current_transport','NATIVE_TRANSPORT_REJECTED'),('three_context_runner','NATIVE_RUNNER_REJECTED')):
   module=sys.modules.get(name)
   if type(module) is types.ModuleType and type(error) is vars(module).get('Rejected'):
    category=label;reviewed=True;break
  reasons={
+  'Boolean/floating raw ledger rejected':'CERTIFICATE_BOOLEAN_FLOATING_RAW_LEDGER_REJECTED',
+  'C087 only':'OUTPUT_C087_ONLY',
+  'actual invocation/effective timeout mismatch':'PROBE_ACTUAL_INVOCATION_EFFECTIVE_TIMEOUT_MISMATCH',
+  'admission already used or poisoned':'ADMISSION_ADMISSION_ALREADY_USED_OR_POISONED',
+  'admission seam may not be subclassed':'ADMISSION_ADMISSION_SEAM_MAY_NOT_BE_SUBCLASSED',
+  'admission workspace must be new':'ADMISSION_ADMISSION_WORKSPACE_MUST_BE_NEW',
+  'admitted predecessors changed':'ENGINE_ADMITTED_PREDECESSORS_CHANGED',
+  'aggregate complete logs exceeded':'ENGINE_AGGREGATE_COMPLETE_LOGS_EXCEEDED',
+  'all engine roots must be disjoint':'ENGINE_ALL_ENGINE_ROOTS_MUST_BE_DISJOINT',
+  'all selected native tars must remain retained in this adapter':'ADMISSION_ALL_SELECTED_NATIVE_TARS_MUST_REMAIN_RETAINED_IN_THIS_ADAPTER',
+  'ambiguous producer step':'CERTIFICATE_AMBIGUOUS_PRODUCER_STEP',
+  'artifact digest':'CERTIFICATE_ARTIFACT_DIGEST',
+  'async-off audit missing':'ENGINE_ASYNC_OFF_AUDIT_MISSING',
+  'audit fields differ':'PROBE_AUDIT_FIELDS_DIFFER',
+  'audit overclaim':'PROBE_AUDIT_OVERCLAIM',
+  'audit target/order differs':'PROBE_AUDIT_TARGET_ORDER_DIFFERS',
+  'audit universes differ':'PROBE_AUDIT_UNIVERSES_DIFFER',
+  'backward wall clock':'CERTIFICATE_BACKWARD_WALL_CLOCK',
+  'bounded raw audit output required':'PROBE_BOUNDED_RAW_AUDIT_OUTPUT_REQUIRED',
+  'bounded tree capacity exceeded':'ENGINE_BOUNDED_TREE_CAPACITY_EXCEEDED',
+  'certificate chronology/deadline':'CERTIFICATE_CERTIFICATE_CHRONOLOGY_DEADLINE',
+  'checker flags changed':'PROBE_CHECKER_FLAGS_CHANGED',
+  'checker timeout changed':'PROBE_CHECKER_TIMEOUT_CHANGED',
+  'clean path required':'OUTPUT_CLEAN_PATH_REQUIRED',
+  'combined output cap exceeded':'PROBE_COMBINED_OUTPUT_CAP_EXCEEDED',
+  'command logs already exist':'ENGINE_COMMAND_LOGS_ALREADY_EXIST',
+  'command resource/cleanup failure':'PROBE_COMMAND_RESOURCE_CLEANUP_FAILURE',
+  'committed diagnostic output changed':'ENGINE_COMMITTED_DIAGNOSTIC_OUTPUT_CHANGED',
+  'compile quarantine already exists':'ENGINE_COMPILE_QUARANTINE_ALREADY_EXISTS',
+  'compile timeout changed':'PROBE_COMPILE_TIMEOUT_CHANGED',
+  'complete bounded logs required':'PROBE_COMPLETE_BOUNDED_LOGS_REQUIRED',
+  'complete exact audit output required':'PROBE_COMPLETE_EXACT_AUDIT_OUTPUT_REQUIRED',
+  'complete fixed native path map':'OUTPUT_COMPLETE_FIXED_NATIVE_PATH_MAP',
+  'complete live log bytes required':'PROBE_COMPLETE_LIVE_LOG_BYTES_REQUIRED',
+  'control output changed':'ENGINE_CONTROL_OUTPUT_CHANGED',
+  'default/async exact raw theorem audit differs':'PROBE_DEFAULT_ASYNC_EXACT_RAW_THEOREM_AUDIT_DIFFERS',
+  'derived certificate reserve':'OUTPUT_DERIVED_CERTIFICATE_RESERVE',
+  'diagnostic output directory differs':'ENGINE_DIAGNOSTIC_OUTPUT_DIRECTORY_DIFFERS',
+  'diagnostic output top-level files differ':'ENGINE_DIAGNOSTIC_OUTPUT_TOP_LEVEL_FILES_DIFFER',
+  'diagnostic/predecessor provider collision':'ENGINE_DIAGNOSTIC_PREDECESSOR_PROVIDER_COLLISION',
+  'duplicate audit JSON key':'PROBE_DUPLICATE_AUDIT_JSON_KEY',
+  'duplicate engine JSON key':'ENGINE_DUPLICATE_ENGINE_JSON_KEY',
+  'duplicate/Boolean step number':'CERTIFICATE_DUPLICATE_BOOLEAN_STEP_NUMBER',
+  'engine dependency import path':'ENGINE_ENGINE_DEPENDENCY_IMPORT_PATH',
+  'engine input root binding':'ENGINE_ENGINE_INPUT_ROOT_BINDING',
+  'engine retained/output root binding':'ENGINE_ENGINE_RETAINED_OUTPUT_ROOT_BINDING',
+  'engine source dependency changed':'ENGINE_ENGINE_SOURCE_DEPENDENCY_CHANGED',
+  'exact admitted companion count required':'ENGINE_EXACT_ADMITTED_COMPANION_COUNT_REQUIRED',
+  'exact live record shape required':'PROBE_EXACT_LIVE_RECORD_SHAPE_REQUIRED',
+  'exact marker bytes':'OUTPUT_EXACT_MARKER_BYTES',
+  'exact observed inode':'OUTPUT_EXACT_OBSERVED_INODE',
+  'exact ordered retained stages required':'CERTIFICATE_EXACT_ORDERED_RETAINED_STAGES_REQUIRED',
+  'exact paired profiles required':'PROBE_EXACT_PAIRED_PROFILES_REQUIRED',
+  'exact six modern output companions required':'PROBE_EXACT_SIX_MODERN_OUTPUT_COMPANIONS_REQUIRED',
+  'exact target source required':'ENGINE_EXACT_TARGET_SOURCE_REQUIRED',
+  'exact verifier/upload steps required':'CERTIFICATE_EXACT_VERIFIER_UPLOAD_STEPS_REQUIRED',
+  'exclusive registered diagnostic output required':'ENGINE_EXCLUSIVE_REGISTERED_DIAGNOSTIC_OUTPUT_REQUIRED',
+  'file changed during hash':'ENGINE_FILE_CHANGED_DURING_HASH',
+  'finite shared host deadline required':'ADMISSION_FINITE_SHARED_HOST_DEADLINE_REQUIRED',
+  'fixed control expectations required':'ENGINE_FIXED_CONTROL_EXPECTATIONS_REQUIRED',
+  'fixed engine RESULT changed':'ENGINE_FIXED_ENGINE_RESULT_CHANGED',
+  'fixed engine dependency set':'ENGINE_FIXED_ENGINE_DEPENDENCY_SET',
+  'fixed engine manifest binding':'ENGINE_FIXED_ENGINE_MANIFEST_BINDING',
+  'fixed engine manifest schema':'ENGINE_FIXED_ENGINE_MANIFEST_SCHEMA',
+  'fixed helper prefix changed':'ENGINE_FIXED_HELPER_PREFIX_CHANGED',
+  'fixed helper source bytes required':'ENGINE_FIXED_HELPER_SOURCE_BYTES_REQUIRED',
+  'fixed native source identity':'ENGINE_FIXED_NATIVE_SOURCE_IDENTITY',
+  'fixed output byte sizes':'OUTPUT_FIXED_OUTPUT_BYTE_SIZES',
+  'global raw cap exceeded':'CERTIFICATE_GLOBAL_RAW_CAP_EXCEEDED',
+  'helper/check/audit failed':'PROBE_HELPER_CHECK_AUDIT_FAILED',
+  'historical admission never grants command, build, final, or executor authority':'ADMISSION_HISTORICAL_ADMISSION_NEVER_GRANTS_COMMAND_BUILD_FINAL_OR_EXECUTOR_AUTHORITY',
+  'historical admission workspace must be new':'ADMISSION_HISTORICAL_ADMISSION_WORKSPACE_MUST_BE_NEW',
+  'historical implementation inventory changed':'ADMISSION_HISTORICAL_IMPLEMENTATION_INVENTORY_CHANGED',
+  'host deadline expired or renewed':'ADMISSION_HOST_DEADLINE_EXPIRED_OR_RENEWED',
+  'insufficient measured native restore inodes':'ADMISSION_INSUFFICIENT_MEASURED_NATIVE_RESTORE_INODES',
+  'insufficient measured native restore/output space':'ADMISSION_INSUFFICIENT_MEASURED_NATIVE_RESTORE_OUTPUT_SPACE',
+  'invalid audit output':'PROBE_INVALID_AUDIT_OUTPUT',
+  'invalid bounded integer':'PROBE_INVALID_BOUNDED_INTEGER',
+  'invalid elapsed time':'PROBE_INVALID_ELAPSED_TIME',
+  'invalid native RSS observation':'PROBE_INVALID_NATIVE_RSS_OBSERVATION',
+  'invalid native cleanup elapsed':'PROBE_INVALID_NATIVE_CLEANUP_ELAPSED',
+  'invalid output digest':'PROBE_INVALID_OUTPUT_DIGEST',
+  'invalid remaining shared deadline':'PROBE_INVALID_REMAINING_SHARED_DEADLINE',
+  'inventory JSON size bound':'CERTIFICATE_INVENTORY_JSON_SIZE_BOUND',
+  'live argv/environment/resource/layout/name differs':'PROBE_LIVE_ARGV_ENVIRONMENT_RESOURCE_LAYOUT_NAME_DIFFERS',
+  'live combined logs exceed cap':'PROBE_LIVE_COMBINED_LOGS_EXCEED_CAP',
+  'live log bytes/hash mismatch':'PROBE_LIVE_LOG_BYTES_HASH_MISMATCH',
+  'live log cap differs':'PROBE_LIVE_LOG_CAP_DIFFERS',
+  'live log row schema differs':'PROBE_LIVE_LOG_ROW_SCHEMA_DIFFERS',
+  'live nominal timeout differs':'PROBE_LIVE_NOMINAL_TIMEOUT_DIFFERS',
+  'live resource caps differ':'PROBE_LIVE_RESOURCE_CAPS_DIFFER',
+  'live session escape allowance forbidden':'PROBE_LIVE_SESSION_ESCAPE_ALLOWANCE_FORBIDDEN',
+  'live spec/record required':'PROBE_LIVE_SPEC_RECORD_REQUIRED',
+  'log changed after hashing':'ENGINE_LOG_CHANGED_AFTER_HASHING',
+  'log exceeds bound':'ENGINE_LOG_EXCEEDS_BOUND',
+  'measured allocation unit':'OUTPUT_MEASURED_ALLOCATION_UNIT',
+  'native certificate bound':'OUTPUT_NATIVE_CERTIFICATE_BOUND',
+  'native cleanup bound':'ENGINE_NATIVE_CLEANUP_BOUND',
+  'native cleanup elapsed':'ENGINE_NATIVE_CLEANUP_ELAPSED',
+  'native cleanup guard differs':'PROBE_NATIVE_CLEANUP_GUARD_DIFFERS',
+  'native executor read changed':'ENGINE_NATIVE_EXECUTOR_READ_CHANGED',
+  'native executor source changed':'ENGINE_NATIVE_EXECUTOR_SOURCE_CHANGED',
+  'native file absent from inventory':'CERTIFICATE_NATIVE_FILE_ABSENT_FROM_INVENTORY',
+  'native live result shape differs':'PROBE_NATIVE_LIVE_RESULT_SHAPE_DIFFERS',
+  'native origin required':'OUTPUT_NATIVE_ORIGIN_REQUIRED',
+  'native payload size':'OUTPUT_NATIVE_PAYLOAD_SIZE',
+  'native resource observation':'ENGINE_NATIVE_RESOURCE_OBSERVATION',
+  'native result allowed a new session':'PROBE_NATIVE_RESULT_ALLOWED_A_NEW_SESSION',
+  'native result shape':'ENGINE_NATIVE_RESULT_SHAPE',
+  'native session policy':'ENGINE_NATIVE_SESSION_POLICY',
+  'native tar absent from inventory':'CERTIFICATE_NATIVE_TAR_ABSENT_FROM_INVENTORY',
+  'new workspace required':'ADMISSION_NEW_WORKSPACE_REQUIRED',
+  'nonfinite JSON':'OUTPUT_NONFINITE_JSON',
+  'nonfinite audit':'PROBE_NONFINITE_AUDIT',
+  'nonfinite engine manifest':'ENGINE_NONFINITE_ENGINE_MANIFEST',
+  'nonnegative protocol byte caps':'OUTPUT_NONNEGATIVE_PROTOCOL_BYTE_CAPS',
+  'nonstandard/duplicate axioms':'PROBE_NONSTANDARD_DUPLICATE_AXIOMS',
+  'observed allocation unit':'OUTPUT_OBSERVED_ALLOCATION_UNIT',
+  'only explicit async-off variation allowed':'PROBE_ONLY_EXPLICIT_ASYNC_OFF_VARIATION_ALLOWED',
+  'only the exact bounded default thread-creation abort may continue to B':'PROBE_ONLY_THE_EXACT_BOUNDED_DEFAULT_THREAD_CREATION_ABORT_MAY_CONTINUE_TO_B',
+  'ordered predecessors required':'OUTPUT_ORDERED_PREDECESSORS_REQUIRED',
+  'ordered wrapper scope':'OUTPUT_ORDERED_WRAPPER_SCOPE',
+  'original absolute host deadline must be a finite float':'CERTIFICATE_ORIGINAL_ABSOLUTE_HOST_DEADLINE_MUST_BE_A_FINITE_FLOAT',
+  'outer native origin mismatch':'OUTPUT_OUTER_NATIVE_ORIGIN_MISMATCH',
+  'output map required':'PROBE_OUTPUT_MAP_REQUIRED',
+  'output metadata fields differ':'PROBE_OUTPUT_METADATA_FIELDS_DIFFER',
+  'paired profile order differs':'PROBE_PAIRED_PROFILE_ORDER_DIFFERS',
+  'paired profiles differ beyond async scheduling':'PROBE_PAIRED_PROFILES_DIFFER_BEYOND_ASYNC_SCHEDULING',
+  'parent admission session already consumed':'ADMISSION_PARENT_ADMISSION_SESSION_ALREADY_CONSUMED',
+  'parent admission session nonce required':'ADMISSION_PARENT_ADMISSION_SESSION_NONCE_REQUIRED',
+  'parent engine invocation binding':'ENGINE_PARENT_ENGINE_INVOCATION_BINDING',
+  'parent engine invocation changed':'ENGINE_PARENT_ENGINE_INVOCATION_CHANGED',
+  'parent session nonce required':'CERTIFICATE_PARENT_SESSION_NONCE_REQUIRED',
+  'parent-authenticated certificate bytes changed':'CERTIFICATE_PARENT_AUTHENTICATED_CERTIFICATE_BYTES_CHANGED',
+  'predecessor content map differs':'ENGINE_PREDECESSOR_CONTENT_MAP_DIFFERS',
+  'prepare file absent from retained inventory':'CERTIFICATE_PREPARE_FILE_ABSENT_FROM_RETAINED_INVENTORY',
+  'prepare identity size bound':'CERTIFICATE_PREPARE_IDENTITY_SIZE_BOUND',
+  'production capability/controller binding is not yet sealed':'ENGINE_PRODUCTION_CAPABILITY_CONTROLLER_BINDING_IS_NOT_YET_SEALED',
+  'raw JSON bytes required':'OUTPUT_RAW_JSON_BYTES_REQUIRED',
+  'raw audit gate failed':'PROBE_RAW_AUDIT_GATE_FAILED',
+  'raw auditor stderr':'ENGINE_RAW_AUDITOR_STDERR',
+  'raw bytes required':'OUTPUT_RAW_BYTES_REQUIRED',
+  'raw type/proof absent':'PROBE_RAW_TYPE_PROOF_ABSENT',
+  'receipt hash':'OUTPUT_RECEIPT_HASH',
+  'regular unshared file required':'ENGINE_REGULAR_UNSHARED_FILE_REQUIRED',
+  'relative path required':'OUTPUT_RELATIVE_PATH_REQUIRED',
+  'resource ceiling changed':'PROBE_RESOURCE_CEILING_CHANGED',
+  'retained acquisition file changed':'CERTIFICATE_RETAINED_ACQUISITION_FILE_CHANGED',
+  'retained bytes changed':'CERTIFICATE_RETAINED_BYTES_CHANGED',
+  'retained complete profile changed':'ENGINE_RETAINED_COMPLETE_PROFILE_CHANGED',
+  'retained failed-profile evidence changed':'ENGINE_RETAINED_FAILED_PROFILE_EVIDENCE_CHANGED',
+  'retained full file inventory required':'CERTIFICATE_RETAINED_FULL_FILE_INVENTORY_REQUIRED',
+  'retained native artifact expired':'CERTIFICATE_RETAINED_NATIVE_ARTIFACT_EXPIRED',
+  'retained relative path required':'CERTIFICATE_RETAINED_RELATIVE_PATH_REQUIRED',
+  'retained wrapper row count':'CERTIFICATE_RETAINED_WRAPPER_ROW_COUNT',
+  'runtime placeholder must be empty/inventory-only':'ADMISSION_RUNTIME_PLACEHOLDER_MUST_BE_EMPTY_INVENTORY_ONLY',
+  'runtime placeholder no longer empty':'ADMISSION_RUNTIME_PLACEHOLDER_NO_LONGER_EMPTY',
+  'runtime search path changed':'ENGINE_RUNTIME_SEARCH_PATH_CHANGED',
+  'sandbox mount absent':'ENGINE_SANDBOX_MOUNT_ABSENT',
+  'separate exact protocol caps':'OUTPUT_SEPARATE_EXACT_PROTOCOL_CAPS',
+  'shared host deadline exceeded':'CERTIFICATE_SHARED_HOST_DEADLINE_EXCEEDED',
+  'shared host deadline exceeded after hashing':'CERTIFICATE_SHARED_HOST_DEADLINE_EXCEEDED_AFTER_HASHING',
+  'shared host deadline exceeded while hashing':'CERTIFICATE_SHARED_HOST_DEADLINE_EXCEEDED_WHILE_HASHING',
+  'short durable write':'ENGINE_SHORT_DURABLE_WRITE',
+  'successful helper stderr must be empty':'ENGINE_SUCCESSFUL_HELPER_STDERR_MUST_BE_EMPTY',
+  'symlink path':'ENGINE_SYMLINK_PATH',
+  'target cannot be restored':'ADMISSION_TARGET_CANNOT_BE_RESTORED',
+  'target must not occur in predecessor namespace':'ENGINE_TARGET_MUST_NOT_OCCUR_IN_PREDECESSOR_NAMESPACE',
+  'terminal run chronology':'CERTIFICATE_TERMINAL_RUN_CHRONOLOGY',
+  'tree directory alias':'ENGINE_TREE_DIRECTORY_ALIAS',
+  'tree regular unshared file required':'ENGINE_TREE_REGULAR_UNSHARED_FILE_REQUIRED',
+  'tree root required':'ENGINE_TREE_ROOT_REQUIRED',
+  'true exit code required':'PROBE_TRUE_EXIT_CODE_REQUIRED',
+  'unapproved initial engine file':'ENGINE_UNAPPROVED_INITIAL_ENGINE_FILE',
+  'unexpected helper checker stdout':'ENGINE_UNEXPECTED_HELPER_CHECKER_STDOUT',
+  'unexpected helper compile stdout':'ENGINE_UNEXPECTED_HELPER_COMPILE_STDOUT',
+  'unexpected target checker output':'ENGINE_UNEXPECTED_TARGET_CHECKER_OUTPUT',
+  'unknown acquired origin':'CERTIFICATE_UNKNOWN_ACQUIRED_ORIGIN',
+  'unknown profile':'PROBE_UNKNOWN_PROFILE',
+  'unsafe retained path':'CERTIFICATE_UNSAFE_RETAINED_PATH',
+  'verifier/upload order':'CERTIFICATE_VERIFIER_UPLOAD_ORDER',
+  'whole-module audit closure fields differ':'PROBE_WHOLE_MODULE_AUDIT_CLOSURE_FIELDS_DIFFER',
+  'workspace must be fresh':'ENGINE_WORKSPACE_MUST_BE_FRESH',
+  'wrapper file absent from inventory':'CERTIFICATE_WRAPPER_FILE_ABSENT_FROM_INVENTORY',
+  'absolute canonical path':'PARENT_ABSOLUTE_CANONICAL_PATH',
+  'acquisition changed':'PARENT_ACQUISITION_CHANGED',
+  'acquisition changed during diagnostic':'PARENT_ACQUISITION_CHANGED_DURING_DIAGNOSTIC',
+  'acquisition credential absent':'PARENT_ACQUISITION_CREDENTIAL_ABSENT',
+  'actual native child result required':'PARENT_ACTUAL_NATIVE_CHILD_RESULT_REQUIRED',
+  'actual successful native child exit required':'PARENT_ACTUAL_SUCCESSFUL_NATIVE_CHILD_EXIT_REQUIRED',
+  'admission output device changed':'PARENT_ADMISSION_OUTPUT_DEVICE_CHANGED',
+  'admitted inode/hash map changed during diagnostic':'PARENT_ADMITTED_INODE_HASH_MAP_CHANGED_DURING_DIAGNOSTIC',
+  'bounded evidence file count':'PARENT_BOUNDED_EVIDENCE_FILE_COUNT',
+  'child RSS observation':'PARENT_CHILD_RSS_OBSERVATION',
+  'child cleanup bound':'PARENT_CHILD_CLEANUP_BOUND',
+  'child completion binding':'PARENT_CHILD_COMPLETION_BINDING',
+  'child containment/resource/cleanup failure':'PARENT_CHILD_CONTAINMENT_RESOURCE_CLEANUP_FAILURE',
+  'child timeout/elapsed result':'PARENT_CHILD_TIMEOUT_ELAPSED_RESULT',
+  'clean complete import smoke logs':'PARENT_CLEAN_COMPLETE_IMPORT_SMOKE_LOGS',
+  'complete independently derived native output map':'PARENT_COMPLETE_INDEPENDENTLY_DERIVED_NATIVE_OUTPUT_MAP',
+  'complete raw chain/log evidence cap':'PARENT_COMPLETE_RAW_CHAIN_LOG_EVIDENCE_CAP',
+  'complete safe admission capture limit':'PARENT_COMPLETE_SAFE_ADMISSION_CAPTURE_LIMIT',
+  'complete safe import-smoke capture limit':'PARENT_COMPLETE_SAFE_IMPORT_SMOKE_CAPTURE_LIMIT',
+  'contract must match the exact reviewed source release state':'PARENT_CONTRACT_MUST_MATCH_THE_EXACT_REVIEWED_SOURCE_RELEASE_STATE',
+  'controller poisoned':'PARENT_CONTROLLER_POISONED',
+  'controller source inode/hash changed':'PARENT_CONTROLLER_SOURCE_INODE_HASH_CHANGED',
+  'duplicate JSON key':'PARENT_DUPLICATE_JSON_KEY',
+  'exact actual CI run/attempt/commit fields':'PARENT_EXACT_ACTUAL_CI_RUN_ATTEMPT_COMMIT_FIELDS',
+  'exact bounded acquisition completion':'PARENT_EXACT_BOUNDED_ACQUISITION_COMPLETION',
+  'exact failed-diagnostic command specification':'PARENT_EXACT_FAILED_DIAGNOSTIC_COMMAND_SPECIFICATION',
+  'exact token-free native environment including fixed bwrap PWD':'PARENT_EXACT_TOKEN_FREE_NATIVE_ENVIRONMENT_INCLUDING_FIXED_BWRAP_PWD',
+  'exact trusted workflow context':'PARENT_EXACT_TRUSTED_WORKFLOW_CONTEXT',
+  'external controller contract pin':'PARENT_EXTERNAL_CONTROLLER_CONTRACT_PIN',
+  'extra native child outputs':'PARENT_EXTRA_NATIVE_CHILD_OUTPUTS',
+  'file changed during read':'PARENT_FILE_CHANGED_DURING_READ',
+  'file grew beyond bound':'PARENT_FILE_GREW_BEYOND_BOUND',
+  'final complete evidence output map':'PARENT_FINAL_COMPLETE_EVIDENCE_OUTPUT_MAP',
+  'final diagnostic inode/hash map changed':'PARENT_FINAL_DIAGNOSTIC_INODE_HASH_MAP_CHANGED',
+  'final evidence cap':'PARENT_FINAL_EVIDENCE_CAP',
+  'fixed acquisition mount position':'PARENT_FIXED_ACQUISITION_MOUNT_POSITION',
+  'fixed canonical installed inventory':'PARENT_FIXED_CANONICAL_INSTALLED_INVENTORY',
+  'fixed import alias already present':'PARENT_FIXED_IMPORT_ALIAS_ALREADY_PRESENT',
+  'fixed import-only smoke completion':'PARENT_FIXED_IMPORT_ONLY_SMOKE_COMPLETION',
+  'fixed input inode/hash changed':'PARENT_FIXED_INPUT_INODE_HASH_CHANGED',
+  'fixed internal child entry':'PARENT_FIXED_INTERNAL_CHILD_ENTRY',
+  'fixed owned invocation location':'PARENT_FIXED_OWNED_INVOCATION_LOCATION',
+  'fixed source bytes changed':'PARENT_FIXED_SOURCE_BYTES_CHANGED',
+  'fresh acquisition root':'PARENT_FRESH_ACQUISITION_ROOT',
+  'fresh failure evidence':'PARENT_FRESH_FAILURE_EVIDENCE',
+  'fresh isolated native interpreter':'PARENT_FRESH_ISOLATED_NATIVE_INTERPRETER',
+  'fresh official archive path':'PARENT_FRESH_OFFICIAL_ARCHIVE_PATH',
+  'fresh work required':'PARENT_FRESH_WORK_REQUIRED',
+  'inactive minimal controller requires separate exact release review':'PARENT_INACTIVE_MINIMAL_CONTROLLER_REQUIRES_SEPARATE_EXACT_RELEASE_REVIEW',
+  'inactive source-only child; execution not released':'PARENT_INACTIVE_SOURCE_ONLY_CHILD_EXECUTION_NOT_RELEASED',
+  'independent complete engine response':'PARENT_INDEPENDENT_COMPLETE_ENGINE_RESPONSE',
+  'independent transfer certificate/marker bytes':'PARENT_INDEPENDENT_TRANSFER_CERTIFICATE_MARKER_BYTES',
+  'insufficient time for cleanup':'PARENT_INSUFFICIENT_TIME_FOR_CLEANUP',
+  'measured complete evidence copy capacity':'PARENT_MEASURED_COMPLETE_EVIDENCE_COPY_CAPACITY',
+  'measured official archive headroom':'PARENT_MEASURED_OFFICIAL_ARCHIVE_HEADROOM',
+  'native child acquisition binding':'PARENT_NATIVE_CHILD_ACQUISITION_BINDING',
+  'native child input binding':'PARENT_NATIVE_CHILD_INPUT_BINDING',
+  'native report disagrees with independent expectations':'PARENT_NATIVE_REPORT_DISAGREES_WITH_INDEPENDENT_EXPECTATIONS',
+  'official release archive length':'PARENT_OFFICIAL_RELEASE_ARCHIVE_LENGTH',
+  'official runtime archive length':'PARENT_OFFICIAL_RUNTIME_ARCHIVE_LENGTH',
+  'one CPU':'PARENT_ONE_CPU',
+  'one original controller invocation':'PARENT_ONE_ORIGINAL_CONTROLLER_INVOCATION',
+  'original deadline changed':'PARENT_ORIGINAL_DEADLINE_CHANGED',
+  'original official release download bound':'PARENT_ORIGINAL_OFFICIAL_RELEASE_DOWNLOAD_BOUND',
+  'original residual disk/inode headroom before diagnostic':'PARENT_ORIGINAL_RESIDUAL_DISK_INODE_HEADROOM_BEFORE_DIAGNOSTIC',
+  'owned bounded regular file':'PARENT_OWNED_BOUNDED_REGULAR_FILE',
+  'owned completion marker':'PARENT_OWNED_COMPLETION_MARKER',
+  'owned request/deadline binding':'PARENT_OWNED_REQUEST_DEADLINE_BINDING',
+  'owned/immutable root replaced':'PARENT_OWNED_IMMUTABLE_ROOT_REPLACED',
+  'parent invocation mutated':'PARENT_PARENT_INVOCATION_MUTATED',
+  'relative package source':'PARENT_RELATIVE_PACKAGE_SOURCE',
+  'runtime setup must be token-free':'PARENT_RUNTIME_SETUP_MUST_BE_TOKEN_FREE',
+  'same filesystem allocation unit':'PARENT_SAME_FILESYSTEM_ALLOCATION_UNIT',
+  'same live owner admission required':'PARENT_SAME_LIVE_OWNER_ADMISSION_REQUIRED',
+  'small complete failure packet':'PARENT_SMALL_COMPLETE_FAILURE_PACKET',
+  'smoke cannot admit objects':'PARENT_SMOKE_CANNOT_ADMIT_OBJECTS',
+  'symlink in path':'PARENT_SYMLINK_IN_PATH',
+  'unlisted acquisition metadata':'PARENT_UNLISTED_ACQUISITION_METADATA',
   'frozen graph manifest changed':'FROZEN_GRAPH_MANIFEST',
   'frozen complete38-file source graph changed':'FROZEN_GRAPH_MEMBERSHIP',
   'frozen compile buffer pin mismatch':'FROZEN_SOURCE_BUFFER',
@@ -205,6 +487,10 @@ def _setup_reason(error):
   'tree entries':'SNAPSHOT_ENTRY_LIMIT',
   'fixed source bytes changed':'CONTROLLER_SOURCE_PIN',
  }
+ planner={'canonical absolute path required':'PLANNER_CANONICAL_PATH','native command helper pin differs':'PLANNER_NATIVE_HELPER_PIN','native helper import path differs':'PLANNER_NATIVE_IMPORT_PATH','command roots must be disjoint':'PLANNER_DISJOINT_ROOTS'}
+ if type(error) is ValueError:
+  args=BaseException.args.__get__(error)
+  if type(args) is tuple and len(args)==1 and type(args[0]) is str and len(args[0])<=160 and args[0] in planner:return 'COMMAND_PLANNER_REJECTED',planner[args[0]]
  args=BaseException.args.__get__(error) if reviewed else None
  reason='REQUIRED_GATE_FAILED'
  if reviewed and type(args) is tuple and len(args)==1 and type(args[0]) is str and len(args[0])<=160:
@@ -226,6 +512,29 @@ def _setup_transport_reason(error):
   return {'exception_category':'OFFICIAL_DOWNLOAD_URL_ERROR','reason_code':'OFFICIAL_DOWNLOAD_URL_ERROR'}
  return {}
 
+# Diagnostic interface SHA256: 9a93db503ae0ed8fa257cf74f27789b6f99270cf46a0192039e7f31bbafa1b16
+ACQUISITION_FAILURE_PHASES=('bootstrap', 'arguments', 'runtime_envelope', 'quarantine_create', 'constructor', 'initial_snapshots', 'prepare_transfer', 'stage_transfer', 'receipt_copy', 'historical_ledger', 'stage_reauthentication', 'final_snapshots', 'prepare_reauthentication', 'certificate_build', 'certificate_write', 'certificate_finalize', 'cleanup')
+ACQUISITION_FAILURE_PAIRS=(('AUTHORIZATION', 'API_PATH_REJECTED'), ('AUTHORIZATION', 'API_QUOTA_OR_AUTHORIZATION'), ('AUTHORIZATION', 'API_SOURCE_BINDING'), ('AUTHORIZATION', 'STORAGE_CREDENTIAL_REJECTED'), ('AUTHORIZATION', 'STORAGE_REDIRECT_REJECTED'), ('AUTHORIZATION', 'TOKEN_MISSING_OR_INVALID'), ('CAPACITY', 'DISK_FULL'), ('CAPACITY', 'DISK_HEADROOM'), ('CAPACITY', 'FILE_DESCRIPTORS'), ('CAPACITY', 'GLOBAL_RAW_LEDGER'), ('CAPACITY', 'HISTORICAL_GLOBAL_LEDGER'), ('CAPACITY', 'INODE_HEADROOM'), ('CAPACITY', 'MEMORY_FAILURE'), ('CLEANUP', 'METADATA_ERROR_CLEANUP'), ('CLEANUP', 'METADATA_RESPONSE_CLEANUP'), ('CLEANUP', 'QUARANTINE_CLEANUP'), ('CLEANUP', 'QUOTA_RESPONSE_CLEANUP'), ('DEADLINE', 'METADATA_DEADLINE_EXPIRED'), ('DEADLINE', 'ORIGINAL_AGE_EXPIRED'), ('DEADLINE', 'QUOTA_CLOCK_INVALID'), ('DEADLINE', 'QUOTA_PACING_BUDGET'), ('DEADLINE', 'QUOTA_REQUEST_BUDGET'), ('DEADLINE', 'QUOTA_SLEEP_NO_PROGRESS'), ('DEADLINE', 'QUOTA_TIMEOUT_BUDGET'), ('DEADLINE', 'QUOTA_WAIT_BUDGET'), ('DEADLINE', 'REQUEST_TIMEOUT_INVALID'), ('DEADLINE', 'SHARED_DEADLINE_EXPIRED'), ('ENVELOPE', 'AFFINITY_REJECTED'), ('ENVELOPE', 'INTERPRETER_FLAGS'), ('FILESYSTEM', 'FILESYSTEM_PERMISSION'), ('FILESYSTEM', 'OS_FAILURE'), ('FILESYSTEM', 'QUARANTINE_CANONICAL'), ('FILESYSTEM', 'QUARANTINE_EMPTY'), ('FILESYSTEM', 'QUARANTINE_FRESH'), ('FILESYSTEM', 'QUARANTINE_MODE'), ('FILESYSTEM', 'QUARANTINE_OWNER'), ('HTTP', 'HTTP_STATUS_REJECTED'), ('IDENTITY', 'DUPLICATE_TERMINAL_JOB'), ('IDENTITY', 'PREPARE_METADATA_CHANGED'), ('IDENTITY', 'STAGE_METADATA_CHANGED'), ('IDENTITY', 'TERMINAL_SNAPSHOT_CHANGED'), ('NETWORK', 'NETWORK_DNS'), ('NETWORK', 'NETWORK_FAILURE'), ('NETWORK', 'NETWORK_TIMEOUT'), ('PAYLOAD', 'NATIVE_RECEIPT_PIN'), ('PAYLOAD', 'NATIVE_TAR_PIN'), ('PAYLOAD', 'ZIP_SIZE_DIGEST'), ('QUOTA_SCHEMA', 'QUOTA_DATE'), ('QUOTA_SCHEMA', 'QUOTA_HEADERS_UNAVAILABLE'), ('QUOTA_SCHEMA', 'QUOTA_HEADER_CONFLICT'), ('QUOTA_SCHEMA', 'QUOTA_HEADER_SHAPE'), ('QUOTA_SCHEMA', 'QUOTA_METADATA'), ('QUOTA_SCHEMA', 'QUOTA_NUMERIC_HEADER'), ('QUOTA_WINDOW', 'QUOTA_CLOCK_BACKWARD'), ('QUOTA_WINDOW', 'QUOTA_EXHAUSTED'), ('QUOTA_WINDOW', 'QUOTA_REMAINING_INCREASED'), ('QUOTA_WINDOW', 'QUOTA_RESET_EARLY'), ('QUOTA_WINDOW', 'QUOTA_RESET_WINDOW'), ('REJECTION', 'UNCLASSIFIED_REJECTION'), ('SOURCE', 'HISTORICAL_PINS_MISMATCH'), ('SOURCE', 'SPEC_PIN_MISMATCH'))
+
+def _validated_acquisition_failure(value):
+ if type(value) is not dict or set(value)!={'schema','phase','category','reason_code','http_status'}:return None
+ if any(type(value[k]) is not str for k in ('schema','phase','category','reason_code')):return None
+ if value['schema']!='c087-acquisition-failure-v1' or value['phase'] not in ACQUISITION_FAILURE_PHASES:return None
+ if (value['category'],value['reason_code']) not in ACQUISITION_FAILURE_PAIRS:return None
+ status=value['http_status']
+ if status is not None and (type(status) is not int or not 100<=status<=599):return None
+ return dict(value)
+
+def _parse_acquisition_failure(raw):
+ prefix=b'C087_ACQUISITION_FAILURE_V1 '
+ if type(raw) is not bytes or not 0<len(raw)<=1024 or not raw.startswith(prefix) or not raw.endswith(b'\n') or raw.count(b'\n')!=1:return None
+ try:
+  value=_validated_acquisition_failure(parse(raw[len(prefix):-1]))
+  if value is None:return None
+  canonical=prefix+json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False).encode('ascii')+b'\n'
+  return value if raw==canonical else None
+ except BaseException:return None
+
 def _safe_failure(work,phase,error,*,setup_owner=None):
  """Never stringify acquisition exceptions, URLs, headers, bodies or secrets."""
  try:
@@ -234,15 +543,27 @@ def _safe_failure(work,phase,error,*,setup_owner=None):
   completion=out/'COMPLETED.json'
   if completion.exists():
    need(completion.is_file() and not completion.is_symlink(),'owned completion marker');completion.unlink()
-  value={'schema':'c087-minimal-failure-v1','status':'failed_closed','phase':phase,'exception_class':type(error).__name__ if type(error).__module__=='builtins' else 'ReviewedComponentRejected','reason_code':'REQUIRED_GATE_FAILED','proof_pass_claimed':False,'resume_allowed':False}
+  value={'schema':'c087-minimal-failure-v1','status':'failed_closed','phase':phase,'exception_class':{ValueError:'ValueError',RuntimeError:'RuntimeError',OSError:'OSError',TimeoutError:'TimeoutError',MemoryError:'MemoryError',TypeError:'TypeError',KeyError:'KeyError',FileNotFoundError:'FileNotFoundError',PermissionError:'PermissionError',AssertionError:'AssertionError'}.get(type(error),'ReviewedComponentRejected'),'reason_code':'REQUIRED_GATE_FAILED','proof_pass_claimed':False,'resume_allowed':False}
+  value['exception_category'],value['reason_code']=_setup_reason(error)
+  if setup_owner is not None:
+   gate=getattr(setup_owner,'_run_gate',None);position=getattr(setup_owner,'_run_position',None);completed=getattr(setup_owner,'_run_completed',None)
+   if type(gate) is str and gate in RUN_GATES and position in ('before','after') and type(completed) is list and completed==list(RUN_GATES[:RUN_GATES.index(gate)+(position=='after')]):
+    value['gate']=gate;value['gate_position']=position;value['completed_gates']=completed
+   result=_safe_native_result(getattr(setup_owner,'_last_native_result',None))
+   native_phase=getattr(setup_owner,'_last_native_phase',None)
+   if result is not None and native_phase in ('compatibility','acquisition','admission'):
+    value['native_phase']=native_phase;value['native_result']=result
+   child=_validated_acquisition_failure(getattr(setup_owner,'_acquisition_failure',None))
+   if child is not None:value['acquisition_child']=child
   if phase=='setup':
-   value['exception_category'],value['reason_code']=_setup_reason(error)
    if setup_owner is not None:
     gate=setup_owner._setup_gate;position=setup_owner._setup_position;completed=setup_owner._setup_completed
     if type(gate) is str and gate in SETUP_GATES and position in ('before','after') and type(completed) is list and completed==list(SETUP_GATES[:SETUP_GATES.index(gate)+(position=='after')]):
      value['setup_gate']=gate;value['setup_position']=position;value['setup_completed']=completed
      if gate=='runtime_download':value.update(_setup_transport_reason(error))
-  raw=jb(value);fd=os.open(out/'FAILURE.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+  raw=jb(value)
+  if len(raw)>16*1024:return
+  fd=os.open(out/'FAILURE.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
   try:os.write(fd,raw);os.fsync(fd)
   finally:os.close(fd)
  except BaseException:pass
@@ -254,6 +575,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
  owner=object.__new__(_TrustedRun);owner._poisoned=False;owner._phase='setup';owner.work=canonical(work)
  owner.nonce=secrets.token_hex(32);owner.deadline=budget.original.deadline_monotonic
  owner._setup_completed=[];owner._setup_gate='fixed_modules';owner._setup_position='before'
+ owner._run_completed=[];owner._run_gate=None;owner._run_position='before'
  need(not work.exists(),'fresh work required');work.mkdir(mode=0o700);(work/'upload').mkdir(mode=0o700)
  try:
   _setup_mark(owner,'fixed_modules','before')
@@ -333,17 +655,35 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
     need(_snapshot(protocol,pipeline,budget,max_bytes=64*1024**2,max_entries=4096)==code_snapshot,'controller source inode/hash changed')
     mods['official_runtime'].revalidate_official_runtime(runtime);graph.verify();budget.check()
    except BaseException:owner._poisoned=True;raise
-  owner._phase='compatibility';_smoke_import(owner,f,protocol,pipeline,contract,budget);fixed_check()
-  owner._phase='acquisition';fixed_check()
+  owner._phase='compatibility'
+  _phase_mark(owner,'compatibility_smoke','before')
+  _smoke_import(owner,f,protocol,pipeline,contract,budget)
+  _phase_mark(owner,'compatibility_smoke','after')
+  _phase_mark(owner,'compatibility_revalidate','before')
+  fixed_check()
+  _phase_mark(owner,'compatibility_revalidate','after')
+  owner._phase='acquisition'
+  _phase_mark(owner,'acquisition_revalidate','before')
+  fixed_check()
+  _phase_mark(owner,'acquisition_revalidate','after')
   _acquire_owned(owner,f,protocol,pipeline,budget,acquisition_token)
   acquisition_token=None
   # Hash only after actual supervisor cleanup success. Certificate self-report
   # never authorizes a detached acquisition root or prior invocation.
+  _phase_mark(owner,'acquisition_certificate','before')
   certificate_raw=read(roots['acquisition']/'TRANSPORT_RECEIPT.json');certificate_sha=sha(certificate_raw);budget.check()
+  _phase_mark(owner,'acquisition_certificate','after')
+  _phase_mark(owner,'acquisition_snapshot','before')
   acquired=_snapshot(protocol,roots['acquisition'],budget,max_bytes=5*1024**3,max_entries=4096)
+  _phase_mark(owner,'acquisition_snapshot','after')
+  _phase_mark(owner,'native_inputs','before')
   runner,native_bytes=native_inputs(graph,seam,roots,certificate_raw,certificate_sha,owner.nonce,owner.deadline)
+  _phase_mark(owner,'native_inputs','after')
+  _phase_mark(owner,'native_expected_map','before')
   static,transfer_request,anticipated=derive_outputs(runner,native_bytes,model);budget.check();fixed_check()
+  _phase_mark(owner,'native_expected_map','after')
   owner._phase='admission'
+  _phase_mark(owner,'admission_prepare','before')
   request={'schema':'c087-minimal-admission-request-v1','roots':{k:str(v) for k,v in roots.items() if k not in ('official_runtime','helper_source')},'session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'original_monotonic':budget.original.original_monotonic,'original_wall':budget.original.original_wall.timestamp(),'expiry_wall':budget.original.expiry_wall.timestamp(),'certificate_sha256':certificate_sha,'package_files':{k.removeprefix('ci/c087/admission/'):v for k,v in contract['files'].items() if k.startswith('ci/c087/admission/')},'input_snapshots':{k:baseline[k] for k in fixed_names if k!='helper_source'},'acquisition_snapshot':acquired}
   container=roots['container'];request_path=container/'request.json';invocation_path=container/'admission-invocation.json'
   request_raw=jb(request);protocol.write_new(request_path,request_raw,budget.check)
@@ -351,37 +691,52 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   timeout=sys.modules['job_budget'].command_timeout(19800,budget.deadline_monotonic,time.monotonic())
   invocation={'schema':'c087-minimal-owned-admission-invocation-v1','request_sha256':sha(request_raw),'argv':argv,'environment':environment,'timeout_seconds':timeout,'limits':LIMITS,'max_log_bytes':16*1024**2,'original_deadline_monotonic':owner.deadline,'session_nonce':owner.nonce}
   invocation_raw=jb(invocation);protocol.write_new(invocation_path,invocation_raw,budget.check)
+  _phase_mark(owner,'admission_prepare','after')
   def dispatch_admission():
    result=f.run_process(argv,cwd=container,env=environment,timeout=timeout,stdout=container/'admission.stdout',stderr=container/'admission.stderr',max_log_bytes=16*1024**2,limits=LIMITS,allow_new_sessions=False)
+   _observe_native_result(owner,'admission',result)
    _accept_result_safety(result,timeout);owner._admission_safe_failure=(result,invocation)
    accept_child_result(result,timeout);return result
+  _phase_mark(owner,'admission_process','before')
   result=budget.process(dispatch_admission);budget.check() # Before ANY child-created read.
+  _phase_mark(owner,'admission_process','after')
+  _phase_mark(owner,'admission_inputs_revalidate','before')
   protocol.write_new(work/'admission-process.json',jb({'invocation':invocation,'result':result}),budget.check)
   need(read(request_path)==request_raw and read(invocation_path)==invocation_raw,'parent invocation mutated');budget.check()
   need(_snapshot(protocol,roots['acquisition'],budget,max_bytes=5*1024**3,max_entries=4096)==acquired,'acquisition changed')
   fixed_check()
+  _phase_mark(owner,'admission_inputs_revalidate','after')
+  _phase_mark(owner,'admission_expected_transfer','before')
   admitted=container/'admitted';historical=container/'admitted-historical-validation'
   inode=lambda path:[path.stat().st_dev,path.stat().st_ino]
   need(admitted.stat().st_dev==historical.stat().st_dev==container.stat().st_dev,'admission output device changed')
   unit=os.statvfs(container).f_frsize;need(unit==os.statvfs(admitted).f_frsize==os.statvfs(historical).f_frsize,'same filesystem allocation unit')
   dynamic=model.transfer_outputs(request=transfer_request,static=static,source_root=str(roots['research_source']),admission_root=str(latest/'admission'),historical_root=str(prior),workspace=str(admitted),historical_workspace=str(historical),workspace_inode=inode(admitted),historical_workspace_inode=inode(historical),allocation_unit=unit)
   expected_files={**static['files'],**{name:model.pin(raw) for name,raw in dynamic.items()}}
+  _phase_mark(owner,'admission_expected_transfer','after')
+  _phase_mark(owner,'admission_outputs','before')
   admitted_snap={name:_snapshot(protocol,path,budget) for name,path in [('admitted',admitted),('admitted-historical-validation',historical)]}
   actual_files={name+'/'+rel:pin for name,snap in admitted_snap.items() for rel,pin in protocol.contents(snap).items()}
   actual_dirs=sorted(name if rel=='.' else name+'/'+rel for name,snap in admitted_snap.items() for rel,row in snap.items() if row['kind']=='directory')
   need(actual_files==expected_files and actual_dirs==static['directories'],'complete independently derived native output map')
   for name,raw in dynamic.items():need(read(container/name)==raw,'independent transfer certificate/marker bytes')
+  _phase_mark(owner,'admission_outputs','after')
+  _phase_mark(owner,'admission_report','before')
   expected_report={**anticipated,'session_nonce':owner.nonce,'host_deadline_monotonic':owner.deadline,'workspace':str(admitted),'workspace_inode':inode(admitted),'source_root_inode':inode(roots['research_source']),'workspace_files':protocol.contents(admitted_snap['admitted'])}
   report_raw=read(container/'native-report.json');need(parse(report_raw)==expected_report,'native report disagrees with independent expectations')
   need(parse(read(container/'response.json'))=={'schema':'c087-minimal-admission-completion-v1','request_sha256':sha(request_raw),'invocation_sha256':sha(invocation_raw),'native_report_sha256':sha(report_raw)},'child completion binding')
   need(set(os.listdir(container))=={'request.json','admission-invocation.json','admission.stdout','admission.stderr','native-report.json','response.json','admitted','admitted-historical-validation'},'extra native child outputs')
+  _phase_mark(owner,'admission_report','after')
+  _phase_mark(owner,'admission_final_revalidate','before')
   budget.check();fixed_check();owner._phase='admitted'
   evidence={'schema':'c087-independent-admission-map-v1','files':actual_files,'directories':actual_dirs,'transfer_certificate_sha256':sha(dynamic['admitted/historical-transfer-certificate.json']),'proof_pass_claimed':False}
   protocol.write_new(work/'independent-admission.json',jb(evidence),budget.check)
+  _phase_mark(owner,'admission_final_revalidate','after')
   # Static inputs are immutable read-only child mounts with no other writer.
   # Full maps are checked at admission/engine phase boundaries. The unchanged
   # engine rehashes every predecessor around commands and binds source/engine
   # bytes itself; the frequent context check is intentionally cheap.
+  _phase_mark(owner,'engine_prepare','before')
   root_inodes={str(path):(path.stat().st_dev,path.stat().st_ino) for path in [pipeline,*[roots[k] for k in fixed_names],roots['official_runtime'],admitted,historical]}
   def checkpoint():
    try:
@@ -407,19 +762,34 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   context.admitted_objects=str(admitted/'objects');context.diagnostic_output=str(diagnostic)
   context.engine_invocation_sha256=sha(engine_invocation);context.checkpoint=checkpoint
   checkpoint()
+  _phase_mark(owner,'engine_prepare','after')
+  _phase_mark(owner,'engine_dispatch','before')
   response=budget.process(lambda:engine.engine(context));checkpoint();fixed_check()
+  _phase_mark(owner,'engine_dispatch','after')
+  _phase_mark(owner,'engine_inputs_revalidate','before')
   need(_snapshot(protocol,roots['acquisition'],budget,max_bytes=5*1024**3,max_entries=4096)==acquired,'acquisition changed during diagnostic')
   for name,snap in admitted_snap.items():need(_snapshot(protocol,container/name,budget)==snap,'admitted inode/hash map changed during diagnostic')
+  _phase_mark(owner,'engine_inputs_revalidate','after')
+  _phase_mark(owner,'engine_response','before')
   final_snapshot=_snapshot(protocol,diagnostic,budget,max_bytes=4*1024**3,max_entries=100000)
   output_files=protocol.contents(final_snapshot)
   need(response=={'schema':'c087-fixed-engine-result-v1','status':'diagnostic_complete','session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'engine_manifest_sha256':context.manifest_sha256,'result_sha256':output_files['RESULT.json']['sha256'],'proof_pass_claimed':False,'output_files':{k:v for k,v in output_files.items() if k!='engine-invocation.json'}},'independent complete engine response')
-  owner._phase='evidence';_package_evidence(owner,protocol,budget,output_files)
+  _phase_mark(owner,'engine_response','after')
+  owner._phase='evidence'
+  _phase_mark(owner,'evidence_copy','before')
+  _package_evidence(owner,protocol,budget,output_files)
+  _phase_mark(owner,'evidence_copy','after')
+  _phase_mark(owner,'evidence_revalidate','before')
   checkpoint();need(_snapshot(protocol,diagnostic,budget,max_bytes=4*1024**3,max_entries=100000)==final_snapshot,'final diagnostic inode/hash map changed')
   manifest_raw=read(work/'upload/MANIFEST.json');manifest=parse(manifest_raw)
   copied=_snapshot(protocol,work/'upload',budget,max_bytes=MAX_EVIDENCE,max_entries=4096)
   need(protocol.contents(copied)=={**manifest['files'],'MANIFEST.json':{'bytes':len(manifest_raw),'sha256':sha(manifest_raw)}},'final complete evidence output map')
+  _phase_mark(owner,'evidence_revalidate','after')
+  _phase_mark(owner,'evidence_complete','before')
   checkpoint();protocol.write_new(work/'upload/COMPLETED.json',jb({'schema':'c087-minimal-completed-v1','status':'diagnostic_completed_pending_terminal_reconciliation','manifest_sha256':sha(manifest_raw),'session_nonce':owner.nonce,'original_deadline_monotonic':owner.deadline,'proof_pass_claimed':False}),budget.check)
-  budget.check();owner._phase='complete';return response
+  budget.check()
+  _phase_mark(owner,'evidence_complete','after')
+  owner._phase='complete';return response
  except BaseException as error:
   owner._poisoned=True
   if 'mods' in locals() and 'f' in locals():
@@ -442,6 +812,7 @@ def _download_runtime(archive,budget):
  need(downloaded==595391556,'official release archive length');budget.check()
 
 def _acquire_owned(owner,native,protocol,pipeline,budget,acquisition_token):
+ _phase_mark(owner,'acquisition_layout','before')
  package=pipeline/'ci/c087/acquisition';container=owner.work/'transfer';root=owner.roots['acquisition']
  need(not root.exists(),'fresh acquisition root')
  environment={**ENV,'GITHUB_ACTIONS':'true','GH_TOKEN':acquisition_token}
@@ -452,15 +823,32 @@ def _acquire_owned(owner,native,protocol,pipeline,budget,acquisition_token):
  for path in ['/usr','/bin','/lib','/lib64','/etc',str(package)]:argv+=['--ro-bind',path,path]
  argv+=['--bind',str(container),str(container),'--chdir',str(container),'--','/usr/bin/python3','-I','-S','-B',str(package/'ci/c087_acquisition.py'),'--quarantine',str(root),'--deadline-monotonic',repr(owner.deadline),'--session-nonce',owner.nonce]
  timeout=sys.modules['job_budget'].command_timeout(19800,budget.deadline_monotonic,time.monotonic())
+ _phase_mark(owner,'acquisition_layout','after')
  # No command line, log, request, result or exception contains the token.
  def dispatch_acquisition():
   result=native.run_process(argv,cwd=container,env=environment,timeout=timeout,stdout=container/'acquisition.stdout',stderr=container/'acquisition.stderr',max_log_bytes=16*1024**2,limits=LIMITS,allow_new_sessions=False)
+  _observe_native_result(owner,'acquisition',result)
+  _accept_result_safety(result,timeout)
+  if result['exit_code']!=0:_read_acquisition_failure(owner,container,budget)
   accept_child_result(result,timeout);return result
+ _phase_mark(owner,'acquisition_process','before')
  try:result=budget.process(dispatch_acquisition)
  finally:environment.pop('GH_TOKEN',None);os.environ.pop('GH_TOKEN',None)
+ _phase_mark(owner,'acquisition_process','after')
+ _phase_mark(owner,'acquisition_completion','before')
  accept_child_result(result,timeout);budget.check()
  need(read(container/'acquisition.stdout',16*1024**2)==b'C087 transport bytes authenticated; native semantic admission still required.\n' and read(container/'acquisition.stderr',16*1024**2)==b'','exact bounded acquisition completion')
  protocol.write_new(owner.work/'acquisition-process.json',jb({'schema':'c087-owned-acquisition-completion-v1','result':result,'session_nonce':owner.nonce,'deadline_monotonic':owner.deadline,'argv':argv,'environment_keys':sorted(environment),'credential_retained':False}),budget.check)
+ _phase_mark(owner,'acquisition_completion','after')
+
+def _read_acquisition_failure(owner,container,budget):
+ # Called only after native cleanup/resource safety and a nonzero exit. Unknown
+ # or incomplete stderr is never retained, decoded for display, or copied.
+ try:
+  budget.check();raw=read(container/'acquisition.stderr',4096)
+  record=_parse_acquisition_failure(raw);budget.check()
+  if record is not None:owner._acquisition_failure=record
+ except BaseException:pass
 
 def _permanent_native_refusal():
  # Fixed trusted Python can use only the native renameat2 transfer helper. This
@@ -526,6 +914,7 @@ def _smoke_import(owner,native,protocol,pipeline,contract,budget):
  protocol.write_new(invocation_path,jb(invocation),budget.check)
  def dispatch_smoke():
   result=native.run_process(argv,cwd=container,env=environment,timeout=timeout,stdout=container/'stdout',stderr=container/'stderr',max_log_bytes=16*1024**2,limits=LIMITS,allow_new_sessions=False)
+  _observe_native_result(owner,'compatibility',result)
   _accept_result_safety(result,timeout);owner._smoke_safe_failure=(result,invocation)
   accept_child_result(result,timeout);return result
  result=budget.process(dispatch_smoke);budget.check()

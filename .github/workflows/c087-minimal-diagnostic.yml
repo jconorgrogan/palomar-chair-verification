@@ -73,7 +73,7 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B ci/c087_minimal.py --contract-sha256 6d6fd3ec5a456ae9ce2bfb4b1f7b696ddfd620cb0109702286f88555c952b66b --work "$RUNNER_TEMP/c087-minimal"
+        /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B ci/c087_minimal.py --contract-sha256 6c5de01dd6de9815dc7efe6590873c808adfb0e97e685e4cf9b06c29827ad4d2 --work "$RUNNER_TEMP/c087-minimal"
     - name: Upload bounded diagnostic evidence
       id: upload
       if: ${{ always() && steps.checkout_pipeline.outcome == 'success' && steps.clean_checkouts.outcome == 'success' }}

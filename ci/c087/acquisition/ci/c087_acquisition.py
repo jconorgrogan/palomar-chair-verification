@@ -15,12 +15,142 @@ import os
 import re
 from pathlib import Path
 import shutil
+import socket
 import stat
 import sys
 import time
 import urllib.error
 import urllib.parse
 from datetime import datetime, timezone
+
+# Failure-only observability. No values from response bodies, URLs, headers,
+# credentials or exception strings are emitted. All messages below are static
+# source literals selected by exact equality, never by substring or formatting.
+DIAGNOSTIC_PREFIX = 'C087_ACQUISITION_FAILURE_V1 '
+DIAGNOSTIC_PHASES = ('bootstrap','arguments','runtime_envelope','quarantine_create',
+ 'constructor','initial_snapshots','prepare_transfer','stage_transfer','receipt_copy',
+ 'historical_ledger','stage_reauthentication','final_snapshots','prepare_reauthentication',
+ 'certificate_build','certificate_write','certificate_finalize','cleanup')
+DIAGNOSTIC_MESSAGES = {
+ 'quota headers unavailable':('QUOTA_SCHEMA','QUOTA_HEADERS_UNAVAILABLE'),
+ 'quota header missing, duplicated or malformed':('QUOTA_SCHEMA','QUOTA_HEADER_SHAPE'),
+ 'invalid numeric quota header':('QUOTA_SCHEMA','QUOTA_NUMERIC_HEADER'),
+ 'conflicting or unexpected quota headers':('QUOTA_SCHEMA','QUOTA_HEADER_CONFLICT'),
+ 'invalid quota Date header':('QUOTA_SCHEMA','QUOTA_DATE'),
+ 'invalid authenticated quota metadata':('QUOTA_SCHEMA','QUOTA_METADATA'),
+ 'quota reset outside bounded server window':('QUOTA_WINDOW','QUOTA_RESET_WINDOW'),
+ 'backward authenticated quota clock or reset':('QUOTA_WINDOW','QUOTA_CLOCK_BACKWARD'),
+ 'quota remaining increased within one window':('QUOTA_WINDOW','QUOTA_REMAINING_INCREASED'),
+ 'quota reset advanced before its authenticated boundary':('QUOTA_WINDOW','QUOTA_RESET_EARLY'),
+ 'authenticated core quota exhausted; no further request':('QUOTA_WINDOW','QUOTA_EXHAUSTED'),
+ 'quota pacing cannot fit the unchanged request deadline':('DEADLINE','QUOTA_PACING_BUDGET'),
+ 'quota wait would exceed tightened deadline':('DEADLINE','QUOTA_WAIT_BUDGET'),
+ 'quota pacing request deadline exceeded':('DEADLINE','QUOTA_REQUEST_BUDGET'),
+ 'quota pacing exhausted original request timeout':('DEADLINE','QUOTA_TIMEOUT_BUDGET'),
+ 'invalid quota monotonic clock':('DEADLINE','QUOTA_CLOCK_INVALID'),
+ 'quota sleep made no monotonic progress':('DEADLINE','QUOTA_SLEEP_NO_PROGRESS'),
+ 'invalid original request timeout':('DEADLINE','REQUEST_TIMEOUT_INVALID'),
+ 'authenticated API quota or authorization failure; no retry':('AUTHORIZATION','API_QUOTA_OR_AUTHORIZATION'),
+ 'ephemeral read-only Actions token missing/invalid':('AUTHORIZATION','TOKEN_MISSING_OR_INVALID'),
+ 'quota source must be the authenticated approved repository':('AUTHORIZATION','API_SOURCE_BINDING'),
+ 'credentials on a storage request forbidden':('AUTHORIZATION','STORAGE_CREDENTIAL_REJECTED'),
+ 'unapproved API repository/path':('AUTHORIZATION','API_PATH_REJECTED'),
+ 'unsafe storage redirect':('AUTHORIZATION','STORAGE_REDIRECT_REJECTED'),
+ 'original fixed age deadline reached':('DEADLINE','ORIGINAL_AGE_EXPIRED'),
+ 'shared acquisition wall/age deadline reached':('DEADLINE','SHARED_DEADLINE_EXPIRED'),
+ 'metadata aggregate/origin deadline exceeded':('DEADLINE','METADATA_DEADLINE_EXPIRED'),
+ 'insufficient actual free disk including allocation/metadata reserve':('CAPACITY','DISK_HEADROOM'),
+ 'insufficient actual free inodes':('CAPACITY','INODE_HEADROOM'),
+ 'quarantine must be a canonical absolute path':('FILESYSTEM','QUARANTINE_CANONICAL'),
+ 'quarantine must be fresh with an existing parent':('FILESYSTEM','QUARANTINE_FRESH'),
+ 'quarantine parent must be owned by this user':('FILESYSTEM','QUARANTINE_OWNER'),
+ 'quarantine ownership/mode mismatch':('FILESYSTEM','QUARANTINE_MODE'),
+ 'quarantine must be empty':('FILESYSTEM','QUARANTINE_EMPTY'),
+ 'quota response cleanup failed':('CLEANUP','QUOTA_RESPONSE_CLEANUP'),
+ 'metadata response cleanup failed':('CLEANUP','METADATA_RESPONSE_CLEANUP'),
+ 'metadata error-response cleanup failed':('CLEANUP','METADATA_ERROR_CLEANUP'),
+ 'owned C087 quarantine cleanup failed':('CLEANUP','QUARANTINE_CLEANUP'),
+ 'one-CPU affinity required from integrated driver':('ENVELOPE','AFFINITY_REJECTED'),
+ 'acquisition CLI requires fresh isolated Python -I -S -B':('ENVELOPE','INTERPRETER_FLAGS'),
+ 'C087 fixed specification changed':('SOURCE','SPEC_PIN_MISMATCH'),
+ 'fixed historical acquisition pins changed':('SOURCE','HISTORICAL_PINS_MISMATCH'),
+ 'terminal run/job snapshots changed between batch boundaries':('IDENTITY','TERMINAL_SNAPSHOT_CHANGED'),
+ 'duplicate terminal job IDs':('IDENTITY','DUPLICATE_TERMINAL_JOB'),
+ 'C087 authenticated metadata changed':('IDENTITY','STAGE_METADATA_CHANGED'),
+ 'C087 prepare metadata changed':('IDENTITY','PREPARE_METADATA_CHANGED'),
+ 'C087 global raw ledger mismatch':('CAPACITY','GLOBAL_RAW_LEDGER'),
+ 'fixed global48 ledger reconciliation failed':('CAPACITY','HISTORICAL_GLOBAL_LEDGER'),
+ 'ZIP size/digest mismatch':('PAYLOAD','ZIP_SIZE_DIGEST'),
+ 'native tar bytes/hash mismatch':('PAYLOAD','NATIVE_TAR_PIN'),
+ 'actual native receipt hash mismatch':('PAYLOAD','NATIVE_RECEIPT_PIN'),
+}
+DIAGNOSTIC_GENERIC = {
+ 'HTTP':('HTTP','HTTP_STATUS_REJECTED'),
+ 'TIMEOUT':('NETWORK','NETWORK_TIMEOUT'),
+ 'DNS':('NETWORK','NETWORK_DNS'),
+ 'NETWORK':('NETWORK','NETWORK_FAILURE'),
+ 'MEMORY':('CAPACITY','MEMORY_FAILURE'),
+ 'DISK':('CAPACITY','DISK_FULL'),
+ 'FD':('CAPACITY','FILE_DESCRIPTORS'),
+ 'PERMISSION':('FILESYSTEM','FILESYSTEM_PERMISSION'),
+ 'OS':('FILESYSTEM','OS_FAILURE'),
+ 'UNKNOWN':('REJECTION','UNCLASSIFIED_REJECTION'),
+}
+_diagnostic_phase = 'bootstrap'
+_diagnostic_last = None
+_diagnostic_http_status = None
+
+def _diagnostic_mark(phase):
+    global _diagnostic_phase, _diagnostic_last, _diagnostic_http_status
+    if phase not in DIAGNOSTIC_PHASES: raise RuntimeError('invalid fixed diagnostic phase')
+    _diagnostic_phase = phase
+    _diagnostic_last = None
+    _diagnostic_http_status = None
+
+def _diagnostic_classify(error):
+    # BaseException's own storage avoids invoking a hostile __str__/repr/property.
+    args = BaseException.args.__get__(error)
+    if type(args) is tuple and len(args) == 1 and type(args[0]) is str:
+        selected = DIAGNOSTIC_MESSAGES.get(args[0])
+        if selected is not None: return selected
+    if isinstance(error, urllib.error.HTTPError): return DIAGNOSTIC_GENERIC['HTTP']
+    if isinstance(error, TimeoutError): return DIAGNOSTIC_GENERIC['TIMEOUT']
+    if isinstance(error, socket.gaierror): return DIAGNOSTIC_GENERIC['DNS']
+    if isinstance(error, urllib.error.URLError):
+        cause = error.reason
+        if isinstance(cause, socket.gaierror): return DIAGNOSTIC_GENERIC['DNS']
+        if isinstance(cause, TimeoutError): return DIAGNOSTIC_GENERIC['TIMEOUT']
+        return DIAGNOSTIC_GENERIC['NETWORK']
+    if isinstance(error, MemoryError): return DIAGNOSTIC_GENERIC['MEMORY']
+    if isinstance(error, OSError):
+        number = error.errno
+        if type(number) is int:
+            if number == 28: return DIAGNOSTIC_GENERIC['DISK']
+            if number in (23,24): return DIAGNOSTIC_GENERIC['FD']
+            if number in (1,13): return DIAGNOSTIC_GENERIC['PERMISSION']
+        return DIAGNOSTIC_GENERIC['OS']
+    return DIAGNOSTIC_GENERIC['UNKNOWN']
+
+def _diagnostic_http(error):
+    global _diagnostic_http_status
+    if isinstance(error, urllib.error.HTTPError):
+        code = error.code
+        if type(code) is int and 100 <= code <= 599: _diagnostic_http_status = code
+
+def _diagnostic_record(error):
+    selected = _diagnostic_classify(error)
+    if selected == DIAGNOSTIC_GENERIC['UNKNOWN'] and _diagnostic_last is not None:
+        selected = _diagnostic_last
+    _diagnostic_http(error)
+    return {'schema':'c087-acquisition-failure-v1','phase':_diagnostic_phase,
+            'category':selected[0],'reason_code':selected[1],
+            'http_status':_diagnostic_http_status}
+
+def _diagnostic_emit(error):
+    record = _diagnostic_record(error)
+    line = DIAGNOSTIC_PREFIX + json.dumps(record,sort_keys=True,separators=(',',':')) + '\n'
+    if len(line.encode('ascii')) > 1024: raise RuntimeError('fixed diagnostic bound')
+    sys.stderr.write(line)
 
 HERE = Path(__file__).resolve().parent
 FROZEN = HERE.parent / 'frozen_downloader' / 'ci'
@@ -44,14 +174,20 @@ def verify_frozen_directory(directory):
         if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             raise RuntimeError('frozen downloader pin/type mismatch')
 
-if sys.pycache_prefix is not None:
-    raise RuntimeError('alternate bytecode cache root forbidden')
-sys.dont_write_bytecode = True
-verify_frozen_directory(FROZEN)
-sys.path.insert(0, str(FROZEN))
-import historical_acquisition as h
-if Path(h.__file__).resolve() != FROZEN / 'historical_acquisition.py':
-    raise RuntimeError('frozen downloader import shadowing')
+try:
+    if sys.pycache_prefix is not None:
+        raise RuntimeError('alternate bytecode cache root forbidden')
+    sys.dont_write_bytecode = True
+    verify_frozen_directory(FROZEN)
+    sys.path.insert(0, str(FROZEN))
+    import historical_acquisition as h
+    if Path(h.__file__).resolve() != FROZEN / 'historical_acquisition.py':
+        raise RuntimeError('frozen downloader import shadowing')
+except BaseException as error:
+    if __name__ == '__main__':
+        _diagnostic_emit(error)
+        raise SystemExit(1) from None
+    raise
 f, ot = h.f, h.ot
 SPEC_SHA256 = '9c77059b0a48a300e6ae9be0c826812057d0305a61c444736c246389d52b9b80'
 LATEST = 'LatestSuccessorOrigin'
@@ -206,6 +342,20 @@ class QuotaPacedOpener:
         return left
 
     def open(self, request, timeout):
+        global _diagnostic_last, _diagnostic_http_status
+        _diagnostic_last = None
+        _diagnostic_http_status = None
+        try:
+            result = self._open_observed(request, timeout)
+        except BaseException as error:
+            _diagnostic_http(error)
+            _diagnostic_last = _diagnostic_classify(error)
+            raise
+        _diagnostic_last = None
+        _diagnostic_http_status = None
+        return result
+
+    def _open_observed(self, request, timeout):
         # Recheck authority at the adapter boundary; never infer it from headers.
         self.transport._safe_redirect(request.full_url)
         parsed = urllib.parse.urlsplit(request.full_url)
@@ -221,6 +371,7 @@ class QuotaPacedOpener:
         try:
             response = self.opener.open(request, timeout=left)
         except urllib.error.HTTPError as error:
+            _diagnostic_http(error)
             if error.code in (403,429):
                 self._close_rejected(error)
                 raise f.Rejected('authenticated API quota or authorization failure; no retry') from None
@@ -505,26 +656,37 @@ def file_record(root, path):
 
 
 def acquire(output_root, token, *, deadline_monotonic, session_nonce, opener=None, now=None):
+    _diagnostic_mark('quarantine_create')
     root = h.owned_new_root(output_root)
     try:
+        _diagnostic_mark('constructor')
         transport = BatchC087Acquisition(token,root,deadline_monotonic=deadline_monotonic,
                     session_nonce=session_nonce,opener=opener,now=now)
+        _diagnostic_mark('initial_snapshots')
         transport.refresh_terminal_snapshots(final=False)
         started = utc_now(transport); prepares = {}
         for origin in INTERNAL:
+            _diagnostic_mark('prepare_transfer')
             prepares[origin] = transport.authenticate_prepare(origin,root/(TO_OUTER[origin]+'-prepare'))
         wrappers, raw_paths = {}, {}
         for sid in transport.historical_ids + transport.latest_ids:
+            _diagnostic_mark('stage_transfer')
             wrapper = transport.download_selected_stage(sid)
+            _diagnostic_mark('receipt_copy')
             receipt_path = h.copy_native_receipt(transport,wrapper)
             wrappers[sid] = wrapper; raw_paths[sid] = receipt_path
             if sid == transport.historical_ids[-1]:
+                _diagnostic_mark('historical_ledger')
                 f.need(transport.raw_bytes == HISTORICAL_GLOBAL, 'fixed global48 ledger reconciliation failed')
         ordered = [wrappers[sid] for sid in transport.spec['scope']['predecessor_stage_ids']]
-        for wrapper in ordered: transport.reauthenticate_selected(wrapper)
+        for wrapper in ordered:
+            _diagnostic_mark('stage_reauthentication')
+            transport.reauthenticate_selected(wrapper)
+        _diagnostic_mark('final_snapshots')
         transport.refresh_terminal_snapshots(final=True)
         contexts = {}
         for origin in INTERNAL:
+            _diagnostic_mark('prepare_reauthentication')
             outer = TO_OUTER[origin]; c = transport.contexts[origin]; run = transport._run(origin); pin = c['prepare']
             job,binding = transport._producer(origin,'prepare',run,pin)
             artifact = transport._artifact(origin,'prepare',run,job,pin,h.MAX_PREPARE)
@@ -538,6 +700,7 @@ def acquire(output_root, token, *, deadline_monotonic, session_nonce, opener=Non
                 'inventory_path':(folder/'inventory.json').relative_to(root).as_posix(),
                 'inventory_sha256':f.file_sha(folder/'inventory.json'),'run':projected,'workflow':c['workflow'],
                 'prepare':{'pin':copy.deepcopy(pin),'authenticated_metadata':metadata}}
+        _diagnostic_mark('certificate_build')
         stage_records, rows = [], []
         for wrapper in ordered:
             sid = wrapper['native_descriptor']['stage_id']; outer = wrapper['origin']; path = Path(wrapper['archive_path']).parent
@@ -554,6 +717,7 @@ def acquire(output_root, token, *, deadline_monotonic, session_nonce, opener=Non
         f.need(selected_raw == HISTORICAL_SELECTED + latest_raw and
                transport.raw_bytes == HISTORICAL_GLOBAL + latest_raw <= h.RAW_CAP, 'C087 global raw ledger mismatch')
         h.disk_headroom(root,8*ot.MAX_METADATA_BYTES,new_files=4)
+        _diagnostic_mark('certificate_write')
         h.write_json(root/'WRAPPERS.json',rows)
         with (root/'ACQUISITION_SPEC.json').open('xb') as out: out.write((HERE/'C087_ACQUISITION_SPEC.json').read_bytes())
         certificate = {'schema':'c087-historical-acquisition-v1','status':'transport_bytes_authenticated_only',
@@ -567,6 +731,7 @@ def acquire(output_root, token, *, deadline_monotonic, session_nonce, opener=Non
                 'aggregate_cap_bytes':h.RAW_CAP},'contexts':contexts,'wrappers_path':'WRAPPERS.json','wrappers':ordered,
             'stages':stage_records,'files':h.retained_files(root)}
         transport._check_age(); h.write_json(root/'TRANSPORT_RECEIPT.json',certificate); transport._check_age()
+        _diagnostic_mark('certificate_finalize')
         receipt_sha256 = f.file_sha(root/'TRANSPORT_RECEIPT.json')
         transport._check_age()  # Final hashing must not return past the shared/age deadline.
         return {'root':str(root),'wrappers_path':str(root/'WRAPPERS.json'),
@@ -574,11 +739,14 @@ def acquire(output_root, token, *, deadline_monotonic, session_nonce, opener=Non
                 'transport_receipt_sha256':receipt_sha256}
     except BaseException:
         try: shutil.rmtree(root)
-        except Exception: raise f.Rejected('owned C087 quarantine cleanup failed') from None
+        except Exception:
+            _diagnostic_mark('cleanup')
+            raise f.Rejected('owned C087 quarantine cleanup failed') from None
         raise
 
 
 def main():
+    _diagnostic_mark('arguments')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--quarantine',required=True)
     parser.add_argument('--deadline-monotonic',required=True,type=float)
@@ -586,6 +754,7 @@ def main():
     args = parser.parse_args()
     f.need(sys.flags.isolated == 1 and sys.flags.no_site == 1 and sys.flags.dont_write_bytecode == 1,
            'acquisition CLI requires fresh isolated Python -I -S -B')
+    _diagnostic_mark('runtime_envelope')
     h.require_runtime_envelope()
     acquire(args.quarantine,os.environ.get('GH_TOKEN',''),deadline_monotonic=args.deadline_monotonic,session_nonce=args.session_nonce)
     print('C087 transport bytes authenticated; native semantic admission still required.')
@@ -594,6 +763,6 @@ def main():
 if __name__ == '__main__':
     try: main()
     except SystemExit: raise
-    except BaseException:
-        print('C087 acquisition failed closed; no semantic or proof verdict.',file=sys.stderr)
+    except BaseException as error:
+        _diagnostic_emit(error)
         sys.exit(1)
