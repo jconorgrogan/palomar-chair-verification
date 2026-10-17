@@ -9,8 +9,8 @@
       "sha256": "9c77059b0a48a300e6ae9be0c826812057d0305a61c444736c246389d52b9b80"
     },
     "ci/c087/acquisition/ci/c087_acquisition.py": {
-      "bytes": 46346,
-      "sha256": "247fdec83f3df41ecb1d89df98c79569078b676b1d010aeca2d32d2743372243"
+      "bytes": 46119,
+      "sha256": "8217f2f66d617f86b35117f96bfd1a4e5c4338dd5e4ad761225a4eca501593d0"
     },
     "ci/c087/acquisition/frozen_downloader/ci/ci_transport.py": {
       "bytes": 6885,

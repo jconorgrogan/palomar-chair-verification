@@ -248,7 +248,8 @@ class QuotaPacedOpener:
         self.transport, self.opener = transport, opener
         self.last_clock = self.last_start = None
         self.reset_epoch = self.reset_monotonic = self.server_date = None
-        self.remote_remaining = self.local_remaining = None
+        self.remote_remaining = None
+        self.local_remaining = self.LIMIT  # One-shot request ceiling; no header can replenish it.
 
     def _clock(self):
         value = time.monotonic()
@@ -303,16 +304,11 @@ class QuotaPacedOpener:
             f.need(remaining > 0, 'authenticated core quota exhausted; no further request')
             now = self._clock(); self.transport._check_age()
             reset_at = now + (reset - date) + self.RESET_SAFETY
-            if self.reset_epoch is not None:
-                f.need(date >= self.server_date and reset >= self.reset_epoch,
-                       'backward authenticated quota clock or reset')
-                if reset == self.reset_epoch:
-                    # GitHub documents regional count increases. Never refund
-                    # an already decremented local slot when one is observed.
-                    remaining = min(remaining, self.local_remaining)
-                    reset_at = min(reset_at, self.reset_monotonic)
-                else:
-                    f.need(date >= self.reset_epoch, 'quota reset advanced before its authenticated boundary')
+            # Regional Date/reset values do not define a globally ordered window.
+            # Charge every attempt locally and never refund a slot, even across hours.
+            remaining = min(remaining, self.local_remaining)
+            if self.reset_monotonic is not None:
+                reset_at = max(reset_at, self.reset_monotonic)
             self.remote_remaining = remaining
             self.local_remaining = remaining
             self.reset_epoch, self.reset_monotonic, self.server_date = reset, reset_at, date
@@ -330,6 +326,7 @@ class QuotaPacedOpener:
         deadline = min(math.nextafter(now + timeout, -math.inf), self.transport.deadline_monotonic,
                        self.transport.age_deadline_monotonic)
         due = now if self.last_start is None else max(now, math.nextafter(self.last_start + self.MIN_INTERVAL, math.inf))
+        f.need(self.local_remaining > 0, 'authenticated core quota exhausted; no further request')
         if self.reset_monotonic is not None:
             until_reset = max(0.0, self.reset_monotonic - now)
             # Leave enough time for every remaining slot, without probing an
@@ -352,8 +349,7 @@ class QuotaPacedOpener:
             f.need(now + self.NETWORK_RESERVE < deadline, 'quota pacing request deadline exceeded')
         self.transport._check_age()
         self.last_start = self._clock()
-        if self.local_remaining is not None:
-            self.local_remaining = max(0, self.local_remaining - 1)
+        self.local_remaining -= 1
         deadline = min(deadline, self.transport.deadline_monotonic, self.transport.age_deadline_monotonic)
         left = min(timeout, math.nextafter(deadline - self.last_start, -math.inf))
         f.need(left > self.NETWORK_RESERVE, 'quota pacing exhausted original request timeout')
