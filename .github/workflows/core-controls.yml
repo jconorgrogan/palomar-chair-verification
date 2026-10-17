@@ -26,7 +26,7 @@ jobs:
         run: >-
           /usr/bin/timeout --signal=KILL 1860
           /usr/bin/python3 -I -S -B ci/core_preflight.py
-          --contract-sha256 6f39d374ef41c6480e1dac026d7068de10e265d296696a2edde7f869a9539dea
+          --contract-sha256 54afeb6ea18b989e16e2e56e8f231d5d6b9536786b5172464cea711d10962f36
           --work "${{ runner.temp }}/core-controls"
       - name: Upload bounded core-only evidence
         if: ${{ always() }}
@@ -41,4 +41,4 @@ jobs:
         if: ${{ success() }}
         run: |
           test -f "${{ runner.temp }}/core-controls/evidence/completion.json"
-          printf '%s\n' 'C087_CORE_EVIDENCE_V1 {"artifact_id":"${{ steps.evidence.outputs.artifact-id }}","artifact_sha256":"${{ steps.evidence.outputs.artifact-digest }}","contract_sha256":"6f39d374ef41c6480e1dac026d7068de10e265d296696a2edde7f869a9539dea"}'
+          printf '%s\n' 'C087_CORE_EVIDENCE_V1 {"artifact_id":"${{ steps.evidence.outputs.artifact-id }}","artifact_sha256":"${{ steps.evidence.outputs.artifact-digest }}","contract_sha256":"54afeb6ea18b989e16e2e56e8f231d5d6b9536786b5172464cea711d10962f36"}'

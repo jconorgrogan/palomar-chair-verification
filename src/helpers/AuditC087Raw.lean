@@ -7,6 +7,7 @@ plugins and extension loading disabled. This is not independent kernel checking.
 -/
 module
 import C087RawContract
+meta import C087RawContract
 open Lean C087RawAudit
 
 public def main (args : List String) : IO UInt32 := do

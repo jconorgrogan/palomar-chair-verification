@@ -170,8 +170,8 @@
       "sha256": "2073b2239828117313062ef8584b76c45740986fb582e432bee195ef9f736083"
     },
     "src/helpers/AuditC087Raw.lean": {
-      "bytes": 1985,
-      "sha256": "d9352bcb8aa19b94ed4f8cb0f87bf379c9b10fef6094b4bddc2755e8bdcd6b69"
+      "bytes": 2013,
+      "sha256": "0347bae8f298608ed8a0e9d2ee89466c1509a56d0550768b09a994741fd49dce"
     },
     "src/helpers/C087RawContract.lean": {
       "bytes": 8397,
