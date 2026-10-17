@@ -239,7 +239,7 @@ class QuotaPacedOpener:
     RESET_SAFETY = 2.0
     NETWORK_RESERVE = 1.0
     LIMIT = 1000  # Fixed conservative local ceiling, even for larger server quotas.
-    SERVER_LIMITS = (1000, 15000)  # Official GITHUB_TOKEN repository limits.
+    SERVER_LIMITS = (1000, 5000, 15000)  # Documented limits; 5000 observed in this exact job.
     HEADER_NAMES = ('X-RateLimit-Limit', 'X-RateLimit-Remaining',
                     'X-RateLimit-Used', 'X-RateLimit-Reset',
                     'X-RateLimit-Resource', 'Date')
