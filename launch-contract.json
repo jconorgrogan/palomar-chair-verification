@@ -1,0 +1,30 @@
+{
+  "guard_modes_allowed": false,
+  "inputs": {
+    "ci/fresh_stage.py": {
+      "bytes": 67375,
+      "sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d"
+    },
+    "ci/guard_system_observer.py": {
+      "bytes": 10334,
+      "sha256": "36d6ebf4b8b3c3b0da2a2b105b161d5b96a54f05ce6d87d03cf75e7cd0725818"
+    },
+    "ci/system_observation_launch.py": {
+      "bytes": 21600,
+      "sha256": "36c6e0422f56e444b73b1e1bf3e880eff679631524e351e02d577fc72469caaa"
+    }
+  },
+  "kill_grace_seconds": 10,
+  "observer_contract": {
+    "bytes": 5425,
+    "sha256": "2e0ebc6819d183daac2af0240b94d4ec3976002c82899392b8e60429346adc8f"
+  },
+  "outer_seconds": 70,
+  "parent_seconds": 50,
+  "physical_capture_bytes": 2097152,
+  "profile_approved": false,
+  "review_status": "reviewed_for_observation",
+  "schema": "c087-system-observation-launch-contract-v1",
+  "target_timeout_seconds": 35,
+  "term_watchdog_seconds": 60
+}

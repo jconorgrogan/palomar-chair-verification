@@ -1,0 +1,104 @@
+# Reviewed observation only. The resulting system profile remains unapproved.
+name: C087 deployed launcher and system observation
+'on':
+  push:
+    branches: ['verify/c087-system-observation-20261017']
+permissions:
+  contents: read
+concurrency:
+  group: c087-system-observation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  system_observation:
+    name: C087 deployed launcher and system observation
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact system observation pipeline
+        id: pipeline_checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Verify exact clean system observation checkout
+        id: clean_checkout
+        run: |
+          test "$GITHUB_REPOSITORY" = 'jconorgrogan/palomar-chair-verification'
+          test "$GITHUB_REF" = 'refs/heads/verify/c087-system-observation-20261017'
+          test "$GITHUB_RUN_ATTEMPT" = '1'
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all --ignored)"
+      - name: Install official Ubuntu observation dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap
+      - name: Observe deployed launcher and system facts
+        id: observe
+        run: >-
+          /usr/bin/timeout --signal=TERM --kill-after=10s 60
+          /usr/bin/python3 -I -S -B ci/system_observation_launch.py
+          --contract-sha256 2d5bc09a761acd19e4cc3be5d721b14ccb79bcb66f07647f6030d9fb12a223f5
+          --work "${{ runner.temp }}/c087-system-observation"
+      - name: Upload bounded system observation evidence
+        if: ${{ always() }}
+        id: evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: c087-system-observation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/c087-system-observation/system-observation.stdout
+            ${{ runner.temp }}/c087-system-observation/system-observation.stderr
+            ${{ runner.temp }}/c087-system-observation/launch-receipt.json
+          retention-days: 7
+          if-no-files-found: error
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
+      - name: Bind successful system observation upload
+        if: ${{ success() && steps.observe.outcome == 'success' && steps.evidence.outcome == 'success' }}
+        env:
+          OBS_WORK: ${{ runner.temp }}/c087-system-observation
+          OBS_ARTIFACT_ID: ${{ steps.evidence.outputs.artifact-id }}
+          OBS_ARTIFACT_SHA256: ${{ steps.evidence.outputs.artifact-digest }}
+          OBS_RUN_ID: ${{ github.run_id }}
+          OBS_RUN_ATTEMPT: ${{ github.run_attempt }}
+          OBS_COMMIT: ${{ github.sha }}
+        run: |
+          /usr/bin/timeout --signal=KILL 10 /usr/bin/python3 -I -S -B - <<'PY'
+          import hashlib,os,resource,stat,time
+          from pathlib import Path
+          CONTRACT_SHA256='2d5bc09a761acd19e4cc3be5d721b14ccb79bcb66f07647f6030d9fb12a223f5'
+          LAUNCHER_SHA256='36c6e0422f56e444b73b1e1bf3e880eff679631524e351e02d577fc72469caaa'
+          started=time.monotonic()
+          last=started
+          failed=False
+          def check():
+           global last,failed
+           if failed:raise ValueError('poisoned marker deadline')
+           now=time.monotonic()
+           if not now>=last or now-started>=8:failed=True;raise ValueError('original marker deadline')
+           last=now
+          os.sched_setaffinity(0,{min(os.sched_getaffinity(0))});resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2);resource.setrlimit(resource.RLIMIT_CPU,(5,5));resource.setrlimit(resource.RLIMIT_FSIZE,(16*1024,)*2);resource.setrlimit(resource.RLIMIT_CORE,(0,0));resource.setrlimit(resource.RLIMIT_NOFILE,(64,64))
+          root=Path.cwd();source=root/'ci/system_observation_launch.py'
+          for p in (source,*source.parents):
+           if p.is_symlink():raise ValueError('no marker source aliases')
+          sig=lambda s:(s.st_dev,s.st_ino,s.st_mode,s.st_nlink,s.st_uid,s.st_gid,s.st_size,s.st_mtime_ns,s.st_ctime_ns)
+          check();fd=os.open(source,os.O_RDONLY|os.O_NOFOLLOW|os.O_CLOEXEC)
+          try:
+           before=os.fstat(fd)
+           if not stat.S_ISREG(before.st_mode) or before.st_nlink!=1 or before.st_mode&0o022 or not 0<before.st_size<=128*1024:raise ValueError('bounded marker source')
+           data=bytearray()
+           while True:
+            check();b=os.read(fd,min(65536,128*1024+1-len(data)));check()
+            if not b:break
+            data.extend(b)
+            if len(data)>128*1024:raise ValueError('marker source cap')
+           if sig(os.fstat(fd))!=sig(before):raise ValueError('held marker source identity')
+          finally:os.close(fd)
+          check()
+          if sig(source.lstat())!=sig(before) or hashlib.sha256(data).hexdigest()!=LAUNCHER_SHA256:raise ValueError('marker source binding')
+          check();compiled=compile(bytes(data),str(source),'exec',dont_inherit=True);check();ns={'__name__':'_c087_system_observation_marker','__file__':str(source)};exec(compiled,ns);check()
+          values={key:os.environ[env] for key,env in {'artifact_id':'OBS_ARTIFACT_ID','artifact_sha256':'OBS_ARTIFACT_SHA256','run_id':'OBS_RUN_ID','run_attempt':'OBS_RUN_ATTEMPT','commit':'OBS_COMMIT'}.items()}
+          line=ns['marker'](root,os.environ['OBS_WORK'],CONTRACT_SHA256,values,check);check();print(line,flush=True);check()
+          PY
