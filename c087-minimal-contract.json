@@ -49,8 +49,8 @@
       "sha256": "8de2e7078fee89db75e13bf8ef2ce10f5f87d1b533a98fd141ec6fa517fe0c72"
     },
     "ci/c087/admission/code/minimal.py": {
-      "bytes": 45769,
-      "sha256": "fc821277b3b8ff45f31025b9199ece17003393bd62e2c7d377ce93af18481af7"
+      "bytes": 53555,
+      "sha256": "9b939715be55b951eeb8da84e3e1142c56572642fda206890edbe43bf4b13b58"
     },
     "ci/c087/admission/code/output_model.py": {
       "bytes": 17966,

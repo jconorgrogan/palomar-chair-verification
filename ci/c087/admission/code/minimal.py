@@ -136,7 +136,97 @@ def _snapshot(module,path,budget,*,max_bytes=16*1024**3,max_entries=300000):
  result=module.snapshot(path,max_bytes=max_bytes,max_entries=max_entries,checkpoint=budget.check)
  budget.check();return result
 
-def _safe_failure(work,phase,error):
+# Finite diagnostic labels only; these do not grant authority or alter a gate.
+SETUP_GATES=('fixed_modules','entry_record','native_graph_load','native_seam_load',
+ 'native_graph_verify','transfer_fixed_files','source_manifest','source_extract',
+ 'runtime_download','runtime_archive_length','runtime_installer_load','runtime_install',
+ 'runtime_inventory_write','runtime_inventory_pin','native_contract','runtime_verify',
+ 'official_runtime_bind','owned_layout','snapshot_latest_pipeline','snapshot_prior_pipeline',
+ 'snapshot_research_source','snapshot_helper_source','snapshot_runtime_placeholder','snapshot_controller')
+
+def _setup_mark(owner,gate,position):
+ owner._setup_gate=gate;owner._setup_position=position
+ if position=='after':owner._setup_completed.append(gate)
+
+def _setup_reason(error):
+ # Match exact reviewed types and one bounded builtin string. Never stringify
+ # arbitrary arguments, exceptions, traceback locals, URLs or response bodies.
+ category='UNCLASSIFIED_EXCEPTION'
+ reviewed=type(error) is Rejected
+ if reviewed:category='CONTROLLER_REJECTED'
+ for name,label in (('frozen_native','FROZEN_SOURCE_REJECTED'),('checked_transfer','FIXED_TRANSFER_REJECTED'),('fresh_stage','NATIVE_SETUP_REJECTED'),('official_runtime','RUNTIME_BIND_REJECTED'),('protocol','INPUT_SNAPSHOT_REJECTED'),('job_budget','BUDGET_REJECTED')):
+  module=sys.modules.get(name)
+  if type(module) is types.ModuleType and type(error) is vars(module).get('Rejected'):
+   category=label;reviewed=True;break
+ reasons={
+  'frozen graph manifest changed':'FROZEN_GRAPH_MANIFEST',
+  'frozen complete38-file source graph changed':'FROZEN_GRAPH_MEMBERSHIP',
+  'frozen compile buffer pin mismatch':'FROZEN_SOURCE_BUFFER',
+  'native aliases already populated':'NATIVE_ALIAS_COLLISION',
+  'single exclusive main thread required':'NATIVE_THREAD_SCOPE',
+  'fixed admission implementation pin changed':'FIXED_ADMISSION_SOURCE_PIN',
+  'fixed historical implementation tree changed':'FIXED_HISTORICAL_TREE',
+  'fixed historical source changed':'FIXED_HISTORICAL_SOURCE_PIN',
+  'selected source archive identity mismatch':'SOURCE_ARCHIVE_IDENTITY',
+  'duplicate/unlisted/non-regular source archive member':'SOURCE_ARCHIVE_MEMBER',
+  'source archive size mismatch':'SOURCE_ARCHIVE_SIZE',
+  'source archive member hash mismatch':'SOURCE_ARCHIVE_MEMBER_HASH',
+  'source archive missing selected file':'SOURCE_ARCHIVE_INCOMPLETE',
+  'source hash/size mismatch':'SOURCE_FILE_IDENTITY',
+  'official toolchain archive SHA256 mismatch':'RUNTIME_ARCHIVE_HASH',
+  'insufficient measured disk for bounded runtime extraction':'RUNTIME_EXTRACTION_CAPACITY',
+  'toolchain expansion byte limit':'RUNTIME_EXPANSION_LIMIT',
+  'toolchain decompression failed':'RUNTIME_DECOMPRESSION',
+  'unresolved/cyclic toolchain hardlinks':'RUNTIME_HARDLINK_TARGET',
+  'official runtime archive length':'RUNTIME_ARCHIVE_LENGTH',
+  'official release archive length':'RUNTIME_DOWNLOAD_LENGTH',
+  'original official release download bound':'RUNTIME_DOWNLOAD_BOUND',
+  'measured official archive headroom':'RUNTIME_DOWNLOAD_CAPACITY',
+  'fixed canonical installed inventory':'RUNTIME_DERIVED_INVENTORY_PIN',
+  'toolchain archive hash mismatch':'RUNTIME_VERIFY_ARCHIVE_HASH',
+  'toolchain inventory hash mismatch':'RUNTIME_VERIFY_INVENTORY_HASH',
+  'toolchain inventory membership mismatch':'RUNTIME_VERIFY_MEMBERSHIP',
+  'installed toolchain hash mismatch':'RUNTIME_VERIFY_FILE_HASH',
+  'runtime entry is not owned by verifier':'RUNTIME_BIND_OWNER',
+  'runtime entry has unsafe mode':'RUNTIME_BIND_MODE',
+  'regular file or hardlink':'RUNTIME_BIND_REGULAR_SINGLE_LINK',
+  'fixed official inventory digest differs':'RUNTIME_BIND_INVENTORY_PIN',
+  'extra or duplicate runtime entry':'RUNTIME_BIND_EXTRA_ENTRY',
+  'missing runtime entries':'RUNTIME_BIND_MISSING_ENTRY',
+  'regular file size/mode differs':'RUNTIME_BIND_SIZE_MODE',
+  'regular file hash differs':'RUNTIME_BIND_FILE_HASH',
+  'alias target text differs':'RUNTIME_BIND_ALIAS',
+  'official runtime filesystem check failed':'RUNTIME_BIND_FILESYSTEM',
+  'owned directory':'SNAPSHOT_DIRECTORY_OWNER_MODE',
+  'owned single-link regular file':'SNAPSHOT_FILE_OWNER_MODE',
+  'regular tree file':'SNAPSHOT_REGULAR_SINGLE_LINK',
+  'symlink entry':'SNAPSHOT_SYMLINK',
+  'tree logical bytes':'SNAPSHOT_BYTE_LIMIT',
+  'tree entries':'SNAPSHOT_ENTRY_LIMIT',
+  'fixed source bytes changed':'CONTROLLER_SOURCE_PIN',
+ }
+ args=BaseException.args.__get__(error) if reviewed else None
+ reason='REQUIRED_GATE_FAILED'
+ if reviewed and type(args) is tuple and len(args)==1 and type(args[0]) is str and len(args[0])<=160:
+  reason=reasons.get(args[0],reason)
+ return category,reason
+
+def _setup_transport_reason(error):
+ # Only exact standard-library types; never call str() on error or reason.
+ module=sys.modules.get('urllib.error')
+ known=vars(module) if type(module) is types.ModuleType else {}
+ if type(error) is known.get('HTTPError'):
+  result={'exception_category':'OFFICIAL_DOWNLOAD_HTTP_ERROR','reason_code':'OFFICIAL_DOWNLOAD_HTTP_ERROR'}
+  code=vars(error).get('code')
+  if type(code) is int and 100<=code<=599:result['http_status']=code
+  return result
+ if type(error) is TimeoutError or (type(error) is known.get('URLError') and type(vars(error).get('reason')) is TimeoutError):
+  return {'exception_category':'OFFICIAL_DOWNLOAD_TIMEOUT','reason_code':'OFFICIAL_DOWNLOAD_TIMEOUT'}
+ if type(error) is known.get('URLError'):
+  return {'exception_category':'OFFICIAL_DOWNLOAD_URL_ERROR','reason_code':'OFFICIAL_DOWNLOAD_URL_ERROR'}
+ return {}
+
+def _safe_failure(work,phase,error,*,setup_owner=None):
  """Never stringify acquisition exceptions, URLs, headers, bodies or secrets."""
  try:
   out=work/'upload'
@@ -145,6 +235,13 @@ def _safe_failure(work,phase,error):
   if completion.exists():
    need(completion.is_file() and not completion.is_symlink(),'owned completion marker');completion.unlink()
   value={'schema':'c087-minimal-failure-v1','status':'failed_closed','phase':phase,'exception_class':type(error).__name__ if type(error).__module__=='builtins' else 'ReviewedComponentRejected','reason_code':'REQUIRED_GATE_FAILED','proof_pass_claimed':False,'resume_allowed':False}
+  if phase=='setup':
+   value['exception_category'],value['reason_code']=_setup_reason(error)
+   if setup_owner is not None:
+    gate=setup_owner._setup_gate;position=setup_owner._setup_position;completed=setup_owner._setup_completed
+    if type(gate) is str and gate in SETUP_GATES and position in ('before','after') and type(completed) is list and completed==list(SETUP_GATES[:SETUP_GATES.index(gate)+(position=='after')]):
+     value['setup_gate']=gate;value['setup_position']=position;value['setup_completed']=completed
+     if gate=='runtime_download':value.update(_setup_transport_reason(error))
   raw=jb(value);fd=os.open(out/'FAILURE.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
   try:os.write(fd,raw);os.fsync(fd)
   finally:os.close(fd)
@@ -156,39 +253,77 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
  need(not _USED,'one original controller invocation');_USED=True
  owner=object.__new__(_TrustedRun);owner._poisoned=False;owner._phase='setup';owner.work=canonical(work)
  owner.nonce=secrets.token_hex(32);owner.deadline=budget.original.deadline_monotonic
+ owner._setup_completed=[];owner._setup_gate='fixed_modules';owner._setup_position='before'
  need(not work.exists(),'fresh work required');work.mkdir(mode=0o700);(work/'upload').mkdir(mode=0o700)
  try:
+  _setup_mark(owner,'fixed_modules','before')
   mods=_modules(pipeline,contract);protocol=mods['protocol'];model=mods['output_model'];loader=mods['frozen_native'];engine=mods['probe_engine']
+  _setup_mark(owner,'fixed_modules','after')
+  _setup_mark(owner,'entry_record','before')
   owner.ci_identity=copy.deepcopy(ci_identity)
   protocol.write_new(work/'entry.json',jb({'schema':'c087-minimal-owned-entry-v1','ci_identity':owner.ci_identity,'session_nonce':owner.nonce,'original_deadline_monotonic':owner.deadline,'historical_native_identity_rewritten':False}),budget.check)
+  _setup_mark(owner,'entry_record','after')
+  _setup_mark(owner,'native_graph_load','before')
   latest=pipeline.parent/'latest';prior=pipeline.parent/'prior';source_package=pipeline.parent/'source-package'
   graph=loader.load_frozen_graph(str(latest));f,p=graph.f,graph.p
+  _setup_mark(owner,'native_graph_load','after')
+  _setup_mark(owner,'native_seam_load','before')
   seam=load('terminal_certificate',pipeline/'ci/c087/admission/code/terminal_certificate.py',contract['files']['ci/c087/admission/code/terminal_certificate.py'])
   seam=load('historical_admission',pipeline/'ci/c087/admission/code/historical_admission.py',contract['files']['ci/c087/admission/code/historical_admission.py'])
-  # Workflow authenticates clean fixed commits before entry; complete frozen byte
-  # maps are independently verified here. No copied clean-status receipt is used.
-  graph.verify();graph.transfer.check_fixed_files(latest/'admission',prior);budget.check()
+  _setup_mark(owner,'native_seam_load','after')
+  _setup_mark(owner,'native_graph_verify','before')
+  graph.verify()
+  _setup_mark(owner,'native_graph_verify','after')
+  _setup_mark(owner,'transfer_fixed_files','before')
+  graph.transfer.check_fixed_files(latest/'admission',prior);budget.check()
+  _setup_mark(owner,'transfer_fixed_files','after')
+  _setup_mark(owner,'source_manifest','before')
   manifest=f.pinned_load(prior/'SOURCE_MANIFEST.json',p.PRIOR_MANIFEST)
+  _setup_mark(owner,'source_manifest','after')
+  _setup_mark(owner,'source_extract','before')
   f.extract_sources(source_package/'hierarchy-c-sources.tar.gz',work/'source',manifest);budget.check()
-  # Original fixed official-release download, inside this same original Budget.
-  # The parent does not inherit the native512MiB per-created-file ceiling.
+  _setup_mark(owner,'source_extract','after')
+  _setup_mark(owner,'runtime_download','before')
   archive=work/'lean.tar.zst';_download_runtime(archive,budget)
+  _setup_mark(owner,'runtime_download','after')
+  _setup_mark(owner,'runtime_archive_length','before')
   need(archive.stat().st_size==595391556,'official runtime archive length')
+  _setup_mark(owner,'runtime_archive_length','after')
+  _setup_mark(owner,'runtime_installer_load','before')
   install=load('toolchain_install',latest/'ci/toolchain_install.py',loader.GRAPH.pins['files']['ci/toolchain_install.py'])
+  _setup_mark(owner,'runtime_installer_load','after')
+  _setup_mark(owner,'runtime_install','before')
   inventory=install.install_archive(archive,work/'runtime');budget.check()
+  _setup_mark(owner,'runtime_install','after')
+  _setup_mark(owner,'runtime_inventory_write','before')
   protocol.write_new(work/'runtime-inventory.json',f.json_bytes(inventory),budget.check)
+  _setup_mark(owner,'runtime_inventory_write','after')
+  _setup_mark(owner,'runtime_inventory_pin','before')
   need(sha(f.json_bytes(inventory))==INVENTORY_SHA,'fixed canonical installed inventory')
+  _setup_mark(owner,'runtime_inventory_pin','after')
+  _setup_mark(owner,'native_contract','before')
   native_contract=f.pinned_load(latest/'ci/three_context_contract.json',CONTRACT_SHA)
+  _setup_mark(owner,'native_contract','after')
+  _setup_mark(owner,'runtime_verify','before')
   f.verify_toolchain(work/'runtime',archive,work/'runtime-inventory.json',native_contract,derived_inventory_sha256=INVENTORY_SHA);budget.check()
+  _setup_mark(owner,'runtime_verify','after')
+  _setup_mark(owner,'official_runtime_bind','before')
   runtime=mods['official_runtime'].bind_official_runtime(str(work/'runtime'),check_deadline=budget.check)
+  _setup_mark(owner,'official_runtime_bind','after')
+  _setup_mark(owner,'owned_layout','before')
   (work/'empty-runtime').mkdir(mode=0o700);(work/'admission').mkdir(mode=0o700);(work/'transfer').mkdir(mode=0o700)
   owner.roots={'latest_pipeline':latest,'prior_pipeline':prior,'source_package':source_package,'research_source':work/'source','official_runtime':work/'runtime','helper_source':pipeline/'ci/c087/helpers','runtime_placeholder':work/'empty-runtime','container':work/'admission','acquisition':work/'transfer/acquired'}
   roots=owner.roots;package=pipeline/'ci/c087/admission'
-  # Snapshot all non-runtime fixed input bytes/inodes before acquisition. Official
-  # runtime uses its exact alias-aware reviewed verifier, never generic symlinks.
+  _setup_mark(owner,'owned_layout','after')
   fixed_names=('latest_pipeline','prior_pipeline','research_source','helper_source','runtime_placeholder')
-  baseline={k:_snapshot(protocol,roots[k],budget) for k in fixed_names}
+  baseline={}
+  for name in fixed_names:
+   _setup_mark(owner,'snapshot_'+name,'before')
+   baseline[name]=_snapshot(protocol,roots[name],budget)
+   _setup_mark(owner,'snapshot_'+name,'after')
+  _setup_mark(owner,'snapshot_controller','before')
   code_snapshot=_snapshot(protocol,pipeline,budget,max_bytes=64*1024**2,max_entries=4096)
+  _setup_mark(owner,'snapshot_controller','after')
   def fixed_check():
    need(not owner._poisoned,'controller poisoned')
    try:
@@ -289,7 +424,7 @@ def _run_candidate(pipeline,work,contract,budget,acquisition_token,ci_identity):
   if 'mods' in locals() and 'f' in locals():
    try:_retain_failure(owner,mods['protocol'],mods['probe_engine'],f,budget)
    except BaseException:pass
-  _safe_failure(work,owner._phase,error);raise
+  _safe_failure(work,owner._phase,error,setup_owner=owner);raise
 
 def _download_runtime(archive,budget):
  """Original driver download loop; no token, custom transport or cache."""
