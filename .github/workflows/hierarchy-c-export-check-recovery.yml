@@ -1,0 +1,95 @@
+# INACTIVE source envelope. Each job is disabled and the contract pin is rejecting.
+# Independent combined-tree review is required before any activation or publication.
+# Exactly one Lake kernel-plus-axiom producer; no aggregate verdict is produced.
+name: Verify hierarchy C export check recovery
+'on':
+  push:
+    branches:
+    - verify/hierarchy-c-export-check-recovery-20261018
+    paths:
+    - ci/**
+    - admission/**
+    - acquisition/**
+    - .github/workflows/hierarchy-c-export-check-recovery.yml
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: hierarchy-c-export-check-recovery-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  lake_export_axioms:
+    name: lake_export_axioms
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/export_retry_driver.py"
+        lake_export_axioms --contract-sha256 9b3d8fb1f15a92c553583fc3ae49ffb64a3dc486815f4d112aae3f9315f3da1b --pipeline "$GITHUB_WORKSPACE/pipeline" --source
+        "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-export-retry-${{ github.run_id }}-${{ github.run_attempt }}-lake_export_axioms
+        path: '${{ runner.temp }}/hierarchy-c-lake_export_axioms/upload/payload.tar
+
+          ${{ runner.temp }}/hierarchy-c-lake_export_axioms/upload/upload-candidate.json
+
+          '
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-export-retry-failure-${{ github.run_id }}-${{ github.run_attempt }}-lake_export_axioms
+        path: ${{ runner.temp }}/hierarchy-c-lake_export_axioms/failure/FAILURE.json
+    if: ${{ true }}
