@@ -1,0 +1,140 @@
+{
+  "commit": "11acb17ec6b07a8f9e9173e6845197929540936b",
+  "historical_packet": {
+    "historical_source_binding_sha256": "e6305e61558e715edc098cd9e8645f40af46025a0b999a22f1be837dbdde100b",
+    "path": "/workspace/shared/c087_auditor_memory_source_20261018T0025",
+    "status": "unrecovered after workspace reset; no reconstruction claimed"
+  },
+  "native_execution": false,
+  "publication": false,
+  "repository": "leanprover/lean4",
+  "retained_not_found": {
+    "correction": "src/util/shell.cpp includes runtime/memory.h; its runtime/memory.cpp implementation was retrieved at the same commit",
+    "requested_path": "src/util/memory.cpp",
+    "response": {
+      "bytes": 668,
+      "sha256": "541962a04b1743a860cec249747b9ed93465c096bb802b5305968775ae7577df"
+    }
+  },
+  "runtime_inventory": {
+    "bytes": 3292808,
+    "sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+  },
+  "runtime_source_byte_match": "src/Lean/Shell.lean only; C++ source is official same-commit source, not direct compiled-binary verification",
+  "runtime_source_row": {
+    "bytes": 23341,
+    "mode": 420,
+    "path": "src/lean/Lean/Shell.lean",
+    "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
+  },
+  "schema": "pinned-lean-memory-semantics-v1",
+  "semantics": {
+    "argument_unit_bytes": 1048576,
+    "default_check_frequency_calls": 200,
+    "frequency_qualification": "LEAN_CHECK_MEM_THRESHOLD is build-overridable; no compiled flag attestation claimed",
+    "illustrative_unselected_argument": 6144,
+    "interpretation": "Internal -M threshold is not sampled process-tree RSS, RLIMIT_AS, reserved RAM, or a guarantee of sufficiency. The observed failure identifies the interpreter threshold, not malloc failure or errno.",
+    "jemalloc_build": "stats.allocated via mallctl for both memory queries; compiled allocator choice not established by this source-only packet",
+    "margin_qualification": "Past sampled margin is not guaranteed future headroom; 5120 adds a smaller threshold increment than 6144, with unknown sufficiency.",
+    "measured_prior_sampled_tree_rss_bytes": 6770839552,
+    "measured_sampled_margin_bytes": 1819095040,
+    "ordinary_linux": "getrusage(RUSAGE_SELF).ru_maxrss*1024 fast path, then current /proc/self/statm RSS; throw when positive current value is at least threshold",
+    "previous_argument": 4096,
+    "sampled_tree_rss_cap_bytes": 8589934592,
+    "selected_argument": 5120,
+    "selected_threshold_bytes": 5368709120
+  },
+  "sources": [
+    {
+      "bytes": 588,
+      "git_blob_sha": "c2f9a0996797856b8a17e6c35cc8fe8ebcc2aa8e",
+      "local_name": "lean.cpp",
+      "path": "src/shell/lean.cpp",
+      "raw_response": {
+        "bytes": 1208,
+        "path": "SHELL_RESPONSE.json",
+        "sha256": "dafebbd81203173da5e306d22e181413210952e7fa10830d1e4491ba95749b46"
+      },
+      "sha256": "b311e6363d689e7b6d2e717c53981c59c63104892dc1d0cb308d977d6c6d943a",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/shell/lean.cpp"
+    },
+    {
+      "bytes": 12425,
+      "git_blob_sha": "29b859887e2ca380b30216242fa02c95f291cb1a",
+      "local_name": "shell.cpp",
+      "path": "src/util/shell.cpp",
+      "raw_response": {
+        "bytes": 17519,
+        "path": "SHELL_IMPL_RESPONSE.json",
+        "sha256": "fc3d27e3f7c77269ba28c1a4b1488a88087dbf66cf094cb4c6cd5f20c7e475f7"
+      },
+      "sha256": "502eaa752396cdff5bb448833a63be54cbbcbb3d36881eb10e235c04c64c0832",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/util/shell.cpp"
+    },
+    {
+      "bytes": 551,
+      "git_blob_sha": "e2d775f5946dcaa4f3115515633c10cb5022dc94",
+      "local_name": "memory.h",
+      "path": "src/runtime/memory.h",
+      "raw_response": {
+        "bytes": 1160,
+        "path": "MEMORY_HEADER_RESPONSE.json",
+        "sha256": "7237bc71273f0bda18b1466ffc0787d2a3b9646a0541b5a7b8b61e49f8d0e52d"
+      },
+      "sha256": "bb5ad661f13da089cc2613105bdf4d43da9f02985dde4881b4f2d176e7397fb7",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/runtime/memory.h"
+    },
+    {
+      "bytes": 23341,
+      "git_blob_sha": "192d972d2b63f0eee8a5237fe5231fefa13d15af",
+      "local_name": "Shell.lean",
+      "path": "src/Lean/Shell.lean",
+      "raw_response": {
+        "bytes": 32561,
+        "path": "LEAN_SHELL_RESPONSE.json",
+        "sha256": "3c3e4a85302da89eee1857798ee6c725d2f94a6d39fe70daabe574a2dde87ecd"
+      },
+      "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/Lean/Shell.lean"
+    },
+    {
+      "bytes": 4349,
+      "git_blob_sha": "0a723690f3bed9f1bf56229bc9f6238522ea3c59",
+      "local_name": "memory.cpp",
+      "path": "src/runtime/memory.cpp",
+      "raw_response": {
+        "bytes": 6396,
+        "path": "MEMORY_IMPL_RESPONSE.json",
+        "sha256": "0a1568281f143cb73f2f1f4020f180a88e0e62343c73be961dd87f70f656a37b"
+      },
+      "sha256": "37ec24e69c8d01944e5138fa6189195185802f8e3d5ee88f3e412c964465b36f",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/runtime/memory.cpp"
+    },
+    {
+      "bytes": 2007,
+      "git_blob_sha": "0004494591da4a03e63b41ec5eb65e5ffadd7e2a",
+      "local_name": "exception.h",
+      "path": "src/runtime/exception.h",
+      "raw_response": {
+        "bytes": 3170,
+        "path": "EXCEPTION_HEADER_RESPONSE.json",
+        "sha256": "ddb9808b2a4e95ba3cc4f3949f717000375633c305fb34a3feb314e0afc479ec"
+      },
+      "sha256": "58834ad1df155aa675726aed25e84fcd36201dc2cfdeead8d85fb1836ef4bd87",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/runtime/exception.h"
+    },
+    {
+      "bytes": 1435,
+      "git_blob_sha": "aad6836ebfdc9f4a68bd751a301db4dbab12a5cc",
+      "local_name": "exception.cpp",
+      "path": "src/runtime/exception.cpp",
+      "raw_response": {
+        "bytes": 2388,
+        "path": "EXCEPTION_IMPL_RESPONSE.json",
+        "sha256": "6a050e11983c0ced714a2942e98692b4f02279bf024a700dad377ee8373ab749"
+      },
+      "sha256": "cbb244d3b7d31ab73e75d437427cb540462552726ee01229adbe203df046ce21",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/runtime/exception.cpp"
+    }
+  ]
+}

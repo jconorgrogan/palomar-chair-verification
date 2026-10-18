@@ -17,6 +17,7 @@ H5_PRODUCER_SHA='29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d2
 H5_PRODUCER_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','run_id':'39134139440','run_attempt':'1','workflow_commit':'db18549f7ad64d5d62c4f9432f8f804ab375375c'}
 def h5_retry(c):return c.get('higher_h5_retry_mode')==H5_RETRY_MODE
 def raw_as24(c):return 'higher_h5_raw_auditor_address_space_gib' in c
+def raw_heap5120(c):return 'higher_h5_raw_auditor_heap_mib' in c
 def command_address_space_bytes(c,name,a):
     if raw_as24(c):
         a.f.need(h5_retry(c) and type(c['higher_h5_raw_auditor_address_space_gib']) is int and c['higher_h5_raw_auditor_address_space_gib']==24,'unapproved raw-auditor AS profile')
@@ -36,6 +37,8 @@ def digest(value):return hashlib.sha256((json.dumps(value,sort_keys=True,indent=
 def profile(c,a):
     a.f.need('higher_recovery_mode' not in c or recovery(c),'unknown higher recovery mode')
     a.f.need('higher_h5_retry_mode' not in c or (h5_retry(c) and recovery(c)),'unknown H5-only retry mode')
+    if raw_heap5120(c):validate_raw_heap5120_scope(c,a)
+    else:a.f.need('higher_h5_heap5120' not in c,'heap5120 scope lacks fixed profile')
     if raw_as24(c):validate_raw_as24_scope(c,a)
     else:a.f.need('higher_h5_as24' not in c,'AS24 scope lacks fixed resource profile')
     if h5_retry(c):validate_h5_retry_scope(c,a)
@@ -64,7 +67,7 @@ def validate_h5_retry_scope(c,a):
       'failed_h5_terminal_review_sha256':'b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01',
       'failed_h5_objects_reused':False,'fresh_h5_module_count':27,'all_per_command_and_per_job_caps_unchanged':not raw_as24(c)}
     a.f.need(c.get('higher_h5_retry')==expected,'H5 retry scope/provenance differs')
-    a.f.need(c['publication_branch']==('verify/higher-h5-as24-20261018' if raw_as24(c) else 'verify/higher-h5-read-diagnostic-20261018'),'H5 retry branch differs')
+    a.f.need(c['publication_branch']==('verify/higher-h5-heap5120-20261018' if raw_heap5120(c) else 'verify/higher-h5-as24-20261018' if raw_as24(c) else 'verify/higher-h5-read-diagnostic-20261018'),'H5 retry branch differs')
     for path,sha in [('origin/higher-h5-diagnostic-independent-review.json',expected['diagnostic_source_review_sha256']),
                      ('origin/higher-h5-diagnostic-proposal-review.json',expected['diagnostic_proposal_sha256']),
                      ('origin/failed-h5-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
@@ -76,6 +79,13 @@ def validate_raw_as24_scope(c,a):
     a.f.need(c.get('higher_h5_as24')==expected,'raw-auditor AS24 scope/provenance differs')
     for path,sha in [('origin/higher-h5-as12-contract.json',expected['previous_contract_sha256']),('origin/failed-h5-as12-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
         a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'AS24 prior source/evidence changed')
+
+def validate_raw_heap5120_scope(c,a):
+    a.f.need(h5_retry(c) and raw_as24(c) and type(c['higher_h5_raw_auditor_heap_mib']) is int and c['higher_h5_raw_auditor_heap_mib']==5120,'unapproved raw-auditor heap profile')
+    expected={'schema': 'higher-h5-raw-auditor-heap5120-v1', 'previous_contract_sha256': '3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630', 'failed_run_identity': {'repository': 'jconorgrogan/palomar-chair-verification', 'run_id': '39156079183', 'run_attempt': '1', 'workflow_commit': 'f20a3135ad6f49dd3a8050053d1affd885891016'}, 'failed_h5_terminal_review_sha256': '3a86ac46a3edd66af0839c47d08e3571c80839dbea014e5b22ff22eadf7ccd95', 'official_memory_source_binding_sha256': 'b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608', 'raw_auditor_command': 'audit-AuditHigherPhysicalEndpoints', 'previous_lean_heap_mib': 4096, 'lean_heap_mib': 5120, 'address_space_bytes': 25769803776, 'rss_tree_bytes': 8589934592, 'all_other_command_arguments_and_limits_unchanged': True, 'failed_h5_objects_reused': False, 'fresh_h5_module_count': 27}
+    a.f.need(c.get('higher_h5_heap5120')==expected,'raw-auditor heap5120 scope/provenance differs')
+    for path,sha in [('origin/higher-h5-as24-contract.json',expected['previous_contract_sha256']),('origin/failed-h5-as24-terminal-review.json',expected['failed_h5_terminal_review_sha256']),('origin/lean-memory/SOURCE_BINDING.json',expected['official_memory_source_binding_sha256'])]:
+        a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'heap5120 prior source/evidence changed')
 
 def validate_control_layout(c,a):
     old_path='origin/HigherInspectorControl.original.lean';new_path='auditors/HigherInspectorControl.lean';lock_path='locks/higher-control-layout-repair.json'
@@ -296,7 +306,7 @@ def auditor_specs(c,work,runtime,search,a):
         add('compile-auditor-'+name,argv,env,sources,[staging,work/'home',work/'tmp'],work/'auditors',180)
         add('check-auditor-'+name,[runtime/'bin/leanchecker',name],env,sources,[work/'home',work/'tmp'],work/'auditors',120)
     env=a.safe_env(runtime,work/'home',work/'tmp');env['MATHLIB_CACHE_DIR']=str(work/'cache');env['LEAN_PATH']=':'.join(map(str,[work/'auditor-objects',work/'reference-objects',work/'objects',*map(Path,search),runtime/'lib/lean']))
-    add('audit-AuditHigherPhysicalEndpoints',[runtime/'bin/lean','-j1','-M4096','--run',work/'auditors/AuditHigherPhysicalEndpoints.lean'],env,[work/'auditors',work/'auditor-objects',work/'reference-objects',work/'objects',work/'packages'],[work/'home',work/'tmp'],work/'auditors',c['auditor_timeout_seconds'])
+    add('audit-AuditHigherPhysicalEndpoints',[runtime/'bin/lean','-j1','-M5120' if raw_heap5120(c) else '-M4096','--run',work/'auditors/AuditHigherPhysicalEndpoints.lean'],env,[work/'auditors',work/'auditor-objects',work/'reference-objects',work/'objects',work/'packages'],[work/'home',work/'tmp'],work/'auditors',c['auditor_timeout_seconds'])
     if raw_as24(c):specs[-1]['address_space_bytes']=command_address_space_bytes(c,specs[-1]['name'],a)
     for row in specs:row['argv']=list(map(str,row['argv']))
     return specs

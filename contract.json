@@ -2,8 +2,8 @@
   "activation_admission": {
     "endpoint_audits_pending": true,
     "fresh_native_readmission_required": true,
-    "independent_source_review_sha256": "48908ab2955402d57a5de3978bf4bf2b2d613f47967a77de8ec5befe5fa6bced",
-    "schema": "higher-h5-raw-auditor-as24-successor-v1",
+    "independent_source_review_sha256": "5a5257a042a381750415d37d7a6e716762734502b0fb43a011d71594e75b810c",
+    "schema": "higher-h5-raw-auditor-heap5120-successor-v1",
     "source_review_pending": false
   },
   "aggregate_command_deadline_seconds": 19200,
@@ -156,7 +156,7 @@
   "deadline_policy": "The original absolute320-minute deadline bounds all acceptance work. Host SIGALRM interrupts blocked I/O and starts one five-second failure-only collection grace. Only the pinned process runner defers the first alarm until its bounded cleanup finishes, then uses that same single-use failure grace. Repeated one-second alarms prevent swallowed expiry during failure handling. Every expiry unconditionally rejects acceptance; the outer330-minute job ceiling is unchanged.",
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 180,
-  "distribution_file_count": 81,
+  "distribution_file_count": 97,
   "distribution_files": [
     ".github/workflows/conditional-geometry.yml",
     "LICENSE",
@@ -205,6 +205,10 @@
     "origin/failed-h5-as12-last-command.json",
     "origin/failed-h5-as12-result.json",
     "origin/failed-h5-as12-terminal-review.json",
+    "origin/failed-h5-as24-ir-observation.json",
+    "origin/failed-h5-as24-last-command.json",
+    "origin/failed-h5-as24-result.json",
+    "origin/failed-h5-as24-terminal-review.json",
     "origin/failed-h5-last-command.json",
     "origin/failed-h5-terminal-review.json",
     "origin/higher-green-original-README.md",
@@ -216,6 +220,9 @@
     "origin/higher-h5-as12-contract.json",
     "origin/higher-h5-as12-original-README.md",
     "origin/higher-h5-as12-tests/test_higher_recovery.py",
+    "origin/higher-h5-as24-contract.json",
+    "origin/higher-h5-as24-original-README.md",
+    "origin/higher-h5-as24-tests/test_h5_as24.py",
     "origin/higher-h5-diagnostic-independent-review.json",
     "origin/higher-h5-diagnostic-proposal-review.json",
     "origin/higher-interface-identity.json",
@@ -226,12 +233,21 @@
     "origin/historical-tests/test_final_origins.py",
     "origin/historical-tests/test_locked_origins.py",
     "origin/historical-tests/test_staged_replay.py",
+    "origin/lean-memory/SOURCE_BINDING.json",
+    "origin/lean-memory/Shell.lean",
+    "origin/lean-memory/exception.cpp",
+    "origin/lean-memory/exception.h",
+    "origin/lean-memory/lean.cpp",
+    "origin/lean-memory/memory.cpp",
+    "origin/lean-memory/memory.h",
+    "origin/lean-memory/shell.cpp",
     "origin/locked-origins.json",
     "origin/producer-contract.json",
     "origin/producer-owned-sources.json",
     "owned-sources.tar.gz",
     "tests/test_conditional_transport.py",
     "tests/test_h5_as24.py",
+    "tests/test_h5_heap5120.py",
     "tests/test_h5_retry.py",
     "tests/test_higher_composition.py",
     "tests/test_higher_recovery.py",
@@ -287,7 +303,28 @@
     "rss_tree_bytes": 8589934592,
     "schema": "higher-h5-raw-auditor-as24-v1"
   },
+  "higher_h5_heap5120": {
+    "address_space_bytes": 25769803776,
+    "all_other_command_arguments_and_limits_unchanged": true,
+    "failed_h5_objects_reused": false,
+    "failed_h5_terminal_review_sha256": "3a86ac46a3edd66af0839c47d08e3571c80839dbea014e5b22ff22eadf7ccd95",
+    "failed_run_identity": {
+      "repository": "jconorgrogan/palomar-chair-verification",
+      "run_attempt": "1",
+      "run_id": "39156079183",
+      "workflow_commit": "f20a3135ad6f49dd3a8050053d1affd885891016"
+    },
+    "fresh_h5_module_count": 27,
+    "lean_heap_mib": 5120,
+    "official_memory_source_binding_sha256": "b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608",
+    "previous_contract_sha256": "3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630",
+    "previous_lean_heap_mib": 4096,
+    "raw_auditor_command": "audit-AuditHigherPhysicalEndpoints",
+    "rss_tree_bytes": 8589934592,
+    "schema": "higher-h5-raw-auditor-heap5120-v1"
+  },
   "higher_h5_raw_auditor_address_space_gib": 24,
+  "higher_h5_raw_auditor_heap_mib": 5120,
   "higher_h5_retry": {
     "all_per_command_and_per_job_caps_unchanged": false,
     "diagnostic_proposal_sha256": "bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa",
@@ -339,6 +376,13 @@
     "schema": "higher-green-control-successor-v1",
     "source_review_pending": false
   },
+  "historical_h5_as24_activation_admission": {
+    "endpoint_audits_pending": true,
+    "fresh_native_readmission_required": true,
+    "independent_source_review_sha256": "48908ab2955402d57a5de3978bf4bf2b2d613f47967a77de8ec5befe5fa6bced",
+    "schema": "higher-h5-raw-auditor-as24-successor-v1",
+    "source_review_pending": false
+  },
   "historical_h5_diagnostic_activation_admission": {
     "endpoint_audits_pending": true,
     "fresh_native_readmission_required": true,
@@ -357,8 +401,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 1489,
-      "sha256": "4957c4c23242f2faf390b81871f869db2ff9b3ffe33b34701bdb1969a0029624"
+      "bytes": 2646,
+      "sha256": "ab36acf872d2d749b90590f40322cc84fd9cdb6a5e25d8b79bf56bd17c392f19"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -386,7 +430,7 @@
     },
     "ci/cache_diagnostic.py": {
       "bytes": 81922,
-      "sha256": "b2aac74130706a6b3360215e2632985ede29cf51f108959d88708cd6665a9504"
+      "sha256": "3bb36711ba6ae605e95bab9536e18665f1a492f0f7b36ba01bfa2ceb9588fd61"
     },
     "ci/collect_evidence.py": {
       "bytes": 22654,
@@ -401,8 +445,8 @@
       "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
     },
     "ci/higher_policy.py": {
-      "bytes": 53065,
-      "sha256": "6594fa06b9e6cac1356bb908d10fbffb4190b23259265602019b3e9512c416bb"
+      "bytes": 54960,
+      "sha256": "d032188a36b2353a1ed4f937b7b1284efdf4de6fd15ef1b3ce5a8162486a1769"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -532,6 +576,22 @@
       "bytes": 26883,
       "sha256": "ed35605dbb4a4ea88ab9e0c1a8e2a9bf8775ec9c712c5aa3c5015ed11f656837"
     },
+    "origin/failed-h5-as24-ir-observation.json": {
+      "bytes": 657,
+      "sha256": "93c9afb0387b43d4f1ae642c5b60adf0767575df23df08b37b315f2baa36e769"
+    },
+    "origin/failed-h5-as24-last-command.json": {
+      "bytes": 5169,
+      "sha256": "756b605266e9bba5295fb74d1b93f911e25730721bbf7fe39b4e53260f7be7db"
+    },
+    "origin/failed-h5-as24-result.json": {
+      "bytes": 3197,
+      "sha256": "c6af757847f6e7e6369438d9f01427efe4ac529c8963945e04f4d2b052bafa9a"
+    },
+    "origin/failed-h5-as24-terminal-review.json": {
+      "bytes": 32351,
+      "sha256": "3a86ac46a3edd66af0839c47d08e3571c80839dbea014e5b22ff22eadf7ccd95"
+    },
     "origin/failed-h5-last-command.json": {
       "bytes": 5022,
       "sha256": "ceeee4d8d1ebaacde42dbf023455b43a38078585207908d250485e0dc98c415e"
@@ -576,6 +636,18 @@
       "bytes": 13643,
       "sha256": "ac2d617d278b1251bfb76ed024eed1a777c61a2768f00afc191e8c288b89359d"
     },
+    "origin/higher-h5-as24-contract.json": {
+      "bytes": 549534,
+      "sha256": "3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630"
+    },
+    "origin/higher-h5-as24-original-README.md": {
+      "bytes": 1489,
+      "sha256": "4957c4c23242f2faf390b81871f869db2ff9b3ffe33b34701bdb1969a0029624"
+    },
+    "origin/higher-h5-as24-tests/test_h5_as24.py": {
+      "bytes": 10645,
+      "sha256": "082fcfe7c050b5788be0457ad55649d64b80f409d3aceeb5afa1df319ba94636"
+    },
     "origin/higher-h5-diagnostic-independent-review.json": {
       "bytes": 2560,
       "sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc"
@@ -615,6 +687,38 @@
     "origin/historical-tests/test_staged_replay.py": {
       "bytes": 14557,
       "sha256": "6cd0db87069c817f3f71e6a13683012d3e15593154160e40a645d043dfde0543"
+    },
+    "origin/lean-memory/SOURCE_BINDING.json": {
+      "bytes": 6462,
+      "sha256": "b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608"
+    },
+    "origin/lean-memory/Shell.lean": {
+      "bytes": 23341,
+      "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
+    },
+    "origin/lean-memory/exception.cpp": {
+      "bytes": 1435,
+      "sha256": "cbb244d3b7d31ab73e75d437427cb540462552726ee01229adbe203df046ce21"
+    },
+    "origin/lean-memory/exception.h": {
+      "bytes": 2007,
+      "sha256": "58834ad1df155aa675726aed25e84fcd36201dc2cfdeead8d85fb1836ef4bd87"
+    },
+    "origin/lean-memory/lean.cpp": {
+      "bytes": 588,
+      "sha256": "b311e6363d689e7b6d2e717c53981c59c63104892dc1d0cb308d977d6c6d943a"
+    },
+    "origin/lean-memory/memory.cpp": {
+      "bytes": 4349,
+      "sha256": "37ec24e69c8d01944e5138fa6189195185802f8e3d5ee88f3e412c964465b36f"
+    },
+    "origin/lean-memory/memory.h": {
+      "bytes": 551,
+      "sha256": "bb5ad661f13da089cc2613105bdf4d43da9f02985dde4881b4f2d176e7397fb7"
+    },
+    "origin/lean-memory/shell.cpp": {
+      "bytes": 12425,
+      "sha256": "502eaa752396cdff5bb448833a63be54cbbcbb3d36881eb10e235c04c64c0832"
     },
     "origin/locked-origins.json": {
       "bytes": 11445,
@@ -6365,8 +6469,12 @@
       "sha256": "ebcf263a322e09084edaf84fba5248f691dd07b5348f466892ac14b8a94eebd8"
     },
     "tests/test_h5_as24.py": {
-      "bytes": 10645,
-      "sha256": "082fcfe7c050b5788be0457ad55649d64b80f409d3aceeb5afa1df319ba94636"
+      "bytes": 10882,
+      "sha256": "a52af0e1d2c3f9613d3636a688ff7e83627820619a3a4c66513a1032c13c93ee"
+    },
+    "tests/test_h5_heap5120.py": {
+      "bytes": 9313,
+      "sha256": "6009a05cd3ab2a5a6b778e4cb4869cfc5a53c870708b5a827bff682c2eab9f7c"
     },
     "tests/test_h5_retry.py": {
       "bytes": 7146,
@@ -12221,8 +12329,8 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-h5-as24-20261018",
-  "publication_parent_commit": "31143d79da8970f60dec6227cb97fd5470321209",
+  "publication_branch": "verify/higher-h5-heap5120-20261018",
+  "publication_parent_commit": "f20a3135ad6f49dd3a8050053d1affd885891016",
   "retained_context_outside_higher_closure_count": 279,
   "retained_higher_module_count": 1111,
   "retained_historical_module_count": 295,

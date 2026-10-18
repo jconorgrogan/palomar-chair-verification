@@ -1,0 +1,670 @@
+{
+  "AS12_AS24_fresh_module_receipts_byte_identical": true,
+  "AS12_comparison": {
+    "AS12_stderr_sha256": "d8741cecc19523065668ca5b515205ecd3d6242b7887f402106ba3720ddfa934",
+    "AS24_stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+    "address_space_before_bytes": 12884901888,
+    "address_space_now_bytes": 25769803776,
+    "same_RSS_cap": true,
+    "same_heap_flag": "-M4096",
+    "same_native_argv": true,
+    "same_stderr": false
+  },
+  "AS24_command_names": [
+    "audit-AuditHigherPhysicalEndpoints"
+  ],
+  "IR_predispatch_observation": {
+    "aggregate_deadline_monotonic_seconds": 19427.314393582,
+    "expected_h0": {
+      "bytes": 1054344,
+      "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+    },
+    "matches_expected_h0": true,
+    "monotonic_ended_seconds": 591.37882031,
+    "monotonic_started_seconds": 591.377568615,
+    "observation_phase": "immediately_before_raw_audit_dispatch",
+    "observed": {
+      "bytes": 1054344,
+      "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+    },
+    "path": "objects/SparseMonotiles/CoarseContactCertificates5SymmetryData.ir",
+    "refusal_reason": null,
+    "schema": "higher-h5-ir-predispatch-observation-v1"
+  },
+  "acceptance_evidence_complete": false,
+  "acquisition": {
+    "bytes": 43001,
+    "path": "/workspace/shared/higher_h5_as24_failure_review_20261018T1903/artifact/ACQUISITION.json",
+    "sha256": "dedf19a86db2e4cda28acb839742695bed43c5093b35c0ff6b9619b4e80305b8"
+  },
+  "all_206_log_pins_verified": true,
+  "all_cleanup_complete": true,
+  "all_command_argv_source_plan_matched": true,
+  "all_input_pins_rechecked_at_seal": true,
+  "allocation_failure_attributed": false,
+  "artifact": {
+    "archive_download_url": "https://api.github.com/repos/jconorgrogan/palomar-chair-verification/actions/artifacts/12146728127/zip",
+    "created_at": "2026-10-18T18:57:51Z",
+    "digest": "sha256:1f841a87860ef4df1e0068b965bfdb87531ee3fc2c3d92992af3a71e641898aa",
+    "expired": false,
+    "expires_at": "2026-10-25T18:57:50Z",
+    "id": 12146728127,
+    "name": "conditional-evidence-39156079183-1-H5_higher_assembly",
+    "size_in_bytes": 3847776,
+    "updated_at": "2026-10-18T18:57:51Z",
+    "url": "https://api.github.com/repos/jconorgrogan/palomar-chair-verification/actions/artifacts/12146728127",
+    "workflow_run": {
+      "head_branch": "verify/higher-h5-as24-20261018",
+      "head_repository_id": 1407290933,
+      "head_sha": "f20a3135ad6f49dd3a8050053d1affd885891016",
+      "id": 39156079183,
+      "repository_id": 1407290933
+    }
+  },
+  "baseline_reconciler": {
+    "bytes": 31110,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/AS12_BASELINE_RECONCILER.py.txt",
+    "sha256": "2ef8f8edf6494e1d37e7ee5f93d41303ff9609209965559adc975300b852defa"
+  },
+  "baseline_to_final_diff": {
+    "bytes": 41168,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/AS12_TO_AS24_RECONCILER.diff",
+    "sha256": "064e2f604cdd54ddfcbd0dbd0592a93e812790e157e3df278f09ba5256d340e1"
+  },
+  "check_labels_sha256": "e76b8a9043c058334aa2bd8a667ae963f42d660673554571aa666b73ecfd29c4",
+  "checker": {
+    "bytes": 39440,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/reconcile.py",
+    "sha256": "c9d37698a7fcb6854594226c8d6e61d6bd333a81d499fc25f0d086724f451702"
+  },
+  "checks": 11174,
+  "checks_each_mode": 11174,
+  "collection_all_available_complete": true,
+  "collection_bytes": 15436582,
+  "collection_files": 224,
+  "commands": 103,
+  "contract_sha256": "3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630",
+  "expanded_bytes": 15475084,
+  "final_acceptance_predicate_rejects": true,
+  "final_native_success_predicate": false,
+  "fresh_compile_check_pairs": 27,
+  "fresh_module_receipts_verified": 27,
+  "fresh_output_metadata_rows": 189,
+  "input_pins": {
+    "bytes": 74789,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/INPUT_PINS.json",
+    "sha256": "daaf27df98749467d1ccd381cc477c6e1bc39ae2442350449533c84fb0840d5e"
+  },
+  "input_pins_rechecked": 318,
+  "interface_identity": {
+    "all_package_native_library_files_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "approved_bootstrap_companion_rows_sha256": "46c6d3d1bead5e8505df515845105032fdeda6f7f99f8a1f87366b2ed768ce04",
+    "required_cache_companion_rows_sha256": "963c90d2289e10ccf6d57c3f4ade1b982411b4a8fac0bb1b0629de58d4bd5bab",
+    "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+    "schema": "higher-external-interface-v1"
+  },
+  "job": {
+    "completed_at": "2026-10-18T18:57:56Z",
+    "conclusion": "failure",
+    "html_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39156079183/job/117759463297",
+    "id": 117759463297,
+    "name": "conditional H5_higher_assembly",
+    "status": "completed"
+  },
+  "last_command": {
+    "address_space_bytes": 25769803776,
+    "allow_new_sessions": true,
+    "argv": [
+      "/usr/bin/bwrap",
+      "--unshare-all",
+      "--die-with-parent",
+      "--new-session",
+      "--clearenv",
+      "--proc",
+      "/proc",
+      "--dev",
+      "/dev",
+      "--tmpfs",
+      "/tmp",
+      "--ro-bind",
+      "/usr",
+      "/usr",
+      "--ro-bind",
+      "/bin",
+      "/bin",
+      "--ro-bind",
+      "/lib",
+      "/lib",
+      "--ro-bind",
+      "/lib64",
+      "/lib64",
+      "--ro-bind",
+      "/etc/ssl",
+      "/etc/ssl",
+      "--ro-bind",
+      "/etc/resolv.conf",
+      "/etc/resolv.conf",
+      "--ro-bind",
+      "/etc/hosts",
+      "/etc/hosts",
+      "--ro-bind",
+      "/etc/nsswitch.conf",
+      "/etc/nsswitch.conf",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--setenv",
+      "GIT_CONFIG_GLOBAL",
+      "/dev/null",
+      "--setenv",
+      "GIT_CONFIG_NOSYSTEM",
+      "1",
+      "--setenv",
+      "GIT_TERMINAL_PROMPT",
+      "0",
+      "--setenv",
+      "HOME",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--setenv",
+      "LAKE_ARTIFACT_CACHE",
+      "false",
+      "--setenv",
+      "LAKE_NO_CACHE",
+      "true",
+      "--setenv",
+      "LANG",
+      "C.UTF-8",
+      "--setenv",
+      "LC_ALL",
+      "C.UTF-8",
+      "--setenv",
+      "LEAN_ABORT_ON_PANIC",
+      "1",
+      "--setenv",
+      "LEAN_NUM_THREADS",
+      "1",
+      "--setenv",
+      "LEAN_PATH",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects:/home/runner/work/_temp/conditional-geometry/reference-objects:/home/runner/work/_temp/conditional-geometry/objects:/home/runner/work/_temp/conditional-geometry/packages/mathlib/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/plausible/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/importGraph/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/aesop/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Qq/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/batteries/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Cli/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/runtime/lib/lean",
+      "--setenv",
+      "MATHLIB_CACHE_DIR",
+      "/home/runner/work/_temp/conditional-geometry/cache",
+      "--setenv",
+      "MATHLIB_NO_CACHE_ON_UPDATE",
+      "1",
+      "--setenv",
+      "PATH",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin:/usr/bin:/bin",
+      "--setenv",
+      "TMPDIR",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--chdir",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin/lean",
+      "-j1",
+      "-M4096",
+      "--run",
+      "/home/runner/work/_temp/conditional-geometry/auditors/AuditHigherPhysicalEndpoints.lean"
+    ],
+    "cleanup_bound_seconds": 3.0,
+    "cleanup_elapsed_seconds": 0.012565,
+    "cwd": "/home/runner/work/_temp/conditional-geometry",
+    "descendants_empty": true,
+    "effective_timeout_seconds": 600,
+    "elapsed_seconds": 6.626029,
+    "escaped_descendants": true,
+    "exit_code": 1,
+    "limits": {
+      "address_space_bytes": 25769803776,
+      "max_created_file_bytes": 536870912,
+      "rss_tree_bytes": 8589934592
+    },
+    "log_overflow": false,
+    "max_created_file_bytes": 536870912,
+    "max_log_bytes": 1048576,
+    "max_rss_bytes": 8589934592,
+    "max_sampled_process_virtual_size_bytes": 14166933504,
+    "max_sampled_tree_virtual_size_bytes": 14174404608,
+    "memory_exceeded": false,
+    "name": "audit-AuditHigherPhysicalEndpoints",
+    "new_sessions_explicitly_allowed": true,
+    "peak_sampled_tree_rss_bytes": 6770839552,
+    "process_group_empty": true,
+    "requested_timeout_seconds": 600,
+    "stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surviving_children": false,
+    "timed_out": false,
+    "timeout_seconds": 600,
+    "virtual_size_sample_count": 116
+  },
+  "limitations": [
+    "The parent reports the receiver exited zero at 19:04:13 UTC and ARTIFACTS_REAUTH was the sole post-transfer list response at 19:04:27 UTC. This ordering is attributed to the parent transcript; it is not inferred from filesystem timestamps or independently verified remote chronology.",
+    "This review independently reconciles retained local API wrappers, ZIP and source bytes. It makes no remote calls and is not an independently fetched or later remote observation.",
+    "The 225-member archive is complete for the failure collector only. All available files were copied; replay acceptance evidence is explicitly incomplete.",
+    "All 103 planned command records and 206 log pins reconcile. Commands 0 through 101 exited zero, including all 27 fresh compile/check pairs and three auditor compile/check pairs. The final raw auditor command exited one.",
+    "All 27 module receipts and 189 output companion metadata rows reconcile with source hashes, ordered imports and command indexes. No fresh H5 native object payload or final acceptance inventory is present for independent readmission.",
+    "Seven original predecessor origin, original producer-contract/source, receipt, checker-lineage and interface metadata joins reconcile. Original producer object ZIP/tar payloads were not reacquired or re-admitted; 1,433 recorded checked modules is not an independent replay of all those payloads.",
+    "The predispatch IR record reports an exact 1,054,344-byte H0 pin match immediately before dispatch. The IR payload is absent and this receipt does not establish every child read or pathname state at failure.",
+    "The final stderr explicitly reports excessive memory consumption at interpreter with -M4096 unchanged. Recorded RSS remains below 8 GiB and maximum sampled individual-process VMS below the 24 GiB address-space limit. This does not attribute the error to a particular allocation, PID, native/Lean subsystem, or prove a peak was never missed.",
+    "Sampled process VMS maxima are not PID-attributed allocation traces; tree VMS sums processes and is not the per-process RLIMIT_AS metric. No errno, failed allocation result, syscall trace, or allocator accounting is recorded.",
+    "memory_exceeded=false means the sampled RSS guard did not trip. There was no recorded timeout or log overflow and final cleanup completed. These facts do not imply successful raw audit acceptance.",
+    "The prior AS12 fallback-read error and AS-saturation inference are historical context only; this AS24 run has different stderr and does not independently establish the same mechanism.",
+    "No successful H5 stage, final raw endpoint audit, native-stage object publication, final C proof, all-dimension uniform proof, or unconditional monotile result follows from this evidence."
+  ],
+  "members": 225,
+  "metadata_after_transfer_chronology": {
+    "independently_verified_remote_order": false,
+    "post_transfer_list_utc": "2026-10-18T19:04:27Z",
+    "post_transfer_response": "ARTIFACTS_REAUTH.json",
+    "receiver_exit_utc": "2026-10-18T19:04:13Z",
+    "source": "parent message reporting retained tool transcript"
+  },
+  "metadata_observations_equal": true,
+  "mode_results_identical_except_mode": true,
+  "modes": [
+    "normal",
+    "optimized"
+  ],
+  "native_success_commands": 102,
+  "normal_result": {
+    "bytes": 85403,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/NORMAL.json",
+    "sha256": "83a26b2cdf3b24e109b7539b4ef0d6bd4818cb493aefd65906e98261d1e54003"
+  },
+  "optimized_result": {
+    "bytes": 85406,
+    "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/OPTIMIZED.json",
+    "sha256": "d54dac12947938513c2ff953735e36c40cd31c74039cc48532e1d35a530a05b0"
+  },
+  "original_payload_readmission_performed": false,
+  "payload_execution": false,
+  "producer_steps": [
+    {
+      "completed_at": "2026-10-18T18:51:26Z",
+      "conclusion": "success",
+      "name": "Set up job",
+      "number": 1,
+      "started_at": "2026-10-18T18:51:25Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:51:27Z",
+      "conclusion": "success",
+      "name": "Check out the exact staged candidate",
+      "number": 2,
+      "started_at": "2026-10-18T18:51:26Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:51:39Z",
+      "conclusion": "success",
+      "name": "Install official Ubuntu sandbox dependencies",
+      "number": 3,
+      "started_at": "2026-10-18T18:51:27Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:50Z",
+      "conclusion": "failure",
+      "name": "Replay this exact checked-object stage",
+      "number": 4,
+      "started_at": "2026-10-18T18:51:39Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:50Z",
+      "conclusion": "success",
+      "name": "Preserve bounded stage evidence",
+      "number": 5,
+      "started_at": "2026-10-18T18:57:50Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:50Z",
+      "conclusion": "skipped",
+      "name": "Upload complete checked stage objects",
+      "number": 6,
+      "started_at": "2026-10-18T18:57:50Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:50Z",
+      "conclusion": "skipped",
+      "name": "Bind checked objects to this successful producer job",
+      "number": 7,
+      "started_at": "2026-10-18T18:57:50Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:51Z",
+      "conclusion": "success",
+      "name": "Upload bounded diagnostic evidence",
+      "number": 8,
+      "started_at": "2026-10-18T18:57:50Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:52Z",
+      "conclusion": "success",
+      "name": "Post Check out the exact staged candidate",
+      "number": 16,
+      "started_at": "2026-10-18T18:57:51Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T18:57:52Z",
+      "conclusion": "success",
+      "name": "Complete job",
+      "number": 17,
+      "started_at": "2026-10-18T18:57:52Z",
+      "status": "completed"
+    }
+  ],
+  "project_code_execution": false,
+  "proof_certified": false,
+  "publication_review": {
+    "bytes": 5479,
+    "path": "/workspace/shared/higher_h5_as24_publication_review_20261018T1853/FINAL_REVIEW.json",
+    "sha256": "42586f7e41bd88d8ee74d7ff44ea107e800a06e25be7f8bc0f37c4892d2ad521"
+  },
+  "raw_auditor_exit": 1,
+  "receiver_exit_receipt": {
+    "bytes": 318,
+    "path": "/workspace/shared/higher_h5_as24_failure_review_20261018T1903/RECEIVER_EXIT.json",
+    "sha256": "938b162e555c81801b2ac0202a3b7b7b005bc6df8392a0a2a82b23565a2122ee"
+  },
+  "receiver_source": {
+    "bytes": 5432,
+    "path": "/workspace/shared/c087_receiver_host_20261018T1752/acquire_evidence.py",
+    "sha256": "03eae9a0cc4772684408f3ec030bb4abca9f7e821ffe1177f7f2be876723eaae"
+  },
+  "remote_calls": false,
+  "run": {
+    "conclusion": "failure",
+    "head_sha": "f20a3135ad6f49dd3a8050053d1affd885891016",
+    "html_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39156079183",
+    "id": 39156079183,
+    "run_attempt": 1,
+    "status": "completed",
+    "updated_at": "2026-10-18T18:57:57Z",
+    "workflow_id": 386423911
+  },
+  "schema": "independent-local-h5-as24-final-review-v1",
+  "seven_original_predecessor_metadata_source_joins": [
+    {
+      "checked_module_receipts_sha256": "cd4cbe6098330c78724ba3b7d4c18fe5a5f0300605d43986255a48b93fa31c20",
+      "module_count": 186,
+      "origin": {
+        "artifact_id": 12052269672,
+        "artifact_name": "conditional-geometry-38914223883-1-F0_common-objects",
+        "artifact_zip_bytes": 64420376,
+        "artifact_zip_sha256": "5c517172860a9a2f6a1f93a7e72cab98b81c0b048ebdc3f1658feda8b1eaeff2",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38914223883",
+          "workflow_commit": "318a6900eabfec550b4adf1b0f4bd634c20d67c5"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117017431150,
+        "producer_job_log_sha256": "01a791421067136520dfb20fe49ed901606c38ed608b58edad327cf8f797f6e7",
+        "producer_job_name": "conditional F0_common",
+        "stage_id": "F0_common",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
+      "producer_receipt_sha256": "3cc9b05bbb5bc8fa90cfb9ecbb5f0ebe7d313d9c6c78d0db8b2aa6677e0bc916",
+      "source_identity_module_count": 186,
+      "stage_id": "F0_common"
+    },
+    {
+      "checked_module_receipts_sha256": "8df1e658e5062bf4b06c284fc72ef742477d5e66c5943f2add6072f91dc2f098",
+      "module_count": 109,
+      "origin": {
+        "artifact_id": 12065872737,
+        "artifact_name": "conditional-geometry-38944907835-1-F3_product_geometry-objects",
+        "artifact_zip_bytes": 62822946,
+        "artifact_zip_sha256": "9a80bec564064b1c53b6ed3fa079c902546dd6ac4bdbd84b46e89354ead7269d",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38944907835",
+          "workflow_commit": "3a2ec654097b5259679816e81ccfab6fe3948d41"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117121459810,
+        "producer_job_log_sha256": "e629f46e27d3d210800ab433a110e62021085a165bc2acf48d9d28096f4b4814",
+        "producer_job_name": "conditional F3_product_geometry",
+        "stage_id": "F3_product_geometry",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070",
+      "producer_receipt_sha256": "e0f94b718e1664430229fd3c33938cb9cdd5bb7da8ab627ffdd2286e4ca31008",
+      "source_identity_module_count": 109,
+      "stage_id": "F3_product_geometry"
+    },
+    {
+      "checked_module_receipts_sha256": "3f0dc8a11c1f2339d9cc851256700e99b2a70aa6cf5f2c34d618389d1005367d",
+      "module_count": 44,
+      "origin": {
+        "artifact_id": 12138754904,
+        "artifact_name": "conditional-geometry-39134139440-1-H0_common-objects",
+        "artifact_zip_bytes": 50934296,
+        "artifact_zip_sha256": "c92210f23dd3c383108dc507a5525e9f5fae32a59cccdb9c09704d2b2e956a3f",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117695101459,
+        "producer_job_log_sha256": "adba4f0de1f91bd5d19bd013839d7fca0f82ccd924e26b6073f0bf7ac4fcc4d7",
+        "producer_job_name": "conditional H0_common",
+        "stage_id": "H0_common",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "63af8911af9a29597d51bf07475f16314e4c46d3606409c0696390796f4cef2a",
+      "source_identity_module_count": 44,
+      "stage_id": "H0_common"
+    },
+    {
+      "checked_module_receipts_sha256": "55ff9bbb9eeb1bc373a2e493f4ca545eb4a75b7c59ea40309f779087df8d75fb",
+      "module_count": 221,
+      "origin": {
+        "artifact_id": 12141180253,
+        "artifact_name": "conditional-geometry-39134139440-1-H1_coarse_contacts-objects",
+        "artifact_zip_bytes": 790774306,
+        "artifact_zip_sha256": "ef1bd45c5ae970865fcb387f7851411b84a38e37570f5da17a1031dcecc22888",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822655,
+        "producer_job_log_sha256": "ac3903d0f0bf122483b986a3a743a9588b2b1df710ddee35d4a03334eac86125",
+        "producer_job_name": "conditional H1_coarse_contacts",
+        "stage_id": "H1_coarse_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "c6beb179cbe8317ae0fc40f34bc356f141e4056d67197b540e572d7dac1f7ed3",
+      "source_identity_module_count": 221,
+      "stage_id": "H1_coarse_contacts"
+    },
+    {
+      "checked_module_receipts_sha256": "402438278f94f2c0ebdcb818e5873e8c2d790f39167c03a12dd172e0bd9f8738",
+      "module_count": 82,
+      "origin": {
+        "artifact_id": 12139776805,
+        "artifact_name": "conditional-geometry-39134139440-1-H2_forward_contacts-objects",
+        "artifact_zip_bytes": 225751587,
+        "artifact_zip_sha256": "b4d654d82d12eb746f9a08fdb1b6c89fc634316a134af832fea020e62a35fe52",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822680,
+        "producer_job_log_sha256": "076076eb3a8e7c90e0d06da825267500175a0567f837c47a50676a03b6fd1bbc",
+        "producer_job_name": "conditional H2_forward_contacts",
+        "stage_id": "H2_forward_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "11fb7ceb256a8fa3e18a140497b722eac5a165fe9e372f71645d7d9ef7ef8d1b",
+      "source_identity_module_count": 82,
+      "stage_id": "H2_forward_contacts"
+    },
+    {
+      "checked_module_receipts_sha256": "ad55dfadf247f43a637fb1108d31589d33f2a89766923b3cf48130f663e8caa7",
+      "module_count": 460,
+      "origin": {
+        "artifact_id": 12141368444,
+        "artifact_name": "conditional-geometry-39134139440-1-H3_contact_binding-objects",
+        "artifact_zip_bytes": 999434786,
+        "artifact_zip_sha256": "7aa1649a1e5eb4167ab0e467ec2b97e1aab4685121ad0b40f32e1687783a5393",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822670,
+        "producer_job_log_sha256": "311bc2c3b99c202e25926a84f475687da49c6ed8b57dbb79c84544e95d960480",
+        "producer_job_name": "conditional H3_contact_binding",
+        "stage_id": "H3_contact_binding",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "60ea99be8ab9d89ba64d6171e84909efdd57355d666ea3af2b24d81fd8d0312a",
+      "source_identity_module_count": 460,
+      "stage_id": "H3_contact_binding"
+    },
+    {
+      "checked_module_receipts_sha256": "a3ec6a17585c4c52a3508cf2b983e079f4ddcd766ec841de572b54d43d70dc28",
+      "module_count": 304,
+      "origin": {
+        "artifact_id": 12083075076,
+        "artifact_name": "conditional-geometry-38982023996-1-H4_product_geometry-objects",
+        "artifact_zip_bytes": 118149667,
+        "artifact_zip_sha256": "d7428568d63e9cf5c1eb182a0ff87ee02e0f238aa9c867feb2a70a49f97d366b",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38982023996",
+          "workflow_commit": "31e580fd4246e2d60dd6393ac8571abfe1cd2ba0"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117244832047,
+        "producer_job_log_sha256": "e49e307ebb4c5ecd839055f1d390f20d7c32181bfe6ef2a43158b9056c77686f",
+        "producer_job_name": "conditional H4_product_geometry",
+        "stage_id": "H4_product_geometry",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5",
+      "producer_receipt_sha256": "6f8d22979ff718ad0cf0311a3a380bcd9dc2e17e8b8b27a5f2395d61b6fd32bf",
+      "source_identity_module_count": 304,
+      "stage_id": "H4_product_geometry"
+    }
+  ],
+  "source_archive_bytes_verified": 23580218,
+  "source_archive_modules_verified": 1433,
+  "source_files": 81,
+  "source_semantics": [
+    {
+      "bytes": 55492,
+      "path": "/workspace/shared/higher_h5_as24_integration_20261018T1819/pipeline/ci/conditional_transport.py",
+      "sha256": "d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e"
+    },
+    {
+      "bytes": 81922,
+      "path": "/workspace/shared/higher_h5_as24_integration_20261018T1819/pipeline/ci/cache_diagnostic.py",
+      "sha256": "b2aac74130706a6b3360215e2632985ede29cf51f108959d88708cd6665a9504"
+    },
+    {
+      "bytes": 50298,
+      "path": "/workspace/shared/higher_h5_as24_integration_20261018T1819/pipeline/ci/fresh_stage.py",
+      "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
+    },
+    {
+      "bytes": 53065,
+      "path": "/workspace/shared/higher_h5_as24_integration_20261018T1819/pipeline/ci/higher_policy.py",
+      "sha256": "6594fa06b9e6cac1356bb908d10fbffb4190b23259265602019b3e9512c416bb"
+    }
+  ],
+  "source_specific_limitations": [
+    "The parent reports the receiver exited zero at 19:04:13 UTC and ARTIFACTS_REAUTH was the sole post-transfer list response at 19:04:27 UTC. This ordering is attributed to the parent transcript; it is not inferred from filesystem timestamps or independently verified remote chronology.",
+    "This review independently reconciles retained local API wrappers, ZIP and source bytes. It makes no remote calls and is not an independently fetched or later remote observation.",
+    "The 225-member archive is complete for the failure collector only. All available files were copied; replay acceptance evidence is explicitly incomplete.",
+    "All 103 planned command records and 206 log pins reconcile. Commands 0 through 101 exited zero, including all 27 fresh compile/check pairs and three auditor compile/check pairs. The final raw auditor command exited one.",
+    "All 27 module receipts and 189 output companion metadata rows reconcile with source hashes, ordered imports and command indexes. No fresh H5 native object payload or final acceptance inventory is present for independent readmission.",
+    "Seven original predecessor origin, original producer-contract/source, receipt, checker-lineage and interface metadata joins reconcile. Original producer object ZIP/tar payloads were not reacquired or re-admitted; 1,433 recorded checked modules is not an independent replay of all those payloads.",
+    "The predispatch IR record reports an exact 1,054,344-byte H0 pin match immediately before dispatch. The IR payload is absent and this receipt does not establish every child read or pathname state at failure.",
+    "The final stderr explicitly reports excessive memory consumption at interpreter with -M4096 unchanged. Recorded RSS remains below 8 GiB and maximum sampled individual-process VMS below the 24 GiB address-space limit. This does not attribute the error to a particular allocation, PID, native/Lean subsystem, or prove a peak was never missed.",
+    "Sampled process VMS maxima are not PID-attributed allocation traces; tree VMS sums processes and is not the per-process RLIMIT_AS metric. No errno, failed allocation result, syscall trace, or allocator accounting is recorded.",
+    "memory_exceeded=false means the sampled RSS guard did not trip. There was no recorded timeout or log overflow and final cleanup completed. These facts do not imply successful raw audit acceptance.",
+    "The prior AS12 fallback-read error and AS-saturation inference are historical context only; this AS24 run has different stderr and does not independently establish the same mechanism.",
+    "No successful H5 stage, final raw endpoint audit, native-stage object publication, final C proof, all-dimension uniform proof, or unconditional monotile result follows from this evidence."
+  ],
+  "source_tree": "3bdd25fa229f90c77c99c93e9a0e801894cfaebb",
+  "status": "reconciled_terminal_failure_interpreter_memory_error",
+  "stderr_text": "excessive memory consumption detected at 'interpreter' (potential solution: increase memory consumption threshold)\n",
+  "successful_commands": 102,
+  "successful_final_stage_claim": false,
+  "test_runs": [
+    {
+      "bytes": 820,
+      "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/TEST_FINAL_NORMAL.json",
+      "sha256": "7d4bb4c608affd92b08c382fc39fee0f8cfe935833a65754491dcb2c2b76f517"
+    },
+    {
+      "bytes": 836,
+      "path": "/workspace/shared/higher_h5_as24_terminal_independent_20261018T1905/TEST_FINAL_OPTIMIZED.json",
+      "sha256": "1340964e5782e63a2d9b8da73b6848ecd4a096bc8463209cbb5b3c0d88265610"
+    }
+  ],
+  "total_log_bytes": 502360,
+  "total_recorded_command_seconds": 245.003014,
+  "zip": {
+    "bytes": 3847776,
+    "path": "/workspace/shared/higher_h5_as24_failure_review_20261018T1903/artifact/evidence.zip",
+    "sha256": "1f841a87860ef4df1e0068b965bfdb87531ee3fc2c3d92992af3a71e641898aa"
+  }
+}

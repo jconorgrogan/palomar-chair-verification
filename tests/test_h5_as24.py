@@ -29,7 +29,10 @@ class H5AS24Tests(unittest.TestCase):
     self.assertEqual(h.command_address_space_bytes(self.c(),new['name'],a),expected)
     self.assertEqual(new.get('address_space_bytes',12*a.GIB),expected)
     self.assertEqual(previous.get('address_space_bytes',12*a.GIB),12*a.GIB)
-    self.assertEqual({k:v for k,v in new.items() if k!='address_space_bytes'},previous)
+    comparable=copy.deepcopy(new)
+    if h.raw_heap5120(self.c()) and new['name']==RAW:
+     self.assertEqual(comparable['argv'].count('-M5120'),1);comparable['argv']=[('-M4096' if x=='-M5120' else x) for x in comparable['argv']]
+    self.assertEqual({k:v for k,v in comparable.items() if k!='address_space_bytes'},previous)
  def test_nearby_command_names_cannot_receive_as24(self):
   for name in ['audit-AuditHigherPhysicalEndpoints-extra','audit-AuditOrdinaryBridges','audit-AuditConditionalEndpoints','compile-auditor-AuditHigherPhysicalEndpoints','check-auditor-AuditHigherPhysicalEndpoints','compile-ClarkSeed.PhysicalDimensions','check-ClarkSeed.PhysicalDimensions','cache-bootstrap','cache-get']:
    self.assertEqual(h.command_address_space_bytes(self.c(),name,a),12*a.GIB)

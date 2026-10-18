@@ -5,7 +5,7 @@ import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,sta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
-HELPERS={'higher_policy.py':'6594fa06b9e6cac1356bb908d10fbffb4190b23259265602019b3e9512c416bb',
+HELPERS={'higher_policy.py':'d032188a36b2353a1ed4f937b7b1284efdf4de6fd15ef1b3ce5a8162486a1769',
  'fresh_stage.py':'6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
  'collect_evidence.py':'1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a',

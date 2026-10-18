@@ -1,0 +1,18 @@
+{
+  "aggregate_deadline_monotonic_seconds": 19427.314393582,
+  "expected_h0": {
+    "bytes": 1054344,
+    "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+  },
+  "matches_expected_h0": true,
+  "monotonic_ended_seconds": 591.37882031,
+  "monotonic_started_seconds": 591.377568615,
+  "observation_phase": "immediately_before_raw_audit_dispatch",
+  "observed": {
+    "bytes": 1054344,
+    "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+  },
+  "path": "objects/SparseMonotiles/CoarseContactCertificates5SymmetryData.ir",
+  "refusal_reason": null,
+  "schema": "higher-h5-ir-predispatch-observation-v1"
+}
