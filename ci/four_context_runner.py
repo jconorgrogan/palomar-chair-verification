@@ -47,6 +47,14 @@ class FourContextRunner(f.StageRunner):
         f.need(f.file_sha(latest_ci/'fresh_stage.py')==f.file_sha(Path(f.__file__)) and
                p.object_sha(kwargs['plan'])==self.latest_identity['plan_sha256'] and
                p.object_sha(kwargs['manifest'])==self.latest_identity['source_manifest_sha256'],'latest native implementation/source/plan changed')
+        self.production_identity=copy.deepcopy(bundle.production_context['identity'])
+        self.production_contract=f.pinned_load(Path(__file__).resolve().parent/'production_origin_contract.json',p.PRODUCTION_CONTRACT)
+        self.production_profiles=f.pinned_load(Path(__file__).resolve().parent/'production_origin_profiles.json',p.PRODUCTION_PROFILES)
+        f.need(self.production_identity['profiles_sha256']==p.PRODUCTION_PROFILES and
+               self.production_identity['contract_sha256']==p.PRODUCTION_CONTRACT and
+               self.production_identity['runner_sha256']==f.file_sha(Path(f.__file__)) and
+               self.production_identity['source_manifest_sha256']==p.object_sha(kwargs['manifest']) and
+               self.production_identity['plan_sha256']==p.object_sha(kwargs['plan']),'production native context changed')
         self.old_manifest=copy.deepcopy(old_manifest);self.prior_manifest=copy.deepcopy(prior_manifest)
         super().__init__(**kwargs)
         f.need(self.owned_downloads is None,'all selected native tars must remain retained in this adapter')
@@ -120,7 +128,7 @@ class FourContextRunner(f.StageRunner):
         transfer_scope={'origin_by_stage':{r.stage_id:type(r).__name__ for r in self.selection.rows},
             'expected_native_descriptors':[w['native_descriptor'] for w in native['wrappers']],
             'expected_full_native_descriptors':scope['native_descriptors'],'expected_objects':scope['legacy_objects'],
-            'current_identity':self.identity,'latest_identity':self.latest_identity,'current_manifest':self.manifest,'current_contract':self.contract}
+            'current_identity':self.identity,'latest_identity':self.latest_identity,'production_identity':self.production_identity,'current_manifest':self.manifest,'current_contract':self.contract}
         # Final v2 transfer request shape is bound explicitly during integration.
         if scope['target_stage'] is not None:transfer_scope.update(target_stage=scope['target_stage'])
         else:transfer_scope.update(target_stage=None,final_role=scope['final_role'])
@@ -135,8 +143,9 @@ class FourContextRunner(f.StageRunner):
         else:
             f.need(not scope['legacy_objects'],'empty legacy history has objects')
             self._transfer=None
-        current=[w for w in wrappers if w['origin'] in {'LatestSuccessorOrigin','CurrentOrigin'}]
+        current=[w for w in wrappers if w['origin'] in {'LatestSuccessorOrigin','ProductionSuccessOrigin','CurrentOrigin'}]
         latest_reader=_LatestNativeReader(self)
+        production_reader=_ProductionNativeReader(self)
         need=f.storage_restore_budget([self._for_runner(w) for w in current],self.contract,build=scope['target_stage'] is not None,
             stages=self.stages,allocation_unit=os.statvfs(self.workspace).f_frsize)
         f.need(shutil.disk_usage(self.workspace).free>=need,'insufficient measured current restore/output space after historical transfer')
@@ -144,6 +153,8 @@ class FourContextRunner(f.StageRunner):
             self.check_run_age();sid=wrapper['native_descriptor']['stage_id']
             if wrapper['origin']=='LatestSuccessorOrigin':
                 latest_reader.read_exact(wrapper)
+            elif wrapper['origin']=='ProductionSuccessOrigin':
+                production_reader.read_exact(wrapper)
             else:
                 self._current_envelope(wrapper)
                 f.StageRunner.read_artifacts(self,[sid],[self._for_runner(wrapper)])
@@ -227,4 +238,55 @@ class _LatestNativeReader(f.StageRunner):
                'native latest complete membership differs')
         self.verify_checked_objects()
         f.need(transfer.owned_dir(owner.workspace)==self._workspace_inode and transfer.owned_dir(owner.source_root)==self._source_inode,'latest reader final owned roots changed')
+        self.check_run_age()
+
+
+class _ProductionNativeReader(f.StageRunner):
+    """Same-owner native reader, pinned to the actual production producer context."""
+    def __init__(self,owner):
+        self._owner=owner
+        super().__init__(contract=copy.deepcopy(owner.production_contract),manifest=copy.deepcopy(owner.manifest),
+            plan=copy.deepcopy(owner.plan),profiles=copy.deepcopy(owner.production_profiles),
+            identity=copy.deepcopy(owner.production_identity),source_root=owner.source_root,
+            toolchain_root=owner.toolchain_root,toolchain_inventory=copy.deepcopy(owner.inventory),
+            workspace=owner.workspace,executor=self._refused)
+        self.prior_root=owner.prior_root;self.prior_files=copy.deepcopy(owner.prior_files)
+        self._workspace_inode=transfer.owned_dir(owner.workspace);self._source_inode=transfer.owned_dir(owner.source_root)
+    @staticmethod
+    def _refused(*args,**kwargs):raise f.Rejected('historical reader cannot execute')
+    def check_run_age(self):
+        self._owner.check_run_age();f.StageRunner.check_run_age(self)
+    def read_exact(self,wrapper):
+        owner=self._owner;self.check_run_age()
+        f.need(transfer.owned_dir(owner.workspace)==self._workspace_inode and transfer.owned_dir(owner.source_root)==self._source_inode,'production reader owned roots changed')
+        f.need(wrapper['origin']=='ProductionSuccessOrigin' and wrapper['native_descriptor']['identity']==self.identity,
+               'exact production wrapper/identity required')
+        f.need(self.identity==owner.production_identity and self.contract==owner.production_contract and
+               self.profiles==owner.production_profiles and self.manifest==owner.manifest and self.plan==owner.plan and
+               self.workspace==owner.workspace and self.source_root==owner.source_root,'production reader binding changed')
+        # These are the same live maps already populated by the exact prior
+        # validator transfer. No report or dictionary supplied by a child issues them.
+        self.objects=owner.objects;self.records=owner.records
+        self.predecessor_descriptors=owner.predecessor_descriptors
+        self.restore_evidence_hashes=owner.restore_evidence_hashes
+        before_objects=copy.deepcopy(self.objects);before_evidence=copy.deepcopy(self.restore_evidence_hashes)
+        before_records=copy.deepcopy(self.records)
+        before_descriptors=copy.deepcopy(self.predecessor_descriptors)
+        sid=wrapper['native_descriptor']['stage_id']
+        f.need(sid not in self.restore_evidence_hashes,'production stage already admitted')
+        FrozenLatestRunner._current_envelope(self,wrapper)
+        f.StageRunner.read_artifacts(self,[sid],[owner._for_runner(wrapper)])
+        f.need(self.objects is owner.objects and self.records is owner.records and
+               self.predecessor_descriptors is owner.predecessor_descriptors and
+               self.restore_evidence_hashes is owner.restore_evidence_hashes,'native production maps detached')
+        f.need(all(self.objects.get(k)==v for k,v in before_objects.items()) and
+               all(self.restore_evidence_hashes.get(k)==v for k,v in before_evidence.items()) and
+               self.predecessor_descriptors==before_descriptors+[wrapper['native_descriptor']],
+               'native production reader changed admitted prefix')
+        f.need(self.records==before_records,'native production reader changed compile records')
+        expected=set(before_objects)|set(self.stages[sid]['modules'])
+        f.need(set(self.objects)==expected and set(self.restore_evidence_hashes)==set(before_evidence)|{sid},
+               'native production complete membership differs')
+        self.verify_checked_objects()
+        f.need(transfer.owned_dir(owner.workspace)==self._workspace_inode and transfer.owned_dir(owner.source_root)==self._source_inode,'production reader final owned roots changed')
         self.check_run_age()

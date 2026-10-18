@@ -14,7 +14,7 @@ DEPENDENCIES={
  'continuation_policy.py':'1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2',
  'ci_transport.py':'0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95',
  'origin_transport.py':'36aaf72618c9547434de9d82cf95a633565c29b0557449b41d8dc8d10adf9ec8',
- 'four_context_policy.py':'5ba7e7a90f132bedc263c6d85de4e5df06dcaf73b1799e4ee4d3d7d60870c138'}
+ 'four_context_policy.py':'901f2db258c50a386a499fedd81328533327bd8d77cca700b764fb8afb7593e0'}
 HERE=Path(__file__).absolute().parent
 
 def _verify_dependencies():
@@ -60,9 +60,9 @@ class Transport(ct.Transport):
                str(self.run['run_attempt'])==self.attempt and self.run['event']=='push', 'trusted workflow run mismatch')
         self._jobs=None;self._artifacts=None
 
-FIXED_WORKFLOW={'path':'.github/workflows/hierarchy-c-production-continuation.yml',
- 'name':'Verify hierarchy C production continuation',
- 'head_branch':'verify/hierarchy-c-production-continuation-20261018'}
+FIXED_WORKFLOW={'path':'.github/workflows/hierarchy-c-production-recovery.yml',
+ 'name':'Verify hierarchy C production recovery',
+ 'head_branch':'verify/hierarchy-c-production-recovery-20261018'}
 
 class CurrentOriginTransport(base.OriginTransport):
     def __init__(self,current_transport,*,bundle_bytes,selection_bytes,selection_sha256,plan,
@@ -75,8 +75,9 @@ class CurrentOriginTransport(base.OriginTransport):
         f.need(sum(type(row) is p.OldOrigin for row in self.selection.rows)==37 and
                sum(type(row) is p.PriorSuccessorOrigin for row in self.selection.rows)==11 and
                sum(type(row) is p.LatestSuccessorOrigin for row in self.selection.rows)==42 and
-               sum(type(row) is p.CurrentOrigin for row in self.selection.rows)==3,
-               'exact 37 original, 11 prior, 42 latest and 3 fresh selection required')
+               sum(type(row) is p.ProductionSuccessOrigin for row in self.selection.rows)==1 and
+               sum(type(row) is p.CurrentOrigin for row in self.selection.rows)==2,
+               'exact 37 original, 11 prior, 42 latest, 1 production and 2 fresh selection required')
         p.keys(current_context,{'identity','workflow'},'future current context')
         cur=current_context['identity'];workflow=current_context['workflow']
         p.validate_current_identity(cur,self.selection,self.bundle,pipeline_commit=pipeline_commit,contract_sha256=contract_sha256)
@@ -315,9 +316,9 @@ def current_workflow_from_run(transport, template, pipeline):
     cp.keys(template,{'workflow_id','path','name','head_branch','source_sha256','roles'},'current workflow template')
     f.need(template['workflow_id'] is None and template['source_sha256'] is None,
            'current workflow ID/source must come from authenticated runtime context')
-    fixed={'path':'.github/workflows/hierarchy-c-production-continuation.yml',
-           'name':'Verify hierarchy C production continuation',
-           'head_branch':'verify/hierarchy-c-production-continuation-20261018'}
+    fixed={'path':'.github/workflows/hierarchy-c-production-recovery.yml',
+           'name':'Verify hierarchy C production recovery',
+           'head_branch':'verify/hierarchy-c-production-recovery-20261018'}
     f.need(all(template[k]==v for k,v in fixed.items()),'current workflow path/name/branch changed')
     run=transport.run
     f.need(type(run) is dict and type(run.get('id')) is int and run['id']>0 and str(run['id'])==transport.run_id and

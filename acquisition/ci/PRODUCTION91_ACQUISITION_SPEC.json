@@ -5,7 +5,9 @@
     "historical_selected_raw_bytes": 3009576960,
     "historical_unrestored_raw_bytes": 0,
     "latest_raw_bytes": 429137920,
-    "latest_zip_bytes": 93815181
+    "latest_zip_bytes": 93815181,
+    "production_raw_bytes": 194560,
+    "production_zip_bytes": 27007
   },
   "historical_global_stages": [
     {
@@ -831,7 +833,10 @@
     "context_bundle_sha256": "cf1128728122c6230764e6918a6fed3d7080bdc7e3cfac408e67cbe31771247c",
     "latest_contract_sha256": "2848fad58bf59da1958c7e1632e841c1bae78f22ab728b1098a9426977aef334",
     "latest_driver_sha256": "6641a4f0f6b49de122461e7de8c44a55018c6797ebddf8cee3e7f60493192173",
-    "latest_selection_sha256": "e7565dcc7925d05aa44225bc916bfd1a18d50b75c5438b07b1ea67d376b33549"
+    "latest_selection_sha256": "e7565dcc7925d05aa44225bc916bfd1a18d50b75c5438b07b1ea67d376b33549",
+    "production_origin_context_sha256": "2b8d77178cba28850159393660db804df18ab98795dd1a869da842cd06f6f00d",
+    "production_origin_review_sha256": "c815bc953104be8fbbf9a9ac0f9295d824352e088c97c0f31da533152bf0e037",
+    "production_stage087_row_sha256": "fae64855ca41327adf2709cbcae590c039d90f912fcd57c5be96669af994d875"
   },
   "latest_context": {
     "expected_identity_sha256": "4f8be12f1e9e851917e69e60957136c5e3e60ac5e1e00284ce1111692b4da3a5",
@@ -1540,18 +1545,178 @@
     }
   },
   "original_deadline_utc": "2026-10-22T06:15:54Z",
+  "production_context": {
+    "expected_identity_sha256": "19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76",
+    "expected_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+    "identity": {
+      "context_bundle_sha256": "82190f390e6ece065760e7bca4f29ffa93235921499901b908df97029de839c7",
+      "contract_sha256": "fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af",
+      "evidence_mode": "verified_continuation",
+      "latest_identity_sha256": "4f8be12f1e9e851917e69e60957136c5e3e60ac5e1e00284ce1111692b4da3a5",
+      "lean_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+      "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
+      "pipeline_commit": "acc99d32b312655d8b526925a7addaab44260551",
+      "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
+      "prior_identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+      "profiles_sha256": "770ccc2c5af5185e550432b678220f10d5981a77f3d3b2dc231fc755efb934dc",
+      "run_attempt": "1",
+      "run_id": "39089923663",
+      "run_started_at": "2026-10-18T02:23:42Z",
+      "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
+      "selection_sha256": "5d763ba2aacde3c83ccf8b1d810fe38f57933bdc8cf496466ad6af745ce22d86",
+      "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
+      "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392",
+      "toolchain_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+    },
+    "prepare": {
+      "artifact_id": 12122341479,
+      "artifact_name": "hierarchy-c-39089923663-1-prepare",
+      "artifact_zip_bytes": 3294444,
+      "artifact_zip_sha256": "9ca144c507f73ca2aedf477d2c54c0924f26f3769e13015289ad91139a816d8d",
+      "expires_at": "2026-10-25T02:25:46Z",
+      "identity_sha256": "19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76",
+      "inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+      "producer_job_id": 117564301410
+    },
+    "terminal_updated_at": "2026-10-18T04:15:57Z",
+    "workflow": {
+      "head_branch": "verify/hierarchy-c-production-continuation-20261018",
+      "name": "Verify hierarchy C production continuation",
+      "path": ".github/workflows/hierarchy-c-production-continuation.yml",
+      "roles": {
+        "build_087": {
+          "job_name": "stage build_087",
+          "producer_job": "wave_22",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "build_091": {
+          "job_name": "stage build_091",
+          "producer_job": "wave_23",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "build_092": {
+          "job_name": "stage build_092",
+          "producer_job": "wave_24",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "conron": {
+          "job_name": "conron",
+          "producer_job": "conron",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "export_target": {
+          "job_name": "export_target",
+          "producer_job": "export_target",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "fresh_kernel": {
+          "job_name": "fresh_kernel",
+          "producer_job": "fresh_kernel",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "lean_export": {
+          "job_name": "lean_export",
+          "producer_job": "lean_export",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "nanoda": {
+          "job_name": "nanoda",
+          "producer_job": "nanoda",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        },
+        "prepare": {
+          "job_name": "prepare",
+          "producer_job": "prepare",
+          "upload_locations": 1,
+          "upload_step": {
+            "name": "Upload only this job's new evidence",
+            "number": 9
+          },
+          "verifier_step": {
+            "name": "Run fail-closed verifier",
+            "number": 8
+          }
+        }
+      },
+      "source_sha256": "655f56ab20d953ecca77d5510388d4c59a25653b9d0324ec3e78dc70877b6392",
+      "workflow_id": 388119772
+    }
+  },
   "repository": "jconorgrogan/palomar-chair-verification",
   "repository_id": 1407290933,
-  "schema": "production90-fixed-historical-acquisition-spec-v1",
+  "schema": "production91-fixed-historical-acquisition-spec-v1",
   "scope": {
     "fresh_stage_ids": [
-      "build_087",
       "build_091",
       "build_092"
     ],
     "full_module_count": 6369,
     "full_plan_stage_count": 93,
-    "historical_module_count": 6366,
+    "historical_module_count": 6367,
     "historical_stage_ids": [
       "build_000",
       "build_001",
@@ -1640,6 +1805,7 @@
       "build_084",
       "build_085",
       "build_086",
+      "build_087",
       "build_088",
       "build_089",
       "build_090"
@@ -3209,6 +3375,23 @@
         "receipt_sha256": "7607b388fdd4dfd60b8efe5eb54fb79edf939b4d959f7116025719341abc1f97"
       },
       "stage_id": "build_086"
+    },
+    {
+      "origin": "ProductionSuccessOrigin",
+      "pin": {
+        "archive_bytes": 194560,
+        "archive_sha256": "46b89a95f9c032bf2c063bcd95dbb7ab04bce0fb772d88bb166db5bf887cd418",
+        "artifact_id": 12123381833,
+        "artifact_name": "hierarchy-c-39089923663-1-build_087",
+        "artifact_zip_bytes": 27007,
+        "artifact_zip_sha256": "067df5c244028618d3736a14caf3bec703d005dd704847f8e2d9db47b946e2d3",
+        "expires_at": "2026-10-25T03:20:41Z",
+        "identity_sha256": "19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76",
+        "producer_job_id": 117564687344,
+        "raw_descriptor_sha256": "ee3e325affce10b9f2948afd1f4780f7dee57e94140cf5a4512127c9bb2d2b49",
+        "receipt_sha256": "45a5a888b3758be97171cfb9135901bb464f037783adc0701fc3d28a6124c559"
+      },
+      "stage_id": "build_087"
     },
     {
       "origin": "LatestSuccessorOrigin",

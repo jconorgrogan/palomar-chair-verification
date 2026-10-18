@@ -34,14 +34,14 @@ FINAL_ARTIFACT_LIMIT = 3 * 1024**3
 ORIGINS = p.ORIGINS
 ACTIVATION_ALLOWED = False
 ORIGINAL_DEADLINE = '2026-10-22T06:15:54Z'
-CANDIDATE_SELECTION_SHA256 = '6e89215b1c8e738da2c9333a08db39bfde6d6d69663927acebcdfbed09c41bdc'
+CANDIDATE_SELECTION_SHA256 = '362d0324b33ace062795c53b2c94ffc3752c87d7baeedc26299942482ee9d223'
 PRIOR_FILES_SHA256 = '9618bc2900517a9234254ddf2a2ea6fb3c78f643bd12f11967f986f49e7dde1d'
 INTEGRATION_PIN_FIELDS = frozenset({'current_pipeline_commit', 'current_contract_sha256',
     'selection_sha256', 'admission_certificate_sha256', 'admission_reconciliation_sha256',
     'current_workflow_id'})
-CURRENT_WORKFLOW = {'head_branch': 'verify/hierarchy-c-production-continuation-20261018',
-    'path': '.github/workflows/hierarchy-c-production-continuation.yml',
-    'name': 'Verify hierarchy C production continuation'}
+CURRENT_WORKFLOW = {'head_branch': 'verify/hierarchy-c-production-recovery-20261018',
+    'path': '.github/workflows/hierarchy-c-production-recovery.yml',
+    'name': 'Verify hierarchy C production recovery'}
 
 
 def _digest(value, label):
@@ -100,8 +100,8 @@ def _selection_context(plan, selection, bundle, current_identity, integration_pi
     selection = p.parse_selection(selection.raw_bytes, integration_pins['selection_sha256'],
                                   plan, bundle, require_payloads=True)
     providers = p.validate_provider_dag(selection, plan)
-    f.need(tuple(len(providers[o]) for o in ORIGINS) == (37, 11, 42, 3),
-           'exact 37 original, 11 prior, 42 latest, 3 fresh current stages required')
+    f.need(tuple(len(providers[o]) for o in ORIGINS) == (37, 11, 42, 1, 2),
+           'exact 37 original, 11 prior, 42 latest, 1 production and 2 fresh stages required')
     p.validate_current_identity(current_identity, selection, bundle,
         pipeline_commit=integration_pins['current_pipeline_commit'],
         contract_sha256=integration_pins['current_contract_sha256'])
@@ -128,11 +128,11 @@ def original_admission_context(selection, bundle, integration_pins):
     raw=p.json_bytes(old_bundle)
     original_bundle=original_policy.validate_context_bundle(raw,original_policy.BUNDLE_SHA256)
     old_selection=selection.data
-    old_selection.pop('latest_origin')
+    old_selection.pop('latest_origin');old_selection.pop('production_origin')
     old_selection.update(schema='verified-continuation-selection-v2',context_bundle_sha256=original_bundle.raw_sha256)
     rows=[]
     for row in old_selection['stages']:
-        if row['origin']=='LatestSuccessorOrigin':
+        if row['origin'] in ('LatestSuccessorOrigin','ProductionSuccessOrigin'):
             row.clear();row.update(stage_id=selection.rows[len(rows)].stage_id,origin='CurrentOrigin')
         cls=getattr(original_policy,row['origin'])
         rows.append(cls(row['stage_id'],p.json_bytes(row['pin'])) if 'pin' in row else cls(row['stage_id']))
@@ -332,7 +332,7 @@ def _validate_wrapper(wrapper, identity, role, *, final=False, current_workflow_
         f.need(type(run.get('workflow_id')) is int and run['workflow_id'] == current_workflow_id
                and all(run.get(key) == CURRENT_WORKFLOW[key] for key in ('path', 'head_branch')),
                'current workflow identity mismatch')
-    if wrapper['origin'] in ORIGINS[:3]:
+    if wrapper['origin'] in ORIGINS[:4]:
         f.need(run.get('status') == 'completed' and run.get('conclusion') == 'failure', 'historical run not terminal failure')
     f.need(type(mapping) is dict and set(mapping) == {'producer_job', 'job_name', 'verifier_step', 'upload_step', 'upload_locations'}
            and type(mapping['upload_locations']) is int and mapping['upload_locations'] == 1,
@@ -462,7 +462,7 @@ def final_context(*, manifest, provenance, object_hashes, current_identity, inte
         'resolved_provenance': deepcopy(provenance['rows']), 'resolved_provenance_sha256': provenance['sha256'],
         'selection_sha256': current_identity['selection_sha256'],
         'context_bundle_sha256': p.BUNDLE_SHA256, 'prior_identity_sha256': p.PRIOR_IDENTITY,
-        'latest_identity_sha256': p.LATEST_IDENTITY,
+        'latest_identity_sha256': p.LATEST_IDENTITY, 'production_identity_sha256':p.PRODUCTION_IDENTITY,
         'admission_certificate_sha256': integration_pins['admission_certificate_sha256'],
         'admission_reconciliation_sha256': integration_pins['admission_reconciliation_sha256']}
 
@@ -526,13 +526,14 @@ def final_verdict(*, plan, manifest, prior_manifest, current_identity, selection
     for stage, row in zip(plan['stages'], provenance['rows']):
         counts[row['origin']]['stages'] += 1
         counts[row['origin']]['modules'] += len(stage['modules'])
-    return {'schema': 'verified-continuation-hierarchy-c-verdict-v3', 'status': CONTINUATION_STATUS,
+    return {'schema': 'verified-continuation-hierarchy-c-verdict-v4', 'status': CONTINUATION_STATUS,
         'identity': deepcopy(current_identity), **context, 'exact_type': TYPE,
         'source_count': manifest['source_count'], 'export_sha256': export_hash,
         'checks': {role: 'passed' for role in FINAL_ROLES}, 'final_artifacts': final_artifacts,
         'origin_counts': counts, 'origins': {'OldOrigin': deepcopy(bundle.old_context['identity']),
             'PriorSuccessorOrigin': deepcopy(bundle.prior_context['identity']),
-            'LatestSuccessorOrigin': deepcopy(bundle.latest_context['identity']), 'CurrentOrigin': deepcopy(current_identity)},
+            'LatestSuccessorOrigin': deepcopy(bundle.latest_context['identity']),
+            'ProductionSuccessOrigin':deepcopy(bundle.production_context['identity']), 'CurrentOrigin': deepcopy(current_identity)},
         'acceptance_deadline': deadline, 'clean_source_rebuild': 'pending',
         'activation_allowed': False, 'admission_kernel_executed': False,
         'bit_reproducibility_claim': False, 'overall_task_complete': False,
@@ -559,7 +560,7 @@ def compare_clean_reproduction(continuation, clean):
     f.need(clean_identity.get('evidence_mode') == 'clean_source_rebuild' and
            'selection_sha256' not in clean_identity and 'old_identity_sha256' not in clean_identity and
            clean_identity.get('run_id') not in {identity['run_id'] for identity in continuation['origins'].values()}
-           and 'prior_identity_sha256' not in clean_identity and 'latest_identity_sha256' not in clean_identity and 'context_bundle_sha256' not in clean_identity,
+           and 'prior_identity_sha256' not in clean_identity and 'latest_identity_sha256' not in clean_identity and 'production_identity_sha256' not in clean_identity and 'context_bundle_sha256' not in clean_identity,
            'clean rebuild reused continuation identity')
     for key in ('target', 'exact_type', 'allowed_axioms', 'defining_source', 'final_export_audit_sha256',
                 'source_manifest_sha256', 'checked_sources', 'source_count'):

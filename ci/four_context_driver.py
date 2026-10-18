@@ -81,7 +81,7 @@ def safe_native(f,state,*args,**kwargs):
 def load_acquisition(root,contract,local,budget):
     root=local.canonical(str(root));base=root.parent
     pins=contract['production_acquisition_sha256']
-    expected={'ci/production90_acquisition.py','ci/PRODUCTION90_ACQUISITION_SPEC.json',
+    expected={'ci/production91_acquisition.py','ci/PRODUCTION91_ACQUISITION_SPEC.json',
               *('frozen_downloader/ci/'+n for n in ('historical_acquisition.py','historical_acquisition_pins.json',
                  'origin_transport.py','fresh_stage.py','continuation_policy.py','ci_transport.py'))}
     local.need(type(pins) is dict and set(pins)==expected,'production acquisition graph changed')
@@ -92,10 +92,10 @@ def load_acquisition(root,contract,local,budget):
     try:
         sys.dont_write_bytecode=True
         for n in names:sys.modules.pop(n,None)
-        path=root/'production90_acquisition.py'
-        spec=importlib.util.spec_from_file_location('_production90_fixed',path)
+        path=root/'production91_acquisition.py'
+        spec=importlib.util.spec_from_file_location('_production91_fixed',path)
         module=importlib.util.module_from_spec(spec)
-        exec(compile(local.read_pinned(path,pins['ci/production90_acquisition.py']),str(path),'exec'),module.__dict__)
+        exec(compile(local.read_pinned(path,pins['ci/production91_acquisition.py']),str(path),'exec'),module.__dict__)
         local.need(module.h.f is module.f and module.h.ot is module.ot,'production acquisition import graph changed')
     finally:
         for n,value in saved.items():
@@ -108,24 +108,24 @@ def load_acquisition(root,contract,local,budget):
 def authenticate_acquisition(result,session,module,deadline,nonce,budget,p,local,plan,selection,bundle):
     budget.check()
     root=session.root
-    local.need(type(session) is module.BatchProduction90Acquisition and
+    local.need(type(session) is module.BatchProduction91Acquisition and
                session._production_session_state=='consumed' and session.parent_deadline_monotonic==deadline and
                session.session_nonce==nonce and session.opener.transport is session,'live acquisition owner changed')
     local.need(type(result) is dict and set(result)=={'root','wrappers_path','transport_receipt_path','transport_receipt_sha256'} and
                result['root']==str(root) and result['wrappers_path']==str(root/'WRAPPERS.json') and
                result['transport_receipt_path']==str(root/'TRANSPORT_RECEIPT.json'),'acquisition output path changed')
     certificate=p.parse_json(local.read_pinned(root/'TRANSPORT_RECEIPT.json',result['transport_receipt_sha256']))
-    local.need(certificate['schema']=='production90-historical-acquisition-v1' and
+    local.need(certificate['schema']=='production91-historical-acquisition-v1' and
                certificate['status']=='transport_bytes_authenticated_only' and certificate['proof_pass_claimed'] is False and
                certificate['semantic_admission'] is False and certificate['session_nonce']==nonce and
                certificate['host_deadline_monotonic']==deadline and certificate['acquisition_spec_sha256']==module.SPEC_SHA256 and
                certificate['scope']==session.spec['scope'] and certificate['inputs']==session.spec['inputs'] and
-               certificate['accounting']['charged_raw_bytes']==3438714880 and
+               certificate['accounting']['charged_raw_bytes']==3438909440 and
                certificate['accounting']['aggregate_cap_bytes']==4*1024**3,'acquisition certificate binding changed')
     actual=module.h.retained_files(root);actual.pop('TRANSPORT_RECEIPT.json')
     local.need(actual==certificate['files'],'acquisition retained membership or bytes changed')
     rows=p.parse_json(local.read_pinned(root/'WRAPPERS.json',certificate['files']['WRAPPERS.json']['sha256']))
-    local.need(type(rows) is list and len(rows)==90 and
+    local.need(type(rows) is list and len(rows)==91 and
                [r['wrapper'] for r in rows]==certificate['wrappers'] and
                [r['wrapper']['native_descriptor']['stage_id'] for r in rows]==session.spec['scope']['historical_stage_ids'],
                'acquisition wrapper scope changed')
@@ -139,7 +139,7 @@ def authenticate_acquisition(result,session,module,deadline,nonce,budget,p,local
             local.read_pinned(expected,record[recordkey]['sha256'])
         p.validate_native_bytes(w,Path(row['raw_descriptor_path']).read_bytes(),Path(row['raw_receipt_path']).read_bytes())
         budget.check()
-    local.need(len(certificate['stages'])==90,'acquisition stage map changed')
+    local.need(len(certificate['stages'])==91,'acquisition stage map changed')
     budget.check();return {r['wrapper']['native_descriptor']['stage_id']:copy.deepcopy(r) for r in rows}
 
 def write_failure(state,error):
@@ -239,7 +239,7 @@ def execute(args,code,contract,budget,f,p,local,dio,cf,ep,current,Runner,load_ve
     hroot=historical.root
     mark(state,'current_bootstrap')
     transport=current.Transport(token=token,opener=historical.opener)
-    f.need(os.environ.get('GITHUB_REF')=='refs/heads/verify/hierarchy-c-production-continuation-20261018','unreviewed current branch')
+    f.need(os.environ.get('GITHUB_REF')=='refs/heads/verify/hierarchy-c-production-recovery-20261018','unreviewed current branch')
     mark(state,'clean_checkouts')
     for checkout,expected in [(source,p.PRIOR_SOURCE),(prior,p.PRIOR_PIPELINE),(latest,p.LATEST_PIPELINE),(pipeline,transport.commit)]:
         budget.check();f.need(git(checkout,'rev-parse','HEAD')==expected and git(checkout,'status','--porcelain=v1','--untracked-files=all','--ignored')=='','checkout identity or clean tree mismatch')
@@ -259,7 +259,7 @@ def execute(args,code,contract,budget,f,p,local,dio,cf,ep,current,Runner,load_ve
     identity={**bundle.latest_context['identity'],'pipeline_commit':transport.commit,'contract_sha256':args.contract_sha256,
         'run_started_at':transport.run['created_at'],'run_id':transport.run_id,'run_attempt':transport.attempt,
         'selection_sha256':selection.raw_sha256,'prior_identity_sha256':p.PRIOR_IDENTITY,'context_bundle_sha256':bundle.raw_sha256,
-        'latest_identity_sha256':p.LATEST_IDENTITY,'profiles_sha256':p.CURRENT_PROFILES}
+        'latest_identity_sha256':p.LATEST_IDENTITY,'production_identity_sha256':p.PRODUCTION_IDENTITY,'profiles_sha256':p.CURRENT_PROFILES}
     p.validate_current_identity(identity,selection,bundle,pipeline_commit=transport.commit,contract_sha256=args.contract_sha256)
     workflow=current.current_workflow_from_run(transport,contract['current_workflow'],pipeline)
     origins=current.CurrentOriginTransport(transport,bundle_bytes=bundle_raw,selection_bytes=selection_raw,
@@ -330,7 +330,7 @@ def execute(args,code,contract,budget,f,p,local,dio,cf,ep,current,Runner,load_ve
     stage_command_index=0
     def stage_executor(*a,**kw):
         nonlocal stage_command_index
-        f.need(args.stage in ('build_087','build_091','build_092') and stage_command_index<2,'fixed production command index changed')
+        f.need(args.stage in ('build_091','build_092') and stage_command_index<2,'fixed production command index changed')
         state['command']={'kind':'stage','stage_id':args.stage,'phase':('compile','check')[stage_command_index]}
         stage_command_index+=1
         mark(state,'stage_command')
