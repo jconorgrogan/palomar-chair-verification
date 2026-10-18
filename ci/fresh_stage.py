@@ -313,7 +313,8 @@ def proc_snapshot():
             fields = path.read_text().rsplit(')', 1)[1].split()
             rows[int(path.parent.name)] = {'state': fields[0], 'parent': int(fields[1]),
                 'group': int(fields[2]), 'start_ticks': int(fields[19]),
-                'rss_bytes': int(fields[21]) * pagesize}
+                'rss_bytes': int(fields[21]) * pagesize,
+                'virtual_size_bytes': int(fields[20])}
         except (FileNotFoundError, ProcessLookupError):
             continue
     return rows
@@ -380,6 +381,7 @@ def run_process(argv, *, cwd, env, timeout, stdout, stderr, max_log_bytes, limit
     """Bounded Linux process-tree execution; never returns before clean reaping."""
     started = time.monotonic(); timed_out = overflow = memory_exceeded = False
     peak_rss = 0; surviving_children = escaped_descendants = False
+    max_sampled_process_virtual_size = max_sampled_tree_virtual_size = virtual_size_sample_count = 0
     def apply_limits():
         resource.setrlimit(resource.RLIMIT_AS, (limits['address_space_bytes'],) * 2)
         resource.setrlimit(resource.RLIMIT_FSIZE, (limits['max_created_file_bytes'],) * 2)
@@ -398,11 +400,17 @@ def run_process(argv, *, cwd, env, timeout, stdout, stderr, max_log_bytes, limit
                     overflow = stdout.stat().st_size + stderr.stat().st_size > max_log_bytes
                     owned = owned_processes(process.pid, baseline)
                     peak_rss = max(peak_rss, sum(r['rss_bytes'] for r in owned.values()))
+                    max_sampled_process_virtual_size = max(max_sampled_process_virtual_size, max((r['virtual_size_bytes'] for r in owned.values()), default=0))
+                    max_sampled_tree_virtual_size = max(max_sampled_tree_virtual_size, sum(r['virtual_size_bytes'] for r in owned.values()))
+                    virtual_size_sample_count += 1
                     escaped_descendants = escaped_descendants or any(r['group'] != process.pid for r in owned.values())
                     memory_exceeded = peak_rss > limits['rss_tree_bytes']
                     if timed_out or overflow or memory_exceeded or (escaped_descendants and not allow_new_sessions): break
                     time.sleep(0.05)
                 owned = owned_processes(process.pid, baseline)
+                max_sampled_process_virtual_size = max(max_sampled_process_virtual_size, max((r['virtual_size_bytes'] for r in owned.values()), default=0))
+                max_sampled_tree_virtual_size = max(max_sampled_tree_virtual_size, sum(r['virtual_size_bytes'] for r in owned.values()))
+                virtual_size_sample_count += 1
                 escaped_descendants = escaped_descendants or any(r['group'] != process.pid for r in owned.values())
                 if process.poll() is not None:
                     surviving_children = any(pid != process.pid and row['state'] != 'Z'
@@ -417,6 +425,9 @@ def run_process(argv, *, cwd, env, timeout, stdout, stderr, max_log_bytes, limit
             'memory_exceeded': memory_exceeded, 'surviving_children': surviving_children,
             'escaped_descendants': escaped_descendants, 'new_sessions_explicitly_allowed': allow_new_sessions, **cleanup,
             'peak_sampled_tree_rss_bytes': peak_rss,
+            'max_sampled_process_virtual_size_bytes': max_sampled_process_virtual_size,
+            'max_sampled_tree_virtual_size_bytes': max_sampled_tree_virtual_size,
+            'virtual_size_sample_count': virtual_size_sample_count,
             'elapsed_seconds': round(time.monotonic() - started, 6)}
 
 def object_paths(module, suffixes):

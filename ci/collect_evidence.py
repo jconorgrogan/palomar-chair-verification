@@ -8,6 +8,8 @@ SUCCESS='CACHE_BACKED_CONDITIONAL_GEOMETRY_REPLAY_COMPLETED'
 STAGE_SUCCESS='CHECKED_CONDITIONAL_STAGE_COMPLETED_C_EXPLICIT'
 HIGHER_SCHEMA='higher-dimension-staged-replay-v1'
 HIGHER_RECOVERY_MODE='exact-historical-H4-v1'
+H5_RETRY_MODE='exact-historical-H0-H3-for-H5-read-diagnostic-v1'
+H5_PRODUCER_SHA='29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21'
 H4_PRODUCER_SHA='36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5'
 HIGHER_SUCCESS='HIGHER_DIMENSIONS_THREE_AND_GE_FIVE_RAW_AUDITED'
 HIGHER_STAGE_SUCCESS='CHECKED_HIGHER_DIMENSION_STAGE_COMPLETED'
@@ -61,6 +63,8 @@ def locked_origin_rows(contract):
     final=contract.get('schema')=='conditional-geometry-final-origin-v4' or higher
     if higher and hashlib.sha256((json.dumps(contract,sort_keys=True,indent=2)+'\n').encode()).hexdigest()==H4_PRODUCER_SHA and (root/'origin/higher-producer-origins.json').exists():
         path=root/'origin/higher-producer-origins.json'
+    elif higher and hashlib.sha256((json.dumps(contract,sort_keys=True,indent=2)+'\n').encode()).hexdigest()==H5_PRODUCER_SHA and (root/'origin/higher-h0-h3-producer-origins.json').exists():
+        path=root/'origin/higher-h0-h3-producer-origins.json'
     elif final:
         path=root/pointer['path']
     else:
@@ -71,12 +75,14 @@ def locked_origin_rows(contract):
     lock=load(path)
     if final:
         recovery=higher and contract.get('higher_recovery_mode')==HIGHER_RECOVERY_MODE
-        expected_producers=['cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38','288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070']+([H4_PRODUCER_SHA] if recovery else [])
-        expected_schema=('higher-exact-mixed-origin-lock-v2' if recovery else 'higher-exact-mixed-origin-lock-v1') if higher else 'conditional-exact-mixed-origin-lock-v2'
+        retry=recovery and contract.get('higher_h5_retry_mode')==H5_RETRY_MODE
+        expected_producers=['cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38','288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070']+([H4_PRODUCER_SHA] if recovery else [])+([H5_PRODUCER_SHA] if retry else [])
+        expected_schema=('higher-exact-mixed-origin-lock-v3' if retry else 'higher-exact-mixed-origin-lock-v2' if recovery else 'higher-exact-mixed-origin-lock-v1') if higher else 'conditional-exact-mixed-origin-lock-v2'
         need(set(lock)=={'schema','producer_contracts','stages'} and lock['schema']==expected_schema and lock['producer_contracts']==expected_producers,'mixed origin producer contracts differ')
         for sid,row in lock['stages'].items():
             expected='288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070' if sid=='F3_product_geometry' else 'cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38'
             if recovery and sid=='H4_product_geometry':expected=H4_PRODUCER_SHA
+            if retry and sid in ['H0_common','H1_coarse_contacts','H2_forward_contacts','H3_contact_binding']:expected=H5_PRODUCER_SHA
             need(row['producer_contract_sha256']==expected,'wrong per-stage producer contract')
     else:
         need(lock['schema']=='conditional-exact-origin-lock-v1' and lock['producer_contract_sha256']==contract['original_stage_contract_sha256'],'native origin lock scope differs')

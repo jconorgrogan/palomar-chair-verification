@@ -2,8 +2,9 @@
   "activation_admission": {
     "endpoint_audits_pending": true,
     "fresh_native_readmission_required": true,
-    "independent_source_review_sha256": "fdbdb7eb460b45b4735a860a3f3ce98a16bf0a0eda56fb04e78c9c2f021c36ef",
-    "schema": "higher-green-control-successor-v1",
+    "independent_source_review_sha256": "5f4e377cea3bd25be4e443cfdcc217382d1d834e8c71be42ddb26de970a107f1",
+    "prior_diagnostic_source_review_sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc",
+    "schema": "higher-h5-read-diagnostic-successor-v1",
     "source_review_pending": false
   },
   "aggregate_command_deadline_seconds": 19200,
@@ -156,7 +157,7 @@
   "deadline_policy": "The original absolute320-minute deadline bounds all acceptance work. Host SIGALRM interrupts blocked I/O and starts one five-second failure-only collection grace. Only the pinned process runner defers the first alarm until its bounded cleanup finishes, then uses that same single-use failure grace. Repeated one-second alarms prevent swallowed expiry during failure handling. Every expiry unconditionally rejects acceptance; the outer330-minute job ceiling is unchanged.",
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 180,
-  "distribution_file_count": 62,
+  "distribution_file_count": 73,
   "distribution_files": [
     ".github/workflows/conditional-geometry.yml",
     "LICENSE",
@@ -201,6 +202,16 @@
     "origin/base-required-modules.json",
     "origin/continuation-producer-contract.json",
     "origin/continuation-producer-origins.json",
+    "origin/failed-h5-last-command.json",
+    "origin/failed-h5-terminal-review.json",
+    "origin/higher-green-original-README.md",
+    "origin/higher-green-tests/test_higher_recovery.py",
+    "origin/higher-green-tests/test_higher_replay.py",
+    "origin/higher-h0-h3-producer-contract.json",
+    "origin/higher-h0-h3-producer-origins.json",
+    "origin/higher-h1-h3-descriptor-review.json",
+    "origin/higher-h5-diagnostic-independent-review.json",
+    "origin/higher-h5-diagnostic-proposal-review.json",
     "origin/higher-interface-identity.json",
     "origin/higher-producer-contract.json",
     "origin/higher-producer-origins.json",
@@ -214,6 +225,7 @@
     "origin/producer-owned-sources.json",
     "owned-sources.tar.gz",
     "tests/test_conditional_transport.py",
+    "tests/test_h5_retry.py",
     "tests/test_higher_composition.py",
     "tests/test_higher_recovery.py",
     "tests/test_higher_replay.py",
@@ -223,16 +235,12 @@
   ],
   "evidence_max_bytes": 130023424,
   "execution_stages": [
-    "H0_common",
-    "H1_coarse_contacts",
-    "H2_forward_contacts",
-    "H3_contact_binding",
     "H5_higher_assembly"
   ],
   "failure_evidence_grace_seconds": 5,
   "final_C_proof_certified": false,
   "final_stage": "H5_higher_assembly",
-  "fresh_execution_module_count": 834,
+  "fresh_execution_module_count": 27,
   "fresh_external_source_rebuild": false,
   "fresh_higher_module_count": 1138,
   "fresh_research_modules_exactly_once": true,
@@ -253,6 +261,29 @@
   "higher_h4_byte_witness_sha256": "9cca4e9a49876bc12b44d7e3415811a8b6e406b6c6d3e338ed61582ad8e279e5",
   "higher_h4_original_run_terminal_conclusion": "failure",
   "higher_h4_payload_selection_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
+  "higher_h5_retry": {
+    "all_per_command_and_per_job_caps_unchanged": true,
+    "diagnostic_proposal_sha256": "bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa",
+    "diagnostic_source_review_sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc",
+    "failed_h5_objects_reused": false,
+    "failed_h5_terminal_review_sha256": "b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01",
+    "fresh_h5_module_count": 27,
+    "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+    "producer_identity": {
+      "repository": "jconorgrogan/palomar-chair-verification",
+      "run_attempt": "1",
+      "run_id": "39134139440",
+      "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+    },
+    "retained_stages": [
+      "H0_common",
+      "H1_coarse_contacts",
+      "H2_forward_contacts",
+      "H3_contact_binding"
+    ],
+    "schema": "higher-h5-read-diagnostic-retry-v1"
+  },
+  "higher_h5_retry_mode": "exact-historical-H0-H3-for-H5-read-diagnostic-v1",
   "higher_mathematical_closure_count": 1154,
   "higher_recovery_implementation_review_sha256": "282c33ba8e779f4aff085cd6a0d3db305ed767be15412bac6c619634e78536b1",
   "higher_recovery_mode": "exact-historical-H4-v1",
@@ -274,6 +305,13 @@
     "schema": "higher-five-job-reviewed-activation-v1",
     "source_code_origin_resource_bytes_unchanged_from_selection": true
   },
+  "historical_green_activation_admission": {
+    "endpoint_audits_pending": true,
+    "fresh_native_readmission_required": true,
+    "independent_source_review_sha256": "fdbdb7eb460b45b4735a860a3f3ce98a16bf0a0eda56fb04e78c9c2f021c36ef",
+    "schema": "higher-green-control-successor-v1",
+    "source_review_pending": false
+  },
   "independent_auditor_preflight_stages": [
     "H0_common",
     "H5_higher_assembly"
@@ -284,8 +322,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 8405,
-      "sha256": "f9bd3603d7115430456a36f430132928891960218513618c18ab0209d5cb1cb0"
+      "bytes": 1595,
+      "sha256": "98bf4a5cfc40533faafa0db57e6404c8e315aeb520b9493667821e27ecc3364a"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -313,23 +351,23 @@
     },
     "ci/cache_diagnostic.py": {
       "bytes": 81807,
-      "sha256": "65adf468e49c9c03bd88de19195267bcef3d73c2343d46cdab59b4b5d47cc0a9"
+      "sha256": "00a7f028faffa09d990fbd461df3816bf746d9264995a71957f6ffa786948add"
     },
     "ci/collect_evidence.py": {
-      "bytes": 21952,
-      "sha256": "fa4e88ba002ec2b60d6aeea60cc0cbb0dec2bdb26025875dc6050e1e80cbb12c"
+      "bytes": 22654,
+      "sha256": "1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a"
     },
     "ci/conditional_transport.py": {
-      "bytes": 55341,
-      "sha256": "b19080a4426f1a6dbd79a909eb3d10dd46f85f8e4008bc3cb5c54daeda5af39e"
+      "bytes": 55417,
+      "sha256": "b704976a7a2ad66718466fa01290ca269d348d48420af7f794df43e27d93d67f"
     },
     "ci/fresh_stage.py": {
-      "bytes": 49212,
-      "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
+      "bytes": 50298,
+      "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
     },
     "ci/higher_policy.py": {
-      "bytes": 43431,
-      "sha256": "de738b3d99daf3f3dada88762dde1897c0a300d3795fc84bb7326623cd0357be"
+      "bytes": 51059,
+      "sha256": "48880f252e91bf79f5675f8865cba342ba83ce23e5bbc29ff0cddcd8868d73e2"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -443,6 +481,46 @@
       "bytes": 4600,
       "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
     },
+    "origin/failed-h5-last-command.json": {
+      "bytes": 5022,
+      "sha256": "ceeee4d8d1ebaacde42dbf023455b43a38078585207908d250485e0dc98c415e"
+    },
+    "origin/failed-h5-terminal-review.json": {
+      "bytes": 67688,
+      "sha256": "b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01"
+    },
+    "origin/higher-green-original-README.md": {
+      "bytes": 8405,
+      "sha256": "f9bd3603d7115430456a36f430132928891960218513618c18ab0209d5cb1cb0"
+    },
+    "origin/higher-green-tests/test_higher_recovery.py": {
+      "bytes": 13489,
+      "sha256": "73ce9671d0e63c42f736c8ae62605c7842dea0130ae3e7f9443c7080d0e4c9e4"
+    },
+    "origin/higher-green-tests/test_higher_replay.py": {
+      "bytes": 13226,
+      "sha256": "4ee39935602cc92a8efd64b3c16f8601613b40e7eb1489a053ab6b57c25362f1"
+    },
+    "origin/higher-h0-h3-producer-contract.json": {
+      "bytes": 542439,
+      "sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21"
+    },
+    "origin/higher-h0-h3-producer-origins.json": {
+      "bytes": 5051,
+      "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
+    },
+    "origin/higher-h1-h3-descriptor-review.json": {
+      "bytes": 1499,
+      "sha256": "81d6b922b4f61bd162ac3bf8a138fb9e413ca31bc1b7aa943e236b36a6155d78"
+    },
+    "origin/higher-h5-diagnostic-independent-review.json": {
+      "bytes": 2560,
+      "sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc"
+    },
+    "origin/higher-h5-diagnostic-proposal-review.json": {
+      "bytes": 14615,
+      "sha256": "bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa"
+    },
     "origin/higher-interface-identity.json": {
       "bytes": 482,
       "sha256": "8bb12cf8cb212d1f42b5cd0dab44b8e04200e8cd408b442068061c540c1c9955"
@@ -476,8 +554,8 @@
       "sha256": "6cd0db87069c817f3f71e6a13683012d3e15593154160e40a645d043dfde0543"
     },
     "origin/locked-origins.json": {
-      "bytes": 5051,
-      "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
+      "bytes": 11445,
+      "sha256": "e12891345e6b46ebab6b28b7738bc8072e26e11a7eb6979a4b654e0e62f61797"
     },
     "origin/producer-contract.json": {
       "bytes": 870879,
@@ -6223,17 +6301,21 @@
       "bytes": 30569,
       "sha256": "ebcf263a322e09084edaf84fba5248f691dd07b5348f466892ac14b8a94eebd8"
     },
+    "tests/test_h5_retry.py": {
+      "bytes": 7146,
+      "sha256": "df32933c0552b9bd85b90acb7b3f7da1b84f9ce01553fed100c7d74913155abe"
+    },
     "tests/test_higher_composition.py": {
       "bytes": 15016,
       "sha256": "eab185359a547d6a26a6d573af626418e0a9697fe2ee03f8f38e958e6732f1a6"
     },
     "tests/test_higher_recovery.py": {
-      "bytes": 13489,
-      "sha256": "73ce9671d0e63c42f736c8ae62605c7842dea0130ae3e7f9443c7080d0e4c9e4"
+      "bytes": 13643,
+      "sha256": "ac2d617d278b1251bfb76ed024eed1a777c61a2768f00afc191e8c288b89359d"
     },
     "tests/test_higher_replay.py": {
-      "bytes": 13226,
-      "sha256": "4ee39935602cc92a8efd64b3c16f8601613b40e7eb1489a053ab6b57c25362f1"
+      "bytes": 13222,
+      "sha256": "1f97da28e5cd3a654cf98c6344baedb07d703f4d6e62cab2175b45f07cb5be5d"
     },
     "tests/test_higher_visibility.py": {
       "bytes": 2243,
@@ -6252,6 +6334,10 @@
   "locked_origin_stages": [
     "F0_common",
     "F3_product_geometry",
+    "H0_common",
+    "H1_coarse_contacts",
+    "H2_forward_contacts",
+    "H3_contact_binding",
     "H4_product_geometry"
   ],
   "maximum_parallel_jobs": 4,
@@ -12009,6 +12095,11 @@
     "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
   },
   "native_dependency_policy": "Official runtime and explicitly trusted byte-inventoried pinned package cache, with an empty global native-library inventory. New owned IR is freshly emitted; prior owned IR is admitted only through exact checked producer provenance. No owned native shared libraries or original generators are executed.",
+  "native_h0_h3_origin_lock": {
+    "bytes": 5051,
+    "path": "origin/higher-h0-h3-producer-origins.json",
+    "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
+  },
   "native_higher_interface": {
     "bytes": 482,
     "path": "origin/higher-interface-identity.json",
@@ -12022,14 +12113,14 @@
   "no_forks_or_unsafe_cache_scope": true,
   "object_artifact_max_bytes": 4294967296,
   "object_artifact_zip_max_bytes": 4299161600,
-  "object_transport_policy": "Only exact terminal successful F0 and F3 earlier-run producer jobs/artifacts plus successful same-run H0 through H5 predecessors are eligible. Every full payload and original source/import/checker/command certificate is validated under its immutable producer contract. Old cache interface equality precedes the disjoint 19-module extension. Imported objects enter one host-owned namespace; no archive or quarantine enters LEAN_PATH.",
+  "object_transport_policy": "Only the seven exact successful original F0,F3,H0,H1,H2,H3,H4 producer jobs/artifacts are eligible. Their immutable original contracts, source/import/checker/command certificates and complete payload bytes remain mandatory. H5 recompiles exactly 27 modules and performs the unchanged raw endpoint audit. Failed H5 objects are unavailable and never reused.",
   "official_cache_trust": "PalomarSubmission@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44 explicitly trusts bytes; no source-equivalence authentication",
   "official_lean_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
   "official_mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
   "origin_lock": {
-    "bytes": 5051,
+    "bytes": 11445,
     "path": "origin/locked-origins.json",
-    "sha256": "78d0ccedb87280b123dd03d52fc23aa9e0ac1b24d349caccb1749799ebe3df56"
+    "sha256": "e12891345e6b46ebab6b28b7738bc8072e26e11a7eb6979a4b654e0e62f61797"
   },
   "original_stage_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
   "outer_timeout_minutes": 330,
@@ -12045,6 +12136,11 @@
       "path": "origin/continuation-producer-contract.json",
       "sha256": "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070"
     },
+    "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21": {
+      "bytes": 542439,
+      "path": "origin/higher-h0-h3-producer-contract.json",
+      "sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21"
+    },
     "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5": {
       "bytes": 539193,
       "path": "origin/higher-producer-contract.json",
@@ -12058,10 +12154,10 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-green-control-20261018",
-  "publication_parent_commit": "d0de285d2515205d33da17aef16ce945987c8856",
+  "publication_branch": "verify/higher-h5-read-diagnostic-20261018",
+  "publication_parent_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c",
   "retained_context_outside_higher_closure_count": 279,
-  "retained_higher_module_count": 304,
+  "retained_higher_module_count": 1111,
   "retained_historical_module_count": 295,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -13665,7 +13761,7 @@
   },
   "transport_timeout_seconds": 1800,
   "unconditional_monotile_proof_certified": false,
-  "workflow_aggregate_seconds": 96000,
-  "workflow_job_count": 5,
-  "workflow_outer_runner_minutes": 1650
+  "workflow_aggregate_seconds": 19200,
+  "workflow_job_count": 1,
+  "workflow_outer_runner_minutes": 330
 }

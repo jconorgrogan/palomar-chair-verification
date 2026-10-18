@@ -29,7 +29,7 @@ META_KEYS = ('identity','stage_id','stage_modules','admitted_stages','contract_s
 ORIGIN_KEYS = ('identity','stage_id','artifact_name','artifact_id','producer_job_name','producer_job_id',
                'producer_conclusion','artifact_zip_sha256','artifact_zip_bytes','workflow_path','workflow_id',
                'producer_job_log_sha256')
-LOCKED_STAGES = ('F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','H4_product_geometry')
+LOCKED_STAGES = ('F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','H0_common','H1_coarse_contacts','H2_forward_contacts','H3_contact_binding','H4_product_geometry')
 
 
 def paths(module):

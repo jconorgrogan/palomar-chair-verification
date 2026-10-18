@@ -38,24 +38,24 @@ class HigherRecoveryTests(unittest.TestCase):
   self.assertEqual(c['stages'][h.H4_STAGE],old['stages'][h.H4_STAGE])
   for m in old['stages'][h.H4_STAGE]['modules']:
    p='src/'+m.replace('.','/')+'.lean';self.assertEqual(c['inputs'][p],old['inputs'][p])
- def test_recovery_executes_834_modules_without_h4(self):
-  c=self.c();self.assertEqual(c['execution_stages'],[s for s in h.HSTAGES if s!=h.H4_STAGE])
+ def test_recovery_executes_27_h5_modules_only(self):
+  c=self.c();self.assertEqual(c['execution_stages'],[h.HSTAGES[-1]])
   names=[m for sid in c['execution_stages'] for m in c['stages'][sid]['modules']]
-  self.assertEqual(len(names),len(set(names)));self.assertEqual(len(names),834)
-  old=set(c['stages'][h.H4_STAGE]['modules']);self.assertEqual(len(old),304);self.assertFalse(old&set(names))
+  self.assertEqual(len(names),len(set(names)));self.assertEqual(len(names),27)
+  old={m for sid in h.HSTAGES[:-1] for m in c['stages'][sid]['modules']};self.assertEqual(len(old),1111);self.assertFalse(old&set(names))
   self.assertEqual(len(old|set(names)),1138)
- def test_workflow_has_five_jobs_and_no_h4_job(self):
+ def test_workflow_has_h5_only_and_no_h4_job(self):
   import re
   text=next((ROOT/'.github/workflows').glob('*.yml')).read_text()
   jobs=re.findall(r'^  (H\d_\w+):$',text,re.M)
   self.assertEqual(jobs,self.c()['execution_stages']);self.assertNotIn('"H4_product_geometry"',text)
-  self.assertEqual(text.count('timeout-minutes: 330'),5)
+  self.assertEqual(text.count('timeout-minutes: 330'),1)
  def test_workflow_aggregate_and_per_job_bounds(self):
-  c=self.c();self.assertEqual(c['workflow_job_count'],5);self.assertEqual(c['workflow_aggregate_seconds'],5*19200);self.assertEqual(c['workflow_outer_runner_minutes'],5*330)
+  c=self.c();self.assertEqual(c['workflow_job_count'],1);self.assertEqual(c['workflow_aggregate_seconds'],19200);self.assertEqual(c['workflow_outer_runner_minutes'],330)
   self.assertEqual(c['aggregate_command_deadline_seconds'],19200);self.assertEqual(c['outer_timeout_minutes'],330)
- def test_transport_only_h4_allowlist_change(self):
-  text=(ROOT/'ci/conditional_transport.py').read_text();new="LOCKED_STAGES = ('F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','H4_product_geometry')"
-  self.assertEqual(text.count(new),1);restored=text.replace(new,new.replace(",'H4_product_geometry'",''))
+ def test_transport_only_exact_h0_h4_allowlist_change(self):
+  text=(ROOT/'ci/conditional_transport.py').read_text();new="LOCKED_STAGES = ('F0_common','F1_curved_existence','F2_period_hierarchy','F3_product_geometry','H0_common','H1_coarse_contacts','H2_forward_contacts','H3_contact_binding','H4_product_geometry')"
+  self.assertEqual(text.count(new),1);restored=text.replace(new,new.replace(",'H0_common','H1_coarse_contacts','H2_forward_contacts','H3_contact_binding','H4_product_geometry'",''))
   self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),'25dca67e7f3238a177463ea4d1508bf350b29b8ddf7904ce19a3736d9d73fa89')
  def test_h4_native_contract_keeps_original_control_pin(self):
   self.assertEqual(self.producer()['inputs']['auditors/HigherInspectorControl.lean'],{'bytes':6975,'sha256':'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'})

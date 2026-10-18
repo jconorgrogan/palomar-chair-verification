@@ -5,11 +5,11 @@ import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,sta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
-HELPERS={'higher_policy.py':'de738b3d99daf3f3dada88762dde1897c0a300d3795fc84bb7326623cd0357be',
- 'fresh_stage.py':'0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99',
+HELPERS={'higher_policy.py':'48880f252e91bf79f5675f8865cba342ba83ce23e5bbc29ff0cddcd8868d73e2',
+ 'fresh_stage.py':'6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
- 'collect_evidence.py':'fa4e88ba002ec2b60d6aeea60cc0cbb0dec2bdb26025875dc6050e1e80cbb12c',
- 'conditional_transport.py':'b19080a4426f1a6dbd79a909eb3d10dd46f85f8e4008bc3cb5c54daeda5af39e',
+ 'collect_evidence.py':'1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a',
+ 'conditional_transport.py':'b704976a7a2ad66718466fa01290ca269d348d48420af7f794df43e27d93d67f',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -31,7 +31,7 @@ DIAGNOSTIC_RSS_BYTES=8*GIB
 ARCHIVE_URL='https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst'
 ARCHIVE_BYTES=595391556
 RUNTIME_INVENTORY_SHA='42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea'
-HELPER_SHA='0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99'
+HELPER_SHA='6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8'
 OFFICIAL_REPOS={'mathlib':'leanprover-community/mathlib4','batteries':'leanprover-community/batteries','Qq':'leanprover-community/quote4','aesop':'leanprover-community/aesop','proofwidgets':'leanprover-community/ProofWidgets4','importGraph':'leanprover-community/import-graph','LeanSearchClient':'leanprover-community/LeanSearchClient','plausible':'leanprover-community/plausible','Cli':'leanprover/lean4-cli'}
 
 def write_json(path,value):

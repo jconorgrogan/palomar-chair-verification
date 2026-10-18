@@ -1,0 +1,75 @@
+{
+  "activation_authorized": false,
+  "actual_failure_seal_sha256": "b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01",
+  "actual_ir_payload_read": false,
+  "additional_independent_controls": {
+    "errors": 0,
+    "failures": 0,
+    "normal": 9,
+    "optimized": 9
+  },
+  "adoption_requirements": [
+    "separately reviewed successor contract and exact input pins",
+    "explicit execution authorization"
+  ],
+  "blockers": [],
+  "files": {
+    "REVIEW.md": {
+      "bytes": 4686,
+      "sha256": "1ada050649f693ceb2255116a6257e3aeb0777981d21dfb93a559bf5d04b3c5f"
+    },
+    "map_verification.json": {
+      "bytes": 2186,
+      "sha256": "5b5925899733e2413dd6f5796d5d6ab957f37d9766a849b63c0991b2e888b448"
+    },
+    "post_test_verification.log": {
+      "bytes": 2186,
+      "sha256": "5b5925899733e2413dd6f5796d5d6ab957f37d9766a849b63c0991b2e888b448"
+    },
+    "run_guarded.py": {
+      "bytes": 1028,
+      "sha256": "1a9993c5efef7bdfd476267abdc6f3d95ffa1135dd3df9e403bcf3e5babe425a"
+    },
+    "supplemental_guarded.py": {
+      "bytes": 7131,
+      "sha256": "2334e870e41575d26928986d4d10f4161119dba73236b0b1bee5a0f61068b4f5"
+    },
+    "supplemental_normal.log": {
+      "bytes": 1260,
+      "sha256": "d56514361f4ac86dc82ccf5093f9eb456982aef3a71fb142782d92834406c86c"
+    },
+    "supplemental_optimized.log": {
+      "bytes": 1260,
+      "sha256": "c42e1028a718ebd550655344c6a1424a839641644e001dc4a119e080c6948324"
+    },
+    "tests_normal.log": {
+      "bytes": 2858,
+      "sha256": "1d727701c68af3eff3e117ad822bf3d9c4caf779793992b79042439ffc4b0b78"
+    },
+    "tests_optimized.log": {
+      "bytes": 2858,
+      "sha256": "ff5cc4285edd603c05a4776455185737a862eb70f922e05dd947ec48b1c9ef85"
+    },
+    "verify_maps.py": {
+      "bytes": 4918,
+      "sha256": "67989da70c6eef2b41d9a188d90555b19e847dcda47c13b91121096109b66b19"
+    }
+  },
+  "native_runtime_or_artifact_execution": false,
+  "owner_controls": {
+    "errors": 0,
+    "failures": 0,
+    "normal": 15,
+    "optimized": 15
+  },
+  "owner_seal_sha256": "bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa",
+  "proposal_root": "/workspace/shared/higher_h5_read_diagnostic_proposal_20261018T1555",
+  "publication": false,
+  "remote_read": false,
+  "schema": "independent-inactive-h5-diagnostic-source-review-v1",
+  "source_edits": false,
+  "source_site_seal_sha256": "abbbeada81a50f2d280caa8b37bd91fc85b903016d8829e31edecde52746ec0b",
+  "status": "reviewed_source_only_no_concrete_blockers",
+  "verified_frozen_members": 72,
+  "verified_published_base_files": 62
+}

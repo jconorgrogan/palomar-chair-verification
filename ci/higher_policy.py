@@ -12,6 +12,10 @@ H4_PRODUCER_SHA='36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa
 CONTROL_LAYOUT_REVIEW_SHA='8aca4fc5f247cfe7ba5cab59e5f876cfcb3166784d50fd05c5912a58ee689d93'
 H4_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','run_id':'38982023996','run_attempt':'1','workflow_commit':'31e580fd4246e2d60dd6393ac8571abfe1cd2ba0'}
 def recovery(c):return c.get('higher_recovery_mode')==RECOVERY_MODE
+H5_RETRY_MODE='exact-historical-H0-H3-for-H5-read-diagnostic-v1'
+H5_PRODUCER_SHA='29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21'
+H5_PRODUCER_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','run_id':'39134139440','run_attempt':'1','workflow_commit':'db18549f7ad64d5d62c4f9432f8f804ab375375c'}
+def h5_retry(c):return c.get('higher_h5_retry_mode')==H5_RETRY_MODE
 def producer_cache_role(c,sid,a):
     a.f.need(sid in OLD+HSTAGES,'unknown native cache role')
     if sid in OLD:
@@ -25,9 +29,12 @@ TARGETS=['ClarkSeed.exists_physical_aperiodic_monotile_of_ge_five','ClarkSeed.ex
 def digest(value):return hashlib.sha256((json.dumps(value,sort_keys=True,indent=2)+'\n').encode()).hexdigest()
 def profile(c,a):
     a.f.need('higher_recovery_mode' not in c or recovery(c),'unknown higher recovery mode')
+    a.f.need('higher_h5_retry_mode' not in c or (h5_retry(c) and recovery(c)),'unknown H5-only retry mode')
+    if h5_retry(c):validate_h5_retry_scope(c,a)
     expected={'schema':SCHEMA,'owned_module_count':1433,'fresh_higher_module_count':1138,'retained_historical_module_count':295,'higher_mathematical_closure_count':1154,'retained_context_outside_higher_closure_count':279,'lean_heap_mib':4096,'diagnostic_rss_gib':8,'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'outer_timeout_minutes':330,'aggregate_command_deadline_seconds':19200,'maximum_parallel_jobs':4,'stage_count':8,'workflow_job_count':6,'workflow_aggregate_seconds':115200,'workflow_outer_runner_minutes':1980,'object_artifact_max_bytes':4*a.GIB,'object_artifact_zip_max_bytes':4*a.GIB+4*1024**2,'producer_job_log_max_bytes':16*1024**2,'transport_timeout_seconds':1800,'failure_evidence_grace_seconds':5,'owned_output_max_bytes':6*a.GIB,'owned_source_max_bytes':32*1024**2,'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,'auditor_timeout_seconds':600,'cache_module_count':2805}
     if recovery(c):expected.update(workflow_job_count=5,workflow_aggregate_seconds=96000,workflow_outer_runner_minutes=1650,fresh_execution_module_count=834,retained_higher_module_count=304)
     else:a.f.need('fresh_execution_module_count' not in c and 'retained_higher_module_count' not in c,'legacy higher profile asserts recovery counts')
+    if h5_retry(c):expected.update(workflow_job_count=1,workflow_aggregate_seconds=19200,workflow_outer_runner_minutes=330,fresh_execution_module_count=27,retained_higher_module_count=1111)
     for k,v in expected.items():a.f.need(type(c.get(k)) is type(v) and c[k]==v,'higher profile differs: '+k)
     for k,v in {'all_dimension_uniform_proof_certified':False,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,'higher_endpoints_have_no_C_premise':True,'fresh_external_source_rebuild':False,'owned_objects_from_prior_runs_allowed':True,'owned_objects_from_same_run_checked_stages_allowed':True,'fresh_research_modules_exactly_once':True}.items():a.f.need(c.get(k) is v,'higher claim/trust differs: '+k)
     a.f.need(c.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and c.get('independent_auditor_preflight_stages')==['H0_common','H5_higher_assembly'],'higher proof/preflight scope differs')
@@ -35,12 +42,26 @@ def profile(c,a):
     for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((7009,'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
         a.f.need(c['inputs'].get('auditors/'+name+'.lean')=={'bytes':pin[0],'sha256':pin[1]},'higher independent source pin differs')
     a.f.need(c.get('higher_visibility_variant_lock_sha256')=='3621fde9a869de3f0fc4f3f312c142e13df0d5672f34b1402b10cf9b99f475be' and c.get('higher_visibility_independent_review_sha256')=='a583afc1d571b60f41a349d0797fd8f373ac190b92598ec35ee85d2777338373' and c.get('higher_visibility_actual_elaboration_pending') is True,'higher visibility provenance differs')
-    a.f.need(c['execution_stages']==([s for s in HSTAGES if s!=H4_STAGE] if recovery(c) else HSTAGES) and c['locked_origin_stages']==(OLD+[H4_STAGE] if recovery(c) else OLD) and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
+    a.f.need(c['execution_stages']==([HSTAGES[-1]] if h5_retry(c) else [s for s in HSTAGES if s!=H4_STAGE] if recovery(c) else HSTAGES) and c['locked_origin_stages']==(OLD+HSTAGES[:-1] if h5_retry(c) else OLD+[H4_STAGE] if recovery(c) else OLD) and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
     a.f.need('module_compile_arguments' not in c and 'conditional_C_remains_explicit' not in c,'higher replay has an unapproved compiler option or misleading C premise field')
     wanted={m:{'proposed_check_timeout_seconds':v[0],'source_sha256':v[1],'observed_historical_checker_seconds':v[2]} for m,v in CHECKS.items()}
     a.f.need(c.get('module_checker_timeout_exceptions')==wanted,'checker exceptions differ')
     for m,v in CHECKS.items():a.f.need(c['inputs']['src/'+m.replace('.','/')+'.lean']['sha256']==v[1],'checker exception source differs')
     if recovery(c):validate_control_layout(c,a)
+def validate_h5_retry_scope(c,a):
+    expected={'schema':'higher-h5-read-diagnostic-retry-v1','producer_contract_sha256':H5_PRODUCER_SHA,
+      'producer_identity':H5_PRODUCER_IDENTITY,'retained_stages':HSTAGES[:4],
+      'diagnostic_source_review_sha256':'e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc',
+      'diagnostic_proposal_sha256':'bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa',
+      'failed_h5_terminal_review_sha256':'b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01',
+      'failed_h5_objects_reused':False,'fresh_h5_module_count':27,'all_per_command_and_per_job_caps_unchanged':True}
+    a.f.need(c.get('higher_h5_retry')==expected,'H5 retry scope/provenance differs')
+    a.f.need(c['publication_branch']=='verify/higher-h5-read-diagnostic-20261018','H5 retry branch differs')
+    for path,sha in [('origin/higher-h5-diagnostic-independent-review.json',expected['diagnostic_source_review_sha256']),
+                     ('origin/higher-h5-diagnostic-proposal-review.json',expected['diagnostic_proposal_sha256']),
+                     ('origin/failed-h5-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
+        a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'H5 retry source evidence changed')
+
 def validate_control_layout(c,a):
     old_path='origin/HigherInspectorControl.original.lean';new_path='auditors/HigherInspectorControl.lean';lock_path='locks/higher-control-layout-repair.json'
     before=b'  let native := { refDefinition with name := `SparseMonotiles.HasTiling,\n'
@@ -112,13 +133,14 @@ def origins(c,a):
     a.f.need(c['schema']==SCHEMA,'higher origin schema differs')
     paths={a.ORIGINAL_STAGE_CONTRACT_SHA:'origin/producer-contract.json',a.CONTINUATION_PRODUCER_SHA:'origin/continuation-producer-contract.json'};producers={}
     if recovery(c):paths[H4_PRODUCER_SHA]='origin/higher-producer-contract.json'
+    if h5_retry(c):paths[H5_PRODUCER_SHA]='origin/higher-h0-h3-producer-contract.json'
     original_owned=a.f.load_json(a.ROOT/'origin/producer-owned-sources.json');oldrows={r['module']:r for r in original_owned['sources']};current={r['module']:r for r in a.f.load_json(a.ROOT/'locks/owned-sources.json')['sources']}
     for sha,path in paths.items():
         p=c['producer_contracts'][sha];a.f.need(p=={'path':path,'sha256':sha,'bytes':(a.ROOT/path).stat().st_size} and c['inputs'][path]=={'bytes':p['bytes'],'sha256':sha},'higher producer pointer differs')
         producer=a.f.pinned_load(a.ROOT/path,sha);a.validate_diagnostic_profile(producer);a.validate_stage_plan(producer);producers[sha]=producer
         for name in ['lean-toolchain','locks/dependencies.json','locks/cache-client.json']:a.f.need(c['inputs'][name]==producer['inputs'][name],'higher immutable runtime/cache pin differs')
-        if sha==H4_PRODUCER_SHA:
-            a.f.need(not recovery(producer),'historical H4 producer cannot be a recovery contract')
+        if sha in (H4_PRODUCER_SHA,H5_PRODUCER_SHA):
+            a.f.need((not recovery(producer)) if sha==H4_PRODUCER_SHA else (recovery(producer) and not h5_retry(producer)),'historical higher producer recovery role differs')
             for name in ['locks/owned-sources.json','locks/required-modules.json','locks/cache-extension.json','origin/base-interface-identity.json','origin/base-required-modules.json']:
                 a.f.need(c['inputs'][name]==producer['inputs'][name],'historical H4 source/cache lock changed')
             a.f.need(c['source_archive']==producer['source_archive'],'historical H4 source archive changed')
@@ -127,7 +149,7 @@ def origins(c,a):
             a.f.need(a.f.file_sha(a.ROOT/'origin/base-required-modules.json')==producer['inputs']['locks/required-modules.json']['sha256'],'original cache graph changed')
     a.f.need(set(c['producer_contracts'])==set(paths),'higher unknown producer contract')
     p=c['origin_lock'];a.f.need(p['path']=='origin/locked-origins.json' and c['inputs'][p['path']]=={'bytes':p['bytes'],'sha256':p['sha256']},'higher origin pointer differs')
-    lock=a.f.pinned_load(a.ROOT/p['path'],p['sha256']);a.f.need(lock['schema']==('higher-exact-mixed-origin-lock-v2' if recovery(c) else 'higher-exact-mixed-origin-lock-v1') and lock['producer_contracts']==list(paths) and set(lock['stages'])==set(c['locked_origin_stages']),'higher origin set differs')
+    lock=a.f.pinned_load(a.ROOT/p['path'],p['sha256']);a.f.need(lock['schema']==('higher-exact-mixed-origin-lock-v3' if h5_retry(c) else 'higher-exact-mixed-origin-lock-v2' if recovery(c) else 'higher-exact-mixed-origin-lock-v1') and lock['producer_contracts']==list(paths) and set(lock['stages'])==set(c['locked_origin_stages']),'higher origin set differs')
     selected={}
     for sid in OLD:
         row=lock['stages'][sid];a.transport.validate_origin_lock(row['origin']);sha=a.CONTINUATION_PRODUCER_SHA if sid==OLD[1] else a.ORIGINAL_STAGE_CONTRACT_SHA
@@ -153,6 +175,13 @@ def origins(c,a):
         a.f.need(set(interface)==fields and interface['schema']=='higher-external-interface-v1' and interface['runtime_inventory_sha256']==a.RUNTIME_INVENTORY_SHA and interface['all_package_native_library_files_sha256']==digest({}),'native H4 extended interface scope differs')
         for k in fields-{'schema'}:a.f.need(a.f.SHA256.fullmatch(interface[k]),'native H4 interface digest differs')
         selected[H4_STAGE]=producer
+    if h5_retry(c):
+        producer=producers[H5_PRODUCER_SHA];pointer=c['native_h0_h3_origin_lock'];path='origin/higher-h0-h3-producer-origins.json'
+        a.f.need(pointer=={'path':path,'bytes':producer['origin_lock']['bytes'],'sha256':producer['origin_lock']['sha256']} and c['inputs'][path]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'native H0-H3 origin pointer differs')
+        native=a.f.pinned_load(a.ROOT/path,pointer['sha256'])
+        a.f.need((a.ROOT/path).stat().st_size==pointer['bytes'] and native=={'schema':'higher-exact-mixed-origin-lock-v2','producer_contracts':list(paths)[:3],'stages':{sid:lock['stages'][sid] for sid in OLD+[H4_STAGE]}},'native H0-H3 predecessor origins changed')
+        for sid in HSTAGES[:4]:
+            validate_h0_h3_origin_row(lock['stages'][sid],sid,c,producer,current,a);selected[sid]=producer
     return selected,lock['stages']
 def validate_h4_origin_row(row,c,producer,current,a):
     """Pinned metadata policy only; Transport separately authenticates the API and every payload byte."""
@@ -165,8 +194,21 @@ def validate_h4_origin_row(row,c,producer,current,a):
     for k in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:a.f.need(a.f.SHA256.fullmatch(row[k]),'missing H4 origin digest')
     a.f.need(type(row['stage_tar_bytes']) is int and 0<row['stage_tar_bytes']<=c['object_artifact_max_bytes'],'H4 tar bound differs')
 
+def validate_h0_h3_origin_row(row,sid,c,producer,current,a):
+    """Four exact original producers; full native byte/receipt admission remains mandatory."""
+    a.f.need(h5_retry(c) and sid in HSTAGES[:4],'unselected H0-H3 retained stage')
+    a.transport.validate_origin_lock(row['origin'])
+    a.f.need(set(row)=={'origin','producer_contract_sha256','receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','stage_tar_bytes','independent_review_sha256'},'H0-H3 origin fields differ')
+    a.f.need(row['producer_contract_sha256']==H5_PRODUCER_SHA and row['origin']['identity']==H5_PRODUCER_IDENTITY and row['origin']['stage_id']==sid and row['origin']['workflow_id']==386423911,'original H0-H3 identity or contract differs')
+    a.f.need(c['stages'][sid]==producer['stages'][sid],'native H0-H3 stage schedule changed')
+    for m in producer['stages'][sid]['modules']:
+        a.f.need(c['inputs'][current[m]['path']]==producer['inputs'][current[m]['path']],'native H0-H3 source changed')
+    for k in ['receipt_sha256','checked_module_receipts_sha256','descriptor_sha256','stage_tar_sha256','independent_review_sha256']:
+        a.f.need(isinstance(row[k],str) and a.f.SHA256.fullmatch(row[k]),'missing H0-H3 origin digest')
+    a.f.need(type(row['stage_tar_bytes']) is int and 0<row['stage_tar_bytes']<=c['object_artifact_max_bytes'],'H0-H3 tar bound differs')
+
 def require_native_interface(c,sid,interface,a):
-    if recovery(c) and sid==H4_STAGE:
+    if recovery(c) and (sid==H4_STAGE or (h5_retry(c) and sid in HSTAGES[:4])):
         pointer=c['native_higher_interface'];path='origin/higher-interface-identity.json'
         a.f.need(set(pointer)=={'path','bytes','sha256'} and pointer['path']==path and c['inputs'][path]=={'bytes':pointer['bytes'],'sha256':pointer['sha256']},'native H4 interface pointer differs')
         a.f.need((a.ROOT/path).stat().st_size==pointer['bytes'],'native H4 interface byte size differs')
@@ -272,6 +314,50 @@ def prepare_auditors(c,work,runtime,search,command,a):
 
 def run_auditors(c,work,runtime,search,env,command,a):
     spec=auditor_specs(c,work,runtime,search,a)[-1]
+    ir_path='objects/SparseMonotiles/CoarseContactCertificates5SymmetryData.ir'
+    expected={'bytes':1054344,'sha256':'c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d'}
+    observation={'schema':'higher-h5-ir-predispatch-observation-v1','path':ir_path,'expected_h0':expected,
+      'observation_phase':'immediately_before_raw_audit_dispatch','monotonic_started_seconds':a.time.monotonic(),
+      'observed':None,'matches_expected_h0':None,'refusal_reason':None}
+    watchdog=a._ACTIVE_WATCHDOG;reason='watchdog_unavailable'
+    observation['aggregate_deadline_monotonic_seconds']=watchdog.deadline if watchdog is not None else None
+    identity=lambda st:(st.st_dev,st.st_ino,st.st_mode,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
+    try:
+        if watchdog is None:raise ValueError(reason)
+        reason='aggregate_deadline_expired';watchdog.check()
+        ir=work/ir_path;reason='path_alias_refused';a.f.no_symlink_path(ir)
+        reason='not_regular_single_link';before=ir.lstat()
+        if not a.stat.S_ISREG(before.st_mode) or before.st_nlink!=1:raise ValueError(reason)
+        observation['observed']={'bytes':before.st_size,'sha256':None}
+        reason='size_mismatch'
+        if before.st_size!=expected['bytes']:
+            observation['matches_expected_h0']=False;raise ValueError(reason)
+        reason='open_refused';fd=a.os.open(ir,a.os.O_RDONLY|a.os.O_NOFOLLOW|a.os.O_NONBLOCK|a.os.O_CLOEXEC)
+        try:
+            reason='identity_changed'
+            if identity(a.os.fstat(fd))!=identity(before):raise ValueError(reason)
+            reason='aggregate_deadline_expired';watchdog.check()
+            reason='bounded_read_failed';data=a.os.read(fd,expected['bytes']+1)
+            reason='read_size_mismatch'
+            if len(data)!=expected['bytes']:raise ValueError(reason)
+            reason='identity_changed'
+            if identity(a.os.fstat(fd))!=identity(before):raise ValueError(reason)
+            reason='aggregate_deadline_expired';watchdog.check()
+        finally:
+            try:a.os.close(fd)
+            except OSError:reason='close_failed';raise
+        reason='path_alias_refused';a.f.no_symlink_path(ir)
+        reason='identity_changed'
+        if identity(ir.lstat())!=identity(before):raise ValueError(reason)
+        reason='aggregate_deadline_expired';watchdog.check()
+        observation['observed']['sha256']=hashlib.sha256(data).hexdigest()
+        watchdog.check();observation['matches_expected_h0']=observation['observed']==expected
+    except (OSError,ValueError):
+        observation['refusal_reason']=reason
+    observation['monotonic_ended_seconds']=a.time.monotonic()
+    if watchdog is not None and (watchdog.expired or observation['monotonic_ended_seconds']>=watchdog.deadline):
+        observation['refusal_reason']='aggregate_deadline_expired';observation['matches_expected_h0']=None
+    a.write_json(work/'evidence/higher-h5-ir-predispatch-observation.json',observation)
     out,_=command(spec['name'],spec['argv'],seconds=spec['requested_timeout_seconds'],rss=spec['max_rss_bytes'],allowed_sessions=True)
     records=audit_output(out.read_text(),a);a.write_json(work/'evidence/higher-physical-endpoints-raw-audit.json',records)
     return {'higher_physical_endpoints':True}

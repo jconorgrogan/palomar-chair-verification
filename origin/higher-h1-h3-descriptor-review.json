@@ -1,0 +1,29 @@
+{
+  "full_native_readmission": false,
+  "normal": {
+    "bytes": 720,
+    "path": "/workspace/shared/higher_h1_h3_descriptors_review_20261018T1617/VERIFY_NORMAL.log",
+    "sha256": "16b56718abbc09150471d2e9f6499884566bb28f21426c03da066e6f5b811520"
+  },
+  "object_payload_downloaded": false,
+  "object_payload_imported_or_executed": false,
+  "optimized": {
+    "bytes": 720,
+    "path": "/workspace/shared/higher_h1_h3_descriptors_review_20261018T1617/VERIFY_OPTIMIZED.log",
+    "sha256": "16b56718abbc09150471d2e9f6499884566bb28f21426c03da066e6f5b811520"
+  },
+  "proof_acceptance_claimed": false,
+  "receiver_source": {
+    "bytes": 5360,
+    "path": "/workspace/shared/c087_receiver_host_20261018T1427/acquire_evidence.py",
+    "sha256": "297ed43eef4da89a83b691f3a06323f1c5acc123b693fe59d95a690539db6065"
+  },
+  "schema": "independent-h1-h3-small-evidence-descriptor-review-v1",
+  "scope": "The exact original H1/H3 export-marker descriptor/tar pins are authenticated through small evidence ZIPs, complete collection hashes, unchanged terminal producer steps and fresh before/after artifact metadata, with original H5 checked-module lineage joins. Native object payload validation remains mandatory in any new producer.",
+  "status": "authenticated_original_completion_markers",
+  "verification": {
+    "bytes": 6158,
+    "path": "/workspace/shared/higher_h1_h3_descriptors_review_20261018T1617/VERIFIED.json",
+    "sha256": "599cc066373d73a6e2d1ceea883e8b63da1337a25a246c3f7629c9880b726cf0"
+  }
+}

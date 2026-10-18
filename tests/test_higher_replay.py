@@ -29,7 +29,7 @@ class HigherTests(unittest.TestCase):
  def test_no_uniform_claim(self):
   c=self.contract();self.assertFalse(c['all_dimension_uniform_proof_certified']);self.assertTrue(c['higher_endpoints_have_no_C_premise']);self.assertEqual(len(c['higher_endpoints']),2)
  def test_higher_width_four(self):
-  c=self.contract();self.assertEqual(c['maximum_parallel_jobs'],4);self.assertEqual(c['workflow_aggregate_seconds'],5*19200);self.assertEqual(c['workflow_outer_runner_minutes'],5*330)
+  c=self.contract();self.assertEqual(c['maximum_parallel_jobs'],4);self.assertEqual(c['workflow_aggregate_seconds'],19200);self.assertEqual(c['workflow_outer_runner_minutes'],330)
  def test_fresh_partition_exactly_once(self):
   c=self.contract();names=[m for sid in h.HSTAGES for m in c['stages'][sid]['modules']];self.assertEqual(len(names),len(set(names)));self.assertEqual(len(names),1138);self.assertFalse(set(names)&{m for sid in h.OLD for m in c['stages'][sid]['modules']})
  def test_h5_has_every_ancestor(self):self.assertEqual(self.contract()['stages'][h.HSTAGES[-1]]['admitted_stages'],h.OLD+h.HSTAGES[:-1])
@@ -51,7 +51,7 @@ def mutation_test(key,value):
   c=self.contract();c[key]=value
   with self.assertRaises(Exception):a.validate_diagnostic_profile(c)
  return test
-for key,value in {'owned_module_count':1432,'fresh_higher_module_count':1139,'retained_historical_module_count':294,'higher_mathematical_closure_count':1433,'retained_context_outside_higher_closure_count':0,'diagnostic_timeout_seconds':181,'check_timeout_seconds':721,'outer_timeout_minutes':331,'aggregate_command_deadline_seconds':19201,'maximum_parallel_jobs':5,'workflow_aggregate_seconds':19200,'workflow_outer_runner_minutes':330,'owned_output_max_bytes':7*1024**3,'owned_source_max_bytes':33*1024**2,'cache_module_count':2804,'transport_timeout_seconds':1801,'final_C_proof_certified':True,'unconditional_monotile_proof_certified':True,'all_dimension_uniform_proof_certified':True,'higher_endpoints_have_no_C_premise':False,'fresh_research_modules_exactly_once':False,'module_compile_arguments':{},'module_checker_timeout_exceptions':{}}.items():setattr(HigherTests,'test_reject_'+key,mutation_test(key,value))
+for key,value in {'owned_module_count':1432,'fresh_higher_module_count':1139,'retained_historical_module_count':294,'higher_mathematical_closure_count':1433,'retained_context_outside_higher_closure_count':0,'diagnostic_timeout_seconds':181,'check_timeout_seconds':721,'outer_timeout_minutes':331,'aggregate_command_deadline_seconds':19201,'maximum_parallel_jobs':5,'workflow_aggregate_seconds':19201,'workflow_outer_runner_minutes':331,'owned_output_max_bytes':7*1024**3,'owned_source_max_bytes':33*1024**2,'cache_module_count':2804,'transport_timeout_seconds':1801,'final_C_proof_certified':True,'unconditional_monotile_proof_certified':True,'all_dimension_uniform_proof_certified':True,'higher_endpoints_have_no_C_premise':False,'fresh_research_modules_exactly_once':False,'module_compile_arguments':{},'module_checker_timeout_exceptions':{}}.items():setattr(HigherTests,'test_reject_'+key,mutation_test(key,value))
 def stage_mutant(kind):
  def test(self):
   c=self.contract()

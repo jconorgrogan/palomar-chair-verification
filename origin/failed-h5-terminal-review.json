@@ -1,0 +1,1400 @@
+{
+  "H0_checked_module_receipts_sha256": "3f0dc8a11c1f2339d9cc851256700e99b2a70aa6cf5f2c34d618389d1005367d",
+  "H0_recorded_IR": {
+    "bytes": 1054344,
+    "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+  },
+  "actual_errno_known": false,
+  "artifact_id": 12141996519,
+  "collection_complete_available_files": true,
+  "command_count": 103,
+  "evidence": [
+    {
+      "bytes": 1106,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/ARTIFACTS_AFTER.json",
+      "sha256": "d12bff205c7ba2988663164259b25f7541307a131022a41f8df3f77499d48de0"
+    },
+    {
+      "bytes": 8657,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/ARTIFACTS_BEFORE.json",
+      "sha256": "3b99c20b64c1dde5bb723580010adcd4a9cedf6828579a5ee9dc006808d07fba"
+    },
+    {
+      "bytes": 826,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/ARTIFACT_METADATA.json",
+      "sha256": "0f3c2dce1a68f1ef6b500c8bca9b8d360564d4e0b1c676fb6fcd23f33157000d"
+    },
+    {
+      "bytes": 31766,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/JOBS_TERMINAL.json",
+      "sha256": "5a645e07d068db1695e4fe4688d9b13329be942d2e8255fbad8f183bef71f7f7"
+    },
+    {
+      "bytes": 26936,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/JOB_LOG.json",
+      "sha256": "98cc5175c515b73ad6879b58dc896be2aa99e42e6885947efe490d8817e1a843"
+    },
+    {
+      "bytes": 317,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/RECEIVER_EXIT.json",
+      "sha256": "a83e8da50b04492f42a0082a0fbb54bd404b743951ae647de69bfb29c5a3ce74"
+    },
+    {
+      "bytes": 31070,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/RUN_TERMINAL.json",
+      "sha256": "8af01c75cf299a02787c78bcba40423e59823c9112d4af9d49d06d8bc30f2795"
+    },
+    {
+      "bytes": 7882,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/VERIFIED.json",
+      "sha256": "6aeb1ce26ca820ea1adcd990eb16c22e9bfd7fe3df713ab163685e6d081ed7e3"
+    },
+    {
+      "bytes": 1578,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/VERIFY_NORMAL.log",
+      "sha256": "a6459e3a0dad4f4eafa61e5d8f0b216131b7a2b58d60d8193e2346f962089a5a"
+    },
+    {
+      "bytes": 1578,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/VERIFY_OPTIMIZED.log",
+      "sha256": "a6459e3a0dad4f4eafa61e5d8f0b216131b7a2b58d60d8193e2346f962089a5a"
+    },
+    {
+      "bytes": 42798,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/ACQUISITION.json",
+      "sha256": "3816b92efc9e63f32f9c9f004d46a387b5b0267a6603059e600bedffff6e5091"
+    },
+    {
+      "bytes": 144,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/cache-client-binary.json",
+      "sha256": "a93e65676543c3bddf0361f75e1fb4e3a8643668db33b44501338ff03febc1d7"
+    },
+    {
+      "bytes": 401361,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/cache-downloads.json",
+      "sha256": "378dd48205fecbd5e4a4507e945d73d07a33d70a87a246823c76e3ea1ff47591"
+    },
+    {
+      "bytes": 44673,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/cache-extension-admission.json",
+      "sha256": "538567c528e5c2cde06f8abea34788bc53328dfe077e6e1a82a9d713275cd27b"
+    },
+    {
+      "bytes": 7574316,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/cached-build-inventory.json",
+      "sha256": "44f5a3780c89d9f9603b8c31a7c42b0b249254078300862ffb1d945aee4c8ab9"
+    },
+    {
+      "bytes": 38326,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/collection.json",
+      "sha256": "26eae6006670d833f749995498ca8bad9905a58ac42b00f4a4181ce1fc9b7fa6"
+    },
+    {
+      "bytes": 417078,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/commands.jsonl",
+      "sha256": "7f7a31a2f8e03dab1fec4468389a48ea73a251838ff05c6c10edb508b19da7d7"
+    },
+    {
+      "bytes": 5498,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/cross-origin-admissions.json",
+      "sha256": "caf1af70342287375237e5fae89deef06ac06709541881d79a938634f120d167"
+    },
+    {
+      "bytes": 2967913,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/dependency-sources.json",
+      "sha256": "ee25f794c120fcd5915f30b27a5d5e7d13a82a063a19eb15536a11771dd55fee"
+    },
+    {
+      "bytes": 90384,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/imported-stages.json",
+      "sha256": "cce23847d231e8ec7d99364c91a45689fe38bd09cc5df0581920df8d5963cecd"
+    },
+    {
+      "bytes": 3277,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/independent-auditor-objects.json",
+      "sha256": "7975c5cdb52ce3b4e5cd661ce54543d7676e24b1c0c96366b0d6c327b0274045"
+    },
+    {
+      "bytes": 482,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/interface-identity.json",
+      "sha256": "8bb12cf8cb212d1f42b5cd0dab44b8e04200e8cd408b442068061c540c1c9955"
+    },
+    {
+      "bytes": 1291,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/last-provisional-module.json",
+      "sha256": "7f619fc4580f311d94f527583d5e79f036553d83c09b6b44bfb83c4279154435"
+    },
+    {
+      "bytes": 5022,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/last_command.json",
+      "sha256": "ceeee4d8d1ebaacde42dbf023455b43a38078585207908d250485e0dc98c415e"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Cli-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/LeanSearchClient-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/Qq-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/aesop-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 153,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/audit-AuditHigherPhysicalEndpoints.stderr",
+      "sha256": "d8741cecc19523065668ca5b515205ecd3d6242b7887f402106ba3720ddfa934"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/audit-AuditHigherPhysicalEndpoints.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/batteries-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/bwrap-preflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/bwrap-preflight.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-bootstrap.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1688,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-bootstrap.stdout",
+      "sha256": "daf4bc03d5f47f2515d59bc750856d3c58221c1bdc70b6b873e69c970445aa98"
+    },
+    {
+      "bytes": 2341,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-get.stderr",
+      "sha256": "0770dfa2b24640e4cdbe4f44c9c834371b686e5dcaaa775238aae17e5228888d"
+    },
+    {
+      "bytes": 265,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-get.stdout",
+      "sha256": "e2bee6d83ae4b7870798370a06f40945a39899ccc18c0f2630c7deddf56106a7"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-lookup.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 485733,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/cache-lookup.stdout",
+      "sha256": "1d947e4d79710ce6115e6af14f05abfaf59f3e610da5988b7977e422a71c8570"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.CatalogClosure.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.CatalogClosure.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.CellAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.CellAdapter.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.Compiler.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.Compiler.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.DenseProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.DenseProfiles.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.FacetBridge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.FacetBridge.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.Generators.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.Generators.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.HierarchyAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.HierarchyAdapter.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.LiteralProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.LiteralProfiles.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.MaterialExistence.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.MaterialExistence.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.NativeFacets.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.NativeFacets.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.OddWalkProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.OddWalkProfiles.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PeriodAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PeriodAdapter.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PeriodFree.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PeriodFree.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PhysicalDimensions.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PhysicalDimensions.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PoseAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.PoseAdapter.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.ProfileEmbedding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.ProfileEmbedding.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.ProfileMating.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.ProfileMating.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.SharedGeometry.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.SharedGeometry.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.SpatialAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.SpatialAdapter.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldDecoding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldDecoding.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldExistence.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldExistence.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-ClarkSeed.WorldProfiles.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceConcrete5.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceConcrete5.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceLegality.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceLegality.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceNested.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistenceNested.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistencePatches.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierExistencePatches.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierHierarchyExhaustion.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-SparseMonotiles.CarrierHierarchyExhaustion.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-AuditHigherPhysicalEndpoints.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-AuditHigherPhysicalEndpoints.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-HigherInspectorControl.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-HigherInspectorControl.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-HigherPhysicalReference.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/check-auditor-HigherPhysicalReference.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.CatalogClosure.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.CatalogClosure.stdout",
+      "sha256": "0840e62e097ea72c6dce56eb3ebd06ba695a6e6d5e402766565652579c32347b"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.CellAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 315,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.CellAdapter.stdout",
+      "sha256": "3a255714c30cdd48cf98e75af4193d256b6b8b9fd55b9a1c67ec874ac0da62f7"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.Compiler.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 791,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.Compiler.stdout",
+      "sha256": "7c94bb887584a0b4c3fe1e5de4ebf6b795256ebef702c42e229e54592c380753"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.DenseProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 226,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.DenseProfiles.stdout",
+      "sha256": "e7c22614e64f85fa64230a3343592849c7e82c59ebcac1893b9a89ad90520c48"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.FacetBridge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.FacetBridge.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.Generators.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 307,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.Generators.stdout",
+      "sha256": "e0560ee8e1df0235e804f081a1fb2ebc6bd2dbc5f6902c968c65d34c7ed872a1"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.HierarchyAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 468,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.HierarchyAdapter.stdout",
+      "sha256": "c4a2c597f93acfdd0fffe6ef44adcb56ece6e5fd42056a8ac974a923e0f18941"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.LiteralProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.LiteralProfiles.stdout",
+      "sha256": "aef854bda917d1586357b2c03c5f5b0a08de729ad9ec531e168dd1430bdf62e7"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.MaterialExistence.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 277,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.MaterialExistence.stdout",
+      "sha256": "2fbb759523bcc33321741f1b19a0209fc8404cb033a414bd386a36f735bb7064"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.NativeFacets.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 590,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.NativeFacets.stdout",
+      "sha256": "4a90ff776815db58556c0e4d0628d5b29a4e2186443556c639ff4737234619de"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.OddWalkProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 435,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.OddWalkProfiles.stdout",
+      "sha256": "ba23bd2efd524d68fc787fd667e893c3d87ebc04e011c56aa5772d21002ec418"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PeriodAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 310,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PeriodAdapter.stdout",
+      "sha256": "ada5e1f38654d869347e6de4add866453eb2cd07306adcf42ec215b3a988783e"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PeriodFree.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 95,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PeriodFree.stdout",
+      "sha256": "5a4aa580093c1cab98ea98d6722b93e7910b6791d9e06f3087bcb3d7603e1db4"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PhysicalDimensions.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 775,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PhysicalDimensions.stdout",
+      "sha256": "65ba86e3b035c5677511a2254e46c3ff85e203d890843417c89b977a6d445880"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PoseAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 360,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.PoseAdapter.stdout",
+      "sha256": "19ace0004b51d12644090fd02e5e086d9269b1bc6cbf69a5e215df7dbd942222"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.ProfileEmbedding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 206,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.ProfileEmbedding.stdout",
+      "sha256": "759a925e436a4122abfe4dcb79842ecc0294e484821048b4ef9c9d0e515de3f9"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.ProfileMating.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 296,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.ProfileMating.stdout",
+      "sha256": "77f348343f2f40e116b81dca4460345265a29603283e1b9f7a86e30748302c17"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.SharedGeometry.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.SharedGeometry.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.SpatialAdapter.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 426,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.SpatialAdapter.stdout",
+      "sha256": "58dcb84628fb5373f061606884abf0fd36b18069163d912433513ce6018d47d4"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldDecoding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 191,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldDecoding.stdout",
+      "sha256": "48f3c27ac81bc0023430e2b186cb0f65f7375c0fa5fe3c2c8f04e1dac95ffcad"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldExistence.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 186,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldExistence.stdout",
+      "sha256": "753a6ba34184f5361878c681f278238e6cfd6f6b4d1897d0c508f8da8de3d607"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldProfiles.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 309,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-ClarkSeed.WorldProfiles.stdout",
+      "sha256": "0a959001c4ab88374a04abbd59659948a3f86a083b6d9c6ce559c029cd2ee3e7"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceConcrete5.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 257,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceConcrete5.stdout",
+      "sha256": "f528b1906260926af9d3c13a0203d8865214408543772f74a8389bb3a335c80b"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceLegality.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 241,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceLegality.stdout",
+      "sha256": "3e046bea981c376abebdfab04700708429b31950045afa9e35989edde9515f00"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceNested.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 791,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistenceNested.stdout",
+      "sha256": "399a9d244e769da1a93f99aed7cd93a2f9d80b8448595475c66af2ada454fa8a"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistencePatches.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 950,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierExistencePatches.stdout",
+      "sha256": "b148097adad1e7c3da0c8c0b7e6eba80a51184484f2de891b8e30ba0a00f5247"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierHierarchyExhaustion.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 347,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-SparseMonotiles.CarrierHierarchyExhaustion.stdout",
+      "sha256": "016f2096aeae5a8eb2763cf3015b388301708d91588509974a59a1416c21fbd4"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-AuditHigherPhysicalEndpoints.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-AuditHigherPhysicalEndpoints.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-HigherInspectorControl.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 962,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-HigherInspectorControl.stdout",
+      "sha256": "9610c311abb086feced215dae6e45627a241892dce62e2d3f6570dd3b342ced8"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-HigherPhysicalReference.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1172,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/compile-auditor-HigherPhysicalReference.stdout",
+      "sha256": "1c2863b4608f2b5d93f86b31b6f2485613d99211fb3b1a83e2294975f718f5d0"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/curl-version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 536,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/curl-version.stdout",
+      "sha256": "be38d915e639551fcc78bcc71aa6069d82b9f08ebc81daf54630625500bbc8ff"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/importGraph-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/mathlib-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/plausible-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-checkout.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-checkout.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-fetch.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-fetch.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-init.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-init.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-remote.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/proofwidgets-remote.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 418,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/read-only-committed-root-preflight.stderr",
+      "sha256": "bb2e0d836b74c26b240f7773ad795871f991049cc732b973c3ca467780b8d696"
+    },
+    {
+      "bytes": 0,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/logs/read-only-committed-root-preflight.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 106441,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/owned-modules.jsonl",
+      "sha256": "a404f6d49881b6ab0de141b59c3ec901f7e9f437f25f5ed2b560f127e37784e8"
+    },
+    {
+      "bytes": 241,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/read-only-boundary-preflight.json",
+      "sha256": "4a57e48a7a80571ebc37b5978513c9d281a19692b1656e3f0a349022c98f03ea"
+    },
+    {
+      "bytes": 3197,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/result.json",
+      "sha256": "65998b484c7e1d09526965ce164de608ac73e195d5cacbb3f7c14c2269c3e5a0"
+    },
+    {
+      "bytes": 3292808,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/runtime-inventory.json",
+      "sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+    },
+    {
+      "bytes": 486,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence/source-extraction.json",
+      "sha256": "10ef2a4ed98cb7caa81c892f1a9ff74d2c4917d1d72f7d76829e6e82571afde4"
+    },
+    {
+      "bytes": 3844733,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/artifact-transfer/evidence.zip",
+      "sha256": "d136bafdc5c5b80ca73f39d006d88c30fd0e7740752539255ff7e4592eb6045d"
+    },
+    {
+      "bytes": 17794,
+      "path": "/workspace/shared/higher_h5_failure_review_20261018T1545/verify.py",
+      "sha256": "3c64fe321931fedda7a00c8bb3664703fe0ad7401c35f35d67fd75eabe605baa"
+    }
+  ],
+  "expanded_bytes": 15455967,
+  "filesystem_absence_proved": false,
+  "fresh_module_compile_check_pairs": 27,
+  "full_stage_admission_bundle_present": false,
+  "job_id": 117715454842,
+  "last_native": {
+    "address_space_bytes": 12884901888,
+    "allow_new_sessions": true,
+    "argv": [
+      "/usr/bin/bwrap",
+      "--unshare-all",
+      "--die-with-parent",
+      "--new-session",
+      "--clearenv",
+      "--proc",
+      "/proc",
+      "--dev",
+      "/dev",
+      "--tmpfs",
+      "/tmp",
+      "--ro-bind",
+      "/usr",
+      "/usr",
+      "--ro-bind",
+      "/bin",
+      "/bin",
+      "--ro-bind",
+      "/lib",
+      "/lib",
+      "--ro-bind",
+      "/lib64",
+      "/lib64",
+      "--ro-bind",
+      "/etc/ssl",
+      "/etc/ssl",
+      "--ro-bind",
+      "/etc/resolv.conf",
+      "/etc/resolv.conf",
+      "--ro-bind",
+      "/etc/hosts",
+      "/etc/hosts",
+      "--ro-bind",
+      "/etc/nsswitch.conf",
+      "/etc/nsswitch.conf",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--setenv",
+      "GIT_CONFIG_GLOBAL",
+      "/dev/null",
+      "--setenv",
+      "GIT_CONFIG_NOSYSTEM",
+      "1",
+      "--setenv",
+      "GIT_TERMINAL_PROMPT",
+      "0",
+      "--setenv",
+      "HOME",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--setenv",
+      "LAKE_ARTIFACT_CACHE",
+      "false",
+      "--setenv",
+      "LAKE_NO_CACHE",
+      "true",
+      "--setenv",
+      "LANG",
+      "C.UTF-8",
+      "--setenv",
+      "LC_ALL",
+      "C.UTF-8",
+      "--setenv",
+      "LEAN_ABORT_ON_PANIC",
+      "1",
+      "--setenv",
+      "LEAN_NUM_THREADS",
+      "1",
+      "--setenv",
+      "LEAN_PATH",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects:/home/runner/work/_temp/conditional-geometry/reference-objects:/home/runner/work/_temp/conditional-geometry/objects:/home/runner/work/_temp/conditional-geometry/packages/mathlib/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/plausible/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/importGraph/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/aesop/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Qq/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/batteries/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Cli/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/runtime/lib/lean",
+      "--setenv",
+      "MATHLIB_CACHE_DIR",
+      "/home/runner/work/_temp/conditional-geometry/cache",
+      "--setenv",
+      "MATHLIB_NO_CACHE_ON_UPDATE",
+      "1",
+      "--setenv",
+      "PATH",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin:/usr/bin:/bin",
+      "--setenv",
+      "TMPDIR",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--chdir",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin/lean",
+      "-j1",
+      "-M4096",
+      "--run",
+      "/home/runner/work/_temp/conditional-geometry/auditors/AuditHigherPhysicalEndpoints.lean"
+    ],
+    "cleanup_bound_seconds": 3.0,
+    "cleanup_elapsed_seconds": 0.012507,
+    "cwd": "/home/runner/work/_temp/conditional-geometry",
+    "descendants_empty": true,
+    "effective_timeout_seconds": 600,
+    "elapsed_seconds": 6.234379,
+    "escaped_descendants": true,
+    "exit_code": 1,
+    "limits": {
+      "address_space_bytes": 12884901888,
+      "max_created_file_bytes": 536870912,
+      "rss_tree_bytes": 8589934592
+    },
+    "log_overflow": false,
+    "max_created_file_bytes": 536870912,
+    "max_log_bytes": 1048576,
+    "max_rss_bytes": 8589934592,
+    "memory_exceeded": false,
+    "name": "audit-AuditHigherPhysicalEndpoints",
+    "new_sessions_explicitly_allowed": true,
+    "peak_sampled_tree_rss_bytes": 6176980992,
+    "process_group_empty": true,
+    "requested_timeout_seconds": 600,
+    "stderr_sha256": "d8741cecc19523065668ca5b515205ecd3d6242b7887f402106ba3720ddfa934",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surviving_children": false,
+    "timed_out": false,
+    "timeout_seconds": 600
+  },
+  "limitations": [
+    "No final fresh-owned-objects inventory or successful stage receipt/object archive exists in this failure packet.",
+    "The read exception supplies no errno and proves neither physical absence nor a virtual-memory mapping cause.",
+    "H0 producer metadata records the IR and H5 admission metadata binds that original H0 receipt. Original H0 object payload has not been independently reacquired in this review.",
+    "Reported 1433-module restored coverage is not full independent native payload readmission."
+  ],
+  "members": 224,
+  "original_acceptance_validator_rejected": true,
+  "proof_certified": false,
+  "review_modes": [
+    "normal",
+    "optimized"
+  ],
+  "review_scope": "Independent retained API, source-plan, all ZIP/collection/log bytes and failed native result reconciliation; no artifact payload execution.",
+  "run_id": 39134139440,
+  "source_AST_functions": {
+    "ci/cache_diagnostic.py": {
+      "functions": [
+        "cache_interface_identity",
+        "module_compile_arguments",
+        "module_outputs",
+        "safe_env",
+        "sandbox"
+      ],
+      "source_sha256": "65adf468e49c9c03bd88de19195267bcef3d73c2343d46cdab59b4b5d47cc0a9"
+    },
+    "ci/conditional_transport.py": {
+      "functions": [
+        "command_specs",
+        "validate_commands"
+      ],
+      "source_sha256": "b19080a4426f1a6dbd79a909eb3d10dd46f85f8e4008bc3cb5c54daeda5af39e"
+    },
+    "ci/higher_policy.py": {
+      "functions": [
+        "auditor_specs",
+        "bootstrap_companions",
+        "cache_extension",
+        "checker_seconds",
+        "digest",
+        "validate_audit_evidence",
+        "validate_control_output"
+      ],
+      "source_sha256": "de738b3d99daf3f3dada88762dde1897c0a300d3795fc84bb7326623cd0357be"
+    }
+  },
+  "source_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+  "status": "authenticated_failed_audit_reconciled",
+  "stderr_utf8": "uncaught exception: failed to read file '/home/runner/work/_temp/conditional-geometry/objects/SparseMonotiles/CoarseContactCertificates5SymmetryData.ir'\n",
+  "successful_commands": 102,
+  "zip_sha256": "d136bafdc5c5b80ca73f39d006d88c30fd0e7740752539255ff7e4592eb6045d"
+}

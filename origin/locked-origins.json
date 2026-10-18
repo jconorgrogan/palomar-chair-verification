@@ -2,9 +2,10 @@
   "producer_contracts": [
     "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
     "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070",
-    "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5"
+    "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5",
+    "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21"
   ],
-  "schema": "higher-exact-mixed-origin-lock-v2",
+  "schema": "higher-exact-mixed-origin-lock-v3",
   "stages": {
     "F0_common": {
       "checked_module_receipts_sha256": "cd4cbe6098330c78724ba3b7d4c18fe5a5f0300605d43986255a48b93fa31c20",
@@ -61,6 +62,118 @@
       "receipt_sha256": "e0f94b718e1664430229fd3c33938cb9cdd5bb7da8ab627ffdd2286e4ca31008",
       "stage_tar_bytes": 62822400,
       "stage_tar_sha256": "e04c4859ed3baf56f646eb2b00895b10014e260399da1eb1fde9590ee3288bf6"
+    },
+    "H0_common": {
+      "checked_module_receipts_sha256": "3f0dc8a11c1f2339d9cc851256700e99b2a70aa6cf5f2c34d618389d1005367d",
+      "descriptor_sha256": "e9168882df5b4462047e092881fcfc1dd8494cf698bc5d0af62163fa93ae4706",
+      "independent_review_sha256": "b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01",
+      "origin": {
+        "artifact_id": 12138754904,
+        "artifact_name": "conditional-geometry-39134139440-1-H0_common-objects",
+        "artifact_zip_bytes": 50934296,
+        "artifact_zip_sha256": "c92210f23dd3c383108dc507a5525e9f5fae32a59cccdb9c09704d2b2e956a3f",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117695101459,
+        "producer_job_log_sha256": "adba4f0de1f91bd5d19bd013839d7fca0f82ccd924e26b6073f0bf7ac4fcc4d7",
+        "producer_job_name": "conditional H0_common",
+        "stage_id": "H0_common",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "receipt_sha256": "63af8911af9a29597d51bf07475f16314e4c46d3606409c0696390796f4cef2a",
+      "stage_tar_bytes": 50933760,
+      "stage_tar_sha256": "57a9a89f2072df81643ef9fbeb24e0f00ea20e28af6f074b0b49be1d8965ca3e"
+    },
+    "H1_coarse_contacts": {
+      "checked_module_receipts_sha256": "55ff9bbb9eeb1bc373a2e493f4ca545eb4a75b7c59ea40309f779087df8d75fb",
+      "descriptor_sha256": "b163cf115cf680c1c6449cd635be9dfd8fd192ae20fee1144ce1f6d862582e3a",
+      "independent_review_sha256": "81d6b922b4f61bd162ac3bf8a138fb9e413ca31bc1b7aa943e236b36a6155d78",
+      "origin": {
+        "artifact_id": 12141180253,
+        "artifact_name": "conditional-geometry-39134139440-1-H1_coarse_contacts-objects",
+        "artifact_zip_bytes": 790774306,
+        "artifact_zip_sha256": "ef1bd45c5ae970865fcb387f7851411b84a38e37570f5da17a1031dcecc22888",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822655,
+        "producer_job_log_sha256": "ac3903d0f0bf122483b986a3a743a9588b2b1df710ddee35d4a03334eac86125",
+        "producer_job_name": "conditional H1_coarse_contacts",
+        "stage_id": "H1_coarse_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "receipt_sha256": "c6beb179cbe8317ae0fc40f34bc356f141e4056d67197b540e572d7dac1f7ed3",
+      "stage_tar_bytes": 790773760,
+      "stage_tar_sha256": "e434f5dff84d00a0d7627bf3eeea2063de6e391c0d2c7170329e5aa38717512f"
+    },
+    "H2_forward_contacts": {
+      "checked_module_receipts_sha256": "402438278f94f2c0ebdcb818e5873e8c2d790f39167c03a12dd172e0bd9f8738",
+      "descriptor_sha256": "ff936b56d38ec1a7d883e320910da70c936dba9c27c5542f116f029a2eef133d",
+      "independent_review_sha256": "b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01",
+      "origin": {
+        "artifact_id": 12139776805,
+        "artifact_name": "conditional-geometry-39134139440-1-H2_forward_contacts-objects",
+        "artifact_zip_bytes": 225751587,
+        "artifact_zip_sha256": "b4d654d82d12eb746f9a08fdb1b6c89fc634316a134af832fea020e62a35fe52",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822680,
+        "producer_job_log_sha256": "076076eb3a8e7c90e0d06da825267500175a0567f837c47a50676a03b6fd1bbc",
+        "producer_job_name": "conditional H2_forward_contacts",
+        "stage_id": "H2_forward_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "receipt_sha256": "11fb7ceb256a8fa3e18a140497b722eac5a165fe9e372f71645d7d9ef7ef8d1b",
+      "stage_tar_bytes": 225751040,
+      "stage_tar_sha256": "6dcaae4f0a5e1f988a8c3c7ba2070f71de12d0a026f4ba2e34052665936a2da5"
+    },
+    "H3_contact_binding": {
+      "checked_module_receipts_sha256": "ad55dfadf247f43a637fb1108d31589d33f2a89766923b3cf48130f663e8caa7",
+      "descriptor_sha256": "fd1f61a25d0e497da8e5e556023755f2210d0cf608b924c181524967275e4a09",
+      "independent_review_sha256": "81d6b922b4f61bd162ac3bf8a138fb9e413ca31bc1b7aa943e236b36a6155d78",
+      "origin": {
+        "artifact_id": 12141368444,
+        "artifact_name": "conditional-geometry-39134139440-1-H3_contact_binding-objects",
+        "artifact_zip_bytes": 999434786,
+        "artifact_zip_sha256": "7aa1649a1e5eb4167ab0e467ec2b97e1aab4685121ad0b40f32e1687783a5393",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822670,
+        "producer_job_log_sha256": "311bc2c3b99c202e25926a84f475687da49c6ed8b57dbb79c84544e95d960480",
+        "producer_job_name": "conditional H3_contact_binding",
+        "stage_id": "H3_contact_binding",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "receipt_sha256": "60ea99be8ab9d89ba64d6171e84909efdd57355d666ea3af2b24d81fd8d0312a",
+      "stage_tar_bytes": 999434240,
+      "stage_tar_sha256": "91d8eb3d7f8f26f11c1a5685e52458336d0b7f88a9f21dcc214c4bc2bc041288"
     },
     "H4_product_geometry": {
       "checked_module_receipts_sha256": "a3ec6a17585c4c52a3508cf2b983e079f4ddcd766ec841de572b54d43d70dc28",
