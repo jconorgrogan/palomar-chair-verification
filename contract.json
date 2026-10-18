@@ -1,16 +1,10 @@
 {
   "activation_admission": {
-    "corrected_control_elaboration_and_endpoint_audits_pending": true,
+    "endpoint_audits_pending": true,
     "fresh_native_readmission_required": true,
-    "h4_evidence_and_payload_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
-    "implementation_review_sha256": "282c33ba8e779f4aff085cd6a0d3db305ed767be15412bac6c619634e78536b1",
-    "inactive_content_digest": "d8ef61e36565de00c65f0748871caa9059d8c198ee096dbcc349287704f4df78",
-    "inactive_contract_sha256": "b0e800ae2a6b8ac71d054db1e892a511f29bd94e5136a469fc20345b2cec7854",
-    "inactive_manifest_sha256": "0173386fd78121abf191fb5ddeb6ff516d73481a9253d96cd335b57a6d8ce934",
-    "independent_selection_review_sha256": "c8038cf1beb679a59e43d63202c01e95f3c28f09b097f35f8c83f329d53f7477",
-    "owner_test_receipt_sha256": "0aacda1b5b6841383253b5ae7980cff34954a5fcc17048f80b49b54998f8bfc0",
-    "schema": "higher-five-job-reviewed-activation-v1",
-    "source_code_origin_resource_bytes_unchanged_from_selection": true
+    "independent_source_review_sha256": "fdbdb7eb460b45b4735a860a3f3ce98a16bf0a0eda56fb04e78c9c2f021c36ef",
+    "schema": "higher-green-control-successor-v1",
+    "source_review_pending": false
   },
   "aggregate_command_deadline_seconds": 19200,
   "aggregate_log_max_bytes": 67108864,
@@ -243,6 +237,13 @@
   "fresh_higher_module_count": 1138,
   "fresh_research_modules_exactly_once": true,
   "higher_auditor_static_review_sha256": "392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd",
+  "higher_control_green_prefix": {
+    "commit": "6954395491fc254b31dd40e77789b45410fc6cc4",
+    "control_sha256": "c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4",
+    "review_sha256": "2b87c220aed18b5c44514ad9c18854b58d6ce57161e6132f5fb66d68c819b229",
+    "run_attempt": 1,
+    "run_id": 38988960060
+  },
   "higher_control_layout_review_sha256": "8aca4fc5f247cfe7ba5cab59e5f876cfcb3166784d50fd05c5912a58ee689d93",
   "higher_endpoints": [
     "ClarkSeed.exists_physical_aperiodic_monotile_of_ge_five",
@@ -260,6 +261,19 @@
   "higher_visibility_actual_elaboration_pending": true,
   "higher_visibility_independent_review_sha256": "a583afc1d571b60f41a349d0797fd8f373ac190b92598ec35ee85d2777338373",
   "higher_visibility_variant_lock_sha256": "3621fde9a869de3f0fc4f3f312c142e13df0d5672f34b1402b10cf9b99f475be",
+  "historical_activation_admission": {
+    "corrected_control_elaboration_and_endpoint_audits_pending": true,
+    "fresh_native_readmission_required": true,
+    "h4_evidence_and_payload_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
+    "implementation_review_sha256": "282c33ba8e779f4aff085cd6a0d3db305ed767be15412bac6c619634e78536b1",
+    "inactive_content_digest": "d8ef61e36565de00c65f0748871caa9059d8c198ee096dbcc349287704f4df78",
+    "inactive_contract_sha256": "b0e800ae2a6b8ac71d054db1e892a511f29bd94e5136a469fc20345b2cec7854",
+    "inactive_manifest_sha256": "0173386fd78121abf191fb5ddeb6ff516d73481a9253d96cd335b57a6d8ce934",
+    "independent_selection_review_sha256": "c8038cf1beb679a59e43d63202c01e95f3c28f09b097f35f8c83f329d53f7477",
+    "owner_test_receipt_sha256": "0aacda1b5b6841383253b5ae7980cff34954a5fcc17048f80b49b54998f8bfc0",
+    "schema": "higher-five-job-reviewed-activation-v1",
+    "source_code_origin_resource_bytes_unchanged_from_selection": true
+  },
   "independent_auditor_preflight_stages": [
     "H0_common",
     "H5_higher_assembly"
@@ -270,8 +284,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 8044,
-      "sha256": "7cc22f2ab17710f2e5a78a4d7df56a31d4eefb1823f1a5d586a830588b3dbe66"
+      "bytes": 8405,
+      "sha256": "f9bd3603d7115430456a36f430132928891960218513618c18ab0209d5cb1cb0"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -290,8 +304,8 @@
       "sha256": "fbe8548a25e24976bc8513fabf3a5dd19ade80b19fe40d906b86b999ac1e3565"
     },
     "auditors/HigherInspectorControl.lean": {
-      "bytes": 6979,
-      "sha256": "bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992"
+      "bytes": 7009,
+      "sha256": "c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4"
     },
     "auditors/HigherPhysicalReference.lean": {
       "bytes": 2138,
@@ -299,7 +313,7 @@
     },
     "ci/cache_diagnostic.py": {
       "bytes": 81807,
-      "sha256": "c21c3c9aa67bf9d7476624c8c7e4c7138d45022943494f710b3f9f181962bfa1"
+      "sha256": "65adf468e49c9c03bd88de19195267bcef3d73c2343d46cdab59b4b5d47cc0a9"
     },
     "ci/collect_evidence.py": {
       "bytes": 21952,
@@ -314,8 +328,8 @@
       "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
     },
     "ci/higher_policy.py": {
-      "bytes": 42693,
-      "sha256": "a9117fa63a1bb30d957b15bb3c1b13ddcef3fffa92055d383a9bb7f76b091c92"
+      "bytes": 43431,
+      "sha256": "de738b3d99daf3f3dada88762dde1897c0a300d3795fc84bb7326623cd0357be"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -367,7 +381,7 @@
     },
     "locks/higher-auditor-interface.json": {
       "bytes": 9153,
-      "sha256": "25f21aefdf932a18d6fd9b841464cf9f1b4473f1e1ba582d1cd2c9e0d6574121"
+      "sha256": "462ff407d861a522cd40c29ae8d839b2c47c108fdbce4dcf0fcbf30397f48009"
     },
     "locks/higher-control-layout-repair.json": {
       "bytes": 672,
@@ -6214,8 +6228,8 @@
       "sha256": "eab185359a547d6a26a6d573af626418e0a9697fe2ee03f8f38e958e6732f1a6"
     },
     "tests/test_higher_recovery.py": {
-      "bytes": 13370,
-      "sha256": "595218f115e170da7c31fd572d2600468bddb48b90555f2e2fdbefbbf31416cd"
+      "bytes": 13489,
+      "sha256": "73ce9671d0e63c42f736c8ae62605c7842dea0130ae3e7f9443c7080d0e4c9e4"
     },
     "tests/test_higher_replay.py": {
       "bytes": 13226,
@@ -12044,8 +12058,8 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-control-continuation-20261016",
-  "publication_parent_commit": "b38300c66d4d2b154bc1a0c087e745c83907227c",
+  "publication_branch": "verify/higher-green-control-20261018",
+  "publication_parent_commit": "d0de285d2515205d33da17aef16ce945987c8856",
   "retained_context_outside_higher_closure_count": 279,
   "retained_higher_module_count": 304,
   "retained_historical_module_count": 295,

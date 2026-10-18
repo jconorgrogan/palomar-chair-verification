@@ -32,7 +32,7 @@ def profile(c,a):
     for k,v in {'all_dimension_uniform_proof_certified':False,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,'higher_endpoints_have_no_C_premise':True,'fresh_external_source_rebuild':False,'owned_objects_from_prior_runs_allowed':True,'owned_objects_from_same_run_checked_stages_allowed':True,'fresh_research_modules_exactly_once':True}.items():a.f.need(c.get(k) is v,'higher claim/trust differs: '+k)
     a.f.need(c.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and c.get('independent_auditor_preflight_stages')==['H0_common','H5_higher_assembly'],'higher proof/preflight scope differs')
     a.f.need(c.get('higher_reference_static_review_sha256')=='392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd','higher reference review differs')
-    for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((6979,'bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
+    for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((7009,'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
         a.f.need(c['inputs'].get('auditors/'+name+'.lean')=={'bytes':pin[0],'sha256':pin[1]},'higher independent source pin differs')
     a.f.need(c.get('higher_visibility_variant_lock_sha256')=='3621fde9a869de3f0fc4f3f312c142e13df0d5672f34b1402b10cf9b99f475be' and c.get('higher_visibility_independent_review_sha256')=='a583afc1d571b60f41a349d0797fd8f373ac190b92598ec35ee85d2777338373' and c.get('higher_visibility_actual_elaboration_pending') is True,'higher visibility provenance differs')
     a.f.need(c['execution_stages']==([s for s in HSTAGES if s!=H4_STAGE] if recovery(c) else HSTAGES) and c['locked_origin_stages']==(OLD+[H4_STAGE] if recovery(c) else OLD) and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
@@ -48,9 +48,14 @@ def validate_control_layout(c,a):
     expected={'schema':'higher-control-layout-repair-v1','old_bytes':6975,'new_bytes':6979,'old_sha256':'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482','new_sha256':'bc8ecd03848123d85f6afc77ff42bd7b4627bffc00bae6989cbefa8e43863992','byte_offset':2629,'old_exact_utf8':before.decode(),'new_exact_utf8':after.decode(),'preserved_control_count':23,'independent_review_sha256':CONTROL_LAYOUT_REVIEW_SHA,'actual_corrected_control_elaboration_pending':True}
     a.f.need(a.f.SHA256.fullmatch(CONTROL_LAYOUT_REVIEW_SHA) and c.get('higher_control_layout_review_sha256')==CONTROL_LAYOUT_REVIEW_SHA,'control layout review is missing or changed')
     a.f.need(a.f.load_json(a.ROOT/lock_path)==expected,'control layout lineage differs')
-    for path,size,sha in [(old_path,6975,expected['old_sha256']),(new_path,6979,expected['new_sha256'])]:
+    for path,size,sha in [(old_path,6975,expected['old_sha256']),(new_path,7009,'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4')]:
         a.f.need(c['inputs'][path]=={'bytes':size,'sha256':sha} and (a.ROOT/path).stat().st_size==size and a.f.file_sha(a.ROOT/path)==sha,'control layout source pin differs')
     old=(a.ROOT/old_path).read_bytes();new=(a.ROOT/new_path).read_bytes()
+    meta=b'meta import Lean.Elab.Command\n'
+    a.f.need(new.count(meta)==1 and new.count(b'meta import AuditHigherPhysicalEndpoints\n'+meta)==1,'higher green meta import differs')
+    new=new.replace(meta,b'',1)
+    a.f.need(len(new)==6979 and hashlib.sha256(new).hexdigest()==expected['new_sha256'],'historical layout intermediate differs')
+    a.f.need(c.get('higher_control_green_prefix')=={'run_id':38988960060,'run_attempt':1,'commit':'6954395491fc254b31dd40e77789b45410fc6cc4','control_sha256':'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4','review_sha256':'2b87c220aed18b5c44514ad9c18854b58d6ce57161e6132f5fb66d68c819b229'},'higher green prefix provenance differs')
     a.f.need(old.count(before)==1 and old.index(before)==2629 and new==old.replace(before,after,1),'control correction is not the sole reviewed whitespace edit')
 def checker_seconds(c,m):return CHECKS[m][0] if c.get('schema')==SCHEMA and m in CHECKS else c['check_timeout_seconds']
 def stage_plan(c,a):
