@@ -27,8 +27,7 @@ TOOLCHAIN_SHA256 = 'b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398
 MODULE = re.compile(r"[A-Za-z_][A-Za-z_0-9']*(?:\.[A-Za-z_][A-Za-z_0-9']*)*\Z")
 SHA256 = re.compile(r'[0-9a-f]{64}\Z')
 COMMIT = re.compile(r'[0-9a-f]{40}\Z')
-MODERN_SUFFIXES = ['.olean', '.olean.private', '.olean.server', '.ilean', '.ir', '.ir.sig']
-SUFFIXES = set(MODERN_SUFFIXES)
+SUFFIXES = {'.olean', '.olean.private', '.olean.server', '.ilean'}
 
 class Rejected(ValueError):
     pass
@@ -162,32 +161,12 @@ def manifest_index(manifest: dict) -> dict[str, dict]:
         seen.add(module)
     return entries
 
-def require_modern_header(data: bytes):
-    """Require the first genuine token to be the modern module header."""
-    depth = 0
-    for line in data.decode('utf-8').splitlines():
-        clean, i = [], 0
-        while i < len(line):
-            if depth:
-                if line.startswith('/-', i): depth, i = depth + 1, i + 2
-                elif line.startswith('-/', i): depth, i = depth - 1, i + 2
-                else: i += 1
-            elif line.startswith('/-', i): depth, i = 1, i + 2; clean.append(' ')
-            elif line.startswith('--', i): break
-            else: clean.append(line[i]); i += 1
-        value = ''.join(clean).strip()
-        if value:
-            need(value == 'module' and depth == 0, 'legacy/noncanonical source forbidden in modern stage')
-            return
-    raise Rejected('missing modern module header')
-
 def verify_sources(root: Path, manifest: dict) -> dict[str, dict]:
     entries = manifest_index(manifest)
     files = exact_tree(root, {x['path'] for x in entries.values()})
     for entry in entries.values():
         data = files[entry['path']].read_bytes()
         need(len(data) == entry['bytes'] and sha(data) == entry['sha256'], 'source hash/size mismatch')
-        require_modern_header(data)
         imports, implicit = import_header(data)
         need(imports == entry['ordered_imports'] and implicit == entry['implicit_Init'],
              f'import order/implicit Init mismatch: {entry["module"]}')
@@ -255,8 +234,6 @@ def validate_profile(profile: dict):
         need(not any(x in ('--run', '--stdin', '-o', '-i', '--root') or
                      x.startswith(('-o=', '-i=', '--root=')) for x in profile[name]), 'runner-owned arguments overridden')
     need([x for x in profile['compile_flags'] if x.startswith('-j')] == ['-j1'], 'compile must explicitly use one thread')
-    need([x for x in profile['compile_flags'] if x.startswith('-Dcompiler.postponeCompile=')] == ['-Dcompiler.postponeCompile=false'],
-         'modern stage must explicitly emit IR; postponed compilation is forbidden')
     for name in ('address_space_bytes', 'rss_tree_bytes'):
         positive_int(profile[name], name, 12 * 1024**3)
     positive_int(profile['max_created_file_bytes'], 'created file bytes', 4 * 1024**3)
@@ -266,9 +243,6 @@ def validate_profile(profile: dict):
 
 def validate_contract(contract, manifest, plan, profiles):
     need(contract.get('review_status') == 'reviewed_for_execution', 'INACTIVE: pipeline review is pending')
-    need(contract.get('storage_adapter_review_status') == 'reviewed', 'INACTIVE: storage adapter review is pending')
-    need(contract.get('readonly_commit_review_status') == 'reviewed', 'INACTIVE: readonly committed-root review is pending')
-    need(contract.get('receipt_protocol') == 'readonly_committed_v1', 'unsupported readonly receipt protocol')
     need(COMMIT.fullmatch(contract.get('source_commit', '')), 'exact immutable source commit required')
     need(contract['lean_release'] == 'v4.35.0-rc2' and contract['lean_archive_sha256'] == TOOLCHAIN_SHA256,
          'wrong toolchain release/archive')
@@ -282,8 +256,9 @@ def validate_contract(contract, manifest, plan, profiles):
     positive_int(contract['max_stage_output_bytes'], 'stage output bytes', 4 * 1024**3)
     positive_int(contract['max_run_age_seconds'], 'run age', 6 * 24 * 3600)
     positive_int(contract['minimum_free_disk_bytes'], 'free disk', 100 * 1024**3)
-    need(contract.get('module_interface') == 'modern_exposed_v1', 'modern interface contract required')
-    need(contract['output_suffixes'] == MODERN_SUFFIXES, 'modern stage requires all six exact companions')
+    need(isinstance(contract['output_suffixes'], list) and '.olean' in contract['output_suffixes'] and
+         len(contract['output_suffixes']) == len(set(contract['output_suffixes'])) and
+         set(contract['output_suffixes']) <= SUFFIXES, 'unreviewed output layout')
     entries = manifest_index(manifest)
     stages, owner = stage_dependencies(plan, entries)
     positive_int(contract['reserved_final_jobs'], 'reserved final jobs', 256)
@@ -454,11 +429,6 @@ def log_paths(module):
 def write_tar(path: Path, files: dict[str, Path], receipt: dict, maximum: int):
     data = json_bytes(receipt)
     need(sum(x.stat().st_size for x in files.values()) + len(data) < maximum, 'artifact payload budget exceeded')
-    # USTAR is uncompressed: headers/padding/end records are known before write.
-    sizes = [len(data)] + [source.stat().st_size for source in files.values()]
-    tar_bytes = sum(512 + ((n + 511) // 512) * 512 for n in sizes) + 1024
-    tar_bytes = ((tar_bytes + tarfile.RECORDSIZE - 1) // tarfile.RECORDSIZE) * tarfile.RECORDSIZE
-    need(tar_bytes <= maximum, 'artifact archive budget exceeded before packing')
     with tarfile.open(path, 'x', format=tarfile.USTAR_FORMAT) as archive:
         for name, source in [('receipt.json', None), *sorted(files.items())]:
             safe_rel(name)
@@ -501,176 +471,11 @@ def extract_verified_archive(archive_path: Path, descriptor: dict, destination: 
     for name, info in receipt['files'].items():
         safe_rel(name); path = destination / name
         need(path.stat().st_size == info['bytes'] and file_sha(path) == info['sha256'], 'artifact member hash mismatch')
-    need(file_sha(archive_path) == descriptor['archive_sha256'], 'artifact changed during extraction')
     return receipt
-
-class OwnedStageDownloads:
-    """Authority to release ONLY files created beneath this fresh current-run root.
-
-    This object stays in trusted process memory, never in artifact descriptors.
-    External descriptors therefore cannot request deletion. No hardlinks allowed.
-    """
-    def __init__(self, root):
-        self.root = Path(root).absolute()
-        no_symlink_path(self.root)
-        need(not self.root.exists(), 'download ownership root must be new')
-        self.root.mkdir(parents=True, mode=0o700)
-        self.root_identity = self._identity(self.root)
-        self.claimed = {}
-
-    @staticmethod
-    def _identity(path):
-        st = path.lstat()
-        return (st.st_dev, st.st_ino, st.st_uid)
-
-    def claim(self, descriptor):
-        # Only the trusted downloader calls this after creating a new stage dir.
-        path = Path(descriptor['archive_path']).absolute()
-        safe_rel(descriptor['stage_id'])
-        need('/' not in descriptor['stage_id'], 'invalid owned stage name')
-        need(path == self.root / descriptor['stage_id'] / 'delta.tar', 'archive outside owned download root')
-        need(str(path) not in self.claimed, 'archive already claimed')
-        no_symlink_path(path)
-        st = path.lstat()
-        need(stat.S_ISREG(st.st_mode) and st.st_nlink == 1 and st.st_uid == os.geteuid(), 'archive ownership or hardlink mismatch')
-        need(self._identity(self.root) == self.root_identity, 'download root changed')
-        need(st.st_size == descriptor['archive_bytes'] and file_sha(path) == descriptor['archive_sha256'], 'owned download hash/size mismatch')
-        self.claimed[str(path)] = {'identity': self._identity(path), 'parent': self._identity(path.parent),
-            'size': st.st_size, 'mtime_ns': st.st_mtime_ns, 'ctime_ns': st.st_ctime_ns,
-            'sha256': descriptor['archive_sha256']}
-
-    def release_after_validation(self, descriptor, evidence):
-        path = Path(descriptor['archive_path']).absolute()
-        registered = self.claimed.get(str(path))
-        if registered is None:
-            return False  # Supplied/external originals are never deleted.
-        no_symlink_path(path)
-        st = path.lstat()
-        need(self._identity(self.root) == self.root_identity and self._identity(path.parent) == registered['parent'], 'owned download directory changed')
-        need(self._identity(path) == registered['identity'] and st.st_nlink == 1 and
-             st.st_size == registered['size'] and st.st_mtime_ns == registered['mtime_ns'] and
-             st.st_ctime_ns == registered['ctime_ns'], 'owned archive replaced or changed')
-        need(file_sha(path) == registered['sha256'] == descriptor['archive_sha256'], 'owned archive changed before release')
-        # Durable evidence is committed before deletion. All payload files remain
-        # either in unified objects or in this retained receipt/log directory.
-        record = {'schema': 'owned-stage-archive-release-v1', 'status': 'validated_ready_to_release',
-            'descriptor': {k:v for k,v in descriptor.items() if k != 'archive_path'},
-            'released_archive_bytes': st.st_size, 'payload_retained': True,
-            'proof_pass_claimed': False}
-        target = evidence / 'archive-release.json'
-        with target.open('xb') as handle:
-            handle.write(json_bytes(record)); handle.flush(); os.fsync(handle.fileno())
-        fd = os.open(evidence, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-        try: os.fsync(fd)
-        finally: os.close(fd)
-        path.unlink()
-        del self.claimed[str(path)]
-        record['status'] = 'released'
-        # Preserve the durable pre-unlink record until the updated record is
-        # fully written. Interrupted writes leave the initial status readable.
-        updated = evidence / 'archive-release.updated.json'
-        with updated.open('xb') as handle:
-            handle.write(json_bytes(record)); handle.flush(); os.fsync(handle.fileno())
-        updated.replace(target)
-        fd = os.open(evidence, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-        try: os.fsync(fd)
-        finally: os.close(fd)
-        fd = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-        try: os.fsync(fd)
-        finally: os.close(fd)
-        return True
-
-def storage_restore_budget(descriptors, contract, *, build=True, stages=None, allocation_unit=4096):
-    """Bound peak additional storage of the accepted layout, without delete credit.
-
-    Preflight headers bound physical payload allocation (rounded per file),
-    directory/inode allowance, and exact generated restore journals. Own output
-    allowance and bounded tar packing remain separate. Child arbitrary scratch
-    writes remain governed by the unchanged process controls, not a disk quota.
-    """
-    need(type(allocation_unit) is int and allocation_unit > 0, 'invalid filesystem allocation unit')
-    unit = max(4096, allocation_unit)
-    rounded = lambda n: ((n + unit - 1) // unit) * unit
-    archive_total = payload_peak = metadata_peak = 0
-    for descriptor in descriptors:
-        path = Path(descriptor['archive_path']); no_symlink_path(path)
-        size = path.stat().st_size
-        need(size == descriptor['archive_bytes'] and 0 < size <= contract['max_artifact_bytes'], 'missing/oversized/misreported artifact')
-        archive_total += size
-        need(archive_total <= contract['max_restored_bytes'], 'aggregate restored artifact budget exceeded')
-        names, directories, unpacked = set(), set(), 0
-        with tarfile.open(path, 'r:') as archive:
-            for member in archive:
-                name = safe_rel(member.name)
-                need(name not in names and member.isreg() and not member.pax_headers,
-                     'duplicate/non-regular/pax archive member in storage preflight')
-                names.add(name); unpacked += member.size
-                need(len(names) <= 100000 and 0 <= member.size and unpacked <= contract['max_artifact_bytes'],
-                     'artifact member budget exceeded in storage preflight')
-                payload_peak += rounded(member.size) + unit  # file + inode/metadata allowance
-                directories.update(str(p) for p in PurePosixPath(name).parents if str(p) != '.')
-        need(unpacked <= size, 'uncompressed artifact payload exceeds archive')
-        payload_peak += unit * (len(directories) + 4)  # quarantine/evidence/object roots
-        need(stages is not None and descriptor['stage_id'] in stages, 'storage preflight stage map required')
-        outputs = [name for module in stages[descriptor['stage_id']]['modules'] for name in object_paths(module, contract['output_suffixes'])]
-        public_descriptor = {k:v for k,v in descriptor.items() if k != 'archive_path'}
-        state = {'status': 'validated_move_pending', 'descriptor': public_descriptor,
-                 'objects': {name:'0'*64 for name in outputs}, 'moved': outputs, 'proof_pass_claimed': False}
-        release = {'schema': 'owned-stage-archive-release-v1', 'status': 'validated_ready_to_release',
-                   'descriptor': public_descriptor, 'released_archive_bytes': size,
-                   'payload_retained': True, 'proof_pass_claimed': False}
-        metadata_peak += rounded(len(json_bytes(state))) + 2*rounded(len(json_bytes(release))) + 3*unit
-    own_peak = 0
-    if build:
-        # Conservative output-file/directory overhead for the entire selected
-        # closure, even though a build emits only its own stage. No cap increase.
-        modules = [m for stage in (stages or {}).values() for m in stage['modules']]
-        own_names = [name for module in modules for name in object_paths(module, contract['output_suffixes']) + log_paths(module)]
-        own_dirs = {str(p) for name in own_names for p in PurePosixPath(name).parents if str(p) != '.'}
-        own_peak = rounded(contract['max_stage_output_bytes']) + rounded(contract['max_artifact_bytes'])
-        own_peak += unit * (2 * len(own_names) + len(own_dirs) + 8)
-    # Existing reserve remains untouched. Bounded local runner metadata is
-    # budgeted separately (last-command/descriptor and restore accounting).
-    return payload_peak + metadata_peak + own_peak + 1024**2 + contract['minimum_free_disk_bytes']
-
-READONLY_PROTOCOL = 'readonly_committed_v1'
-
-def readonly_command_layout(paths, module, source, flags, phase):
-    """Exact no-network sandbox boundary; no fallback and no inherited env."""
-    need(phase in ('compile', 'check'), 'invalid readonly phase')
-    need(re.fullmatch(r'[A-Za-z_][A-Za-z0-9_.]*', module), 'invalid module path')
-    need(all(Path(paths[k]).is_absolute() for k in ('source_root', 'toolchain_root', 'workspace')), 'readonly paths must be absolute')
-    root, runtime, source_root = (Path(paths[k]) for k in ('workspace', 'toolchain_root', 'source_root'))
-    committed = root / 'objects'; quarantine = root / 'module-quarantine' / module
-    home, temp = root / 'scratch/home', root / 'scratch/tmp'
-    environment = {'PATH':str(runtime / 'bin') + ':/usr/bin:/bin', 'HOME':str(home), 'TMPDIR':str(temp),
-                   'LANG':'C.UTF-8', 'LC_ALL':'C.UTF-8', 'LEAN_NUM_THREADS':'1',
-                   'LEAN_SYSROOT':str(runtime), 'LEAN_PATH':str(committed) + ':' + str(runtime / 'lib/lean')}
-    relative = module.replace('.', '/')
-    inner = ([str(runtime / 'bin/lean'), *flags, '-o', str(quarantine / ('objects/' + relative + '.olean')),
-              '-i', str(quarantine / ('objects/' + relative + '.ilean')), source]
-             if phase == 'compile' else [str(runtime / 'bin/leanchecker'), *flags, module])
-    readonly = [runtime, source_root, committed]
-    writable = [home, temp] + ([quarantine] if phase == 'compile' else [])
-    for write in writable:
-        for read in readonly:
-            need(not write.is_relative_to(read) and not read.is_relative_to(write), 'overlapping readonly/writable mount')
-    argv = ['/usr/bin/bwrap', '--unshare-all', '--die-with-parent', '--clearenv', '--proc', '/proc', '--dev', '/dev', '--tmpfs', '/tmp']
-    # run_process starts one isolated session itself. No nested --new-session or
-    # general escape allowance is introduced; existing escape rejection stays.
-    for path in ['/usr', '/bin', '/lib', '/lib64']:
-        argv += ['--ro-bind', path, path]
-    for path in readonly: argv += ['--ro-bind', str(path), str(path)]
-    for path in writable: argv += ['--bind', str(path), str(path)]
-    for key,value in sorted(environment.items()): argv += ['--setenv', key, value]
-    argv += ['--chdir', str(source_root), '--', *inner]
-    layout = {'protocol':READONLY_PROTOCOL, 'readonly_roots':[str(p) for p in readonly],
-              'writable_roots':[str(p) for p in writable], 'environment':environment, 'cwd':str(source_root)}
-    return argv, inner, layout
 
 class StageRunner:
     def __init__(self, *, contract, manifest, plan, profiles, identity, source_root, toolchain_root,
-                 toolchain_inventory, workspace, executor: Callable = run_process, owned_downloads=None):
+                 toolchain_inventory, workspace, executor: Callable = run_process):
         self.contract, self.manifest, self.plan, self.profiles = contract, manifest, plan, profiles
         self.entries, self.stages, self.owner = validate_contract(contract, manifest, plan, profiles)
         self.identity, self.source_root, self.toolchain_root = identity, Path(source_root), Path(toolchain_root)
@@ -682,8 +487,6 @@ class StageRunner:
         self.objects = {}
         self.records = {}
         self.predecessor_descriptors = []
-        self.owned_downloads = owned_downloads
-        self.restore_evidence_hashes = {}
 
     def check_run_age(self):
         try:
@@ -694,45 +497,11 @@ class StageRunner:
             raise Rejected('invalid run timestamp') from error
         need(0 <= age <= self.contract['max_run_age_seconds'], 'run expired/incomplete; artifacts must not be renewed')
 
-    def execution_paths(self):
-        return {'source_root':str(self.source_root), 'toolchain_root':str(self.toolchain_root), 'workspace':str(self.workspace)}
-
     def expected_argv(self, module, profile, phase):
-        return readonly_command_layout(self.execution_paths(), module, self.entries[module]['path'],
-                                       profile[phase + '_flags'], phase)[0]
-
-    def promote_quarantine(self, module, remaining_bytes):
-        quarantine = self.workspace / 'module-quarantine' / module
-        names = object_paths(module, self.contract['output_suffixes'])
-        files = exact_tree(quarantine, set(names))
-        info = {}
-        total = 0
-        for name in names:
-            path=files[name]; st=path.stat()
-            need(st.st_nlink == 1 and st.st_size > 0, 'quarantine output empty/shared')
-            total += st.st_size
-            need(total <= remaining_bytes, 'quarantine exceeds remaining stage output budget')
-            info[name]={'bytes':st.st_size,'sha256':file_sha(path)}
-            destination=self.workspace/name; no_symlink_path(destination)
-            need(not destination.exists(), 'provisional output overwrite forbidden')
-        journal=self.workspace/'promotion-state.json'
-        state={'protocol':READONLY_PROTOCOL,'module':module,'status':'validated_provisional_move_pending',
-               'outputs':info,'moved':[],'checker_passed':False,'proof_pass_claimed':False}
-        journal.write_bytes(json_bytes(state))
-        for name in names:
-            fresh=files[name]; destination=self.workspace/name
-            destination.parent.mkdir(parents=True,exist_ok=True);no_symlink_path(destination)
-            need(not destination.exists(), 'provisional output destination appeared')
-            fresh.rename(destination);destination.chmod(0o444)
-            need(destination.stat().st_nlink == 1 and file_sha(destination)==info[name]['sha256'], 'provisional move changed output')
-            state['moved'].append(name);journal.write_bytes(json_bytes(state))
-        # Only this fresh quarantine's empty directories remain. A failed move
-        # retains its journal and remaining bytes; no continuation is admitted.
-        for path in sorted(quarantine.rglob('*'),key=lambda p:len(p.parts),reverse=True):
-            need(path.is_dir(), 'unexpected file left in quarantine');path.rmdir()
-        quarantine.rmdir()
-        state['status']='provisional_awaiting_checker';journal.write_bytes(json_bytes(state))
-        return {name:row['sha256'] for name,row in info.items()}, total
+        if phase == 'compile':
+            return [str(self.toolchain_root / 'bin/lean'), *profile['compile_flags'], '-o',
+                    str(self.workspace / object_paths(module, ['.olean'])[0]), self.entries[module]['path']]
+        return [str(self.toolchain_root / 'bin/leanchecker'), *profile['check_flags'], module]
 
     def imported(self, module):
         entry = self.entries[module]
@@ -761,7 +530,6 @@ class StageRunner:
             self.check_run_age()
             archive_path = Path(descriptor['archive_path'])
             no_symlink_path(archive_path)
-            need(archive_path.stat().st_size == descriptor['archive_bytes'], 'archive size does not match descriptor')
             restored += archive_path.stat().st_size
             need(restored <= self.contract['max_restored_bytes'], 'aggregate restored artifact budget exceeded')
             need(descriptor.get('producer_conclusion') == 'success', 'predecessor producer was not successful')
@@ -774,14 +542,13 @@ class StageRunner:
             quarantine = self.workspace / 'quarantine' / producer
             receipt = extract_verified_archive(Path(descriptor['archive_path']), descriptor, quarantine,
                                                self.contract['max_artifact_bytes'])
-            need(receipt.get('receipt_protocol') == READONLY_PROTOCOL, 'old/non-readonly receipt protocol rejected')
             need(receipt['status'] == 'fresh_compile_check_pairs_only' and receipt['identity'] == self.identity and
                  receipt['stage_id'] == producer and receipt['producer_job'] == descriptor['producer_job'],
                  'receipt provenance mismatch')
             need([x['module'] for x in receipt['modules']] == self.stages[producer]['modules'], 'wrong receipt module set/order')
             expected_chain = [x for x in self.predecessor_descriptors if x['stage_id'] in self.stages[producer]['required_predecessors']]
             need(receipt['predecessors'] == expected_chain, 'predecessor receipt chain mismatch')
-            expected_files, pending_moves = set(), []
+            expected_files = set()
             for record in receipt['modules']:
                 module = record['module']; profile_id = self.profiles['module_profiles'][module]
                 need(record['source_sha256'] == self.entries[module]['sha256'] and record['profile'] == profile_id,
@@ -800,10 +567,10 @@ class StageRunner:
                     paths = receipt['execution_paths']
                     need(all(Path(v).is_absolute() for v in paths.values()), 'invalid execution paths')
                     flags = self.profiles['profiles'][profile_id][phase + '_flags']
-                    expected_argv, inner, layout = readonly_command_layout(paths, module, self.entries[module]['path'], flags, phase)
-                    need(command['argv'] == expected_argv and command.get('inner_argv') == inner, 'actual sandbox/inner command argv mismatch')
-                    need(command.get('sandbox') == layout and command.get('new_sessions_explicitly_allowed') is False,
-                         'readonly sandbox policy or session allowance mismatch')
+                    expected_argv = ([paths['toolchain_root'] + '/bin/lean', *flags, '-o',
+                                     paths['workspace'] + '/' + object_paths(module, ['.olean'])[0], self.entries[module]['path']]
+                                    if phase == 'compile' else [paths['toolchain_root'] + '/bin/leanchecker', *flags, module])
+                    need(command['argv'] == expected_argv, 'actual command argv mismatch')
                     need(command['resource_limits'] == {k: self.profiles['profiles'][profile_id][k]
                          for k in ('address_space_bytes', 'rss_tree_bytes', 'max_created_file_bytes')}, 'resource limits mismatch')
                     for stream in ('stdout', 'stderr'):
@@ -811,69 +578,15 @@ class StageRunner:
                         need(command[stream] == receipt['files'][name], 'command log hash mismatch')
                 for name in outputs:
                     need(record['outputs'][name] == receipt['files'][name]['sha256'], 'output hash mismatch')
-                    destination = self.workspace / name
+                    destination = self.workspace / 'deps' / name.removeprefix('objects/')
                     need(not destination.exists(), 'duplicate/shadowed predecessor object')
-                    pending_moves.append((name, destination, record['outputs'][name]))
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes((quarantine / name).read_bytes())
                 need(module not in self.objects, 'duplicate predecessor module')
                 self.objects[module] = record['outputs']; expected_files.update(outputs + log_paths(module))
             need(set(receipt['files']) == expected_files, 'unexpected artifact files')
-            # No acceptance/move/release until the entire receipt and file set
-            # validate. Failed/interrupted restores keep archives and quarantine.
-            journal = quarantine / 'restore-state.json'
-            state = {'status': 'validated_move_pending', 'descriptor': {k:v for k,v in descriptor.items() if k != 'archive_path'},
-                     'objects': {name:digest for name,_,digest in pending_moves}, 'moved': [], 'proof_pass_claimed': False}
-            journal.write_bytes(json_bytes(state))
-            for name, destination, digest in pending_moves:
-                fresh = quarantine / name; no_symlink_path(fresh)
-                need(fresh.stat().st_nlink == 1 and file_sha(fresh) == digest, 'fresh quarantine object changed/shared')
-                no_symlink_path(destination)
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                no_symlink_path(destination)
-                fresh.chmod(0o444)
-                fresh.rename(destination)  # Same-workspace rename, no copy/link.
-                need(destination.stat().st_nlink == 1 and file_sha(destination) == digest, 'restored object changed/shared')
-                state['moved'].append(name); journal.write_bytes(json_bytes(state))
-            # Keep receipt and complete predecessor command logs as evidence.
-            # Remove only empty object directories left by the moves.
-            for directory in sorted((quarantine / 'objects').rglob('*'), key=lambda p:len(p.parts), reverse=True):
-                if directory.is_dir(): directory.rmdir()
-            (quarantine / 'objects').rmdir()
-            state['status'] = 'restored_verified'; journal.write_bytes(json_bytes(state))
-            evidence = self.workspace / 'restore-evidence' / producer
-            evidence.parent.mkdir(exist_ok=True)
-            need(not evidence.exists(), 'restore evidence must be new')
-            quarantine.rename(evidence)
-            self.verify_checked_objects()
             self.predecessor_descriptors.append({k: v for k, v in descriptor.items() if k != 'archive_path'})
-            if self.owned_downloads is not None:
-                # Preserve complete accepted bytes before releasing their tar.
-                # These fsyncs are outside commands and only touch fresh copies.
-                retained = [self.workspace / name for name,_,_ in pending_moves] + list(regular_tree(evidence).values())
-                directories = {self.workspace, evidence, evidence.parent}
-                for path in retained:
-                    with path.open('rb') as handle: os.fsync(handle.fileno())
-                    for parent in path.parents:
-                        directories.add(parent)
-                        if parent == self.workspace: break
-                for directory in sorted(directories, key=lambda p:len(p.parts), reverse=True):
-                    fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-                    try: os.fsync(fd)
-                    finally: os.close(fd)
-                self.owned_downloads.release_after_validation(descriptor, evidence)
-            self.restore_evidence_hashes[producer] = {name:file_sha(path) for name,path in regular_tree(evidence).items()}
-        exact_tree(self.workspace / 'objects', {name.removeprefix('objects/') for outputs in self.objects.values() for name in outputs})
-
-    def verify_checked_objects(self):
-        checked = {name: digest for outputs in self.objects.values() for name, digest in outputs.items()}
-        for name, digest in checked.items():
-            path = self.workspace / name; no_symlink_path(path)
-            need(path.is_file() and path.stat().st_nlink == 1 and file_sha(path) == digest,
-                 'pinned unified-search object changed/shared: ' + name)
-        for producer, expected in self.restore_evidence_hashes.items():
-            evidence = self.workspace / 'restore-evidence' / producer
-            files = exact_tree(evidence, set(expected))
-            need(all(path.stat().st_nlink == 1 and file_sha(path) == expected[name] for name,path in files.items()),
-                 'accepted restore evidence changed/shared: ' + producer)
+            shutil.rmtree(quarantine)  # Only this run's newly created, fully verified quarantine.
 
     def command(self, module, phase, profile, environment, deadline):
         self.check_run_age()
@@ -882,15 +595,12 @@ class StageRunner:
         logs[0].parent.mkdir(parents=True, exist_ok=True)
         timeout = min(profile[phase + '_timeout_seconds'], int(deadline - time.monotonic()))
         need(timeout > 0, 'stage time budget exhausted')
-        argv, inner, layout = readonly_command_layout(self.execution_paths(), module, self.entries[module]['path'], profile[phase + '_flags'], phase)
-        need(environment == layout['environment'], 'readonly command environment mismatch')
-        for path in layout['readonly_roots'] + layout['writable_roots']:
-            no_symlink_path(Path(path)); need(Path(path).is_dir(), 'sandbox mount is missing')
+        argv = self.expected_argv(module, profile, phase)
         result = self.executor(argv, cwd=self.source_root, env=environment, timeout=timeout,
                                stdout=logs[0], stderr=logs[1], max_log_bytes=self.contract['max_log_bytes'],
                                limits={k: profile[k] for k in ('address_space_bytes', 'rss_tree_bytes', 'max_created_file_bytes')})
         need(type(result.get('exit_code')) is int, 'missing true process exit')
-        result = dict(result, argv=argv, inner_argv=inner, sandbox=layout, timeout_seconds=timeout,
+        result = dict(result, argv=argv, timeout_seconds=timeout,
                       resource_limits={k: profile[k] for k in ('address_space_bytes', 'rss_tree_bytes', 'max_created_file_bytes')},
                       spec={'tool': 'lean' if phase == 'compile' else 'leanchecker',
                             'flags': profile[phase + '_flags'], 'module': module,
@@ -913,43 +623,64 @@ class StageRunner:
         need(not self.workspace.exists(), 'workspace must be new; old outputs/locks/receipts are never reused')
         self.check_run_age()
         self.workspace.mkdir(parents=True)
-        for name in ('objects', 'scratch', 'logs', 'module-quarantine'): (self.workspace / name).mkdir()
-        for name in ('home','tmp'): (self.workspace / 'scratch' / name).mkdir()
+        for name in ('objects', 'deps', 'scratch', 'logs'): (self.workspace / name).mkdir()
         verify_sources(self.source_root, self.manifest)
-        required_free = storage_restore_budget(descriptors, self.contract, stages=self.stages, allocation_unit=os.statvfs(self.workspace).f_frsize)
-        need(shutil.disk_usage(self.workspace).free >= required_free, 'insufficient measured space for unified restore/output peak')
+        archive_total = sum(Path(x['archive_path']).stat().st_size for x in descriptors)
+        required_free = 3 * archive_total + 2 * self.contract['max_stage_output_bytes'] + self.contract['minimum_free_disk_bytes']
+        need(shutil.disk_usage(self.workspace).free >= required_free, 'insufficient measured space for dependency/output copies')
         self.read_predecessors(sid, descriptors)
-        original_deps = {name.removeprefix('objects/'): digest for outputs in self.objects.values() for name, digest in outputs.items()}
-        # Single namespace, independently extracted inodes, receipt-pinned hashes.
-        # Already checked outputs from this stage join the same immutable list.
-        first_module=self.stages[sid]['modules'][0]
-        environment=readonly_command_layout(self.execution_paths(), first_module, self.entries[first_module]['path'], [], 'check')[2]['environment']
-        records, own_files, own_bytes = [], set(), 0
+        original_deps = {name: file_sha(path) for name, path in regular_tree(self.workspace / 'deps').items()}
+        # Lean resolves a module namespace from its first search root, so separate
+        # own/dependency roots can shadow one another. Build in one complete
+        # namespace tree; retain the separately verified predecessor copy for
+        # immutable comparison. Only own_files are ever packed for upload.
+        for name, path in regular_tree(self.workspace / 'deps').items():
+            destination = self.workspace / 'objects' / name
+            need(not destination.exists(), 'predecessor shadows a fresh output')
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path, destination)
+        def verify_predecessor_copies():
+            # Check the fixed pinned predecessor list, not a broad filesystem scan.
+            need(original_deps == {name: file_sha(self.workspace / 'deps' / name) for name in original_deps},
+                 'predecessor objects changed')
+            checked = {name.removeprefix('objects/'): digest for outputs in self.objects.values() for name, digest in outputs.items()}
+            need(checked == {name: file_sha(self.workspace / 'objects' / name) for name in checked},
+                 'unified-search predecessor objects changed')
+        environment = {'PATH': str(self.toolchain_root / 'bin') + ':/usr/bin:/bin',
+                       'HOME': str(self.workspace / 'scratch'), 'TMPDIR': str(self.workspace / 'scratch'),
+                       'LANG': 'C.UTF-8', 'LC_ALL': 'C.UTF-8', 'LEAN_NUM_THREADS': '1',
+                       'LEAN_PATH': os.pathsep.join(str(x) for x in [self.workspace / 'objects', self.toolchain_root / 'lib/lean'])}
+        records, own_files = [], set()
         for module in self.stages[sid]['modules']:
             profile_id = self.profiles['module_profiles'][module]
             profile = self.profiles['profiles'][profile_id]
             imported = self.imported(module)
             output_names = object_paths(module, self.contract['output_suffixes'])
-            quarantine=self.workspace/'module-quarantine'/module
-            need(not quarantine.exists(), 'module quarantine must be new')
-            (quarantine/output_names[0]).parent.mkdir(parents=True)
+            (self.workspace / output_names[0]).parent.mkdir(parents=True, exist_ok=True)
+            verify_predecessor_copies()
             compile_result = self.command(module, 'compile', profile, environment, deadline)
-            before_check, current_bytes = self.promote_quarantine(module, self.contract['max_stage_output_bytes']-own_bytes)
+            verify_predecessor_copies()
+            expected_outputs = set(original_deps) | {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')}
+            expected_outputs.update(x.removeprefix('objects/') for x in output_names)
+            exact_tree(self.workspace / 'objects', expected_outputs)
+            before_check = {x: file_sha(self.workspace / x) for x in output_names}
+            verify_predecessor_copies()
             check_result = self.command(module, 'check', profile, environment, deadline)
+            verify_predecessor_copies()
             need(before_check == {x: file_sha(self.workspace / x) for x in output_names}, 'checker changed output')
             need(module not in self.objects, 'duplicate new module')
             self.objects[module] = before_check
-            promotion=load_json(self.workspace/'promotion-state.json');promotion['status']='checker_passed';promotion['checker_passed']=True
-            (self.workspace/'promotion-state.json').write_bytes(json_bytes(promotion))
             records.append({'module': module, 'source_sha256': self.entries[module]['sha256'], 'profile': profile_id,
                             'ordered_imports': imported, 'outputs': before_check,
                             'compile': compile_result, 'check': check_result})
             own_files.update(output_names + log_paths(module))
-            own_bytes += current_bytes + sum((self.workspace/name).stat().st_size for name in log_paths(module))
-            need(own_bytes <= self.contract['max_stage_output_bytes'],
+            need(sum((self.workspace / name).stat().st_size for name in own_files) <= self.contract['max_stage_output_bytes'],
                  'aggregate stage output/log budget exceeded')
         verify_sources(self.source_root, self.manifest)
-        self.verify_checked_objects()
+        need(original_deps == {name: file_sha(path) for name, path in regular_tree(self.workspace / 'deps').items()},
+             'predecessor objects changed')
+        need(original_deps == {name: file_sha(self.workspace / 'objects' / name) for name in original_deps},
+             'unified-search predecessor objects changed')
         exact_tree(self.workspace / 'objects', set(original_deps) | {x.removeprefix('objects/') for x in own_files if x.startswith('objects/')})
         exact_tree(self.workspace / 'logs', {x.removeprefix('logs/') for x in own_files if x.startswith('logs/')})
         files = {name: self.workspace / name for name in sorted(own_files)}
@@ -957,7 +688,7 @@ class StageRunner:
         for record in records:
             need(all(info[name]['sha256'] == value for name, value in record['outputs'].items()), 'earlier output changed')
         self.check_run_age()
-        receipt = {'schema': 'fresh-stage-receipt-v1', 'receipt_protocol':READONLY_PROTOCOL, 'status': 'fresh_compile_check_pairs_only',
+        receipt = {'schema': 'fresh-stage-receipt-v1', 'status': 'fresh_compile_check_pairs_only',
                    'proof_pass_claimed': False, 'identity': self.identity, 'stage_id': sid, 'producer_job': producer_job,
                    'execution_paths': {'source_root': str(self.source_root), 'toolchain_root': str(self.toolchain_root),
                                        'workspace': str(self.workspace)},

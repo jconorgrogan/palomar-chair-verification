@@ -1,0 +1,73 @@
+{
+  "concurrency": {
+    "cancel-in-progress": false,
+    "group": "uniform-core-preflight-${{ github.ref }}"
+  },
+  "jobs": {
+    "uniform_core": {
+      "if": "${{ true }}",
+      "name": "uniform_core",
+      "runs-on": "ubuntu-22.04",
+      "steps": [
+        {
+          "name": "Check out reviewed uniform core source",
+          "uses": "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "with": {
+            "fetch-depth": 1,
+            "persist-credentials": false,
+            "ref": "${{ github.sha }}"
+          }
+        },
+        {
+          "id": "checkout_guard",
+          "name": "Verify exact clean checkout identity",
+          "run": "set -euo pipefail\ntest \"$(/usr/bin/git rev-parse HEAD)\" = \"$GITHUB_SHA\"\ntest -z \"$(/usr/bin/git status --porcelain=v1 --untracked-files=all --ignored=matching)\"\n",
+          "shell": "bash"
+        },
+        {
+          "name": "Install official Ubuntu archive and sandbox dependencies",
+          "run": "set -euo pipefail\nsudo apt-get update -qq\nsudo apt-get install --no-install-recommends -y bubblewrap zstd\n",
+          "shell": "bash"
+        },
+        {
+          "env": {
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "name": "Run bounded uniform core preflight",
+          "run": "/usr/bin/timeout --signal=TERM --kill-after=30s 1800s /usr/bin/python3 -I -S -B \"$GITHUB_WORKSPACE/ci/core_preflight.py\" --contract-sha256 1ef84151664e1e41271606854cdfb1bc8feff5d65be487ac5888a2bf638102d4 --work \"$RUNNER_TEMP/uniform-core-preflight\"",
+          "shell": "bash"
+        },
+        {
+          "if": "${{ always() && steps.checkout_guard.outcome == 'success' }}",
+          "name": "Retain bounded core evidence",
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "with": {
+            "compression-level": 0,
+            "if-no-files-found": "error",
+            "name": "uniform-core-evidence-${{ github.run_id }}-${{ github.run_attempt }}",
+            "path": "${{ runner.temp }}/uniform-core-preflight/evidence",
+            "retention-days": 7
+          }
+        }
+      ],
+      "timeout-minutes": 35
+    }
+  },
+  "name": "Verify uniform core inspector and control",
+  "on": {
+    "push": {
+      "branches": [
+        "verify/uniform-core-preflight-20261018"
+      ],
+      "paths": [
+        "ci/**",
+        "src/**",
+        "contract.json",
+        ".github/workflows/uniform-core-preflight.yml"
+      ]
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  }
+}

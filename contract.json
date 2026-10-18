@@ -1,0 +1,116 @@
+{
+  "address_space_bytes": 12884901888,
+  "aggregate_log_bytes": 8388608,
+  "aggregate_seconds": 1800,
+  "baseline_independent_review_sha256": "473fa16db24a0e1360d55c5559102dc30df15e2005df5ac8fefd69764d8dfa5e",
+  "check_seconds": 120,
+  "compile_seconds": 180,
+  "controls": {
+    "uniform": {
+      "module": "UniformInspectorControl",
+      "pass_labels": [
+        "exact mapped model definition",
+        "renamed native model constant rejected",
+        "extra reference model constant rejected",
+        "nested extra reference model constant rejected",
+        "changed HasTiling predicate rejected",
+        "changed HasTiling existential universe rejected",
+        "missing HasTiling existential rejected",
+        "exact collection-period surrogate",
+        "collection period changed to union period rejected",
+        "model extra universe rejected",
+        "unsafe model rejected",
+        "open model body rejected",
+        "exact quantified endpoint surrogate",
+        "dimension quantifier removed rejected",
+        "dimension binder renamed rejected",
+        "dimension binder visibility changed rejected",
+        "dimension lower bound changed rejected",
+        "extra hypothesis rejected",
+        "axiom substituted for theorem rejected",
+        "three standard axioms accepted",
+        "sorryAx rejected",
+        "extra axiom rejected",
+        "fixed model maps and four templates",
+        "one capture-safe bound CType substitution",
+        "C substitution preserves binding depth",
+        "unbound CType axiom rejected",
+        "renamed CType binder rejected",
+        "implicit CType binder rejected",
+        "CType not Prop rejected",
+        "exact one-C conditional surrogate",
+        "conditional C binder removed rejected",
+        "wrong C proposition rejected",
+        "C left on closed target rejected",
+        "exact closed C theorem application",
+        "changed C proof application rejected",
+        "changed conditional application rejected",
+        "Challenge hole explicitly labeled",
+        "Challenge extra axiom rejected",
+        "Challenge expected hole missing rejected",
+        "independent registration model equality",
+        "registration extra model constant rejected",
+        "exact ParentOccurrence expansion",
+        "C radius changed rejected",
+        "C family changed rejected",
+        "C extra hypothesis rejected"
+      ],
+      "success_marker": "UNIFORM_INSPECTOR_CORE_CONTROL_PASSED"
+    }
+  },
+  "evidence_max_bytes": 33554432,
+  "expected_command_count": 6,
+  "expected_companion_count": 14,
+  "families": {
+    "uniform": [
+      "AuditUniformPhysicalEndpoints",
+      "UniformInspectorControl"
+    ]
+  },
+  "independent_review_sha256": "c7f9edb0ccb47962d8622547e387960a74cb93959d1bfd97ca99e6723f0e8935",
+  "inputs": {
+    "ci/boundary.py": {
+      "bytes": 8149,
+      "sha256": "eb6c58a3be6336fdc6d9cbf762c20cd4d8054f8f23600eb6cb31eb88ec2c6330"
+    },
+    "ci/core_preflight.py": {
+      "bytes": 22309,
+      "sha256": "1fc255488ed8b3b24db913568c6d5c2638d531ff9fe3f912313b49b4b79c8db9"
+    },
+    "ci/fresh_stage.py": {
+      "bytes": 49212,
+      "sha256": "0887e6a69ae7a80c2ef4c1ee841b48d50f7eb8c58736c0396ea15e0402279d99"
+    },
+    "ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    },
+    "src/uniform/AuditUniformPhysicalEndpoints.lean": {
+      "bytes": 18573,
+      "sha256": "17e422b15fb166d6a964cc95680bf64fcfc7a57fbbc0fdb39caec11040844ff3"
+    },
+    "src/uniform/UniformInspectorControl.lean": {
+      "bytes": 12206,
+      "sha256": "cf750b0fd5e418b6bb171a63719d5437892db4c4d03df584fe8e339f7481de02"
+    }
+  },
+  "job_timeout_minutes": 35,
+  "lean_heap_mib": 4096,
+  "mathlib_cache_used": false,
+  "max_created_file_bytes": 536870912,
+  "maximum_parallel_jobs": 1,
+  "minimum_free_disk_bytes": 1610612736,
+  "output_max_bytes": 67108864,
+  "per_command_log_bytes": 1048576,
+  "publication_branch": "verify/uniform-core-preflight-20261018",
+  "research_objects_loaded": false,
+  "research_theorem_claimed": false,
+  "review_status": "reviewed_for_execution",
+  "rss_tree_bytes": 8589934592,
+  "runtime_archive_bytes": 595391556,
+  "runtime_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+  "runtime_archive_url": "https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst",
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "schema": "core-inspector-preflight-v1",
+  "scope": "TWO_UNIFORM_CORE_ONLY_HELPER_CONTROL_PAIRS"
+}
