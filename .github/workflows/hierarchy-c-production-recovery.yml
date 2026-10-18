@@ -66,7 +66,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        prepare --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        prepare --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -151,7 +151,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        build --stage ${{ matrix.stage }} --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline"
+        build --stage ${{ matrix.stage }} --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline"
         --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -237,7 +237,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        build --stage ${{ matrix.stage }} --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline"
+        build --stage ${{ matrix.stage }} --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline"
         --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -317,7 +317,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        export_target --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        export_target --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -397,7 +397,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        fresh_kernel --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        fresh_kernel --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -477,7 +477,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        lean_export --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        lean_export --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -557,7 +557,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        nanoda --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        nanoda --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -637,7 +637,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        conron --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        conron --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -721,7 +721,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
-        verdict --contract-sha256 c17624470b8e9c721a21508b6f95bf669f9509604c32b4e1490c66531c9a80c7 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        verdict --contract-sha256 aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

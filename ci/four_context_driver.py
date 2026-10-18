@@ -154,13 +154,19 @@ def write_failure(state,error):
     elif type(error) is PermissionError:value['reason_code']='FILESYSTEM_PERMISSION'
     elif type(error) is FileNotFoundError:value['reason_code']='MISSING_FILE'
     elif type(error) is OSError:value['reason_code']='OS_FAILURE'
+    gate=state.get('acquisition_gate')
+    if phase=='acquisition_session' and type(gate) is str and gate in ('source_load','session_create'):
+        value['acquisition_gate']=gate
+        if (gate=='source_load' and type(state.get('acquisition_reason')) is str and
+            state['acquisition_reason']=='ACQUISITION_GRAPH_MISMATCH'):
+            value['reason_code']='ACQUISITION_GRAPH_MISMATCH'
     module=state.get('acquisition_module')
     if phase in ('acquisition_session','historical_acquisition','verdict_reauthentication') and module is not None:
         record=module._diagnostic_record(error)
         # Exact source-fixed numeric projection, revalidated before serialization.
         if (type(record) is dict and set(record)=={'schema','phase','category','reason_code','http_status','quota'} and
             all(type(record[k]) is str for k in ('schema','phase','category','reason_code')) and
-            record['schema']=='production90-acquisition-failure-v2' and record['phase'] in module.DIAGNOSTIC_PHASES and
+            record['schema']=='production91-acquisition-failure-v2' and record['phase'] in module.DIAGNOSTIC_PHASES and
             (record['category'],record['reason_code']) in ACQUISITION_PAIRS and
             (record['http_status'] is None or type(record['http_status']) is int and 100<=record['http_status']<=599)):
             quota=record['quota']
@@ -230,10 +236,18 @@ def execute(args,code,contract,budget,f,p,local,dio,cf,ep,current,Runner,load_ve
     f.need(not root.exists(),'job workspace must be new');root.mkdir(mode=0o700);(root/'upload').mkdir();(root/'logs').mkdir()
     upload=root/'upload';state['root']=root
     mark(state,'acquisition_session')
-    historical_module=load_acquisition(pipeline/'acquisition/ci',contract,local,budget)
+    state['acquisition_gate']='source_load';state.pop('acquisition_reason',None)
+    try:
+        historical_module=load_acquisition(pipeline/'acquisition/ci',contract,local,budget)
+    except local.Rejected as error:
+        if (type(error) is local.Rejected and len(error.args)==1 and type(error.args[0]) is str and
+            error.args[0]=='production acquisition graph changed'):
+            state['acquisition_reason']='ACQUISITION_GRAPH_MISMATCH'
+        raise
     state['acquisition_module']=historical_module
     nonce=secrets.token_hex(32)
     def observed_now():budget.check();return budget.last_wall
+    state['acquisition_gate']='session_create'
     historical=historical_module.create_session(root/'historical-downloads',token,deadline_monotonic=float(budget.deadline),session_nonce=nonce,now=observed_now)
     original_deadline=historical.parent_deadline_monotonic
     hroot=historical.root
