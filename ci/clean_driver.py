@@ -153,7 +153,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
     def observed_now():budget.check();return budget.last_wall
     mark(state,'transport_bootstrap')
     origins=current.CleanTransport(token=token,root=root/'download',budget=budget,now=observed_now)
-    f.need(os.environ.get('GITHUB_REF')=='refs/heads/verify/hierarchy-c-clean-replay-20261018','unreviewed clean branch')
+    f.need(os.environ.get('GITHUB_REF')=='refs/heads/'+cf.CURRENT_WORKFLOW['head_branch'],'unreviewed clean branch')
     mark(state,'clean_checkouts')
     for checkout,expected in [(source,cf.FIXED_IDENTITY['source_commit']),(pipeline,origins.commit)]:
         budget.check();f.need(git(checkout,'rev-parse','HEAD')==expected and git(checkout,'status','--porcelain=v1','--untracked-files=all','--ignored')=='','checkout identity or clean tree mismatch')
@@ -172,6 +172,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
     if args.role!='prepare':
         mark(state,'prepare_authentication');origins.authenticate_prepare('CurrentOrigin',root/'download'/'prepare')
     authenticate_current()
+    origins.authenticate_prepare('PriorCleanOrigin',root/'download'/'prior-clean-prepare')
     mark(state,'runtime_download')
     archive=root/'lean.tar.zst';start=time.monotonic();downloaded=0
     with urllib.request.urlopen('https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst',timeout=60) as response,archive.open('xb') as out:
@@ -224,10 +225,11 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
         wrappers=[];sizes={}
         for sid in ids:
             budget.check();mark(state,'stage_descriptor')
-            w=origins.download_stage('CurrentOrigin',sid,root/'download'/sid,contract['max_artifact_bytes']+1024**2)
+            w=origins.download_stage(cf.origin_for_stage(sid),sid,root/'download'/sid,contract['max_artifact_bytes']+1024**2)
             receipt_path=current.copy_native_receipt(origins,w);descriptor_path=Path(w['archive_path']).parent/'upload-candidate.json'
             raw_native[sid]={'descriptor':descriptor_path.read_bytes(),'receipt':receipt_path.read_bytes()}
             cf.p.validate_native_bytes(w,raw_native[sid]['descriptor'],raw_native[sid]['receipt'])
+            cf._validate_wrapper(w,identity,sid,workflow=workflow)
             sizes[sid]=w['native_descriptor']['archive_bytes'];f.need(sum(sizes.values())<=contract['max_restored_bytes'],'clean raw aggregate cap exceeded')
             wrappers.append(w);budget.check()
         return wrappers
@@ -245,7 +247,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
         f.need(receipt['role']==role and receipt['identity']==identity and receipt['status']=='completed_check_only','current final receipt mismatch')
         cf.validate_final_commands(receipt);budget.check();return receipt,expanded,d,w
     if args.role=='build':
-        sid=args.stage;f.need(sid in runner.stages and os.environ['GITHUB_JOB']==runner.stages[sid]['producer_job'],'stage/workflow binding mismatch')
+        sid=args.stage;f.need(cf.origin_for_stage(sid)=='CurrentOrigin','selected prior-clean stage cannot be rebuilt');f.need(sid in runner.stages and os.environ['GITHUB_JOB']==runner.stages[sid]['producer_job'],'stage/workflow binding mismatch')
         ids=runner.stages[sid]['required_predecessors'];f.extract_sources(source/'hierarchy-c-sources.tar.gz',root/'source',manifest)
         ds=stage_descriptors(ids);mark(state,'stage_restore_build')
         f.need(not (root/'stage').exists(),'initial project workspace must be absent')
@@ -276,7 +278,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
         f.verify_sources(root/'source',manifest);runner.verify_checked_objects();runner.check_run_age();pack_final(args.role,context,files);return
     if args.role in ('lean_export','nanoda','conron'):
         receipt,expanded,_,_=get_final('export_target');exported=expanded/'target.ndjson';execution_paths['export_path']=str(exported)
-        context=cf.final_context(manifest=manifest,provenance={'rows':receipt['resolved_provenance'],'same_run_predecessor_transfers':receipt['same_run_predecessor_transfers'],'sha256':receipt['resolved_provenance_sha256']},object_hashes=receipt['restored_object_hashes'],identity=identity)
+        context=cf.final_context(manifest=manifest,provenance={'rows':receipt['resolved_provenance'],'campaign_predecessor_transfers':receipt['campaign_predecessor_transfers'],'sha256':receipt['resolved_provenance_sha256']},object_hashes=receipt['restored_object_hashes'],identity=identity)
         f.need(f.file_sha(exported)==receipt['export_sha256'],'exact-target export changed')
         if args.role=='lean_export':
             command('lean_from_export',[str(toolchain/'bin/leanchecker'),'--silent','--from-export',str(exported)],seconds=9000)
@@ -292,7 +294,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
     checked={}
     for role in cf.FINAL_ROLES:
         receipt,_,_,wrapper=get_final(role);checked[role]={'receipt':receipt,'wrapper':wrapper}
-    export_receipt=checked['export_target']['receipt'];provenance={'rows':export_receipt['resolved_provenance'],'same_run_predecessor_transfers':export_receipt['same_run_predecessor_transfers'],'sha256':export_receipt['resolved_provenance_sha256']}
+    export_receipt=checked['export_target']['receipt'];provenance={'rows':export_receipt['resolved_provenance'],'campaign_predecessor_transfers':export_receipt['campaign_predecessor_transfers'],'sha256':export_receipt['resolved_provenance_sha256']}
     mark(state,'verdict_reauthentication')
     for wrapper in provenance['rows']:
         budget.check();meta=origins.reauthenticate_wrapper(wrapper)

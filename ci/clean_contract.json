@@ -2,102 +2,6 @@
   "clean_integration_review_status": "reviewed",
   "compiler_adapter_review_status": "reviewed",
   "current_consumer_roles": {
-    "build_000": {
-      "job_name": "stage build_000",
-      "producer_job": "wave_00",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_001": {
-      "job_name": "stage build_001",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_002": {
-      "job_name": "stage build_002",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_003": {
-      "job_name": "stage build_003",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_004": {
-      "job_name": "stage build_004",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_005": {
-      "job_name": "stage build_005",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_006": {
-      "job_name": "stage build_006",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_007": {
-      "job_name": "stage build_007",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_008": {
-      "job_name": "stage build_008",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_009": {
-      "job_name": "stage build_009",
-      "producer_job": "wave_01",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_010": {
-      "job_name": "stage build_010",
-      "producer_job": "wave_02",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_011": {
-      "job_name": "stage build_011",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
     "build_012": {
       "job_name": "stage build_012",
       "producer_job": "wave_04",
@@ -106,64 +10,8 @@
         "number": 6
       }
     },
-    "build_013": {
-      "job_name": "stage build_013",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
     "build_014": {
       "job_name": "stage build_014",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_015": {
-      "job_name": "stage build_015",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_016": {
-      "job_name": "stage build_016",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_017": {
-      "job_name": "stage build_017",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_018": {
-      "job_name": "stage build_018",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_019": {
-      "job_name": "stage build_019",
-      "producer_job": "wave_04",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_020": {
-      "job_name": "stage build_020",
       "producer_job": "wave_04",
       "verifier_step": {
         "name": "Run fail-closed verifier",
@@ -189,86 +37,6 @@
     "build_023": {
       "job_name": "stage build_023",
       "producer_job": "wave_06",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_024": {
-      "job_name": "stage build_024",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_025": {
-      "job_name": "stage build_025",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_026": {
-      "job_name": "stage build_026",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_027": {
-      "job_name": "stage build_027",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_028": {
-      "job_name": "stage build_028",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_029": {
-      "job_name": "stage build_029",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_030": {
-      "job_name": "stage build_030",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_031": {
-      "job_name": "stage build_031",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_032": {
-      "job_name": "stage build_032",
-      "producer_job": "wave_03",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 6
-      }
-    },
-    "build_033": {
-      "job_name": "stage build_033",
-      "producer_job": "wave_04",
       "verifier_step": {
         "name": "Run fail-closed verifier",
         "number": 6
@@ -804,166 +572,10 @@
     }
   },
   "current_workflow": {
-    "head_branch": "verify/hierarchy-c-clean-replay-20261018",
-    "name": "Verify hierarchy C clean replay",
-    "path": ".github/workflows/hierarchy-c-clean-replay.yml",
+    "head_branch": "verify/hierarchy-c-clean-recovery-20261018",
+    "name": "Verify hierarchy C clean recovery",
+    "path": ".github/workflows/hierarchy-c-clean-recovery.yml",
     "roles": {
-      "build_000": {
-        "job_name": "stage build_000",
-        "producer_job": "wave_00",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_001": {
-        "job_name": "stage build_001",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_002": {
-        "job_name": "stage build_002",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_003": {
-        "job_name": "stage build_003",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_004": {
-        "job_name": "stage build_004",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_005": {
-        "job_name": "stage build_005",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_006": {
-        "job_name": "stage build_006",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_007": {
-        "job_name": "stage build_007",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_008": {
-        "job_name": "stage build_008",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_009": {
-        "job_name": "stage build_009",
-        "producer_job": "wave_01",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_010": {
-        "job_name": "stage build_010",
-        "producer_job": "wave_02",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_011": {
-        "job_name": "stage build_011",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
       "build_012": {
         "job_name": "stage build_012",
         "producer_job": "wave_04",
@@ -977,99 +589,8 @@
           "number": 6
         }
       },
-      "build_013": {
-        "job_name": "stage build_013",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
       "build_014": {
         "job_name": "stage build_014",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_015": {
-        "job_name": "stage build_015",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_016": {
-        "job_name": "stage build_016",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_017": {
-        "job_name": "stage build_017",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_018": {
-        "job_name": "stage build_018",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_019": {
-        "job_name": "stage build_019",
-        "producer_job": "wave_04",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_020": {
-        "job_name": "stage build_020",
         "producer_job": "wave_04",
         "upload_locations": 1,
         "upload_step": {
@@ -1110,136 +631,6 @@
       "build_023": {
         "job_name": "stage build_023",
         "producer_job": "wave_06",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_024": {
-        "job_name": "stage build_024",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_025": {
-        "job_name": "stage build_025",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_026": {
-        "job_name": "stage build_026",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_027": {
-        "job_name": "stage build_027",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_028": {
-        "job_name": "stage build_028",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_029": {
-        "job_name": "stage build_029",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_030": {
-        "job_name": "stage build_030",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_031": {
-        "job_name": "stage build_031",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_032": {
-        "job_name": "stage build_032",
-        "producer_job": "wave_03",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 7
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 6
-        }
-      },
-      "build_033": {
-        "job_name": "stage build_033",
-        "producer_job": "wave_04",
         "upload_locations": 1,
         "upload_step": {
           "name": "Upload only this job's new evidence",
@@ -2104,12 +1495,12 @@
   "implementation_sha256": {
     "FinalExportAudit.lean": "594df90549cc67c2708d7950a3df43e76e2f46348009903226aced8afd9e9859",
     "ci_transport.py": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95",
-    "clean_driver.py": "967a4b0ecf88b8cfa2717b96087b29b0a37c938bcf9d0a007dbeeeb357a934a8",
+    "clean_driver.py": "aace5a22a4530ee7954bcf4244f8fb203158ef36b361b62be086a1f5bea8c5a5",
     "clean_io.py": "5e609048bc53b38fb262fc94307de05aca23adc1b4ec3c6f08d985854654d077",
     "clean_local.py": "accdd88e3cd4961d19d2c82840628bd5a6ba9b7f23ccd3a732d86f8b2aeaccec",
-    "clean_policy.py": "7733610eb09b06e815bc30d107f68d89fbd18e09c83434b052cf99db1c460226",
-    "clean_runner.py": "56f85220d1478ee9d64a89c04ff938dd0fc0fbecce28f49cc956517a6e7e16b4",
-    "clean_transport.py": "c9f92c0f7797179dea2ecf046af4b543660a18a932b268126c77661bbddeab9b",
+    "clean_policy.py": "7062a42472e7c8d06ed9e50fdf4af1c93e9b7dd40de4a0448c7fc30f0c0cea67",
+    "clean_runner.py": "8288eb465585200fd0a3147b8fd964c1737817b4cf1746b6fa726e0287217c13",
+    "clean_transport.py": "90965a8ff31d5c355f300c31211ef62724c018f1a53a8080f88892807e1843ab",
     "continuation_policy.py": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2",
     "four_context_final.py": "c1e1fd804a5de3e36a9c353a301458c1352a0d5a39e67eaa0f4ef033b77e22bd",
     "four_context_policy.py": "5ba7e7a90f132bedc263c6d85de4e5df06dcaf73b1799e4ee4d3d7d60870c138",
@@ -2132,7 +1523,7 @@
   "modern_migration_map_sha256": "f9e09df41d772873bdf272c815d8dac617196d4658be331dc867c49531478e86",
   "modern_tree_inventory_sha256": "c673496b5147462ccf415bbdb11319efe631069c5d4388beb2d1e1ab1db0c74e",
   "module_interface": "modern_exposed_v1",
-  "note": "All 93 stages and 6369 modules rebuild from source in this distinct clean run. Initial project object trees are empty; only authenticated same-clean-run predecessor artifacts are admitted. Exact existing plan/profiles/toolchain/native caps and final commands remain binding.",
+  "note": "Reviewed two-run clean-source campaign: 29 predecessor-closed stages (1433 modules) from39096057205/1 plus64 current stages (4936 modules). Prior receipts preserve original identity/profile; all native readmission/final gates remain mandatory. Current091 alone disables Lean asynchronous elaboration. This is not a single-run clean rebuild or independent clean reproduction.",
   "output_suffixes": [
     ".olean",
     ".olean.private",
@@ -2143,7 +1534,7 @@
   ],
   "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
   "process_containment_review_status": "reviewed",
-  "profiles_sha256": "770ccc2c5af5185e550432b678220f10d5981a77f3d3b2dc231fc755efb934dc",
+  "profiles_sha256": "991c8f91fbe22278945f423c6c2318a8a1d4f7cd4765dd95ab5856e6ecec32ad",
   "readonly_commit_review_status": "reviewed",
   "receipt_protocol": "readonly_committed_v1",
   "reserved_final_jobs": 6,
