@@ -13,7 +13,7 @@ a=importlib.util.module_from_spec(spec);sys.modules['cache_diagnostic']=a;spec.l
 f=a.f
 GIB=1024**3
 FIXED={'schema':'higher-heap-runtime-probe-v1','purpose':'compiled-default-and-max_memory-override-only',
- 'publication_branch':'verify/higher-heap-probe-20261018','publication_parent_commit':'ecf44513ecddd29507fec9f6046d47771fd6e0cd',
+ 'publication_branch':'verify/higher-heap-probe-visibility-20261018','publication_parent_commit':'b4b69551fa78b5dbbf30bcd94e295944554bdbc9',
  'workflow_path':'.github/workflows/higher-heap-probe.yml','workflow_job':'heap_option_probe',
  'official_archive_url':a.ARCHIVE_URL,'official_archive_bytes':a.ARCHIVE_BYTES,'official_archive_sha256':f.TOOLCHAIN_SHA256,
  'official_runtime_inventory_sha256':a.RUNTIME_INVENTORY_SHA,'lean_heap_mib':5120,

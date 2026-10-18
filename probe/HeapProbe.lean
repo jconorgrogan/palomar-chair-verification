@@ -1,7 +1,9 @@
-import Lean.Shell
+module
+
+import all Lean.Shell
 
 -- Inspect only the compiled max_memory override. Do not change any option or limit.
-def main : IO Unit := do
+public def main : IO Unit := do
   let compiledDefault := Lean.Internal.getDefaultMaxMemory ()
   let overrides := Lean.Internal.getOptionOverrides ()
   let overrideText := match overrides.find? `max_memory with

@@ -2,7 +2,7 @@
   "accessor_source_binding_sha256": "9dff679e6128c10df0976782ea6af487e3bc040291c5eb498c77bc9a6c8bbb58",
   "activation_admission": {
     "diagnostic_only": true,
-    "independent_source_review_sha256": "49a492d3b6f3ce034e6feadd54ff5d66301c3d90e3f7c41bd6563fff4ce4f988",
+    "independent_source_review_sha256": "94d3154d24fae6e129389f430e84b9a17499f724c4f1fa579d40843e60ce4681",
     "schema": "higher-heap-probe-activation-v1",
     "source_review_pending": false
   },
@@ -46,16 +46,16 @@
       "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
     },
     "probe/HeapProbe.lean": {
-      "bytes": 489,
-      "sha256": "421ff395e1577a148c15ea543aa72c4d63571a1c354877aae5d25ba325fb8817"
+      "bytes": 508,
+      "sha256": "c6475d94e51773faa53f5b8a4ff28082435e88838aabb21e8859cdc7be463afe"
     },
     "probe/README.md": {
-      "bytes": 3924,
-      "sha256": "1531f50ed76539bcaece91e73235e14ed309296aad19a659770e3413c7710ec0"
+      "bytes": 4593,
+      "sha256": "16fe23511e0d50a7df7c2e0ff9b2454b7bfa65424af540ea9980c5110678f68a"
     },
     "probe/heap_probe.py": {
-      "bytes": 19756,
-      "sha256": "3834ff72d95b670c802d6a93bc268ce0637ddee12411ee9826d0736d9db9758e"
+      "bytes": 19767,
+      "sha256": "c3f2b35fc05694a193db2eedc150a4350e8ed619b3cae639c5bafaea0f60956a"
     },
     "probe/provenance/ACCESSOR_SOURCE_BINDING.json": {
       "bytes": 955,
@@ -95,8 +95,8 @@
   "project_modules_recompiled": 0,
   "project_restore": false,
   "proof_certified": false,
-  "publication_branch": "verify/higher-heap-probe-20261018",
-  "publication_parent_commit": "ecf44513ecddd29507fec9f6046d47771fd6e0cd",
+  "publication_branch": "verify/higher-heap-probe-visibility-20261018",
+  "publication_parent_commit": "b4b69551fa78b5dbbf30bcd94e295944554bdbc9",
   "purpose": "compiled-default-and-max_memory-override-only",
   "review_status": "reviewed_for_execution",
   "rss_tree_bytes": 8589934592,
