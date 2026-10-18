@@ -553,9 +553,10 @@ def validate_commands(commands,evidence,expected,api):
                (not command['escaped_descendants'] or allowed),'unapproved escaped descendants/session policy')
         requested=spec['requested_timeout_seconds']; effective=command.get('effective_timeout_seconds')
         f.need(type(effective) is int and 0<effective<=requested and command.get('timeout_seconds')==effective,'effective timeout differs')
-        f.need(command.get('address_space_bytes')==12*GIB and command.get('max_created_file_bytes')==512*1024**2 and
+        address_space=spec.get('address_space_bytes',12*GIB)
+        f.need(command.get('address_space_bytes')==address_space and command.get('max_created_file_bytes')==512*1024**2 and
                command.get('max_log_bytes')==contract['per_command_log_max_bytes'],'command resource profile differs')
-        f.need(command.get('limits')=={'address_space_bytes':12*GIB,'rss_tree_bytes':8*GIB,'max_created_file_bytes':512*1024**2},'serialized command limits differ')
+        f.need(command.get('limits')=={'address_space_bytes':address_space,'rss_tree_bytes':8*GIB,'max_created_file_bytes':512*1024**2},'serialized command limits differ')
         duration=command.get('elapsed_seconds'); peak=command.get('peak_sampled_tree_rss_bytes')
         f.need(type(duration) in (int,float) and math.isfinite(duration) and duration>=0 and
                type(peak) is int and 0<=peak<=8*GIB,'invalid command resource observations'); elapsed+=duration

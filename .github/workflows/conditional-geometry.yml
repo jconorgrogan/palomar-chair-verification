@@ -1,7 +1,7 @@
 name: Higher dimensions three and at least five
 'on':
   push:
-    branches: ['verify/higher-h5-read-diagnostic-20261018']
+    branches: ['verify/higher-h5-as24-20261018']
 permissions:
   contents: read
   actions: read
@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python3 -I -B ci/cache_diagnostic.py
-          --contract-sha256 aa6ae7a64d5e8b00e358887ad5d085127b1e318bd8b291ef7ba8ac59886c9369
+          --contract-sha256 3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630
           --stage H5_higher_assembly
           --work "${{ runner.temp }}/conditional-geometry"
       - name: Preserve bounded stage evidence

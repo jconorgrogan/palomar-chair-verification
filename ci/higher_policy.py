@@ -16,6 +16,12 @@ H5_RETRY_MODE='exact-historical-H0-H3-for-H5-read-diagnostic-v1'
 H5_PRODUCER_SHA='29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21'
 H5_PRODUCER_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','run_id':'39134139440','run_attempt':'1','workflow_commit':'db18549f7ad64d5d62c4f9432f8f804ab375375c'}
 def h5_retry(c):return c.get('higher_h5_retry_mode')==H5_RETRY_MODE
+def raw_as24(c):return 'higher_h5_raw_auditor_address_space_gib' in c
+def command_address_space_bytes(c,name,a):
+    if raw_as24(c):
+        a.f.need(h5_retry(c) and type(c['higher_h5_raw_auditor_address_space_gib']) is int and c['higher_h5_raw_auditor_address_space_gib']==24,'unapproved raw-auditor AS profile')
+        if name=='audit-AuditHigherPhysicalEndpoints':return 24*a.GIB
+    return 12*a.GIB
 def producer_cache_role(c,sid,a):
     a.f.need(sid in OLD+HSTAGES,'unknown native cache role')
     if sid in OLD:
@@ -30,6 +36,8 @@ def digest(value):return hashlib.sha256((json.dumps(value,sort_keys=True,indent=
 def profile(c,a):
     a.f.need('higher_recovery_mode' not in c or recovery(c),'unknown higher recovery mode')
     a.f.need('higher_h5_retry_mode' not in c or (h5_retry(c) and recovery(c)),'unknown H5-only retry mode')
+    if raw_as24(c):validate_raw_as24_scope(c,a)
+    else:a.f.need('higher_h5_as24' not in c,'AS24 scope lacks fixed resource profile')
     if h5_retry(c):validate_h5_retry_scope(c,a)
     expected={'schema':SCHEMA,'owned_module_count':1433,'fresh_higher_module_count':1138,'retained_historical_module_count':295,'higher_mathematical_closure_count':1154,'retained_context_outside_higher_closure_count':279,'lean_heap_mib':4096,'diagnostic_rss_gib':8,'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'outer_timeout_minutes':330,'aggregate_command_deadline_seconds':19200,'maximum_parallel_jobs':4,'stage_count':8,'workflow_job_count':6,'workflow_aggregate_seconds':115200,'workflow_outer_runner_minutes':1980,'object_artifact_max_bytes':4*a.GIB,'object_artifact_zip_max_bytes':4*a.GIB+4*1024**2,'producer_job_log_max_bytes':16*1024**2,'transport_timeout_seconds':1800,'failure_evidence_grace_seconds':5,'owned_output_max_bytes':6*a.GIB,'owned_source_max_bytes':32*1024**2,'evidence_max_bytes':124*1024**2,'aggregate_log_max_bytes':64*1024**2,'per_command_log_max_bytes':1024**2,'minimum_free_disk_bytes':1536*1024**2,'auditor_timeout_seconds':600,'cache_module_count':2805}
     if recovery(c):expected.update(workflow_job_count=5,workflow_aggregate_seconds=96000,workflow_outer_runner_minutes=1650,fresh_execution_module_count=834,retained_higher_module_count=304)
@@ -54,13 +62,20 @@ def validate_h5_retry_scope(c,a):
       'diagnostic_source_review_sha256':'e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc',
       'diagnostic_proposal_sha256':'bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa',
       'failed_h5_terminal_review_sha256':'b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01',
-      'failed_h5_objects_reused':False,'fresh_h5_module_count':27,'all_per_command_and_per_job_caps_unchanged':True}
+      'failed_h5_objects_reused':False,'fresh_h5_module_count':27,'all_per_command_and_per_job_caps_unchanged':not raw_as24(c)}
     a.f.need(c.get('higher_h5_retry')==expected,'H5 retry scope/provenance differs')
-    a.f.need(c['publication_branch']=='verify/higher-h5-read-diagnostic-20261018','H5 retry branch differs')
+    a.f.need(c['publication_branch']==('verify/higher-h5-as24-20261018' if raw_as24(c) else 'verify/higher-h5-read-diagnostic-20261018'),'H5 retry branch differs')
     for path,sha in [('origin/higher-h5-diagnostic-independent-review.json',expected['diagnostic_source_review_sha256']),
                      ('origin/higher-h5-diagnostic-proposal-review.json',expected['diagnostic_proposal_sha256']),
                      ('origin/failed-h5-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
         a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'H5 retry source evidence changed')
+
+def validate_raw_as24_scope(c,a):
+    command_address_space_bytes(c,'audit-AuditHigherPhysicalEndpoints',a)
+    expected={'schema': 'higher-h5-raw-auditor-as24-v1', 'previous_contract_sha256': 'aa6ae7a64d5e8b00e358887ad5d085127b1e318bd8b291ef7ba8ac59886c9369', 'failed_run_identity': {'repository': 'jconorgrogan/palomar-chair-verification', 'run_id': '39150122418', 'run_attempt': '1', 'workflow_commit': '31143d79da8970f60dec6227cb97fd5470321209'}, 'failed_h5_terminal_review_sha256': 'ed35605dbb4a4ea88ab9e0c1a8e2a9bf8775ec9c712c5aa3c5015ed11f656837', 'raw_auditor_command': 'audit-AuditHigherPhysicalEndpoints', 'previous_address_space_bytes': 12884901888, 'address_space_bytes': 25769803776, 'rss_tree_bytes': 8589934592, 'other_commands_address_space_bytes': 12884901888, 'other_command_and_job_limits_unchanged': True, 'failed_h5_objects_reused': False, 'fresh_h5_module_count': 27}
+    a.f.need(c.get('higher_h5_as24')==expected,'raw-auditor AS24 scope/provenance differs')
+    for path,sha in [('origin/higher-h5-as12-contract.json',expected['previous_contract_sha256']),('origin/failed-h5-as12-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
+        a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'AS24 prior source/evidence changed')
 
 def validate_control_layout(c,a):
     old_path='origin/HigherInspectorControl.original.lean';new_path='auditors/HigherInspectorControl.lean';lock_path='locks/higher-control-layout-repair.json'
@@ -282,6 +297,7 @@ def auditor_specs(c,work,runtime,search,a):
         add('check-auditor-'+name,[runtime/'bin/leanchecker',name],env,sources,[work/'home',work/'tmp'],work/'auditors',120)
     env=a.safe_env(runtime,work/'home',work/'tmp');env['MATHLIB_CACHE_DIR']=str(work/'cache');env['LEAN_PATH']=':'.join(map(str,[work/'auditor-objects',work/'reference-objects',work/'objects',*map(Path,search),runtime/'lib/lean']))
     add('audit-AuditHigherPhysicalEndpoints',[runtime/'bin/lean','-j1','-M4096','--run',work/'auditors/AuditHigherPhysicalEndpoints.lean'],env,[work/'auditors',work/'auditor-objects',work/'reference-objects',work/'objects',work/'packages'],[work/'home',work/'tmp'],work/'auditors',c['auditor_timeout_seconds'])
+    if raw_as24(c):specs[-1]['address_space_bytes']=command_address_space_bytes(c,specs[-1]['name'],a)
     for row in specs:row['argv']=list(map(str,row['argv']))
     return specs
 

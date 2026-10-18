@@ -5,11 +5,11 @@ import argparse,signal,tarfile,zlib,hashlib,importlib.util,json,os,re,shutil,sta
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Workflow invokes Python -I -B. Check code bytes before loading vendored helpers.
-HELPERS={'higher_policy.py':'48880f252e91bf79f5675f8865cba342ba83ce23e5bbc29ff0cddcd8868d73e2',
+HELPERS={'higher_policy.py':'6594fa06b9e6cac1356bb908d10fbffb4190b23259265602019b3e9512c416bb',
  'fresh_stage.py':'6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8',
  'toolchain_install.py':'9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038',
  'collect_evidence.py':'1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a',
- 'conditional_transport.py':'b704976a7a2ad66718466fa01290ca269d348d48420af7f794df43e27d93d67f',
+ 'conditional_transport.py':'d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e',
  'source_header.py':'3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701'}
 if set(p.name for p in (ROOT/'ci').iterdir()) != {'cache_diagnostic.py',*HELPERS}:
     raise RuntimeError('unexpected helper-directory entry')
@@ -790,17 +790,18 @@ def main():
         requested_seconds=seconds
         seconds=min(seconds,max(1,int(deadline-time.monotonic())))
         validate_session_policy(name,list(map(str,argv)),allowed_sessions,work,contract)
+        address_space=higher.command_address_space_bytes(contract,name,sys.modules[__name__])
         out=work/'logs'/(name+'.stdout');err=work/'logs'/(name+'.stderr')
         watchdog.in_command=True
         try:
             r=f.run_process(list(map(str,argv)),cwd=cwd or work,env=env or safe_env(runtime or Path('/usr'),work/'home',work/'tmp'),timeout=seconds,stdout=out,stderr=err,max_log_bytes=contract['per_command_log_max_bytes'],
-              limits={'address_space_bytes':12*GIB,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions)
+              limits={'address_space_bytes':address_space,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions)
         finally:
             watchdog.in_command=False
             if watchdog.expired:watchdog.failure_receipt_grace()
-        r.update(timeout_seconds=seconds,max_log_bytes=contract['per_command_log_max_bytes'],limits={'address_space_bytes':12*GIB,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions,
+        r.update(timeout_seconds=seconds,max_log_bytes=contract['per_command_log_max_bytes'],limits={'address_space_bytes':address_space,'rss_tree_bytes':rss,'max_created_file_bytes':512*1024**2},allow_new_sessions=allowed_sessions,
           requested_timeout_seconds=requested_seconds,effective_timeout_seconds=seconds,
-          max_rss_bytes=rss,address_space_bytes=12*GIB,max_created_file_bytes=512*1024**2,name=name,argv=list(map(str,argv)),cwd=str(cwd or work),stdout_sha256=f.file_sha(out),stderr_sha256=f.file_sha(err));commands.append(r)
+          max_rss_bytes=rss,address_space_bytes=address_space,max_created_file_bytes=512*1024**2,name=name,argv=list(map(str,argv)),cwd=str(cwd or work),stdout_sha256=f.file_sha(out),stderr_sha256=f.file_sha(err));commands.append(r)
         with (work/'evidence/commands.jsonl').open('a') as h:h.write(json.dumps(r,sort_keys=True,separators=(',',':'))+'\n')
         result['command_count']=len(commands);result['complete_log_bytes']+=out.stat().st_size+err.stat().st_size
         f.need(result['complete_log_bytes']<=contract['aggregate_log_max_bytes'],'aggregate complete log bound exceeded')

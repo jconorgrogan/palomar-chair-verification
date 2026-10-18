@@ -2,9 +2,8 @@
   "activation_admission": {
     "endpoint_audits_pending": true,
     "fresh_native_readmission_required": true,
-    "independent_source_review_sha256": "5f4e377cea3bd25be4e443cfdcc217382d1d834e8c71be42ddb26de970a107f1",
-    "prior_diagnostic_source_review_sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc",
-    "schema": "higher-h5-read-diagnostic-successor-v1",
+    "independent_source_review_sha256": "48908ab2955402d57a5de3978bf4bf2b2d613f47967a77de8ec5befe5fa6bced",
+    "schema": "higher-h5-raw-auditor-as24-successor-v1",
     "source_review_pending": false
   },
   "aggregate_command_deadline_seconds": 19200,
@@ -157,7 +156,7 @@
   "deadline_policy": "The original absolute320-minute deadline bounds all acceptance work. Host SIGALRM interrupts blocked I/O and starts one five-second failure-only collection grace. Only the pinned process runner defers the first alarm until its bounded cleanup finishes, then uses that same single-use failure grace. Repeated one-second alarms prevent swallowed expiry during failure handling. Every expiry unconditionally rejects acceptance; the outer330-minute job ceiling is unchanged.",
   "diagnostic_rss_gib": 8,
   "diagnostic_timeout_seconds": 180,
-  "distribution_file_count": 73,
+  "distribution_file_count": 81,
   "distribution_files": [
     ".github/workflows/conditional-geometry.yml",
     "LICENSE",
@@ -202,6 +201,10 @@
     "origin/base-required-modules.json",
     "origin/continuation-producer-contract.json",
     "origin/continuation-producer-origins.json",
+    "origin/failed-h5-as12-ir-observation.json",
+    "origin/failed-h5-as12-last-command.json",
+    "origin/failed-h5-as12-result.json",
+    "origin/failed-h5-as12-terminal-review.json",
     "origin/failed-h5-last-command.json",
     "origin/failed-h5-terminal-review.json",
     "origin/higher-green-original-README.md",
@@ -210,6 +213,9 @@
     "origin/higher-h0-h3-producer-contract.json",
     "origin/higher-h0-h3-producer-origins.json",
     "origin/higher-h1-h3-descriptor-review.json",
+    "origin/higher-h5-as12-contract.json",
+    "origin/higher-h5-as12-original-README.md",
+    "origin/higher-h5-as12-tests/test_higher_recovery.py",
     "origin/higher-h5-diagnostic-independent-review.json",
     "origin/higher-h5-diagnostic-proposal-review.json",
     "origin/higher-interface-identity.json",
@@ -225,6 +231,7 @@
     "origin/producer-owned-sources.json",
     "owned-sources.tar.gz",
     "tests/test_conditional_transport.py",
+    "tests/test_h5_as24.py",
     "tests/test_h5_retry.py",
     "tests/test_higher_composition.py",
     "tests/test_higher_recovery.py",
@@ -261,8 +268,28 @@
   "higher_h4_byte_witness_sha256": "9cca4e9a49876bc12b44d7e3415811a8b6e406b6c6d3e338ed61582ad8e279e5",
   "higher_h4_original_run_terminal_conclusion": "failure",
   "higher_h4_payload_selection_review_sha256": "304b608751ebd262577fd9390afddd5bfff4ce481687d21b95028c3e5cc95ed8",
+  "higher_h5_as24": {
+    "address_space_bytes": 25769803776,
+    "failed_h5_objects_reused": false,
+    "failed_h5_terminal_review_sha256": "ed35605dbb4a4ea88ab9e0c1a8e2a9bf8775ec9c712c5aa3c5015ed11f656837",
+    "failed_run_identity": {
+      "repository": "jconorgrogan/palomar-chair-verification",
+      "run_attempt": "1",
+      "run_id": "39150122418",
+      "workflow_commit": "31143d79da8970f60dec6227cb97fd5470321209"
+    },
+    "fresh_h5_module_count": 27,
+    "other_command_and_job_limits_unchanged": true,
+    "other_commands_address_space_bytes": 12884901888,
+    "previous_address_space_bytes": 12884901888,
+    "previous_contract_sha256": "aa6ae7a64d5e8b00e358887ad5d085127b1e318bd8b291ef7ba8ac59886c9369",
+    "raw_auditor_command": "audit-AuditHigherPhysicalEndpoints",
+    "rss_tree_bytes": 8589934592,
+    "schema": "higher-h5-raw-auditor-as24-v1"
+  },
+  "higher_h5_raw_auditor_address_space_gib": 24,
   "higher_h5_retry": {
-    "all_per_command_and_per_job_caps_unchanged": true,
+    "all_per_command_and_per_job_caps_unchanged": false,
     "diagnostic_proposal_sha256": "bbfdaf39e91bc7de9d7f4b24ba1922c4746b646f9f1babc59da16ec203d94eaa",
     "diagnostic_source_review_sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc",
     "failed_h5_objects_reused": false,
@@ -312,6 +339,14 @@
     "schema": "higher-green-control-successor-v1",
     "source_review_pending": false
   },
+  "historical_h5_diagnostic_activation_admission": {
+    "endpoint_audits_pending": true,
+    "fresh_native_readmission_required": true,
+    "independent_source_review_sha256": "5f4e377cea3bd25be4e443cfdcc217382d1d834e8c71be42ddb26de970a107f1",
+    "prior_diagnostic_source_review_sha256": "e9d1d4c8d7cc7f6ccb4d3a86fb478cfc3d10913c2179318b6ad1ae0e0f2516cc",
+    "schema": "higher-h5-read-diagnostic-successor-v1",
+    "source_review_pending": false
+  },
   "independent_auditor_preflight_stages": [
     "H0_common",
     "H5_higher_assembly"
@@ -322,8 +357,8 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     "README.md": {
-      "bytes": 1595,
-      "sha256": "98bf4a5cfc40533faafa0db57e6404c8e315aeb520b9493667821e27ecc3364a"
+      "bytes": 1489,
+      "sha256": "4957c4c23242f2faf390b81871f869db2ff9b3ffe33b34701bdb1969a0029624"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1007,
@@ -350,24 +385,24 @@
       "sha256": "bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea"
     },
     "ci/cache_diagnostic.py": {
-      "bytes": 81807,
-      "sha256": "00a7f028faffa09d990fbd461df3816bf746d9264995a71957f6ffa786948add"
+      "bytes": 81922,
+      "sha256": "b2aac74130706a6b3360215e2632985ede29cf51f108959d88708cd6665a9504"
     },
     "ci/collect_evidence.py": {
       "bytes": 22654,
       "sha256": "1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a"
     },
     "ci/conditional_transport.py": {
-      "bytes": 55417,
-      "sha256": "b704976a7a2ad66718466fa01290ca269d348d48420af7f794df43e27d93d67f"
+      "bytes": 55492,
+      "sha256": "d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e"
     },
     "ci/fresh_stage.py": {
       "bytes": 50298,
       "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
     },
     "ci/higher_policy.py": {
-      "bytes": 51059,
-      "sha256": "48880f252e91bf79f5675f8865cba342ba83ce23e5bbc29ff0cddcd8868d73e2"
+      "bytes": 53065,
+      "sha256": "6594fa06b9e6cac1356bb908d10fbffb4190b23259265602019b3e9512c416bb"
     },
     "ci/source_header.py": {
       "bytes": 2551,
@@ -481,6 +516,22 @@
       "bytes": 4600,
       "sha256": "16c3d4fc58ea482aff237d261ca5e8d27aa8a3e61ef716200bdaa0154de95641"
     },
+    "origin/failed-h5-as12-ir-observation.json": {
+      "bytes": 658,
+      "sha256": "4f4c2e842e4ce48db3cf9d74843734400fcfb44f07eba83fc5470e2025b16a72"
+    },
+    "origin/failed-h5-as12-last-command.json": {
+      "bytes": 5168,
+      "sha256": "71e3e95fba76da03a3212fbde777e84981aaad30aada5a12ce5b15b557374440"
+    },
+    "origin/failed-h5-as12-result.json": {
+      "bytes": 3197,
+      "sha256": "72f6f91584e5a13ec6db647f799a9f38fcc31b3e604da99db702ea1ee8b5ae53"
+    },
+    "origin/failed-h5-as12-terminal-review.json": {
+      "bytes": 26883,
+      "sha256": "ed35605dbb4a4ea88ab9e0c1a8e2a9bf8775ec9c712c5aa3c5015ed11f656837"
+    },
     "origin/failed-h5-last-command.json": {
       "bytes": 5022,
       "sha256": "ceeee4d8d1ebaacde42dbf023455b43a38078585207908d250485e0dc98c415e"
@@ -512,6 +563,18 @@
     "origin/higher-h1-h3-descriptor-review.json": {
       "bytes": 1499,
       "sha256": "81d6b922b4f61bd162ac3bf8a138fb9e413ca31bc1b7aa943e236b36a6155d78"
+    },
+    "origin/higher-h5-as12-contract.json": {
+      "bytes": 546641,
+      "sha256": "aa6ae7a64d5e8b00e358887ad5d085127b1e318bd8b291ef7ba8ac59886c9369"
+    },
+    "origin/higher-h5-as12-original-README.md": {
+      "bytes": 1595,
+      "sha256": "98bf4a5cfc40533faafa0db57e6404c8e315aeb520b9493667821e27ecc3364a"
+    },
+    "origin/higher-h5-as12-tests/test_higher_recovery.py": {
+      "bytes": 13643,
+      "sha256": "ac2d617d278b1251bfb76ed024eed1a777c61a2768f00afc191e8c288b89359d"
     },
     "origin/higher-h5-diagnostic-independent-review.json": {
       "bytes": 2560,
@@ -6301,6 +6364,10 @@
       "bytes": 30569,
       "sha256": "ebcf263a322e09084edaf84fba5248f691dd07b5348f466892ac14b8a94eebd8"
     },
+    "tests/test_h5_as24.py": {
+      "bytes": 10645,
+      "sha256": "082fcfe7c050b5788be0457ad55649d64b80f409d3aceeb5afa1df319ba94636"
+    },
     "tests/test_h5_retry.py": {
       "bytes": 7146,
       "sha256": "df32933c0552b9bd85b90acb7b3f7da1b84f9ce01553fed100c7d74913155abe"
@@ -6310,8 +6377,8 @@
       "sha256": "eab185359a547d6a26a6d573af626418e0a9697fe2ee03f8f38e958e6732f1a6"
     },
     "tests/test_higher_recovery.py": {
-      "bytes": 13643,
-      "sha256": "ac2d617d278b1251bfb76ed024eed1a777c61a2768f00afc191e8c288b89359d"
+      "bytes": 14633,
+      "sha256": "f952bc31ba11d7896610e7aa847ab3a81fe72af32e303eddd054e2c0682494ea"
     },
     "tests/test_higher_replay.py": {
       "bytes": 13222,
@@ -12154,8 +12221,8 @@
   },
   "producer_job_log_max_bytes": 16777216,
   "proof_scope": "higher-dimension-sources-and-c-free-endpoints",
-  "publication_branch": "verify/higher-h5-read-diagnostic-20261018",
-  "publication_parent_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c",
+  "publication_branch": "verify/higher-h5-as24-20261018",
+  "publication_parent_commit": "31143d79da8970f60dec6227cb97fd5470321209",
   "retained_context_outside_higher_closure_count": 279,
   "retained_higher_module_count": 1111,
   "retained_historical_module_count": 295,
