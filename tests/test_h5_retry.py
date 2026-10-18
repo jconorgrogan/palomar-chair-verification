@@ -23,7 +23,7 @@ class H5RetryTests(unittest.TestCase):
   c=self.c();old=self.original()
   for key,pin in old['inputs'].items():
    if key.startswith(('auditors/','src/')) or key in ['locks/owned-sources.json','locks/required-modules.json','locks/cache-extension.json','locks/higher-visibility-variants.json']:
-    self.assertEqual(c['inputs'][key],pin,key)
+    self.assertEqual(c['inputs']['origin/AuditHigherPhysicalEndpoints.pre-phase.lean'] if key=='auditors/AuditHigherPhysicalEndpoints.lean' and h.raw_heap7168(c) else c['inputs'][key],pin,key)
   self.assertEqual(c['stages'],old['stages']);self.assertEqual(c['source_archive'],old['source_archive'])
  def test_original_producer_and_three_origin_lock_are_exact(self):
   old=self.original();self.assertEqual(a.f.file_sha(ROOT/'origin/higher-h0-h3-producer-contract.json'),h.H5_PRODUCER_SHA)

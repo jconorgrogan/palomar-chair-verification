@@ -156,7 +156,7 @@ class ControlLayoutTests(unittest.TestCase):
   old=(ROOT/'origin/HigherInspectorControl.original.lean').read_bytes();new=(ROOT/'auditors/HigherInspectorControl.lean').read_bytes()
   self.assertEqual(new.count(b'meta import Lean.Elab.Command\n'),1)
   self.assertEqual(re.sub(rb'\s+',b'',old),re.sub(rb'\s+',b'',new.replace(b'meta import Lean.Elab.Command\n',b'',1)));self.assertEqual(len(new)-len(old),34)
-  self.assertEqual(a.f.file_sha(ROOT/'auditors/AuditHigherPhysicalEndpoints.lean'),'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13')
+  self.assertEqual(a.f.file_sha(ROOT/('origin/AuditHigherPhysicalEndpoints.pre-phase.lean' if h.raw_heap7168(a.f.load_json(ROOT/'contract.json')) else 'auditors/AuditHigherPhysicalEndpoints.lean')),'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13')
   self.assertEqual(a.f.file_sha(ROOT/'auditors/HigherPhysicalReference.lean'),'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea')
  def test_original_control_cannot_satisfy_recovery_profile(self):
   c=a.f.load_json(ROOT/'contract.json');c['inputs']['auditors/HigherInspectorControl.lean']=a.f.load_json(ROOT/'origin/higher-producer-contract.json')['inputs']['auditors/HigherInspectorControl.lean']

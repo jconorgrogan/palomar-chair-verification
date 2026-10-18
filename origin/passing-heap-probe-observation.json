@@ -1,0 +1,12 @@
+{
+  "argv_heap_mib": 5120,
+  "compiled_default_mib": 0,
+  "failed_auditor_process_observed": false,
+  "override_kind": "absent",
+  "override_present": false,
+  "override_value_mib": null,
+  "phase": "early-standalone-Lean.Shell-before-project-restore",
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "runtime_threshold_directly_observed": false,
+  "schema": "lean-compiled-heap-options-observation-v1"
+}

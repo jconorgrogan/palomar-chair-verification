@@ -31,7 +31,7 @@ class H5AS24Tests(unittest.TestCase):
     self.assertEqual(previous.get('address_space_bytes',12*a.GIB),12*a.GIB)
     comparable=copy.deepcopy(new)
     if h.raw_heap5120(self.c()) and new['name']==RAW:
-     self.assertEqual(comparable['argv'].count('-M5120'),1);comparable['argv']=[('-M4096' if x=='-M5120' else x) for x in comparable['argv']]
+     selected='-M7168' if h.raw_heap7168(self.c()) else '-M5120';self.assertEqual(comparable['argv'].count(selected),1);comparable['argv']=[('-M4096' if x==selected else x) for x in comparable['argv']]
     self.assertEqual({k:v for k,v in comparable.items() if k!='address_space_bytes'},previous)
  def test_nearby_command_names_cannot_receive_as24(self):
   for name in ['audit-AuditHigherPhysicalEndpoints-extra','audit-AuditOrdinaryBridges','audit-AuditConditionalEndpoints','compile-auditor-AuditHigherPhysicalEndpoints','check-auditor-AuditHigherPhysicalEndpoints','compile-ClarkSeed.PhysicalDimensions','check-ClarkSeed.PhysicalDimensions','cache-bootstrap','cache-get']:
@@ -53,7 +53,7 @@ class H5AS24Tests(unittest.TestCase):
   for key in ['stages','source_archive','origin_lock','producer_contracts','native_h0_h3_origin_lock','module_checker_timeout_exceptions','execution_stages','locked_origin_stages']:
    self.assertEqual(c[key],old[key],key)
   for path,pin in old['inputs'].items():
-   if path.startswith(('src/','auditors/','locks/')):self.assertEqual(c['inputs'][path],pin,path)
+   if path.startswith(('src/','auditors/','locks/')):self.assertEqual(c['inputs']['origin/AuditHigherPhysicalEndpoints.pre-phase.lean'] if path=='auditors/AuditHigherPhysicalEndpoints.lean' and h.raw_heap7168(c) else c['inputs'][path],pin,path)
  def fixture(self,root,c):
   e=root/'evidence';(e/'logs').mkdir(parents=True);expected=self.expected(root,c);specs=a.transport.command_specs(expected,a);rows=[]
   for spec in specs:

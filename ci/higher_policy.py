@@ -18,6 +18,8 @@ H5_PRODUCER_IDENTITY={'repository':'jconorgrogan/palomar-chair-verification','ru
 def h5_retry(c):return c.get('higher_h5_retry_mode')==H5_RETRY_MODE
 def raw_as24(c):return 'higher_h5_raw_auditor_address_space_gib' in c
 def raw_heap5120(c):return 'higher_h5_raw_auditor_heap_mib' in c
+def raw_heap7168(c):return 'higher_h5_heap7168' in c
+PHASE_MARKERS=['HIGHER_AUDIT_PHASE entry', 'HIGHER_AUDIT_PHASE reference_import_returned', 'HIGHER_AUDIT_PHASE project_import_returned', 'HIGHER_AUDIT_PHASE model_checked', 'HIGHER_AUDIT_PHASE endpoint_checked', 'HIGHER_AUDIT_PHASE endpoint_checked']
 def command_address_space_bytes(c,name,a):
     if raw_as24(c):
         a.f.need(h5_retry(c) and type(c['higher_h5_raw_auditor_address_space_gib']) is int and c['higher_h5_raw_auditor_address_space_gib']==24,'unapproved raw-auditor AS profile')
@@ -37,6 +39,7 @@ def digest(value):return hashlib.sha256((json.dumps(value,sort_keys=True,indent=
 def profile(c,a):
     a.f.need('higher_recovery_mode' not in c or recovery(c),'unknown higher recovery mode')
     a.f.need('higher_h5_retry_mode' not in c or (h5_retry(c) and recovery(c)),'unknown H5-only retry mode')
+    if raw_heap7168(c):validate_raw_heap7168_scope(c,a)
     if raw_heap5120(c):validate_raw_heap5120_scope(c,a)
     else:a.f.need('higher_h5_heap5120' not in c,'heap5120 scope lacks fixed profile')
     if raw_as24(c):validate_raw_as24_scope(c,a)
@@ -50,7 +53,7 @@ def profile(c,a):
     for k,v in {'all_dimension_uniform_proof_certified':False,'final_C_proof_certified':False,'unconditional_monotile_proof_certified':False,'higher_endpoints_have_no_C_premise':True,'fresh_external_source_rebuild':False,'owned_objects_from_prior_runs_allowed':True,'owned_objects_from_same_run_checked_stages_allowed':True,'fresh_research_modules_exactly_once':True}.items():a.f.need(c.get(k) is v,'higher claim/trust differs: '+k)
     a.f.need(c.get('proof_scope')=='higher-dimension-sources-and-c-free-endpoints' and c.get('independent_auditor_preflight_stages')==['H0_common','H5_higher_assembly'],'higher proof/preflight scope differs')
     a.f.need(c.get('higher_reference_static_review_sha256')=='392e108004b6feb0726e0de8d48e84debb5d666be280fe6a00d484510f2688dd','higher reference review differs')
-    for name,pin in {'AuditHigherPhysicalEndpoints':(10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((7009,'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
+    for name,pin in {'AuditHigherPhysicalEndpoints':((11041, 'da9184e13ef0cbdc7b90b4d206a23bfda7aaef5175590d13084a4a325798e5f8') if raw_heap7168(c) else (10780,'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13')),'HigherPhysicalReference':(2138,'bcf383a13467b15ce7b55e1e4a171bab4f86439e696b0a30ebd13769236c15ea'),'HigherInspectorControl':((7009,'c19d8b660c981e205956b092775b6c8f44f7c6eabae795e9278f316530ca1fe4') if recovery(c) else (6975,'017aadfea7927f7957a5143bcfa8f93af37214ef56f62881e8bddb05af34e482'))}.items():
         a.f.need(c['inputs'].get('auditors/'+name+'.lean')=={'bytes':pin[0],'sha256':pin[1]},'higher independent source pin differs')
     a.f.need(c.get('higher_visibility_variant_lock_sha256')=='3621fde9a869de3f0fc4f3f312c142e13df0d5672f34b1402b10cf9b99f475be' and c.get('higher_visibility_independent_review_sha256')=='a583afc1d571b60f41a349d0797fd8f373ac190b92598ec35ee85d2777338373' and c.get('higher_visibility_actual_elaboration_pending') is True,'higher visibility provenance differs')
     a.f.need(c['execution_stages']==([HSTAGES[-1]] if h5_retry(c) else [s for s in HSTAGES if s!=H4_STAGE] if recovery(c) else HSTAGES) and c['locked_origin_stages']==(OLD+HSTAGES[:-1] if h5_retry(c) else OLD+[H4_STAGE] if recovery(c) else OLD) and c['higher_endpoints']==TARGETS and c['higher_target']=='ClarkSeed.PhysicalDimensions','higher execution or theorem scope differs')
@@ -67,7 +70,7 @@ def validate_h5_retry_scope(c,a):
       'failed_h5_terminal_review_sha256':'b3316faad3cda79182e2eca04ac0a8630fc9bd17fb496f5644d340bbcd834a01',
       'failed_h5_objects_reused':False,'fresh_h5_module_count':27,'all_per_command_and_per_job_caps_unchanged':not raw_as24(c)}
     a.f.need(c.get('higher_h5_retry')==expected,'H5 retry scope/provenance differs')
-    a.f.need(c['publication_branch']==('verify/higher-h5-heap5120-20261018' if raw_heap5120(c) else 'verify/higher-h5-as24-20261018' if raw_as24(c) else 'verify/higher-h5-read-diagnostic-20261018'),'H5 retry branch differs')
+    a.f.need(c['publication_branch']==('verify/higher-h5-heap7168-20261018' if raw_heap7168(c) else 'verify/higher-h5-heap5120-20261018' if raw_heap5120(c) else 'verify/higher-h5-as24-20261018' if raw_as24(c) else 'verify/higher-h5-read-diagnostic-20261018'),'H5 retry branch differs')
     for path,sha in [('origin/higher-h5-diagnostic-independent-review.json',expected['diagnostic_source_review_sha256']),
                      ('origin/higher-h5-diagnostic-proposal-review.json',expected['diagnostic_proposal_sha256']),
                      ('origin/failed-h5-terminal-review.json',expected['failed_h5_terminal_review_sha256'])]:
@@ -81,11 +84,25 @@ def validate_raw_as24_scope(c,a):
         a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'AS24 prior source/evidence changed')
 
 def validate_raw_heap5120_scope(c,a):
-    a.f.need(h5_retry(c) and raw_as24(c) and type(c['higher_h5_raw_auditor_heap_mib']) is int and c['higher_h5_raw_auditor_heap_mib']==5120,'unapproved raw-auditor heap profile')
+    a.f.need(h5_retry(c) and raw_as24(c) and type(c['higher_h5_raw_auditor_heap_mib']) is int and c['higher_h5_raw_auditor_heap_mib']==(7168 if raw_heap7168(c) else 5120),'unapproved raw-auditor heap profile')
     expected={'schema': 'higher-h5-raw-auditor-heap5120-v1', 'previous_contract_sha256': '3e38bbd56e30868f63be4f8ff68485c0b4a643117bf78b763472c245b07f6630', 'failed_run_identity': {'repository': 'jconorgrogan/palomar-chair-verification', 'run_id': '39156079183', 'run_attempt': '1', 'workflow_commit': 'f20a3135ad6f49dd3a8050053d1affd885891016'}, 'failed_h5_terminal_review_sha256': '3a86ac46a3edd66af0839c47d08e3571c80839dbea014e5b22ff22eadf7ccd95', 'official_memory_source_binding_sha256': 'b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608', 'raw_auditor_command': 'audit-AuditHigherPhysicalEndpoints', 'previous_lean_heap_mib': 4096, 'lean_heap_mib': 5120, 'address_space_bytes': 25769803776, 'rss_tree_bytes': 8589934592, 'all_other_command_arguments_and_limits_unchanged': True, 'failed_h5_objects_reused': False, 'fresh_h5_module_count': 27}
     a.f.need(c.get('higher_h5_heap5120')==expected,'raw-auditor heap5120 scope/provenance differs')
     for path,sha in [('origin/higher-h5-as24-contract.json',expected['previous_contract_sha256']),('origin/failed-h5-as24-terminal-review.json',expected['failed_h5_terminal_review_sha256']),('origin/lean-memory/SOURCE_BINDING.json',expected['official_memory_source_binding_sha256'])]:
         a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'heap5120 prior source/evidence changed')
+
+def validate_raw_heap7168_scope(c,a):
+    a.f.need(h5_retry(c) and raw_as24(c) and type(c.get('higher_h5_raw_auditor_heap_mib')) is int and c['higher_h5_raw_auditor_heap_mib']==7168,'unapproved raw-auditor heap7168 profile')
+    expected={'schema': 'higher-h5-raw-auditor-heap7168-phases-v1', 'previous_contract_sha256': '89e2b374396499ec38cb44ee3fa51a1be8570de4d6026d828b3e2101d6d1354c', 'failed_run_identity': {'repository': 'jconorgrogan/palomar-chair-verification', 'run_id': '39159721608', 'run_attempt': '1', 'workflow_commit': 'ecf44513ecddd29507fec9f6046d47771fd6e0cd'}, 'failed_h5_terminal_review_sha256': 'fb9c28a8f31be7e8a096e8669501f9516ee58960694fdfa976bb5cd172b367e7', 'passing_standalone_probe_terminal_review_sha256': '92233727f10d2d6f4e43d6433b846cf2d4e0805523606c9e32e9f7843b5bbf59', 'raw_auditor_command': 'audit-AuditHigherPhysicalEndpoints', 'previous_lean_heap_mib': 5120, 'lean_heap_mib': 7168, 'address_space_bytes': 25769803776, 'rss_tree_bytes': 8589934592, 'all_other_command_arguments_and_limits_unchanged': True, 'failed_h5_objects_reused': False, 'fresh_h5_module_count': 27, 'phase_markers': ['HIGHER_AUDIT_PHASE entry', 'HIGHER_AUDIT_PHASE reference_import_returned', 'HIGHER_AUDIT_PHASE project_import_returned', 'HIGHER_AUDIT_PHASE model_checked', 'HIGHER_AUDIT_PHASE endpoint_checked', 'HIGHER_AUDIT_PHASE endpoint_checked'], 'phase_peaks_observed': False, 'failure_location_exact': False, 'prior_auditor': {'bytes': 10780, 'sha256': 'ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13'}, 'marked_auditor': {'bytes': 11041, 'sha256': 'da9184e13ef0cbdc7b90b4d206a23bfda7aaef5175590d13084a4a325798e5f8'}}
+    a.f.need(c.get('higher_h5_heap7168')==expected,'raw-auditor heap7168 scope/provenance differs')
+    for path,sha in [('origin/higher-h5-heap5120-contract.json',expected['previous_contract_sha256']),('origin/failed-h5-heap5120-terminal-review.json',expected['failed_h5_terminal_review_sha256']),('origin/passing-heap-probe-terminal-review.json',expected['passing_standalone_probe_terminal_review_sha256'])]:
+        a.f.need(c['inputs'][path]['sha256']==sha and a.f.file_sha(a.ROOT/path)==sha,'heap7168 prior evidence changed')
+    old=a.ROOT/'origin/AuditHigherPhysicalEndpoints.pre-phase.lean';new=a.ROOT/'auditors/AuditHigherPhysicalEndpoints.lean'
+    for path,pin in [(old,expected['prior_auditor']),(new,expected['marked_auditor'])]:
+        a.f.need(c['inputs'][path.relative_to(a.ROOT).as_posix()]==pin and path.stat().st_size==pin['bytes'] and a.f.file_sha(path)==pin['sha256'],'phase auditor source pin differs')
+    data=new.read_bytes()
+    for statement in [b'  IO.println "HIGHER_AUDIT_PHASE entry"\n', b'  IO.println "HIGHER_AUDIT_PHASE reference_import_returned"\n', b'  IO.println "HIGHER_AUDIT_PHASE project_import_returned"\n', b'  IO.println "HIGHER_AUDIT_PHASE model_checked"\n', b'      IO.println "HIGHER_AUDIT_PHASE endpoint_checked"\n']:
+        a.f.need(data.count(statement)==1,'phase statement count differs');data=data.replace(statement,b'',1)
+    a.f.need(data==old.read_bytes(),'phase removal changed original auditor')
 
 def validate_control_layout(c,a):
     old_path='origin/HigherInspectorControl.original.lean';new_path='auditors/HigherInspectorControl.lean';lock_path='locks/higher-control-layout-repair.json'
@@ -306,13 +323,17 @@ def auditor_specs(c,work,runtime,search,a):
         add('compile-auditor-'+name,argv,env,sources,[staging,work/'home',work/'tmp'],work/'auditors',180)
         add('check-auditor-'+name,[runtime/'bin/leanchecker',name],env,sources,[work/'home',work/'tmp'],work/'auditors',120)
     env=a.safe_env(runtime,work/'home',work/'tmp');env['MATHLIB_CACHE_DIR']=str(work/'cache');env['LEAN_PATH']=':'.join(map(str,[work/'auditor-objects',work/'reference-objects',work/'objects',*map(Path,search),runtime/'lib/lean']))
-    add('audit-AuditHigherPhysicalEndpoints',[runtime/'bin/lean','-j1','-M5120' if raw_heap5120(c) else '-M4096','--run',work/'auditors/AuditHigherPhysicalEndpoints.lean'],env,[work/'auditors',work/'auditor-objects',work/'reference-objects',work/'objects',work/'packages'],[work/'home',work/'tmp'],work/'auditors',c['auditor_timeout_seconds'])
+    add('audit-AuditHigherPhysicalEndpoints',[runtime/'bin/lean','-j1','-M7168' if raw_heap7168(c) else '-M5120' if raw_heap5120(c) else '-M4096','--run',work/'auditors/AuditHigherPhysicalEndpoints.lean'],env,[work/'auditors',work/'auditor-objects',work/'reference-objects',work/'objects',work/'packages'],[work/'home',work/'tmp'],work/'auditors',c['auditor_timeout_seconds'])
     if raw_as24(c):specs[-1]['address_space_bytes']=command_address_space_bytes(c,specs[-1]['name'],a)
     for row in specs:row['argv']=list(map(str,row['argv']))
     return specs
 
-def audit_output(transcript,a):
-    lines=transcript.splitlines();a.f.need(len(lines)==3 and lines[-1]=='HIGHER_PHYSICAL_ENDPOINT_AUDIT_PASSED','higher auditor output missing, extra or incomplete')
+def audit_output(transcript,a,c=None):
+    lines=transcript.splitlines()
+    if c is not None and raw_heap7168(c):
+        a.f.need(len(lines)==9 and [lines[i] for i in [0,1,2,3,5,7]]==PHASE_MARKERS,'higher auditor phase sequence missing, extra or reordered')
+        lines=[lines[4],lines[6],lines[8]]
+    a.f.need(len(lines)==3 and lines[-1]=='HIGHER_PHYSICAL_ENDPOINT_AUDIT_PASSED','higher auditor output missing, extra or incomplete')
     records=[];models=['SparseMonotiles.'+n for n in ['Point','IsTiling','translate','IsPeriod','HasTiling','IsAperiodic','IsAperiodicMonotile']]
     for i,line in enumerate(lines[:2]):
         row=a.f.parse_json(line.encode());expected={'schema':'higher-physical-endpoint-audit-v1','status':'pass','mode':'higher-only','target':TARGETS[i],'module':'ClarkSeed.PhysicalDimensions','reference_module':'HigherPhysicalReference','reference_template':'HigherPhysicalReference.'+('ExpectedGeFive' if i==0 else 'ExpectedGeThreeNeFour'),'model_module':'SparseMonotiles.Model','model_definitions':models,'level_params':[],'explicit_binders':['d','hd'] if i==0 else ['d','hd','hne'],'explicit_hypotheses':['5 ≤ d'] if i==0 else ['3 ≤ d','d ≠ 4'],'raw_type_equal':True,'raw_model_equal':True,'closed_type_and_proof':True,'selected_declaration_ownership':True,'exact_reference_owned_set':True,'trust_level':0,'plugins_enabled':False,'extensions_loaded':False}
@@ -385,7 +406,7 @@ def run_auditors(c,work,runtime,search,env,command,a):
         observation['refusal_reason']='aggregate_deadline_expired';observation['matches_expected_h0']=None
     a.write_json(work/'evidence/higher-h5-ir-predispatch-observation.json',observation)
     out,_=command(spec['name'],spec['argv'],seconds=spec['requested_timeout_seconds'],rss=spec['max_rss_bytes'],allowed_sessions=True)
-    records=audit_output(out.read_text(),a);a.write_json(work/'evidence/higher-physical-endpoints-raw-audit.json',records)
+    records=audit_output(out.read_text(),a,c);a.write_json(work/'evidence/higher-physical-endpoints-raw-audit.json',records)
     return {'higher_physical_endpoints':True}
 def validate_extension_companion_files(c,work,a):
     import stat
@@ -441,7 +462,7 @@ def validate_audit_evidence(c,evidence,result,a):
         text=(evidence/'logs/compile-auditor-HigherInspectorControl.stdout').read_text()
         validate_control_output(text,a)
     if sid==c['final_stage']:
-        records=audit_output((evidence/'logs/audit-AuditHigherPhysicalEndpoints.stdout').read_text(),a)
+        records=audit_output((evidence/'logs/audit-AuditHigherPhysicalEndpoints.stdout').read_text(),a,c)
         a.f.need(records==a.f.load_json(evidence/'higher-physical-endpoints-raw-audit.json'),'higher raw audit receipt differs from complete stdout')
 
 def validate_current_imports(c,sid,receipts,final,rows,cache_rows,runtime,a):

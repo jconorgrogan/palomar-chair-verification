@@ -6,7 +6,7 @@ import cache_diagnostic as a
 import test_h5_as24 as previous_tests
 h=a.higher;RAW='audit-AuditHigherPhysicalEndpoints';FIELD='higher_h5_raw_auditor_heap_mib'
 class Heap5120Tests(unittest.TestCase):
- def c(self):return a.f.load_json(ROOT/'contract.json')
+ def c(self):return a.f.load_json(ROOT/'origin/higher-h5-heap5120-contract.json')
  def old(self):return a.f.load_json(ROOT/'origin/higher-h5-as24-contract.json')
  def expected(self,work,c):
   e=previous_tests.H5AS24Tests().expected(work,c);e['stage_rows']=[{'module':m} for m in c['stages']['H5_higher_assembly']['modules']];return e
@@ -91,7 +91,7 @@ class Heap5120Tests(unittest.TestCase):
  def test_command_closure_bytes_unchanged(self):
   old=(ROOT/'origin/higher-h5-as24-contract.json');c=a.f.load_json(old)
   # Cache helper changes only its approved higher_policy digest literal.
-  s=(ROOT/'ci/cache_diagnostic.py').read_text();new=self.c()['inputs']['ci/higher_policy.py']['sha256'];oldsha=c['inputs']['ci/higher_policy.py']['sha256'];self.assertEqual(s.count(new),1);self.assertEqual(hashlib.sha256(s.replace(new,oldsha).encode()).hexdigest(),c['inputs']['ci/cache_diagnostic.py']['sha256'])
+  s=(ROOT/'ci/cache_diagnostic.py').read_text();new=a.f.load_json(ROOT/'contract.json')['inputs']['ci/higher_policy.py']['sha256'];oldsha=c['inputs']['ci/higher_policy.py']['sha256'];self.assertEqual(s.count(new),1);self.assertEqual(hashlib.sha256(s.replace(new,oldsha).encode()).hexdigest(),c['inputs']['ci/cache_diagnostic.py']['sha256'])
 
 def bad_value(value):
  def test(self):

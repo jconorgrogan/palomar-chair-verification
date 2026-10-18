@@ -161,14 +161,18 @@ end HigherPhysicalAudit
 
 def main (args : List String) : IO UInt32 := do
   unless args.isEmpty do throw <| IO.userError "No arguments: audit both fixed higher-only endpoints"
+  IO.println "HIGHER_AUDIT_PHASE entry"
   initSearchPath (← findSysroot)
   let reference ← importModules #[{module := `HigherPhysicalReference}] {}
     (trustLevel := 0) (plugins := #[]) (loadExts := false) (level := .private)
+  IO.println "HIGHER_AUDIT_PHASE reference_import_returned"
   let project ← importModules #[{module := `ClarkSeed.PhysicalDimensions}] {}
     (trustLevel := 0) (plugins := #[]) (loadExts := false) (level := .private)
+  IO.println "HIGHER_AUDIT_PHASE project_import_returned"
   match HigherPhysicalAudit.auditModel reference project with
   | .error message => throw <| IO.userError message
   | .ok () => pure ()
+  IO.println "HIGHER_AUDIT_PHASE model_checked"
   for pair in HigherPhysicalAudit.targets do
     match HigherPhysicalAudit.auditEndpoint reference project pair.1 pair.2 with
     | .error message => throw <| IO.userError message
@@ -190,5 +194,6 @@ def main (args : List String) : IO UInt32 := do
         ("exact_reference_owned_set", .bool true),
         ("trust_level", toJson (0 : Nat)), ("plugins_enabled", .bool false),
         ("extensions_loaded", .bool false)]).compress
+      IO.println "HIGHER_AUDIT_PHASE endpoint_checked"
   IO.println "HIGHER_PHYSICAL_ENDPOINT_AUDIT_PASSED"
   return 0
