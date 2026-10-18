@@ -1,0 +1,361 @@
+{
+  "checks": 140,
+  "cpp_source_binary_attestation": false,
+  "findings": [
+    {
+      "finding": "Recorded argv places -M5120 before --run. The C++ shell parses options up to --run; Shell.lean parses -M into max_memory, then shellMain sets the process-global internal limit in bytes before frontend execution and interpreted main. The equivalent previous argument was -M4096. This source route supports the intended selection but does not directly observe the actual runtime threshold value.",
+      "id": "applied_argument_source_path",
+      "references": [
+        "argument_parse",
+        "native_shell_argument_order",
+        "override_then_threshold",
+        "frontend_then_interpreter",
+        "threshold_setter"
+      ],
+      "strength": "direct source and exact recorded argv"
+    },
+    {
+      "finding": "A real override route exists: Shell.lean merges Internal.getOptionOverrides with the override value winning before reading max_memory. The source documents these as build-time stdlib_flags.h overrides. The reviewed packet does not contain the compiled override contents or a runtime threshold dump. No explicit threshold setter or override appears in the active auditor or retained Environment.lean import implementation. It is unsupported to conclude either that the selected -M was ignored or that an override occurred.",
+      "id": "override_possibility",
+      "references": [
+        "override_documentation",
+        "override_then_threshold",
+        "auditor_import_audit_output_order",
+        "private_import_options"
+      ],
+      "strength": "direct source possibility; actual override absent from evidence"
+    },
+    {
+      "finding": "The auditor retains a reference environment, then imports the full project environment at private level before checking the model/endpoints or printing anything. Retained import code reads serialized/IR parts and constructs large constant/ownership maps. The memory guard samples only periodically, with a source-default 200 calls and a build-overridable frequency. If memory at the same relevant interpreter check is already at or above both limits, both runs can fail at effectively the same phase/time/size despite the 1 GiB threshold increase. This is compatible with the observations, but the packet does not establish that it was the first interpreter check, that either import had completed, or where the exception occurred.",
+      "id": "import_then_periodic_check",
+      "references": [
+        "auditor_import_audit_output_order",
+        "serialized_parts",
+        "import_maps_allocate",
+        "private_import_options",
+        "periodic_check",
+        "default_frequency"
+      ],
+      "strength": "source-supported conditional mechanism; not localized in this run"
+    },
+    {
+      "finding": "The auditor passes empty Options to importModules. In the retained Environment.lean function, opts flow to profiling, import finalization and realization context; there is no direct global memory-limit setter. Empty import options alone therefore do not establish a reset of the process-global threshold. Functions outside this retained source slice were not exhaustively traced.",
+      "id": "empty_options_do_not_prove_reset",
+      "references": [
+        "private_import_options",
+        "threshold_setter"
+      ],
+      "strength": "direct inspected source boundary"
+    },
+    {
+      "finding": "The reported error text matches memory_exception. On the ordinary Linux source branch, the check uses peak self RSS as a fast precheck then current /proc/self/statm RSS; under HAS_JEMALLOC it uses allocator stats. The actual allocator/build flags are not attested. Sampled process-tree RSS and per-process VMS are different metrics and cannot identify the internal counter value. The native shell has a distinct std::bad_alloc error path. No malloc failure, errno, PID-specific allocation, successful import, or successful audit is established.",
+      "id": "memory_metrics_and_error",
+      "references": [
+        "exception_text",
+        "linux_memory_metric",
+        "jemalloc_memory_metric",
+        "periodic_check",
+        "native_shell_error_categories"
+      ],
+      "strength": "direct source; build and runtime attribution limited"
+    }
+  ],
+  "forbidden_events": [],
+  "input_pins": [
+    {
+      "bytes": 5169,
+      "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/artifact/evidence/last_command.json",
+      "sha256": "70cf3575341535c30f7d939dee1cd267214969f5d8fd780db297914658cc1acb"
+    },
+    {
+      "bytes": 3292808,
+      "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/artifact/evidence/runtime-inventory.json",
+      "sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+    },
+    {
+      "bytes": 10780,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/auditors/AuditHigherPhysicalEndpoints.lean",
+      "sha256": "ba9a502d5f121719b7fff10c73d3bf9cfa6857a0f2a42e99b36d39051b64af13"
+    },
+    {
+      "bytes": 5169,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/failed-h5-as24-last-command.json",
+      "sha256": "756b605266e9bba5295fb74d1b93f911e25730721bbf7fe39b4e53260f7be7db"
+    },
+    {
+      "bytes": 6462,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/SOURCE_BINDING.json",
+      "sha256": "b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608"
+    },
+    {
+      "bytes": 23341,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/Shell.lean",
+      "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
+    },
+    {
+      "bytes": 1435,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/exception.cpp",
+      "sha256": "cbb244d3b7d31ab73e75d437427cb540462552726ee01229adbe203df046ce21"
+    },
+    {
+      "bytes": 2007,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/exception.h",
+      "sha256": "58834ad1df155aa675726aed25e84fcd36201dc2cfdeead8d85fb1836ef4bd87"
+    },
+    {
+      "bytes": 588,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/lean.cpp",
+      "sha256": "b311e6363d689e7b6d2e717c53981c59c63104892dc1d0cb308d977d6c6d943a"
+    },
+    {
+      "bytes": 4349,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/memory.cpp",
+      "sha256": "37ec24e69c8d01944e5138fa6189195185802f8e3d5ee88f3e412c964465b36f"
+    },
+    {
+      "bytes": 551,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/memory.h",
+      "sha256": "bb5ad661f13da089cc2613105bdf4d43da9f02985dde4881b4f2d176e7397fb7"
+    },
+    {
+      "bytes": 12425,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/shell.cpp",
+      "sha256": "502eaa752396cdff5bb448833a63be54cbbcbb3d36881eb10e235c04c64c0832"
+    },
+    {
+      "bytes": 41070,
+      "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/FINAL_REVIEW.json",
+      "sha256": "fb9c28a8f31be7e8a096e8669501f9516ee58960694fdfa976bb5cd172b367e7"
+    },
+    {
+      "bytes": 6462,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/SOURCE_BINDING.json",
+      "sha256": "b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608"
+    },
+    {
+      "bytes": 23341,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
+    },
+    {
+      "bytes": 1435,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/exception.cpp",
+      "sha256": "cbb244d3b7d31ab73e75d437427cb540462552726ee01229adbe203df046ce21"
+    },
+    {
+      "bytes": 2007,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/exception.h",
+      "sha256": "58834ad1df155aa675726aed25e84fcd36201dc2cfdeead8d85fb1836ef4bd87"
+    },
+    {
+      "bytes": 588,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/lean.cpp",
+      "sha256": "b311e6363d689e7b6d2e717c53981c59c63104892dc1d0cb308d977d6c6d943a"
+    },
+    {
+      "bytes": 4349,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "sha256": "37ec24e69c8d01944e5138fa6189195185802f8e3d5ee88f3e412c964465b36f"
+    },
+    {
+      "bytes": 551,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.h",
+      "sha256": "bb5ad661f13da089cc2613105bdf4d43da9f02985dde4881b4f2d176e7397fb7"
+    },
+    {
+      "bytes": 12425,
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/shell.cpp",
+      "sha256": "502eaa752396cdff5bb448833a63be54cbbcbb3d36881eb10e235c04c64c0832"
+    },
+    {
+      "bytes": 190284,
+      "path": "/workspace/shared/higher_h5_ir_diagnosis_20261018T1551/ENVIRONMENT_RESPONSE.json",
+      "sha256": "e547210d7e1ff5ee6d02d3c3d78ea3a028a288b709c961d6211ef04a1b03cde0"
+    },
+    {
+      "bytes": 137864,
+      "path": "/workspace/shared/higher_h5_ir_diagnosis_20261018T1551/Environment.lean",
+      "sha256": "6c90105aecc4d28efe94cc9aef1704c284e7a748b28270b5f8513d2562331e43"
+    }
+  ],
+  "native_execution": false,
+  "not_established": [
+    "actual runtime memory threshold",
+    "actual compiled option override values",
+    "compiled allocator choice",
+    "compiled memory-check frequency",
+    "IR interpreter exact check callsite",
+    "first interpreter check",
+    "whether project import completed",
+    "internal metric value at throw",
+    "failed allocation or errno",
+    "sufficiency of any further threshold"
+  ],
+  "observations": {
+    "current_elapsed_seconds": 6.633077,
+    "current_heap_argument": "-M5120",
+    "current_peak_sampled_tree_rss_bytes": 6776922112,
+    "elapsed_delta_seconds": 0.007048,
+    "previous_elapsed_seconds": 6.626029,
+    "previous_heap_argument": "-M4096",
+    "previous_peak_sampled_tree_rss_bytes": 6770839552,
+    "same_max_sampled_process_vms_bytes": 14166933504,
+    "same_stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+    "sampled_tree_rss_delta_bytes": 6082560,
+    "threshold_increment_bytes": 1073741824
+  },
+  "permanent_audit_guards": true,
+  "project_imports": false,
+  "recommended_new_threshold": null,
+  "remote_calls": false,
+  "runtime_source_byte_match": [
+    "Shell.lean",
+    "Environment.lean"
+  ],
+  "schema": "higher-h5-heap5120-retained-source-diagnosis-v1",
+  "source_commit": "11acb17ec6b07a8f9e9173e6845197929540936b",
+  "source_excerpts": {
+    "argument_parse": {
+      "lines": [
+        357,
+        363
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "text": "357:   | 'M' => -- `-M, --memory=num`\n358:     let arg \u2190 checkOptArg \"M\" optArg?\n359:     let some val := arg.toNat?\n360:       | throwExpectedNumeric \"M\"\n361:     let leanOpts := maxMemory.set opts.leanOpts val\n362:     let forwardedArgs := opts.forwardedArgs.push s!\"-M{arg}\"\n363:     return {opts with forwardedArgs, leanOpts}"
+    },
+    "auditor_import_audit_output_order": {
+      "lines": [
+        162,
+        177
+      ],
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/auditors/AuditHigherPhysicalEndpoints.lean",
+      "text": "162: def main (args : List String) : IO UInt32 := do\n163:   unless args.isEmpty do throw <| IO.userError \"No arguments: audit both fixed higher-only endpoints\"\n164:   initSearchPath (\u2190 findSysroot)\n165:   let reference \u2190 importModules #[{module := `HigherPhysicalReference}] {}\n166:     (trustLevel := 0) (plugins := #[]) (loadExts := false) (level := .private)\n167:   let project \u2190 importModules #[{module := `ClarkSeed.PhysicalDimensions}] {}\n168:     (trustLevel := 0) (plugins := #[]) (loadExts := false) (level := .private)\n169:   match HigherPhysicalAudit.auditModel reference project with\n170:   | .error message => throw <| IO.userError message\n171:   | .ok () => pure ()\n172:   for pair in HigherPhysicalAudit.targets do\n173:     match HigherPhysicalAudit.auditEndpoint reference project pair.1 pair.2 with\n174:     | .error message => throw <| IO.userError message\n175:     | .ok axioms =>\n176:       let second := pair.1 == `HigherPhysicalReference.ExpectedGeThreeNeFour\n177:       IO.println (Json.mkObj ["
+    },
+    "default_frequency": {
+      "lines": [
+        14,
+        16
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "text": "14: #ifndef LEAN_CHECK_MEM_THRESHOLD\n15: #define LEAN_CHECK_MEM_THRESHOLD 200\n16: #endif"
+    },
+    "exception_text": {
+      "lines": [
+        25,
+        27
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/exception.cpp",
+      "text": "25: memory_exception::memory_exception(char const * component_name):\n26:     m_msg((sstream() << \"excessive memory consumption detected at '\" << component_name << \"' (potential solution: increase memory consumption threshold)\").str()) {\n27: }"
+    },
+    "frontend_then_interpreter": {
+      "lines": [
+        553,
+        561
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "text": "553:   let env? \u2190 Elab.runFrontend contents opts.leanOpts fileName mainModuleName\n554:     opts.trustLevel opts.oleanFileName? opts.ileanFileName? opts.jsonOutput opts.errorOnKinds\n555:     #[] opts.printStats setup?\n556:     (incrSaveFileName? := opts.incrSaveFileName?)\n557:     (incrLoadFileName? := opts.incrLoadFileName?)\n558:     (incrHeaderSaveFileName? := opts.incrHeaderSaveFileName?)\n559:   if let some env := env? then\n560:     if opts.run then\n561:       return \u2190 runMain env opts.leanOpts args"
+    },
+    "import_maps_allocate": {
+      "lines": [
+        2308,
+        2335
+      ],
+      "path": "/workspace/shared/higher_h5_ir_diagnosis_20261018T1551/Environment.lean",
+      "text": "2308: def finalizeImport (s : ImportState) (imports : Array Import) (opts : Options) (trustLevel : UInt32 := 0)\n2309:     (leakEnv loadExts : Bool) (level := OLeanLevel.private) (isModule := level != .private)\n2310:     -- If true, prefer loading `.ir.sig` over `.ir` unless `import all`ed; used by leanir\n2311:     (loadIRSig := false) :\n2312:     IO Environment := do\n2313:   let modules := s.moduleNames.filterMap (s.moduleNameMap[\u00b7]?)\n2314:   let moduleData \u2190 modules.mapM fun mod => do\n2315:     let some data := mod.mainModule? |\n2316:       throw <| IO.userError s!\"missing data file for module {mod.module}\"\n2317:     return data\n2318:   let irData \u2190 modules.mapM fun mod => do\n2319:     let some data := mod.irData? loadIRSig |\n2320:       throw <| IO.userError s!\"missing IR data file for module {mod.module}\"\n2321:     return data\n2322:   let numPrivateConsts := moduleData.foldl (init := 0) fun numPrivateConsts data =>\n2323:     numPrivateConsts + data.constants.size\n2324:   let numExtraConsts := irData.foldl (init := 0) fun numExtraConsts data =>\n2325:     numExtraConsts + data.extraConstNames.size\n2326:   let numPublicConsts := modules.foldl (init := 0) fun numPublicConsts mod => Id.run do\n2327:     if !mod.isExported then numPublicConsts else\n2328:       let some data := mod.publicModule? | numPublicConsts\n2329:       numPublicConsts + data.constants.size\n2330:   let mut const2ModIdx : Std.HashMap Name ModuleIdx := Std.HashMap.emptyWithCapacity (capacity := numPrivateConsts + numExtraConsts)\n2331:   let mut privateConstantMap : Std.HashMap Name ConstantInfo := Std.HashMap.emptyWithCapacity (capacity := numPrivateConsts)\n2332:   let mut publicConstantMap : Std.HashMap Name ConstantInfo := Std.HashMap.emptyWithCapacity (capacity := numPublicConsts)\n2333:   for h : modIdx in *...moduleData.size do\n2334:     let data := moduleData[modIdx]\n2335:     for cname in data.constNames, cinfo in data.constants do"
+    },
+    "jemalloc_memory_metric": {
+      "lines": [
+        18,
+        39
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "text": "18: #if defined(HAS_JEMALLOC)\n19: #include <jemalloc/jemalloc.h>\n20: \n21: namespace lean {\n22: \n23: size_t get_peak_rss() {\n24:     // refresh stats\n25:     uint64_t epoch;\n26:     mallctl(\"epoch\", NULL, NULL, &epoch, sizeof(epoch));\n27: \n28:     size_t allocated;\n29:     size_t sz = sizeof(size_t);\n30:     if (mallctl(\"stats.allocated\", &allocated, &sz, NULL, 0) == 0) {\n31:         return allocated;\n32:     } else {\n33:         return 0;\n34:     }\n35: }\n36: \n37: size_t get_current_rss() {\n38:     return get_peak_rss();\n39: }"
+    },
+    "linux_memory_metric": {
+      "lines": [
+        76,
+        105
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "text": "76: namespace lean {\n77: size_t get_peak_rss() {\n78:     struct rusage rusage;\n79:     getrusage(RUSAGE_SELF, &rusage);\n80: #if defined(__APPLE__)\n81:     return static_cast<size_t>(rusage.ru_maxrss);\n82: #else\n83:     return static_cast<size_t>(rusage.ru_maxrss) * static_cast<size_t>(1024);\n84: #endif\n85: }\n86: \n87: size_t get_current_rss() {\n88: #if defined(__APPLE__)\n89:     struct mach_task_basic_info info;\n90:     mach_msg_type_number_t infoCount = MACH_TASK_BASIC_INFO_COUNT;\n91:     if (task_info(mach_task_self(), MACH_TASK_BASIC_INFO, reinterpret_cast<task_info_t>(&info), &infoCount) != KERN_SUCCESS)\n92:         return static_cast<size_t>(0);\n93:     return static_cast<size_t>(info.resident_size);\n94: #else\n95:     long rss  = 0;\n96:     FILE * fp = nullptr;\n97:     if ((fp = fopen(\"/proc/self/statm\", \"r\")) == nullptr)\n98:         return static_cast<size_t>(0L);\n99:     if (fscanf(fp, \"%*s%ld\", &rss ) != 1) {\n100:         fclose(fp);\n101:         return static_cast<size_t>(0);\n102:     }\n103:     fclose(fp);\n104:     return static_cast<size_t>(rss) * static_cast<size_t>(sysconf(_SC_PAGESIZE));\n105: #endif"
+    },
+    "native_shell_argument_order": {
+      "lines": [
+        328,
+        340
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/shell.cpp",
+      "text": "328:     int rc;\n329:     object_ref shell_opts;\n330:     try {\n331:         shell_opts = mk_shell_options();\n332:         for (;;) {\n333:             int c = getopt_long(argc, argv, g_opt_str, g_long_options, NULL);\n334:             if (c == -1)\n335:                 break; // end of command line\n336:             if (process_shell_option(shell_opts, c, optarg, rc))\n337:                 return rc; // option processing triggered an early exit\n338:             if (get_shell_run(shell_opts))\n339:                 break; // stop consuming arguments after `--run`\n340:         }"
+    },
+    "native_shell_error_categories": {
+      "lines": [
+        355,
+        366
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/shell.cpp",
+      "text": "355:     int shell_rc = 1;\n356:     // Do not rely on OS thread stack size, as for Lean executables\n357:     run_with_thread_stack([&]() {\n358:         try {\n359:             shell_rc = run_shell_main(argc - optind, argv + optind, shell_opts);\n360:         } catch (lean::throwable & ex) {\n361:             std::cerr << ex.what() << \"\\n\";\n362:         } catch (std::bad_alloc & ex) {\n363:             std::cerr << \"out of memory\" << std::endl;\n364:         }\n365:     });\n366:     return shell_rc;"
+    },
+    "override_documentation": {
+      "lines": [
+        194,
+        205
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "text": "194: private builtin_initialize maxMemory : Lean.Option Nat \u2190\n195:   Lean.Option.register `max_memory {defValue := Internal.getDefaultMaxMemory ()}\n196: \n197: private builtin_initialize timeout : Lean.Option Nat \u2190\n198:   Lean.Option.register `timeout {defValue := Internal.getDefaultMaxHeartbeat ()}\n199: \n200: private builtin_initialize verbose : Lean.Option Bool \u2190\n201:   Lean.Option.register `verbose {defValue := Internal.getDefaultVerbose ()}\n202: \n203: /-- Returns any option overrides Lean was built with (i.e., those set in `stdlib_flags.h`). -/\n204: @[extern \"lean_internal_get_option_overrides\"]\n205: opaque Internal.getOptionOverrides (_ : Unit) : Options"
+    },
+    "override_then_threshold": {
+      "lines": [
+        468,
+        479
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "text": "468: @[export lean_shell_main]\n469: def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do\n470:   let opts := { opts with leanOpts := opts.leanOpts.mergeBy (fun _ _ v => v) (Internal.getOptionOverrides ()) }\n471:   if opts.printPrefix then\n472:     IO.println (\u2190 getBuildDir)\n473:     return 0\n474:   if opts.printLibDir then\n475:     IO.println (\u2190 getLibDir (\u2190 getBuildDir))\n476:     return 0\n477:   let maxMemory := maxMemory.get opts.leanOpts\n478:   if maxMemory != 0 then\n479:     Internal.setMaxMemory (maxMemory.toUSize * 1024 * 1024)"
+    },
+    "periodic_check": {
+      "lines": [
+        140,
+        157
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "text": "140: // separate definition to allow breakpoint in debugger\n141: void throw_memory_exception(char const * component_name) {\n142:     throw memory_exception(component_name);\n143: }\n144: \n145: void check_memory(char const * component_name) {\n146:     if (g_max_memory == 0) return;\n147:     g_counter++;\n148:     if (g_counter >= LEAN_CHECK_MEM_THRESHOLD) {\n149:         g_counter = 0;\n150:         // We try first get_peak_rss because it is much faster\n151:         // than get_current_rss on Linux.\n152:         size_t r = get_peak_rss();\n153:         if (r > 0 && r < g_max_memory) return;\n154:         r = get_current_rss();\n155:         if (r == 0 || r < g_max_memory) return;\n156:         throw_memory_exception(component_name);\n157:     }"
+    },
+    "private_import_options": {
+      "lines": [
+        2428,
+        2450
+      ],
+      "path": "/workspace/shared/higher_h5_ir_diagnosis_20261018T1551/Environment.lean",
+      "text": "2428: If `loadExts` is true, we initialize the environment extensions using the imported data. Doing so\n2429: may use the interpreter and thus is only safe to do after calling `enableInitializersExecution`; see\n2430: also caveats there. If not set, every extension will have its initial value as its state. While the\n2431: environment's constant map can be accessed without `loadExts`, many functions that take\n2432: `Environment` or are in a monad carrying it such as `CoreM` may not function properly without it.\n2433: \n2434: If `level` is `exported`, the module to be elaborated is assumed to be participating in the module\n2435: system and imports will be restricted accordingly. If it is `server`, the data for\n2436: `getModuleEntries (includeServer := true)` is loaded as well. If it is `private`, all data is loaded\n2437: as if no `module` annotations were present in the imports.\n2438: -/\n2439: def importModules (imports : Array Import) (opts : Options) (trustLevel : UInt32 := 0)\n2440:     (plugins : Array Plugin := #[]) (leakEnv := false) (loadExts := false)\n2441:     (level := OLeanLevel.private) (arts : NameMap ImportArtifacts := {})\n2442:     : IO Environment := profileitIO \"import\" opts do\n2443:   for imp in imports do\n2444:     if imp.module matches .anonymous then\n2445:       throw <| IO.userError \"import failed, trying to import module with anonymous name\"\n2446:   withImporting do\n2447:     plugins.forM fun {path, initFn?} => Lean.loadPlugin path initFn?\n2448:     let (_, s) \u2190 importModulesCore (globalLevel := level) imports arts |>.run\n2449:     finalizeImport (leakEnv := leakEnv) (loadExts := loadExts) (level := level)\n2450:       s imports opts trustLevel"
+    },
+    "runMain_interpreter": {
+      "lines": [
+        35,
+        37
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/Shell.lean",
+      "text": "35: /- Runs the `main` function of the module with `args` using the Lean interpreter. -/\n36: @[extern \"lean_eval_main\"]\n37: opaque runMain (env : @& Environment) (opts : @& Options) (args : @& List String) : BaseIO UInt32"
+    },
+    "serialized_parts": {
+      "lines": [
+        2079,
+        2106
+      ],
+      "path": "/workspace/shared/higher_h5_ir_diagnosis_20261018T1551/Environment.lean",
+      "text": "2079: private def readModuleDataPartsOfMod (mod : Name) : IO (Array (ModuleData \u00d7 CompactedRegion)) := do\n2080:   let mFile \u2190 findOLean mod\n2081:   unless (\u2190 mFile.pathExists) do\n2082:     throw <| IO.userError s!\"object file '{mFile}' of module {mod} does not exist\"\n2083:   let main \u2190 unsafe CompactedRegion.read (\u03b1 := ModuleData) mFile #[]\n2084:   if !main.1.isModule then\n2085:     return #[main]\n2086:   -- Opportunistically load all available parts.\n2087:   -- Necessary because the import level may be upgraded a later import.\n2088:   let sFile := OLeanLevel.server.adjustFileName mFile\n2089:   let server \u2190 unsafe CompactedRegion.read (\u03b1 := ModuleData) sFile #[main.2]\n2090:   let pFile := OLeanLevel.private.adjustFileName mFile\n2091:   let priv \u2190 unsafe CompactedRegion.read (\u03b1 := ModuleData) pFile #[main.2, server.2]\n2092:   return #[main, server, priv]\n2093: \n2094: private def readIRPartsOfMod (mod : Name) : IO (Array (ModuleData \u00d7 CompactedRegion)) := do\n2095:   let mFile \u2190 findOLean mod\n2096:   let irSigFile := mFile.withExtension \"ir.sig\"\n2097:   -- TODO: we don't (necessarily) know whether the module is a `module` or not, but file existence\n2098:   -- checks are not great in the face of module-ness changes\n2099:   unless (\u2190 irSigFile.pathExists) do\n2100:     return #[]\n2101:   let irSig \u2190 unsafe CompactedRegion.read (\u03b1 := ModuleData) irSigFile #[]\n2102:   -- Opportunistically load all available parts.\n2103:   -- Necessary because the import level may be upgraded a later import.\n2104:   let irFile := mFile.withExtension \"ir\"\n2105:   let ir \u2190 unsafe CompactedRegion.read (\u03b1 := ModuleData) irFile #[irSig.2]\n2106:   return #[irSig, ir]"
+    },
+    "threshold_setter": {
+      "lines": [
+        113,
+        138
+      ],
+      "path": "/workspace/shared/higher_h5_heap_semantics_20261018T1907/memory.cpp",
+      "text": "113: namespace lean {\n114: static size_t g_max_memory = 0;\n115: LEAN_THREAD_VALUE(size_t, g_counter, 0);\n116: \n117: extern \"C\" LEAN_EXPORT lean_obj_res lean_internal_get_default_max_memory() {\n118: #ifdef LEAN_DEFAULT_MAX_MEMORY\n119:     return lean_box(LEAN_DEFAULT_MAX_MEMORY);\n120: #else\n121:     return lean_box(0);\n122: #endif\n123: }\n124: \n125: void set_max_memory(size_t max) {\n126:     g_max_memory = max;\n127: }\n128: \n129: extern \"C\" LEAN_EXPORT lean_obj_res lean_internal_set_max_memory(size_t max) {\n130:     set_max_memory(max);\n131:     return lean_box(0);\n132: }\n133: \n134: void set_max_memory_megabyte(unsigned max) {\n135:     size_t m = max;\n136:     m *= 1024 * 1024;\n137:     set_max_memory(m);\n138: }"
+    }
+  },
+  "status": "bounded_source_explanation_without_causal_attribution",
+  "terminal_review": {
+    "bytes": 41070,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/FINAL_REVIEW.json",
+    "sha256": "fb9c28a8f31be7e8a096e8669501f9516ee58960694fdfa976bb5cd172b367e7"
+  }
+}

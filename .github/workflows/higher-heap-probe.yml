@@ -1,0 +1,46 @@
+name: Higher Lean heap option probe
+'on':
+  push:
+    branches: ['verify/higher-heap-probe-20261018']
+permissions:
+  contents: read
+concurrency:
+  group: higher-heap-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  heap_option_probe:
+    name: heap_option_probe
+    if: ${{ true }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out the exact staged candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Install official Ubuntu sandbox dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y bubblewrap zstd
+      - name: Observe the pinned Lean heap option
+        run: >-
+          python3 -I -B probe/heap_probe.py
+          --contract-sha256 330c67257f468c98cfda081eaf4819a588c089123c9c66b84dd1e89fd10849d5
+          --work "${{ runner.temp }}/higher-heap-probe"
+      - name: Preserve bounded probe evidence
+        if: ${{ always() }}
+        timeout-minutes: 2
+        run: >-
+          python3 -I -B probe/heap_probe.py --collect
+          --contract-sha256 330c67257f468c98cfda081eaf4819a588c089123c9c66b84dd1e89fd10849d5
+          --work "${{ runner.temp }}/higher-heap-probe"
+      - name: Upload bounded probe evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: higher-heap-probe-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/higher-heap-probe/upload/**
+          retention-days: 7
+          if-no-files-found: error

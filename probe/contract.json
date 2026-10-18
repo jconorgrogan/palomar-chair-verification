@@ -1,0 +1,107 @@
+{
+  "accessor_source_binding_sha256": "9dff679e6128c10df0976782ea6af487e3bc040291c5eb498c77bc9a6c8bbb58",
+  "activation_admission": {
+    "diagnostic_only": true,
+    "independent_source_review_sha256": "49a492d3b6f3ce034e6feadd54ff5d66301c3d90e3f7c41bd6563fff4ce4f988",
+    "schema": "higher-heap-probe-activation-v1",
+    "source_review_pending": false
+  },
+  "aggregate_command_deadline_seconds": 1800,
+  "aggregate_log_max_bytes": 2097152,
+  "download_timeout_seconds": 900,
+  "evidence_max_bytes": 130023424,
+  "failed_heap5120_terminal_review_sha256": "fb9c28a8f31be7e8a096e8669501f9516ee58960694fdfa976bb5cd172b367e7",
+  "failure_evidence_grace_seconds": 5,
+  "inputs": {
+    "ci/cache_diagnostic.py": {
+      "bytes": 81922,
+      "sha256": "3bb36711ba6ae605e95bab9536e18665f1a492f0f7b36ba01bfa2ceb9588fd61"
+    },
+    "ci/collect_evidence.py": {
+      "bytes": 22654,
+      "sha256": "1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a"
+    },
+    "ci/conditional_transport.py": {
+      "bytes": 55492,
+      "sha256": "d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e"
+    },
+    "ci/fresh_stage.py": {
+      "bytes": 50298,
+      "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
+    },
+    "ci/higher_policy.py": {
+      "bytes": 54960,
+      "sha256": "d032188a36b2353a1ed4f937b7b1284efdf4de6fd15ef1b3ce5a8162486a1769"
+    },
+    "ci/source_header.py": {
+      "bytes": 2551,
+      "sha256": "3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701"
+    },
+    "ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    },
+    "origin/lean-memory/Shell.lean": {
+      "bytes": 23341,
+      "sha256": "bbfcf01a93bcb9ca3f4d1264d3ad9890f3a6384dbbc949f5bf3cc286c0ec2225"
+    },
+    "probe/HeapProbe.lean": {
+      "bytes": 489,
+      "sha256": "421ff395e1577a148c15ea543aa72c4d63571a1c354877aae5d25ba325fb8817"
+    },
+    "probe/README.md": {
+      "bytes": 3924,
+      "sha256": "1531f50ed76539bcaece91e73235e14ed309296aad19a659770e3413c7710ec0"
+    },
+    "probe/heap_probe.py": {
+      "bytes": 19756,
+      "sha256": "3834ff72d95b670c802d6a93bc268ce0637ddee12411ee9826d0736d9db9758e"
+    },
+    "probe/provenance/ACCESSOR_SOURCE_BINDING.json": {
+      "bytes": 955,
+      "sha256": "9dff679e6128c10df0976782ea6af487e3bc040291c5eb498c77bc9a6c8bbb58"
+    },
+    "probe/provenance/FAILED_TERMINAL_REVIEW.json": {
+      "bytes": 41070,
+      "sha256": "fb9c28a8f31be7e8a096e8669501f9516ee58960694fdfa976bb5cd172b367e7"
+    },
+    "probe/provenance/KVMap.lean": {
+      "bytes": 8554,
+      "sha256": "41b05306978e2acf64a482d7521958ee73bbee345e8af45530e23cab7867730e"
+    },
+    "probe/provenance/Options.lean": {
+      "bytes": 9557,
+      "sha256": "ea52d63ede2afb64ea83f199fbe8c778fdb5991683f98dccd2ff6e345dbaa1e9"
+    },
+    "probe/provenance/SOURCE_DIAGNOSIS.json": {
+      "bytes": 27999,
+      "sha256": "48685c5fb4e184937771ea6191704d7b04ef2e77948e4170e0e37498b6ff5559"
+    }
+  },
+  "lean_heap_mib": 5120,
+  "max_created_file_bytes": 536870912,
+  "native_command_count": 2,
+  "official_archive_bytes": 595391556,
+  "official_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+  "official_archive_url": "https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst",
+  "official_runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "outer_timeout_minutes": 35,
+  "per_command_log_max_bytes": 1048576,
+  "predecessor_acquisition": false,
+  "preflight_address_space_bytes": 12884901888,
+  "preflight_timeout_seconds": 30,
+  "probe_address_space_bytes": 25769803776,
+  "probe_timeout_seconds": 600,
+  "project_modules_recompiled": 0,
+  "project_restore": false,
+  "proof_certified": false,
+  "publication_branch": "verify/higher-heap-probe-20261018",
+  "publication_parent_commit": "ecf44513ecddd29507fec9f6046d47771fd6e0cd",
+  "purpose": "compiled-default-and-max_memory-override-only",
+  "review_status": "reviewed_for_execution",
+  "rss_tree_bytes": 8589934592,
+  "schema": "higher-heap-runtime-probe-v1",
+  "source_diagnosis_sha256": "48685c5fb4e184937771ea6191704d7b04ef2e77948e4170e0e37498b6ff5559",
+  "workflow_job": "heap_option_probe",
+  "workflow_path": ".github/workflows/higher-heap-probe.yml"
+}

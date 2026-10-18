@@ -1,0 +1,952 @@
+{
+  "AS12_comparison": {
+    "AS12_stderr_sha256": "d8741cecc19523065668ca5b515205ecd3d6242b7887f402106ba3720ddfa934",
+    "address_space_before_bytes": 12884901888,
+    "address_space_now_bytes": 25769803776,
+    "heap5120_stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+    "only_argv_delta": [
+      "-M4096",
+      "-M5120"
+    ],
+    "same_RSS_cap": true,
+    "same_native_argv": false,
+    "same_stderr": false
+  },
+  "AS12_heap5120_fresh_module_receipts_byte_identical": true,
+  "AS24_command_names": [
+    "audit-AuditHigherPhysicalEndpoints"
+  ],
+  "AS24_comparison": {
+    "all_102_prior_command_plans_unchanged": true,
+    "fresh_module_receipts_byte_identical": true,
+    "only_argv_delta": [
+      "-M4096",
+      "-M5120"
+    ],
+    "previous_last_command": {
+      "address_space_bytes": 25769803776,
+      "allow_new_sessions": true,
+      "argv": [
+        "/usr/bin/bwrap",
+        "--unshare-all",
+        "--die-with-parent",
+        "--new-session",
+        "--clearenv",
+        "--proc",
+        "/proc",
+        "--dev",
+        "/dev",
+        "--tmpfs",
+        "/tmp",
+        "--ro-bind",
+        "/usr",
+        "/usr",
+        "--ro-bind",
+        "/bin",
+        "/bin",
+        "--ro-bind",
+        "/lib",
+        "/lib",
+        "--ro-bind",
+        "/lib64",
+        "/lib64",
+        "--ro-bind",
+        "/etc/ssl",
+        "/etc/ssl",
+        "--ro-bind",
+        "/etc/resolv.conf",
+        "/etc/resolv.conf",
+        "--ro-bind",
+        "/etc/hosts",
+        "/etc/hosts",
+        "--ro-bind",
+        "/etc/nsswitch.conf",
+        "/etc/nsswitch.conf",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/runtime",
+        "/home/runner/work/_temp/conditional-geometry/runtime",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/auditors",
+        "/home/runner/work/_temp/conditional-geometry/auditors",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+        "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/reference-objects",
+        "/home/runner/work/_temp/conditional-geometry/reference-objects",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/objects",
+        "/home/runner/work/_temp/conditional-geometry/objects",
+        "--ro-bind",
+        "/home/runner/work/_temp/conditional-geometry/packages",
+        "/home/runner/work/_temp/conditional-geometry/packages",
+        "--bind",
+        "/home/runner/work/_temp/conditional-geometry/home",
+        "/home/runner/work/_temp/conditional-geometry/home",
+        "--bind",
+        "/home/runner/work/_temp/conditional-geometry/tmp",
+        "/home/runner/work/_temp/conditional-geometry/tmp",
+        "--setenv",
+        "GIT_CONFIG_GLOBAL",
+        "/dev/null",
+        "--setenv",
+        "GIT_CONFIG_NOSYSTEM",
+        "1",
+        "--setenv",
+        "GIT_TERMINAL_PROMPT",
+        "0",
+        "--setenv",
+        "HOME",
+        "/home/runner/work/_temp/conditional-geometry/home",
+        "--setenv",
+        "LAKE_ARTIFACT_CACHE",
+        "false",
+        "--setenv",
+        "LAKE_NO_CACHE",
+        "true",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "LC_ALL",
+        "C.UTF-8",
+        "--setenv",
+        "LEAN_ABORT_ON_PANIC",
+        "1",
+        "--setenv",
+        "LEAN_NUM_THREADS",
+        "1",
+        "--setenv",
+        "LEAN_PATH",
+        "/home/runner/work/_temp/conditional-geometry/auditor-objects:/home/runner/work/_temp/conditional-geometry/reference-objects:/home/runner/work/_temp/conditional-geometry/objects:/home/runner/work/_temp/conditional-geometry/packages/mathlib/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/plausible/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/importGraph/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/aesop/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Qq/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/batteries/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Cli/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/runtime/lib/lean",
+        "--setenv",
+        "MATHLIB_CACHE_DIR",
+        "/home/runner/work/_temp/conditional-geometry/cache",
+        "--setenv",
+        "MATHLIB_NO_CACHE_ON_UPDATE",
+        "1",
+        "--setenv",
+        "PATH",
+        "/home/runner/work/_temp/conditional-geometry/runtime/bin:/usr/bin:/bin",
+        "--setenv",
+        "TMPDIR",
+        "/home/runner/work/_temp/conditional-geometry/tmp",
+        "--chdir",
+        "/home/runner/work/_temp/conditional-geometry/auditors",
+        "--",
+        "/home/runner/work/_temp/conditional-geometry/runtime/bin/lean",
+        "-j1",
+        "-M4096",
+        "--run",
+        "/home/runner/work/_temp/conditional-geometry/auditors/AuditHigherPhysicalEndpoints.lean"
+      ],
+      "cleanup_bound_seconds": 3.0,
+      "cleanup_elapsed_seconds": 0.012565,
+      "cwd": "/home/runner/work/_temp/conditional-geometry",
+      "descendants_empty": true,
+      "effective_timeout_seconds": 600,
+      "elapsed_seconds": 6.626029,
+      "escaped_descendants": true,
+      "exit_code": 1,
+      "limits": {
+        "address_space_bytes": 25769803776,
+        "max_created_file_bytes": 536870912,
+        "rss_tree_bytes": 8589934592
+      },
+      "log_overflow": false,
+      "max_created_file_bytes": 536870912,
+      "max_log_bytes": 1048576,
+      "max_rss_bytes": 8589934592,
+      "max_sampled_process_virtual_size_bytes": 14166933504,
+      "max_sampled_tree_virtual_size_bytes": 14174404608,
+      "memory_exceeded": false,
+      "name": "audit-AuditHigherPhysicalEndpoints",
+      "new_sessions_explicitly_allowed": true,
+      "peak_sampled_tree_rss_bytes": 6770839552,
+      "process_group_empty": true,
+      "requested_timeout_seconds": 600,
+      "stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surviving_children": false,
+      "timed_out": false,
+      "timeout_seconds": 600,
+      "virtual_size_sample_count": 116
+    },
+    "same_AS24_RSS8_limits": true,
+    "same_stderr": true
+  },
+  "IR_predispatch_observation": {
+    "aggregate_deadline_monotonic_seconds": 19285.134672268,
+    "expected_h0": {
+      "bytes": 1054344,
+      "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+    },
+    "matches_expected_h0": true,
+    "monotonic_ended_seconds": 443.812754016,
+    "monotonic_started_seconds": 443.811540117,
+    "observation_phase": "immediately_before_raw_audit_dispatch",
+    "observed": {
+      "bytes": 1054344,
+      "sha256": "c23815bcc4aa90a6789c65b76c996848cab3178cde51504fe42b3d352f1c858d"
+    },
+    "path": "objects/SparseMonotiles/CoarseContactCertificates5SymmetryData.ir",
+    "refusal_reason": null,
+    "schema": "higher-h5-ir-predispatch-observation-v1"
+  },
+  "acceptance_evidence_complete": false,
+  "acquisition": {
+    "bytes": 43000,
+    "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/artifact/ACQUISITION.json",
+    "sha256": "a9a26a6202887a465a76f800bcf338021defeb525021b1e30a3a6a4bf809cd2c"
+  },
+  "all_206_log_pins_verified": true,
+  "all_cleanup_complete": true,
+  "all_command_argv_source_plan_matched": true,
+  "all_read_inputs_rechecked_at_seal": true,
+  "allocation_failure_attributed": false,
+  "artifact": {
+    "archive_download_url": "https://api.github.com/repos/jconorgrogan/palomar-chair-verification/actions/artifacts/12147419789/zip",
+    "created_at": "2026-10-18T19:45:29Z",
+    "digest": "sha256:9e18e1bfc7d008cd794aa0af38972837ef5796042ff072eb332cef2da486a3d4",
+    "expired": false,
+    "expires_at": "2026-10-25T19:45:28Z",
+    "id": 12147419789,
+    "name": "conditional-evidence-39159721608-1-H5_higher_assembly",
+    "size_in_bytes": 3847748,
+    "updated_at": "2026-10-18T19:45:29Z",
+    "url": "https://api.github.com/repos/jconorgrogan/palomar-chair-verification/actions/artifacts/12147419789",
+    "workflow_run": {
+      "head_branch": "verify/higher-h5-heap5120-20261018",
+      "head_repository_id": 1407290933,
+      "head_sha": "ecf44513ecddd29507fec9f6046d47771fd6e0cd",
+      "id": 39159721608,
+      "repository_id": 1407290933
+    }
+  },
+  "ast_static_review": {
+    "imports": [
+      "ast",
+      "difflib",
+      "hashlib",
+      "io",
+      "json",
+      "math",
+      "pathlib",
+      "re",
+      "stat",
+      "sys",
+      "tarfile",
+      "zipfile",
+      "zlib"
+    ],
+    "removable_assertions": 0,
+    "unsafe_dynamic_or_native_calls": []
+  },
+  "baseline_reconciler": {
+    "bytes": 39440,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/AS24_BASELINE_RECONCILER.py.txt",
+    "sha256": "c9d37698a7fcb6854594226c8d6e61d6bd333a81d499fc25f0d086724f451702"
+  },
+  "baseline_to_final_diff": {
+    "bytes": 35657,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/AS24_TO_HEAP5120_RECONCILER.diff",
+    "sha256": "527f86c3221c8ab5856f0f61744cf1ca45ca64f38160ad35910172d1e0c62970"
+  },
+  "check_labels_sha256": "1e250bc560300088d09ce3bb4fb94fc15264193b8cf93e35ef07557038e020fb",
+  "checker": {
+    "bytes": 49126,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/reconcile.py",
+    "sha256": "4c2943296b3c771b270d8a5c338c222bf18b59d9abb739057ab2d3f38c98af39"
+  },
+  "checks": 13431,
+  "checks_each_mode": 13431,
+  "collection_all_available_complete": true,
+  "collection_bytes": 15436573,
+  "collection_files": 224,
+  "commands": 103,
+  "contract_sha256": "89e2b374396499ec38cb44ee3fa51a1be8570de4d6026d828b3e2101d6d1354c",
+  "expanded_bytes": 15475075,
+  "failed_adaptation_attempts": [
+    {
+      "attempt": 1,
+      "correction": "ATTEMPT1_TO_ATTEMPT2.diff",
+      "exit": "TEST_NORMAL_1.exit",
+      "harness": "RECONCILER_ATTEMPT1.py.txt",
+      "reason": "Reviewer adaptation used the inactive source-map hash for the activated source map. Exact difference is only selected contract/workflow pins; corrected to copied joined-replay map SHA73430e8a and added all map-row and parent joins. Evidence and project source were not changed.",
+      "status": "failed",
+      "stderr": "TEST_NORMAL_1.stderr",
+      "stdout": "TEST_NORMAL_1.stdout"
+    }
+  ],
+  "final_acceptance_predicate_rejects": true,
+  "final_native_success_predicate": false,
+  "forbidden_action_events": [],
+  "fresh_compile_check_pairs": 27,
+  "fresh_module_receipts_verified": 27,
+  "fresh_output_metadata_rows": 189,
+  "guard_self_tests": [
+    "socket.__new__",
+    "socket.connect",
+    "subprocess.Popen",
+    "os.system",
+    "os.fork",
+    "os.posix_spawn",
+    "os.exec",
+    "ctypes.dlopen",
+    "import"
+  ],
+  "input_pins": {
+    "bytes": 103358,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/INPUT_PINS.json",
+    "sha256": "a1ff4547df2c94f6422ddc356f18801d4f860538fb6d7ccdc63164489dbbf57c"
+  },
+  "input_pins_rechecked": 450,
+  "integration_input_pins": [
+    {
+      "bytes": 15754,
+      "path": "/workspace/shared/higher_h5_heap5120_source_20261018T1912/SOURCE_MAP.json",
+      "sha256": "acd765b2556160d2648fb88d5f58d0cf8a43c6f4a9d9a882566115c8c7459ab3"
+    },
+    {
+      "bytes": 20220,
+      "path": "/workspace/shared/higher_h5_heap5120_source_20261018T1912/FINAL_REVIEW.json",
+      "sha256": "1834b4a44545812036cdf59516c73570915fdca3ead5ba653c115b79ee116a9a"
+    },
+    {
+      "bytes": 17239,
+      "path": "/workspace/shared/higher_h5_heap5120_independent_source_review_20261018T1922/FINAL_REVIEW.json",
+      "sha256": "5a5257a042a381750415d37d7a6e716762734502b0fb43a011d71594e75b810c"
+    },
+    {
+      "bytes": 4337,
+      "path": "/workspace/shared/higher_h5_heap5120_activation_recipe_20261018T1916/RECIPE.json",
+      "sha256": "a54b82608fdd294d75a45e54732ee42a0d501babc2d9f6113690c7bea2375aab"
+    },
+    {
+      "bytes": 573,
+      "path": "/workspace/shared/higher_h5_heap5120_activation_recipe_20261018T1916/FINAL_REVIEW.json",
+      "sha256": "c7a24ff451ecb190f7aa001dc325971b09d4a8a4d2f43881e8a69de91f8ba5dc"
+    },
+    {
+      "bytes": 1795,
+      "path": "/workspace/shared/higher_h5_heap5120_activation_derivation_20261018T1923/DERIVED_PINS.json",
+      "sha256": "7afc68a10c1a98914d95fff666cc9ad72177a570b48eeb619798054af2cb673d"
+    },
+    {
+      "bytes": 578,
+      "path": "/workspace/shared/higher_h5_heap5120_activation_derivation_20261018T1923/FINAL_REVIEW.json",
+      "sha256": "499ebb71c3844a22bcc9de83200901824be7641f8ae8b00b3775eefab61e1cd1"
+    },
+    {
+      "bytes": 23276,
+      "path": "/workspace/shared/higher_h5_heap5120_activation_review_20261018T1924/FINAL_REVIEW.json",
+      "sha256": "c6b1ae41c2fe5ecbe21c02e491164ec5805b937f4f0d070d373223523024c9f6"
+    },
+    {
+      "bytes": 17785,
+      "path": "/workspace/shared/higher_h5_as24_integration_20261018T1819/PIPELINE_FILES.json",
+      "sha256": "aec7e7f458ef5dd790a4a5f69a79e325760a94894432d6f2e21c625dc8e480ad"
+    },
+    {
+      "bytes": 4537,
+      "path": "/workspace/shared/higher_h5_as24_integration_review_20261018T1820/FINAL_REVIEW.json",
+      "sha256": "a22f3deb9cb6c85c20c1ed8578d61dc0732928562df07305779ebe8a00a4362a"
+    },
+    {
+      "bytes": 18284,
+      "path": "/workspace/shared/higher_h5_heap5120_joined_replay_20261018T1924/FINAL_REVIEW.json",
+      "sha256": "56b8d5e3f2de11224df7ed447c8c5ef587be06b05cb43ae8210223503984c7a0"
+    },
+    {
+      "bytes": 2477,
+      "path": "/workspace/shared/higher_h5_heap5120_joined_replay_20261018T1924/REPLAY_RESULT.json",
+      "sha256": "23b23c2dd1e84fdfb95a53192b7b34418c0b5355c24df93d07b517d5f6582c4c"
+    },
+    {
+      "bytes": 15754,
+      "path": "/workspace/shared/higher_h5_heap5120_joined_replay_20261018T1924/COPIED_SOURCE_MAP.json",
+      "sha256": "73430e8afe961208f33ef53ea82490bb2f1adf69a09233a71b473f4db46d5eed"
+    }
+  ],
+  "interface_identity": {
+    "all_package_native_library_files_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "approved_bootstrap_companion_rows_sha256": "46c6d3d1bead5e8505df515845105032fdeda6f7f99f8a1f87366b2ed768ce04",
+    "required_cache_companion_rows_sha256": "963c90d2289e10ccf6d57c3f4ade1b982411b4a8fac0bb1b0629de58d4bd5bab",
+    "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+    "schema": "higher-external-interface-v1"
+  },
+  "job": {
+    "completed_at": "2026-10-18T19:45:33Z",
+    "conclusion": "failure",
+    "html_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39159721608/job/117770280486",
+    "id": 117770280486,
+    "name": "conditional H5_higher_assembly",
+    "status": "completed"
+  },
+  "last_command": {
+    "address_space_bytes": 25769803776,
+    "allow_new_sessions": true,
+    "argv": [
+      "/usr/bin/bwrap",
+      "--unshare-all",
+      "--die-with-parent",
+      "--new-session",
+      "--clearenv",
+      "--proc",
+      "/proc",
+      "--dev",
+      "/dev",
+      "--tmpfs",
+      "/tmp",
+      "--ro-bind",
+      "/usr",
+      "/usr",
+      "--ro-bind",
+      "/bin",
+      "/bin",
+      "--ro-bind",
+      "/lib",
+      "/lib",
+      "--ro-bind",
+      "/lib64",
+      "/lib64",
+      "--ro-bind",
+      "/etc/ssl",
+      "/etc/ssl",
+      "--ro-bind",
+      "/etc/resolv.conf",
+      "/etc/resolv.conf",
+      "--ro-bind",
+      "/etc/hosts",
+      "/etc/hosts",
+      "--ro-bind",
+      "/etc/nsswitch.conf",
+      "/etc/nsswitch.conf",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "/home/runner/work/_temp/conditional-geometry/runtime",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "/home/runner/work/_temp/conditional-geometry/reference-objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "/home/runner/work/_temp/conditional-geometry/objects",
+      "--ro-bind",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "/home/runner/work/_temp/conditional-geometry/packages",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--bind",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--setenv",
+      "GIT_CONFIG_GLOBAL",
+      "/dev/null",
+      "--setenv",
+      "GIT_CONFIG_NOSYSTEM",
+      "1",
+      "--setenv",
+      "GIT_TERMINAL_PROMPT",
+      "0",
+      "--setenv",
+      "HOME",
+      "/home/runner/work/_temp/conditional-geometry/home",
+      "--setenv",
+      "LAKE_ARTIFACT_CACHE",
+      "false",
+      "--setenv",
+      "LAKE_NO_CACHE",
+      "true",
+      "--setenv",
+      "LANG",
+      "C.UTF-8",
+      "--setenv",
+      "LC_ALL",
+      "C.UTF-8",
+      "--setenv",
+      "LEAN_ABORT_ON_PANIC",
+      "1",
+      "--setenv",
+      "LEAN_NUM_THREADS",
+      "1",
+      "--setenv",
+      "LEAN_PATH",
+      "/home/runner/work/_temp/conditional-geometry/auditor-objects:/home/runner/work/_temp/conditional-geometry/reference-objects:/home/runner/work/_temp/conditional-geometry/objects:/home/runner/work/_temp/conditional-geometry/packages/mathlib/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/plausible/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/importGraph/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/aesop/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Qq/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/batteries/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/packages/Cli/.lake/build/lib/lean:/home/runner/work/_temp/conditional-geometry/runtime/lib/lean",
+      "--setenv",
+      "MATHLIB_CACHE_DIR",
+      "/home/runner/work/_temp/conditional-geometry/cache",
+      "--setenv",
+      "MATHLIB_NO_CACHE_ON_UPDATE",
+      "1",
+      "--setenv",
+      "PATH",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin:/usr/bin:/bin",
+      "--setenv",
+      "TMPDIR",
+      "/home/runner/work/_temp/conditional-geometry/tmp",
+      "--chdir",
+      "/home/runner/work/_temp/conditional-geometry/auditors",
+      "--",
+      "/home/runner/work/_temp/conditional-geometry/runtime/bin/lean",
+      "-j1",
+      "-M5120",
+      "--run",
+      "/home/runner/work/_temp/conditional-geometry/auditors/AuditHigherPhysicalEndpoints.lean"
+    ],
+    "cleanup_bound_seconds": 3.0,
+    "cleanup_elapsed_seconds": 0.012286,
+    "cwd": "/home/runner/work/_temp/conditional-geometry",
+    "descendants_empty": true,
+    "effective_timeout_seconds": 600,
+    "elapsed_seconds": 6.633077,
+    "escaped_descendants": true,
+    "exit_code": 1,
+    "limits": {
+      "address_space_bytes": 25769803776,
+      "max_created_file_bytes": 536870912,
+      "rss_tree_bytes": 8589934592
+    },
+    "log_overflow": false,
+    "max_created_file_bytes": 536870912,
+    "max_log_bytes": 1048576,
+    "max_rss_bytes": 8589934592,
+    "max_sampled_process_virtual_size_bytes": 14166933504,
+    "max_sampled_tree_virtual_size_bytes": 14174404608,
+    "memory_exceeded": false,
+    "name": "audit-AuditHigherPhysicalEndpoints",
+    "new_sessions_explicitly_allowed": true,
+    "peak_sampled_tree_rss_bytes": 6776922112,
+    "process_group_empty": true,
+    "requested_timeout_seconds": 600,
+    "stderr_sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surviving_children": false,
+    "timed_out": false,
+    "timeout_seconds": 600,
+    "virtual_size_sample_count": 117
+  },
+  "limitations": [
+    "The parent reports the receiver exited zero at 19:49:46 UTC and ARTIFACTS_REAUTH was the sole post-transfer list response at 19:49:53 UTC. This ordering is attributed to the parent transcript; it is not inferred from filesystem timestamps or independently verified remote chronology.",
+    "This review independently reconciles retained local API wrappers, ZIP and source bytes. It makes no remote calls and is not an independently fetched or later remote observation.",
+    "The 225-member archive is complete for the failure collector only. All available files were copied; replay acceptance evidence is explicitly incomplete.",
+    "All 103 planned command records and 206 log pins reconcile. Commands 0 through 101 exited zero, including all 27 fresh compile/check pairs and three auditor compile/check pairs. The final raw auditor command exited one.",
+    "All 27 module receipts and 189 output companion metadata rows reconcile with source hashes, ordered imports and command indexes. No fresh H5 native object payload or final acceptance inventory is present for independent readmission.",
+    "Seven original predecessor origin, original producer-contract/source, receipt, checker-lineage and interface metadata joins reconcile. Original producer object ZIP/tar payloads were not reacquired or re-admitted; 1,433 recorded checked modules is not an independent replay of all those payloads.",
+    "The predispatch IR record reports an exact 1,054,344-byte H0 pin match immediately before dispatch. The IR payload is absent and this receipt does not establish every child read or pathname state at failure.",
+    "The unchanged error with -M5120 does not establish whether a threshold was overridden, which interpreter check threw, or which allocation/counter was involved. Official retained memory sources are pinned as source evidence, not as compiled-binary behavior attestation.",
+    "The final stderr explicitly reports excessive memory consumption at interpreter with selected -M5120. Recorded RSS remains below 8 GiB and maximum sampled individual-process VMS below the 24 GiB address-space limit. This does not attribute the error to a particular allocation, PID, native/Lean subsystem, or prove a peak was never missed.",
+    "Sampled process VMS maxima are not PID-attributed allocation traces; tree VMS sums processes and is not the per-process RLIMIT_AS metric. No errno, failed allocation result, syscall trace, or allocator accounting is recorded.",
+    "memory_exceeded=false means the sampled RSS guard did not trip. There was no recorded timeout or log overflow and final cleanup completed. These facts do not imply successful raw audit acceptance.",
+    "The prior AS12 fallback-read error and AS-saturation inference are historical context only; this heap5120 run has different stderr and does not independently establish the same mechanism.",
+    "No successful H5 stage, final raw endpoint audit, native-stage object publication, final C proof, all-dimension uniform proof, or unconditional monotile result follows from this evidence."
+  ],
+  "members": 225,
+  "metadata_after_transfer_chronology": {
+    "independently_verified_remote_order": false,
+    "post_transfer_list_utc": "2026-10-18T19:49:53Z",
+    "post_transfer_response": "ARTIFACTS_REAUTH.json",
+    "receiver_exit_utc": "2026-10-18T19:49:46Z",
+    "source": "parent message reporting retained tool transcript"
+  },
+  "metadata_observations_equal": true,
+  "mode_results_identical_except_mode": true,
+  "modes": [
+    "normal",
+    "optimized"
+  ],
+  "native_success_commands": 102,
+  "normal_result": {
+    "bytes": 204497,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/NORMAL.json",
+    "sha256": "16b44abb84ec8a3660bb1bfa601d107bade98fb22efcdf6a69f959978f88a566"
+  },
+  "official_memory_source_binding": {
+    "bytes": 6462,
+    "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/origin/lean-memory/SOURCE_BINDING.json",
+    "sha256": "b1d83132919f10e8768975536d8423b4099e760458265ad9107c5e15a9a53608"
+  },
+  "optimized_result": {
+    "bytes": 204500,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/OPTIMIZED.json",
+    "sha256": "97e6d334582d0962109b87c38954edca5d291e867450f2a9b9c63fe821b178ca"
+  },
+  "original_payload_readmission_performed": false,
+  "packet_manifest": {
+    "bytes": 41250,
+    "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/FILES.json",
+    "sha256": "69e84036556e6615f787fa2ed9a7f6d6a280178bb68eb2eb31c039b0a3ba7a56"
+  },
+  "payload_execution": false,
+  "permanent_audit_guards": true,
+  "permanent_sealing_audit_guard": true,
+  "producer_steps": [
+    {
+      "completed_at": "2026-10-18T19:38:56Z",
+      "conclusion": "success",
+      "name": "Set up job",
+      "number": 1,
+      "started_at": "2026-10-18T19:38:56Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:38:57Z",
+      "conclusion": "success",
+      "name": "Check out the exact staged candidate",
+      "number": 2,
+      "started_at": "2026-10-18T19:38:56Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:39:22Z",
+      "conclusion": "success",
+      "name": "Install official Ubuntu sandbox dependencies",
+      "number": 3,
+      "started_at": "2026-10-18T19:38:57Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:27Z",
+      "conclusion": "failure",
+      "name": "Replay this exact checked-object stage",
+      "number": 4,
+      "started_at": "2026-10-18T19:39:22Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:28Z",
+      "conclusion": "success",
+      "name": "Preserve bounded stage evidence",
+      "number": 5,
+      "started_at": "2026-10-18T19:45:27Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:28Z",
+      "conclusion": "skipped",
+      "name": "Upload complete checked stage objects",
+      "number": 6,
+      "started_at": "2026-10-18T19:45:28Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:28Z",
+      "conclusion": "skipped",
+      "name": "Bind checked objects to this successful producer job",
+      "number": 7,
+      "started_at": "2026-10-18T19:45:28Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:29Z",
+      "conclusion": "success",
+      "name": "Upload bounded diagnostic evidence",
+      "number": 8,
+      "started_at": "2026-10-18T19:45:28Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:29Z",
+      "conclusion": "success",
+      "name": "Post Check out the exact staged candidate",
+      "number": 16,
+      "started_at": "2026-10-18T19:45:29Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-18T19:45:29Z",
+      "conclusion": "success",
+      "name": "Complete job",
+      "number": 17,
+      "started_at": "2026-10-18T19:45:29Z",
+      "status": "completed"
+    }
+  ],
+  "project_code_execution": false,
+  "proof_certified": false,
+  "publication_review": {
+    "bytes": 43212,
+    "path": "/workspace/shared/higher_h5_heap5120_publication_review_20261018T1941/FINAL_REVIEW.json",
+    "sha256": "d843fd02df2a87538e09da0bc5c039e700408a8063345dd1eba8829e73fb1399"
+  },
+  "raw_auditor_exit": 1,
+  "receiver_exit_receipt": {
+    "bytes": 317,
+    "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/RECEIVER_EXIT.json",
+    "sha256": "c39f0727c09730b4dc907cf027ffbca0e562c214d7ccd617d3b8002585768542"
+  },
+  "receiver_source": {
+    "bytes": 5432,
+    "path": "/workspace/shared/c087_receiver_host_20261018T1752/acquire_evidence.py",
+    "sha256": "03eae9a0cc4772684408f3ec030bb4abca9f7e821ffe1177f7f2be876723eaae"
+  },
+  "remote_calls": false,
+  "run": {
+    "conclusion": "failure",
+    "head_sha": "ecf44513ecddd29507fec9f6046d47771fd6e0cd",
+    "html_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39159721608",
+    "id": 39159721608,
+    "run_attempt": 1,
+    "status": "completed",
+    "updated_at": "2026-10-18T19:45:34Z",
+    "workflow_id": 386423911
+  },
+  "schema": "independent-local-h5-heap5120-final-review-v1",
+  "sealing_forbidden_action_events": [],
+  "sealing_script": {
+    "bytes": 8006,
+    "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/seal_review.py",
+    "sha256": "e7c86608383a7b5296316d8a3aefb63a088056634728ab1b49fd999f80ac3d34"
+  },
+  "seven_original_predecessor_metadata_source_joins": [
+    {
+      "checked_module_receipts_sha256": "cd4cbe6098330c78724ba3b7d4c18fe5a5f0300605d43986255a48b93fa31c20",
+      "module_count": 186,
+      "origin": {
+        "artifact_id": 12052269672,
+        "artifact_name": "conditional-geometry-38914223883-1-F0_common-objects",
+        "artifact_zip_bytes": 64420376,
+        "artifact_zip_sha256": "5c517172860a9a2f6a1f93a7e72cab98b81c0b048ebdc3f1658feda8b1eaeff2",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38914223883",
+          "workflow_commit": "318a6900eabfec550b4adf1b0f4bd634c20d67c5"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117017431150,
+        "producer_job_log_sha256": "01a791421067136520dfb20fe49ed901606c38ed608b58edad327cf8f797f6e7",
+        "producer_job_name": "conditional F0_common",
+        "stage_id": "F0_common",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "cbba2b835ef2578ad4810068cab863918af442d5fa30abea5cafcfa78ce35a38",
+      "producer_receipt_sha256": "3cc9b05bbb5bc8fa90cfb9ecbb5f0ebe7d313d9c6c78d0db8b2aa6677e0bc916",
+      "source_identity_module_count": 186,
+      "stage_id": "F0_common"
+    },
+    {
+      "checked_module_receipts_sha256": "8df1e658e5062bf4b06c284fc72ef742477d5e66c5943f2add6072f91dc2f098",
+      "module_count": 109,
+      "origin": {
+        "artifact_id": 12065872737,
+        "artifact_name": "conditional-geometry-38944907835-1-F3_product_geometry-objects",
+        "artifact_zip_bytes": 62822946,
+        "artifact_zip_sha256": "9a80bec564064b1c53b6ed3fa079c902546dd6ac4bdbd84b46e89354ead7269d",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38944907835",
+          "workflow_commit": "3a2ec654097b5259679816e81ccfab6fe3948d41"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117121459810,
+        "producer_job_log_sha256": "e629f46e27d3d210800ab433a110e62021085a165bc2acf48d9d28096f4b4814",
+        "producer_job_name": "conditional F3_product_geometry",
+        "stage_id": "F3_product_geometry",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "288b8adf64db7d9d1bd2ebefb38660debc550d1bdf65f2ab97039b331f7c9070",
+      "producer_receipt_sha256": "e0f94b718e1664430229fd3c33938cb9cdd5bb7da8ab627ffdd2286e4ca31008",
+      "source_identity_module_count": 109,
+      "stage_id": "F3_product_geometry"
+    },
+    {
+      "checked_module_receipts_sha256": "3f0dc8a11c1f2339d9cc851256700e99b2a70aa6cf5f2c34d618389d1005367d",
+      "module_count": 44,
+      "origin": {
+        "artifact_id": 12138754904,
+        "artifact_name": "conditional-geometry-39134139440-1-H0_common-objects",
+        "artifact_zip_bytes": 50934296,
+        "artifact_zip_sha256": "c92210f23dd3c383108dc507a5525e9f5fae32a59cccdb9c09704d2b2e956a3f",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117695101459,
+        "producer_job_log_sha256": "adba4f0de1f91bd5d19bd013839d7fca0f82ccd924e26b6073f0bf7ac4fcc4d7",
+        "producer_job_name": "conditional H0_common",
+        "stage_id": "H0_common",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "63af8911af9a29597d51bf07475f16314e4c46d3606409c0696390796f4cef2a",
+      "source_identity_module_count": 44,
+      "stage_id": "H0_common"
+    },
+    {
+      "checked_module_receipts_sha256": "55ff9bbb9eeb1bc373a2e493f4ca545eb4a75b7c59ea40309f779087df8d75fb",
+      "module_count": 221,
+      "origin": {
+        "artifact_id": 12141180253,
+        "artifact_name": "conditional-geometry-39134139440-1-H1_coarse_contacts-objects",
+        "artifact_zip_bytes": 790774306,
+        "artifact_zip_sha256": "ef1bd45c5ae970865fcb387f7851411b84a38e37570f5da17a1031dcecc22888",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822655,
+        "producer_job_log_sha256": "ac3903d0f0bf122483b986a3a743a9588b2b1df710ddee35d4a03334eac86125",
+        "producer_job_name": "conditional H1_coarse_contacts",
+        "stage_id": "H1_coarse_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "c6beb179cbe8317ae0fc40f34bc356f141e4056d67197b540e572d7dac1f7ed3",
+      "source_identity_module_count": 221,
+      "stage_id": "H1_coarse_contacts"
+    },
+    {
+      "checked_module_receipts_sha256": "402438278f94f2c0ebdcb818e5873e8c2d790f39167c03a12dd172e0bd9f8738",
+      "module_count": 82,
+      "origin": {
+        "artifact_id": 12139776805,
+        "artifact_name": "conditional-geometry-39134139440-1-H2_forward_contacts-objects",
+        "artifact_zip_bytes": 225751587,
+        "artifact_zip_sha256": "b4d654d82d12eb746f9a08fdb1b6c89fc634316a134af832fea020e62a35fe52",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822680,
+        "producer_job_log_sha256": "076076eb3a8e7c90e0d06da825267500175a0567f837c47a50676a03b6fd1bbc",
+        "producer_job_name": "conditional H2_forward_contacts",
+        "stage_id": "H2_forward_contacts",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "11fb7ceb256a8fa3e18a140497b722eac5a165fe9e372f71645d7d9ef7ef8d1b",
+      "source_identity_module_count": 82,
+      "stage_id": "H2_forward_contacts"
+    },
+    {
+      "checked_module_receipts_sha256": "ad55dfadf247f43a637fb1108d31589d33f2a89766923b3cf48130f663e8caa7",
+      "module_count": 460,
+      "origin": {
+        "artifact_id": 12141368444,
+        "artifact_name": "conditional-geometry-39134139440-1-H3_contact_binding-objects",
+        "artifact_zip_bytes": 999434786,
+        "artifact_zip_sha256": "7aa1649a1e5eb4167ab0e467ec2b97e1aab4685121ad0b40f32e1687783a5393",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "39134139440",
+          "workflow_commit": "db18549f7ad64d5d62c4f9432f8f804ab375375c"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117696822670,
+        "producer_job_log_sha256": "311bc2c3b99c202e25926a84f475687da49c6ed8b57dbb79c84544e95d960480",
+        "producer_job_name": "conditional H3_contact_binding",
+        "stage_id": "H3_contact_binding",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "29e3b7dddbd52d782a9489b2394080ed48e9c361a46c8b3315f202119d715d21",
+      "producer_receipt_sha256": "60ea99be8ab9d89ba64d6171e84909efdd57355d666ea3af2b24d81fd8d0312a",
+      "source_identity_module_count": 460,
+      "stage_id": "H3_contact_binding"
+    },
+    {
+      "checked_module_receipts_sha256": "a3ec6a17585c4c52a3508cf2b983e079f4ddcd766ec841de572b54d43d70dc28",
+      "module_count": 304,
+      "origin": {
+        "artifact_id": 12083075076,
+        "artifact_name": "conditional-geometry-38982023996-1-H4_product_geometry-objects",
+        "artifact_zip_bytes": 118149667,
+        "artifact_zip_sha256": "d7428568d63e9cf5c1eb182a0ff87ee02e0f238aa9c867feb2a70a49f97d366b",
+        "identity": {
+          "repository": "jconorgrogan/palomar-chair-verification",
+          "run_attempt": "1",
+          "run_id": "38982023996",
+          "workflow_commit": "31e580fd4246e2d60dd6393ac8571abfe1cd2ba0"
+        },
+        "producer_conclusion": "success",
+        "producer_job_id": 117244832047,
+        "producer_job_log_sha256": "e49e307ebb4c5ecd839055f1d390f20d7c32181bfe6ef2a43158b9056c77686f",
+        "producer_job_name": "conditional H4_product_geometry",
+        "stage_id": "H4_product_geometry",
+        "workflow_id": 386423911,
+        "workflow_path": ".github/workflows/conditional-geometry.yml"
+      },
+      "producer_contract_sha256": "36e9d007ca11bf79dcd2841b3023c4ecf40b170503a4c484661d6b1e33049aa5",
+      "producer_receipt_sha256": "6f8d22979ff718ad0cf0311a3a380bcd9dc2e17e8b8b27a5f2395d61b6fd32bf",
+      "source_identity_module_count": 304,
+      "stage_id": "H4_product_geometry"
+    }
+  ],
+  "source_archive_bytes_verified": 23580218,
+  "source_archive_modules_verified": 1433,
+  "source_files": 97,
+  "source_selection_map": {
+    "bytes": 15754,
+    "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/ACTIVE_SOURCE_MAP.json",
+    "sha256": "73430e8afe961208f33ef53ea82490bb2f1adf69a09233a71b473f4db46d5eed"
+  },
+  "source_semantics": [
+    {
+      "bytes": 55492,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/ci/conditional_transport.py",
+      "sha256": "d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e"
+    },
+    {
+      "bytes": 81922,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/ci/cache_diagnostic.py",
+      "sha256": "3bb36711ba6ae605e95bab9536e18665f1a492f0f7b36ba01bfa2ceb9588fd61"
+    },
+    {
+      "bytes": 50298,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/ci/fresh_stage.py",
+      "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
+    },
+    {
+      "bytes": 54960,
+      "path": "/workspace/shared/higher_h5_heap5120_integration_20261018T1923/pipeline/ci/higher_policy.py",
+      "sha256": "d032188a36b2353a1ed4f937b7b1284efdf4de6fd15ef1b3ce5a8162486a1769"
+    }
+  ],
+  "source_tree": "676cc41ac9cc0323227f839d16426ed9896028bc",
+  "status": "reconciled_terminal_failure_interpreter_memory_error",
+  "stderr_text": "excessive memory consumption detected at 'interpreter' (potential solution: increase memory consumption threshold)\n",
+  "successful_commands": 102,
+  "successful_final_stage_claim": false,
+  "test_runs": [
+    {
+      "bytes": 1429,
+      "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/TEST_FINAL_NORMAL.json",
+      "sha256": "71550340bf19541f2dd2ebc4ad69eb0b1e4d5bf27b896d4d68704af6d7431708"
+    },
+    {
+      "bytes": 1457,
+      "path": "/workspace/shared/higher_h5_heap5120_terminal_independent_20261018T1952/TEST_FINAL_OPTIMIZED.json",
+      "sha256": "fb98fff348790764b3a94d7d1cd5c1a7c38774850947a27f60c79d1102bc9436"
+    }
+  ],
+  "total_log_bytes": 502345,
+  "total_recorded_command_seconds": 247.001182,
+  "zip": {
+    "bytes": 3847748,
+    "path": "/workspace/shared/higher_h5_heap5120_failure_review_20261018T1949/artifact/evidence.zip",
+    "sha256": "9e18e1bfc7d008cd794aa0af38972837ef5796042ff072eb332cef2da486a3d4"
+  }
+}
