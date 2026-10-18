@@ -1,43 +1,17 @@
-# Hierarchy C production continuation
+Reviewed clean hierarchy C replay candidate.
 
-This runtime prepares a bounded continued verification attempt. Its reusable native stage artifacts and final verdict must come from the authenticated attempt itself. The source snapshot remains `5d0612a09e3b7d440be16e7b1dc511ae73035bbb`, with 6,369 modules in 93 stages.
+Scope: all 93 original plan stages and 6369 modules, exact production profiles including the dedicated 087 async-off copy, new clean identity and run. Each native build calls unchanged StageRunner.run with an absent workspace. Final restore creates and checks an empty object tree before same-clean-run artifact admission. No external/project seed artifacts, old selection, admission certificate, historical acquisition or restored historical context is used. Pure policy sources are retained unchanged as imported helper code; no historical typed context is constructed.
 
-## Selected origins and remaining work
+Identity fixes exact source/manifest/plan/profiles/runtime archive and inventory. Every project artifact comes from the same new authenticated run and successful producer verifier/upload steps 6/7. All 93 raw chains are required for the final compiled count, full companion hashes, and explicit same-run predecessor ledger. Five final roles retain the seven existing command bodies. The clean verdict remains distinct from independent byte-reproduction comparison.
 
-The static selection retains 37 original stages from run 38860226136, 11 prior-successor stages from run 38917565694, and 42 successful stages from terminal run 38978663241. Each historical stage keeps its original identity, source, profile, descriptor, receipt, payload digest and predecessor chain. A failed overall historical run is not treated as successful; only its precisely selected successful producers are eligible.
+Resources retain original production scope: one 19800-second monotonic budget plus native cleanup and CI 30-second grace, maximum four jobs, six-day age from this clean run, original stage profiles and native process caps, original final command caps. No standalone acquisition parent affinity/AS claim is made. Token is removed before installer/native subprocesses and retained only by the same-run transport. Same token gate counts every API attempt, including bootstrap, with one-shot 1000 ceiling and unchanged pacing/header semantics. Current per-artifact source/job/artifact validators, redirects, ZIP policies and disk/inode reserves remain. Stage raw ledger is capped at 4 GiB; final payload cap is the existing 3 GiB; target-export stdout capture is capped at 2 GiB. No worst-case arbitrary scratch-write quota claim.
 
-The three remaining stages are sequential:
+Actual inert fake-opener counts: largest 93-stage final restore transport path 662 GETs; five-final plus all93 producer reauthentication 604 GETs. Three explicit driver current-authentication calls yield 665 and 607 respectively. Both exact100 active-consumer acceptance and101 refusal pass; producer pagination reads the second empty page at100. All test native/results and tiny payloads are invented data. Native execution, network, process launch and native library loading are permanently refused in the test processes. Test-only disk observation and prepare-inventory pin substitution are disclosed in test_transport.py. Whole execute controls cover prepare, build, five final roles and verdict with explicitly mocked tiny sources/runtime/native operations. They are wiring controls, never actual native acceptance.
 
-1. build_087: SpectreFinite.RadiusFivePruningCertified
-2. build_091: SpectreFinite.RadiusFiveParentCoverage
-3. build_092: SpectreFinite.RadiusFivePruningHierarchy
+Failure output is FAILURE.json at most16 KiB with fixed phase/reason and numeric/Boolean native result and finite command index; optional native.stdout/native.stderr only after cleanup safety, complete and combined at most32 MiB. No token, arbitrary exception, URL, response or header text is retained.
 
-Only the build_087 compiler profile disables asynchronous elaboration. Historical profiles and the other current module profiles retain their selected bytes. Diagnostic run [39083350247](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39083350247) passed the unchanged target source's async-off compile, kernel checker and exact raw theorem auditor. That diagnostic supplied evidence, not a reusable production build_087 artifact.
+Activation is solely the literal recipe in ACTIVATION_RECIPE.json after independent source and integrated-workflow review. No native/runtime execution or remote action occurred while preparing this packet.
 
-After build_092, export_target and fresh_kernel run independently. lean_export, nanoda and conron depend on export_target. The verdict requires all five final evidence producers. A prepare job establishes the current identity and toolchain inventory before the three builds. This is ten workflow jobs, with at most four substantive jobs overlapping.
+This exact integration selects the two-checkout workflow on branch verify/hierarchy-c-clean-replay-20261018. It expands 32 YAML jobs into prepare, 93 builds, five final evidence jobs and verdict (100 total), using the original 25 barriers and maximum four concurrent jobs. The Git parent is acc99d32b312655d8b526925a7addaab44260551; this is a complete new clean tree. No historical project artifacts seed this replay. Final equality against the independently authenticated continuation remains a separate required gate. Overall submission completion is not asserted by this workflow.
 
-The 90 selected raw archives total 3,438,714,880 bytes. The unchanged 4 GiB raw cap leaves 856,252,416 bytes for the three new native stages. The original deadline, 2026-10-22T06:15:54Z, and all earlier artifact expiries remain binding. Actual available disk and inode capacity remain live gates.
-
-## Runtime and invocation
-
-The pipeline, immutable research source, prior pipeline `fca406f6c52a622762d9c75167a92f895c3ddd00`, and latest historical pipeline `bc3f977237bee905dafb4f13eeb6564a4a338b42` are separate clean checkouts. The prior and latest native validation graphs remain separately pinned.
-
-The dedicated workflow is `.github/workflows/hierarchy-c-production-continuation.yml` on branch `verify/hierarchy-c-production-continuation-20261018`. It invokes:
-
-    /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B pipeline/ci/four_context_driver.py ROLE --contract-sha256 HASH --pipeline CURRENT --source SOURCE --prior PRIOR --latest LATEST
-
-Build roles additionally specify --stage build_087, build_091 or build_092. Current verifier/upload steps are 8/9. Historical producer step maps stay unchanged at 7/8.
-
-## Transport and evidence
-
-The complete fixed 90-stage selection is authenticated before native reuse. Historical run/job snapshots are compared at the beginning and end of the transfer batch. Every artifact retains individual metadata, ZIP and raw descriptor/receipt/payload checks; the native validators still decide whether an object can be reused.
-
-Current bootstrap, historical acquisition and later current-artifact reads share one actual paced opener. Its lifetime allowance is 1,000 authenticated attempts, charged before dispatch and never replenished by changing server Date/reset headers. Minimum spacing remains 3.7 seconds. The ordinary historical-only synthetic paths take 297 authenticated attempts with single-page jobs, or 327 with six-page jobs. Current/fresh requests consume the same balance. Retries, waits, network latency and deadlines can cause refusal; these figures are not completion guarantees.
-
-Successful build jobs publish their new delta.tar and upload-candidate.json; final producers publish their original bounded payload and descriptor. A failed driver may retain only FAILURE.json and, after successful native safety and cleanup acceptance, complete bounded native.stdout/native.stderr. The workflow uploads those three literal failure paths. It never invokes the old raw-capture collector. A failure artifact does not confer success.
-
-The resource baseline is the original production trusted parent and original native child profiles. Historical create_session runs in-process; it does not claim the diagnostic standalone acquisition CLI's parent affinity/address-space envelope. Original final child address-space limits remain 12 GiB with phase-specific sampled tree RSS; stage child limits remain their selected original profiles. The existing source/runtime checks, six-companion coverage, nominal final command caps, 19,800-second original job budget, transfer/request/ZIP/raw/disk/inode bounds and 350-minute outer job ceiling remain required. The external watchdog alone does not prove descendant cleanup. Native safety and cleanup evidence, exact output validation and final terminal reconciliation are separate mandatory conditions.
-
-## Result boundary
-
-Local tests use bounded synthetic data and do not establish research theorem success. Every new production stage must pass actual compile/check/native receipt validation. All six final roles, including independent readers and the verdict, remain required. A successful continued result still leaves the separately required clean replay and Palomar preflight/submission conditions.
+The independent source review and exact integration review precede publication release. In-job success still requires real clean native builds and all final roles; copied inert tests do not establish those results. The original source packet and its logs remain preserved. The copied runtime test changes only its inactive-state assertion to the exact active literal/status; the envelope test changes only the active guard/digest expectation. All other inherited test bytes stay exact.
