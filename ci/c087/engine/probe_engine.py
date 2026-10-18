@@ -95,9 +95,14 @@ def _original_ab_command_plan(native, *, source_root,toolchain_root,predecessor_
  return rows
 
 def command_plan(native,**kwargs):
- """Fixed current-run async-off-only research plan; no current default attempt."""
+ """Fixed async-off research plan with a bounded raw-auditor interpreter budget."""
  rows=_original_ab_command_plan(native,**kwargs)
- return rows[:12]+rows[15:]
+ rows=rows[:12]+rows[15:]
+ audit=rows[-1];inner=audit['inner_argv'];start=audit['argv'].index('--')+1
+ expected=[base.canonical(str(kwargs['toolchain_root']))+'/bin/lean','-j1','-M768','--run',base.canonical(str(kwargs['helper_root']))+'/AuditC087Raw.lean']
+ need(audit['name']=='audit-target-async_off' and audit['phase']=='audit' and inner==expected and audit['argv'][start:]==expected,'fixed research auditor command changed')
+ inner[2]='-M4096';audit['argv'][start+2]='-M4096'
+ return rows
 
 
 def _view_identity(st):
