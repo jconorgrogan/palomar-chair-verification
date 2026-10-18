@@ -67,7 +67,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PYTHONDONTWRITEBYTECODE: '1'
       run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/final_recovery_driver.py"
-        conron --contract-sha256 c2fa59e225302a3378db0430087c4f93ef835880ff677cf3cda8db74ab216c95 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
+        conron --contract-sha256 f27cc204fec14b60a399ac466894b2e36dc8275099f2f3c9bd54baa55ae71dc2 --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source"
         --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
     - name: Upload only this job's new evidence
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

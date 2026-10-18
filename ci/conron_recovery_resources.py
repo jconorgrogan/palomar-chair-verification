@@ -153,6 +153,10 @@ def _number(raw, allow_max=False):
 
 def _controllers(raw):
     value = _text(raw)
+    # Linux cgroup_print_ss_mask emits nothing for an empty mask; only a
+    # nonempty controller list has a terminal LF. Preserve other parsing.
+    if value == '':
+        return []
     need(value.endswith('\n'), 'HEADROOM_CONTROLLERS')
     rows = value[:-1].split() if value[:-1] else []
     need(len(rows) <= 32 and len(set(rows)) == len(rows) and
