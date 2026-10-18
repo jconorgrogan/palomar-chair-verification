@@ -1,0 +1,829 @@
+# Exact reviewed production continuation; actual native stages and final gates remain required.
+name: Verify hierarchy C production continuation
+'on':
+  push:
+    branches:
+    - verify/hierarchy-c-production-continuation-20261018
+    paths:
+    - ci/**
+    - admission/**
+    - acquisition/**
+    - .github/workflows/hierarchy-c-production-continuation.yml
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: hierarchy-c-production-continuation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        prepare --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-prepare
+        path: ${{ runner.temp }}/hierarchy-c-prepare/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-prepare
+        path: '${{ runner.temp }}/hierarchy-c-prepare/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-prepare/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-prepare/failure/native.stderr
+
+          '
+  wave_22:
+    name: stage ${{ matrix.stage }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        stage:
+        - build_087
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        build --stage ${{ matrix.stage }} --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af
+        --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest
+        "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 1
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: '${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stderr
+
+          '
+  wave_23:
+    name: stage ${{ matrix.stage }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - wave_22
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        stage:
+        - build_091
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        build --stage ${{ matrix.stage }} --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af
+        --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest
+        "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 1
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: '${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stderr
+
+          '
+  wave_24:
+    name: stage ${{ matrix.stage }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - wave_23
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        stage:
+        - build_092
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        build --stage ${{ matrix.stage }} --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af
+        --pipeline "$GITHUB_WORKSPACE/pipeline" --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest
+        "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 1
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.stage }}
+        path: '${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-build-${{ matrix.stage }}/failure/native.stderr
+
+          '
+  export_target:
+    name: export_target
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - wave_24
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        export_target --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-export_target
+        path: ${{ runner.temp }}/hierarchy-c-export_target/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-export_target
+        path: '${{ runner.temp }}/hierarchy-c-export_target/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-export_target/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-export_target/failure/native.stderr
+
+          '
+  fresh_kernel:
+    name: fresh_kernel
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - wave_24
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        fresh_kernel --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-fresh_kernel
+        path: ${{ runner.temp }}/hierarchy-c-fresh_kernel/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-fresh_kernel
+        path: '${{ runner.temp }}/hierarchy-c-fresh_kernel/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-fresh_kernel/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-fresh_kernel/failure/native.stderr
+
+          '
+  lean_export:
+    name: lean_export
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - export_target
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        lean_export --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-lean_export
+        path: ${{ runner.temp }}/hierarchy-c-lean_export/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-lean_export
+        path: '${{ runner.temp }}/hierarchy-c-lean_export/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-lean_export/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-lean_export/failure/native.stderr
+
+          '
+  nanoda:
+    name: nanoda
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - export_target
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        nanoda --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-nanoda
+        path: ${{ runner.temp }}/hierarchy-c-nanoda/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-nanoda
+        path: '${{ runner.temp }}/hierarchy-c-nanoda/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-nanoda/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-nanoda/failure/native.stderr
+
+          '
+  conron:
+    name: conron
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - export_target
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        conron --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-conron
+        path: ${{ runner.temp }}/hierarchy-c-conron/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-conron
+        path: '${{ runner.temp }}/hierarchy-c-conron/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-conron/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-conron/failure/native.stderr
+
+          '
+  verdict:
+    name: verdict
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    needs:
+    - prepare
+    - export_target
+    - fresh_kernel
+    - lean_export
+    - nanoda
+    - conron
+    steps:
+    - name: Check out reviewed pipeline commit
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        path: pipeline
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable source snapshot
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: 5d0612a09e3b7d440be16e7b1dc511ae73035bbb
+        path: source
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable prior pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: fca406f6c52a622762d9c75167a92f895c3ddd00
+        path: prior
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Check out immutable latest pipeline
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: bc3f977237bee905dafb4f13eeb6564a4a338b42
+        path: latest
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Verify exact clean checkout identities
+      id: checkout_guard
+      run: "set -euo pipefail\nverify_checkout() {\n  test \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" rev-parse HEAD)\"\
+        \ = \"$2\"\n  test -z \"$(/usr/bin/git -C \"$GITHUB_WORKSPACE/$1\" status --porcelain=v1 --untracked-files=all --ignored=matching)\"\
+        \n}\nverify_checkout pipeline \"$GITHUB_SHA\"\nverify_checkout source 5d0612a09e3b7d440be16e7b1dc511ae73035bbb\nverify_checkout\
+        \ prior fca406f6c52a622762d9c75167a92f895c3ddd00\nverify_checkout latest bc3f977237bee905dafb4f13eeb6564a4a338b42\n"
+    - name: Install official Ubuntu archive and sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Run fail-closed verifier
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PYTHONDONTWRITEBYTECODE: '1'
+      run: /usr/bin/timeout --signal=TERM --kill-after=30s 19800s /usr/bin/python3 -I -S -B "$GITHUB_WORKSPACE/pipeline/ci/four_context_driver.py"
+        verdict --contract-sha256 fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af --pipeline "$GITHUB_WORKSPACE/pipeline"
+        --source "$GITHUB_WORKSPACE/source" --prior "$GITHUB_WORKSPACE/prior" --latest "$GITHUB_WORKSPACE/latest"
+    - name: Upload only this job's new evidence
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: error
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-${{ github.run_id }}-${{ github.run_attempt }}-verdict
+        path: ${{ runner.temp }}/hierarchy-c-verdict/upload/*
+    - name: Upload bounded incomplete diagnostics
+      if: ${{ (failure() || cancelled()) && steps.checkout_guard.outcome == 'success' }}
+      continue-on-error: true
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        if-no-files-found: warn
+        retention-days: 7
+        compression-level: 0
+        name: hierarchy-c-failure-${{ github.run_id }}-${{ github.run_attempt }}-verdict
+        path: '${{ runner.temp }}/hierarchy-c-verdict/failure/FAILURE.json
+
+          ${{ runner.temp }}/hierarchy-c-verdict/failure/native.stdout
+
+          ${{ runner.temp }}/hierarchy-c-verdict/failure/native.stderr
+
+          '
