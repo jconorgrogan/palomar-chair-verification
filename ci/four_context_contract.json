@@ -3,17 +3,9 @@
   "admission_pin_sha256": "549cd565aad5dc8b68ab5c86a3d2f49131705ae82ab89d9faf790a3b29dc1ca4",
   "admission_reconciliation_sha256": "d259eea653bf446a90607ded5add7176cfb50388e261327cf5e136b03e7da190",
   "compiler_adapter_review_status": "reviewed",
-  "context_bundle_sha256": "63b8cafcb76e03adf699582d036d34e751968c54023e8964cb19bea7edd770b5",
+  "context_bundle_sha256": "69327f6e86917ffd82509c4651decfe77472f524e7ecdb3ba1b441e7b6b286e4",
   "continuation_review_status": "independently_reviewed",
   "current_consumer_roles": {
-    "build_091": {
-      "job_name": "stage build_091",
-      "producer_job": "wave_23",
-      "verifier_step": {
-        "name": "Run fail-closed verifier",
-        "number": 8
-      }
-    },
     "build_092": {
       "job_name": "stage build_092",
       "producer_job": "wave_24",
@@ -80,23 +72,10 @@
     }
   },
   "current_workflow": {
-    "head_branch": "verify/hierarchy-c-production-recovery-20261018",
-    "name": "Verify hierarchy C production recovery",
-    "path": ".github/workflows/hierarchy-c-production-recovery.yml",
+    "head_branch": "verify/hierarchy-c-production-final-20261018",
+    "name": "Verify hierarchy C final continuation",
+    "path": ".github/workflows/hierarchy-c-production-final.yml",
     "roles": {
-      "build_091": {
-        "job_name": "stage build_091",
-        "producer_job": "wave_23",
-        "upload_locations": 1,
-        "upload_step": {
-          "name": "Upload only this job's new evidence",
-          "number": 9
-        },
-        "verifier_step": {
-          "name": "Run fail-closed verifier",
-          "number": 8
-        }
-      },
       "build_092": {
         "job_name": "stage build_092",
         "producer_job": "wave_24",
@@ -202,12 +181,12 @@
     "ci_failure.py": "cba1435d41113c3aa7f5d3cb50179503f86a64f5ef787aa2dab11fbac0adeb8b",
     "ci_transport.py": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95",
     "continuation_policy.py": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2",
-    "four_context_current_transport.py": "170b39b19e13a2c8cbbb59ea2542ae94d54a08a4eccd5f4b36617959276ce587",
-    "four_context_driver.py": "26833163804d9fda2a43bdcd03d74d97255cdc47269eadac0116e89672a1cddf",
-    "four_context_final.py": "2ff4ae89415a1895774fcb966b306c8cb2647ed3d4837bf9da60303787133451",
-    "four_context_policy.py": "901f2db258c50a386a499fedd81328533327bd8d77cca700b764fb8afb7593e0",
-    "four_context_runner.py": "77765aec283d2aa27708678f37c45de5e94892658f7bc5f4c3efadc65ab6a88a",
-    "four_context_transfer.py": "1bf39980d8682c30ea8669b5b1921355e95fbc1f30b4fc0aede863cdf4faf34c",
+    "four_context_current_transport.py": "a0ccf34e3b525be82f43832d0924b0d46706febd5409e4b527838e941d958b48",
+    "four_context_driver.py": "57c9c4e2b60dae710b4584ae074a7b55bba7a1111eb42d0850c1a828cb0a3878",
+    "four_context_final.py": "518093cb572f8b2480130b78fbe5a43acb91bd0e694b0f88be7f5d957a96b358",
+    "four_context_policy.py": "03f05a75d6eb04ca8c012ef1c30de3e9155036fdb3ef8a52626e40d505d7ebfc",
+    "four_context_runner.py": "ca50bc484e656b86a95f92bd27cda8f6b77cdfdd687e7865d53eb1743517875d",
+    "four_context_transfer.py": "24b34b70aa1e5e2fae09fe00e1c60560115d3d5013ae1d57f5c13e0fd5e7384d",
     "fresh_stage.py": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
     "origin_transport.py": "36aaf72618c9547434de9d82cf95a633565c29b0557449b41d8dc8d10adf9ec8",
     "three_context_current_transport.py": "ef05bc4e8688a361ea5bd4cfc625a9b48b9cecf84a3cfa4150c4f3ace1f7afa2",
@@ -234,7 +213,7 @@
   "modern_migration_map_sha256": "f9e09df41d772873bdf272c815d8dac617196d4658be331dc867c49531478e86",
   "modern_tree_inventory_sha256": "c673496b5147462ccf415bbdb11319efe631069c5d4388beb2d1e1ab1db0c74e",
   "module_interface": "modern_exposed_v1",
-  "note": "Fixed recovery of 91 historical stages (37 original, 11 prior, 42 latest, 1 production087) and fresh091/092. Original087 identity/profile and every native admission gate remain exact. Current091 alone disables Lean asynchronous elaboration.",
+  "note": "Fixed final continuation: 92 immutable historical stages (37 original, 11 prior, 42 latest, 1 production087, 1 recovery091) and fresh092 only. Historical identities and profile maps remain exact during native readmission. Only current092 compilation adds asynchronous elaboration disabled; all final checks remain required.",
   "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
   "original_legacy_source_commit": "c8e274d7833c9e2e1ede5aa61fc042fba8035715",
   "original_legacy_source_manifest_sha256": "492735d8eef3a672c32125da2caf13744f5ccbe6b198da5873a1204464794a61",
@@ -250,8 +229,8 @@
   "prior_identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
   "process_containment_review_status": "reviewed",
   "production_acquisition_sha256": {
-    "ci/PRODUCTION91_ACQUISITION_SPEC.json": "088bd7d083d4e399cfa6069e17f7198ff37018f59605937581bbc998f24efcd0",
-    "ci/production91_acquisition.py": "3f6ddfbcf99b606ae40abf733b7d8781305343caff21aac0d1514b9f230ebc8b",
+    "ci/PRODUCTION92_ACQUISITION_SPEC.json": "4e1b3c6921d0b230090108710ffe2e06ad3ac6ff61a890da7767a19056355c63",
+    "ci/production92_acquisition.py": "2dd6a8425c035f6cff942d97085bf626ad5081d4db3485aa46467045e4d74e7a",
     "frozen_downloader/ci/ci_transport.py": "0e17698024da89562d654978436b707a140fef81c3463a8b0841af8de2355c95",
     "frozen_downloader/ci/continuation_policy.py": "1759e1fc5587ec2b5462604f9f7a16cebaefdb85f153d563514b36b18d314be2",
     "frozen_downloader/ci/fresh_stage.py": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
@@ -260,16 +239,17 @@
     "frozen_downloader/ci/origin_transport.py": "c5ba140113b98460f8267f55fcdad098c391e4918fdc3a9e8e2f90e8ff5b110b"
   },
   "production_identity_sha256": "19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76",
-  "profiles_sha256": "991c8f91fbe22278945f423c6c2318a8a1d4f7cd4765dd95ab5856e6ecec32ad",
+  "profiles_sha256": "555a089b4da668b0d7b4c6758b0a642c019a95ea5e2c3bdd306d78ab718f2317",
   "readonly_commit_review_status": "reviewed",
   "receipt_protocol": "readonly_committed_v1",
+  "recovery_identity_sha256": "5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7",
   "reserved_final_jobs": 6,
   "retention_days": 7,
   "review_status": "reviewed_for_execution",
   "runner": "ubuntu-22.04",
   "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
   "schema": "fresh-stage-contract-v1",
-  "selection_sha256": "362d0324b33ace062795c53b2c94ffc3752c87d7baeedc26299942482ee9d223",
+  "selection_sha256": "116af0b5024853c22228fa4114583640c83f862c0416497b1ab39ffd474f934d",
   "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
   "source_delta_sha256": "12541d2a57fac6c4e6a2e36e849d1bf400d284f968d77c2d43580d40aa7696ef",
   "source_interface": "modern_module_v1",

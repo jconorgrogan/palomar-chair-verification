@@ -12,8 +12,8 @@ import hashlib
 import json
 import re
 
-ORIGINS = ('OldOrigin', 'PriorSuccessorOrigin', 'LatestSuccessorOrigin', 'ProductionSuccessOrigin', 'CurrentOrigin')
-RANK = dict(zip(ORIGINS, range(5)))
+ORIGINS = ('OldOrigin', 'PriorSuccessorOrigin', 'LatestSuccessorOrigin', 'ProductionSuccessOrigin', 'RecoverySuccessOrigin', 'CurrentOrigin')
+RANK = dict(zip(ORIGINS, range(6)))
 OLD_RUN = 38860226136
 PRIOR_RUN = 38917565694
 LATEST_RUN = 38978663241
@@ -30,12 +30,12 @@ PRIOR_MANIFEST = '09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a233
 SOURCE_DELTA = '12541d2a57fac6c4e6a2e36e849d1bf400d284f968d77c2d43580d40aa7696ef'
 OLD_IDENTITY = '1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560'
 PRIOR_IDENTITY = '287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb'
-BUNDLE_SHA256 = '63b8cafcb76e03adf699582d036d34e751968c54023e8964cb19bea7edd770b5'
+BUNDLE_SHA256 = '69327f6e86917ffd82509c4651decfe77472f524e7ecdb3ba1b441e7b6b286e4'
 LATEST_CONTEXT_SHA256 = 'edf6e668761c00adb09423c045b14d1f40749b61e91273a77778020367c06258'
 LATEST_ROWS_SHA256 = '2d220c38582d08ff9c2ff16cacd674ba4d2d6fdeb57e252b29e223a341a82aea'
 LATEST_PIPELINE = 'bc3f977237bee905dafb4f13eeb6564a4a338b42'
 LATEST_IDENTITY = '4f8be12f1e9e851917e69e60957136c5e3e60ac5e1e00284ce1111692b4da3a5'
-CURRENT_PROFILES = '991c8f91fbe22278945f423c6c2318a8a1d4f7cd4765dd95ab5856e6ecec32ad'
+CURRENT_PROFILES = '555a089b4da668b0d7b4c6758b0a642c019a95ea5e2c3bdd306d78ab718f2317'
 PRODUCTION_RUN = 39089923663
 PRODUCTION_PIPELINE = 'acc99d32b312655d8b526925a7addaab44260551'
 PRODUCTION_CONTRACT = 'fae0247cccf29a9b43bd85e86b52e8c83e1a0a1dbcd29c3028d88e6ab3eed9af'
@@ -44,14 +44,22 @@ PRODUCTION_IDENTITY = '19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea8
 PRODUCTION_CONTEXT_SHA256 = '2b8d77178cba28850159393660db804df18ab98795dd1a869da842cd06f6f00d'
 PRODUCTION_ROWS_SHA256 = '935d97884b76acdbf8984315cf956c851811a9ec0026e01bda079d0048d99ec2'
 PRODUCTION_STAGES = frozenset({'build_087'})
-CURRENT_STAGES = frozenset({'build_091', 'build_092'})
+RECOVERY_RUN = 39112195849
+RECOVERY_PIPELINE = '0d0c740560c40d24f9b30264b217c6f88f0d7aee'
+RECOVERY_CONTRACT = 'aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4'
+RECOVERY_PROFILES = '991c8f91fbe22278945f423c6c2318a8a1d4f7cd4765dd95ab5856e6ecec32ad'
+RECOVERY_IDENTITY = '5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7'
+RECOVERY_CONTEXT_SHA256 = '28efcfe9a62afde8f196003765628b300f6488f553caa59349cacdbe76999ee4'
+RECOVERY_ROWS_SHA256 = 'b5fc2792199e094489054e4590c4bbf9bf9e4de2c6c76b09a5613ba2c9717564'
+RECOVERY_STAGES = frozenset({'build_091'})
+CURRENT_STAGES = frozenset({'build_092'})
 OLD_CONTEXT_SHA256 = '36f8a1b1fd943b6e665b805ec49f07b782829fff74415cd4f2e4174c9ffa96f8'
 PRIOR_CONTEXT_SHA256 = 'e062f4c9072ef0d0f30cc6260e7830adc4fbf1b60a2b522253c00e9be13fe338'
 OLD_ROWS_SHA256 = '5ebe74caf7824058b5201fee805cc5dba7db8fa83b8ce992bcefeeb96df53495'
 PRIOR_ROWS_SHA256 = '78b2f89c2676b6f952f0ec007c2327522a183a2def64e7cf334b144452cd4a1a'
 OLD_STAGES = frozenset([f'build_{i:03}' for i in range(36)] + ['build_055'])
 PRIOR_CANDIDATES = frozenset([f'build_{i:03}' for i in range(36,43)] + ['build_049','build_051','build_054','build_056'])
-LATEST_STAGES = frozenset(f'build_{i:03}' for i in range(93)) - OLD_STAGES - PRIOR_CANDIDATES - PRODUCTION_STAGES - CURRENT_STAGES
+LATEST_STAGES = frozenset(f'build_{i:03}' for i in range(93)) - OLD_STAGES - PRIOR_CANDIDATES - PRODUCTION_STAGES - RECOVERY_STAGES - CURRENT_STAGES
 MAX_AGE = 518400
 MAX_ARTIFACT = 1024**3
 MAX_RESTORED = 4*1024**3
@@ -119,6 +127,8 @@ class ContextBundle:
     def latest_context(self): return self.data['contexts']['LatestSuccessorOrigin']
     @property
     def production_context(self): return self.data['contexts']['ProductionSuccessOrigin']
+    @property
+    def recovery_context(self): return self.data['contexts']['RecoverySuccessOrigin']
     def context(self, origin):
         need(origin in ORIGINS,'unknown context');return self.data['contexts'][origin]
 
@@ -151,6 +161,13 @@ class ProductionSuccessOrigin:
     def pin(self): return parse_json(self.pin_bytes)
 
 @dataclass(frozen=True)
+class RecoverySuccessOrigin:
+    stage_id: str
+    pin_bytes: bytes
+    @property
+    def pin(self): return parse_json(self.pin_bytes)
+
+@dataclass(frozen=True)
 class CurrentOrigin:
     stage_id: str
 
@@ -158,7 +175,7 @@ class CurrentOrigin:
 class Selection:
     raw_bytes: bytes
     bundle_sha256: str
-    rows: tuple[OldOrigin|PriorSuccessorOrigin|LatestSuccessorOrigin|ProductionSuccessOrigin|CurrentOrigin,...]
+    rows: tuple[OldOrigin|PriorSuccessorOrigin|LatestSuccessorOrigin|ProductionSuccessOrigin|RecoverySuccessOrigin|CurrentOrigin,...]
     context_bundle_bytes: bytes
     @property
     def raw_sha256(self): return sha(self.raw_bytes)
@@ -176,10 +193,10 @@ def validate_context_bundle(data: bytes, expected_sha256: str) -> ContextBundle:
     digest(expected_sha256,'bundle digest')
     need(sha(data)==expected_sha256==BUNDLE_SHA256,'fixed immutable context bundle changed')
     obj=parse_json(data)
-    keys(obj,{'schema','contexts','old_stage_rows','prior_candidate_rows','latest_stage_rows','production_stage_rows'},'context bundle')
-    need(obj['schema']=='fixed-five-context-bundle-v1','bundle schema')
+    keys(obj,{'schema','contexts','old_stage_rows','prior_candidate_rows','latest_stage_rows','production_stage_rows','recovery_stage_rows'},'context bundle')
+    need(obj['schema']=='fixed-six-context-bundle-v1','bundle schema')
     keys(obj['contexts'],ORIGINS,'finite context registry')
-    for name,pin in [('OldOrigin',OLD_CONTEXT_SHA256),('PriorSuccessorOrigin',PRIOR_CONTEXT_SHA256),('LatestSuccessorOrigin',LATEST_CONTEXT_SHA256),('ProductionSuccessOrigin',PRODUCTION_CONTEXT_SHA256)]:
+    for name,pin in [('OldOrigin',OLD_CONTEXT_SHA256),('PriorSuccessorOrigin',PRIOR_CONTEXT_SHA256),('LatestSuccessorOrigin',LATEST_CONTEXT_SHA256),('ProductionSuccessOrigin',PRODUCTION_CONTEXT_SHA256),('RecoverySuccessOrigin',RECOVERY_CONTEXT_SHA256)]:
         need(object_sha(obj['contexts'][name])==pin,'frozen '+name+' context changed')
     old,prior=obj['contexts']['OldOrigin'],obj['contexts']['PriorSuccessorOrigin']
     need(object_sha(old['identity'])==OLD_IDENTITY and object_sha(prior['identity'])==PRIOR_IDENTITY,'native identity changed')
@@ -194,7 +211,12 @@ def validate_context_bundle(data: bytes, expected_sha256: str) -> ContextBundle:
     need(production['run_id']==PRODUCTION_RUN and production['pipeline_commit']==PRODUCTION_PIPELINE,'production origin changed')
     need(production['identity']['contract_sha256']==PRODUCTION_CONTRACT and production['identity']['profiles_sha256']==PRODUCTION_PROFILES,'production original contract/profile changed')
     need(object_sha(obj['production_stage_rows'])==PRODUCTION_ROWS_SHA256,'fixed production087 pins changed')
-    need(obj['contexts']['CurrentOrigin']=={'rank':4,'parents':['OldOrigin','PriorSuccessorOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin'],
+    recovery=obj['contexts']['RecoverySuccessOrigin']
+    need(object_sha(recovery['identity'])==RECOVERY_IDENTITY and recovery['identity_sha256']==RECOVERY_IDENTITY,'recovery native identity changed')
+    need(recovery['run_id']==RECOVERY_RUN and recovery['pipeline_commit']==RECOVERY_PIPELINE,'recovery origin changed')
+    need(recovery['identity']['contract_sha256']==RECOVERY_CONTRACT and recovery['identity']['profiles_sha256']==RECOVERY_PROFILES,'recovery original contract/profile changed')
+    need(object_sha(obj['recovery_stage_rows'])==RECOVERY_ROWS_SHA256,'fixed recovery091 pins changed')
+    need(obj['contexts']['CurrentOrigin']=={'rank':5,'parents':['OldOrigin','PriorSuccessorOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin','RecoverySuccessOrigin'],
          'source_commit':PRIOR_SOURCE,'source_manifest_sha256':PRIOR_MANIFEST},'current context intent changed')
     return ContextBundle(data)
 
@@ -236,31 +258,31 @@ def _pin(pin, origin, stage_id, baseline, require_payloads):
     integer(pin['archive_bytes'],'raw archive bytes',MAX_ARTIFACT)
     integer(pin['artifact_zip_bytes'],'ZIP bytes',MAX_ARTIFACT+1024**2)
     timestamp(pin['expires_at'])
-    if origin in ('OldOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin'):need(pin==baseline,'fixed historical payload pins changed')
+    if origin in ('OldOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin','RecoverySuccessOrigin'):need(pin==baseline,'fixed historical payload pins changed')
 
 
 def parse_selection(data, expected_sha256, plan, bundle, *, require_payloads=False):
     bundle=_bundle(bundle);validate_plan(plan);digest(expected_sha256,'selection digest')
     need(sha(data)==expected_sha256,'selection byte digest mismatch')
-    obj=parse_json(data);keys(obj,{'schema','context_bundle_sha256','old_origin','prior_origin','latest_origin','production_origin','stages'},'v3 selection')
-    need(obj['schema']=='verified-continuation-selection-v4','selection schema')
+    obj=parse_json(data);keys(obj,{'schema','context_bundle_sha256','old_origin','prior_origin','latest_origin','production_origin','recovery_origin','stages'},'v3 selection')
+    need(obj['schema']=='verified-continuation-selection-v5','selection schema')
     need(obj['context_bundle_sha256']==bundle.raw_sha256,'selection context bundle mismatch')
-    need(obj['old_origin']==bundle.old_context and obj['prior_origin']==bundle.prior_context and obj['latest_origin']==bundle.latest_context and obj['production_origin']==bundle.production_context,'selection native context changed')
+    need(obj['old_origin']==bundle.old_context and obj['prior_origin']==bundle.prior_context and obj['latest_origin']==bundle.latest_context and obj['production_origin']==bundle.production_context and obj['recovery_origin']==bundle.recovery_context,'selection native context changed')
     need(type(obj['stages']) is list and len(obj['stages'])==93,'selection must cover all stages')
-    pins={r['stage_id']:r for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']}
+    pins={r['stage_id']:r for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']+bundle.data['recovery_stage_rows']}
     rows=[]
     for stage,row in zip(plan['stages'],obj['stages']):
         need(type(row) is dict and row.get('stage_id')==stage['stage_id'],'missing, duplicate or unordered provider')
         origin=row.get('origin');need(origin in ORIGINS,'unknown origin or alias')
         sid=row['stage_id']
         if origin=='CurrentOrigin':
-            keys(row,{'stage_id','origin'},'current row');need(sid in CURRENT_STAGES,'only 091/092 may be current providers')
+            keys(row,{'stage_id','origin'},'current row');need(sid in CURRENT_STAGES,'only092 may be a current provider')
             rows.append(CurrentOrigin(sid))
         else:
             keys(row,{'stage_id','origin','pin'},'historical row')
             need(sid in pins and pins[sid]['origin']==origin,'historical stage/provider forbidden')
             _pin(row['pin'],origin,sid,pins[sid]['pin'],require_payloads)
-            rows.append({'OldOrigin':OldOrigin,'PriorSuccessorOrigin':PriorSuccessorOrigin,'LatestSuccessorOrigin':LatestSuccessorOrigin,'ProductionSuccessOrigin':ProductionSuccessOrigin}[origin](sid,json_bytes(row['pin'])))
+            rows.append({'OldOrigin':OldOrigin,'PriorSuccessorOrigin':PriorSuccessorOrigin,'LatestSuccessorOrigin':LatestSuccessorOrigin,'ProductionSuccessOrigin':ProductionSuccessOrigin,'RecoverySuccessOrigin':RecoverySuccessOrigin}[origin](sid,json_bytes(row['pin'])))
     selection=Selection(data,bundle.raw_sha256,tuple(rows),bundle.raw_bytes);validate_provider_dag(selection,plan)
     return selection
 
@@ -270,14 +292,14 @@ def _selection_consistent(selection):
     need(type(selection) is Selection, 'typed selection required')
     bundle=validate_context_bundle(selection.context_bundle_bytes,selection.bundle_sha256)
     obj=selection.data
-    keys(obj,{'schema','context_bundle_sha256','old_origin','prior_origin','latest_origin','production_origin','stages'},'sealed selection')
-    need(obj['schema']=='verified-continuation-selection-v4' and obj['context_bundle_sha256']==bundle.raw_sha256,'sealed selection context mismatch')
-    need(obj['old_origin']==bundle.old_context and obj['prior_origin']==bundle.prior_context and obj['latest_origin']==bundle.latest_context and obj['production_origin']==bundle.production_context,'sealed native contexts changed')
+    keys(obj,{'schema','context_bundle_sha256','old_origin','prior_origin','latest_origin','production_origin','recovery_origin','stages'},'sealed selection')
+    need(obj['schema']=='verified-continuation-selection-v5' and obj['context_bundle_sha256']==bundle.raw_sha256,'sealed selection context mismatch')
+    need(obj['old_origin']==bundle.old_context and obj['prior_origin']==bundle.prior_context and obj['latest_origin']==bundle.latest_context and obj['production_origin']==bundle.production_context and obj['recovery_origin']==bundle.recovery_context,'sealed native contexts changed')
     need(type(obj['stages']) is list and len(obj['stages'])==len(selection.rows)==93,'sealed stage count')
-    pins={r['stage_id']:r for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']}
+    pins={r['stage_id']:r for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']+bundle.data['recovery_stage_rows']}
     seen=set()
     for row,record in zip(selection.rows,obj['stages']):
-        need(type(row) in (OldOrigin,PriorSuccessorOrigin,LatestSuccessorOrigin,ProductionSuccessOrigin,CurrentOrigin),'sealed origin alias')
+        need(type(row) in (OldOrigin,PriorSuccessorOrigin,LatestSuccessorOrigin,ProductionSuccessOrigin,RecoverySuccessOrigin,CurrentOrigin),'sealed origin alias')
         need(row.stage_id not in seen,'sealed duplicate provider');seen.add(row.stage_id)
         origin=type(row).__name__
         expected={'stage_id':row.stage_id,'origin':origin}
@@ -292,7 +314,8 @@ def _selection_consistent(selection):
     need({r.stage_id for r in selection.rows if type(r) is PriorSuccessorOrigin}==PRIOR_CANDIDATES,'sealed prior 11 coverage')
     need({r.stage_id for r in selection.rows if type(r) is LatestSuccessorOrigin}==LATEST_STAGES,'sealed latest 42 coverage')
     need({r.stage_id for r in selection.rows if type(r) is ProductionSuccessOrigin}==PRODUCTION_STAGES,'sealed production087 coverage')
-    need({r.stage_id for r in selection.rows if type(r) is CurrentOrigin}==CURRENT_STAGES,'sealed fresh 2 coverage')
+    need({r.stage_id for r in selection.rows if type(r) is RecoverySuccessOrigin}==RECOVERY_STAGES,'sealed recovery091 coverage')
+    need({r.stage_id for r in selection.rows if type(r) is CurrentOrigin}==CURRENT_STAGES,'sealed fresh1 coverage')
     return bundle
 
 
@@ -302,7 +325,7 @@ def validate_provider_dag(selection,plan):
     need({r.stage_id for r in selection.rows if type(r) is OldOrigin}==OLD_STAGES,'exact original 37 required')
     seen={}
     for row,stage in zip(selection.rows,stages):
-        origin=type(row).__name__;need(type(row) in (OldOrigin,PriorSuccessorOrigin,LatestSuccessorOrigin,ProductionSuccessOrigin,CurrentOrigin),'typed origin alias')
+        origin=type(row).__name__;need(type(row) in (OldOrigin,PriorSuccessorOrigin,LatestSuccessorOrigin,ProductionSuccessOrigin,RecoverySuccessOrigin,CurrentOrigin),'typed origin alias')
         if origin!='CurrentOrigin':
             for sid in stage['required_predecessors']:
                 need(sid in seen and RANK[seen[sid]]<=RANK[origin], 'historical provider lacks dependency closure')
@@ -338,15 +361,15 @@ def validate_original_repair(old_manifest,prior_manifest,delta,plan):
 def validate_current_identity(identity,selection,bundle,*,pipeline_commit,contract_sha256):
     bundle=_bundle(bundle);_selection_consistent(selection);need(selection.bundle_sha256==bundle.raw_sha256,'current selection bundle mismatch');old=bundle.old_context['identity'];prior=bundle.prior_context['identity']
     latest=bundle.latest_context['identity']
-    keys(identity,set(latest)|{'latest_identity_sha256','production_identity_sha256'},'current identity')
-    digest(contract_sha256,'new reviewed contract');need(contract_sha256 not in {old['contract_sha256'],prior['contract_sha256'],latest['contract_sha256'],PRODUCTION_CONTRACT},'current contract must be new')
-    need(type(pipeline_commit) is str and re.fullmatch('[0-9a-f]{40}',pipeline_commit) and pipeline_commit not in {OLD_PIPELINE,PRIOR_PIPELINE,LATEST_PIPELINE,PRODUCTION_PIPELINE},'current pipeline must be distinct')
+    keys(identity,set(latest)|{'latest_identity_sha256','production_identity_sha256','recovery_identity_sha256'},'current identity')
+    digest(contract_sha256,'new reviewed contract');need(contract_sha256 not in {old['contract_sha256'],prior['contract_sha256'],latest['contract_sha256'],PRODUCTION_CONTRACT,RECOVERY_CONTRACT},'current contract must be new')
+    need(type(pipeline_commit) is str and re.fullmatch('[0-9a-f]{40}',pipeline_commit) and pipeline_commit not in {OLD_PIPELINE,PRIOR_PIPELINE,LATEST_PIPELINE,PRODUCTION_PIPELINE,RECOVERY_PIPELINE},'current pipeline must be distinct')
     fixed={k:latest[k] for k in ('source_commit','source_manifest_sha256','plan_sha256','runner_sha256','lean_archive_sha256','toolchain_inventory_sha256','evidence_mode','run_attempt','old_identity_sha256')}
-    fixed.update(profiles_sha256=CURRENT_PROFILES,latest_identity_sha256=LATEST_IDENTITY,production_identity_sha256=PRODUCTION_IDENTITY)
+    fixed.update(profiles_sha256=CURRENT_PROFILES,latest_identity_sha256=LATEST_IDENTITY,production_identity_sha256=PRODUCTION_IDENTITY,recovery_identity_sha256=RECOVERY_IDENTITY)
     fixed.update(pipeline_commit=pipeline_commit,contract_sha256=contract_sha256,selection_sha256=selection.raw_sha256,prior_identity_sha256=PRIOR_IDENTITY,context_bundle_sha256=bundle.raw_sha256)
     need(all(identity[k]==v and type(identity[k]) is type(v) for k,v in fixed.items()),'current identity binding mismatch')
-    run=identity['run_id'];need(type(run) is str and re.fullmatch('[1-9][0-9]*',run) and int(run) not in {OLD_RUN,PRIOR_RUN,LATEST_RUN,PRODUCTION_RUN,EXCLUDED_RUN},'current run must be distinct initial canonical run')
-    need(timestamp(identity['run_started_at'])>=timestamp(bundle.production_context['terminal']['updated_at']),'current run precedes frozen latest terminal')
+    run=identity['run_id'];need(type(run) is str and re.fullmatch('[1-9][0-9]*',run) and int(run) not in {OLD_RUN,PRIOR_RUN,LATEST_RUN,PRODUCTION_RUN,RECOVERY_RUN,EXCLUDED_RUN},'current run must be distinct initial canonical run')
+    need(timestamp(identity['run_started_at'])>=timestamp(bundle.recovery_context['terminal']['updated_at']),'current run precedes frozen latest terminal')
     return object_sha(identity)
 
 
@@ -367,7 +390,7 @@ def _wrapper_pin(wrapper,selection,bundle,plan):
     need(job.get('id')==d['producer_job_id'] and job.get('run_id')==context['run_id'] and type(job.get('run_attempt')) is int and job.get('run_attempt')==1 and job.get('head_sha')==context['pipeline_commit'] and job.get('status')=='completed' and job.get('conclusion')=='success','producer metadata mismatch')
     binding=context['workflow']['roles'][sid];need(metadata['role']==binding and job.get('name')==binding['job_name'],'producer role mismatch')
     start,end=timestamp(job['started_at']),timestamp(job['completed_at']);need(timestamp(identity['run_started_at'])<=start<=end,'producer time order')
-    if origin in ('PriorSuccessorOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin'):need(end<=timestamp(context['terminal']['updated_at']),'producer after historical terminal')
+    if origin in ('PriorSuccessorOrigin','LatestSuccessorOrigin','ProductionSuccessOrigin','RecoverySuccessOrigin'):need(end<=timestamp(context['terminal']['updated_at']),'producer after historical terminal')
     steps=job.get('steps');need(type(steps) is list,'producer steps missing')
     need(len({s.get('number') for s in steps})==len(steps) and len({s.get('name') for s in steps})==len(steps),'duplicate producer steps')
     previous=start
@@ -376,7 +399,7 @@ def _wrapper_pin(wrapper,selection,bundle,plan):
         need(len(matches)==1,'missing/ambiguous verifier or upload step');step=matches[0]
         need(step['number']==wanted['number'] and step['name']==wanted['name'] and step.get('status')=='completed' and step.get('conclusion')=='success','verifier/upload identity or result')
         s,e=timestamp(step['started_at']),timestamp(step['completed_at']);need(previous<=s<=e<=end,'verifier/upload time order');previous=e
-    base={r['stage_id']:r['pin'] for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']}[sid]
+    base={r['stage_id']:r['pin'] for r in bundle.data['old_stage_rows']+bundle.data['prior_candidate_rows']+bundle.data['latest_stage_rows']+bundle.data['production_stage_rows']+bundle.data['recovery_stage_rows']}[sid]
     expected={'id':base['artifact_id'],'name':base['artifact_name'],'size_in_bytes':base['artifact_zip_bytes'],'digest':'sha256:'+base['artifact_zip_sha256'],'expired':False,'expires_at':base['expires_at']}
     need(all(type(artifact.get(k)) is type(v) and artifact.get(k)==v for k,v in expected.items()),'artifact frozen metadata changed')
     wr=artifact.get('workflow_run',{});need(wr.get('id')==context['run_id'] and wr.get('head_sha')==context['pipeline_commit'] and wr.get('repository_id')==wr.get('head_repository_id')==REPOSITORY_ID and wr.get('head_branch')==context['workflow']['head_branch'],'artifact workflow mismatch')
@@ -389,7 +412,7 @@ def _wrapper_pin(wrapper,selection,bundle,plan):
 
 def derive_pinned_inactive_selection(selection,bundle,plan,wrappers):
     """Compatibility seam: this production selection is already statically sealed."""
-    raise Rejected('dynamic pin derivation forbidden; exact static 91-stage pins required')
+    raise Rejected('dynamic pin derivation forbidden; exact static92-stage pins required')
 
 
 def validate_native_bytes(wrapper,descriptor_bytes,receipt_bytes):
@@ -452,11 +475,11 @@ def deadline_check(bundle,selection,now,*,current_identity=None,artifact_expirie
     need(type(now) is datetime and now.tzinfo is not None,'trusted timezone-aware current time required')
     now=now.astimezone(timezone.utc)
     if previous_now is not None:need(type(previous_now) is datetime and previous_now.tzinfo is not None and now>=previous_now,'backward clock must not renew eligibility')
-    identities=[bundle.context(origin)['identity'] for origin in ORIGINS[:4]]
+    identities=[bundle.context(origin)['identity'] for origin in ORIGINS[:5]]
     if current_identity is not None:identities.append(current_identity)
     starts=[timestamp(i['run_started_at']) for i in identities];need(all(s<=now for s in starts),'future run timestamp')
     limits=[s+timedelta(seconds=max_age_seconds) for s in starts]
-    limits += [timestamp(bundle.context(o)['prepare']['expires_at']) for o in ORIGINS[:4]]
+    limits += [timestamp(bundle.context(o)['prepare']['expires_at']) for o in ORIGINS[:5]]
     limits += [timestamp(r.pin['expires_at']) for r in selection.rows if type(r) is not CurrentOrigin]
     limits += [timestamp(x) for x in artifact_expiries]
     deadline=min(limits);need(now<deadline,'earliest historical deadline/artifact expiry reached')
@@ -517,7 +540,7 @@ def activation_status(selection,bundle,*,prepare_evidence=None,semantic_certific
 
 def validate_prepare_bytes(bundle,origin,identity_bytes,inventory_bytes):
     """Check actual authenticated prepare members against native immutable pins."""
-    bundle=_bundle(bundle);need(origin in ORIGINS[:4],'historical prepare origin required')
+    bundle=_bundle(bundle);need(origin in ORIGINS[:5],'historical prepare origin required')
     context=bundle.context(origin)
     need(sha(identity_bytes)==context['prepare']['identity_sha256'],'actual native prepare identity bytes differ')
     need(parse_json(identity_bytes)==context['identity'],'actual prepare identity differs')
@@ -578,7 +601,7 @@ def validate_execution_context(*,plan,profiles,current_contract,current_manifest
       'profiles_sha256':current_identity['profiles_sha256'],'source_delta_sha256':SOURCE_DELTA,
       'runner_sha256':bundle.prior_context['identity']['runner_sha256'],'selection_sha256':selection.raw_sha256,
       'old_identity_sha256':OLD_IDENTITY,'prior_identity_sha256':PRIOR_IDENTITY,
-      'latest_identity_sha256':LATEST_IDENTITY,'production_identity_sha256':PRODUCTION_IDENTITY,'context_bundle_sha256':bundle.raw_sha256}
+      'latest_identity_sha256':LATEST_IDENTITY,'production_identity_sha256':PRODUCTION_IDENTITY,'recovery_identity_sha256':RECOVERY_IDENTITY,'context_bundle_sha256':bundle.raw_sha256}
     need(all(type(current_contract.get(k)) is type(v) and current_contract[k]==v for k,v in fixed.items()),'execution contract identity binding changed')
     f.validate_contract(current_contract,current_manifest,plan,profiles)
     need(current_contract['max_restored_bytes']==MAX_RESTORED and current_contract['max_run_age_seconds']==MAX_AGE,'aggregate cap/deadline changed')
@@ -645,7 +668,7 @@ def validate_restore_scope(*,plan,selection,bundle,wrappers,native_bytes,current
             if origin in ORIGINS[:2]:legacy_view.append(copy.deepcopy(native))
         admitted[sid]=copy.deepcopy(d);all_receipts[sid]=receipt;sizes[sid]=d['archive_bytes']
     ledger=cumulative_raw_budget(selection,sizes)
-    value={'schema':'exact-five-context-restore-scope-v1','target_stage':target_stage,'final_role':final_role,
+    value={'schema':'exact-six-context-restore-scope-v1','target_stage':target_stage,'final_role':final_role,
         'expected_stage_ids':expected,'historical_stage_ids':historical,'current_stage_ids':current,
         'native_descriptors':[admitted[s] for s in expected],'historical_native_view':view,
         'historical_objects':objects,
@@ -654,6 +677,8 @@ def validate_restore_scope(*,plan,selection,bundle,wrappers,native_bytes,current
         'legacy_objects':legacy_objects,'legacy_native_view':legacy_view,
         'production_stage_ids':[sid for sid in historical if type(selection.row(sid)) is ProductionSuccessOrigin],
         'production_identity':bundle.production_context['identity'],
+        'recovery_stage_ids':[sid for sid in historical if type(selection.row(sid)) is RecoverySuccessOrigin],
+        'recovery_identity':bundle.recovery_context['identity'],
         'latest_identity':bundle.latest_context['identity'],'raw_archive_bytes':ledger.total_bytes,'remaining_raw_bytes':ledger.remaining_bytes,
         'selection_sha256':selection.raw_sha256,'context_bundle_sha256':bundle.raw_sha256,
         'current_identity':current_identity,'semantic_admission_claimed':False,'activation_allowed':False}

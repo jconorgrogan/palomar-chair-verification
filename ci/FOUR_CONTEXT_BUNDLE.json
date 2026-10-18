@@ -5,9 +5,10 @@
         "OldOrigin",
         "PriorSuccessorOrigin",
         "LatestSuccessorOrigin",
-        "ProductionSuccessOrigin"
+        "ProductionSuccessOrigin",
+        "RecoverySuccessOrigin"
       ],
-      "rank": 4,
+      "rank": 5,
       "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
       "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392"
     },
@@ -3023,6 +3024,164 @@
         "source_sha256": "655f56ab20d953ecca77d5510388d4c59a25653b9d0324ec3e78dc70877b6392",
         "workflow_id": 388119772
       }
+    },
+    "RecoverySuccessOrigin": {
+      "identity": {
+        "context_bundle_sha256": "63b8cafcb76e03adf699582d036d34e751968c54023e8964cb19bea7edd770b5",
+        "contract_sha256": "aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4",
+        "evidence_mode": "verified_continuation",
+        "latest_identity_sha256": "4f8be12f1e9e851917e69e60957136c5e3e60ac5e1e00284ce1111692b4da3a5",
+        "lean_archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+        "old_identity_sha256": "1838d66b59cf9ce277f72a2dbd9ec1698296a8d5e64334e981496cdc2b910560",
+        "pipeline_commit": "0d0c740560c40d24f9b30264b217c6f88f0d7aee",
+        "plan_sha256": "c25336bffaf3ada115c7642840675f445cc3cef145fa1d70e9eec8988567a7ed",
+        "prior_identity_sha256": "287e19a82589415db3897697c1a5941f7c20cb1b885a4404d3ebb49cb7878bdb",
+        "production_identity_sha256": "19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76",
+        "profiles_sha256": "991c8f91fbe22278945f423c6c2318a8a1d4f7cd4765dd95ab5856e6ecec32ad",
+        "run_attempt": "1",
+        "run_id": "39112195849",
+        "run_started_at": "2026-10-18T08:38:00Z",
+        "runner_sha256": "9085c9eea092c270fbd6952834839103c66519a7b4716fe09147001c7d96355d",
+        "selection_sha256": "362d0324b33ace062795c53b2c94ffc3752c87d7baeedc26299942482ee9d223",
+        "source_commit": "5d0612a09e3b7d440be16e7b1dc511ae73035bbb",
+        "source_manifest_sha256": "09b0371c9acc07b07355824e7a7302a810c4247bbbce20d1e497bd4a02a23392",
+        "toolchain_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea"
+      },
+      "identity_sha256": "5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7",
+      "pipeline_commit": "0d0c740560c40d24f9b30264b217c6f88f0d7aee",
+      "prepare": {
+        "artifact_id": 12129944877,
+        "artifact_name": "hierarchy-c-39112195849-1-prepare",
+        "artifact_zip_bytes": 3294544,
+        "artifact_zip_sha256": "1b279eb639bc4fb9edf124409d9e7d9537d60c32ec2870ac8c06c301cac4524e",
+        "expires_at": "2026-10-25T08:40:14Z",
+        "identity_sha256": "5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7",
+        "inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+        "producer_job_id": 117630512580
+      },
+      "repository": "jconorgrogan/palomar-chair-verification",
+      "repository_id": 1407290933,
+      "run_attempt": 1,
+      "run_id": 39112195849,
+      "terminal": {
+        "conclusion": "failure",
+        "run_started_at": "2026-10-18T08:38:00Z",
+        "status": "completed",
+        "updated_at": "2026-10-18T10:17:42Z"
+      },
+      "workflow": {
+        "head_branch": "verify/hierarchy-c-production-recovery-20261018",
+        "name": "Verify hierarchy C production recovery",
+        "path": ".github/workflows/hierarchy-c-production-recovery.yml",
+        "roles": {
+          "build_091": {
+            "job_name": "stage build_091",
+            "producer_job": "wave_23",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "build_092": {
+            "job_name": "stage build_092",
+            "producer_job": "wave_24",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "conron": {
+            "job_name": "conron",
+            "producer_job": "conron",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "export_target": {
+            "job_name": "export_target",
+            "producer_job": "export_target",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "fresh_kernel": {
+            "job_name": "fresh_kernel",
+            "producer_job": "fresh_kernel",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "lean_export": {
+            "job_name": "lean_export",
+            "producer_job": "lean_export",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "nanoda": {
+            "job_name": "nanoda",
+            "producer_job": "nanoda",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          },
+          "prepare": {
+            "job_name": "prepare",
+            "producer_job": "prepare",
+            "upload_locations": 1,
+            "upload_step": {
+              "name": "Upload only this job's new evidence",
+              "number": 9
+            },
+            "verifier_step": {
+              "name": "Run fail-closed verifier",
+              "number": 8
+            }
+          }
+        },
+        "source_sha256": "3ac7150b7ef08f2c4c7a427713df51daf127e7c7e99e652e050edbc3591a1a4a",
+        "workflow_id": 388279152
+      }
     }
   },
   "latest_stage_rows": [
@@ -4580,5 +4739,24 @@
       "stage_id": "build_087"
     }
   ],
-  "schema": "fixed-five-context-bundle-v1"
+  "recovery_stage_rows": [
+    {
+      "origin": "RecoverySuccessOrigin",
+      "pin": {
+        "archive_bytes": 204800,
+        "archive_sha256": "da8ec06763b8825b952f43de5b87bef829614ef645e09f015eb812569591cf09",
+        "artifact_id": 12132680382,
+        "artifact_name": "hierarchy-c-39112195849-1-build_091",
+        "artifact_zip_bytes": 27324,
+        "artifact_zip_sha256": "5e749dc4ebf5a11cf985aae011298889e6dd1e333b87ee61c84871f89855e0f4",
+        "expires_at": "2026-10-25T09:35:46Z",
+        "identity_sha256": "5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7",
+        "producer_job_id": 117630944887,
+        "raw_descriptor_sha256": "d016ff47a69d426c193b09bfcff6deee973c2eec82408836f2d26a42e82fbba3",
+        "receipt_sha256": "0ce096fd19127dbdcc4137844d56acac4c777f5226e7bcdc20751d5e8f202769"
+      },
+      "stage_id": "build_091"
+    }
+  ],
+  "schema": "fixed-six-context-bundle-v1"
 }

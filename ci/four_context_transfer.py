@@ -206,12 +206,12 @@ def _scope(request):
     else:
         need(final_role in {'export_target', 'fresh_kernel'} and target is None, 'invalid final role or synthetic target stage')
     origins = scope['origin_by_stage']; need(set(origins) == set(stages), 'origin map must cover exact plan')
-    need(all(v in {'OldOrigin', 'PriorSuccessorOrigin', 'LatestSuccessorOrigin', 'ProductionSuccessOrigin', 'CurrentOrigin'} for v in origins.values()), 'unknown origin')
+    need(all(v in {'OldOrigin', 'PriorSuccessorOrigin', 'LatestSuccessorOrigin', 'ProductionSuccessOrigin', 'RecoverySuccessOrigin', 'CurrentOrigin'} for v in origins.values()), 'unknown origin')
     if final_role is None: need(origins[target] == 'CurrentOrigin', 'target must be current')
     required = list(stages) if final_role is not None else stages[target]['required_predecessors']
     need(required == [s for s in stages if s in set(required)], 'unordered/duplicate target closure')
     historical = [s for s in required if origins[s] in {'OldOrigin','PriorSuccessorOrigin'}]
-    current = [s for s in required if origins[s] in {'LatestSuccessorOrigin','ProductionSuccessOrigin','CurrentOrigin'}]
+    current = [s for s in required if origins[s] in {'LatestSuccessorOrigin','ProductionSuccessOrigin','RecoverySuccessOrigin','CurrentOrigin'}]
     for sid in historical:
         need(set(stages[sid]['required_predecessors']) <= set(historical), 'historical subset not dependency closed')
     full = scope['expected_full_native_descriptors']
@@ -220,7 +220,8 @@ def _scope(request):
     need(all(d['identity'] == scope['current_identity'] for d in full if origins[d['stage_id']] == 'CurrentOrigin'), 'current descriptor identity differs')
     need(all(d['identity'] == scope['latest_identity'] for d in full if origins[d['stage_id']] == 'LatestSuccessorOrigin'), 'latest descriptor identity differs')
     need(all(d['identity']==scope['production_identity'] for d in full if origins[d['stage_id']]=='ProductionSuccessOrigin'),'production descriptor identity differs')
-    need(len({json.dumps(scope[k],sort_keys=True) for k in ('latest_identity','production_identity','current_identity')})==3,'production/latest/current identities must be distinct')
+    need(all(d['identity']==scope['recovery_identity'] for d in full if origins[d['stage_id']]=='RecoverySuccessOrigin'),'recovery descriptor identity differs')
+    need(len({json.dumps(scope[k],sort_keys=True) for k in ('latest_identity','production_identity','recovery_identity','current_identity')})==4,'recovery/production/latest/current identities must be distinct')
     descriptors = scope['expected_native_descriptors']; objects = scope['expected_objects']
     need([d['stage_id'] for d in descriptors] == historical, 'historical descriptors differ from filtered required_predecessors')
     need([w['native_descriptor'] for w in args['wrappers']] == descriptors, 'native invocation differs from exact expected descriptors')
@@ -244,7 +245,8 @@ def _check_ages(request):
              (request['native']['identity'], request['native']['contract']),
              (request['scope']['current_identity'], request['scope']['current_contract']),
              (request['scope']['latest_identity'], request['scope']['current_contract']),
-             (request['scope']['production_identity'], request['scope']['current_contract'])]
+             (request['scope']['production_identity'], request['scope']['current_contract']),
+             (request['scope']['recovery_identity'], request['scope']['current_contract'])]
     now = datetime.now(timezone.utc)
     for identity, contract in pairs:
         started = datetime.fromisoformat(identity['run_started_at'].replace('Z', '+00:00'))
@@ -284,7 +286,7 @@ def admit_historical(*, request_bytes, request_sha256, source_root, workspace,
     native_args = request['native']
     need(set(native_args) == {'old_context', 'source_delta', 'contract', 'manifest', 'plan', 'profiles', 'identity', 'inventory', 'wrappers'}, 'native invocation fields differ')
     scope = request['scope']
-    scope_keys = {'target_stage', 'origin_by_stage', 'expected_native_descriptors', 'expected_objects', 'current_identity', 'latest_identity', 'production_identity', 'current_manifest', 'current_contract', 'expected_full_native_descriptors'}
+    scope_keys = {'target_stage', 'origin_by_stage', 'expected_native_descriptors', 'expected_objects', 'current_identity', 'latest_identity', 'production_identity', 'recovery_identity', 'current_manifest', 'current_contract', 'expected_full_native_descriptors'}
     need(set(scope) == scope_keys or set(scope) == scope_keys | {'final_role'}, 'scope fields differ')
     if 'final_role' in scope: need(scope['final_role'] in {'export_target', 'fresh_kernel'} and scope['target_stage'] is None, 'explicit final-closure role required')
     historical, current = _scope(request)

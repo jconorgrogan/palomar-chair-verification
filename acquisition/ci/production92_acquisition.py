@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRODUCTION91 exact historical acquisition extension; no native execution or proof claim.
+"""PRODUCTION92 exact historical acquisition extension; no native execution or proof claim.
 
 Context/membership/descriptor, certificate orchestration and a quota gate are new. The
 reviewed downloader's request/retry/redirect/ZIP/extraction/disk/inode/age code is
@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 # sole response-value exception. All messages below are static
 # source literals selected by exact equality, never by substring or formatting.
 # Only canonical quota integers and a fixed CORE/OTHER resource enum may be retained.
-DIAGNOSTIC_PREFIX = 'PRODUCTION91_ACQUISITION_FAILURE_V2 '
+DIAGNOSTIC_PREFIX = 'PRODUCTION92_ACQUISITION_FAILURE_V2 '
 DIAGNOSTIC_PHASES = ('bootstrap','arguments','runtime_envelope','quarantine_create',
  'constructor','initial_snapshots','prepare_transfer','stage_transfer','receipt_copy',
  'historical_ledger','stage_reauthentication','final_snapshots','prepare_reauthentication',
@@ -76,16 +76,16 @@ DIAGNOSTIC_MESSAGES = {
  'quota response cleanup failed':('CLEANUP','QUOTA_RESPONSE_CLEANUP'),
  'metadata response cleanup failed':('CLEANUP','METADATA_RESPONSE_CLEANUP'),
  'metadata error-response cleanup failed':('CLEANUP','METADATA_ERROR_CLEANUP'),
- 'owned PRODUCTION91 quarantine cleanup failed':('CLEANUP','QUARANTINE_CLEANUP'),
+ 'owned PRODUCTION92 quarantine cleanup failed':('CLEANUP','QUARANTINE_CLEANUP'),
  'one-CPU affinity required from integrated driver':('ENVELOPE','AFFINITY_REJECTED'),
  'acquisition CLI requires fresh isolated Python -I -S -B':('ENVELOPE','INTERPRETER_FLAGS'),
- 'PRODUCTION91 fixed specification changed':('SOURCE','SPEC_PIN_MISMATCH'),
+ 'PRODUCTION92 fixed specification changed':('SOURCE','SPEC_PIN_MISMATCH'),
  'fixed historical acquisition pins changed':('SOURCE','HISTORICAL_PINS_MISMATCH'),
  'terminal run/job snapshots changed between batch boundaries':('IDENTITY','TERMINAL_SNAPSHOT_CHANGED'),
  'duplicate terminal job IDs':('IDENTITY','DUPLICATE_TERMINAL_JOB'),
- 'PRODUCTION91 authenticated metadata changed':('IDENTITY','STAGE_METADATA_CHANGED'),
- 'PRODUCTION91 prepare metadata changed':('IDENTITY','PREPARE_METADATA_CHANGED'),
- 'PRODUCTION91 global raw ledger mismatch':('CAPACITY','GLOBAL_RAW_LEDGER'),
+ 'PRODUCTION92 authenticated metadata changed':('IDENTITY','STAGE_METADATA_CHANGED'),
+ 'PRODUCTION92 prepare metadata changed':('IDENTITY','PREPARE_METADATA_CHANGED'),
+ 'PRODUCTION92 global raw ledger mismatch':('CAPACITY','GLOBAL_RAW_LEDGER'),
  'fixed global48 ledger reconciliation failed':('CAPACITY','HISTORICAL_GLOBAL_LEDGER'),
  'ZIP size/digest mismatch':('PAYLOAD','ZIP_SIZE_DIGEST'),
  'native tar bytes/hash mismatch':('PAYLOAD','NATIVE_TAR_PIN'),
@@ -151,7 +151,7 @@ def _diagnostic_record(error):
     if selected == DIAGNOSTIC_GENERIC['UNKNOWN'] and _diagnostic_last is not None:
         selected = _diagnostic_last
     _diagnostic_http(error)
-    return {'schema':'production91-acquisition-failure-v2','phase':_diagnostic_phase,
+    return {'schema':'production92-acquisition-failure-v2','phase':_diagnostic_phase,
             'category':selected[0],'reason_code':selected[1],
             'http_status':_diagnostic_http_status, 'quota':copy.deepcopy(_diagnostic_quota)}
 
@@ -198,16 +198,19 @@ except BaseException as error:
         raise SystemExit(1) from None
     raise
 f, ot = h.f, h.ot
-SPEC_SHA256 = '088bd7d083d4e399cfa6069e17f7198ff37018f59605937581bbc998f24efcd0'
+SPEC_SHA256 = '4e1b3c6921d0b230090108710ffe2e06ad3ac6ff61a890da7767a19056355c63'
 LATEST = 'LatestSuccessorOrigin'
 PRODUCTION = 'ProductionSuccessOrigin'
 PRODUCTION_RAW = 194560
 PRODUCTION_IDENTITY = '19a6fb1d2c5c13a06b17b10b74b47f85173baee0ec94d5420312d5ea88da0a76'
-OUTER = ('OldOrigin', 'PriorSuccessorOrigin', LATEST, PRODUCTION)
-INTERNAL = ('OldOrigin', 'CurrentOrigin', LATEST, PRODUCTION)
-TO_INTERNAL = {'OldOrigin':'OldOrigin', 'PriorSuccessorOrigin':'CurrentOrigin', LATEST:LATEST, PRODUCTION:PRODUCTION}
+RECOVERY = 'RecoverySuccessOrigin'
+RECOVERY_RAW = 204800
+RECOVERY_IDENTITY = '5ec38c94d1f1fad28ae958b7eaf096a4e3109dc14b1c6ba41cc92fb6f29e04d7'
+OUTER = ('OldOrigin', 'PriorSuccessorOrigin', LATEST, PRODUCTION, RECOVERY)
+INTERNAL = ('OldOrigin', 'CurrentOrigin', LATEST, PRODUCTION, RECOVERY)
+TO_INTERNAL = {'OldOrigin':'OldOrigin', 'PriorSuccessorOrigin':'CurrentOrigin', LATEST:LATEST, PRODUCTION:PRODUCTION, RECOVERY:RECOVERY}
 TO_OUTER = {value:key for key,value in TO_INTERNAL.items()}
-TO_NATIVE = {'OldOrigin':'OldOrigin', 'PriorSuccessorOrigin':'PriorSuccessorOrigin', LATEST:'CurrentOrigin', PRODUCTION:'CurrentOrigin'}
+TO_NATIVE = {'OldOrigin':'OldOrigin', 'PriorSuccessorOrigin':'PriorSuccessorOrigin', LATEST:'CurrentOrigin', PRODUCTION:'CurrentOrigin', RECOVERY:'CurrentOrigin'}
 LATEST_RUN = '38978663241'
 LATEST_PIPELINE = 'bc3f977237bee905dafb4f13eeb6564a4a338b42'
 LATEST_CONTRACT = '2848fad58bf59da1958c7e1632e841c1bae78f22ab728b1098a9426977aef334'
@@ -220,10 +223,10 @@ PAYLOAD_KEYS = {'archive_bytes','archive_sha256','raw_descriptor_sha256','receip
 
 
 def load_spec():
-    path = HERE / 'PRODUCTION91_ACQUISITION_SPEC.json'
+    path = HERE / 'PRODUCTION92_ACQUISITION_SPEC.json'
     f.no_symlink_path(path)
     raw = path.read_bytes()
-    f.need(f.sha(raw) == SPEC_SHA256, 'PRODUCTION91 fixed specification changed')
+    f.need(f.sha(raw) == SPEC_SHA256, 'PRODUCTION92 fixed specification changed')
     return f.parse_json(raw)
 
 
@@ -408,7 +411,7 @@ class QuotaPacedOpener:
         return response
 
 
-class Production91Acquisition(h.HistoricalAcquisition):
+class Production92Acquisition(h.HistoricalAcquisition):
     def __init__(self, token, root, *, deadline_monotonic, session_nonce, opener=None, now=None):
         f.need(type(deadline_monotonic) is float and math.isfinite(deadline_monotonic),
                'exact finite parent absolute monotonic float required')
@@ -430,42 +433,49 @@ class Production91Acquisition(h.HistoricalAcquisition):
                production['prepare']['inventory_sha256'] == production['expected_inventory_sha256'],
                'fixed authenticated production prepare pins changed')
         self.contexts[PRODUCTION] = production
-        self._validate_production91_spec()
+        recovery = copy.deepcopy(self.spec['recovery_context'])
+        f.need(recovery['prepare']['identity_sha256'] == recovery['expected_identity_sha256'] and
+               recovery['prepare']['inventory_sha256'] == recovery['expected_inventory_sha256'],
+               'fixed authenticated recovery prepare pins changed')
+        self.contexts[RECOVERY] = recovery
+        self._validate_production92_spec()
         self.rows = {row['stage_id']:copy.deepcopy(row) for row in self.spec['stages']}
-        self.historical_ids = [row['stage_id'] for row in self.spec['stages'] if row['origin'] not in (LATEST,PRODUCTION)]
+        self.historical_ids = [row['stage_id'] for row in self.spec['stages'] if row['origin'] not in (LATEST,PRODUCTION,RECOVERY)]
         self.latest_ids = [row['stage_id'] for row in self.spec['stages'] if row['origin'] == LATEST]
         self.production_ids = [row['stage_id'] for row in self.spec['stages'] if row['origin'] == PRODUCTION]
+        self.recovery_ids = [row['stage_id'] for row in self.spec['stages'] if row['origin'] == RECOVERY]
         # All48 historical stages are restored; never reset the ledger by origin.
         self.raw_bytes = OMITTED_RESERVE
         self._check_age()
 
-    def _validate_production91_spec(self):
+    def _validate_production92_spec(self):
         s = self.spec
-        f.need(s['schema'] == 'production91-fixed-historical-acquisition-spec-v1' and
+        f.need(s['schema'] == 'production92-fixed-historical-acquisition-spec-v1' and
                s['repository'] == ot.REPOSITORY and s['repository_id'] == ot.REPOSITORY_ID and
-               s['original_deadline_utc'] == h.DEADLINE, 'PRODUCTION91 repository/deadline mismatch')
-        expected_ids = [f'build_{index:03d}' for index in range(91)]
-        f.need(s['scope'] == {'historical_stage_ids':expected_ids,'historical_module_count':6367,
-               'fresh_stage_ids':['build_091','build_092'],
+               s['original_deadline_utc'] == h.DEADLINE, 'PRODUCTION92 repository/deadline mismatch')
+        expected_ids = [f'build_{index:03d}' for index in range(92)]
+        f.need(s['scope'] == {'historical_stage_ids':expected_ids,'historical_module_count':6368,
+               'fresh_stage_ids':['build_092'],
                'full_plan_stage_count':93,'full_module_count':6369} and
                [r['stage_id'] for r in s['stages']] == expected_ids and
-               len(s['stages']) == len({r['stage_id'] for r in s['stages']}) == 91,
-               'exact production91 historical scope required')
+               len(s['stages']) == len({r['stage_id'] for r in s['stages']}) == 92,
+               'exact production92 historical scope required')
         f.need({origin:sum(r['origin'] == origin for r in s['stages']) for origin in OUTER} ==
-               {'OldOrigin':37,'PriorSuccessorOrigin':11,LATEST:42,PRODUCTION:1}, 'PRODUCTION91 origin membership changed')
+               {'OldOrigin':37,'PriorSuccessorOrigin':11,LATEST:42,PRODUCTION:1,RECOVERY:1}, 'PRODUCTION92 origin membership changed')
         global_rows = s['historical_global_stages']
-        f.need(global_rows == [r for r in s['stages'] if r['origin'] not in (LATEST,PRODUCTION)] and
+        f.need(global_rows == [r for r in s['stages'] if r['origin'] not in (LATEST,PRODUCTION,RECOVERY)] and
                len(global_rows) == 48 and sum(r['pin']['archive_bytes'] for r in global_rows) == HISTORICAL_GLOBAL and
-               sum(r['pin']['archive_bytes'] for r in s['stages'] if r['origin'] not in (LATEST,PRODUCTION)) == HISTORICAL_SELECTED and
+               sum(r['pin']['archive_bytes'] for r in s['stages'] if r['origin'] not in (LATEST,PRODUCTION,RECOVERY)) == HISTORICAL_SELECTED and
                HISTORICAL_GLOBAL - HISTORICAL_SELECTED == OMITTED_RESERVE, 'all48 selected historical stages must equal fixed global ledger')
         f.need(s['accounting'] == {'historical_global_raw_bytes':HISTORICAL_GLOBAL,
                'historical_selected_raw_bytes':HISTORICAL_SELECTED,'historical_unrestored_raw_bytes':OMITTED_RESERVE,
                'latest_zip_bytes':93815181,'latest_raw_bytes':LATEST_RAW,'production_raw_bytes':PRODUCTION_RAW,
-               'production_zip_bytes':27007,'aggregate_cap_bytes':h.RAW_CAP}, 'PRODUCTION91 accounting changed')
+               'production_zip_bytes':27007,'recovery_raw_bytes':RECOVERY_RAW,
+               'recovery_zip_bytes':27324,'aggregate_cap_bytes':h.RAW_CAP}, 'PRODUCTION92 accounting changed')
         original_rows = {r['stage_id']:r for r in self.pins['stages']}
         for row in s['stages']:
             pin = row['pin']
-            if row['origin'] not in (LATEST,PRODUCTION):
+            if row['origin'] not in (LATEST,PRODUCTION,RECOVERY):
                 frozen = original_rows[row['stage_id']]
                 f.need(TO_INTERNAL[row['origin']] == frozen['origin'] and all(pin[k] == v for k,v in frozen['pin'].items()),
                        'historical frozen metadata/payload pin changed')
@@ -502,8 +512,22 @@ class Production91Acquisition(h.HistoricalAcquisition):
         ot.validate_workflow(production['workflow'])
         self._validate_pin(production['prepare'],prepare=True,identity=identity)
 
+        recovery = self.contexts[RECOVERY]
+        identity = recovery['identity']
+        f.need(f.sha(f.json_bytes(identity)) == RECOVERY_IDENTITY and
+               identity['run_id'] == '39112195849' and identity['run_attempt'] == '1' and
+               identity['pipeline_commit'] == '0d0c740560c40d24f9b30264b217c6f88f0d7aee' and
+               identity['contract_sha256'] == 'aa50bcc194b46c41a4d2e9a1050a59448ef40f50228cef6ae62bd4ead2835ea4',
+               'recovery expected native identity changed')
+        f.need([r['stage_id'] for r in s['stages'] if r['origin']==RECOVERY] == ['build_091'] and
+               sum(r['pin']['archive_bytes'] for r in s['stages'] if r['origin']==RECOVERY)==RECOVERY_RAW and
+               sum(r['pin']['artifact_zip_bytes'] for r in s['stages'] if r['origin']==RECOVERY)==27324,
+               'recovery091 fixed scope or ledger changed')
+        ot.validate_workflow(recovery['workflow'])
+        self._validate_pin(recovery['prepare'],prepare=True,identity=identity)
+
     def _run(self, origin):
-        if origin not in (LATEST,PRODUCTION):
+        if origin not in (LATEST,PRODUCTION,RECOVERY):
             return super()._run(origin)
         # Same terminal-only boundary as frozen historical _run; latest fixed facts.
         c = self._context(origin); identity, workflow = c['identity'], c['workflow']
@@ -526,7 +550,7 @@ class Production91Acquisition(h.HistoricalAcquisition):
         return run
 
     def _download_fixed(self, origin, role, destination, members, max_bytes, pin):
-        if origin in (LATEST,PRODUCTION) and role != 'prepare':
+        if origin in (LATEST,PRODUCTION,RECOVERY) and role != 'prepare':
             f.need(set(self.historical_ids) <= set(self._seen_stages) and self.raw_bytes >= HISTORICAL_GLOBAL,
                    'all48 historical payloads and fixed48 ledger must precede latest transfer')
         for context in INTERNAL: self._run(context)
@@ -538,7 +562,7 @@ class Production91Acquisition(h.HistoricalAcquisition):
     def stage_pin(self, stage_id):
         row = self.rows[stage_id]
         pin = {key:value for key,value in row['pin'].items() if value is not None}
-        if row['origin'] in (LATEST,PRODUCTION):
+        if row['origin'] in (LATEST,PRODUCTION,RECOVERY):
             selected_origin=row['origin']
             f.need(selected_origin in self._prepared, 'latest authenticated prepare required')
             f.need(pin['identity_sha256'] == self._prepared[selected_origin]['identity_sha256'],
@@ -546,8 +570,8 @@ class Production91Acquisition(h.HistoricalAcquisition):
         return pin
 
     def download_selected_stage(self, stage_id):
-        f.need(set(self._prepared) == set(INTERNAL), 'all4 fixed prepares required')
-        f.need(stage_id in self.rows and stage_id not in self._seen_stages, 'unselected/repeated PRODUCTION91 stage')
+        f.need(set(self._prepared) == set(INTERNAL), 'all5 fixed prepares required')
+        f.need(stage_id in self.rows and stage_id not in self._seen_stages, 'unselected/repeated PRODUCTION92 stage')
         row = self.rows[stage_id]; origin = TO_INTERNAL[row['origin']]; pin = self.stage_pin(stage_id)
         path = self.root / (row['origin'] + '-' + stage_id)
         path, metadata = self._download_fixed(origin, stage_id, path,
@@ -579,23 +603,23 @@ class Production91Acquisition(h.HistoricalAcquisition):
         return wrapper
 
     def download_stage(self, *args, **kwargs):
-        raise f.Rejected('PRODUCTION91 requires exact download_selected_stage dispatch')
+        raise f.Rejected('PRODUCTION92 requires exact download_selected_stage dispatch')
 
     def reauthenticate_selected(self, wrapper):
         sid = wrapper['native_descriptor']['stage_id']; row = self.rows[sid]
-        f.need(wrapper['origin'] == row['origin'], 'PRODUCTION91 wrapper outer origin changed')
+        f.need(wrapper['origin'] == row['origin'], 'PRODUCTION92 wrapper outer origin changed')
         origin = TO_INTERNAL[row['origin']]; pin = self.stage_pin(sid)
         run = self._run(origin); self._verify_workflow_source(origin)
         job, binding = self._producer(origin, sid, run, pin)
         artifact = self._artifact(origin, sid, run, job, pin, ot.MAX_ARTIFACT_BYTES + ot.MAX_DESCRIPTOR_BYTES)
         f.need(self._metadata(origin,run,job,artifact,binding) == wrapper['authenticated_metadata'],
-               'PRODUCTION91 authenticated metadata changed')
+               'PRODUCTION92 authenticated metadata changed')
         for context in INTERNAL: self._run(context)
         self._check_age()
 
 
 
-class BatchProduction91Acquisition(Production91Acquisition):
+class BatchProduction92Acquisition(Production92Acquisition):
     """Explicit two-round terminal run/job observations; artifacts stay uncached.
 
     This changes the freshness boundary to batch start/end. It does not pretend
@@ -609,8 +633,8 @@ class BatchProduction91Acquisition(Production91Acquisition):
         self._snapshot_runs = self._snapshot_jobs = None
         self._run_paths = {origin:f'/repos/{ot.REPOSITORY}/actions/runs/{self.contexts[origin]["identity"]["run_id"]}' for origin in INTERNAL}
         self._job_paths = {origin:self._run_paths[origin] + '/attempts/1/jobs' for origin in INTERNAL}
-        f.need(len(set(self._run_paths.values())) == len(set(self._job_paths.values())) == 4,
-               'four distinct fixed terminal contexts required')
+        f.need(len(set(self._run_paths.values())) == len(set(self._job_paths.values())) == 5,
+               'five distinct fixed terminal contexts required')
 
     def _snapshot_check(self):
         f.need(self._snapshot_phase != 'poisoned', 'terminal snapshot session poisoned')
@@ -695,7 +719,7 @@ class BatchProduction91Acquisition(Production91Acquisition):
 
 def file_record(root, path):
     path = Path(path); info = path.lstat()
-    f.need(stat.S_ISREG(info.st_mode) and info.st_nlink == 1, 'PRODUCTION91 retained file type/link mismatch')
+    f.need(stat.S_ISREG(info.st_mode) and info.st_nlink == 1, 'PRODUCTION92 retained file type/link mismatch')
     return {'path':path.relative_to(root).as_posix(),'bytes':info.st_size,'sha256':f.file_sha(path)}
 
 
@@ -705,7 +729,7 @@ def create_session(output_root, token, *, deadline_monotonic, session_nonce, ope
     root = h.owned_new_root(output_root)
     try:
         _diagnostic_mark('constructor')
-        transport = BatchProduction91Acquisition(token,root,deadline_monotonic=deadline_monotonic,
+        transport = BatchProduction92Acquisition(token,root,deadline_monotonic=deadline_monotonic,
                     session_nonce=session_nonce,opener=opener,now=now)
         transport._production_session_binding = (root, deadline_monotonic, session_nonce, transport.opener)
         transport._production_session_state = 'new'
@@ -714,15 +738,15 @@ def create_session(output_root, token, *, deadline_monotonic, session_nonce, ope
         try: shutil.rmtree(root)
         except Exception:
             _diagnostic_mark('cleanup')
-            raise f.Rejected('owned PRODUCTION91 quarantine cleanup failed') from None
+            raise f.Rejected('owned PRODUCTION92 quarantine cleanup failed') from None
         raise
 
 
 def acquire_session(transport):
     """Consume one exact live session; never reconstruct or reset its opener."""
-    f.need(type(transport) is BatchProduction91Acquisition and
+    f.need(type(transport) is BatchProduction92Acquisition and
            getattr(transport, '_production_session_state', None) == 'new',
-           'exact unused production91 session required')
+           'exact unused production92 session required')
     transport._production_session_state = 'consuming'
     root, deadline_monotonic, session_nonce, opener = transport._production_session_binding
     try:
@@ -731,12 +755,12 @@ def acquire_session(transport):
                transport.session_nonce == session_nonce and transport.opener is opener and
                type(opener) is QuotaPacedOpener and opener.transport is transport and
                f.sha(f.json_bytes(transport.spec)) == SPEC_SHA256,
-               'production91 live session binding changed')
+               'production92 live session binding changed')
         f.no_symlink_path(root)
         info = root.lstat()
         f.need(stat.S_ISDIR(info.st_mode) and info.st_uid == os.getuid() and
                stat.S_IMODE(info.st_mode) == 0o700 and not list(root.iterdir()),
-               'production91 live session root changed')
+               'production92 live session root changed')
         transport._check_age()
         _diagnostic_mark('initial_snapshots')
         transport.refresh_terminal_snapshots(final=False)
@@ -745,7 +769,7 @@ def acquire_session(transport):
             _diagnostic_mark('prepare_transfer')
             prepares[origin] = transport.authenticate_prepare(origin,root/(TO_OUTER[origin]+'-prepare'))
         wrappers, raw_paths = {}, {}
-        for sid in transport.historical_ids + transport.latest_ids + transport.production_ids:
+        for sid in transport.historical_ids + transport.latest_ids + transport.production_ids + transport.recovery_ids:
             _diagnostic_mark('stage_transfer')
             wrapper = transport.download_selected_stage(sid)
             _diagnostic_mark('receipt_copy')
@@ -767,7 +791,7 @@ def acquire_session(transport):
             job,binding = transport._producer(origin,'prepare',run,pin)
             artifact = transport._artifact(origin,'prepare',run,job,pin,h.MAX_PREPARE)
             metadata = transport._metadata(origin,run,job,artifact,binding)
-            f.need(metadata == prepares[origin]['authenticated_metadata'], 'PRODUCTION91 prepare metadata changed')
+            f.need(metadata == prepares[origin]['authenticated_metadata'], 'PRODUCTION92 prepare metadata changed')
             projected = copy.deepcopy(metadata['run']); projected.update(name=run['name'],updated_at=run['updated_at'])
             folder = root/(outer+'-prepare'); identity_raw = (folder/'identity.json').read_bytes()
             contexts[outer] = {'native_origin':TO_NATIVE[outer],'identity':c['identity'],
@@ -790,20 +814,20 @@ def acquire_session(transport):
                          'raw_receipt_path':str(raw_paths[sid])})
         latest_raw = sum(w['native_descriptor']['archive_bytes'] for w in ordered if w['origin'] == LATEST)
         selected_raw = sum(w['native_descriptor']['archive_bytes'] for w in ordered)
-        f.need(latest_raw == LATEST_RAW and selected_raw == HISTORICAL_SELECTED + latest_raw + PRODUCTION_RAW and
-               transport.raw_bytes == HISTORICAL_GLOBAL + latest_raw + PRODUCTION_RAW <= h.RAW_CAP, 'PRODUCTION91 global raw ledger mismatch')
+        f.need(latest_raw == LATEST_RAW and selected_raw == HISTORICAL_SELECTED + latest_raw + PRODUCTION_RAW + RECOVERY_RAW and
+               transport.raw_bytes == HISTORICAL_GLOBAL + latest_raw + PRODUCTION_RAW + RECOVERY_RAW <= h.RAW_CAP, 'PRODUCTION92 global raw ledger mismatch')
         h.disk_headroom(root,8*ot.MAX_METADATA_BYTES,new_files=4)
         _diagnostic_mark('certificate_write')
         h.write_json(root/'WRAPPERS.json',rows)
-        with (root/'ACQUISITION_SPEC.json').open('xb') as out: out.write((HERE/'PRODUCTION91_ACQUISITION_SPEC.json').read_bytes())
-        certificate = {'schema':'production91-historical-acquisition-v1','status':'transport_bytes_authenticated_only',
+        with (root/'ACQUISITION_SPEC.json').open('xb') as out: out.write((HERE/'PRODUCTION92_ACQUISITION_SPEC.json').read_bytes())
+        certificate = {'schema':'production92-historical-acquisition-v1','status':'transport_bytes_authenticated_only',
             'proof_pass_claimed':False,'semantic_admission':False,'session_nonce':session_nonce,
             'host_deadline_monotonic':deadline_monotonic,'started_at_utc':started,'authenticated_at_utc':utc_now(transport),
             'original_deadline_utc':h.DEADLINE,'acquisition_spec_sha256':SPEC_SHA256,
             'downloader_sha256':FROZEN_FILES['historical_acquisition.py'],'inputs':transport.spec['inputs'],
             'scope':transport.spec['scope'],'accounting':{'historical_global_raw_bytes':HISTORICAL_GLOBAL,
                 'historical_selected_raw_bytes':HISTORICAL_SELECTED,'historical_unrestored_raw_bytes':OMITTED_RESERVE,
-                'latest_raw_bytes':latest_raw,'production_raw_bytes':PRODUCTION_RAW,'selected_raw_bytes':selected_raw,'charged_raw_bytes':transport.raw_bytes,
+                'latest_raw_bytes':latest_raw,'production_raw_bytes':PRODUCTION_RAW,'recovery_raw_bytes':RECOVERY_RAW,'selected_raw_bytes':selected_raw,'charged_raw_bytes':transport.raw_bytes,
                 'aggregate_cap_bytes':h.RAW_CAP},'contexts':contexts,'wrappers_path':'WRAPPERS.json','wrappers':ordered,
             'stages':stage_records,'files':h.retained_files(root)}
         transport._check_age(); h.write_json(root/'TRANSPORT_RECEIPT.json',certificate); transport._check_age()
@@ -818,7 +842,7 @@ def acquire_session(transport):
         try: shutil.rmtree(root)
         except Exception:
             _diagnostic_mark('cleanup')
-            raise f.Rejected('owned PRODUCTION91 quarantine cleanup failed') from None
+            raise f.Rejected('owned PRODUCTION92 quarantine cleanup failed') from None
         raise
 
 
@@ -839,7 +863,7 @@ def main():
     _diagnostic_mark('runtime_envelope')
     h.require_runtime_envelope()
     acquire(args.quarantine,os.environ.get('GH_TOKEN',''),deadline_monotonic=args.deadline_monotonic,session_nonce=args.session_nonce)
-    print('PRODUCTION91 transport bytes authenticated; native semantic admission still required.')
+    print('PRODUCTION92 transport bytes authenticated; native semantic admission still required.')
 
 
 if __name__ == '__main__':

@@ -3089,7 +3089,7 @@
     "SpectreFinite.RadiusFivePruningGroup8T3": "main_fresh_ci_proposed",
     "SpectreFinite.RadiusFivePruningGroup8T4": "main_fresh_ci_proposed",
     "SpectreFinite.RadiusFivePruningGroup8T5": "main_fresh_ci_proposed",
-    "SpectreFinite.RadiusFivePruningHierarchy": "final_source_pair_proposed",
+    "SpectreFinite.RadiusFivePruningHierarchy": "c092_async_off_source_pair_reviewed",
     "SpectreFinite.RadiusFivePruningIndexedSignatures": "main_fresh_ci_proposed",
     "SpectreFinite.RadiusFivePruningLiteral": "main_fresh_ci_proposed",
     "SpectreFinite.RadiusFivePruningLiteralBlock0T0C0": "main_fresh_ci_proposed",
@@ -6388,6 +6388,22 @@
       "rss_tree_bytes": 8589934592
     },
     "c091_async_off_source_pair_reviewed": {
+      "address_space_bytes": 8589934592,
+      "check_flags": [],
+      "check_timeout_seconds": 120,
+      "compile_flags": [
+        "-j1",
+        "-M768",
+        "-Dcompiler.postponeCompile=false",
+        "-DElab.async=false"
+      ],
+      "compile_timeout_seconds": 120,
+      "max_created_file_bytes": 536870912,
+      "note": "Proposed fresh CI limits; not evidence of historical execution or success. Source-local options and any extra compiler option require review. All modern source compilation explicitly emits IR; no other profile flag, time or memory relaxation is included.",
+      "review_status": "reviewed",
+      "rss_tree_bytes": 8589934592
+    },
+    "c092_async_off_source_pair_reviewed": {
       "address_space_bytes": 8589934592,
       "check_flags": [],
       "check_timeout_seconds": 120,
