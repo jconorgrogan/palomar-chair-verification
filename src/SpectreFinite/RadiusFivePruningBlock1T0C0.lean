@@ -1,0 +1,7 @@
+module
+
+public import SpectreFinite.RadiusFivePruningBlock1T0C0Core
+public import SpectreFinite.RadiusFivePruningBlock1T0C0Initial
+
+@[expose] public section
+

@@ -1,0 +1,232 @@
+module
+
+public import SpectreClusters.StageAT7OverlapData
+public import SpectreClusters.StageAT7OverlapPart16
+
+@[expose] public section
+
+namespace SpectreClusters.StageA
+set_option maxRecDepth 100000
+
+theorem t7OverlapRefute68 (hcaptures : FinalCaptures)
+    (f : Cell → HTPlacement) (hf : ValidGridField f) :
+    ¬PatchOwned f t7OverlapPatch68 := by
+  apply refute_patch_by_rows hcaptures f hf t7OverlapPatch68 (⟨.hat,2,(-1,-1)⟩) (by decide)
+  intro i hi
+  simp only [keptIds,List.mem_cons,List.not_mem_nil,or_false] at hi
+  rcases hi with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 0) (⟨.hat,0,(1,-2)⟩) (⟨.hat,3,(1,-2)⟩)
+      (⟨(1,-2),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 2) (⟨.hat,0,(1,-2)⟩) (⟨.hat,3,(1,-2)⟩)
+      (⟨(1,-2),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 6) (⟨.hat,1,(-1,0)⟩) (⟨.hat,2,(0,-1)⟩)
+      (⟨(-1,0),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 8) (⟨.hat,0,(-2,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,0),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 13) (⟨.hat,0,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 15) (⟨.hat,0,(-2,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,0),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 16) (⟨.hat,0,(1,-2)⟩) (⟨.hat,3,(1,-2)⟩)
+      (⟨(1,-2),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 17) (⟨.hat,0,(-3,0)⟩) (⟨.hat,3,(-2,-1)⟩)
+      (⟨(-3,0),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 21) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 22) (⟨.hat,0,(-2,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,0),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 23) (⟨.hat,1,(-1,0)⟩) (⟨.hat,4,(-1,1)⟩)
+      (⟨(-1,0),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 24) (⟨.hat,0,(-2,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,0),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 27) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 28) (⟨.hat,0,(-3,0)⟩) (⟨.hat,3,(-2,-1)⟩)
+      (⟨(-3,0),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 31) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · intro ho
+    exact t7OverlapRefute67 hcaptures f hf
+      (patchOwned_of_subpatch f t7OverlapPatch67 (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 32) (by decide) ho)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 35) (⟨.hat,0,(-3,0)⟩) (⟨.hat,3,(-2,-1)⟩)
+      (⟨(-3,0),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 38) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 39) (⟨.hat,0,(-3,0)⟩) (⟨.hat,3,(-2,-1)⟩)
+      (⟨(-3,0),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 79) (⟨.hat,0,(0,-1)⟩) (⟨.hat,0,(1,-2)⟩)
+      (⟨(1,-2),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 81) (⟨.hat,0,(-3,0)⟩) (⟨.hat,3,(-2,-1)⟩)
+      (⟨(-3,0),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 89) (⟨.hat,0,(0,-1)⟩) (⟨.hat,0,(1,-2)⟩)
+      (⟨(1,-2),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch68 ++ rowPatch (⟨.hat,2,(-1,-1)⟩) 210) (⟨.hat,0,(1,-1)⟩) (⟨.turtle,0,(0,-1)⟩)
+      (⟨(1,-1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+theorem t7OverlapRefute69 (hcaptures : FinalCaptures)
+    (f : Cell → HTPlacement) (hf : ValidGridField f) :
+    ¬PatchOwned f t7OverlapPatch69 := by
+  apply refute_patch_by_rows hcaptures f hf t7OverlapPatch69 (⟨.hat,0,(-1,-3)⟩) (by decide)
+  intro i hi
+  simp only [keptIds,List.mem_cons,List.not_mem_nil,or_false] at hi
+  rcases hi with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 0) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 2) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 6) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 8) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 13) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 15) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 16) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 17) (⟨.hat,0,(-1,-4)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 21) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 22) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 23) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 24) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 27) (⟨.hat,0,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 28) (⟨.hat,2,(0,-5)⟩) (⟨.hat,5,(0,-4)⟩)
+      (⟨(0,-5),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 31) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 32) (⟨.hat,1,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 35) (⟨.hat,2,(1,-4)⟩) (⟨.hat,4,(1,-3)⟩)
+      (⟨(0,-3),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 38) (⟨.hat,0,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · intro ho
+    exact t7OverlapRefute68 hcaptures f hf
+      (patchOwned_of_subpatch f t7OverlapPatch68 (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 39) (by decide) ho)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 79) (⟨.hat,0,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 81) (⟨.hat,1,(-2,-3)⟩) (⟨.hat,5,(-2,-2)⟩)
+      (⟨(-2,-3),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 89) (⟨.hat,0,(-1,-2)⟩) (⟨.hat,4,(0,-2)⟩)
+      (⟨(-1,-2),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch69 ++ rowPatch (⟨.hat,0,(-1,-3)⟩) 210) (⟨.hat,1,(1,-6)⟩) (⟨.turtle,5,(0,-4)⟩)
+      (⟨(1,-5),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+theorem t7OverlapRefute70 (hcaptures : FinalCaptures)
+    (f : Cell → HTPlacement) (hf : ValidGridField f) :
+    ¬PatchOwned f t7OverlapPatch70 := by
+  apply refute_patch_by_rows hcaptures f hf t7OverlapPatch70 (⟨.hat,2,(1,0)⟩) (by decide)
+  intro i hi
+  simp only [keptIds,List.mem_cons,List.not_mem_nil,or_false] at hi
+  rcases hi with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 0) (⟨.hat,0,(1,-1)⟩) (⟨.hat,1,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 2) (⟨.hat,0,(1,-1)⟩) (⟨.hat,4,(2,-1)⟩)
+      (⟨(1,-1),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 6) (⟨.hat,0,(1,-1)⟩) (⟨.turtle,2,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 8) (⟨.hat,0,(1,-1)⟩) (⟨.turtle,2,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · intro ho
+    exact t7OverlapRefute53 hcaptures f hf
+      (patchOwned_of_subpatch f t7OverlapPatch53 (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 13) (by decide) ho)
+  · intro ho
+    exact t7OverlapRefute69 hcaptures f hf
+      (patchOwned_of_subpatch f t7OverlapPatch69 (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 15) (by decide) ho)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 16) (⟨.hat,0,(-1,2)⟩) (⟨.hat,3,(0,1)⟩)
+      (⟨(-1,2),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 17) (⟨.hat,0,(-1,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 21) (⟨.hat,0,(1,-1)⟩) (⟨.hat,1,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 22) (⟨.hat,0,(1,-1)⟩) (⟨.hat,1,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 23) (⟨.hat,0,(1,-1)⟩) (⟨.hat,4,(2,-1)⟩)
+      (⟨(1,-1),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 24) (⟨.hat,0,(1,-1)⟩) (⟨.hat,4,(2,-1)⟩)
+      (⟨(1,-1),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 27) (⟨.hat,0,(-1,2)⟩) (⟨.hat,3,(0,1)⟩)
+      (⟨(-1,2),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 28) (⟨.hat,0,(-1,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 31) (⟨.hat,0,(1,-1)⟩) (⟨.hat,1,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 32) (⟨.hat,0,(1,-1)⟩) (⟨.hat,4,(2,-1)⟩)
+      (⟨(1,-1),4⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 35) (⟨.hat,0,(-1,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 38) (⟨.hat,0,(-1,2)⟩) (⟨.hat,3,(0,1)⟩)
+      (⟨(-1,2),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 39) (⟨.hat,0,(-1,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 79) (⟨.hat,0,(1,-1)⟩) (⟨.hat,3,(2,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 81) (⟨.hat,0,(-1,1)⟩) (⟨.hat,1,(-1,0)⟩)
+      (⟨(-1,1),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 89) (⟨.hat,0,(1,-1)⟩) (⟨.hat,1,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch70 ++ rowPatch (⟨.hat,2,(1,0)⟩) 210) (⟨.hat,0,(1,-1)⟩) (⟨.turtle,2,(1,-1)⟩)
+      (⟨(1,-1),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+theorem t7OverlapRefute71 (hcaptures : FinalCaptures)
+    (f : Cell → HTPlacement) (hf : ValidGridField f) :
+    ¬PatchOwned f t7OverlapPatch71 := by
+  apply refute_patch_by_rows hcaptures f hf t7OverlapPatch71 (⟨.turtle,3,(-1,-2)⟩) (by decide)
+  intro i hi
+  simp only [keptIds,List.mem_cons,List.not_mem_nil,or_false] at hi
+  rcases hi with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · intro ho
+    exact t7OverlapRefute70 hcaptures f hf
+      (patchOwned_of_subpatch f t7OverlapPatch70 (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 0) (by decide) ho)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 163) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,3,(0,-3)⟩)
+      (⟨(-1,-3),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 171) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-1,-3)⟩)
+      (⟨(-1,-3),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 179) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,3,(0,-3)⟩)
+      (⟨(-1,-3),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 201) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 203) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 205) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 212) (⟨.hat,0,(-1,-3)⟩) (⟨.hat,2,(0,-3)⟩)
+      (⟨(0,-3),2⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 214) (⟨.hat,0,(-1,-3)⟩) (⟨.hat,2,(0,-3)⟩)
+      (⟨(0,-3),2⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 215) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 219) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 221) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 222) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 223) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 226) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 227) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 229) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 231) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 240) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 242) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,4,(-1,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 246) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-1,-3)⟩)
+      (⟨(-1,-3),0⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 248) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+  · exact patch_not_owned_of_collision f (t7OverlapPatch71 ++ rowPatch (⟨.turtle,3,(-1,-2)⟩) 250) (⟨.hat,0,(-1,-3)⟩) (⟨.turtle,1,(-2,-3)⟩)
+      (⟨(-1,-3),3⟩) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+end SpectreClusters.StageA

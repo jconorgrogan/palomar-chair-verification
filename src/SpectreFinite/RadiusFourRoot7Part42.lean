@@ -1,0 +1,1740 @@
+module
+
+public import SpectreFinite.RadiusFourRoot7Part41
+public import SpectreFinite.RadiusThreeChunkChecking
+public import SpectreFinite.RadiusThreeFastChecking
+public import SpectreFinite.RadiusFourTable37
+public import SpectreFinite.RadiusFourTable40
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusFour
+open SpectreFinite.FiniteTable
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+open HigherFastChecking
+def root7Node125Domains0 : Domains 61 State := restrict root7Node124Domains2 35 (1,2)
+def root7Node125Domains0Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(1,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(2,1),(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(3,2),(5,2)]
+  | 51 => some [(4,0),(8,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(5,1),(5,4),(8,4)]
+  | 57 => some [(0,1),(6,4)]
+  | 58 => some [(1,2),(6,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node125Domains0_fast_eq : root7Node125Domains0 = expandDomains root7Node125Domains0Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node125Domains0 v = expandDomains root7Node125Domains0Fast v from by decide) v
+def root7Node125Domains1 (v : Fin 61) : List State :=
+  match v.val with
+  | 0 => [(7,5)]
+  | 1 => [(0,3)]
+  | 2 => [(5,1)]
+  | 3 => [(0,1)]
+  | 4 => [(6,2)]
+  | 5 => [(7,3)]
+  | 6 => [(4,2)]
+  | 7 => [(5,3)]
+  | 8 => [(8,5)]
+  | 9 => [(1,0)]
+  | 10 => [(7,1)]
+  | 11 => [(6,4)]
+  | 12 => [(1,2)]
+  | 13 => [(7,4)]
+  | 14 => [(1,3)]
+  | 15 => [(8,2)]
+  | 16 => [(8,0)]
+  | 17 => [(7,3)]
+  | 18 => [(7,5)]
+  | 19 => [(0,3)]
+  | 20 => [(8,1)]
+  | 21 => [(6,5)]
+  | 22 => [(0,4)]
+  | 23 => [(5,4)]
+  | 24 => [(6,4)]
+  | 25 => [(1,2)]
+  | 26 => [(7,3)]
+  | 27 => [(4,2)]
+  | 28 => [(5,3)]
+  | 29 => [(8,5)]
+  | 30 => [(7,0)]
+  | 31 => [(4,3)]
+  | 32 => [(7,5)]
+  | 33 => [(0,3)]
+  | 34 => [(4,1)]
+  | 35 => [(1,2)]
+  | 36 => [(7,4)]
+  | 37 => [(6,3)]
+  | 38 => [(7,2)]
+  | 39 => [(7,4)]
+  | 40 => [(6,3)]
+  | 41 => [(2,2)]
+  | 42 => [(3,3)]
+  | 43 => [(4,1)]
+  | 44 => [(0,2)]
+  | 45 => [(1,1)]
+  | 46 => [(4,1)]
+  | 47 => [(0,2)]
+  | 48 => [(1,1)]
+  | 49 => [(0,1)]
+  | 50 => [(5,2)]
+  | 51 => [(8,0)]
+  | 52 => [(7,3)]
+  | 53 => [(5,2)]
+  | 54 => [(5,0)]
+  | 55 => [(4,5)]
+  | 56 => [(5,4),(8,4)]
+  | 57 => [(6,4)]
+  | 58 => [(1,2)]
+  | 59 => [(8,4)]
+  | _ => [(0,0)]
+def root7Node125Domains1Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(1,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(5,2)]
+  | 51 => some [(8,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(5,4),(8,4)]
+  | 57 => some [(6,4)]
+  | 58 => some [(1,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node125Domains1_fast_eq : root7Node125Domains1 = expandDomains root7Node125Domains1Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node125Domains1 v = expandDomains root7Node125Domains1Fast v from by decide) v
+theorem root7Node125Step1Chunk0_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk0_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk0_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk0_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk0_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk0_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk1_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk2_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk3_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk4_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk5_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk6_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk7_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_0⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_1⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_2⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_3⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_4⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1Chunk8_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_5⟩
+      root7Node125Domains0 root7Node125Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node125Domains0 root7Node125Domains1
+    root7Node125Domains0Fast root7Node125Domains1Fast
+    root7Node125Domains0_fast_eq root7Node125Domains1_fast_eq (by decide)
+theorem root7Node125Step1_checked :
+    checkReplacement table37 root7Node125Domains0 root7Node125Domains1 = true := by
+  unfold checkReplacement
+  apply Bool.and_eq_true_iff.mpr
+  constructor
+  · apply checkNarrowing_flatten
+    simp only [List.all_cons, List.all_nil, root7Node125Step1Chunk0_0_checked, root7Node125Step1Chunk0_1_checked, root7Node125Step1Chunk0_2_checked, root7Node125Step1Chunk0_3_checked, root7Node125Step1Chunk0_4_checked, root7Node125Step1Chunk0_5_checked, root7Node125Step1Chunk1_0_checked, root7Node125Step1Chunk1_1_checked, root7Node125Step1Chunk1_2_checked, root7Node125Step1Chunk1_3_checked, root7Node125Step1Chunk1_4_checked, root7Node125Step1Chunk1_5_checked, root7Node125Step1Chunk2_0_checked, root7Node125Step1Chunk2_1_checked, root7Node125Step1Chunk2_2_checked, root7Node125Step1Chunk2_3_checked, root7Node125Step1Chunk2_4_checked, root7Node125Step1Chunk2_5_checked, root7Node125Step1Chunk3_0_checked, root7Node125Step1Chunk3_1_checked, root7Node125Step1Chunk3_2_checked, root7Node125Step1Chunk3_3_checked, root7Node125Step1Chunk3_4_checked, root7Node125Step1Chunk3_5_checked, root7Node125Step1Chunk4_0_checked, root7Node125Step1Chunk4_1_checked, root7Node125Step1Chunk4_2_checked, root7Node125Step1Chunk4_3_checked, root7Node125Step1Chunk4_4_checked, root7Node125Step1Chunk4_5_checked, root7Node125Step1Chunk5_0_checked, root7Node125Step1Chunk5_1_checked, root7Node125Step1Chunk5_2_checked, root7Node125Step1Chunk5_3_checked, root7Node125Step1Chunk5_4_checked, root7Node125Step1Chunk5_5_checked, root7Node125Step1Chunk6_0_checked, root7Node125Step1Chunk6_1_checked, root7Node125Step1Chunk6_2_checked, root7Node125Step1Chunk6_3_checked, root7Node125Step1Chunk6_4_checked, root7Node125Step1Chunk6_5_checked, root7Node125Step1Chunk7_0_checked, root7Node125Step1Chunk7_1_checked, root7Node125Step1Chunk7_2_checked, root7Node125Step1Chunk7_3_checked, root7Node125Step1Chunk7_4_checked, root7Node125Step1Chunk7_5_checked, root7Node125Step1Chunk8_0_checked, root7Node125Step1Chunk8_1_checked, root7Node125Step1Chunk8_2_checked, root7Node125Step1Chunk8_3_checked, root7Node125Step1Chunk8_4_checked, root7Node125Step1Chunk8_5_checked, Bool.true_and]
+  · decide
+def root7Node126Domains0 : Domains 61 State := restrict root7Node125Domains1 56 (5,4)
+def root7Node126Domains0Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(1,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(5,2)]
+  | 51 => some [(8,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(5,4)]
+  | 57 => some [(6,4)]
+  | 58 => some [(1,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node126Domains0_fast_eq : root7Node126Domains0 = expandDomains root7Node126Domains0Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node126Domains0 v = expandDomains root7Node126Domains0Fast v from by decide) v
+theorem root7Node126Leaf_checked :
+    checkCover 1 constraints root7Outputs root7Node126Domains0 (.output 61) = true := by decide
+def root7Node127Domains0 : Domains 61 State := restrict root7Node125Domains1 56 (8,4)
+def root7Node127Domains0Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(1,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(5,2)]
+  | 51 => some [(8,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(8,4)]
+  | 57 => some [(6,4)]
+  | 58 => some [(1,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node127Domains0_fast_eq : root7Node127Domains0 = expandDomains root7Node127Domains0Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node127Domains0 v = expandDomains root7Node127Domains0Fast v from by decide) v
+theorem root7Node127Leaf_checked :
+    checkCover 1 constraints root7Outputs root7Node127Domains0 (.output 62) = true := by decide
+def root7Node128Domains0 : Domains 61 State := restrict root7Node124Domains2 35 (6,2)
+def root7Node128Domains0Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(6,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(2,1),(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(3,2),(5,2)]
+  | 51 => some [(4,0),(8,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(5,1),(5,4),(8,4)]
+  | 57 => some [(0,1),(6,4)]
+  | 58 => some [(1,2),(6,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node128Domains0_fast_eq : root7Node128Domains0 = expandDomains root7Node128Domains0Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node128Domains0 v = expandDomains root7Node128Domains0Fast v from by decide) v
+def root7Node128Domains1 (v : Fin 61) : List State :=
+  match v.val with
+  | 0 => [(7,5)]
+  | 1 => [(0,3)]
+  | 2 => [(5,1)]
+  | 3 => [(0,1)]
+  | 4 => [(6,2)]
+  | 5 => [(7,3)]
+  | 6 => [(4,2)]
+  | 7 => [(5,3)]
+  | 8 => [(8,5)]
+  | 9 => [(1,0)]
+  | 10 => [(7,1)]
+  | 11 => [(6,4)]
+  | 12 => [(1,2)]
+  | 13 => [(7,4)]
+  | 14 => [(1,3)]
+  | 15 => [(8,2)]
+  | 16 => [(8,0)]
+  | 17 => [(7,3)]
+  | 18 => [(7,5)]
+  | 19 => [(0,3)]
+  | 20 => [(8,1)]
+  | 21 => [(6,5)]
+  | 22 => [(0,4)]
+  | 23 => [(5,4)]
+  | 24 => [(6,4)]
+  | 25 => [(1,2)]
+  | 26 => [(7,3)]
+  | 27 => [(4,2)]
+  | 28 => [(5,3)]
+  | 29 => [(8,5)]
+  | 30 => [(7,0)]
+  | 31 => [(4,3)]
+  | 32 => [(7,5)]
+  | 33 => [(0,3)]
+  | 34 => [(4,1)]
+  | 35 => [(6,2)]
+  | 36 => [(7,4)]
+  | 37 => [(6,3)]
+  | 38 => [(7,2)]
+  | 39 => [(7,4)]
+  | 40 => [(6,3)]
+  | 41 => [(2,2)]
+  | 42 => [(3,3)]
+  | 43 => [(2,1)]
+  | 44 => [(0,2)]
+  | 45 => [(1,1)]
+  | 46 => [(4,1)]
+  | 47 => [(0,2)]
+  | 48 => [(1,1)]
+  | 49 => [(0,1)]
+  | 50 => [(3,2)]
+  | 51 => [(4,0)]
+  | 52 => [(7,3)]
+  | 53 => [(5,2)]
+  | 54 => [(5,0)]
+  | 55 => [(4,5)]
+  | 56 => [(5,1)]
+  | 57 => [(0,1)]
+  | 58 => [(6,2)]
+  | 59 => [(8,4)]
+  | _ => [(0,0)]
+def root7Node128Domains1Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(4,1)]
+  | 35 => some [(6,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(6,3)]
+  | 41 => some [(2,2)]
+  | 42 => some [(3,3)]
+  | 43 => some [(2,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1)]
+  | 47 => some [(0,2)]
+  | 48 => some [(1,1)]
+  | 49 => some [(0,1)]
+  | 50 => some [(3,2)]
+  | 51 => some [(4,0)]
+  | 52 => some [(7,3)]
+  | 53 => some [(5,2)]
+  | 54 => some [(5,0)]
+  | 55 => some [(4,5)]
+  | 56 => some [(5,1)]
+  | 57 => some [(0,1)]
+  | 58 => some [(6,2)]
+  | 59 => some [(8,4)]
+  | _ => some [(0,0)]
+theorem root7Node128Domains1_fast_eq : root7Node128Domains1 = expandDomains root7Node128Domains1Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node128Domains1 v = expandDomains root7Node128Domains1Fast v from by decide) v
+theorem root7Node128Step1Chunk0_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk0_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk0_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk0_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk0_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk0_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows0_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk1_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows1_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk2_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows2_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk3_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows3_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk4_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows4_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk5_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows5_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk6_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows6_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk7_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows7_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_0_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_0⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_1_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_1⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_2_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_2⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_3_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_3⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_4_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_4⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1Chunk8_5_checked :
+    checkNarrowing ⟨table37Scope, table37Rows8_5⟩
+      root7Node128Domains0 root7Node128Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node128Domains0 root7Node128Domains1
+    root7Node128Domains0Fast root7Node128Domains1Fast
+    root7Node128Domains0_fast_eq root7Node128Domains1_fast_eq (by decide)
+theorem root7Node128Step1_checked :
+    checkReplacement table37 root7Node128Domains0 root7Node128Domains1 = true := by
+  unfold checkReplacement
+  apply Bool.and_eq_true_iff.mpr
+  constructor
+  · apply checkNarrowing_flatten
+    simp only [List.all_cons, List.all_nil, root7Node128Step1Chunk0_0_checked, root7Node128Step1Chunk0_1_checked, root7Node128Step1Chunk0_2_checked, root7Node128Step1Chunk0_3_checked, root7Node128Step1Chunk0_4_checked, root7Node128Step1Chunk0_5_checked, root7Node128Step1Chunk1_0_checked, root7Node128Step1Chunk1_1_checked, root7Node128Step1Chunk1_2_checked, root7Node128Step1Chunk1_3_checked, root7Node128Step1Chunk1_4_checked, root7Node128Step1Chunk1_5_checked, root7Node128Step1Chunk2_0_checked, root7Node128Step1Chunk2_1_checked, root7Node128Step1Chunk2_2_checked, root7Node128Step1Chunk2_3_checked, root7Node128Step1Chunk2_4_checked, root7Node128Step1Chunk2_5_checked, root7Node128Step1Chunk3_0_checked, root7Node128Step1Chunk3_1_checked, root7Node128Step1Chunk3_2_checked, root7Node128Step1Chunk3_3_checked, root7Node128Step1Chunk3_4_checked, root7Node128Step1Chunk3_5_checked, root7Node128Step1Chunk4_0_checked, root7Node128Step1Chunk4_1_checked, root7Node128Step1Chunk4_2_checked, root7Node128Step1Chunk4_3_checked, root7Node128Step1Chunk4_4_checked, root7Node128Step1Chunk4_5_checked, root7Node128Step1Chunk5_0_checked, root7Node128Step1Chunk5_1_checked, root7Node128Step1Chunk5_2_checked, root7Node128Step1Chunk5_3_checked, root7Node128Step1Chunk5_4_checked, root7Node128Step1Chunk5_5_checked, root7Node128Step1Chunk6_0_checked, root7Node128Step1Chunk6_1_checked, root7Node128Step1Chunk6_2_checked, root7Node128Step1Chunk6_3_checked, root7Node128Step1Chunk6_4_checked, root7Node128Step1Chunk6_5_checked, root7Node128Step1Chunk7_0_checked, root7Node128Step1Chunk7_1_checked, root7Node128Step1Chunk7_2_checked, root7Node128Step1Chunk7_3_checked, root7Node128Step1Chunk7_4_checked, root7Node128Step1Chunk7_5_checked, root7Node128Step1Chunk8_0_checked, root7Node128Step1Chunk8_1_checked, root7Node128Step1Chunk8_2_checked, root7Node128Step1Chunk8_3_checked, root7Node128Step1Chunk8_4_checked, root7Node128Step1Chunk8_5_checked, Bool.true_and]
+  · decide
+theorem root7Node128Leaf_checked :
+    checkCover 1 constraints root7Outputs root7Node128Domains1 (.output 63) = true := by decide
+def root7Node129Domains0 : Domains 61 State := restrict root7Node123Domains2 34 (8,1)
+def root7Node129Domains0Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(8,1)]
+  | 35 => some [(1,2),(6,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(1,3),(6,3)]
+  | 41 => some [(2,2),(4,2)]
+  | 42 => some [(3,3),(5,3)]
+  | 43 => some [(2,1),(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(4,1),(8,1)]
+  | 47 => some [(0,2),(6,5)]
+  | 48 => some [(0,4),(1,1)]
+  | 49 => some [(0,1),(1,4),(3,4)]
+  | 50 => some [(3,2),(5,2)]
+  | 51 => some [(4,0),(8,0)]
+  | 52 => some [(7,3),(8,3)]
+  | 53 => some [(5,2),(5,5)]
+  | 54 => some [(3,0),(5,0),(7,0)]
+  | 55 => some [(2,3),(2,5),(4,5)]
+  | 56 => some [(5,1),(5,4),(8,4)]
+  | 57 => some [(0,1),(1,4),(6,4)]
+  | 58 => some [(0,5),(1,2),(6,2)]
+  | 59 => some [(4,4),(8,4)]
+  | _ => some [(0,0),(6,4)]
+theorem root7Node129Domains0_fast_eq : root7Node129Domains0 = expandDomains root7Node129Domains0Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node129Domains0 v = expandDomains root7Node129Domains0Fast v from by decide) v
+def root7Node129Domains1 (v : Fin 61) : List State :=
+  match v.val with
+  | 0 => [(7,5)]
+  | 1 => [(0,3)]
+  | 2 => [(5,1)]
+  | 3 => [(0,1)]
+  | 4 => [(6,2)]
+  | 5 => [(7,3)]
+  | 6 => [(4,2)]
+  | 7 => [(5,3)]
+  | 8 => [(8,5)]
+  | 9 => [(1,0)]
+  | 10 => [(7,1)]
+  | 11 => [(6,4)]
+  | 12 => [(1,2)]
+  | 13 => [(7,4)]
+  | 14 => [(1,3)]
+  | 15 => [(8,2)]
+  | 16 => [(8,0)]
+  | 17 => [(7,3)]
+  | 18 => [(7,5)]
+  | 19 => [(0,3)]
+  | 20 => [(8,1)]
+  | 21 => [(6,5)]
+  | 22 => [(0,4)]
+  | 23 => [(5,4)]
+  | 24 => [(6,4)]
+  | 25 => [(1,2)]
+  | 26 => [(7,3)]
+  | 27 => [(4,2)]
+  | 28 => [(5,3)]
+  | 29 => [(8,5)]
+  | 30 => [(7,0)]
+  | 31 => [(4,3)]
+  | 32 => [(7,5)]
+  | 33 => [(0,3)]
+  | 34 => [(8,1)]
+  | 35 => [(1,2),(6,2)]
+  | 36 => [(7,4)]
+  | 37 => [(6,3)]
+  | 38 => [(7,2)]
+  | 39 => [(7,4)]
+  | 40 => [(1,3)]
+  | 41 => [(4,2)]
+  | 42 => [(5,3)]
+  | 43 => [(2,1),(4,1)]
+  | 44 => [(0,2)]
+  | 45 => [(1,1)]
+  | 46 => [(8,1)]
+  | 47 => [(6,5)]
+  | 48 => [(0,4)]
+  | 49 => [(1,4),(3,4)]
+  | 50 => [(3,2),(5,2)]
+  | 51 => [(4,0),(8,0)]
+  | 52 => [(8,3)]
+  | 53 => [(5,5)]
+  | 54 => [(3,0),(7,0)]
+  | 55 => [(2,3),(2,5)]
+  | 56 => [(5,1),(5,4),(8,4)]
+  | 57 => [(0,1),(1,4),(6,4)]
+  | 58 => [(0,5)]
+  | 59 => [(4,4)]
+  | _ => [(0,0),(6,4)]
+def root7Node129Domains1Fast (v : Fin 61) : Option (List State) :=
+  match v.val with
+  | 0 => some [(7,5)]
+  | 1 => some [(0,3)]
+  | 2 => some [(5,1)]
+  | 3 => some [(0,1)]
+  | 4 => some [(6,2)]
+  | 5 => some [(7,3)]
+  | 6 => some [(4,2)]
+  | 7 => some [(5,3)]
+  | 8 => some [(8,5)]
+  | 9 => some [(1,0)]
+  | 10 => some [(7,1)]
+  | 11 => some [(6,4)]
+  | 12 => some [(1,2)]
+  | 13 => some [(7,4)]
+  | 14 => some [(1,3)]
+  | 15 => some [(8,2)]
+  | 16 => some [(8,0)]
+  | 17 => some [(7,3)]
+  | 18 => some [(7,5)]
+  | 19 => some [(0,3)]
+  | 20 => some [(8,1)]
+  | 21 => some [(6,5)]
+  | 22 => some [(0,4)]
+  | 23 => some [(5,4)]
+  | 24 => some [(6,4)]
+  | 25 => some [(1,2)]
+  | 26 => some [(7,3)]
+  | 27 => some [(4,2)]
+  | 28 => some [(5,3)]
+  | 29 => some [(8,5)]
+  | 30 => some [(7,0)]
+  | 31 => some [(4,3)]
+  | 32 => some [(7,5)]
+  | 33 => some [(0,3)]
+  | 34 => some [(8,1)]
+  | 35 => some [(1,2),(6,2)]
+  | 36 => some [(7,4)]
+  | 37 => some [(6,3)]
+  | 38 => some [(7,2)]
+  | 39 => some [(7,4)]
+  | 40 => some [(1,3)]
+  | 41 => some [(4,2)]
+  | 42 => some [(5,3)]
+  | 43 => some [(2,1),(4,1)]
+  | 44 => some [(0,2)]
+  | 45 => some [(1,1)]
+  | 46 => some [(8,1)]
+  | 47 => some [(6,5)]
+  | 48 => some [(0,4)]
+  | 49 => some [(1,4),(3,4)]
+  | 50 => some [(3,2),(5,2)]
+  | 51 => some [(4,0),(8,0)]
+  | 52 => some [(8,3)]
+  | 53 => some [(5,5)]
+  | 54 => some [(3,0),(7,0)]
+  | 55 => some [(2,3),(2,5)]
+  | 56 => some [(5,1),(5,4),(8,4)]
+  | 57 => some [(0,1),(1,4),(6,4)]
+  | 58 => some [(0,5)]
+  | 59 => some [(4,4)]
+  | _ => some [(0,0),(6,4)]
+theorem root7Node129Domains1_fast_eq : root7Node129Domains1 = expandDomains root7Node129Domains1Fast := by
+  funext v
+  exact (show ∀ v : Fin 61, root7Node129Domains1 v = expandDomains root7Node129Domains1Fast v from by decide) v
+theorem root7Node129Step1Chunk0_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk0_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk0_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk0_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk0_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk0_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows0_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk1_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows1_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk2_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows2_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk3_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows3_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk4_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows4_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk5_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows5_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk6_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows6_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk7_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows7_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_0_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_0⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_1_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_1⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_2_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_2⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_3_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_3⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_4_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_4⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1Chunk8_5_checked :
+    checkNarrowing ⟨table40Scope, table40Rows8_5⟩
+      root7Node129Domains0 root7Node129Domains1 = true := by
+  exact checkNarrowing_of_fast _ root7Node129Domains0 root7Node129Domains1
+    root7Node129Domains0Fast root7Node129Domains1Fast
+    root7Node129Domains0_fast_eq root7Node129Domains1_fast_eq (by decide)
+theorem root7Node129Step1_checked :
+    checkReplacement table40 root7Node129Domains0 root7Node129Domains1 = true := by
+  unfold checkReplacement
+  apply Bool.and_eq_true_iff.mpr
+  constructor
+  · apply checkNarrowing_flatten
+    simp only [List.all_cons, List.all_nil, root7Node129Step1Chunk0_0_checked, root7Node129Step1Chunk0_1_checked, root7Node129Step1Chunk0_2_checked, root7Node129Step1Chunk0_3_checked, root7Node129Step1Chunk0_4_checked, root7Node129Step1Chunk0_5_checked, root7Node129Step1Chunk1_0_checked, root7Node129Step1Chunk1_1_checked, root7Node129Step1Chunk1_2_checked, root7Node129Step1Chunk1_3_checked, root7Node129Step1Chunk1_4_checked, root7Node129Step1Chunk1_5_checked, root7Node129Step1Chunk2_0_checked, root7Node129Step1Chunk2_1_checked, root7Node129Step1Chunk2_2_checked, root7Node129Step1Chunk2_3_checked, root7Node129Step1Chunk2_4_checked, root7Node129Step1Chunk2_5_checked, root7Node129Step1Chunk3_0_checked, root7Node129Step1Chunk3_1_checked, root7Node129Step1Chunk3_2_checked, root7Node129Step1Chunk3_3_checked, root7Node129Step1Chunk3_4_checked, root7Node129Step1Chunk3_5_checked, root7Node129Step1Chunk4_0_checked, root7Node129Step1Chunk4_1_checked, root7Node129Step1Chunk4_2_checked, root7Node129Step1Chunk4_3_checked, root7Node129Step1Chunk4_4_checked, root7Node129Step1Chunk4_5_checked, root7Node129Step1Chunk5_0_checked, root7Node129Step1Chunk5_1_checked, root7Node129Step1Chunk5_2_checked, root7Node129Step1Chunk5_3_checked, root7Node129Step1Chunk5_4_checked, root7Node129Step1Chunk5_5_checked, root7Node129Step1Chunk6_0_checked, root7Node129Step1Chunk6_1_checked, root7Node129Step1Chunk6_2_checked, root7Node129Step1Chunk6_3_checked, root7Node129Step1Chunk6_4_checked, root7Node129Step1Chunk6_5_checked, root7Node129Step1Chunk7_0_checked, root7Node129Step1Chunk7_1_checked, root7Node129Step1Chunk7_2_checked, root7Node129Step1Chunk7_3_checked, root7Node129Step1Chunk7_4_checked, root7Node129Step1Chunk7_5_checked, root7Node129Step1Chunk8_0_checked, root7Node129Step1Chunk8_1_checked, root7Node129Step1Chunk8_2_checked, root7Node129Step1Chunk8_3_checked, root7Node129Step1Chunk8_4_checked, root7Node129Step1Chunk8_5_checked, Bool.true_and]
+  · decide
+end SpectreFinite.HexSearch.RadiusFour

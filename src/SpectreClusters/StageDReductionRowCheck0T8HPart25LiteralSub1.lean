@@ -1,0 +1,257 @@
+module
+
+public import SpectreClusters.StageDReductionLiteralReplay
+
+@[expose] public section
+
+namespace SpectreClusters.StageD.Reduction
+set_option maxRecDepth 100000 in
+private theorem row_ids_1632 : compactIDs .t8h 1632 = [36,28,7,37,17,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1632 : packedCertificateAt 0 .t8h 1632 = ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1632 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ = true := by rfl
+private theorem row_step_1632 : stepCheckB tables 0 .t8h 1632 = true :=
+  stepCheckB_of_literal 0 .t8h 1632 [36,28,7,37,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ row_ids_1632 row_pack_1632 row_literal_1632
+set_option maxRecDepth 100000 in
+private theorem row_ids_1633 : compactIDs .t8h 1633 = [36,28,7,37,31,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1633 : packedCertificateAt 0 .t8h 1633 = ⟨13,10546,432839591299479660956267963257935511229440,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1633 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ = true := by rfl
+private theorem row_step_1633 : stepCheckB tables 0 .t8h 1633 = true :=
+  stepCheckB_of_literal 0 .t8h 1633 [36,28,7,37,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ row_ids_1633 row_pack_1633 row_literal_1633
+set_option maxRecDepth 100000 in
+private theorem row_ids_1634 : compactIDs .t8h 1634 = [36,28,7,37,31,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1634 : packedCertificateAt 0 .t8h 1634 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1634 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1634 : stepCheckB tables 0 .t8h 1634 = true :=
+  stepCheckB_of_literal 0 .t8h 1634 [36,28,7,37,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1634 row_pack_1634 row_literal_1634
+set_option maxRecDepth 100000 in
+private theorem row_ids_1635 : compactIDs .t8h 1635 = [36,28,7,37,31,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1635 : packedCertificateAt 0 .t8h 1635 = ⟨7,9014,383838509887160597945684949396348114066432,12⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1635 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,31,35] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ = true := by rfl
+private theorem row_step_1635 : stepCheckB tables 0 .t8h 1635 = true :=
+  stepCheckB_of_literal 0 .t8h 1635 [36,28,7,37,31,35] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ row_ids_1635 row_pack_1635 row_literal_1635
+set_option maxRecDepth 100000 in
+private theorem row_ids_1636 : compactIDs .t8h 1636 = [36,28,7,37,39,0] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1636 : packedCertificateAt 0 .t8h 1636 = ⟨7,9014,383838509887160597945684949396348114066432,12⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1636 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,39,0] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ = true := by rfl
+private theorem row_step_1636 : stepCheckB tables 0 .t8h 1636 = true :=
+  stepCheckB_of_literal 0 .t8h 1636 [36,28,7,37,39,0] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ row_ids_1636 row_pack_1636 row_literal_1636
+set_option maxRecDepth 100000 in
+private theorem row_ids_1637 : compactIDs .t8h 1637 = [36,28,7,37,39,21] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1637 : packedCertificateAt 0 .t8h 1637 = ⟨7,9014,383838509887160597945684949396348114066432,12⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1637 : literalCertificateCheckB tables 0 .t8h [36,28,7,37,39,21] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ = true := by rfl
+private theorem row_step_1637 : stepCheckB tables 0 .t8h 1637 = true :=
+  stepCheckB_of_literal 0 .t8h 1637 [36,28,7,37,39,21] ⟨7,9014,383838509887160597945684949396348114066432,12⟩ row_ids_1637 row_pack_1637 row_literal_1637
+set_option maxRecDepth 100000 in
+private theorem row_ids_1638 : compactIDs .t8h 1638 = [36,28,19,1,17,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1638 : packedCertificateAt 0 .t8h 1638 = ⟨13,10546,432839588703331231688854148990488323363840,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1638 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ = true := by rfl
+private theorem row_step_1638 : stepCheckB tables 0 .t8h 1638 = true :=
+  stepCheckB_of_literal 0 .t8h 1638 [36,28,19,1,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ row_ids_1638 row_pack_1638 row_literal_1638
+set_option maxRecDepth 100000 in
+private theorem row_ids_1639 : compactIDs .t8h 1639 = [36,28,19,1,17,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1639 : packedCertificateAt 0 .t8h 1639 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1639 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1639 : stepCheckB tables 0 .t8h 1639 = true :=
+  stepCheckB_of_literal 0 .t8h 1639 [36,28,19,1,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1639 row_pack_1639 row_literal_1639
+set_option maxRecDepth 100000 in
+private theorem row_ids_1640 : compactIDs .t8h 1640 = [36,28,19,1,17,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1640 : packedCertificateAt 0 .t8h 1640 = ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1640 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ = true := by rfl
+private theorem row_step_1640 : stepCheckB tables 0 .t8h 1640 = true :=
+  stepCheckB_of_literal 0 .t8h 1640 [36,28,19,1,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ row_ids_1640 row_pack_1640 row_literal_1640
+set_option maxRecDepth 100000 in
+private theorem row_ids_1641 : compactIDs .t8h 1641 = [36,28,19,1,31,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1641 : packedCertificateAt 0 .t8h 1641 = ⟨13,10546,432839591299479660956267963257935511229440,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1641 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ = true := by rfl
+private theorem row_step_1641 : stepCheckB tables 0 .t8h 1641 = true :=
+  stepCheckB_of_literal 0 .t8h 1641 [36,28,19,1,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ row_ids_1641 row_pack_1641 row_literal_1641
+set_option maxRecDepth 100000 in
+private theorem row_ids_1642 : compactIDs .t8h 1642 = [36,28,19,1,31,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1642 : packedCertificateAt 0 .t8h 1642 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1642 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1642 : stepCheckB tables 0 .t8h 1642 = true :=
+  stepCheckB_of_literal 0 .t8h 1642 [36,28,19,1,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1642 row_pack_1642 row_literal_1642
+set_option maxRecDepth 100000 in
+private theorem row_ids_1643 : compactIDs .t8h 1643 = [36,28,19,1,31,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1643 : packedCertificateAt 0 .t8h 1643 = ⟨1,10868,266781628790740148696383368209514036723712,24⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1643 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,31,35] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ = true := by rfl
+private theorem row_step_1643 : stepCheckB tables 0 .t8h 1643 = true :=
+  stepCheckB_of_literal 0 .t8h 1643 [36,28,19,1,31,35] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ row_ids_1643 row_pack_1643 row_literal_1643
+set_option maxRecDepth 100000 in
+private theorem row_ids_1644 : compactIDs .t8h 1644 = [36,28,19,1,39,0] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1644 : packedCertificateAt 0 .t8h 1644 = ⟨1,10868,266781628790740148696383368209514036723712,24⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1644 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,39,0] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ = true := by rfl
+private theorem row_step_1644 : stepCheckB tables 0 .t8h 1644 = true :=
+  stepCheckB_of_literal 0 .t8h 1644 [36,28,19,1,39,0] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ row_ids_1644 row_pack_1644 row_literal_1644
+set_option maxRecDepth 100000 in
+private theorem row_ids_1645 : compactIDs .t8h 1645 = [36,28,19,1,39,21] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1645 : packedCertificateAt 0 .t8h 1645 = ⟨1,10868,266781628790740148696383368209514036723712,24⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1645 : literalCertificateCheckB tables 0 .t8h [36,28,19,1,39,21] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ = true := by rfl
+private theorem row_step_1645 : stepCheckB tables 0 .t8h 1645 = true :=
+  stepCheckB_of_literal 0 .t8h 1645 [36,28,19,1,39,21] ⟨1,10868,266781628790740148696383368209514036723712,24⟩ row_ids_1645 row_pack_1645 row_literal_1645
+set_option maxRecDepth 100000 in
+private theorem row_ids_1646 : compactIDs .t8h 1646 = [36,28,19,22,17,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1646 : packedCertificateAt 0 .t8h 1646 = ⟨13,10546,432839588703331231688854148990488323363840,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1646 : literalCertificateCheckB tables 0 .t8h [36,28,19,22,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ = true := by rfl
+private theorem row_step_1646 : stepCheckB tables 0 .t8h 1646 = true :=
+  stepCheckB_of_literal 0 .t8h 1646 [36,28,19,22,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ row_ids_1646 row_pack_1646 row_literal_1646
+set_option maxRecDepth 100000 in
+private theorem row_ids_1647 : compactIDs .t8h 1647 = [36,28,19,22,17,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1647 : packedCertificateAt 0 .t8h 1647 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1647 : literalCertificateCheckB tables 0 .t8h [36,28,19,22,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1647 : stepCheckB tables 0 .t8h 1647 = true :=
+  stepCheckB_of_literal 0 .t8h 1647 [36,28,19,22,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1647 row_pack_1647 row_literal_1647
+set_option maxRecDepth 100000 in
+private theorem row_ids_1648 : compactIDs .t8h 1648 = [36,28,19,22,17,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1648 : packedCertificateAt 0 .t8h 1648 = ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1648 : literalCertificateCheckB tables 0 .t8h [36,28,19,22,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ = true := by rfl
+private theorem row_step_1648 : stepCheckB tables 0 .t8h 1648 = true :=
+  stepCheckB_of_literal 0 .t8h 1648 [36,28,19,22,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ row_ids_1648 row_pack_1648 row_literal_1648
+set_option maxRecDepth 100000 in
+private theorem row_ids_1649 : compactIDs .t8h 1649 = [36,28,19,22,31,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1649 : packedCertificateAt 0 .t8h 1649 = ⟨13,10546,432839591299479660956267963257935511229440,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1649 : literalCertificateCheckB tables 0 .t8h [36,28,19,22,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ = true := by rfl
+private theorem row_step_1649 : stepCheckB tables 0 .t8h 1649 = true :=
+  stepCheckB_of_literal 0 .t8h 1649 [36,28,19,22,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ row_ids_1649 row_pack_1649 row_literal_1649
+set_option maxRecDepth 100000 in
+private theorem row_ids_1650 : compactIDs .t8h 1650 = [36,28,19,22,31,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1650 : packedCertificateAt 0 .t8h 1650 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1650 : literalCertificateCheckB tables 0 .t8h [36,28,19,22,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1650 : stepCheckB tables 0 .t8h 1650 = true :=
+  stepCheckB_of_literal 0 .t8h 1650 [36,28,19,22,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1650 row_pack_1650 row_literal_1650
+private theorem row_step_1651 : stepCheckB tables 0 .t8h 1651 = true := by
+  rw [← fastStepCheckB_eq]
+  simp only [fastStepCheckB,Bool.or_eq_true]
+  left
+  decide
+private theorem row_step_1652 : stepCheckB tables 0 .t8h 1652 = true := by
+  rw [← fastStepCheckB_eq]
+  simp only [fastStepCheckB,Bool.or_eq_true]
+  left
+  decide
+private theorem row_step_1653 : stepCheckB tables 0 .t8h 1653 = true := by
+  rw [← fastStepCheckB_eq]
+  simp only [fastStepCheckB,Bool.or_eq_true]
+  left
+  decide
+set_option maxRecDepth 100000 in
+private theorem row_ids_1654 : compactIDs .t8h 1654 = [36,28,19,37,17,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1654 : packedCertificateAt 0 .t8h 1654 = ⟨13,10546,432839588703331231688854148990488323363840,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1654 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ = true := by rfl
+private theorem row_step_1654 : stepCheckB tables 0 .t8h 1654 = true :=
+  stepCheckB_of_literal 0 .t8h 1654 [36,28,19,37,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ row_ids_1654 row_pack_1654 row_literal_1654
+set_option maxRecDepth 100000 in
+private theorem row_ids_1655 : compactIDs .t8h 1655 = [36,28,19,37,17,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1655 : packedCertificateAt 0 .t8h 1655 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1655 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1655 : stepCheckB tables 0 .t8h 1655 = true :=
+  stepCheckB_of_literal 0 .t8h 1655 [36,28,19,37,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1655 row_pack_1655 row_literal_1655
+set_option maxRecDepth 100000 in
+private theorem row_ids_1656 : compactIDs .t8h 1656 = [36,28,19,37,17,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1656 : packedCertificateAt 0 .t8h 1656 = ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1656 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ = true := by rfl
+private theorem row_step_1656 : stepCheckB tables 0 .t8h 1656 = true :=
+  stepCheckB_of_literal 0 .t8h 1656 [36,28,19,37,17,35] ⟨35,1224922657585,1903118160151767793021250239933770384254554049087144294801928130408822817270845082996671826635117383561286195429479406371563,65⟩ row_ids_1656 row_pack_1656 row_literal_1656
+set_option maxRecDepth 100000 in
+private theorem row_ids_1657 : compactIDs .t8h 1657 = [36,28,19,37,31,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1657 : packedCertificateAt 0 .t8h 1657 = ⟨13,10546,432839591299479660956267963257935511229440,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1657 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ = true := by rfl
+private theorem row_step_1657 : stepCheckB tables 0 .t8h 1657 = true :=
+  stepCheckB_of_literal 0 .t8h 1657 [36,28,19,37,31,13] ⟨13,10546,432839591299479660956267963257935511229440,19⟩ row_ids_1657 row_pack_1657 row_literal_1657
+set_option maxRecDepth 100000 in
+private theorem row_ids_1658 : compactIDs .t8h 1658 = [36,28,19,37,31,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1658 : packedCertificateAt 0 .t8h 1658 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1658 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1658 : stepCheckB tables 0 .t8h 1658 = true :=
+  stepCheckB_of_literal 0 .t8h 1658 [36,28,19,37,31,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1658 row_pack_1658 row_literal_1658
+set_option maxRecDepth 100000 in
+private theorem row_ids_1659 : compactIDs .t8h 1659 = [36,28,19,37,31,35] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1659 : packedCertificateAt 0 .t8h 1659 = ⟨37,660898734649,2070339015560356496709691500631652582382355132152586789529148416075676800894207211205881755656119707867050919245385827117,52⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1659 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,31,35] ⟨37,660898734649,2070339015560356496709691500631652582382355132152586789529148416075676800894207211205881755656119707867050919245385827117,52⟩ = true := by rfl
+private theorem row_step_1659 : stepCheckB tables 0 .t8h 1659 = true :=
+  stepCheckB_of_literal 0 .t8h 1659 [36,28,19,37,31,35] ⟨37,660898734649,2070339015560356496709691500631652582382355132152586789529148416075676800894207211205881755656119707867050919245385827117,52⟩ row_ids_1659 row_pack_1659 row_literal_1659
+set_option maxRecDepth 100000 in
+private theorem row_ids_1660 : compactIDs .t8h 1660 = [36,28,19,37,39,0] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1660 : packedCertificateAt 0 .t8h 1660 = ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1660 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,39,0] ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ = true := by rfl
+private theorem row_step_1660 : stepCheckB tables 0 .t8h 1660 = true :=
+  stepCheckB_of_literal 0 .t8h 1660 [36,28,19,37,39,0] ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ row_ids_1660 row_pack_1660 row_literal_1660
+set_option maxRecDepth 100000 in
+private theorem row_ids_1661 : compactIDs .t8h 1661 = [36,28,19,37,39,21] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1661 : packedCertificateAt 0 .t8h 1661 = ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1661 : literalCertificateCheckB tables 0 .t8h [36,28,19,37,39,21] ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ = true := by rfl
+private theorem row_step_1661 : stepCheckB tables 0 .t8h 1661 = true :=
+  stepCheckB_of_literal 0 .t8h 1661 [36,28,19,37,39,21] ⟨37,660898734649,2070339015560356496709691521490900980047492655541470638841180785242728117810160686165842362777671232181740067312615031597,52⟩ row_ids_1661 row_pack_1661 row_literal_1661
+set_option maxRecDepth 100000 in
+private theorem row_ids_1662 : compactIDs .t8h 1662 = [36,28,27,1,17,13] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1662 : packedCertificateAt 0 .t8h 1662 = ⟨13,10546,432839588703331231688854148990488323363840,19⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1662 : literalCertificateCheckB tables 0 .t8h [36,28,27,1,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ = true := by rfl
+private theorem row_step_1662 : stepCheckB tables 0 .t8h 1662 = true :=
+  stepCheckB_of_literal 0 .t8h 1662 [36,28,27,1,17,13] ⟨13,10546,432839588703331231688854148990488323363840,19⟩ row_ids_1662 row_pack_1662 row_literal_1662
+set_option maxRecDepth 100000 in
+private theorem row_ids_1663 : compactIDs .t8h 1663 = [36,28,27,1,17,29] := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_pack_1663 : packedCertificateAt 0 .t8h 1663 = ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ := by rfl
+set_option maxRecDepth 100000 in
+private theorem row_literal_1663 : literalCertificateCheckB tables 0 .t8h [36,28,27,1,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ = true := by rfl
+private theorem row_step_1663 : stepCheckB tables 0 .t8h 1663 = true :=
+  stepCheckB_of_literal 0 .t8h 1663 [36,28,27,1,17,29] ⟨36,1405764886500,1972840785841568654767201297659837234564090340401698117026168777277825936168883798575688593030190338504663165463422309498880,66⟩ row_ids_1663 row_pack_1663 row_literal_1663
+theorem rowPart0T8H25_literal_sub1_checked : [1632,1633,1634,1635,1636,1637,1638,1639,1640,1641,1642,1643,1644,1645,1646,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1657,1658,1659,1660,1661,1662,1663].all (stepCheckB tables 0 .t8h) = true := by
+  simp only [List.all_cons,List.all_nil,row_step_1632,row_step_1633,row_step_1634,row_step_1635,row_step_1636,row_step_1637,row_step_1638,row_step_1639,row_step_1640,row_step_1641,row_step_1642,row_step_1643,row_step_1644,row_step_1645,row_step_1646,row_step_1647,row_step_1648,row_step_1649,row_step_1650,row_step_1651,row_step_1652,row_step_1653,row_step_1654,row_step_1655,row_step_1656,row_step_1657,row_step_1658,row_step_1659,row_step_1660,row_step_1661,row_step_1662,row_step_1663,Bool.true_and]
+end SpectreClusters.StageD.Reduction

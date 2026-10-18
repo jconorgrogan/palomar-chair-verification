@@ -1,0 +1,48 @@
+module
+
+public import SpectreFinite.RadiusFivePruningLiteralDomain
+public import SpectreFinite.ParentOwnershipFinitePart043
+public import SpectreFinite.ParentOwnershipFinitePart044
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusFivePruning
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+def stateRow6_0_2_0 : List State := ParentOwnership.parentRow0699
+def patch6_0_2_0 : Patch := literalDomain.zip stateRow6_0_2_0
+theorem patch_states6_0_2_0 : patch6_0_2_0.map Prod.snd = stateRow6_0_2_0 := by rfl
+def stateRow6_0_2_1 : List State := ParentOwnership.parentRow0700
+def patch6_0_2_1 : Patch := literalDomain.zip stateRow6_0_2_1
+theorem patch_states6_0_2_1 : patch6_0_2_1.map Prod.snd = stateRow6_0_2_1 := by rfl
+def stateRow6_0_2_2 : List State := ParentOwnership.parentRow0701
+def patch6_0_2_2 : Patch := literalDomain.zip stateRow6_0_2_2
+theorem patch_states6_0_2_2 : patch6_0_2_2.map Prod.snd = stateRow6_0_2_2 := by rfl
+def stateRow6_0_2_5 : List State := ParentOwnership.parentRow0702
+def patch6_0_2_5 : Patch := literalDomain.zip stateRow6_0_2_5
+theorem patch_states6_0_2_5 : patch6_0_2_5.map Prod.snd = stateRow6_0_2_5 := by rfl
+def stateRow6_0_2_6 : List State := ParentOwnership.parentRow0712
+def patch6_0_2_6 : Patch := literalDomain.zip stateRow6_0_2_6
+theorem patch_states6_0_2_6 : patch6_0_2_6.map Prod.snd = stateRow6_0_2_6 := by rfl
+def stateRow6_0_2_7 : List State := ParentOwnership.parentRow0713
+def patch6_0_2_7 : Patch := literalDomain.zip stateRow6_0_2_7
+theorem patch_states6_0_2_7 : patch6_0_2_7.map Prod.snd = stateRow6_0_2_7 := by rfl
+def stateRow6_0_2_8 : List State := ParentOwnership.parentRow0714
+def patch6_0_2_8 : Patch := literalDomain.zip stateRow6_0_2_8
+theorem patch_states6_0_2_8 : patch6_0_2_8.map Prod.snd = stateRow6_0_2_8 := by rfl
+def stateRow6_0_2_9 : List State := ParentOwnership.parentRow0715
+def patch6_0_2_9 : Patch := literalDomain.zip stateRow6_0_2_9
+theorem patch_states6_0_2_9 : patch6_0_2_9.map Prod.snd = stateRow6_0_2_9 := by rfl
+def stateRow6_0_2_10 : List State := ParentOwnership.parentRow0716
+def patch6_0_2_10 : Patch := literalDomain.zip stateRow6_0_2_10
+theorem patch_states6_0_2_10 : patch6_0_2_10.map Prod.snd = stateRow6_0_2_10 := by rfl
+def stateRow6_0_2_11 : List State := ParentOwnership.parentRow0717
+def patch6_0_2_11 : Patch := literalDomain.zip stateRow6_0_2_11
+theorem patch_states6_0_2_11 : patch6_0_2_11.map Prod.snd = stateRow6_0_2_11 := by rfl
+def final6_0_2 : List Patch := [patch6_0_2_0, patch6_0_2_1, patch6_0_2_2, patch6_0_2_5, patch6_0_2_6, patch6_0_2_7, patch6_0_2_8, patch6_0_2_9, patch6_0_2_10, patch6_0_2_11]
+def stateRows6_0_2 : List (List State) := [stateRow6_0_2_0, stateRow6_0_2_1, stateRow6_0_2_2, stateRow6_0_2_5, stateRow6_0_2_6, stateRow6_0_2_7, stateRow6_0_2_8, stateRow6_0_2_9, stateRow6_0_2_10, stateRow6_0_2_11]
+theorem stateRows_eq6_0_2 : stateRows6_0_2 = final6_0_2.map (List.map Prod.snd) := by
+  simp only [stateRows6_0_2, final6_0_2, List.map_cons, List.map_nil, patch_states6_0_2_0, patch_states6_0_2_1, patch_states6_0_2_2, patch_states6_0_2_5, patch_states6_0_2_6, patch_states6_0_2_7, patch_states6_0_2_8, patch_states6_0_2_9, patch_states6_0_2_10, patch_states6_0_2_11]
+theorem final_states6_0_2 : final6_0_2 = stateRows6_0_2.map (List.zip literalDomain) := by rfl
+
+end SpectreFinite.HexSearch.RadiusFivePruning

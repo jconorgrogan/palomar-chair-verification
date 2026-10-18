@@ -1,0 +1,170 @@
+module
+
+public import SpectreFinite.RadiusFiveRoot0Part2Segment04
+public import SpectreFinite.RadiusFiveRoot0Part1
+public import SpectreFinite.RadiusThreeChunkChecking
+public import SpectreFinite.RadiusThreeFastChecking
+public import SpectreFinite.RadiusFiveFastReplacement
+public import SpectreFinite.RadiusFiveTable2
+public import SpectreFinite.RadiusFiveTable46
+public import SpectreFinite.RadiusFiveTable65
+public import SpectreFinite.RadiusFiveTable8
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusFive
+open SpectreFinite.FiniteTable
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+open HigherFastChecking
+theorem root0Node2Step2Chunk0_1_checked :
+    checkNarrowing ⟨table46Scope, table46Rows0_1⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk0_2_checked :
+    checkNarrowing ⟨table46Scope, table46Rows0_2⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk0_3_checked :
+    checkNarrowing ⟨table46Scope, table46Rows0_3⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk0_4_checked :
+    checkNarrowing ⟨table46Scope, table46Rows0_4⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk0_5_checked :
+    checkNarrowing ⟨table46Scope, table46Rows0_5⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_0_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_0⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_1_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_1⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_2_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_2⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_3_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_3⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_4_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_4⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk1_5_checked :
+    checkNarrowing ⟨table46Scope, table46Rows1_5⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_0_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_0⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_1_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_1⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_2_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_2⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_3_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_3⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_4_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_4⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk2_5_checked :
+    checkNarrowing ⟨table46Scope, table46Rows2_5⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_0_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_0⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_1_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_1⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_2_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_2⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_3_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_3⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_4_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_4⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk3_5_checked :
+    checkNarrowing ⟨table46Scope, table46Rows3_5⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk4_0_checked :
+    checkNarrowing ⟨table46Scope, table46Rows4_0⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+theorem root0Node2Step2Chunk4_1_checked :
+    checkNarrowing ⟨table46Scope, table46Rows4_1⟩
+      root0Node2Domains1 root0Node2Domains2 = true := by
+  exact checkNarrowing_of_fast _ root0Node2Domains1 root0Node2Domains2
+    root0Node2Domains1Fast root0Node2Domains2Fast
+    root0Node2Domains1_fast_eq root0Node2Domains2_fast_eq (by decide)
+end SpectreFinite.HexSearch.RadiusFive

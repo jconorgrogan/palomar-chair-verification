@@ -1,0 +1,45 @@
+module
+
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks00
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks01
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks02
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks03
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks04
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks05
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks06
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks07
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks08
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks09
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks10
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks11
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks12
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks13
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks14
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks15
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks16
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks17
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks18
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks19
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks20
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks21
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks22
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks23
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks24
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks25
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks26
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks27
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks28
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks29
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks30
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks31
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks32
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks33
+public import SpectreGeometry.ReverseClusterNeighborCellsChecks34
+
+@[expose] public section
+
+
+namespace SpectreGeometry.ReverseClusterNeighborCells
+theorem all_configurations_checked : ∀ i : Fin 35, configurationCheckedB (configuration i) = true := by
+  exact (Fin.cases placement0_checked (Fin.cases placement1_checked (Fin.cases placement2_checked (Fin.cases placement3_checked (Fin.cases placement4_checked (Fin.cases placement5_checked (Fin.cases placement6_checked (Fin.cases placement7_checked (Fin.cases placement8_checked (Fin.cases placement9_checked (Fin.cases placement10_checked (Fin.cases placement11_checked (Fin.cases placement12_checked (Fin.cases placement13_checked (Fin.cases placement14_checked (Fin.cases placement15_checked (Fin.cases placement16_checked (Fin.cases placement17_checked (Fin.cases placement18_checked (Fin.cases placement19_checked (Fin.cases placement20_checked (Fin.cases placement21_checked (Fin.cases placement22_checked (Fin.cases placement23_checked (Fin.cases placement24_checked (Fin.cases placement25_checked (Fin.cases placement26_checked (Fin.cases placement27_checked (Fin.cases placement28_checked (Fin.cases placement29_checked (Fin.cases placement30_checked (Fin.cases placement31_checked (Fin.cases placement32_checked (Fin.cases placement33_checked (Fin.cases placement34_checked (fun i => Fin.elim0 i))))))))))))))))))))))))))))))))))))
+end SpectreGeometry.ReverseClusterNeighborCells

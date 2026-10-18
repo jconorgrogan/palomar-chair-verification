@@ -1,0 +1,69 @@
+module
+
+public import SpectreFinite.RadiusFourPruningLiteral
+public import SpectreFinite.RadiusFourPruningGroup0T0
+public import SpectreFinite.RadiusFourPruningGroup0T1
+public import SpectreFinite.RadiusFourPruningGroup0T2
+public import SpectreFinite.RadiusFourPruningGroup0T3
+public import SpectreFinite.RadiusFourPruningGroup0T4
+public import SpectreFinite.RadiusFourPruningGroup0T5
+public import SpectreFinite.RadiusFourPruningGroup1T0
+public import SpectreFinite.RadiusFourPruningGroup1T1
+public import SpectreFinite.RadiusFourPruningGroup1T2
+public import SpectreFinite.RadiusFourPruningGroup1T3
+public import SpectreFinite.RadiusFourPruningGroup1T4
+public import SpectreFinite.RadiusFourPruningGroup1T5
+public import SpectreFinite.RadiusFourPruningGroup2T0
+public import SpectreFinite.RadiusFourPruningGroup2T1
+public import SpectreFinite.RadiusFourPruningGroup2T2
+public import SpectreFinite.RadiusFourPruningGroup2T3
+public import SpectreFinite.RadiusFourPruningGroup2T4
+public import SpectreFinite.RadiusFourPruningGroup2T5
+public import SpectreFinite.RadiusFourPruningGroup3T0
+public import SpectreFinite.RadiusFourPruningGroup3T1
+public import SpectreFinite.RadiusFourPruningGroup3T2
+public import SpectreFinite.RadiusFourPruningGroup3T3
+public import SpectreFinite.RadiusFourPruningGroup3T4
+public import SpectreFinite.RadiusFourPruningGroup3T5
+public import SpectreFinite.RadiusFourPruningGroup4T0
+public import SpectreFinite.RadiusFourPruningGroup4T1
+public import SpectreFinite.RadiusFourPruningGroup4T2
+public import SpectreFinite.RadiusFourPruningGroup4T3
+public import SpectreFinite.RadiusFourPruningGroup4T4
+public import SpectreFinite.RadiusFourPruningGroup4T5
+public import SpectreFinite.RadiusFourPruningGroup5T0
+public import SpectreFinite.RadiusFourPruningGroup5T1
+public import SpectreFinite.RadiusFourPruningGroup5T2
+public import SpectreFinite.RadiusFourPruningGroup5T3
+public import SpectreFinite.RadiusFourPruningGroup5T4
+public import SpectreFinite.RadiusFourPruningGroup5T5
+public import SpectreFinite.RadiusFourPruningGroup6T0
+public import SpectreFinite.RadiusFourPruningGroup6T1
+public import SpectreFinite.RadiusFourPruningGroup6T2
+public import SpectreFinite.RadiusFourPruningGroup6T3
+public import SpectreFinite.RadiusFourPruningGroup6T4
+public import SpectreFinite.RadiusFourPruningGroup6T5
+public import SpectreFinite.RadiusFourPruningGroup7T0
+public import SpectreFinite.RadiusFourPruningGroup7T1
+public import SpectreFinite.RadiusFourPruningGroup7T2
+public import SpectreFinite.RadiusFourPruningGroup7T3
+public import SpectreFinite.RadiusFourPruningGroup7T4
+public import SpectreFinite.RadiusFourPruningGroup7T5
+public import SpectreFinite.RadiusFourPruningGroup8T0
+public import SpectreFinite.RadiusFourPruningGroup8T1
+public import SpectreFinite.RadiusFourPruningGroup8T2
+public import SpectreFinite.RadiusFourPruningGroup8T3
+public import SpectreFinite.RadiusFourPruningGroup8T4
+public import SpectreFinite.RadiusFourPruningGroup8T5
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusFourPruning
+open LargerWindowPruning
+open SignaturePruning (KeyTree)
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+def chunks0 : List (List (Verdict 6)) := [rows0_0_0, rows0_0_1, rows0_0_2, rows0_0_3, rows0_0_4, rows0_0_5, rows0_1_0, rows0_1_1, rows0_1_2, rows0_1_3, rows0_1_4, rows0_1_5, rows0_2_0, rows0_2_1, rows0_2_2, rows0_2_3, rows0_2_4, rows0_2_5, rows0_3_0, rows0_3_1, rows0_3_2, rows0_3_3, rows0_3_4, rows0_3_5, rows0_4_0, rows0_4_1, rows0_4_2, rows0_4_3, rows0_4_4, rows0_4_5, rows0_5_0, rows0_5_1, rows0_5_2, rows0_5_3, rows0_5_4, rows0_5_5, rows0_6_0, rows0_6_1, rows0_6_2, rows0_6_3, rows0_6_4, rows0_6_5, rows0_7_0, rows0_7_1, rows0_7_2, rows0_7_3, rows0_7_4, rows0_7_5, rows0_8_0, rows0_8_1, rows0_8_2, rows0_8_3, rows0_8_4, rows0_8_5]
+def rows0 : List (Verdict 6) := chunks0.flatten
+
+end SpectreFinite.HexSearch.RadiusFourPruning

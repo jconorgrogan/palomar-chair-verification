@@ -1,0 +1,12 @@
+module
+
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round0
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round1
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round2
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round3
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round4
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round5
+public import SpectreFinite.RadiusFivePruningBlock6T2C5Round6
+
+@[expose] public section
+

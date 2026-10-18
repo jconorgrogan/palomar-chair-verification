@@ -1,0 +1,16 @@
+module
+
+public import SpectreFinite.RadiusFourPruningRotationIndex0
+public import SpectreFinite.RadiusFourPruningRotationIndex1
+public import SpectreFinite.RadiusFourPruningRotationIndex2
+public import SpectreFinite.RadiusFourPruningRotationIndex3
+public import SpectreFinite.RadiusFourPruningRotationIndex4
+public import SpectreFinite.RadiusFourPruningRotationIndex5
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusFourPruning
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+
+end SpectreFinite.HexSearch.RadiusFourPruning

@@ -1,0 +1,67 @@
+module
+
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock0T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock1T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock2T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock3T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock4T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock5T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock6T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock7T5
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T0
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T1
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T2
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T3
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T4
+public import SpectreFinite.RadiusTwoPruningLiteralBlock8T5
+
+@[expose] public section
+
+namespace SpectreFinite.HexSearch.RadiusTwoPruning
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+def finalChunks : List (List Patch) := [final0_0, final0_1, final0_2, final0_3, final0_4, final0_5, final1_0, final1_1, final1_2, final1_3, final1_4, final1_5, final2_0, final2_1, final2_2, final2_3, final2_4, final2_5, final3_0, final3_1, final3_2, final3_3, final3_4, final3_5, final4_0, final4_1, final4_2, final4_3, final4_4, final4_5, final5_0, final5_1, final5_2, final5_3, final5_4, final5_5, final6_0, final6_1, final6_2, final6_3, final6_4, final6_5, final7_0, final7_1, final7_2, final7_3, final7_4, final7_5, final8_0, final8_1, final8_2, final8_3, final8_4, final8_5]
+def certifiedFamily : List Patch := finalChunks.flatten
+theorem certifiedFamily_count : certifiedFamily.length = 636 := by decide
+
+end SpectreFinite.HexSearch.RadiusTwoPruning

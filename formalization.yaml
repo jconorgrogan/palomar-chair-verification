@@ -1,0 +1,101 @@
+version: v0.4
+project:
+  name: Aperiodic monotiles in every dimension at least two
+  description: Source-stage construction of a dimension-dependent compact Euclidean tile with nonempty
+    interior for every dimension at least two, admitting a tiling by arbitrary isometric images and admitting
+    no tiling with a nonzero translation period. The uniform Lean assembly and official preflight are
+    still pending; this draft does not assert an accepted all-dimension theorem.
+  authors:
+  - Conor Grogan
+  responsible_maintainers:
+  - Conor Grogan
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: Aperiodic Monotiles in Every Dimension d ≥ 2, working manuscript v3, 17 October 2026
+  authors:
+  - Conor Grogan
+  type: paper
+  location: Physical statements on pages 2–3; dimension split and explicit parent-occurrence premise
+  relationship: formalizes
+  note: The manuscript itself marks the unconditional uniform theorem pending. The precise final paper/public
+    reference and author attribution will be reviewed before submission.
+- title: Monotiles in every dimension
+  authors:
+  - Adam Scherlis
+  id: https://github.com/AdamScherlis/adamscherlis.github.io/blob/e05cee7245124a705ca68be3a8f641d290c664b4/static/monotiles-every-dimension/index.html
+  type: other
+  relationship: background
+  note: The working manuscript credits the earlier all-dimensional and four-dimensional keyed-product
+    ideas. No priority or author endorsement is claimed.
+- title: A chiral aperiodic monotile
+  authors:
+  - David Smith
+  - Joseph Samuel Myers
+  - Craig S. Kaplan
+  - Chaim Goodman-Strauss
+  id: https://doi.org/10.5070/C64264241
+  type: paper
+  location: Finite marked-hexagon data, figures 4 and 5, as attributed in SpectreFinite.ListedPatches
+  relationship: adapts
+  license: CC-BY-4.0
+  note: The exact code header cites arXiv:2305.17743v2. The journal version at https://escholarship.org/uc/item/4xn41982
+    explicitly states CC BY International 4.0; the arXiv record separately links only its non-exclusive
+    distribution license. Final retained data-extraction provenance and attribution review remains pending.
+related_formalizations:
+- id: https://palomar-registry.org/entry?id=PALOMAR-2026-10-07-000006&version=1
+  relationship: builds-on
+  note: CLARK five-dimensional registration is separately scoped; its registration is not this all-dimensional
+    theorem.
+- id: https://github.com/jconorgrogan/palomar-chair-verification/commit/62da52d4a30561fa933b8ecd0a95f80e7aedbbe1
+  relationship: builds-on
+  note: Retained conditional two- and four-dimensional source, with the explicit C premise.
+- id: https://github.com/ioannist/six-birds-tiles/tree/137e46b15d36266c37879478cfc62af6e4469147
+  relationship: other
+  note: Chair44 is a separately compared construction. Equality of physical solids and firstness are not
+    claimed.
+status:
+  scope: Unexecuted source/configuration candidate. C and higher-dimensional continuation gates, uniform
+    assembly and official verification are pending.
+  main_results:
+  - declaration: PalomarAllDimensions.aperiodic_monotile_in_every_dimension
+    file: src/PalomarAllDimensionsSolution.lean
+    comparator_config: comparator.json
+automation:
+  methods:
+  - method: agent
+    models: []
+    framework: OpenAI assistant with Lean and GitHub Actions
+    tool_setup: Source preparation, finite/static tests, independently checked command receipts and bounded
+      CI verification. Final all-dimensional Lean and Comparator checks remain pending.
+  notes: AI assistance is disclosed in the new source headers. No exact model usage, wall time or cost
+    is asserted without a complete ledger.
+fidelity:
+  divergences: Tile choice may depend on dimension. The statement allows all Euclidean isometries, requires
+    full cover and disjoint interiors, quantifies over every tiling, and defines translation periods of
+    the tile collection. It does not assert exact Chair44 identity, firstness, a 362-patch Lean theorem,
+    polyhedral topology, or full isometry-group aperiodicity.
+review:
+  status: agent-reviewed source only; execution pending
+  notes: The seven-file physical statement overlay has independent source review. No peer review, uniform
+    Lean acceptance, full Comparator verdict, official preflight or registry registration is claimed.
+    Conor Grogan is the submitting author, responsible maintainer and repository owner. Third-party
+    sources retain their stated attribution; no third-party author endorsement is claimed.
+alignment:
+  namespace: PalomarAllDimensions
+  statements:
+  - source: Working manuscript physical statement, pages 2–3
+    lean: PalomarAllDimensions.aperiodic_monotile_in_every_dimension
+    module: PalomarAllDimensionsSolution
+    status: in-progress
+    note: Source body applies the closed dimension-split assembly. Actual elaboration and dependency acceptance
+      remain required.
+preparation_status:
+  unexecuted: true
+  submission_ready: false
+  responsible_maintainer_confirmation_pending: false
+classification:
+  arxiv:
+  - math.MG
+  - math.CO

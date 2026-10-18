@@ -1,0 +1,16 @@
+module
+
+public import SpectreClusters.StageDFinalChecksModel
+
+@[expose] public section
+
+namespace SpectreClusters.StageD
+set_option maxRecDepth 100000 in
+theorem row7_pairs_checked :
+    (List.finRange 6).all (fun d => (List.finRange 20).all (pairCheckB 7 d)) = true := by rfl
+set_option maxRecDepth 100000 in
+theorem row7_unique_checked :
+    (List.finRange 20).all (uniqueCheckB 7) = true := by rfl
+set_option maxRecDepth 100000 in
+theorem row7_basics_checked : rowBasicsB 7 = true := by rfl
+end SpectreClusters.StageD

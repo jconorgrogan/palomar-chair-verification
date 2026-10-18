@@ -1,0 +1,27 @@
+module
+
+public import SparseMonotiles.ContactCertificateDataIndexed5Base
+public import SparseMonotiles.ContactCertificateFullTools
+
+@[expose] public section
+
+namespace SparseMonotiles.Contact.IndexedData5
+set_option maxRecDepth 100000
+set_option maxHeartbeats 0
+
+def fullMates6843 : MateCertificate 160 := ⟨22, 158, fun i => (if i.val < 80 then (if i.val < 40 then (if i.val < 20 then none else (if i.val < 30 then (if i.val < 25 then (if i.val < 22 then none else (if i.val < 23 then some 158 else none)) else (if i.val < 27 then none else (if i.val < 28 then some 115 else none))) else (if i.val < 35 then (if i.val < 32 then none else (if i.val < 33 then some 74 else none)) else (if i.val < 37 then none else (if i.val < 38 then some 34 else none))))) else (if i.val < 60 then none else (if i.val < 70 then (if i.val < 65 then (if i.val < 62 then none else (if i.val < 63 then some 147 else none)) else (if i.val < 67 then none else (if i.val < 68 then some 105 else none))) else (if i.val < 75 then (if i.val < 72 then none else (if i.val < 73 then some 64 else none)) else (if i.val < 77 then none else (if i.val < 78 then none else (if i.val < 79 then some 24 else none))))))) else (if i.val < 120 then (if i.val < 100 then none else (if i.val < 110 then (if i.val < 105 then (if i.val < 102 then none else (if i.val < 103 then none else (if i.val < 104 then some 136 else none))) else (if i.val < 107 then none else (if i.val < 108 then none else (if i.val < 109 then some 95 else none)))) else (if i.val < 115 then (if i.val < 112 then none else (if i.val < 113 then none else (if i.val < 114 then some 54 else none))) else (if i.val < 117 then none else (if i.val < 118 then none else (if i.val < 119 then none else some 14)))))) else (if i.val < 140 then none else (if i.val < 150 then (if i.val < 145 then none else (if i.val < 147 then (if i.val < 146 then some 126 else none) else none)) else (if i.val < 155 then (if i.val < 152 then (if i.val < 151 then some 85 else none) else none) else (if i.val < 157 then (if i.val < 156 then none else some 44) else none))))))⟩
+def fullMates6844 : MateCertificate 160 := ⟨22, 158, fun i => (if i.val < 80 then (if i.val < 40 then (if i.val < 20 then none else (if i.val < 30 then (if i.val < 25 then (if i.val < 22 then none else (if i.val < 23 then some 158 else none)) else (if i.val < 27 then none else (if i.val < 28 then some 136 else none))) else (if i.val < 35 then (if i.val < 32 then none else (if i.val < 33 then some 147 else none)) else (if i.val < 37 then none else (if i.val < 38 then some 126 else none))))) else (if i.val < 60 then none else (if i.val < 70 then (if i.val < 65 then (if i.val < 62 then none else (if i.val < 63 then some 74 else none)) else (if i.val < 67 then none else (if i.val < 68 then some 54 else none))) else (if i.val < 75 then (if i.val < 72 then none else (if i.val < 73 then some 64 else none)) else (if i.val < 77 then none else (if i.val < 78 then none else (if i.val < 79 then some 44 else none))))))) else (if i.val < 120 then (if i.val < 100 then none else (if i.val < 110 then (if i.val < 105 then (if i.val < 102 then none else (if i.val < 103 then none else (if i.val < 104 then some 115 else none))) else (if i.val < 107 then none else (if i.val < 108 then none else (if i.val < 109 then some 95 else none)))) else (if i.val < 115 then (if i.val < 112 then none else (if i.val < 113 then none else (if i.val < 114 then some 105 else none))) else (if i.val < 117 then none else (if i.val < 118 then none else (if i.val < 119 then none else some 85)))))) else (if i.val < 140 then none else (if i.val < 150 then (if i.val < 145 then none else (if i.val < 147 then (if i.val < 146 then some 34 else none) else none)) else (if i.val < 155 then (if i.val < 152 then (if i.val < 151 then some 14 else none) else none) else (if i.val < 157 then (if i.val < 156 then none else some 24) else none))))))⟩
+def fullMates7803 : MateCertificate 160 := ⟨25, 140, fun i => (if i.val < 80 then (if i.val < 40 then (if i.val < 20 then none else (if i.val < 30 then (if i.val < 25 then none else (if i.val < 27 then (if i.val < 26 then some 140 else some 152) else (if i.val < 28 then some 159 else (if i.val < 29 then some 76 else some 118)))) else none)) else none) else none)⟩
+def fullMates7814 : MateCertificate 160 := ⟨25, 152, fun i => (if i.val < 80 then (if i.val < 40 then (if i.val < 20 then none else (if i.val < 30 then (if i.val < 25 then none else (if i.val < 27 then (if i.val < 26 then some 152 else some 140) else (if i.val < 28 then some 118 else (if i.val < 29 then some 76 else some 159)))) else none)) else none) else none)⟩
+def fullAccept032 : List (IndexedRow 5 160) := [
+  ⟨Pose.ofCodes perm10 27 11204, .accepted fullMates6843⟩,
+  ⟨Pose.ofCodes perm4 27 11204, .accepted fullMates6844⟩,
+  ⟨Pose.ofCodes perm10 20 12601, .accepted fullMates7803⟩,
+  ⟨Pose.ofCodes perm14 20 12601, .accepted fullMates7814⟩
+]
+theorem fullAccept032_checked : indexedValidate geometry fullAccept032 = true := by decide
+theorem fullAccept032_length : fullAccept032.length = 4 := by rfl
+def fullAccept032Output : List (Pose 5) := [Pose.ofCodes perm10 27 11204, Pose.ofCodes perm4 27 11204, Pose.ofCodes perm10 20 12601, Pose.ofCodes perm14 20 12601]
+theorem fullAccept032_output : indexedAcceptedPoses fullAccept032 = fullAccept032Output := by rfl
+#print axioms fullAccept032_checked
+end SparseMonotiles.Contact.IndexedData5
