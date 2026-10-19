@@ -16,6 +16,8 @@ a=d.a;f=d.f;VENDOR=d.VENDOR;GIB=1024**3
 SCHEMA='palomar-root7-import-cut-smoke-v1';SUCCESS='ROOT7_IMPORT_CUT_FOCUSED_TEST_PASSED'
 PART32='SpectreFinite.RadiusFiveRoot7Part32';COVER='SpectreFinite.RadiusFiveRoot7Cover'
 FIXTURES=['baseline','identical','value','type','axiom','inventory']
+FIXTURE_CASES=['identical','value','type','inventory','axiom']
+FIXTURE_REJECTIONS={'value':'DECLARATION_FIELDS_DIFFER','type':'TYPE_OR_KIND_DIFFERS','inventory':'INTRODUCED_INVENTORY_DIFFERS','axiom':'UNPERMITTED_AXIOM'}
 LIMITS={'aggregate_command_deadline_seconds':7200,'outer_timeout_minutes':130,
  'diagnostic_timeout_seconds':180,'check_timeout_seconds':120,'lean_heap_mib':4096,
  'address_space_bytes':12*GIB,'rss_tree_bytes':8*GIB,'max_created_file_bytes':512*1024**2,
@@ -32,7 +34,7 @@ def validate_contract(c,reviewed=False):
  f.need(c['schema']==SCHEMA and c['limits']==LIMITS,'profile differs')
  f.need(c['owned_module_count']==388 and len(c['module_order'])==len(set(c['module_order']))==388,'source count differs')
  f.need(c['runtime_roots']==['Init','Init.Data.List.OfFn'] and c['cache_roots']==[],'runtime-only boundary differs')
- f.need(c['publication_branch']=='verify/palomar-root7-import-cut-indexing-20261019','branch differs')
+ f.need(c['publication_branch']=='verify/palomar-root7-import-cut-fixtures-20261019','branch differs')
  f.need(c['full_official_verification_claimed'] is False and c['restore_project_objects'] is False,'scope differs')
  f.need(c['owned_source_max_bytes']==LIMITS['owned_source_max_bytes'],'source bound differs')
  v=c['prerequisite_views'];f.need(len(v['original'])==len(set(v['original']))==325 and len(v['candidate'])==len(set(v['candidate']))==286,'view cardinality differs')
@@ -40,7 +42,8 @@ def validate_contract(c,reviewed=False):
  f.need(c['module_order'][:325]==v['original'] and c['module_order'][325]==PART32 and c['module_order'][-1]==COVER,'fresh prefix ordering differs')
  f.need(len(c['explicit_part32_declarations'])==239 and sum(r['kind']=='def' for r in c['explicit_part32_declarations'])==10 and sum(r['kind']=='theorem' for r in c['explicit_part32_declarations'])==229,'explicit declaration inventory differs')
  f.need(len(c['explicit_cover_declarations'])==213 and all(r['kind']=='theorem' for r in c['explicit_cover_declarations']) and any(r['name']=='SpectreFinite.HexSearch.RadiusFive.root7_table_cover' for r in c['explicit_cover_declarations']),'explicit Cover inventory differs')
- f.need(c['recorded_command_count']==790 and c['sum_command_timeout_seconds']==118500,'finite envelope differs')
+ f.need(c['fixture_cases']==FIXTURE_CASES,'fixture case plan differs')
+ f.need(c['recorded_command_count']==794 and c['sum_command_timeout_seconds']==119220,'finite envelope differs')
  if reviewed:
   f.need(c['review_status']=='reviewed_for_execution','INACTIVE: independent review required')
   f.need(type(c.get('independent_driver_review_sha256')) is str and f.SHA256.fullmatch(c['independent_driver_review_sha256']),'driver review pin missing')
@@ -52,7 +55,7 @@ def validate_workflow(c,contract_sha):
  guard=b'    if: ${{ true }}\n' if active else b'    if: ${{ false }}\n'
  f.need(data.count(b'--contract-sha256 '+token)==2 and data.count(guard)==1,'workflow slots differ')
  normalized=data.replace(b'--contract-sha256 '+token,b'--contract-sha256 '+b'0'*64).replace(guard,b'    if: ${{ false }}\n')
- f.need(c['workflow_template_sha256']=='6077ca14dfaadb64ac734dba2accec0945dca003d931c1c419ff8fbe682ba48a' and f.sha(normalized)==c['workflow_template_sha256'],'normalized workflow differs')
+ f.need(c['workflow_template_sha256']=='e02da7c5bf440bdf6d163058f680224b388cd961a71a97a8219b92c23db9f3ed' and f.sha(normalized)==c['workflow_template_sha256'],'normalized workflow differs')
 
 
 def validate_inputs(c):
@@ -100,7 +103,7 @@ def validate_graph(c,work):
 
 def command_order(c):
  out=['bwrap-preflight','read-only-committed-root-preflight','check-interface-api']
- out+=['compile-fixture-'+v for v in FIXTURES];out+=['check-interface-fixtures']
+ out+=['compile-fixture-'+v for v in FIXTURES];out+=['check-interface-fixture-'+v for v in FIXTURE_CASES]
  for m in c['module_order']:
   if m==PART32:out+=['compile-original-'+m,'check-original-'+m]
   out+=['compile-'+m,'check-'+m]
@@ -123,7 +126,8 @@ def command_spec(c,work,name,cache_modules=()):
  if name.startswith('check-interface-') or name=='check-cover-axioms':
   env['LEAN_PATH']=str(runtime/'lib/lean');tool=work/'tools/ImportCut.lean';sources=[work/'tools']
   if name=='check-interface-api':args=['self-test'];seconds=180
-  elif name=='check-interface-fixtures':args=['fixtures',work/'fixture-objects',runtime];sources+=[work/'fixture-objects'];seconds=180
+  elif name.startswith('check-interface-fixture-'):
+   v=name[len('check-interface-fixture-'):];f.need(v in FIXTURE_CASES,'unknown fixture case');args=['fixture',v,work/'fixture-objects',runtime];sources+=[work/'fixture-objects'];seconds=180
   elif name=='check-interface-part32':args=['compare',work/'view-original',work/'view-candidate',runtime];sources+=[work/'view-original',work/'view-candidate'];seconds=180
   elif name=='check-cover-axioms':args=['cover',work/'objects',runtime];sources+=[work/'objects'];seconds=120
   else:raise f.Rejected('unknown interface mode')
@@ -143,6 +147,26 @@ def validate_command_spec(c,work,r,cache_modules=()):
  f.need(r['new_sessions_explicitly_allowed']==expected['allowed_sessions'],'session policy differs')
  f.need(r['limits']=={k:LIMITS[k] for k in ['address_space_bytes','rss_tree_bytes','max_created_file_bytes']} and r['max_log_bytes']==LIMITS['per_command_log_max_bytes'],'resource profile differs')
  f.need(type(r['effective_timeout_seconds']) is int and 0<r['effective_timeout_seconds']<=expected['requested_timeout_seconds'],'effective timeout differs')
+
+
+def fixture_expected_output(case):
+ f.need(type(case) is str and case in FIXTURE_CASES,'unknown fixture case')
+ load=['FIXTURE_PHASE\t'+p for p in ['LOAD_BEGIN','PARTS_READY','BEFORE_IMPORT_BEGIN','BEFORE_IMPORT_DONE','AFTER_IMPORT_BEGIN','AFTER_IMPORT_DONE','LOAD_CHECKED']]
+ lines=['FIXTURE_START\t'+case]
+ if case=='axiom':
+  lines+=load+['FIXTURE_PHASE\tAXIOM_TRAVERSAL_BEGIN','FIXTURE_PHASE\tAXIOM_TRAVERSAL_DONE','FIXTURE_REJECTED\taxiom\tUNPERMITTED_AXIOM']
+ else:
+  lines+=['FIXTURE_PHASE\tCOMPARE_BEGIN']+load+load+['FIXTURE_PHASE\tCOMPARE_LOADED']
+  if case=='identical':lines+=['FIXTURE_PHASE\tCOMPARE_PASSED']
+  else:lines+=['FIXTURE_REJECTED\t'+case+'\t'+FIXTURE_REJECTIONS[case]]
+ return '\n'.join(lines+['FIXTURE_PASSED\t'+case])+'\n'
+
+
+def parse_fixture_output(case,text):
+ expected=fixture_expected_output(case)
+ f.need(type(text) is str and text==expected,'fixture exact markers/result differ: '+case)
+ return {'case':case,'status':'REAL_SOURCE_CASE_PASSED','result':'identical' if case=='identical' else FIXTURE_REJECTIONS[case],
+  'stdout_sha256':f.sha(text.encode()),'marker_count':len(expected.splitlines()),'loaded_contexts':1 if case=='axiom' else 2}
 
 
 def parse_interface(c,text):
@@ -278,9 +302,14 @@ def run(c,contract_sha,work,watchdog):
   fixture_maps={}
   for v in FIXTURES:
    disk();dest=work/'fixture-objects'/v;dest.mkdir();command('compile-fixture-'+v);fixture_maps[v]=inventory(dest);f.need(set(fixture_maps[v])==a.module_outputs('Fixture'),'fixture output family differs')
-  output,_=command('check-interface-fixtures');f.need(output.read_text()=='SOURCE_FIXTURES_PASSED\t1-positive-4-negative\n','early fixture result differs')
+  fixture_cases={}
+  for v in FIXTURE_CASES:
+   name='check-interface-fixture-'+v;i=len(commands);output,_=command(name)
+   report=parse_fixture_output(v,output.read_bytes().decode('utf-8'))
+   f.need(report['stdout_sha256']==commands[i]['captures']['stdout']['sha256'],'fixture capture digest differs')
+   fixture_cases[v]={'command':name,'command_index':i,'result':report}
   for v in FIXTURES:f.need(inventory(work/'fixture-objects'/v)==fixture_maps[v],'fixture output drift')
-  a.write_json(work/'evidence/early-fixtures.json',{'status':'REAL_SOURCE_POSITIVE_AND_FOUR_NEGATIVE_CONTROLS_PASSED','objects':fixture_maps,'modes':FIXTURES})
+  a.write_json(work/'evidence/early-fixtures.json',{'status':'REAL_SOURCE_POSITIVE_AND_FOUR_NEGATIVE_CONTROLS_PASSED','objects':fixture_maps,'modes':FIXTURES,'cases':fixture_cases})
   shutil.rmtree(work/'fixture-objects')
   for module in c['module_order']:
    if module==PART32:original_control()
@@ -323,8 +352,8 @@ def verify_success(c,contract_sha,evidence,work):
  preflight={'status':'READ_ONLY_PREDECESSOR_WRITES_CHMOD_AND_NAMESPACE_CREATION_REJECTED','quarantine_write_allowed':True,'fixture_sha256':f.sha(b'IMMUTABLE_BOUNDARY_FIXTURE_ONLY\n'),'not_a_research_proof':True}
  f.need(f.load_json(evidence/'read-only-boundary-preflight.json')==preflight,'read-only preflight differs')
  commands=[f.parse_json(s) for s in (evidence/'commands.jsonl').read_bytes().splitlines()];modules=[f.parse_json(s) for s in (evidence/'owned-modules.jsonl').read_bytes().splitlines()]
- f.need([r['name'] for r in commands]==command_order(c) and result['command_count']==len(commands)==790,'full command coverage differs')
- f.need(sum(r['requested_timeout_seconds'] for r in commands)==118500,'finite deadline sum differs')
+ f.need([r['name'] for r in commands]==command_order(c) and result['command_count']==len(commands)==794,'full command coverage differs')
+ f.need(sum(r['requested_timeout_seconds'] for r in commands)==119220,'finite deadline sum differs')
  total=0
  for r in commands:
   validate_command_spec(c,work,r);f.need(d.clean_command(r) and r['capture_status']=='accepted_bounded_complete' and r['exit_code']==0,'unsafe or failed terminal command')
@@ -366,8 +395,14 @@ def verify_success(c,contract_sha,evidence,work):
   else:f.need(row['source_sha256']==owned[PART32]['sha256'],'candidate Part32 source differs')
  comparison=parse_interface(c,(evidence/'logs/check-interface-part32.stdout').read_text());f.need(comparison==f.load_json(evidence/'interface-comparison.json'),'interface receipt differs')
  cover=parse_cover(c,(evidence/'logs/check-cover-axioms.stdout').read_text());f.need(cover==f.load_json(evidence/'cover-axioms.json'),'cover receipt differs')
- f.need((evidence/'logs/check-interface-api.stdout').read_text()=='INTERFACE_API_SELF_TEST_PASSED\n' and (evidence/'logs/check-interface-fixtures.stdout').read_text()=='SOURCE_FIXTURES_PASSED\t1-positive-4-negative\n','early control log differs')
- fixture=f.load_json(evidence/'early-fixtures.json');f.need(fixture['status']=='REAL_SOURCE_POSITIVE_AND_FOUR_NEGATIVE_CONTROLS_PASSED' and fixture['modes']==FIXTURES and set(fixture['objects'])==set(FIXTURES),'fixture receipt differs')
+ f.need((evidence/'logs/check-interface-api.stdout').read_text()=='INTERFACE_API_SELF_TEST_PASSED\n','early API control log differs')
+ expected_cases={}
+ for v in FIXTURE_CASES:
+  name='check-interface-fixture-'+v
+  i=command_order(c).index(name);report=parse_fixture_output(v,(evidence/'logs'/(name+'.stdout')).read_bytes().decode('utf-8'))
+  f.need(report['stdout_sha256']==commands[i]['captures']['stdout']['sha256'],'fixture capture digest differs')
+  expected_cases[v]={'command':name,'command_index':i,'result':report}
+ fixture=f.load_json(evidence/'early-fixtures.json');f.need(fixture['status']=='REAL_SOURCE_POSITIVE_AND_FOUR_NEGATIVE_CONTROLS_PASSED' and fixture['modes']==FIXTURES and set(fixture['objects'])==set(FIXTURES) and set(fixture)=={'status','modes','objects','cases'} and f.json_bytes(fixture['cases'])==f.json_bytes(expected_cases),'fixture receipt differs')
  for v,mapping in fixture['objects'].items():f.need(set(mapping)==a.module_outputs('Fixture'),'fixture artifact family differs')
  return result
 

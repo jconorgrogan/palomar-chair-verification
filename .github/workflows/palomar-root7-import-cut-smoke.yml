@@ -2,7 +2,7 @@ name: Palomar Root7 import-cut smoke
 'on':
   push:
     branches:
-    - verify/palomar-root7-import-cut-indexing-20261019
+    - verify/palomar-root7-import-cut-fixtures-20261019
 permissions:
   contents: read
 concurrency:
@@ -28,12 +28,12 @@ jobs:
 
         '
     - name: Compile and compare the Root7 import-cut controls
-      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B root7_import_cut.py --contract-sha256 2dc2be718a4f7cf6aeaea3c22168cc60ddaf44d1378fea016c69b3c7654e63ca
+      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B root7_import_cut.py --contract-sha256 6a1d5db0b280ad557aecaaed067e43ddbad34ab37c5e51a1e42752275ca32d68
         --work "${{ runner.temp }}/palomar-root7-import-cut-smoke"
     - name: Preserve bounded smoke evidence
       if: ${{ always() }}
       timeout-minutes: 2
-      run: python3 -I -B root7_import_cut.py --collect --contract-sha256 2dc2be718a4f7cf6aeaea3c22168cc60ddaf44d1378fea016c69b3c7654e63ca
+      run: python3 -I -B root7_import_cut.py --collect --contract-sha256 6a1d5db0b280ad557aecaaed067e43ddbad34ab37c5e51a1e42752275ca32d68
         --work "${{ runner.temp }}/palomar-root7-import-cut-smoke"
     - name: Upload bounded smoke evidence
       if: ${{ always() }}

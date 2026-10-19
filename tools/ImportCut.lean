@@ -138,7 +138,11 @@ structure Loaded where
   introduced : Array (Name × ConstantInfo)
   extras : Array Name
 
-unsafe def load (root runtime : System.FilePath) (moduleName : Name) : IO Loaded := do
+def fixturePhase (traceFixtures : Bool) (stage : String) : IO Unit := do
+  if traceFixtures then IO.println s!"FIXTURE_PHASE\t{stage}"
+
+unsafe def load (root runtime : System.FilePath) (moduleName : Name) (traceFixtures : Bool := false) : IO Loaded := do
+  fixturePhase traceFixtures "LOAD_BEGIN"
   searchPathRef.set [root, runtime / "lib" / "lean"]
   let mFile ← findOLean moduleName
   require (mFile == root / (moduleName.toString.replace "." "/" ++ ".olean")) "WRONG_MODULE_PROVIDER"
@@ -151,8 +155,13 @@ unsafe def load (root runtime : System.FilePath) (moduleName : Name) : IO Loaded
   let some privateData := parts[2]?.map (·.1)
     | throw <| IO.userError "MISSING_MODULE_PART"
   require (privateData.constNames.size == privateData.constants.size) "MALFORMED_PRIVATE_INVENTORY"
+  fixturePhase traceFixtures "PARTS_READY"
+  fixturePhase traceFixtures "BEFORE_IMPORT_BEGIN"
   let before ← importModules publicData.imports {} (loadExts := false) (level := .private)
+  fixturePhase traceFixtures "BEFORE_IMPORT_DONE"
+  fixturePhase traceFixtures "AFTER_IMPORT_BEGIN"
   let after ← importModules #[{module := moduleName}] {} (loadExts := false) (level := .private)
+  fixturePhase traceFixtures "AFTER_IMPORT_DONE"
   let delta := (after.constants.toList.toArray.filter fun p => !before.constants.contains p.1).qsort
     (fun a b => a.1.quickCmp b.1 == .lt)
   let raw := (privateData.constNames.zip privateData.constants).qsort
@@ -165,11 +174,14 @@ unsafe def load (root runtime : System.FilePath) (moduleName : Name) : IO Loaded
   for (n, ci) in before.constants.toList do
     let some ci' := after.constants.find? n | throw <| IO.userError s!"IMPORTED_DECLARATION_LOST {n}"
     require (exactInfo ci ci') s!"IMPORTED_DECLARATION_CHANGED {n}"
+  fixturePhase traceFixtures "LOAD_CHECKED"
   return {before, after, introduced := delta, extras := privateData.extraConstNames}
 
-unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (emit := true) : IO Unit := do
-  let a ← load left runtime moduleName
-  let b ← load right runtime moduleName
+unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (emit := true) (traceFixtures : Bool := false) : IO Unit := do
+  fixturePhase traceFixtures "COMPARE_BEGIN"
+  let a ← load left runtime moduleName traceFixtures
+  let b ← load right runtime moduleName traceFixtures
+  fixturePhase traceFixtures "COMPARE_LOADED"
   require (a.introduced.size == b.introduced.size)
     s!"INTRODUCED_INVENTORY_DIFFERS original_count={a.introduced.size} candidate_count={b.introduced.size} original_first16={a.introduced.toList.take 16 |>.map (fun p => p.1)} candidate_first16={b.introduced.toList.take 16 |>.map (fun p => p.1)}"
   require ((a.extras.qsort (fun a b => a.quickCmp b == .lt)) ==
@@ -189,6 +201,7 @@ unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (e
     for n in b.before.header.moduleNames do IO.println s!"LOADED_CANDIDATE\t{n}"
     for n in a.extras do IO.println s!"GENERATED\t{n}"
     IO.println s!"PART32_EXACT_COMPARISON_PASSED\t{a.introduced.size}"
+  fixturePhase traceFixtures "COMPARE_PASSED"
 
 unsafe def coverAxioms (root runtime : System.FilePath) : IO Unit := do
   let moduleName := `SpectreFinite.RadiusFiveRoot7Cover
@@ -200,26 +213,36 @@ unsafe def coverAxioms (root runtime : System.FilePath) : IO Unit := do
   require (!c.introduced.isEmpty) "EMPTY_COVER"
   IO.println s!"COVER_AXIOMS_PASSED\t{c.introduced.size}"
 
-unsafe def fixtures (root runtime : System.FilePath) : IO Unit := do
-  compare (root / "baseline") (root / "identical") runtime `Fixture false
-  for (variant, expected) in [("value", "DECLARATION_FIELDS_DIFFER"), ("type", "TYPE_OR_KIND_DIFFERS"),
-      ("inventory", "INTRODUCED_INVENTORY_DIFFERS")] do
+unsafe def fixtureCase (variant : String) (root runtime : System.FilePath) : IO Unit := do
+  require (["identical", "value", "type", "inventory", "axiom"].contains variant) "UNKNOWN_FIXTURE_CASE"
+  IO.println s!"FIXTURE_START\t{variant}"
+  if variant == "identical" then
+    compare (root / "baseline") (root / "identical") runtime `Fixture false true
+  else if variant == "axiom" then
+    let bad ← load (root / "axiom") runtime `Fixture true
+    fixturePhase true "AXIOM_TRAVERSAL_BEGIN"
+    let ax ← usedAxioms bad.after `fixtureTheorem
+    fixturePhase true "AXIOM_TRAVERSAL_DONE"
+    require (ax.contains `fixtureAssumption) "AXIOM_FIXTURE_NOT_TRAVERSED"
     let mut rejected := false
-    try compare (root / "baseline") (root / variant) runtime `Fixture false
+    try checkAxioms ax
+    catch e =>
+      require (((toString e).splitOn "UNPERMITTED_AXIOM").length > 1) "WRONG_AXIOM_REJECTION"
+      rejected := true
+    require rejected "AXIOM_FIXTURE_PASSED"
+    IO.println "FIXTURE_REJECTED\taxiom\tUNPERMITTED_AXIOM"
+  else
+    let expected := if variant == "value" then "DECLARATION_FIELDS_DIFFER"
+      else if variant == "type" then "TYPE_OR_KIND_DIFFERS" else "INTRODUCED_INVENTORY_DIFFERS"
+    let mut rejected := false
+    try compare (root / "baseline") (root / variant) runtime `Fixture false true
     catch e =>
       require (((toString e).splitOn expected).length > 1) s!"WRONG_FIXTURE_REJECTION {variant}: {e}"
       rejected := true
     require rejected s!"NEGATIVE_FIXTURE_PASSED {variant}"
-  let bad ← load (root / "axiom") runtime `Fixture
-  let ax ← usedAxioms bad.after `fixtureTheorem
-  require (ax.contains `fixtureAssumption) "AXIOM_FIXTURE_NOT_TRAVERSED"
-  let mut rejected := false
-  try checkAxioms ax
-  catch e =>
-    require (((toString e).splitOn "UNPERMITTED_AXIOM").length > 1) "WRONG_AXIOM_REJECTION"
-    rejected := true
-  require rejected "AXIOM_FIXTURE_PASSED"
-  IO.println "SOURCE_FIXTURES_PASSED\t1-positive-4-negative"
+    IO.println s!"FIXTURE_REJECTED\t{variant}\t{expected}"
+  IO.println s!"FIXTURE_PASSED\t{variant}"
+
 
 unsafe def main (args : List String) : IO UInt32 := do
   match args with
@@ -259,7 +282,7 @@ unsafe def main (args : List String) : IO UInt32 := do
     require ((differingFields ca cb).contains "value_or_proof" &&
       (differingFields ra rb).contains "recursor.rules[0].rhs") "FIELD_DIAGNOSTIC_CONTROL_FAILED"
     IO.println "INTERFACE_API_SELF_TEST_PASSED"
-  | ["fixtures", root, runtime] => fixtures root runtime
+  | ["fixture", variant, root, runtime] => fixtureCase variant root runtime
   | ["compare", left, right, runtime] => compare left right runtime `SpectreFinite.RadiusFiveRoot7Part32
   | ["cover", root, runtime] => coverAxioms root runtime
   | _ => throw <| IO.userError "unsupported finite interface-tool mode"

@@ -24,9 +24,13 @@
     "provenance/Expr.lean",
     "provenance/Expr.lean.response.json",
     "provenance/FILES.json",
+    "provenance/FIXTURE_CAPTURE_BYTES_REPAIR.json",
+    "provenance/FIXTURE_FAILURE_REVIEW.json",
+    "provenance/FIXTURE_ISOLATION.json",
     "provenance/INDEXING_FAILURE_REVIEW.json",
     "provenance/INDEXING_REPAIR.json",
     "provenance/INPUTS.json",
+    "provenance/ImportCut.indexing-predecessor.lean",
     "provenance/ImportCut.predecessor.lean",
     "provenance/ImportCut.syntax-predecessor.lean",
     "provenance/MAP_SOURCE_READBACK.json",
@@ -44,7 +48,9 @@
     "provenance/TEST_CONTRACT.json",
     "provenance/checker.lean",
     "provenance/failed-api.stdout",
+    "provenance/fixture-memory-failure.stderr",
     "provenance/indexing-failed-api.stdout",
+    "provenance/root7_import_cut.fixture-predecessor.py",
     "root7_import_cut.py",
     "smoke-contract.json",
     "tests/run_guarded.py",
@@ -1873,12 +1879,19 @@
       "name": "SpectreFinite.HexSearch.RadiusFive.root7Node81Step4_checked"
     }
   ],
+  "fixture_cases": [
+    "identical",
+    "value",
+    "type",
+    "inventory",
+    "axiom"
+  ],
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "79b2fc42aa67fbbaf84496f42762058e4c47df3d4f6f8e0235d7e657d2b57c2a",
+  "independent_driver_review_sha256": "c841e9bb82db68a5a71c9d37a9aff7ac90b431d3232bf2efc8296cb9d2e4e4f2",
   "inputs": {
     "README.md": {
-      "bytes": 13671,
-      "sha256": "918f79584756c5062a6b2beee3a6dfdf8af771a966950e1be2c31a3942258734"
+      "bytes": 16511,
+      "sha256": "e38450e7834ad610acb9eefd1954a7a212fe224d562fa5a85e8afae22bb41a9e"
     },
     "fixtures/axiom/Fixture.lean": {
       "bytes": 142,
@@ -1960,6 +1973,18 @@
       "bytes": 1634,
       "sha256": "ca5cbb4afdb84a9b613c4fc1896e89301888d86a2f4ce239ca9d7e886fb0efd7"
     },
+    "provenance/FIXTURE_CAPTURE_BYTES_REPAIR.json": {
+      "bytes": 2152,
+      "sha256": "cafad1c1c23546c2ee42de567cb76d10a5c0451232d99c3cdaac17935b01d659"
+    },
+    "provenance/FIXTURE_FAILURE_REVIEW.json": {
+      "bytes": 5589,
+      "sha256": "30ddcafc8f48332350798cfc0172a90379b0677e77aa3560493ca33d44e96af3"
+    },
+    "provenance/FIXTURE_ISOLATION.json": {
+      "bytes": 8585,
+      "sha256": "f81927b094c624eaf4ab5c8452297fb421accc63f7f9db5e015d91b1d6ff20ca"
+    },
     "provenance/INDEXING_FAILURE_REVIEW.json": {
       "bytes": 3642,
       "sha256": "532501a5405d94d83f0cb1bfbe567885131d69556832d77fd1cbce05ae26097a"
@@ -1971,6 +1996,10 @@
     "provenance/INPUTS.json": {
       "bytes": 1973,
       "sha256": "525bcf807f335b63340ebb891ae4b9c6a56972cd92cbf1ac7d87d2b5bc2c1c39"
+    },
+    "provenance/ImportCut.indexing-predecessor.lean": {
+      "bytes": 13752,
+      "sha256": "a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf"
     },
     "provenance/ImportCut.predecessor.lean": {
       "bytes": 13520,
@@ -2040,13 +2069,21 @@
       "bytes": 891,
       "sha256": "9f776f769ad26955b71898d079f663e3a7b3792955b33b34285f4e68dfe09b66"
     },
+    "provenance/fixture-memory-failure.stderr": {
+      "bytes": 115,
+      "sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66"
+    },
     "provenance/indexing-failed-api.stdout": {
       "bytes": 660,
       "sha256": "9322c2ee0b86491e5d5216fb059265d35687b716337669467846fce2e46b9ef1"
     },
+    "provenance/root7_import_cut.fixture-predecessor.py": {
+      "bytes": 36301,
+      "sha256": "7ac6e754581b44e070411b4812aee9fad109ec840c23a684e5b4fcd8c640cad9"
+    },
     "root7_import_cut.py": {
-      "bytes": 34385,
-      "sha256": "f1e9d3d37a550b0aaac79b6639864f9cfd17c7d767a7a24bbce366b42fae7ffb"
+      "bytes": 36625,
+      "sha256": "6fd8047354631470aadc02d1ea702173c7d4fecfad3056e626bf93cc6f7edb84"
     },
     "src/SpectreFinite/FiniteTableCover.lean": {
       "bytes": 7476,
@@ -3605,12 +3642,12 @@
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 16660,
-      "sha256": "ff0590d1e7b1112a8814ddde5c2a4e1a214e84a52127c85aef54e3273d03a02f"
+      "bytes": 25659,
+      "sha256": "a408e09a849b468e46e2018405eafb6132f9beb6e7df6dd8e0daa4cec00dfdf4"
     },
     "tools/ImportCut.lean": {
-      "bytes": 13752,
-      "sha256": "a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf"
+      "bytes": 14947,
+      "sha256": "a9a25c2819bfc2c65cedc386bf1705efa3295303d271980d24a235090ac2f46d"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -9071,8 +9108,8 @@
       "SpectreFinite.RadiusFiveRoot7Part31"
     ]
   },
-  "publication_branch": "verify/palomar-root7-import-cut-indexing-20261019",
-  "recorded_command_count": 790,
+  "publication_branch": "verify/palomar-root7-import-cut-fixtures-20261019",
+  "recorded_command_count": 794,
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -9089,6 +9126,6 @@
     "source_file_count": 388,
     "tar_bytes": 12113920
   },
-  "sum_command_timeout_seconds": 118500,
-  "workflow_template_sha256": "6077ca14dfaadb64ac734dba2accec0945dca003d931c1c419ff8fbe682ba48a"
+  "sum_command_timeout_seconds": 119220,
+  "workflow_template_sha256": "e02da7c5bf440bdf6d163058f680224b388cd961a71a97a8219b92c23db9f3ed"
 }

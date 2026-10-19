@@ -10,9 +10,9 @@ class Controls(unittest.TestCase):
   with self.assertRaises(d.f.Rejected):d.validate_contract(c,reviewed=True)
  def test_locked_distribution(self):d.validate_inputs(c)
  def test_ledger(self):
-  names=d.command_order(c);self.assertEqual(len(names),790);self.assertEqual(len(set(names)),790)
+  names=d.command_order(c);self.assertEqual(len(names),794);self.assertEqual(len(set(names)),794)
   specs=[d.command_spec(c,pathlib.Path('/tmp/inactive'),n) for n in names]
-  self.assertEqual(sum(s['requested_timeout_seconds'] for s in specs),118500)
+  self.assertEqual(sum(s['requested_timeout_seconds'] for s in specs),119220)
   for s in specs:
    self.assertNotIn('--share-net',s['argv']);self.assertNotIn('MATHLIB_CACHE_DIR',s['env']);self.assertTrue(s['allowed_sessions'])
  def test_exact_part32_roots(self):
@@ -96,11 +96,11 @@ class Controls(unittest.TestCase):
   names=d.command_order(c)
   self.assertEqual(names[:3],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api'])
   self.assertLess(names.index('check-interface-api'),names.index('compile-fixture-baseline'))
-  self.assertLess(names.index('check-interface-fixtures'),names.index('compile-'+c['module_order'][0]))
+  self.assertLess(names.index('check-interface-fixture-axiom'),names.index('compile-'+c['module_order'][0]))
  def test_confirmed_indexing_regression(self):
   record=json.loads((ROOT/'provenance/INDEXING_REPAIR.json').read_text())
   original=(ROOT/'provenance/ImportCut.syntax-predecessor.lean').read_text()
-  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  candidate=(ROOT/'provenance/ImportCut.indexing-predecessor.lean').read_text()
   self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2')
   self.assertEqual(hashlib.sha256(candidate.encode()).hexdigest(),'a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf')
   expected_rows=[('public_part','  let publicData := parts[0]!.1\n','  let some publicData := parts[0]?.map (·.1)\n    | throw <| IO.userError "MISSING_MODULE_PART"\n'),('private_part','  let privateData := parts[2]!.1\n','  let some privateData := parts[2]?.map (·.1)\n    | throw <| IO.userError "MISSING_MODULE_PART"\n')]
@@ -146,11 +146,83 @@ class Controls(unittest.TestCase):
   self.assertIn('self.parts[0]?.map (·.1)',env)
   self.assertIn('self.parts[level.ctorIdx]?.map (·.1)',env)
   names=d.command_order(c)
-  self.assertEqual(names[:10],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api',*['compile-fixture-'+v for v in ['baseline','identical','value','type','axiom','inventory']],'check-interface-fixtures'])
-  self.assertEqual(len(names),790)
-  self.assertEqual(c['sum_command_timeout_seconds'],118500)
+  self.assertEqual(names[:14],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api',*['compile-fixture-'+v for v in ['baseline','identical','value','type','axiom','inventory']],*['check-interface-fixture-'+v for v in ['identical','value','type','inventory','axiom']]])
+  self.assertEqual(len(names),794)
+  self.assertEqual(c['sum_command_timeout_seconds'],119220)
   self.assertIn('compare (root / "baseline") (root / "identical") runtime `Fixture false',candidate)
   self.assertIn('let a ← load left runtime moduleName',candidate)
+
+ def test_fixture_isolation_source(self):
+  record=json.loads((ROOT/'provenance/FIXTURE_ISOLATION.json').read_text())
+  original=(ROOT/'provenance/ImportCut.indexing-predecessor.lean').read_text()
+  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf')
+  expected=original
+  for row in record['helper_replacements']:
+   self.assertEqual(expected.count(row['old']),row['count'])
+   expected=expected.replace(row['old'],row['new'])
+  self.assertEqual(candidate,expected)
+  reverted=candidate
+  for row in reversed(record['helper_replacements']):
+   self.assertEqual(reverted.count(row['new']),row['count'])
+   reverted=reverted.replace(row['new'],row['old'])
+  self.assertEqual(reverted,original)
+  # Comparison predicates and axiom traversal remain exactly unchanged. Trace
+  # sites only surround operations and default to false outside fixture cases.
+  self.assertEqual(original[original.index('def exactInfo'):original.index('structure Loaded')],candidate[candidate.index('def exactInfo'):candidate.index('structure Loaded')])
+  self.assertEqual(original[original.index('  require (a.introduced.size'):original.index('unsafe def coverAxioms')].rstrip(),candidate[candidate.index('  require (a.introduced.size'):candidate.index('  fixturePhase traceFixtures "COMPARE_PASSED"')].rstrip())
+  self.assertEqual(original[original.index('unsafe def coverAxioms'):original.index('unsafe def fixtures')],candidate[candidate.index('unsafe def coverAxioms'):candidate.index('unsafe def fixtureCase')])
+  self.assertNotIn('env.freeRegions',candidate)
+  self.assertNotIn('CompactedRegion.free',candidate)
+  self.assertEqual(candidate.count('(traceFixtures : Bool := false)'),2)
+  self.assertEqual(c['fixture_cases'],['identical','value','type','inventory','axiom'])
+  self.assertEqual(d.FIXTURE_CASES,c['fixture_cases'])
+  names=d.command_order(c)
+  self.assertEqual(names[9:14],['check-interface-fixture-'+v for v in d.FIXTURE_CASES])
+  self.assertEqual(names[14],'compile-'+c['module_order'][0])
+  self.assertNotIn('check-interface-fixtures',names)
+  for case in d.FIXTURE_CASES:
+   spec=d.command_spec(c,pathlib.Path('/tmp/inactive'),'check-interface-fixture-'+case)
+   self.assertEqual(spec['argv'][-4:],['fixture',case,'/tmp/inactive/fixture-objects','/tmp/inactive/runtime'])
+   self.assertIn('-M4096',spec['argv'])
+   self.assertEqual(spec['requested_timeout_seconds'],180)
+  for name in ['check-interface-fixtures','check-interface-fixture-baseline','check-interface-fixture-unknown']:
+   with self.assertRaises(d.f.Rejected):d.command_spec(c,pathlib.Path('/tmp/inactive'),name)
+  for cases in [d.FIXTURE_CASES[:-1],d.FIXTURE_CASES[::-1],d.FIXTURE_CASES+['value'],['unknown']]:
+   bad=copy.deepcopy(c);bad['fixture_cases']=cases
+   with self.assertRaises(d.f.Rejected):d.validate_contract(bad)
+ def test_fixture_exact_markers(self):
+  for case in d.FIXTURE_CASES:
+   good=d.fixture_expected_output(case);result=d.parse_fixture_output(case,good)
+   self.assertEqual(result['case'],case)
+   self.assertEqual(result['marker_count'],12 if case=='axiom' else 19)
+   self.assertEqual(good.count('FIXTURE_PHASE\tLOAD_BEGIN\n'),1 if case=='axiom' else 2)
+   lines=good.splitlines(True)
+   mutations=['',good.replace('\n','\r\n'),good.replace('\n','\r'),good[:-1],''.join(lines[:-1]),''.join(lines[1:]),good+'EXTRA\n',good+lines[-1],good.replace('LOAD_BEGIN','WRONG_PHASE',1),''.join([lines[1],lines[0],*lines[2:]]),good.replace('FIXTURE_PASSED\t'+case,'FIXTURE_PASSED\twrong')]
+   if case!='identical':mutations.append(good.replace('FIXTURE_REJECTED','FIXTURE_ACCEPTED',1))
+   for bad in mutations:
+    with self.assertRaises(d.f.Rejected):d.parse_fixture_output(case,bad)
+  for case in ['baseline','unknown','',None,True,[]]:
+   with self.assertRaises(d.f.Rejected):d.fixture_expected_output(case)
+
+ def test_fixture_exact_bytes_source(self):
+  record=json.loads((ROOT/'provenance/FIXTURE_CAPTURE_BYTES_REPAIR.json').read_text())
+  original=(ROOT/'provenance/root7_import_cut.fixture-predecessor.py').read_text()
+  current=(ROOT/'root7_import_cut.py').read_text()
+  self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'7ac6e754581b44e070411b4812aee9fad109ec840c23a684e5b4fcd8c640cad9')
+  expected=original
+  for row in record['driver_replacements']:
+   self.assertEqual(expected.count(row['old']),1);self.assertEqual(row['count'],1)
+   expected=expected.replace(row['old'],row['new'])
+  self.assertEqual(current,expected)
+  reverted=current
+  for row in reversed(record['driver_replacements']):
+   self.assertEqual(reverted.count(row['new']),1);reverted=reverted.replace(row['new'],row['old'])
+  self.assertEqual(reverted,original)
+  self.assertEqual(current.count("report['stdout_sha256']==commands[i]['captures']['stdout']['sha256']"),2)
+  self.assertIn("f.json_bytes(fixture['cases'])==f.json_bytes(expected_cases)",current)
+  self.assertNotIn("parse_fixture_output(v,output.read_text())",current)
+  self.assertNotIn("parse_fixture_output(v,(evidence/'logs'/(name+'.stdout')).read_text())",current)
 
  def test_actual_loop_synthetic(self):
   # Runs actual extraction, graph/view copies, 388 compile/check admission loops,
@@ -161,6 +233,7 @@ class Controls(unittest.TestCase):
    prior=(d.validate_inputs,d.a.git_capture,d.d.acquire_runtime,d.f.run_process,d.d.revalidate_runtime,d.a.RUNTIME_INVENTORY_SHA)
    oldenv={k:os.environ.get(k) for k in ['GITHUB_REF','GITHUB_SHA']}
    os.environ.update(GITHUB_REF='refs/heads/'+cc['publication_branch'],GITHUB_SHA='fixture')
+   fixture_payload_override=None
    def native(argv,**kw):
     name=kw['stdout'].name[:-7];out=b''
     if name.startswith('compile-'):
@@ -170,7 +243,8 @@ class Controls(unittest.TestCase):
      for p in d.a.module_outputs(module):
       q=stage/p;q.parent.mkdir(parents=True,exist_ok=True);q.write_bytes(('SYNTHETIC NOT LEAN '+name+' '+p).encode())
     elif name=='check-interface-api':out=b'INTERFACE_API_SELF_TEST_PASSED\n'
-    elif name=='check-interface-fixtures':out=b'SOURCE_FIXTURES_PASSED\t1-positive-4-negative\n'
+    elif name.startswith('check-interface-fixture-'):
+     out=fixture_payload_override if name=='check-interface-fixture-identical' and fixture_payload_override is not None else d.fixture_expected_output(name[len('check-interface-fixture-'):]).encode()
     elif name=='check-interface-part32':out=interface_text().encode()
     elif name=='check-cover-axioms':out=cover_text().encode()
     kw['stdout'].write_bytes(out);kw['stderr'].write_bytes(b'')
@@ -189,8 +263,40 @@ class Controls(unittest.TestCase):
     d.validate_inputs=lambda c:None;d.a.git_capture=lambda root,*args:b'fixture\n' if args[0]=='rev-parse' else b'';d.d.acquire_runtime=runtime;d.f.run_process=native;d.d.revalidate_runtime=lambda *args:None
     digest=d.f.file_sha(ROOT/'smoke-contract.json');d.run(cc,digest,work,Watch());self.assertEqual(d.f.load_json(work/'evidence/result.json')['status'],d.SUCCESS)
     d.d.collect(cc,digest,work,Watch());self.assertTrue(d.f.load_json(work/'upload/collection.json')['smoke_acceptance_evidence_complete'])
+    original_fixture=(work/'evidence/early-fixtures.json').read_bytes();original_result=(work/'evidence/result.json').read_bytes()
+    fixture=d.f.parse_json(original_fixture)
+    for change in [lambda x:x['cases'].pop('axiom'),lambda x:x['cases'].update(extra=x['cases']['value']),lambda x:x['cases']['value'].update(command_index=9),lambda x:x['cases']['type']['result'].update(result='identical'),lambda x:x.update(extra=True),lambda x:x['cases']['axiom']['result'].update(loaded_contexts=True),lambda x:x['cases']['axiom']['result'].update(marker_count=12.0),lambda x:x['cases']['axiom'].update(command_index=13.0),lambda x:x['cases']['identical']['result'].update(stdout_sha256='f'*64)]:
+     mutated=copy.deepcopy(fixture);change(mutated);d.a.write_json(work/'evidence/early-fixtures.json',mutated)
+     terminal=d.f.parse_json(original_result);terminal['terminal_receipts']['early-fixtures.json']=d.f.file_sha(work/'evidence/early-fixtures.json');d.a.write_json(work/'evidence/result.json',terminal)
+     with self.assertRaises(d.f.Rejected):d.verify_success(cc,digest,work/'evidence',work)
+     (work/'evidence/early-fixtures.json').write_bytes(original_fixture);(work/'evidence/result.json').write_bytes(original_result)
+    capture_path=work/'evidence/logs/check-interface-fixture-identical.stdout'
+    original_capture=capture_path.read_bytes();original_commands=(work/'evidence/commands.jsonl').read_bytes()
+    for malformed in [original_capture.replace(b'\n',b'\r\n'),original_capture.replace(b'\n',b'\r'),b'\xff'+original_capture]:
+     for update_case_digest in [False,True]:
+      capture_path.write_bytes(malformed)
+      command_rows=[d.f.parse_json(line) for line in original_commands.splitlines()]
+      row=next(row for row in command_rows if row['name']=='check-interface-fixture-identical')
+      row['captures']['stdout']={'bytes':len(malformed),'sha256':d.f.sha(malformed)};row['stdout_sha256']=d.f.sha(malformed)
+      (work/'evidence/commands.jsonl').write_text(''.join(json.dumps(row,sort_keys=True,separators=(',',':'))+'\n' for row in command_rows))
+      mutated=copy.deepcopy(fixture)
+      if update_case_digest:mutated['cases']['identical']['result']['stdout_sha256']=d.f.sha(malformed)
+      d.a.write_json(work/'evidence/early-fixtures.json',mutated)
+      terminal=d.f.parse_json(original_result);terminal['complete_log_bytes']+=len(malformed)-len(original_capture)
+      for member in ['commands.jsonl','early-fixtures.json']:terminal['terminal_receipts'][member]=d.f.file_sha(work/'evidence'/member)
+      d.a.write_json(work/'evidence/result.json',terminal)
+      with self.assertRaises((d.f.Rejected,UnicodeDecodeError)):d.verify_success(cc,digest,work/'evidence',work)
+      capture_path.write_bytes(original_capture);(work/'evidence/commands.jsonl').write_bytes(original_commands)
+      (work/'evidence/early-fixtures.json').write_bytes(original_fixture);(work/'evidence/result.json').write_bytes(original_result)
     bad=d.f.load_json(work/'evidence/part32-views.json');bad['candidate']['prerequisite_modules'].append(d.PART32);d.a.write_json(work/'evidence/part32-views.json',bad)
     with self.assertRaises(d.f.Rejected):d.verify_success(cc,digest,work/'evidence',work)
+    for index,malformed in enumerate([original_capture.replace(b'\n',b'\r\n'),original_capture.replace(b'\n',b'\r'),b'\xff'+original_capture]):
+     work=pathlib.Path(tmp)/('rejected-fixture-'+str(index));fixture_payload_override=malformed
+     with self.assertRaises((d.f.Rejected,UnicodeDecodeError)):d.run(cc,digest,work,Watch())
+     rejected=d.f.load_json(work/'evidence/result.json')
+     self.assertEqual(rejected['checked_owned_module_count'],0)
+     self.assertEqual(rejected['command_count'],10)
+     self.assertEqual(d.f.load_json(work/'evidence/last_command.json')['name'],'check-interface-fixture-identical')
    finally:
     d.validate_inputs,d.a.git_capture,d.d.acquire_runtime,d.f.run_process,d.d.revalidate_runtime,d.a.RUNTIME_INVENTORY_SHA=prior
     for k,v in oldenv.items():
