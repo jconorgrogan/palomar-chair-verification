@@ -1,0 +1,26 @@
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:57:20: error(lean.unknownIdentifier): Unknown identifier `anchor_registered`
+
+Note: A private declaration `anchor_registered` (from the current module) exists but would need to be public to access here.
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:60:19: error: Function expected at
+  tilingLatticeCoordinate f
+but this term has type
+  Point
+
+Note: Expected a function because this term is being applied to the argument
+  hdirect
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:70:18: error: Function expected at
+  tilingLatticeCoordinate f
+but this term has type
+  Point
+
+Note: Expected a function because this term is being applied to the argument
+  hdirect
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:78:30: error: Function expected at
+  tilingLatticeCoordinate f
+but this term has type
+  Point
+
+Note: Expected a function because this term is being applied to the argument
+  hdirect
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:87:8: warning: declaration uses `sorry`
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean:95:13: warning: declaration uses `sorry`

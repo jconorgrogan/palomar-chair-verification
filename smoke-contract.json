@@ -56,6 +56,7 @@
     "provenance/SOURCE_INDEPENDENT_REVIEW.json",
     "smoke-contract.json",
     "tests/fixtures/cocycle-original-run39243482103.stdout",
+    "tests/fixtures/physical-grid-original-run39256533302.stdout",
     "tests/inert_loop_fixture.py",
     "tests/inert_success_fixture.py",
     "tests/run_guarded.py",
@@ -95,7 +96,7 @@
     "SpectreGeometry.PhysicalGridRealization": [
       [
         57,
-        null,
+        20,
         "anchor_registered"
       ]
     ],
@@ -107,9 +108,9 @@
       ]
     ]
   },
-  "expected_parent_commit": "6e41812133bd6ca150637d61b90181983bb2494a",
+  "expected_parent_commit": "f4b09216b834b2c49d838fdd3b8c5ad9f6264030",
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "613d83dfeb3bc0630a63bcc155c4d98c64b5e61f420ff235d702da868a8fc396",
+  "independent_driver_review_sha256": "bcd27d3f41d2b809f26c0021e05c5bd04c97f58356a229704b1e4f27e016981f",
   "init_only_order": [
     "SpectreFinite.ListedPatches",
     "SpectreFinite.PatchEnumeration",
@@ -124,8 +125,8 @@
   ],
   "inputs": {
     "README.md": {
-      "bytes": 8255,
-      "sha256": "b748ed5815987618ae579d1bb03854443e85850ea430e1faf4cd732fb9e4b095"
+      "bytes": 8406,
+      "sha256": "b2788addae22496072bbd110d8f02393dcdde9359c6acfca1ae6d9d34d514826"
     },
     "originals/SpectreClusters/ReverseClusterCocycleIntegration.lean": {
       "bytes": 6486,
@@ -863,21 +864,25 @@
       "bytes": 638,
       "sha256": "50e00f731b1b925266a0dc78d3d27253439c28e81eb3b6d91e9472ccaf3345cb"
     },
+    "tests/fixtures/physical-grid-original-run39256533302.stdout": {
+      "bytes": 1484,
+      "sha256": "5dd0c91d159b6d3ed35145061231dfd59b965df397080fbcb5215e375a260245"
+    },
     "tests/inert_loop_fixture.py": {
-      "bytes": 6077,
-      "sha256": "65d92c71b306c37206a82c7419258fe3b103ab0daf6b77df739e43ca324368c4"
+      "bytes": 6224,
+      "sha256": "aa11ae043fbf778b36d9cd394db245cc7285188ce9b41f01738de8cec80743aa"
     },
     "tests/inert_success_fixture.py": {
-      "bytes": 7611,
-      "sha256": "1d84835bf22c458b9823c04e778f1af3294d0f067c3c4e7f6feae78289274772"
+      "bytes": 7747,
+      "sha256": "a36f893d5d9aff6f5f0acadfef6e79c4f202dc25c4bb834d8f83cac43c95cff3"
     },
     "tests/run_guarded.py": {
       "bytes": 646,
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 16377,
-      "sha256": "4fbc1b9898c681e597c6ab62242e09e247c291615cbcf13cb9cccd8d27026bbd"
+      "bytes": 26805,
+      "sha256": "b98055055369ab38d8c819954211cd6d6a561829363e8d220775ad4110c0c3f1"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -920,8 +925,8 @@
       "sha256": "2b48ab2cdf951e9339dfaa764714952bcc3c9f1dd47e5413ec5d1fffb0755a82"
     },
     "visibility_smoke.py": {
-      "bytes": 62293,
-      "sha256": "4cae4c4d5ca737bdb5074949b454435d92adc4cf16a41de39a2a1ae308d7a7ff"
+      "bytes": 63390,
+      "sha256": "81090055ee8480acb2240208138fb415e6fa99bb25f3645de8c87d338e2c1966"
     }
   },
   "limits": {
@@ -2868,7 +2873,7 @@
   },
   "owned_module_count": 174,
   "owned_source_max_bytes": 33554432,
-  "publication_branch": "verify/palomar-visibility-diagnostics-20261019",
+  "publication_branch": "verify/palomar-visibility-controls-20261019",
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -3105,5 +3110,5 @@
     "SpectreGeometry.PolygonProductKeyBody",
     "SpectreGeometry.PhysicalGridRealization"
   ],
-  "workflow_template_sha256": "d1ee74db15fffb1b7662b38b964a5bbc0ccc4d388559784af7c9f1c269d2109a"
+  "workflow_template_sha256": "a8442740ae8ee66774ba4b895617ec97fb6c675f4e4d37583c749afcea229361"
 }

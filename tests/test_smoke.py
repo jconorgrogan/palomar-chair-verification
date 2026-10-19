@@ -51,9 +51,17 @@ class Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as td:
    p=Path(td)/'capture';p.write_bytes(b'ok');self.assertEqual(d.read_capture(p,2,Clock()),b'ok');self.reject(d.read_capture,p,1,Clock())
    q=Path(td)/'alias';q.symlink_to(p);self.reject(d.read_capture,q,2,Clock());q.unlink();os.link(p,q);self.reject(d.read_capture,p,2,Clock())
+ def physical_grid_cascades(self,path):
+  return ''.join(path+f':{line}:{col}: error: Function expected at\n  tilingLatticeCoordinate f\nbut this term has type\n  Point\n\nNote: Expected a function because this term is being applied to the argument\n  hdirect\n' for line,col in [(60,19),(70,18),(78,30)])
+ def actual_physical_grid_output(self):
+  data=(ROOT/'tests/fixtures/physical-grid-original-run39256533302.stdout').read_bytes()
+  self.assertEqual(len(data),1484)
+  self.assertEqual(d.f.sha(data),'5dd0c91d159b6d3ed35145061231dfd59b965df397080fbcb5215e375a260245')
+  return data.decode('utf-8')
  def test_original_exact_diagnostics(self):
   for module,expected in d.EXPECTED_UNKNOWN.items():
    text=''.join('/tmp/'+module.replace('.','/')+f'.lean:{line}:{col or 3}: error: Unknown identifier `{name}`\n' for line,col,name in expected)
+   if module==d.TARGETS[3]:text+=self.physical_grid_cascades('/tmp/'+module.replace('.','/')+'.lean')
    d.failure_diagnostics(module,text)
    for bad in ['',text+text,text.replace('Unknown identifier','type mismatch'),text.replace('.lean:', '.lean:1')]:self.reject(d.failure_diagnostics,module,bad)
   module=d.TARGETS[1];text='/tmp/'+module.replace('.','/')+'.lean:34:15: error: Unknown identifier `translated_contracting`\n'
@@ -100,6 +108,13 @@ class Tests(unittest.TestCase):
   spec=importlib.util.spec_from_file_location('inert_loop',ROOT/'tests/inert_loop_fixture.py');fixture=importlib.util.module_from_spec(spec);spec.loader.exec_module(fixture)
   with tempfile.TemporaryDirectory() as td:
    result=fixture.run(d,self.c,Path(td));self.assertEqual(result['native_calls'],394)
+   work=result['work'];commands=[json.loads(line) for line in (work/'evidence/commands.jsonl').read_text().splitlines()]
+   self.assertEqual([row['name'] for row in commands[-3:]],['compile-original-'+d.TARGETS[3],'compile-'+d.TARGETS[3],'check-'+d.TARGETS[3]])
+   self.assertEqual([row['exit_code'] for row in commands[-3:]],[1,0,0])
+   probes=d.f.load_json(work/'evidence/original-probes.json');self.assertEqual(probes[-1]['diagnostics']['authenticated_cascade_headers'],[[60,19,'Function expected at'],[70,18,'Function expected at'],[78,30,'Function expected at']])
+   actual=(work/'evidence/logs'/('compile-original-'+d.TARGETS[3]+'.stdout')).read_bytes()
+   self.assertEqual(d.f.sha(actual),'5dd0c91d159b6d3ed35145061231dfd59b965df397080fbcb5215e375a260245')
+   terminal=d.f.load_json(work/'evidence/result.json');self.assertEqual(terminal['checked_owned_module_count'],174);self.assertEqual(terminal['status'],d.SUCCESS)
  def test_missing_result_cannot_pass(self):
   with tempfile.TemporaryDirectory() as td:
    work=Path(td);(work/'result.json').write_text(json.dumps({'status':'INCOMPLETE'}));self.reject(d.verify_success,self.c,'0'*64,work,work)
@@ -119,9 +134,11 @@ class Tests(unittest.TestCase):
      category='error' if style=='plain' or (style=='mixed' and i%2) else 'error(lean.unknownIdentifier)'
      lines.append(module.replace('.','/')+f'.lean:{line}:{col or 3}: {category}: Unknown identifier `{name}`')
     with self.subTest(module=module,style=style):
-     result=d.failure_diagnostics(module,'\n'.join(lines)+'\n')
+     text='\n'.join(lines)+'\n'
+     if module==d.TARGETS[3]:text+=self.physical_grid_cascades(module.replace('.','/')+'.lean')
+     result=d.failure_diagnostics(module,text)
      self.assertEqual(result['unknown_identifiers'],[(line,col or 3,name) for line,col,name in expected])
-     self.assertEqual(result['authenticated_cascade_headers'],[])
+     self.assertEqual(result['authenticated_cascade_headers'],[(line,col,'Function expected at') for line,col in [(60,19),(70,18),(78,30)]] if module==d.TARGETS[3] else [])
  def test_actual_coded_output_rejects_mutations_and_extra_errors(self):
   text=self.actual_cocycle_output();headers=[line for line in text.splitlines() if ': error(' in line]
   mutations={
@@ -176,6 +193,106 @@ class Tests(unittest.TestCase):
    work=Path(td);data=fixture.make(d,self.c,work);evidence=work/'evidence';commands=data['commands']
    command=next(row for row in commands if row['name']=='compile-original-'+d.TARGETS[0]);name=command['name']
    actual=self.actual_cocycle_output().encode();previous=command['captures']['stdout']['bytes']
+   command['stdout_sha256']=d.f.sha(actual);command['captures']['stdout']={'bytes':len(actual),'sha256':d.f.sha(actual)}
+   for parent in [work/'logs',evidence/'logs']:(parent/(name+'.stdout')).write_bytes(actual)
+   result=d.f.load_json(evidence/'result.json');result['complete_log_bytes']+=len(actual)-previous
+   def write_commands():
+    (evidence/'commands.jsonl').write_text(''.join(json.dumps(row,sort_keys=True,separators=(',',':'))+'\n' for row in commands))
+    result['terminal_receipts']['commands.jsonl']=d.f.file_sha(evidence/'commands.jsonl');d.a.write_json(evidence/'result.json',result)
+   write_commands();old=d.a.RUNTIME_INVENTORY_SHA;d.a.RUNTIME_INVENTORY_SHA=data['synthetic_runtime_sha']
+   try:
+    d.verify_success(self.c,data['contract_sha'],evidence,work)
+    d.validate_capture_collection(self.c,work,Clock())
+    mutations=[('exit_code',0,'original unexpected pass'),('exit_code',2,'unexpected original exit/status'),
+     ('timed_out',True,'unsafe command receipt'),('memory_exceeded',True,'unsafe command receipt'),
+     ('log_overflow',True,'unsafe command receipt'),('surviving_children',True,'unsafe command receipt'),
+     ('process_group_empty',False,'unsafe command receipt'),('descendants_empty',False,'unsafe command receipt'),
+     ('requested_timeout_seconds',181,'full command provenance differs'),
+     ('max_log_bytes',2*1024**2,'command limits differ'),
+     ('limits',{**command['limits'],'rss_tree_bytes':9*d.GIB},'command limits differ')]
+    for key,value,message in mutations:
+     with self.subTest(gate=key,value=value):
+      before=copy.deepcopy(command[key]);command[key]=value;write_commands()
+      with self.assertRaisesRegex(ValueError,message):d.verify_success(self.c,data['contract_sha'],evidence,work)
+      command[key]=before;write_commands()
+    d.verify_success(self.c,data['contract_sha'],evidence,work)
+   finally:d.a.RUNTIME_INVENTORY_SHA=old
+ def test_actual_physical_grid_control_regression(self):
+  self.assertEqual(d.EXPECTED_UNKNOWN[d.TARGETS[3]],[(57,20,'anchor_registered')])
+  self.assertEqual(d.failure_diagnostics(d.TARGETS[3],self.actual_physical_grid_output()),
+   {'unknown_identifiers':[(57,20,'anchor_registered')],
+    'authenticated_cascade_headers':[(60,19,'Function expected at'),(70,18,'Function expected at'),(78,30,'Function expected at')]})
+ def test_physical_grid_exact_cascades_and_malformed_extras(self):
+  text=self.actual_physical_grid_output();path='/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreGeometry/PhysicalGridRealization.lean'
+  body='\n  tilingLatticeCoordinate f\nbut this term has type\n  Point\n\nNote: Expected a function because this term is being applied to the argument\n  hdirect\n'
+  mutations={
+   'unknown wrong column':text.replace(':57:20:',':57:21:',1),
+   'unknown wrong line':text.replace(':57:20:',':56:20:',1),
+   'unknown wrong identifier':text.replace('Unknown identifier `anchor_registered`','Unknown identifier `other`',1),
+   'unknown missing':text.replace(path+':57:20: error(lean.unknownIdentifier): Unknown identifier `anchor_registered`\n','',1),
+   'unknown duplicate':text+path+':57:20: error(lean.unknownIdentifier): Unknown identifier `anchor_registered`\n',
+   'unknown wrong code':text.replace('error(lean.unknownIdentifier)','error(lean.other)',1),
+   'extra plain error':text+path+':1:1: error: other\n',
+   'extra coded error':text+path+':1:1: error(lean.other): other\n',
+   'extra malformed no-space error':text+path+':1:1:error(lean.other): other\n',
+   'extra malformed closing error':text+path+':1:1: error): other\n',
+   'notes cannot substitute unknown':text.replace('error(lean.unknownIdentifier): Unknown identifier','warning: Unknown identifier',1),
+  }
+  for line,col in [(60,19),(70,18),(78,30)]:
+   header=path+f':{line}:{col}: error: Function expected at';block=header+body
+   variants={
+    'missing':text.replace(block,'',1),'duplicate':text+block,
+    'wrong line':text.replace(header,header.replace(f':{line}:{col}:',f':{line+1}:{col}:')),
+    'wrong column':text.replace(header,header.replace(f':{line}:{col}:',f':{line}:{col+1}:')),
+    'wrong path':text.replace(header,header.replace('SpectreGeometry/PhysicalGridRealization.lean','Wrong/Source.lean')),
+    'wrong message':text.replace(header,header.replace('Function expected at','Function expected elsewhere')),
+    'coded unknown':text.replace(header,header.replace('error:','error(lean.unknownIdentifier):')),
+    'coded other':text.replace(header,header.replace('error:','error(lean.typeMismatch):')),
+    'malformed no space':text+block.replace(': error:',':error:'),
+    'wrong term':text.replace(block,block.replace('tilingLatticeCoordinate f','otherCoordinate f')),
+    'wrong term argument':text.replace(block,block.replace('tilingLatticeCoordinate f','tilingLatticeCoordinate g')),
+    'wrong type':text.replace(block,block.replace('  Point\n','  OtherPoint\n')),
+    'wrong argument':text.replace(block,block.replace('  hdirect\n','  hcover\n')),
+    'wrong note':text.replace(block,block.replace('because this term is being applied','because another term is being applied')),
+    'missing continuation':text.replace(block,header+'\n'),
+    'truncated continuation':text.replace(block,block.replace('  hdirect\n','')),
+    'extra continuation':text.replace(block,block+'extra continuation\n'),
+    'extra blank continuation':text.replace(block,block+'\n'),
+    'inserted plain error header':text.replace(block,header+'\n'+path+':1:1: error: inserted\n'+body[1:]),
+    'inserted warning header':text.replace(block,header+'\n'+path+':1:1: warning: inserted\n'+body[1:]),
+    'inserted malformed error header':text.replace(block,header+'\n'+path+':1:1:error(lean.other): inserted\n'+body[1:]),
+   }
+   mutations.update({f'{line}:{col} {label}':bad for label,bad in variants.items()})
+  for label,bad in mutations.items():
+   with self.subTest(mutation=label):self.reject(d.failure_diagnostics,d.TARGETS[3],bad)
+ def test_original_warnings_do_not_exempt_corrected_source(self):
+  spec=importlib.util.spec_from_file_location('physical_warning_fixture',ROOT/'tests/inert_success_fixture.py');fixture=importlib.util.module_from_spec(spec);spec.loader.exec_module(fixture)
+  with tempfile.TemporaryDirectory() as td:
+   work=Path(td);data=fixture.make(d,self.c,work);evidence=work/'evidence';commands=data['commands'];result=d.f.load_json(evidence/'result.json')
+   def replace_stdout(name,payload):
+    row=next(r for r in commands if r['name']==name);old=row['captures']['stdout']['bytes']
+    row['stdout_sha256']=d.f.sha(payload);row['captures']['stdout']={'bytes':len(payload),'sha256':d.f.sha(payload)}
+    for parent in [work/'logs',evidence/'logs']:(parent/(name+'.stdout')).write_bytes(payload)
+    result['complete_log_bytes']+=len(payload)-old
+    (evidence/'commands.jsonl').write_text(''.join(json.dumps(r,sort_keys=True,separators=(',',':'))+'\n' for r in commands))
+    result['terminal_receipts']['commands.jsonl']=d.f.file_sha(evidence/'commands.jsonl');d.a.write_json(evidence/'result.json',result)
+   replace_stdout('compile-original-'+d.TARGETS[3],self.actual_physical_grid_output().encode())
+   old=d.a.RUNTIME_INVENTORY_SHA;d.a.RUNTIME_INVENTORY_SHA=data['synthetic_runtime_sha']
+   try:
+    d.verify_success(self.c,data['contract_sha'],evidence,work)
+    warnings='\n'.join(line for line in self.actual_physical_grid_output().splitlines() if ': warning:' in line)+'\n'
+    self.assertEqual(len(warnings.splitlines()),2)
+    for payload in [warnings.encode(),b'warning: declaration uses `sorry`\n',b'error: Function expected at\n']:
+     replace_stdout('compile-'+d.TARGETS[3],payload)
+     with self.assertRaisesRegex(ValueError,'candidate error/sorry in acceptance evidence'):d.verify_success(self.c,data['contract_sha'],evidence,work)
+    replace_stdout('compile-'+d.TARGETS[3],b'');d.verify_success(self.c,data['contract_sha'],evidence,work)
+   finally:d.a.RUNTIME_INVENTORY_SHA=old
+ def test_actual_physical_grid_preserves_terminal_exit_and_resource_gates(self):
+  spec=importlib.util.spec_from_file_location('coded_terminal_fixture',ROOT/'tests/inert_success_fixture.py');fixture=importlib.util.module_from_spec(spec);spec.loader.exec_module(fixture)
+  with tempfile.TemporaryDirectory() as td:
+   work=Path(td);data=fixture.make(d,self.c,work);evidence=work/'evidence';commands=data['commands']
+   command=next(row for row in commands if row['name']=='compile-original-'+d.TARGETS[3]);name=command['name']
+   actual=self.actual_physical_grid_output().encode();previous=command['captures']['stdout']['bytes']
    command['stdout_sha256']=d.f.sha(actual);command['captures']['stdout']={'bytes':len(actual),'sha256':d.f.sha(actual)}
    for parent in [work/'logs',evidence/'logs']:(parent/(name+'.stdout')).write_bytes(actual)
    result=d.f.load_json(evidence/'result.json');result['complete_log_bytes']+=len(actual)-previous

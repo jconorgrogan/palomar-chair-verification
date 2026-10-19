@@ -2,7 +2,7 @@ name: Palomar visibility correction smoke
 'on':
   push:
     branches:
-    - verify/palomar-visibility-diagnostics-20261019
+    - verify/palomar-visibility-controls-20261019
 permissions:
   contents: read
 concurrency:
@@ -28,12 +28,12 @@ jobs:
 
         '
     - name: Compile the focused visibility correction controls
-      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B visibility_smoke.py --contract-sha256 436b9e455af17ca755ec35acfd02d1a6bbbe533776e985b1cf67c835a749a5fb
+      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B visibility_smoke.py --contract-sha256 9c43c1e5c6f3a30d2d6fc195f2558074df266db30ca44ba788c1827d9d7643d4
         --work "${{ runner.temp }}/palomar-visibility-smoke"
     - name: Preserve bounded smoke evidence
       if: ${{ always() }}
       timeout-minutes: 2
-      run: python3 -I -B visibility_smoke.py --collect --contract-sha256 436b9e455af17ca755ec35acfd02d1a6bbbe533776e985b1cf67c835a749a5fb
+      run: python3 -I -B visibility_smoke.py --collect --contract-sha256 9c43c1e5c6f3a30d2d6fc195f2558074df266db30ca44ba788c1827d9d7643d4
         --work "${{ runner.temp }}/palomar-visibility-smoke"
     - name: Upload bounded smoke evidence
       if: ${{ always() }}

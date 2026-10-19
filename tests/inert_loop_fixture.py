@@ -28,6 +28,8 @@ def run(d,c,parent):
             source=Path(argv[-1]);m=source.relative_to(work/('original-input' if 'original-input' in source.parts else 'src')).as_posix()[:-5].replace('/','.')
             if 'original-input' in source.parts:
                 stdout=''.join(str(source)+f':{line}:{col or 3}: error: Unknown identifier `{helper}`\n' for line,col,helper in d.EXPECTED_UNKNOWN[m]).encode()
+                if m==d.TARGETS[3]:
+                    stdout=(d.ROOT/'tests/fixtures/physical-grid-original-run39256533302.stdout').read_bytes()
                 code=1
             else:
                 target=Path(argv[argv.index('-o')+1]);stem=str(target)[:-6]

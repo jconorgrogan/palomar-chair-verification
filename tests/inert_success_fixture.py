@@ -36,6 +36,8 @@ def make(d,c,work):
         if name.startswith('compile-original-'):
             m=name[len('compile-original-'):]
             out=''.join(str(work/'original-input')+'/'+m.replace('.','/')+f'.lean:{line}:{col or 3}: error: Unknown identifier `{helper}`\n' for line,col,helper in d.EXPECTED_UNKNOWN[m]).encode()
+            if m==d.TARGETS[3]:
+                out=(d.ROOT/'tests/fixtures/physical-grid-original-run39256533302.stdout').read_bytes()
         row['captures']={}
         for stream,data in [('stdout',out),('stderr',b'')]:
             row[stream+'_sha256']=d.f.sha(data);row['captures'][stream]=pin(data);(work/'logs'/(name+'.'+stream)).write_bytes(data);(evidence/'logs'/(name+'.'+stream)).write_bytes(data);log_bytes+=len(data)

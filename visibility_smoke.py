@@ -48,11 +48,22 @@ EXPECTED_UNKNOWN = {
  TARGETS[0]: [(60,33,'position_cancel'), (61,25,'position_triangle')],
  TARGETS[1]: [(34,15,'translated_contracting')],
  TARGETS[2]: [(224,24,'product_key_collar_interior_disjoint')],
- TARGETS[3]: [(57,None,'anchor_registered')]}
+ TARGETS[3]: [(57,20,'anchor_registered')]}
 CASCADE = {
  (31,4): "(kernel) declaration has metavariables 'SpectreGeometry.Deformation.identitySubHomeomorph'",
  (58,16): "(kernel) declaration type mismatch, 'SpectreGeometry.Deformation.identitySubHomeomorph_apply' has type",
  (73,42): 'unsolved goals'}
+PHYSICAL_GRID_CASCADE = {
+ (60,19): 'Function expected at',
+ (70,18): 'Function expected at',
+ (78,30): 'Function expected at'}
+PHYSICAL_GRID_CONTINUATION = [
+ '  tilingLatticeCoordinate f',
+ 'but this term has type',
+ '  Point',
+ '',
+ 'Note: Expected a function because this term is being applied to the argument',
+ '  hdirect']
 
 
 def read_capture(path,maximum,watchdog):
@@ -83,16 +94,17 @@ def failure_diagnostics(module, text):
     """Match plain errors and explicitly coded unknown-identifier errors only."""
     path = module.replace('.','/')+'.lean'
     errors = []
-    for line in text.splitlines():
+    lines = text.splitlines()
+    for index,line in enumerate(lines):
         m = re.fullmatch(r'(.*\.lean):(\d+):(\d+): error(?:\((lean\.unknownIdentifier)\))?: (.*)', line)
         if m:
             f.need(m[1].endswith('/'+path) or m[1]==path, 'diagnostic has wrong source')
-            errors.append((int(m[2]),int(m[3]),m[4],m[5]))
+            errors.append((int(m[2]),int(m[3]),m[4],m[5],index))
         elif re.search(r'(^|[\s:])error\b', line):
             raise f.Rejected('unrecognized error diagnostic header')
     expected = EXPECTED_UNKNOWN[module]
     unknown=[]; cascades=[]
-    for line,col,code,message in errors:
+    for line,col,code,message,index in errors:
         m = re.fullmatch(r'Unknown identifier `([^`]+)`', message)
         if m:
             triple=(line,col,m[1])
@@ -100,17 +112,27 @@ def failure_diagnostics(module, text):
                    'unexpected unknown identifier diagnostic')
             unknown.append(triple)
         else:
-            f.need(code is None and module==TARGETS[1] and CASCADE.get((line,col))==message,
-                   'unexpected compiler error beyond authenticated cascades')
+            if module==TARGETS[3]:
+                f.need(code is None and PHYSICAL_GRID_CASCADE.get((line,col))==message,
+                       'unexpected compiler error beyond authenticated PhysicalGrid cascades')
+                end=next((i for i in range(index+1,len(lines)) if re.match(r'.*\.lean:\d+:\d+:',lines[i])),len(lines))
+                f.need(lines[index+1:end]==PHYSICAL_GRID_CONTINUATION,
+                       'PhysicalGrid cascade continuation differs')
+            else:
+                f.need(code is None and module==TARGETS[1] and CASCADE.get((line,col))==message,
+                       'unexpected compiler error beyond authenticated cascades')
             cascades.append((line,col,message))
     f.need(len(unknown)==len(expected) and len(set(unknown))==len(unknown), 'missing or duplicate expected unknown identifier')
+    if module==TARGETS[3]:
+        f.need(len(cascades)==len(PHYSICAL_GRID_CASCADE) and {(line,col) for line,col,message in cascades}==set(PHYSICAL_GRID_CASCADE),
+               'missing or duplicate PhysicalGrid cascade')
     return {'unknown_identifiers':unknown, 'authenticated_cascade_headers':cascades}
 
 
 def validate_contract(c, *, reviewed=False):
     f.need(c['schema']==SCHEMA and c['limits']==LIMITS, 'smoke profile differs')
     f.need(c['targets']==TARGETS and c['owned_module_count']==174, 'target scope differs')
-    f.need(c['publication_branch']=='verify/palomar-visibility-diagnostics-20261019', 'branch differs')
+    f.need(c['publication_branch']=='verify/palomar-visibility-controls-20261019', 'branch differs')
     f.need(c['source_archive']['path']=='owned-sources.tar.gz', 'source archive path differs')
     f.need(c['owned_source_max_bytes']==LIMITS['owned_source_max_bytes'], 'source limit differs')
     f.need(c['runtime_roots']==['Init','Init.Data.Rat'], 'runtime boundary differs')
@@ -136,7 +158,7 @@ def validate_workflow(c,contract_sha):
     guard=b'    if: ${{ true }}\n' if active else b'    if: ${{ false }}\n'
     f.need(data.count(b'--contract-sha256 '+token)==2 and data.count(guard)==1,'workflow activation slots differ')
     normalized=data.replace(b'--contract-sha256 '+token,b'--contract-sha256 '+b'0'*64).replace(guard,b'    if: ${{ false }}\n')
-    f.need(c['workflow_template_sha256']=='d1ee74db15fffb1b7662b38b964a5bbc0ccc4d388559784af7c9f1c269d2109a'
+    f.need(c['workflow_template_sha256']=='a8442740ae8ee66774ba4b895617ec97fb6c675f4e4d37583c749afcea229361'
            and f.sha(normalized)==c['workflow_template_sha256'],'reviewed normalized workflow differs')
 
 
