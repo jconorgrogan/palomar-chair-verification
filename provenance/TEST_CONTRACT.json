@@ -1,0 +1,102 @@
+{
+  "acceptance": "All 388 candidate source compiles and prescribed native checks succeed; isolated original Part32 succeeds with its exact original325 prerequisite view; candidatePart32 uses exact286 view; every introduced declaration, type, available value/proof and axiom comparison passes under an independently reviewed concrete comparator; required Cover kernel/axiom check passes; protected source/runtime/artifact provenance controls pass. No full Solution export/checker result or official budget fit follows.",
+  "base_archive": {
+    "path": "/workspace/shared/palomar_official_source_selection_20261018T1429/palomar-official-unexecuted-source.tar.gz",
+    "sha256": "93f6a8e91e30e26685b456aa0346c73dbb14def9a825e88a72f8d70e455cebb1"
+  },
+  "changes": [
+    {
+      "base_bytes": 115170,
+      "base_sha256": "b584671e2a718a8e86a4e646507d633f3277096e72bd9fb1a47afe0bfd2275ad",
+      "candidate_bytes": 115169,
+      "candidate_sha256": "1630954a9301b826d0412ac39a9ba87a60c0187ae42ff27bda8212c77b2c6f37",
+      "module": "SpectreFinite.RadiusFiveRoot7Part32",
+      "non_import_bytes_identical": true,
+      "non_import_sha256": "cb445063b2f7ca5274fd84ada875c62c640aede3a2f4f5680788ff3f41d15ad0",
+      "path": "src/SpectreFinite/RadiusFiveRoot7Part32.lean"
+    },
+    {
+      "base_bytes": 119390,
+      "base_sha256": "c40067d2a07fa4df44ec14ffa344b7244503ce270575f1da9a5b51d203c485f3",
+      "candidate_bytes": 119440,
+      "candidate_sha256": "176dfd9a6dc84ae2dbface29fc17df984113a30d3f39cf706057470616db273f",
+      "module": "SpectreFinite.RadiusFiveRoot7Cover",
+      "non_import_bytes_identical": true,
+      "non_import_sha256": "1dc7d4a26bf07c5ab759b7f220b7f1477f99016e479064dc4d543e256f2abe97",
+      "path": "src/SpectreFinite/RadiusFiveRoot7Cover.lean"
+    }
+  ],
+  "clarification_predecessor": {
+    "path": "/workspace/shared/palomar_root7_import_cut_contract_20261019T0048/TEST_CONTRACT.json",
+    "sha256": "ebb7e3f4124846985585ad0ae8f4a5bbb91362e89df762f66451e1dd28f5ee2a"
+  },
+  "declaration_comparison": {
+    "canonical_module_identity": "SpectreFinite.RadiusFiveRoot7Part32 in both isolated original and candidate source/output roots",
+    "explicit_source_inventory": {
+      "definitions": 10,
+      "theorems": 229,
+      "total": 239
+    },
+    "generated_or_private_declarations": "The concrete comparator must explicitly account for every introduced generated/private declaration. No silent omission, arbitrary name erasure or normalization that masks different constant references. If exact corresponding identities or expression equality cannot be established, fail closed and retain a concrete discrepancy for review.",
+    "implementation_status": "Executable interface comparator and trusted native runner remain to be prepared and independently reviewed.",
+    "mismatch_interpretation": "Reject the focused equality gate and preserve the differing fields for investigation. Context-dependent elaboration may change proof values; a difference is not by itself an unsoundness finding.",
+    "non_equivalence": "No compiled object, private/server companion, or whole-imported-environment byte equality is claimed by this source-only contract.",
+    "required_fields": [
+      "canonical constant name",
+      "declaration kind",
+      "universe level parameters",
+      "type expression",
+      "available definition value or theorem proof expression",
+      "transitive used-axiom set"
+    ],
+    "scope": "Declarations introduced by Part32 itself, determined by subtracting each exact imported prerequisite environment from its respective post-import module environment. Whole environment inventories intentionally differ and must not be compared as equal.",
+    "source_guard": "Exact non-import theorem, definition and proof-body source bytes remain identical."
+  },
+  "downstream_evidence": {
+    "count": 59,
+    "new_evidence_required_if_selected": true,
+    "path": "DOWNSTREAM_EVIDENCE_SCOPE.json",
+    "sha256": "fd11e4ccc7f8dff8ebe92474cd666fcdd0e776a65823c706ca78aefe8b7c30d1"
+  },
+  "execution_authority": "No native execution, external execution, runtime acquisition, publication or official rerun performed or authorized by this static packet. Separate reviewed runner and authorization required.",
+  "predecessor": {
+    "directory": "/workspace/shared/palomar_root7_import_cut_analysis_20261019T0040",
+    "files_sha256": "079229a3939e5b60f0dfdb3eafc1eb1402e9c6f12b14ecef7bb89470159a8d7e",
+    "test_contract_sha256": "b4d860fbbcd924eeb77e57eae4f6684c831edfe0fd97d4ac7e65bd6debb1f4d4"
+  },
+  "prerequisite_views": {
+    "candidate_owned_count": 286,
+    "original_owned_count": 325,
+    "path": "PREREQUISITE_VIEWS.json",
+    "policy": "Each control admits only its exact transitive loaded-owned prerequisite set under one coherent search path. Fresh candidate/common artifacts may supply identical modules, but original Part32 outputs and excluded original-only modules cannot leak into the candidate loaded environment. Runtime, source and complete artifact identities must be recorded before and after each control.",
+    "sha256": "f3669f54ac41037190725c7f91a7d06304622cbc311e23b063b4d9659d0a23b5"
+  },
+  "runtime": {
+    "lean_toolchain": "leanprover/lean4:v4.35.0-rc2",
+    "module_compiler_arguments": [
+      "-j1",
+      "-DElab.async=false"
+    ],
+    "reuse_rule": "Reuse only independently validated exact runtime/core identity and exact source inputs under the reviewed envelope. No owned .olean/.private/.interface object reuse or cross-profile equivalence is established. Build the 388 owned sources freshly in this test.",
+    "toolchain_commit": "11acb17ec6b07a8f9e9173e6845197929540936b"
+  },
+  "schema": "palomar-root7-import-cut-focused-contract-v2",
+  "scope": {
+    "candidate_source_modules": 388,
+    "changed_headers": 2,
+    "five_visibility_driver_scope_unchanged": true,
+    "full_solution_owned_closure_count": 9656,
+    "full_solution_owned_closure_set_unchanged": true,
+    "theorem_definition_and_proof_body_bytes_unchanged": true
+  },
+  "status": "SOURCE_CANDIDATE_AND_TEST_SPECIFICATION_ONLY_UNEXECUTED",
+  "steps": [
+    "Authenticate base archive, exact two source replacements, all 388 source hashes, dependency DAG and runtime/core identity before execution.",
+    "Freshly compile candidate-owned prerequisites in dependency order through original Root7Part31. These source files are byte-identical between base and candidate. This gives the complete original Part32 prerequisite closure without compiling original Part32 into the candidate search path.",
+    "Compile the exact original Part32 file once against its exact original prerequisite prefix into isolated baseline outputs. Require clean compilation and record elapsed, CPU, RSS, diagnostics and complete artifact family hashes. Baseline artifacts must never enter the candidate import search path.",
+    "Compile candidate Part32 with the same pinned runtime and flags, admitting exactly its 286-owned prerequisite closure. Require clean compilation and kernel check, full command/resource/safety measurements, and complete loaded artifact provenance. Compare only Part32-introduced declarations against the isolated original Part32 under declaration_comparison; inherited environments intentionally differ. Reject any baseline-output or excluded-module leakage.",
+    "Continue the complete candidate dependency DAG through Part33\u201382 and candidate Root7Cover. Every one of the 388 owned source modules must compile in this run; require available prescribed per-module checks and a separate required successful Root7Cover kernel/axiom check. Preserve original theorem/definition/proof-body bytes and permitted axioms only.",
+    "An exact original Cover compiled against optimized Part82 without the new explicit Part31 import is an intentionally incomplete-import negative probe, not a complete-original-context comparison. It is optional and any actual result must be labeled truthfully. Do not require a second complete original 388-module build unless a concrete validation problem requires it.",
+    "Rehash source packet, source manifests, runtime and prefix maps after execution. Report actual baseline/candidate measurements and all unperformed checks separately. This focused test cannot establish full Solution export, comparator, external-kernel acceptance, or fit within the official shared budget."
+  ]
+}

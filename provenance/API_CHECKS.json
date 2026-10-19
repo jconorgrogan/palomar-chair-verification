@@ -1,0 +1,20 @@
+{
+  "attempt_qualification": "First local write command exceeded exec argument limit and did not start a process; exact already-returned connector bytes were then written with apply_patch. No duplicated remote fetch.",
+  "beq_qualification": "Expr BEq calls alpha equivalence and ignores binder annotations; strict comparator must additionally use Expr.equal for exact binder/type/value/proof expression fields.",
+  "checked": [
+    "Declaration.lean: exact raw response bytes",
+    "Declaration.lean: exact Git blob",
+    "Declaration.lean: pinned commit URL",
+    "Expr.lean: exact raw response bytes",
+    "Expr.lean: exact Git blob",
+    "Expr.lean: pinned commit URL",
+    "SMap.lean: exact raw response bytes",
+    "SMap.lean: exact Git blob",
+    "SMap.lean: pinned commit URL",
+    "PersistentHashMap.lean: exact raw response bytes",
+    "PersistentHashMap.lean: exact Git blob",
+    "PersistentHashMap.lean: pinned commit URL"
+  ],
+  "schema": "pinned-import-cut-api-source-check-v1",
+  "scope": "Exact upstream source readback only; no Lean execution or binary equivalence/performance assertion."
+}

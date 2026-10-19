@@ -1,0 +1,21 @@
+{
+  "commit": "11acb17ec6b07a8f9e9173e6845197929540936b",
+  "sources": [
+    {
+      "bytes": 21181,
+      "git_blob": "43edc78d6a25067039338116c4ea093a9060b1ca",
+      "path": "Declaration.lean",
+      "sha256": "1cf2f06d848086f165b3df0afe494924ae26aaea248d5e0135d5efc2d588948f",
+      "upstream_path": "src/Lean/Declaration.lean",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/Lean/Declaration.lean"
+    },
+    {
+      "bytes": 87215,
+      "git_blob": "6aeb819ba60e92ed5f325b2f594f3ed610845e38",
+      "path": "Expr.lean",
+      "sha256": "b9a91d9d170201c2a3622b9c55d694466f54e0e1b8f6068a2d296ff98650169c",
+      "upstream_path": "src/Lean/Expr.lean",
+      "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/Lean/Expr.lean"
+    }
+  ]
+}

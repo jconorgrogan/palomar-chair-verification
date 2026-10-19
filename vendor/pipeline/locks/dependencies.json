@@ -1,0 +1,73 @@
+{
+  "allow_input_revision_aliases": false,
+  "cache_admission_scope": "separate small cache-backed diagnostic; original clean-source lock remains unchanged",
+  "mathlib_object_cache_allowed": true,
+  "origin_clean_source_lock_sha256": "9a37204e10c9548586c06e4f2873476d6030fc681e1716f53d23d56fb73b9707",
+  "original_lake_manifest_sha256": "e41266883f7bceb991da7046df21e71a4bc0852bc6015660179f5fc30ab32b6b",
+  "packages": [
+    {
+      "configFile": "lakefile.lean",
+      "name": "mathlib",
+      "rev": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/mathlib4.git"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "plausible",
+      "rev": "e50948299c4dc4a4c21b1c34b6a6a4fddc19f912",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/plausible"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "LeanSearchClient",
+      "rev": "95e037bfdc31d3916ac615446847fb01960e2719",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/LeanSearchClient"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "importGraph",
+      "rev": "10930f8138f0462dbd744a91fc03a16fae0e046f",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/import-graph"
+    },
+    {
+      "configFile": "lakefile.lean",
+      "name": "proofwidgets",
+      "rev": "4c70ac059693669e5756e32a7a94b57ee1e99dc5",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/ProofWidgets4"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "aesop",
+      "rev": "75d936c7af167cc93fac0d31237682fc2204591d",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/aesop"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "Qq",
+      "rev": "786b7acdca7eb4e9c76c5d1d5bd810e7e5c56334",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/quote4"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "batteries",
+      "rev": "ed9b316aabe389fec1ef43c3326ab48c7e59be42",
+      "subDir": null,
+      "url": "https://github.com/leanprover-community/batteries"
+    },
+    {
+      "configFile": "lakefile.toml",
+      "name": "Cli",
+      "rev": "2842b9871b04862f944c032e34052cb9448ccb71",
+      "subDir": null,
+      "url": "https://github.com/leanprover/lean4-cli"
+    }
+  ],
+  "schema": "exact-external-source-pins-v1"
+}

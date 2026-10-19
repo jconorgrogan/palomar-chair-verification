@@ -1,0 +1,45 @@
+name: Palomar Root7 import-cut smoke
+'on':
+  push:
+    branches:
+    - verify/palomar-root7-import-cut-smoke-20261019
+permissions:
+  contents: read
+concurrency:
+  group: root7-import-cut-smoke-evidence-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  root7_import_cut_smoke:
+    name: root7_import_cut_smoke
+    if: ${{ true }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 130
+    steps:
+    - name: Check out the exact staged candidate
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Install official Ubuntu sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Compile and compare the Root7 import-cut controls
+      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B root7_import_cut.py --contract-sha256 42cebcc9b626696174cabb3662b58430d08eb99f10758b737e331611d26d686c
+        --work "${{ runner.temp }}/palomar-root7-import-cut-smoke"
+    - name: Preserve bounded smoke evidence
+      if: ${{ always() }}
+      timeout-minutes: 2
+      run: python3 -I -B root7_import_cut.py --collect --contract-sha256 42cebcc9b626696174cabb3662b58430d08eb99f10758b737e331611d26d686c
+        --work "${{ runner.temp }}/palomar-root7-import-cut-smoke"
+    - name: Upload bounded smoke evidence
+      if: ${{ always() }}
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: root7-import-cut-smoke-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/palomar-root7-import-cut-smoke/upload/**
+        retention-days: 7
+        if-no-files-found: error
