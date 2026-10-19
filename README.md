@@ -4,7 +4,7 @@ This source-only test package has not run Lean, native project code, network acq
 
 Run: `python3 -I -B root7_import_cut.py --contract-sha256 SHA --work ABSOLUTE_NEW_WORK`
 
-Always-run collection adds `--collect`, writes `WORK/upload/**`, and has the inherited separate 120-second bound. The fixed workflow path is `.github/workflows/palomar-root7-import-cut-smoke.yml`; work is `${{ runner.temp }}/palomar-root7-import-cut-smoke`; artifact is `root7-import-cut-smoke-evidence-${{ github.run_id }}-${{ github.run_attempt }}`. The normalized workflow SHA256 is `5dab2d9ab95d5983e1671d49c1305e657b5f71def35909c76575a1acd36692a4`. Activation changes only its single guard and two contract slots, together with the reviewed active contract; no self-referential raw workflow hash is used.
+Always-run collection adds `--collect`, writes `WORK/upload/**`, and has the inherited separate 120-second bound. The fixed workflow path is `.github/workflows/palomar-root7-import-cut-smoke.yml`; work is `${{ runner.temp }}/palomar-root7-import-cut-smoke`; artifact is `root7-import-cut-smoke-evidence-${{ github.run_id }}-${{ github.run_attempt }}`. The normalized workflow SHA256 is `d3dcb4426616426da1d263dfcb150e94fc9c098a92f7cd9717aa2ea6f59ea1cf`. Activation changes only its single guard and two contract slots, together with the reviewed active contract; no self-referential raw workflow hash is used.
 
 ## Exact scope and inputs
 
@@ -49,3 +49,11 @@ Runtime acquisition/decompression and direct Git metadata reads are inherited un
 ## Inert controls
 
 `python3 -I -B tests/run_guarded.py` and its `-O` variant install the permanent audit guard before loading target code. The guard refuses process/native/network events and remains installed after tests. The actual-loop fixture is synthetic: it runs real source extraction, graph validation, all 388 admission iterations, exact view copies, command/capture validation, terminal checks and bounded collection, while substituting runtime acquisition, native execution, checkout metadata and activation validation. Its fabricated logs and artifact bytes never constitute Lean elaboration or kernel evidence. Actual helper typing, real fixtures and the project test remain unexecuted until separate authorization and source review.
+
+## Narrow syntax-repair successor
+
+The earlier published attempt 39257136601 at commit 9221f12f2a9a577e71505a12f470bb868450e894 failed its first interface API/self-test command before fixture or owned-project compilation. Its retained 891-byte diagnostic is pinned in provenance. This successor is unexecuted and inactive on branch `verify/palomar-root7-import-cut-syntax-20261019`.
+
+The helper changes exactly four paired loops to the retained pinned upstream grammar `for left in xs, right in ys do`, plus whitespace/layout in the diagnosed DefinitionVal literal. An adjacent RecursorVal literal with the same layout pattern receives an explicitly identified preventive whitespace-only correction; it was not separately diagnosed. Every field, expression, comparison, axiom traversal, rejection, source fixture, command count and resource bound is preserved. The source controls reverse all six sites to the exact predecessor helper and scan the complete helper for remaining instances of both confirmed pattern families. These are static regression controls, not local Lean elaboration evidence. The exact API/self-test remains the first native Lean gate. No pinned local toolchain was found in the checked workspace/system locations; no local Lean execution or acquisition was performed.
+
+Branch selection, normalized workflow-template pin, inactive activation fields, provenance/test additions and resulting input hashes are itemized separately from the six helper syntax sites. Activation must bind a new independent review and exactly this new branch/template. The prior published active packet is preserved.

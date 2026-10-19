@@ -32,7 +32,7 @@ def validate_contract(c,reviewed=False):
  f.need(c['schema']==SCHEMA and c['limits']==LIMITS,'profile differs')
  f.need(c['owned_module_count']==388 and len(c['module_order'])==len(set(c['module_order']))==388,'source count differs')
  f.need(c['runtime_roots']==['Init','Init.Data.List.OfFn'] and c['cache_roots']==[],'runtime-only boundary differs')
- f.need(c['publication_branch']=='verify/palomar-root7-import-cut-smoke-20261019','branch differs')
+ f.need(c['publication_branch']=='verify/palomar-root7-import-cut-syntax-20261019','branch differs')
  f.need(c['full_official_verification_claimed'] is False and c['restore_project_objects'] is False,'scope differs')
  f.need(c['owned_source_max_bytes']==LIMITS['owned_source_max_bytes'],'source bound differs')
  v=c['prerequisite_views'];f.need(len(v['original'])==len(set(v['original']))==325 and len(v['candidate'])==len(set(v['candidate']))==286,'view cardinality differs')
@@ -52,7 +52,7 @@ def validate_workflow(c,contract_sha):
  guard=b'    if: ${{ true }}\n' if active else b'    if: ${{ false }}\n'
  f.need(data.count(b'--contract-sha256 '+token)==2 and data.count(guard)==1,'workflow slots differ')
  normalized=data.replace(b'--contract-sha256 '+token,b'--contract-sha256 '+b'0'*64).replace(guard,b'    if: ${{ false }}\n')
- f.need(c['workflow_template_sha256']=='5dab2d9ab95d5983e1671d49c1305e657b5f71def35909c76575a1acd36692a4' and f.sha(normalized)==c['workflow_template_sha256'],'normalized workflow differs')
+ f.need(c['workflow_template_sha256']=='d3dcb4426616426da1d263dfcb150e94fc9c098a92f7cd9717aa2ea6f59ea1cf' and f.sha(normalized)==c['workflow_template_sha256'],'normalized workflow differs')
 
 
 def validate_inputs(c):

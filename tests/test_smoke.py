@@ -1,5 +1,5 @@
 """Source-only controls. The outer permanent audit hook rejects native/network events."""
-import ctypes,copy,hashlib,importlib.util,json,os,pathlib,socket,subprocess,sys,tempfile,unittest,urllib.request
+import re,ctypes,copy,hashlib,importlib.util,json,os,pathlib,socket,subprocess,sys,tempfile,unittest,urllib.request
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 s=importlib.util.spec_from_file_location('root7_tested',ROOT/'root7_import_cut.py');d=importlib.util.module_from_spec(s);sys.modules[s.name]=d;s.loader.exec_module(d)
 c=json.loads((ROOT/'smoke-contract.json').read_text())
@@ -54,6 +54,49 @@ class Controls(unittest.TestCase):
  def test_permanent_guards(self):
   for action in [lambda:subprocess.run(['/bin/true']),lambda:socket.socket(),lambda:ctypes.CDLL(None),lambda:urllib.request.urlopen('https://example.com')]:
    with self.assertRaises(RuntimeError):action()
+ def test_confirmed_syntax_regression(self):
+  record=json.loads((ROOT/'provenance/SYNTAX_REPAIR.json').read_text())
+  original=(ROOT/'provenance/ImportCut.predecessor.lean').read_text()
+  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b')
+  expected_loops=[('paired_recursor_rules','for xr, yr in x.rules, y.rules do','for xr in x.rules, yr in y.rules do',2),('paired_environment_subtraction','for d, r in delta, raw do','for d in delta, r in raw do',1),('paired_introduced_inventory','for x, y in a.introduced, b.introduced do','for x in a.introduced, y in b.introduced do',1)]
+  self.assertEqual([(x['id'],x['old'],x['new'],x['count']) for x in record['replacements'][:3]],expected_loops)
+  self.assertEqual([x['id'] for x in record['replacements'][3:]],['definition_literal_layout','recursor_literal_layout'])
+  for row in record['replacements'][3:]:
+   self.assertEqual(''.join(row['old'].split()),''.join(row['new'].split()))
+   self.assertEqual(row['count'],1)
+   self.assertIn(':= {\n',row['new'])
+  expected=original
+  for row in record['replacements']:
+   self.assertEqual(expected.count(row['old']),row['count'])
+   expected=expected.replace(row['old'],row['new'])
+  self.assertEqual(candidate,expected)
+  reverted=candidate
+  for row in reversed(record['replacements']):
+   self.assertEqual(reverted.count(row['new']),row['count'])
+   reverted=reverted.replace(row['new'],row['old'])
+  self.assertEqual(reverted,original)
+  self.assertEqual(sum(x['count'] for x in record['replacements']),6)
+  self.assertEqual(record['replacements'][-1]['diagnosed_old_lines'],[])
+  stdout=(ROOT/'provenance/failed-api.stdout').read_bytes()
+  self.assertEqual(len(stdout),891)
+  self.assertEqual(hashlib.sha256(stdout).hexdigest(),'9f776f769ad26955b71898d079f663e3a7b3792955b33b34285f4e68dfe09b66')
+  for pin in record['exact_pinned_evidence']:
+   self.assertEqual(hashlib.sha256((ROOT/pin['path']).read_bytes()).hexdigest(),pin['sha256'])
+  self.assertIn('for name in parts[parts.size-1].1.constNames, ci in parts[parts.size-1].1.constants do',(ROOT/'provenance/checker.lean').read_text())
+  self.assertIn('for cname in data.constNames, cinfo in data.constants do',(ROOT/'provenance/Environment.lean').read_text())
+  self.assertIn(':= {\n  name := name,\n  levelParams := levelParams,',(ROOT/'provenance/Declaration.lean').read_text())
+  scan=json.loads((ROOT/'provenance/SYNTAX_SCAN.json').read_text())
+  self.assertEqual(scan['candidate_sha256'],hashlib.sha256(candidate.encode()).hexdigest())
+  for row in scan['patterns'].values():
+   self.assertEqual(list(re.finditer(row['regex'],candidate,re.M)),[])
+   self.assertEqual(row['candidate_lines'],[])
+  self.assertEqual(len(scan['patterns']['paired_bindings_before_in']['predecessor_lines']),4)
+  self.assertEqual(len(scan['patterns']['inline_first_field_multiline_record']['predecessor_lines']),2)
+  names=d.command_order(c)
+  self.assertEqual(names[:3],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api'])
+  self.assertLess(names.index('check-interface-api'),names.index('compile-fixture-baseline'))
+  self.assertLess(names.index('check-interface-fixtures'),names.index('compile-'+c['module_order'][0]))
  def test_actual_loop_synthetic(self):
   # Runs actual extraction, graph/view copies, 388 compile/check admission loops,
   # receipt validation and collection. Only native/acquisition/git/activation seams

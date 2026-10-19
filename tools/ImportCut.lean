@@ -36,7 +36,7 @@ def exactInfo (a b : ConstantInfo) : Bool := Id.run do
   match a, b with
   | .recInfo x, .recInfo y =>
     if x.rules.length != y.rules.length then return false
-    for xr, yr in x.rules, y.rules do
+    for xr in x.rules, yr in y.rules do
       if !Expr.equal xr.rhs yr.rhs then return false
   | _, _ => pure ()
   return true
@@ -91,7 +91,7 @@ def differingFields (a b : ConstantInfo) : Array String := Id.run do
     if x.isUnsafe != y.isUnsafe then fields := fields.push "recursor.isUnsafe"
     if x.rules.length != y.rules.length then fields := fields.push "recursor.rules.length"
     let mut index := 0
-    for xr, yr in x.rules, y.rules do
+    for xr in x.rules, yr in y.rules do
       if xr.ctor != yr.ctor then fields := fields.push s!"recursor.rules[{index}].ctor"
       if xr.nfields != yr.nfields then fields := fields.push s!"recursor.rules[{index}].nfields"
       if !Expr.equal xr.rhs yr.rhs then fields := fields.push s!"recursor.rules[{index}].rhs"
@@ -156,7 +156,7 @@ unsafe def load (root runtime : System.FilePath) (moduleName : Name) : IO Loaded
   let raw := (privateData.constNames.zip privateData.constants).qsort
     (fun a b => a.1.quickCmp b.1 == .lt)
   require (delta.size == raw.size) "ENVIRONMENT_SUBTRACTION_SIZE"
-  for d, r in delta, raw do
+  for d in delta, r in raw do
     require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) "ENVIRONMENT_SUBTRACTION_MISMATCH"
   for n in privateData.extraConstNames do
     require (after.constants.contains n) s!"UNAVAILABLE_GENERATED_DECLARATION {n}"
@@ -172,7 +172,7 @@ unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (e
     s!"INTRODUCED_INVENTORY_DIFFERS original_count={a.introduced.size} candidate_count={b.introduced.size} original_first16={a.introduced.toList.take 16 |>.map (fun p => p.1)} candidate_first16={b.introduced.toList.take 16 |>.map (fun p => p.1)}"
   require ((a.extras.qsort (fun a b => a.quickCmp b == .lt)) ==
     (b.extras.qsort (fun a b => a.quickCmp b == .lt))) "GENERATED_IDENTITY_DIFFERS"
-  for x, y in a.introduced, b.introduced do
+  for x in a.introduced, y in b.introduced do
     require (x.1 == y.1) s!"INTRODUCED_INVENTORY_DIFFERS original={x.1} candidate={y.1}"
     require (kind x.2 == kind y.2 && x.2.levelParams == y.2.levelParams && Expr.equal x.2.type y.2.type)
       s!"TYPE_OR_KIND_DIFFERS {x.1} fields={differingFields x.2 y.2}"
@@ -227,14 +227,30 @@ unsafe def main (args : List String) : IO UInt32 := do
       (mkLambda `y .default (mkSort .zero) (mkBVar 0)))) "BINDER_NAME_IGNORED"
     let plain := mkLambda `x .default (mkSort .zero) (mkBVar 0)
     let implicitBinder := mkLambda `x .implicit (mkSort .zero) (mkBVar 0)
-    let dv : DefinitionVal := {name := `TestDef, levelParams := [], type := mkSort .zero,
-      value := plain, hints := .opaque, safety := .safe}
+    let dv : DefinitionVal := {
+      name := `TestDef,
+      levelParams := [],
+      type := mkSort .zero,
+      value := plain,
+      hints := .opaque,
+      safety := .safe
+    }
     let ca : ConstantInfo := .defnInfo dv
     let cb : ConstantInfo := .defnInfo {dv with value := implicitBinder}
     require (ca == cb && !exactInfo ca cb) "BINDER_ANNOTATION_CONTROL_FAILED"
-    let rv : RecursorVal := {name := `TestRec, levelParams := [], type := mkSort .zero,
-      all := [], numParams := 0, numIndices := 0, numMotives := 0, numMinors := 0,
-      rules := [{ctor := `TestCtor, nfields := 0, rhs := plain}], k := false, isUnsafe := false}
+    let rv : RecursorVal := {
+      name := `TestRec,
+      levelParams := [],
+      type := mkSort .zero,
+      all := [],
+      numParams := 0,
+      numIndices := 0,
+      numMotives := 0,
+      numMinors := 0,
+      rules := [{ctor := `TestCtor, nfields := 0, rhs := plain}],
+      k := false,
+      isUnsafe := false
+    }
     let ra : ConstantInfo := .recInfo rv
     let rb : ConstantInfo := .recInfo {rv with rules := [{ctor := `TestCtor, nfields := 0, rhs := implicitBinder}]}
     require (ra == rb && !exactInfo ra rb) "RECURSOR_RHS_CONTROL_FAILED"

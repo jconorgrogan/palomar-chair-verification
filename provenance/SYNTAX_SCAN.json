@@ -1,0 +1,26 @@
+{
+  "candidate_sha256": "291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2",
+  "patterns": {
+    "inline_first_field_multiline_record": {
+      "candidate_lines": [],
+      "predecessor_lines": [
+        230,
+        235
+      ],
+      "regex": ":=\\s*\\{[ \\t]*[A-Za-z_][A-Za-z_0-9]*\\s*:=[^\\n}]*\\n"
+    },
+    "paired_bindings_before_in": {
+      "candidate_lines": [],
+      "predecessor_lines": [
+        39,
+        94,
+        159,
+        175
+      ],
+      "regex": "^\\s*for [A-Za-z_][A-Za-z_0-9]*\\s*,\\s*[A-Za-z_][A-Za-z_0-9]*\\s+in\\b"
+    }
+  },
+  "predecessor_sha256": "d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b",
+  "schema": "bounded-whole-helper-confirmed-syntax-scan-v1",
+  "scope": "Complete retained predecessor and repaired helper text only; two exact diagnosed/root-cause pattern families; not a Lean parser or API check."
+}

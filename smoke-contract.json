@@ -25,6 +25,7 @@
     "provenance/Expr.lean.response.json",
     "provenance/FILES.json",
     "provenance/INPUTS.json",
+    "provenance/ImportCut.predecessor.lean",
     "provenance/MAP_SOURCE_READBACK.json",
     "provenance/PREREQUISITE_VIEWS.json",
     "provenance/PROJECT_SOURCE_REVIEW.json",
@@ -35,8 +36,11 @@
     "provenance/SOURCE_MANIFEST.json",
     "provenance/SOURCE_READBACK.json",
     "provenance/STATIC_CHECKS.json",
+    "provenance/SYNTAX_REPAIR.json",
+    "provenance/SYNTAX_SCAN.json",
     "provenance/TEST_CONTRACT.json",
     "provenance/checker.lean",
+    "provenance/failed-api.stdout",
     "root7_import_cut.py",
     "smoke-contract.json",
     "tests/run_guarded.py",
@@ -1866,11 +1870,11 @@
     }
   ],
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "763fb91b30e0375405205cb8aba6ae9b0beaaffc3f331c0933edfe98232ceb10",
+  "independent_driver_review_sha256": "d84014531011347d02576952e9ca9c421308edd801ae6d95e2122505bbb7dfb0",
   "inputs": {
     "README.md": {
-      "bytes": 9549,
-      "sha256": "8e718306150c32f89ca82ceb1629780aaac1a819efe18995259c4fcebb7ec200"
+      "bytes": 11166,
+      "sha256": "15114e3df603cc7a3c30b15c18515db973ec26f31d67b996d445a8a05be0a2e0"
     },
     "fixtures/axiom/Fixture.lean": {
       "bytes": 142,
@@ -1956,6 +1960,10 @@
       "bytes": 1973,
       "sha256": "525bcf807f335b63340ebb891ae4b9c6a56972cd92cbf1ac7d87d2b5bc2c1c39"
     },
+    "provenance/ImportCut.predecessor.lean": {
+      "bytes": 13520,
+      "sha256": "d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b"
+    },
     "provenance/MAP_SOURCE_READBACK.json": {
       "bytes": 874,
       "sha256": "84cd4a5898ff49b624413e6169791500e1e1b9801a3071f0808bfddd3c9759c6"
@@ -1996,6 +2004,14 @@
       "bytes": 290,
       "sha256": "34c3f729bb9bb3d3ce0417566bd708dd2a247e876f5cde1015b981b308e69722"
     },
+    "provenance/SYNTAX_REPAIR.json": {
+      "bytes": 3804,
+      "sha256": "e72d3c37a644e12a13cc2fcdab9c8c61f2c52bf4dd285bf3ed285b892f71f6f6"
+    },
+    "provenance/SYNTAX_SCAN.json": {
+      "bytes": 886,
+      "sha256": "adc61f09238a24286240289ce226b0455b6bac305185b2c23bb6ce9069278168"
+    },
     "provenance/TEST_CONTRACT.json": {
       "bytes": 8382,
       "sha256": "e3587f1687af0f58e1b7a307b463b845500545e933315d90a90a997cc378fe3a"
@@ -2004,9 +2020,13 @@
       "bytes": 6673,
       "sha256": "4a406b8ed95da0377206600b7b00a03bedc05102c0fadad641ffe0bfdb95122f"
     },
+    "provenance/failed-api.stdout": {
+      "bytes": 891,
+      "sha256": "9f776f769ad26955b71898d079f663e3a7b3792955b33b34285f4e68dfe09b66"
+    },
     "root7_import_cut.py": {
-      "bytes": 34382,
-      "sha256": "7dbb09bba7b6b5148063f4c88fe3d47badcffcc147145c22bb2919b335f66639"
+      "bytes": 34383,
+      "sha256": "b223d86ddb769d060de281daeea1899b1ea15b685666d31aae2d48ad96c7aa05"
     },
     "src/SpectreFinite/FiniteTableCover.lean": {
       "bytes": 7476,
@@ -3565,12 +3585,12 @@
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 9082,
-      "sha256": "62fdc2883620510ae19873b3c39d8c66eaad15bda9c55384e8b93cec0139f00e"
+      "bytes": 12402,
+      "sha256": "14529558eea6b8f06dc6181c89c823082b4cfb617ed01d1c074e22e628e38e4f"
     },
     "tools/ImportCut.lean": {
-      "bytes": 13520,
-      "sha256": "d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b"
+      "bytes": 13624,
+      "sha256": "291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -9031,7 +9051,7 @@
       "SpectreFinite.RadiusFiveRoot7Part31"
     ]
   },
-  "publication_branch": "verify/palomar-root7-import-cut-smoke-20261019",
+  "publication_branch": "verify/palomar-root7-import-cut-syntax-20261019",
   "recorded_command_count": 790,
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
@@ -9050,5 +9070,5 @@
     "tar_bytes": 12113920
   },
   "sum_command_timeout_seconds": 118500,
-  "workflow_template_sha256": "5dab2d9ab95d5983e1671d49c1305e657b5f71def35909c76575a1acd36692a4"
+  "workflow_template_sha256": "d3dcb4426616426da1d263dfcb150e94fc9c098a92f7cd9717aa2ea6f59ea1cf"
 }
