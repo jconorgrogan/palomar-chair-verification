@@ -1,0 +1,84 @@
+{
+  "cause": "Two type-class synthesis failures at panic array indexing parts[0]! and parts[2]! require unavailable Inhabited (ModuleData \u00d7 CompactedRegion). The initial comparator API self-test failed before any owned module was compiled; no equivalence established.",
+  "diagnostic_stdout": {
+    "bytes": 660,
+    "sha256": "9322c2ee0b86491e5d5216fb059265d35687b716337669467846fce2e46b9ef1"
+  },
+  "execution": {
+    "artifact_id": 12190202161,
+    "commit": "3736421688143ef628052f518ca8403f1390c858",
+    "contract_sha256": "014f896dd2aa120a3f7d1a479b4d9f6c89f1021799c5d4778166e6749c10c195",
+    "job_id": 118087726673,
+    "run_id": 39260838741,
+    "tree": "333dda502cc8693a075c5a24e6703aa1c76fbf64"
+  },
+  "files_manifest": {
+    "bytes": 1280,
+    "path": "FILES.json",
+    "sha256": "dfb8c8c323047773618f4718b465e48655a1af95f6709720c8ece49f007c3af6"
+  },
+  "guarded_replays": {
+    "exact_inputs": 88,
+    "negative_and_guard_controls_per_mode": 38,
+    "normal_and_optimized_agree": true,
+    "reports": [
+      {
+        "bytes": 8168,
+        "path": "REPORT_normal.json",
+        "sha256": "574b07b5cf34d267a09ea1a7258edb94bf4d1ddc87797dec26b4a95f32c33e65"
+      },
+      {
+        "bytes": 8168,
+        "path": "REPORT_optimized.json",
+        "sha256": "10c457fd4f741331d860360ce14cce579555698f321024fc4234b4ee378fd8b5"
+      }
+    ]
+  },
+  "native_summary": {
+    "descendants_empty": true,
+    "elapsed_seconds": 0.799551,
+    "escaped_descendants": true,
+    "exit_code": 1,
+    "log_overflow": false,
+    "memory_exceeded": false,
+    "name": "check-interface-api",
+    "new_sessions_explicitly_allowed": true,
+    "peak_sampled_tree_rss_bytes": 572317696,
+    "process_group_empty": true,
+    "surviving_children": false,
+    "timed_out": false
+  },
+  "observations": {
+    "archive_bytes_executed_locally": false,
+    "commands": 3,
+    "complete_capture_count": 6,
+    "complete_log_bytes": 1108,
+    "owned_modules_checked": 0,
+    "resource_retry_indicated": false,
+    "source_archive_members_reconciled": 388,
+    "source_blobs_reconstructed": 55,
+    "zip_members": 14
+  },
+  "owner_manifest": {
+    "bytes": 3734,
+    "path": "/workspace/shared/palomar_import_syntax_failure_20261019T1333/FILES.json",
+    "sha256": "ce6691367ab5a77c37116565f266f46bc8f914649635582b1b739b4fa456f22d"
+  },
+  "qualifications": [
+    "The two read-only sandbox preflights succeeded.",
+    "The exact two type-class diagnostics identify panic array indexing at lines149 and150; the preceding runtime size check does not supply a Lean Inhabited instance.",
+    "This compiler result establishes neither a later API self-test pass nor correctness of any proposed optional-indexing repair.",
+    "The native process created an explicitly allowed sandbox session; all descendants and process group were empty at closeout.",
+    "Provider metadata/upload/log and retained source-tree chains were authenticated from retained bytes; action-time publication authorization chronology is not claimed.",
+    "No payload, Lean executable or project command was run locally."
+  ],
+  "reviewed_at_utc": "2026-10-19T13:35:08.411880+00:00",
+  "run_url": "https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39260838741",
+  "schema": "root7-import-cut-terminal-independent-review-v1",
+  "scope": "Actual failed comparator API self-test before any owned-module compilation. No import-cut equivalence or repair correctness is established.",
+  "status": "PASS_AUTHENTICATED_COMPARATOR_INSTANCE_FAILURE_ONLY",
+  "zip": {
+    "bytes": 847731,
+    "sha256": "69a5daea2a155fca55f4b4c0a11f1a2a8c311493a30e50c47215b5d8a30a409e"
+  }
+}

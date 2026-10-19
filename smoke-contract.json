@@ -24,8 +24,11 @@
     "provenance/Expr.lean",
     "provenance/Expr.lean.response.json",
     "provenance/FILES.json",
+    "provenance/INDEXING_FAILURE_REVIEW.json",
+    "provenance/INDEXING_REPAIR.json",
     "provenance/INPUTS.json",
     "provenance/ImportCut.predecessor.lean",
+    "provenance/ImportCut.syntax-predecessor.lean",
     "provenance/MAP_SOURCE_READBACK.json",
     "provenance/PREREQUISITE_VIEWS.json",
     "provenance/PROJECT_SOURCE_REVIEW.json",
@@ -41,6 +44,7 @@
     "provenance/TEST_CONTRACT.json",
     "provenance/checker.lean",
     "provenance/failed-api.stdout",
+    "provenance/indexing-failed-api.stdout",
     "root7_import_cut.py",
     "smoke-contract.json",
     "tests/run_guarded.py",
@@ -1870,11 +1874,11 @@
     }
   ],
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "d84014531011347d02576952e9ca9c421308edd801ae6d95e2122505bbb7dfb0",
+  "independent_driver_review_sha256": "79b2fc42aa67fbbaf84496f42762058e4c47df3d4f6f8e0235d7e657d2b57c2a",
   "inputs": {
     "README.md": {
-      "bytes": 11166,
-      "sha256": "15114e3df603cc7a3c30b15c18515db973ec26f31d67b996d445a8a05be0a2e0"
+      "bytes": 13671,
+      "sha256": "918f79584756c5062a6b2beee3a6dfdf8af771a966950e1be2c31a3942258734"
     },
     "fixtures/axiom/Fixture.lean": {
       "bytes": 142,
@@ -1956,6 +1960,14 @@
       "bytes": 1634,
       "sha256": "ca5cbb4afdb84a9b613c4fc1896e89301888d86a2f4ce239ca9d7e886fb0efd7"
     },
+    "provenance/INDEXING_FAILURE_REVIEW.json": {
+      "bytes": 3642,
+      "sha256": "532501a5405d94d83f0cb1bfbe567885131d69556832d77fd1cbce05ae26097a"
+    },
+    "provenance/INDEXING_REPAIR.json": {
+      "bytes": 2969,
+      "sha256": "80e04064ca0dd7764821303c54534b7e32870cd4cbaac5c9b6d8c811acb1c9ec"
+    },
     "provenance/INPUTS.json": {
       "bytes": 1973,
       "sha256": "525bcf807f335b63340ebb891ae4b9c6a56972cd92cbf1ac7d87d2b5bc2c1c39"
@@ -1963,6 +1975,10 @@
     "provenance/ImportCut.predecessor.lean": {
       "bytes": 13520,
       "sha256": "d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b"
+    },
+    "provenance/ImportCut.syntax-predecessor.lean": {
+      "bytes": 13624,
+      "sha256": "291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2"
     },
     "provenance/MAP_SOURCE_READBACK.json": {
       "bytes": 874,
@@ -2024,9 +2040,13 @@
       "bytes": 891,
       "sha256": "9f776f769ad26955b71898d079f663e3a7b3792955b33b34285f4e68dfe09b66"
     },
+    "provenance/indexing-failed-api.stdout": {
+      "bytes": 660,
+      "sha256": "9322c2ee0b86491e5d5216fb059265d35687b716337669467846fce2e46b9ef1"
+    },
     "root7_import_cut.py": {
-      "bytes": 34383,
-      "sha256": "b223d86ddb769d060de281daeea1899b1ea15b685666d31aae2d48ad96c7aa05"
+      "bytes": 34385,
+      "sha256": "f1e9d3d37a550b0aaac79b6639864f9cfd17c7d767a7a24bbce366b42fae7ffb"
     },
     "src/SpectreFinite/FiniteTableCover.lean": {
       "bytes": 7476,
@@ -3585,12 +3605,12 @@
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 12402,
-      "sha256": "14529558eea6b8f06dc6181c89c823082b4cfb617ed01d1c074e22e628e38e4f"
+      "bytes": 16660,
+      "sha256": "ff0590d1e7b1112a8814ddde5c2a4e1a214e84a52127c85aef54e3273d03a02f"
     },
     "tools/ImportCut.lean": {
-      "bytes": 13624,
-      "sha256": "291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2"
+      "bytes": 13752,
+      "sha256": "a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -9051,7 +9071,7 @@
       "SpectreFinite.RadiusFiveRoot7Part31"
     ]
   },
-  "publication_branch": "verify/palomar-root7-import-cut-syntax-20261019",
+  "publication_branch": "verify/palomar-root7-import-cut-indexing-20261019",
   "recorded_command_count": 790,
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
@@ -9070,5 +9090,5 @@
     "tar_bytes": 12113920
   },
   "sum_command_timeout_seconds": 118500,
-  "workflow_template_sha256": "d3dcb4426616426da1d263dfcb150e94fc9c098a92f7cd9717aa2ea6f59ea1cf"
+  "workflow_template_sha256": "6077ca14dfaadb64ac734dba2accec0945dca003d931c1c419ff8fbe682ba48a"
 }

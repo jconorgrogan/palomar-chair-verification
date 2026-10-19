@@ -146,8 +146,10 @@ unsafe def load (root runtime : System.FilePath) (moduleName : Name) : IO Loaded
   for p in fnames do require (← p.pathExists) s!"MISSING_PRIVATE_COMPANION {p}"
   let parts ← readModuleDataParts fnames
   require (parts.size == 3) "MISSING_MODULE_PART"
-  let publicData := parts[0]!.1
-  let privateData := parts[2]!.1
+  let some publicData := parts[0]?.map (·.1)
+    | throw <| IO.userError "MISSING_MODULE_PART"
+  let some privateData := parts[2]?.map (·.1)
+    | throw <| IO.userError "MISSING_MODULE_PART"
   require (privateData.constNames.size == privateData.constants.size) "MALFORMED_PRIVATE_INVENTORY"
   let before ← importModules publicData.imports {} (loadExts := false) (level := .private)
   let after ← importModules #[{module := moduleName}] {} (loadExts := false) (level := .private)

@@ -57,7 +57,7 @@ class Controls(unittest.TestCase):
  def test_confirmed_syntax_regression(self):
   record=json.loads((ROOT/'provenance/SYNTAX_REPAIR.json').read_text())
   original=(ROOT/'provenance/ImportCut.predecessor.lean').read_text()
-  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  candidate=(ROOT/'provenance/ImportCut.syntax-predecessor.lean').read_text()
   self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'d75112a6ff39a486ec2d6946577e1974edc135e66af43935f30cd008bba1187b')
   expected_loops=[('paired_recursor_rules','for xr, yr in x.rules, y.rules do','for xr in x.rules, yr in y.rules do',2),('paired_environment_subtraction','for d, r in delta, raw do','for d in delta, r in raw do',1),('paired_introduced_inventory','for x, y in a.introduced, b.introduced do','for x in a.introduced, y in b.introduced do',1)]
   self.assertEqual([(x['id'],x['old'],x['new'],x['count']) for x in record['replacements'][:3]],expected_loops)
@@ -97,6 +97,61 @@ class Controls(unittest.TestCase):
   self.assertEqual(names[:3],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api'])
   self.assertLess(names.index('check-interface-api'),names.index('compile-fixture-baseline'))
   self.assertLess(names.index('check-interface-fixtures'),names.index('compile-'+c['module_order'][0]))
+ def test_confirmed_indexing_regression(self):
+  record=json.loads((ROOT/'provenance/INDEXING_REPAIR.json').read_text())
+  original=(ROOT/'provenance/ImportCut.syntax-predecessor.lean').read_text()
+  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'291ebd3748073385fa5e48b1224eee4f0829f060302c8832a1112c8db283dfb2')
+  self.assertEqual(hashlib.sha256(candidate.encode()).hexdigest(),'a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf')
+  expected_rows=[('public_part','  let publicData := parts[0]!.1\n','  let some publicData := parts[0]?.map (·.1)\n    | throw <| IO.userError "MISSING_MODULE_PART"\n'),('private_part','  let privateData := parts[2]!.1\n','  let some privateData := parts[2]?.map (·.1)\n    | throw <| IO.userError "MISSING_MODULE_PART"\n')]
+  self.assertEqual([(r['id'],r['old'],r['new']) for r in record['replacements']],expected_rows)
+  expected=original
+  for row in record['replacements']:
+   self.assertEqual(row['count'],1)
+   self.assertEqual(expected.count(row['old']),1)
+   expected=expected.replace(row['old'],row['new'])
+  self.assertEqual(candidate,expected)
+  reverted=candidate
+  for row in reversed(record['replacements']):
+   self.assertEqual(reverted.count(row['new']),1)
+   reverted=reverted.replace(row['new'],row['old'])
+  self.assertEqual(reverted,original)
+  prefix='  let parts ← readModuleDataParts fnames\n  require (parts.size == 3) "MISSING_MODULE_PART"\n'
+  suffix='  require (privateData.constNames.size == privateData.constants.size) "MALFORMED_PRIVATE_INVENTORY"\n'
+  self.assertIn(prefix+''.join(r['new'] for r in record['replacements'])+suffix,candidate)
+  # Exact reconstruction above also locks the provider, filename order, private
+  # imports, lifetime, declarations, comparisons, axiom checks and every fixture.
+  self.assertIn('require (mFile == root / (moduleName.toString.replace "." "/" ++ ".olean")) "WRONG_MODULE_PROVIDER"',candidate)
+  self.assertIn('let fnames := #[mFile, OLeanLevel.server.adjustFileName mFile, OLeanLevel.private.adjustFileName mFile]',candidate)
+  scan=record['whole_helper_index_scan']
+  self.assertEqual(re.findall(scan['bang_array_regex'],original),['[0]!','[2]!'])
+  self.assertEqual(re.findall(scan['bang_array_regex'],candidate),[])
+  self.assertEqual(candidate.count('todo.back!'),1)
+  self.assertIn('while !todo.isEmpty do',candidate)
+  self.assertEqual(record['size_requirement'],3)
+  self.assertEqual(record['selected_indices'],[0,2])
+  self.assertEqual(record['none_error'],'MISSING_MODULE_PART')
+  self.assertEqual(record['non_native_bounds_cases'],[{'size':n,'accepted':n==3} for n in range(5)])
+  # These finite arithmetic cases validate the retained size policy only; they
+  # are explicitly not an execution or substitute implementation of Lean Option.
+  self.assertTrue(all(0<=index<3 for index in record['selected_indices']))
+  stdout=(ROOT/'provenance/indexing-failed-api.stdout').read_bytes()
+  self.assertEqual(len(stdout),660)
+  self.assertEqual(hashlib.sha256(stdout).hexdigest(),'9322c2ee0b86491e5d5216fb059265d35687b716337669467846fce2e46b9ef1')
+  review=(ROOT/'provenance/INDEXING_FAILURE_REVIEW.json').read_bytes()
+  self.assertEqual(hashlib.sha256(review).hexdigest(),'532501a5405d94d83f0cb1bfbe567885131d69556832d77fd1cbce05ae26097a')
+  self.assertEqual(json.loads(review)['observations']['owned_modules_checked'],0)
+  env=(ROOT/'provenance/Environment.lean').read_text()
+  self.assertEqual(hashlib.sha256(env.encode()).hexdigest(),'6c90105aecc4d28efe94cc9aef1704c284e7a748b28270b5f8513d2562331e43')
+  self.assertIn('self.parts[0]?.map (·.1)',env)
+  self.assertIn('self.parts[level.ctorIdx]?.map (·.1)',env)
+  names=d.command_order(c)
+  self.assertEqual(names[:10],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api',*['compile-fixture-'+v for v in ['baseline','identical','value','type','axiom','inventory']],'check-interface-fixtures'])
+  self.assertEqual(len(names),790)
+  self.assertEqual(c['sum_command_timeout_seconds'],118500)
+  self.assertIn('compare (root / "baseline") (root / "identical") runtime `Fixture false',candidate)
+  self.assertIn('let a ← load left runtime moduleName',candidate)
+
  def test_actual_loop_synthetic(self):
   # Runs actual extraction, graph/view copies, 388 compile/check admission loops,
   # receipt validation and collection. Only native/acquisition/git/activation seams
