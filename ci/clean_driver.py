@@ -10,7 +10,7 @@ ENTRY_MONOTONIC=time.monotonic()
 # table have been authenticated. The workflow authenticates all clean checkouts
 # before invoking this entrypoint as an additional independent gate.
 EXECUTION_RELEASED=True
-CODE_FILES={'four_context_final.py', 'three_context_policy.py', 'ci_transport.py', 'continuation_policy.py', 'clean_transport.py', 'toolchain_install.py', 'three_context_final.py', 'origin_transport.py', 'clean_io.py', 'clean_driver.py', 'FinalExportAudit.lean', 'clean_local.py', 'clean_policy.py', 'clean_runner.py', 'four_context_policy.py', 'fresh_stage.py'}
+CODE_FILES={'clean_final_semantics.py','export_retry_specs.py','conron_recovery_resources.py','four_context_final.py', 'three_context_policy.py', 'ci_transport.py', 'continuation_policy.py', 'clean_transport.py', 'toolchain_install.py', 'three_context_final.py', 'origin_transport.py', 'clean_io.py', 'clean_driver.py', 'FinalExportAudit.lean', 'clean_local.py', 'clean_policy.py', 'clean_runner.py', 'four_context_policy.py', 'fresh_stage.py'}
 
 def bootstrap(code,contract_hash):
     def need(ok):
@@ -28,6 +28,13 @@ def bootstrap(code,contract_hash):
     for name,digest in pins.items():
         file=code/name;st=file.lstat();need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and hashlib.sha256(file.read_bytes()).hexdigest()==digest)
     need(contract.get('review_status')=='reviewed_for_execution' and contract.get('clean_integration_review_status')=='reviewed' and EXECUTION_RELEASED)
+    reviews=contract.get('final_semantic_activation_requirements')
+    need(contract.get('final_semantic_review_status')=='reviewed' and type(reviews)is dict and
+         set(reviews)=={'production_conron_outcome_review'} and
+         all(type(v)is str and len(v)==64 and all(c in '0123456789abcdef'for c in v)for v in reviews.values()))
+    selected=contract.get('conron_resource_selection')
+    need(type(selected)is dict and selected=={**contract.get('conron_resource_candidate',{}),
+         'outcome_review_sha256':reviews['production_conron_outcome_review']})
     sys.path.insert(0,str(code));sys.dont_write_bytecode=True
     return contract
 
@@ -143,6 +150,9 @@ def main():
     finally:token=None
 
 def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_archive,*,token,state):
+    cf.require_latest_selection()
+    semantic=cf.final_semantics
+    if args.role=='lean_export':budget=semantic.SplitBudget(budget,ENTRY_MONOTONIC)
     budget.check();mark(state,'entry')
     pipeline=local.canonical(str(args.pipeline));source=local.canonical(str(args.source))
     f.need(code==pipeline/'ci','driver must be exact ci child of current checkout')
@@ -163,6 +173,8 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
     manifest=f.pinned_load(source/'SOURCE_MANIFEST.json',cf.FIXED_IDENTITY['source_manifest_sha256'])
     identity={**cf.FIXED_IDENTITY,'pipeline_commit':origins.commit,'contract_sha256':args.contract_sha256,'run_id':origins.run_id,'run_started_at':origins.run['created_at']}
     cf.validate_identity(identity,args.contract_sha256,origins.commit)
+    f.need(contract.get('final_evidence_profile_sha256')==semantic.PROFILE_SHA256 and
+           f.pinned_load(code/'clean_final_profile.json',semantic.PROFILE_SHA256)==semantic.PROFILE,'current final evidence profile changed')
     workflow=current.current_workflow_from_run(origins,contract['current_workflow'],pipeline)
     origins.bind(identity=identity,workflow=workflow,plan=plan,consumer_roles=contract['current_consumer_roles'],consumer_role=args.stage if args.role=='build' else args.role,github_job=os.environ.get('GITHUB_JOB'))
     budget.tighten_wall(cf.check_deadline(identity,observed_now()).timestamp())
@@ -173,6 +185,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
         mark(state,'prepare_authentication');origins.authenticate_prepare('CurrentOrigin',root/'download'/'prepare')
     authenticate_current()
     origins.authenticate_prepare('PriorCleanOrigin',root/'download'/'prior-clean-prepare')
+    origins.authenticate_prepare('LatestCleanOrigin',root/'download'/'latest-clean-prepare')
     mark(state,'runtime_download')
     archive=root/'lean.tar.zst';start=time.monotonic();downloaded=0
     with urllib.request.urlopen('https://github.com/leanprover/lean4/releases/download/v4.35.0-rc2/lean-4.35.0-rc2-linux.tar.zst',timeout=60) as response,archive.open('xb') as out:
@@ -215,7 +228,7 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
     def stage_executor(*a,**kw):
         nonlocal stage_command_index
         stage=next((s for s in plan['stages'] if s['stage_id']==args.stage),None)
-        f.need(stage is not None and stage_command_index<2*len(stage['modules']),'fixed clean command index changed')
+        f.need(args.stage=='build_092' and stage is not None and stage_command_index<2*len(stage['modules']),'fixed clean command index changed')
         state['command']={'kind':'stage','stage_id':args.stage,'module_index':stage_command_index//2,'phase':('compile','check')[stage_command_index%2]}
         stage_command_index+=1;mark(state,'stage_command')
         return budget.process(lambda:safe_native(f,state,*a,**kw))
@@ -277,19 +290,52 @@ def execute(args,code,contract,budget,f,cf,local,dio,current,Runner,install_arch
         f.need(before=={name:f.file_sha(path) for name,path in f.regular_tree(root/'stage'/'objects').items()},'final command mutated restored objects')
         f.verify_sources(root/'source',manifest);runner.verify_checked_objects();runner.check_run_age();pack_final(args.role,context,files);return
     if args.role in ('lean_export','nanoda','conron'):
-        receipt,expanded,_,_=get_final('export_target');exported=expanded/'target.ndjson';execution_paths['export_path']=str(exported)
+        receipt,expanded,export_descriptor,_=get_final('export_target');exported=expanded/'target.ndjson';execution_paths['export_path']=str(exported)
         context=cf.final_context(manifest=manifest,provenance={'rows':receipt['resolved_provenance'],'campaign_predecessor_transfers':receipt['campaign_predecessor_transfers'],'sha256':receipt['resolved_provenance_sha256']},object_hashes=receipt['restored_object_hashes'],identity=identity)
         f.need(f.file_sha(exported)==receipt['export_sha256'],'exact-target export changed')
         if args.role=='lean_export':
-            command('lean_from_export',[str(toolchain/'bin/leanchecker'),'--silent','--from-export',str(exported)],seconds=9000)
-            command('lake_export_axioms',[str(toolchain/'bin/lake'),'check','--from-export',str(exported)],seconds=9000,sandbox_sessions=True)
+            semantic.validate_semantic_inventory(inventory)
+            f.need('LAKE_CHECK_EXPORT' not in env and 'COMPARATOR_BWRAP' not in env,'fixed Lake semantic environment')
+            budget.finish_setup();mark(state,'final_command');state['command']={'kind':'final','name':'lake_export_axioms'}
+            result,lake_budget=semantic.run_lake_command(role='lake_export_axioms',root=root,paths=execution_paths,
+                env=env,state=state,budget=budget,entry_monotonic=ENTRY_MONOTONIC,specs=semantic.specs,
+                base=sys.modules[__name__],f=f,dio=dio,final=semantic.legacy)
+            semantic.validate_retry_command(result,role='lake_export_axioms',paths=execution_paths,
+                budget_record=lake_budget,specs=semantic.specs,final=semantic.legacy)
+            captures={}
+            for stream in ('stdout','stderr'):
+                path=root/'logs'/('lake_export_axioms.'+stream);f.no_symlink_path(path);st=path.lstat()
+                f.need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size<=32*1024**2,'bounded Lake capture')
+                captures[stream]=path.read_bytes()
+                f.need({'bytes':len(captures[stream]),'sha256':f.sha(captures[stream])}==result[stream],'Lake capture mutated')
+            lake_output=semantic.validate_success_output(captures['stdout'],captures['stderr'],semantic.legacy)
+            results.append(result);context.update(evidence_contract=semantic.EVIDENCE_CONTRACT,lake_budget=lake_budget,
+                lake_output=lake_output,standalone_native_receipt_emitted=False,inner_native_receipt_emitted=False,
+                legacy_pair_receipt_emitted=False)
+            final_records=semantic.retain_records(root,inventory_path,args.role,{'LAKE_BUDGET.json':lake_budget,'LAKE_OUTPUT.json':lake_output})
         elif args.role=='nanoda':
             config=cf.nanoda_configuration(execution_paths)
             cfg=root/'nanoda.json';cfg.write_bytes(f.json_bytes(config));context['nanoda_config']=config
             command('nanoda',[str(toolchain/'bin/nanoda_bin'),str(cfg)],rss=6*1024**3)
-        else:command('conron',[str(toolchain/'bin/con-ron'),'--verified','--jobs=2',str(exported)],rss=3*1024**3)
+        else:
+            mark(state,'final_command');state['command']={'kind':'final','name':'conron'}
+            result,headroom=semantic.run_conron_command(root=root,toolchain=toolchain,exported=exported,
+                env=env,state=state,budget=budget,resources=semantic.resources,base=sys.modules[__name__],f=f,dio=dio,final=semantic.legacy)
+            semantic.validate_conron_command(result,toolchain_root=str(toolchain),export_path=str(exported),resources=semantic.resources,final=semantic.legacy)
+            semantic.validate_headroom(headroom);results.append(result)
+            context.update(evidence_contract=semantic.PROFILE['roles']['conron']['contract'],headroom=headroom,
+                resource_source_sha256=semantic.PROFILE['roles']['conron']['resource_source_sha256'])
+            final_records=semantic.retain_records(root,inventory_path,args.role,{'HEADROOM.json':headroom})
+        if args.role in ('lean_export','conron'):
+            f.need(f.file_sha(exported)==receipt['export_sha256'],'export mutated during semantic check')
+            f.verify_toolchain(toolchain,archive,inventory_path,contract,derived_inventory_sha256=inventory_sha)
+            if args.role=='lean_export':semantic.validate_semantic_inventory(inventory)
+            budget.check();authenticate_current()
+            final_records.update(semantic.retain_export_receipt(expanded,export_descriptor,identity))
+            context['retained_export_descriptor']=copy.deepcopy(export_descriptor)
         files={p.name:p for p in (root/'logs').iterdir()}
         if args.role=='nanoda':files['nanoda.json']=root/'nanoda.json'
+        else:files.update(final_records)
         runner.check_run_age();pack_final(args.role,{**context,'export_sha256':receipt['export_sha256']},files);return
     checked={}
     for role in cf.FINAL_ROLES:

@@ -1,4 +1,4 @@
-"""Single clean-run authenticated transport. No historical context or fallback."""
+"""Finite three-origin clean092 continuation transport; pending selection refuses."""
 from __future__ import annotations
 import copy,hashlib,http.client,json,math,os,re,shutil,socket,stat,sys,tarfile,time,urllib.error,urllib.parse,urllib.request,zipfile
 from pathlib import Path
@@ -418,6 +418,7 @@ class QuotaPacedOpener:
 FIXED_WORKFLOW=dict(p.CURRENT_WORKFLOW)
 class CleanTransport(base.OriginTransport,ct.Transport):
     def __init__(self,*,token,root,budget,now=None,opener=None):
+        p.require_latest_selection()  # Refuse before root creation or any request.
         f.need(os.environ.get('GITHUB_ACTIONS')=='true' and os.environ.get('GITHUB_REPOSITORY')==ct.REPOSITORY,'not the reviewed GitHub repository/action context')
         self.run_id=os.environ.get('GITHUB_RUN_ID','');self.attempt=os.environ.get('GITHUB_RUN_ATTEMPT','');self.commit=os.environ.get('GITHUB_SHA','')
         f.need(self.run_id.isdigit() and self.attempt=='1' and f.COMMIT.fullmatch(self.commit),'invalid clean workflow identity')
@@ -445,7 +446,8 @@ class CleanTransport(base.OriginTransport,ct.Transport):
         f.need(type(consumer_role) is str and consumer_role in consumer_roles and github_job==consumer_roles[consumer_role]['producer_job'],'clean invocation role/GITHUB_JOB mismatch')
         self.consumer_role=consumer_role;self.consumer_binding=copy.deepcopy(consumer_roles[consumer_role]);self.github_job=github_job
         self.contexts={base.CURRENT_ORIGIN:{'identity':copy.deepcopy(identity),'workflow':copy.deepcopy(workflow)},
-            'PriorCleanOrigin':{'identity':copy.deepcopy(p.PRIOR_CLEAN_IDENTITY),'workflow':copy.deepcopy(p.PRIOR_CLEAN_WORKFLOW)}}
+            'PriorCleanOrigin':{'identity':copy.deepcopy(p.PRIOR_CLEAN_IDENTITY),'workflow':copy.deepcopy(p.PRIOR_CLEAN_WORKFLOW)},
+            'LatestCleanOrigin':{'identity':copy.deepcopy(p.LATEST_CLEAN_IDENTITY),'workflow':copy.deepcopy(p.LATEST_CLEAN_WORKFLOW)}}
         self._check_age();self._run(base.CURRENT_ORIGIN)
 
     def _check_age(self):
@@ -459,20 +461,27 @@ class CleanTransport(base.OriginTransport,ct.Transport):
         f.need(time.monotonic()<min(self.deadline_monotonic,self.age_deadline_monotonic),'shared acquisition wall/age deadline reached')
 
     def _context(self,origin):
-        f.need(origin in ('PriorCleanOrigin',base.CURRENT_ORIGIN) and origin in self.contexts,'only bound clean-campaign origins permitted')
+        f.need(origin in ('PriorCleanOrigin','LatestCleanOrigin',base.CURRENT_ORIGIN) and origin in self.contexts,'only bound clean-campaign origins permitted')
         return self.contexts[origin]
 
     def _selection_pin(self,origin,role):
         context=self._context(origin)
         if origin==CURRENT_ORIGIN:
-            f.need(role not in p.PRIOR_STAGES,'prior-clean stage cannot be relabeled current')
+            f.need(role in ('prepare',)+p.CURRENT_STAGES+p.FINAL_ROLES,
+                   'historical or unselected clean role cannot be relabeled current')
             return None
-        f.need(role=='prepare' or role in p.PRIOR_STAGES,'unselected prior-clean role')
-        pin=copy.deepcopy(p.PRIOR_CLEAN_PREPARE_PIN if role=='prepare' else p.PRIOR_STAGE_PINS[role])
+        if origin=='PriorCleanOrigin':
+            f.need(role=='prepare' or role in p.PRIOR_STAGES,'unselected prior-clean role')
+            pin=copy.deepcopy(p.PRIOR_CLEAN_PREPARE_PIN if role=='prepare' else p.PRIOR_STAGE_PINS[role])
+        else:
+            selection=p.require_latest_selection()
+            f.need(origin=='LatestCleanOrigin' and (role=='prepare' or role in p.LATEST_STAGES),
+                   'unselected latest-clean role')
+            pin=copy.deepcopy(p.LATEST_CLEAN_PREPARE_PIN if role=='prepare' else selection['stage_pins'][role])
         expected={'artifact_id','producer_job_id','artifact_zip_sha256','artifact_zip_bytes','expires_at'}
-        base.exact_keys(pin,expected,'prior-clean API pin')
+        base.exact_keys(pin,expected,'historical clean pin')
         for key in ('artifact_id','producer_job_id','artifact_zip_bytes'):base.positive(pin[key],key)
-        base.digest(pin['artifact_zip_sha256'],'prior-clean ZIP hash');base.timestamp(pin['expires_at'])
+        base.digest(pin['artifact_zip_sha256'],'historical clean ZIP hash');base.timestamp(pin['expires_at'])
         pin['artifact_name']=f"hierarchy-c-{context['identity']['run_id']}-{context['identity']['run_attempt']}-{role}"
         return pin
 
@@ -493,16 +502,36 @@ class CleanTransport(base.OriginTransport,ct.Transport):
         f.need(base.timestamp(run['created_at'])<=base.timestamp(run['updated_at'])<=self.now(),'prior-clean terminal timestamps invalid')
         self._check_age();return run
 
+    def _latest_run(self):
+        context=self._context('LatestCleanOrigin');identity=context['identity'];workflow=context['workflow']
+        run=self._json(f"/repos/{base.REPOSITORY}/actions/runs/{identity['run_id']}")
+        for key in ('repository','head_repository'):
+            repo=run.get(key)
+            f.need(type(repo) is dict and type(repo.get('id')) is int and repo['id']==base.REPOSITORY_ID and
+                   repo.get('full_name')==base.REPOSITORY,'latest-clean repository mismatch')
+        f.need(type(run.get('id')) is int and str(run['id'])==identity['run_id'] and
+               type(run.get('run_attempt')) is int and str(run['run_attempt'])==identity['run_attempt'] and
+               run.get('head_sha')==identity['pipeline_commit'] and run.get('event')=='push' and
+               all(run.get(k)==workflow[k] for k in ('head_branch','path','name')) and
+               type(run.get('workflow_id')) is int and run['workflow_id']==workflow['workflow_id'] and
+               run.get('created_at')==identity['run_started_at'],'latest-clean run/workflow/attempt identity mismatch')
+        f.need(all(run.get(k)==v for k,v in p.require_latest_selection()['terminal'].items()),'latest-clean terminal snapshot changed')
+        f.need(base.timestamp(run['created_at'])<=base.timestamp(run['updated_at'])<=self.now(),'latest-clean terminal timestamps invalid')
+        self._check_age();return run
+
     @staticmethod
     def _metadata(origin,run,job,artifact,binding):
         result=base.OriginTransport._metadata(origin,run,job,artifact,binding)
         if origin=='PriorCleanOrigin':result['run'].update(status=run['status'],conclusion=run['conclusion'])
+        if origin=='LatestCleanOrigin':result['run'].update(status=run['status'],conclusion=run['conclusion'],updated_at=run['updated_at'])
         return result
 
     def authenticate_prepare(self,origin,destination,max_bytes=32*1024**2):
         result=super().authenticate_prepare(origin,destination,max_bytes)
         if origin=='PriorCleanOrigin':
             f.need(result['identity_sha256']==f.sha(f.json_bytes(p.PRIOR_CLEAN_IDENTITY)),'prior-clean raw prepare identity hash changed')
+        if origin=='LatestCleanOrigin':
+            f.need(result['identity_sha256']==f.sha(f.json_bytes(p.LATEST_CLEAN_IDENTITY)),'latest-clean raw prepare identity hash changed')
         self._check_age();return result
 
     def _current_run_observation(self,budget,observation):
@@ -613,6 +642,7 @@ class CleanTransport(base.OriginTransport,ct.Transport):
     def _run(self,origin):
         self._context(origin)
         if origin=='PriorCleanOrigin':return self._prior_run()
+        if origin=='LatestCleanOrigin':return self._latest_run()
         started=base.time.monotonic()
         budget={'started':started,'deadline':started+base.MAX_CURRENT_STATUS_SECONDS}
         observation=0
@@ -811,7 +841,7 @@ class CleanTransport(base.OriginTransport,ct.Transport):
     def download_stage(self, origin, stage_id, destination, max_bytes, pin=None):
         context = self._context(origin)
         f.need(stage_id in self.stages and origin==p.origin_for_stage(stage_id) and pin is None,'unplanned stage, wrong origin or external pin')
-        f.need(set(self._prepared) == {CURRENT_ORIGIN,'PriorCleanOrigin'}, 'both clean-campaign prepares required')
+        f.need(set(self._prepared) == {CURRENT_ORIGIN,'PriorCleanOrigin','LatestCleanOrigin'}, 'all three clean-campaign prepares required')
         f.need(isinstance(stage_id, str) and re.fullmatch(r'build_\d{3}', stage_id), 'invalid stage role')
         pin=self._selection_pin(origin,stage_id)
         path, metadata = self._download(origin, stage_id, destination, ['delta.tar', 'upload-candidate.json'], max_bytes, pin)
@@ -834,6 +864,11 @@ class CleanTransport(base.OriginTransport,ct.Transport):
         return {'origin': origin, 'native_descriptor': descriptor, 'archive_path': str(path / 'delta.tar'),
                 'authenticated_metadata': metadata, 'raw_descriptor_sha256': raw_sha}
 
+    def download_final(self,role,destination,max_bytes):
+        f.need(set(self._prepared)=={CURRENT_ORIGIN,'PriorCleanOrigin','LatestCleanOrigin'},
+               'all three clean-campaign prepares required')
+        return super().download_final(role,destination,max_bytes)
+
     def reauthenticate_wrapper(self, wrapper, pin=None):
         """Recheck current API facts without transferring the large payload again.
 
@@ -846,7 +881,7 @@ class CleanTransport(base.OriginTransport,ct.Transport):
                'unknown/missing resolved wrapper fields')
         origin = wrapper['origin']
         context = self._context(origin)
-        f.need(set(self._prepared) == {CURRENT_ORIGIN,'PriorCleanOrigin'}, 'both clean-campaign prepares required')
+        f.need(set(self._prepared) == {CURRENT_ORIGIN,'PriorCleanOrigin','LatestCleanOrigin'}, 'all three clean-campaign prepares required')
         descriptor = wrapper['native_descriptor']
         f.need(type(descriptor) is dict and descriptor.get('identity') == context['identity'], 'wrapper identity mismatch')
         stage = descriptor.get('stage_id')
@@ -890,9 +925,9 @@ def current_workflow_from_run(transport, template, pipeline):
     cp.keys(template,{'workflow_id','path','name','head_branch','source_sha256','roles'},'current workflow template')
     f.need(template['workflow_id'] is None and template['source_sha256'] is None,
            'current workflow ID/source must come from authenticated runtime context')
-    fixed={'path':'.github/workflows/hierarchy-c-clean-recovery.yml',
-           'name':'Verify hierarchy C clean recovery',
-           'head_branch':'verify/hierarchy-c-clean-recovery-20261018'}
+    fixed={'path':'.github/workflows/hierarchy-c-clean092-recovery.yml',
+           'name':'Verify hierarchy C clean092 recovery',
+           'head_branch':'verify/hierarchy-c-clean092-recovery-20261018'}
     f.need(all(template[k]==v for k,v in fixed.items()),'current workflow path/name/branch changed')
     run=transport.run
     f.need(type(run) is dict and type(run.get('id')) is int and run['id']>0 and str(run['id'])==transport.run_id and

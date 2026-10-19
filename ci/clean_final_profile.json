@@ -1,0 +1,40 @@
+{
+  "evidence_contract": "clean_single_lake_and_conron_jobs1_v1",
+  "inner_native_receipt_emitted": false,
+  "legacy_two_command_lean_receipt_emitted": false,
+  "roles": {
+    "conron": {
+      "address_space_bytes": 25769803776,
+      "command_seconds": 18000,
+      "contract": "conron_jobs1_rss6_as24_headroom8_v1",
+      "jobs": 1,
+      "required_headroom_bytes": 8589934592,
+      "resource_source_sha256": "b91ffe78701b6c16289b55a6f6afdf03a9ee932d1facc7ca5cb939c2d9dd8710",
+      "rss_tree_bytes": 6442450944
+    },
+    "export_target": {
+      "contract": "unchanged_exact_target_export_and_audit"
+    },
+    "fresh_kernel": {
+      "contract": "unchanged_fresh_whole_closure"
+    },
+    "lean_export": {
+      "closeout_seconds": 300,
+      "command_seconds": 17700,
+      "contract": "single_lake_kernel_and_used_axioms_v1",
+      "job_seconds": 19800,
+      "properties": [
+        "builtin_lean_kernel_on_same_clean_export",
+        "standard_used_axioms_on_same_clean_export"
+      ],
+      "semantic_source_review_sha256": "a82f5f572d3b0365eba58afaad9bb659aeb549c4cb7903a94bad560b5e17b8c1",
+      "setup_seconds": 1800,
+      "spec_source_sha256": "c46a5c309381ab60e73826c47c3a937d887d922f8288972ebd3f25367b7a36fc"
+    },
+    "nanoda": {
+      "contract": "unchanged_nanoda_exact_export"
+    }
+  },
+  "schema": "clean-final-property-profile-v1",
+  "standalone_native_lean_receipt_emitted": false
+}
