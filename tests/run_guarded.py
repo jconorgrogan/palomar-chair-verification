@@ -1,12 +1,10 @@
-"""Install permanent audit guard before loading owner controls; never run native code."""
-import ctypes,runpy,sys
-# Initialize Python standard-library ctypes before the permanent guard; all
-# subsequent native lookup/call audit events from target code are denied.
-
+#!/usr/bin/env python3
+"""Permanent no-process/no-network guard, installed before loading reviewed helpers."""
+import ctypes,sys
+DENY=('subprocess.', 'os.system', 'os.exec', 'os.posix_spawn', 'os.spawn', 'os.fork', 'socket.', 'ctypes.')
 def guard(event,args):
-    if event.startswith(('subprocess.','socket.','ctypes.')) or event in {'os.system','os.exec','os.posix_spawn','os.fork','os.forkpty'}:
-        raise RuntimeError('permanent inert-test guard: '+event)
+ if event.startswith(DENY):raise RuntimeError('inert guard forbids '+event)
 sys.addaudithook(guard)
+import runpy
 from pathlib import Path
-sys.argv=[str(Path(__file__).with_name('test_smoke.py'))]
-runpy.run_path(sys.argv[0],run_name='__main__')
+runpy.run_path(str(Path(__file__).with_name('test_pilot.py')),run_name='__main__')

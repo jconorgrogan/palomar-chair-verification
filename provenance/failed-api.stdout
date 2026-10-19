@@ -1,7 +1,0 @@
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:39:10: error: unexpected token ','; expected 'in'
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:94:10: error: unexpected token ','; expected 'in'
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:159:7: error: unexpected token ','; expected 'in'
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:175:7: error: unexpected token ','; expected 'in'
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:230:89: error: unexpected identifier; expected '}'
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:231:38: error: unexpected token ','; expected identifier
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:231:46: error: unexpected token ':='; expected ':'

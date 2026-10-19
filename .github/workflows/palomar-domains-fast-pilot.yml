@@ -1,0 +1,45 @@
+name: Palomar Domains Fast sharing pilot
+'on':
+  push:
+    branches:
+    - verify/palomar-domains-fast-pilot-20261019
+permissions:
+  contents: read
+concurrency:
+  group: domains-fast-pilot-evidence-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  domains_fast_pilot:
+    name: domains_fast_pilot
+    if: ${{ true }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 130
+    steps:
+    - name: Check out the exact staged candidate
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Install official Ubuntu sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Compile and compare the Domains Fast sharing controls
+      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B domains_fast_pilot.py --contract-sha256 01c419bcdd3c7bbbce503206534edc7f4848cf6de49e58a3291ca3ada53fb4e4
+        --work "${{ runner.temp }}/palomar-domains-fast-pilot"
+    - name: Preserve bounded smoke evidence
+      if: ${{ always() }}
+      timeout-minutes: 2
+      run: python3 -I -B domains_fast_pilot.py --collect --contract-sha256 01c419bcdd3c7bbbce503206534edc7f4848cf6de49e58a3291ca3ada53fb4e4
+        --work "${{ runner.temp }}/palomar-domains-fast-pilot"
+    - name: Upload bounded smoke evidence
+      if: ${{ always() }}
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: domains-fast-pilot-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/palomar-domains-fast-pilot/upload/**
+        retention-days: 7
+        if-no-files-found: error

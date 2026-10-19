@@ -1,8 +1,0 @@
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:149:20: error(lean.synthInstanceFailed): failed to synthesize instance of type class
-  Inhabited (ModuleData × CompactedRegion)
-
-Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
-/home/runner/work/_temp/palomar-root7-import-cut-smoke/tools/ImportCut.lean:150:21: error(lean.synthInstanceFailed): failed to synthesize instance of type class
-  Inhabited (ModuleData × CompactedRegion)
-
-Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
