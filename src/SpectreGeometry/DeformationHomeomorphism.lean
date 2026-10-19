@@ -19,7 +19,7 @@ open scoped NNReal
 variable {E : Type*} [NormedAddCommGroup E] [CompleteSpace E]
 
 set_option backward.privateInPublic true in
-private theorem translated_contracting {g : E → E} {q : ℝ≥0}
+theorem translated_contracting {g : E → E} {q : ℝ≥0}
     (hq : q < 1) (hg : LipschitzWith q g) (y : E) :
     ContractingWith q (fun x => y + g x) := by
   refine ⟨hq,LipschitzWith.of_dist_le_mul fun x z => ?_⟩

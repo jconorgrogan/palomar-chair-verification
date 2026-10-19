@@ -195,7 +195,7 @@ theorem product_key_active_graph_mem_window (s : ProductKeySite) (x : EFour)
   ⟨hx, product_key_height_support s (x - productKeyCenter s) hactive⟩
 
 set_option backward.privateInPublic true in
-private theorem product_key_collar_interior_disjoint (s t : ProductKeySite) (hne : t ≠ s) :
+theorem product_key_collar_interior_disjoint (s t : ProductKeySite) (hne : t ≠ s) :
     Disjoint (interior (productKeyCollar s)) (productKeyCollar t) :=
   (product_key_collars_disjoint s t hne.symm).mono_left interior_subset
 

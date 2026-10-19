@@ -13,7 +13,7 @@ namespace SpectreClusters.ReverseExistence
 open SpectreFinite SpectreFinite.HexSearch
 
 set_option backward.privateInPublic true in
-private theorem position_cancel (x : Position) (d : Fin 6) :
+theorem position_cancel (x : Position) (d : Fin 6) :
     addPos (addPos x (direction d)) (direction (opposite d)) = x := by
   rw [direction_opposite]
   apply Prod.ext <;> simp [addPos] <;> omega
@@ -22,7 +22,7 @@ private theorem direction_triangle : ∀ d : Fin 6,
     addPos (direction d) (direction (rotateTurn 2 d)) = direction (rotateTurn 1 d) := by decide
 
 set_option backward.privateInPublic true in
-private theorem position_triangle (x : Position) (d : Fin 6) :
+theorem position_triangle (x : Position) (d : Fin 6) :
     addPos (addPos x (direction d)) (direction (rotateTurn 2 d)) =
       addPos x (direction (rotateTurn 1 d)) := by
   have h := direction_triangle d

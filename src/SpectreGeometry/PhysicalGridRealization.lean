@@ -43,7 +43,7 @@ variable {ι : Type*} (f : ι → EPlane ≃ᵢ EPlane)
   (hcover : ∀ x, ∃ i, x ∈ f i '' euclideanBody) (root : ι)
 
 set_option backward.privateInPublic true in
-private theorem anchor_registered (i : ι) :
+theorem anchor_registered (i : ι) :
     physicalDevelopedAnchor f hdirect hdisjoint hcover root
       (tilingFrame f hdirect hdisjoint hcover root) i-
     physicalDevelopedAnchor f hdirect hdisjoint hcover root
