@@ -1,5 +1,6 @@
 module
 
+public import SpectreFinite.RadiusFiveRoot7Part31
 public import SpectreFinite.RadiusFiveRoot7Part82
 
 @[expose] public section

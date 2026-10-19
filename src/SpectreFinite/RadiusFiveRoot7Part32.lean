@@ -1,6 +1,6 @@
 module
 
-public import SpectreFinite.RadiusFiveRoot7Part31
+public import SpectreFinite.RadiusFiveRoot7Part1
 public import SpectreFinite.RadiusThreeChunkChecking
 public import SpectreFinite.RadiusThreeFastChecking
 public import SpectreFinite.RadiusFiveFastReplacement
