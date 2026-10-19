@@ -1,0 +1,6 @@
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreClusters/ReverseClusterCocycleIntegration.lean:60:33: error(lean.unknownIdentifier): Unknown identifier `position_cancel`
+
+Note: A private declaration `position_cancel` (from the current module) exists but would need to be public to access here.
+/home/runner/work/_temp/palomar-visibility-smoke/original-input/SpectreClusters/ReverseClusterCocycleIntegration.lean:61:25: error(lean.unknownIdentifier): Unknown identifier `position_triangle`
+
+Note: A private declaration `position_triangle` (from the current module) exists but would need to be public to access here.

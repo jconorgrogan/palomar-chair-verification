@@ -8,7 +8,7 @@ Run: `python3 -I -B visibility_smoke.py --contract-sha256 SHA --work ABSOLUTE_NE
 
 Always-run collection: the same command with `--collect`. Collection writes `WORK/upload/**`. The fixed workflow uses `${{ runner.temp }}/palomar-visibility-smoke` and `visibility-smoke-evidence-${{ github.run_id }}-${{ github.run_attempt }}`. The sole publisher owns activation. The committed workflow is false and has two zero contract-digest slots; the contract is inactive. Execution requires a separately reviewed active contract and driver-review digest.
 
-The normalized workflow pin is the exact reviewed T0028 template. Activation changes only its single false guard to true and both zero contract tokens to the activated contract SHA. Verification normalizes exactly those three slots back to the fixed template. The raw active workflow digest is not stored in its own contract, avoiding a hash cycle.
+The normalized workflow preserves the reviewed T0028 template byte-for-byte except its push branch, now `verify/palomar-visibility-diagnostics-20261019`. Activation changes only its single false guard to true and both zero contract tokens to the activated contract SHA. Verification normalizes exactly those three slots back to the fixed template. The raw active workflow digest is not stored in its own contract, avoiding a hash cycle.
 
 ## What a successful smoke would establish
 

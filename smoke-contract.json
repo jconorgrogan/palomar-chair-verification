@@ -55,6 +55,7 @@
     "provenance/SMOKE_CONTRACT.json",
     "provenance/SOURCE_INDEPENDENT_REVIEW.json",
     "smoke-contract.json",
+    "tests/fixtures/cocycle-original-run39243482103.stdout",
     "tests/inert_loop_fixture.py",
     "tests/inert_success_fixture.py",
     "tests/run_guarded.py",
@@ -106,9 +107,9 @@
       ]
     ]
   },
-  "expected_parent_commit": "7ea166c504790c1f596b95a40f4621496834c098",
+  "expected_parent_commit": "6e41812133bd6ca150637d61b90181983bb2494a",
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "9a6ba5eee55afb918bef15b66e7f2f8c21a383febd0804069a0b9ae1891c99c9",
+  "independent_driver_review_sha256": "613d83dfeb3bc0630a63bcc155c4d98c64b5e61f420ff235d702da868a8fc396",
   "init_only_order": [
     "SpectreFinite.ListedPatches",
     "SpectreFinite.PatchEnumeration",
@@ -123,8 +124,8 @@
   ],
   "inputs": {
     "README.md": {
-      "bytes": 8167,
-      "sha256": "68d84387fa0aae6ba161a996e8db3e3aa19fd441cef0097019518ca8c429a618"
+      "bytes": 8255,
+      "sha256": "b748ed5815987618ae579d1bb03854443e85850ea430e1faf4cd732fb9e4b095"
     },
     "originals/SpectreClusters/ReverseClusterCocycleIntegration.lean": {
       "bytes": 6486,
@@ -858,6 +859,10 @@
       "bytes": 4202,
       "sha256": "d05a7be1cf16c8101f241a94663d8490a0b986cf61fda07c2c016a1050f07480"
     },
+    "tests/fixtures/cocycle-original-run39243482103.stdout": {
+      "bytes": 638,
+      "sha256": "50e00f731b1b925266a0dc78d3d27253439c28e81eb3b6d91e9472ccaf3345cb"
+    },
     "tests/inert_loop_fixture.py": {
       "bytes": 6077,
       "sha256": "65d92c71b306c37206a82c7419258fe3b103ab0daf6b77df739e43ca324368c4"
@@ -871,8 +876,8 @@
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 8481,
-      "sha256": "a9f12c8c237c7382c9a3c4c9782b4ec3f8e2a2494ab9f26f43c1fadf43790bdd"
+      "bytes": 16377,
+      "sha256": "4fbc1b9898c681e597c6ab62242e09e247c291615cbcf13cb9cccd8d27026bbd"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -915,8 +920,8 @@
       "sha256": "2b48ab2cdf951e9339dfaa764714952bcc3c9f1dd47e5413ec5d1fffb0755a82"
     },
     "visibility_smoke.py": {
-      "bytes": 62234,
-      "sha256": "faaed5bee531646b610a8584c9217a5eaddcc97dfe6da9ef418aac764c32d22d"
+      "bytes": 62293,
+      "sha256": "4cae4c4d5ca737bdb5074949b454435d92adc4cf16a41de39a2a1ae308d7a7ff"
     }
   },
   "limits": {
@@ -2863,7 +2868,7 @@
   },
   "owned_module_count": 174,
   "owned_source_max_bytes": 33554432,
-  "publication_branch": "verify/palomar-visibility-smoke-20261019",
+  "publication_branch": "verify/palomar-visibility-diagnostics-20261019",
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -3100,5 +3105,5 @@
     "SpectreGeometry.PolygonProductKeyBody",
     "SpectreGeometry.PhysicalGridRealization"
   ],
-  "workflow_template_sha256": "d2dc110a2128fc919a88eb60b04aeb09818c88682de37ff4331796b5e838171b"
+  "workflow_template_sha256": "d1ee74db15fffb1b7662b38b964a5bbc0ccc4d388559784af7c9f1c269d2109a"
 }

@@ -80,19 +80,19 @@ def clean_command(r):
 
 
 def failure_diagnostics(module, text):
-    """Match actual Lean error headers, not arbitrary nonzero exit or substring."""
+    """Match plain errors and explicitly coded unknown-identifier errors only."""
     path = module.replace('.','/')+'.lean'
     errors = []
     for line in text.splitlines():
-        m = re.fullmatch(r'(.*\.lean):(\d+):(\d+): error: (.*)', line)
+        m = re.fullmatch(r'(.*\.lean):(\d+):(\d+): error(?:\((lean\.unknownIdentifier)\))?: (.*)', line)
         if m:
             f.need(m[1].endswith('/'+path) or m[1]==path, 'diagnostic has wrong source')
-            errors.append((int(m[2]),int(m[3]),m[4]))
-        elif re.search(r'(^|\s)(error:|error\[)', line):
+            errors.append((int(m[2]),int(m[3]),m[4],m[5]))
+        elif re.search(r'(^|[\s:])error\b', line):
             raise f.Rejected('unrecognized error diagnostic header')
     expected = EXPECTED_UNKNOWN[module]
     unknown=[]; cascades=[]
-    for line,col,message in errors:
+    for line,col,code,message in errors:
         m = re.fullmatch(r'Unknown identifier `([^`]+)`', message)
         if m:
             triple=(line,col,m[1])
@@ -100,7 +100,7 @@ def failure_diagnostics(module, text):
                    'unexpected unknown identifier diagnostic')
             unknown.append(triple)
         else:
-            f.need(module==TARGETS[1] and CASCADE.get((line,col))==message,
+            f.need(code is None and module==TARGETS[1] and CASCADE.get((line,col))==message,
                    'unexpected compiler error beyond authenticated cascades')
             cascades.append((line,col,message))
     f.need(len(unknown)==len(expected) and len(set(unknown))==len(unknown), 'missing or duplicate expected unknown identifier')
@@ -110,7 +110,7 @@ def failure_diagnostics(module, text):
 def validate_contract(c, *, reviewed=False):
     f.need(c['schema']==SCHEMA and c['limits']==LIMITS, 'smoke profile differs')
     f.need(c['targets']==TARGETS and c['owned_module_count']==174, 'target scope differs')
-    f.need(c['publication_branch']=='verify/palomar-visibility-smoke-20261019', 'branch differs')
+    f.need(c['publication_branch']=='verify/palomar-visibility-diagnostics-20261019', 'branch differs')
     f.need(c['source_archive']['path']=='owned-sources.tar.gz', 'source archive path differs')
     f.need(c['owned_source_max_bytes']==LIMITS['owned_source_max_bytes'], 'source limit differs')
     f.need(c['runtime_roots']==['Init','Init.Data.Rat'], 'runtime boundary differs')
@@ -136,7 +136,7 @@ def validate_workflow(c,contract_sha):
     guard=b'    if: ${{ true }}\n' if active else b'    if: ${{ false }}\n'
     f.need(data.count(b'--contract-sha256 '+token)==2 and data.count(guard)==1,'workflow activation slots differ')
     normalized=data.replace(b'--contract-sha256 '+token,b'--contract-sha256 '+b'0'*64).replace(guard,b'    if: ${{ false }}\n')
-    f.need(c['workflow_template_sha256']=='d2dc110a2128fc919a88eb60b04aeb09818c88682de37ff4331796b5e838171b'
+    f.need(c['workflow_template_sha256']=='d1ee74db15fffb1b7662b38b964a5bbc0ccc4d388559784af7c9f1c269d2109a'
            and f.sha(normalized)==c['workflow_template_sha256'],'reviewed normalized workflow differs')
 
 
