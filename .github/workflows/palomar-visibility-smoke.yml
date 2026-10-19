@@ -1,0 +1,45 @@
+name: Palomar visibility correction smoke
+'on':
+  push:
+    branches:
+    - verify/palomar-visibility-smoke-20261019
+permissions:
+  contents: read
+concurrency:
+  group: visibility-smoke-evidence-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  visibility_smoke:
+    name: visibility_smoke
+    if: ${{ true }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 130
+    steps:
+    - name: Check out the exact staged candidate
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      with:
+        ref: ${{ github.sha }}
+        persist-credentials: false
+        fetch-depth: 1
+    - name: Install official Ubuntu sandbox dependencies
+      run: 'sudo apt-get update -qq
+
+        sudo apt-get install --no-install-recommends -y bubblewrap zstd
+
+        '
+    - name: Compile the focused visibility correction controls
+      run: timeout --signal=TERM --kill-after=30s 7260s python3 -I -B visibility_smoke.py --contract-sha256 f7297eb4df818dd7156523eef743054ed9f6528945d501a4aed030a39a329342
+        --work "${{ runner.temp }}/palomar-visibility-smoke"
+    - name: Preserve bounded smoke evidence
+      if: ${{ always() }}
+      timeout-minutes: 2
+      run: python3 -I -B visibility_smoke.py --collect --contract-sha256 f7297eb4df818dd7156523eef743054ed9f6528945d501a4aed030a39a329342
+        --work "${{ runner.temp }}/palomar-visibility-smoke"
+    - name: Upload bounded smoke evidence
+      if: ${{ always() }}
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: visibility-smoke-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/palomar-visibility-smoke/upload/**
+        retention-days: 7
+        if-no-files-found: error

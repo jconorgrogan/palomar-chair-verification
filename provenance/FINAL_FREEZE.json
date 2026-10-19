@@ -1,0 +1,20 @@
+{
+  "addendum": {
+    "bytes": 762,
+    "path": "COUNT_CONVENTION.json",
+    "sha256": "80309dfe76364e2906ac538ea4fbee4fa573c5486ff77737ce9d1c6c59da8652"
+  },
+  "all_base_files_rehashed_after_addendum": true,
+  "base_files_manifest_sha256": "ed877a2017f9fc4d94f039add2e66d1408c18e1c02c0abfb126f0f02ea0873d5",
+  "base_freeze_sha256": "07e9ce065b3444de93beeae75f773dea9fc2e5fbc9fd96d15b5299adb59a78a9",
+  "candidate_archive_sha256": "445aec213eed96ce60e32740305707c5efdd4762c555cbaf07cd8fa5b7a1df0a",
+  "native_execution": false,
+  "new_source_member_count": 0,
+  "owned_src_lean_modules": 9660,
+  "publication": false,
+  "root_lakefile_lean": 1,
+  "schema": "palomar-five-helper-final-source-freeze-v1",
+  "source_files_total": 9671,
+  "source_manifest_sha256": "69e4ab612fb20a7a6e91d69c3e77b38f509201abb591ef120529d540d2b6fdbf",
+  "status": "FROZEN_LOCAL_SOURCE_ONLY_WITH_COUNT_CLARIFICATION"
+}

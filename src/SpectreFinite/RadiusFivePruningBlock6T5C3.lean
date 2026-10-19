@@ -1,7 +1,0 @@
-module
-
-public import SpectreFinite.RadiusFivePruningBlock6T5C3Core
-public import SpectreFinite.RadiusFivePruningBlock6T5C3Initial
-
-@[expose] public section
-

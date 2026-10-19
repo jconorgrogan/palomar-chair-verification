@@ -1,0 +1,96 @@
+{
+  "base_archive_sha256": "93f6a8e91e30e26685b456aa0346c73dbb14def9a825e88a72f8d70e455cebb1",
+  "base_source_commit": "a38d5437074bebf7492e661a7e7808e61415546e",
+  "removed_bytes_total": 40,
+  "replacements": [
+    {
+      "candidate_bytes": 4597,
+      "candidate_git_blob_sha1": "210bd9d27aebe9a107f1812b648fdcb9de6ce096",
+      "candidate_sha256": "e98da63c66436d83f70c03837784e26cba4fb79ed4c33af3fdb192175f87d006",
+      "edits": [
+        {
+          "candidate_offset": 632,
+          "helper": "translated_contracting",
+          "original_line": 22,
+          "original_offset": 632,
+          "removed_hex": "7072697661746520",
+          "removed_utf8": "private "
+        }
+      ],
+      "original_bytes": 4605,
+      "original_git_blob_sha1": "c2262c1116151f7c968698c2056a7a46a1593d82",
+      "original_sha256": "27eb8807b4d9ff946276be8a90b1414f864023252331b67064947fb892fbd43c",
+      "path": "src/SpectreGeometry/DeformationHomeomorphism.lean",
+      "replacement_path": "replacements/src/SpectreGeometry/DeformationHomeomorphism.lean"
+    },
+    {
+      "candidate_bytes": 6470,
+      "candidate_git_blob_sha1": "aa7e16b1cfe4a4b09ac4635fcac30f76bedca20b",
+      "candidate_sha256": "47b37dd77dffb4e29010460ce3ea321441d3698af4756dd2f6cd0f73c41d2caa",
+      "edits": [
+        {
+          "candidate_offset": 475,
+          "helper": "position_cancel",
+          "original_line": 16,
+          "original_offset": 475,
+          "removed_hex": "7072697661746520",
+          "removed_utf8": "private "
+        },
+        {
+          "candidate_offset": 864,
+          "helper": "position_triangle",
+          "original_line": 25,
+          "original_offset": 872,
+          "removed_hex": "7072697661746520",
+          "removed_utf8": "private "
+        }
+      ],
+      "original_bytes": 6486,
+      "original_git_blob_sha1": "2cd259fd016fc41e3fe9959ccd4c7addc58facda",
+      "original_sha256": "40b97dfa3417f4db527da59a70776d4782e9a293a910ef3f213d150d44024114",
+      "path": "src/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+      "replacement_path": "replacements/src/SpectreClusters/ReverseClusterCocycleIntegration.lean"
+    },
+    {
+      "candidate_bytes": 12031,
+      "candidate_git_blob_sha1": "1f3fc0e3c5061dc10393788f42e2c7ef1f1e7d0c",
+      "candidate_sha256": "2776c93c5aa061823b76ffd03765121d3a3929d8748675bd77c61ff5e611ffea",
+      "edits": [
+        {
+          "candidate_offset": 9634,
+          "helper": "product_key_collar_interior_disjoint",
+          "original_line": 198,
+          "original_offset": 9634,
+          "removed_hex": "7072697661746520",
+          "removed_utf8": "private "
+        }
+      ],
+      "original_bytes": 12039,
+      "original_git_blob_sha1": "6c09c9204b34e1ce710b14eddb29f081e21891aa",
+      "original_sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758",
+      "path": "src/SpectreGeometry/PolygonProductKeyBody.lean",
+      "replacement_path": "replacements/src/SpectreGeometry/PolygonProductKeyBody.lean"
+    },
+    {
+      "candidate_bytes": 8940,
+      "candidate_git_blob_sha1": "dfa0c3349a6a502ce65007189bf70caabafef91a",
+      "candidate_sha256": "a9073cac65a99eb84ea0c67312f126fda89880a6638771d6d9258aaf9b08c44d",
+      "edits": [
+        {
+          "candidate_offset": 1820,
+          "helper": "anchor_registered",
+          "original_line": 46,
+          "original_offset": 1820,
+          "removed_hex": "7072697661746520",
+          "removed_utf8": "private "
+        }
+      ],
+      "original_bytes": 8948,
+      "original_git_blob_sha1": "b767d95f93861aa06f22bc5113741e853eb92b86",
+      "original_sha256": "db0f52a8039df762658a919a07e5c7e260a066536014d61d2271d0cdf90fa6c4",
+      "path": "src/SpectreGeometry/PhysicalGridRealization.lean",
+      "replacement_path": "replacements/src/SpectreGeometry/PhysicalGridRealization.lean"
+    }
+  ],
+  "schema": "palomar-five-helper-replacements-v1"
+}

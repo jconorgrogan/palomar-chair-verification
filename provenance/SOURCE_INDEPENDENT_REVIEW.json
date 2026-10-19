@@ -1,0 +1,72 @@
+{
+  "schema": "palomar-five-helper-independent-source-review-v1",
+  "status": "PASS_EXACT_SOURCE_DELTA_AND_STATIC_CLOSURE_ONLY",
+  "source_commit_before": "a38d5437074bebf7492e661a7e7808e61415546e",
+  "candidate_archive_sha256": "445aec213eed96ce60e32740305707c5efdd4762c555cbaf07cd8fa5b7a1df0a",
+  "selected_owner_freeze_sha256": "e05f9a28ca441b4fb98a5c54459ef6f81917672eb06134b926fe21c3e02b2578",
+  "input_map_sha256": "e41e437723b33239a74bf28c48330411b630090003024d8f762ab2838999b146",
+  "tests": {
+    "all_lean_files": 9661,
+    "changed_files": [
+      "src/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+      "src/SpectreGeometry/DeformationHomeomorphism.lean",
+      "src/SpectreGeometry/PhysicalGridRealization.lean",
+      "src/SpectreGeometry/PolygonProductKeyBody.lean"
+    ],
+    "checks": 174855,
+    "executed_native": false,
+    "files": 9671,
+    "init_direct_boundary": 2,
+    "mathlib_direct_boundary": 40,
+    "modifier_tokens_removed": 5,
+    "negative_controls": 16,
+    "owned_closure_count": 174,
+    "pass": true,
+    "proof_acceptance": false,
+    "qualification": "Four names have actual compiler failures. The fifth anchor_registered is source-predicted. Exact visibility delta and static import closure do not establish a successful build.",
+    "removed_bytes": 40,
+    "src_lean_files": 9660
+  },
+  "normal_sha256": "9cdceb23fb689a573f37c0ac080b2c0e639dc70d69505f1ff6e48f2a935a0e47",
+  "optimized_sha256": "9cdceb23fb689a573f37c0ac080b2c0e639dc70d69505f1ff6e48f2a935a0e47",
+  "verified_scope": [
+    "All9671 unique regular source members, SHA256 and Git blob identities, complete member set and preserved archive metadata",
+    "Exactly five private-space deletions across four modules, with all theorem statements, proof bodies, imports, options and every other source byte unchanged",
+    "Independent comment-aware source header graph yields exact174 owned closure,40Mathlib direct boundary imports and2Init imports; all owner topological dependencies and source pins match",
+    "Sixteen direct source mutations reject in both modes; no Lean/native/project code executed"
+  ],
+  "qualifications": [
+    "Visibility change alters helper exported identity/interface and therefore requires new compiled outputs and evidence; it does not preserve old binary hashes.",
+    "Four named helper failures were observed across three modules. The fifth anchor_registered risk is source-predicted and its original-file outcome must be truthfully classified.",
+    "Static closure covers the four repaired modules and their prerequisites, not every downstream endpoint or full Solution.",
+    "The smoke specification is a requirement set only. Concrete driver/runtime/resource/capture/envelope and activation remain separate independent gates.",
+    "No successful Lean build, kernel check, official comparator result, proof acceptance or publication is established."
+  ],
+  "files": [
+    {
+      "path": "INPUTS.json",
+      "bytes": 5168,
+      "sha256": "e41e437723b33239a74bf28c48330411b630090003024d8f762ab2838999b146"
+    },
+    {
+      "path": "SEAL.py",
+      "bytes": 3863,
+      "sha256": "ada2354500305fc45d742f14b68f5d1d3b6baa0eda725bd955f05c3593ef1160"
+    },
+    {
+      "path": "VERIFY.py",
+      "bytes": 7093,
+      "sha256": "3dbb4f33996c76c280022b6095783ffa4a324fb18c5056a979a962181da93e2b"
+    },
+    {
+      "path": "normal.json",
+      "bytes": 795,
+      "sha256": "9cdceb23fb689a573f37c0ac080b2c0e639dc70d69505f1ff6e48f2a935a0e47"
+    },
+    {
+      "path": "optimized.json",
+      "bytes": 795,
+      "sha256": "9cdceb23fb689a573f37c0ac080b2c0e639dc70d69505f1ff6e48f2a935a0e47"
+    }
+  ]
+}

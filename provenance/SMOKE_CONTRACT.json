@@ -1,0 +1,172 @@
+{
+  "acceptance": "All 174 candidate source modules compile cleanly, every available required kernel check succeeds, three original-file failures reproduce, the fourth original-file outcome is explicitly classified, and exact target/prefix/source integrity controls pass. An unexpected fourth control outcome or unavailable required check must be reviewed before a final smoke-ready claim.",
+  "cases": [
+    {
+      "additional_observed_error_sites": [
+        {
+          "column": 4,
+          "declaration": "SpectreGeometry.Deformation.identitySubHomeomorph",
+          "kind": "kernel declaration has metavariables",
+          "line": 31
+        },
+        {
+          "column": 16,
+          "declaration": "SpectreGeometry.Deformation.identitySubHomeomorph_apply",
+          "kind": "kernel declaration type mismatch",
+          "line": 58
+        },
+        {
+          "column": 42,
+          "kind": "unsolved goals",
+          "line": 73
+        }
+      ],
+      "candidate_full_module_required_outcome": "Zero compiler exit and no error or sorry diagnostics for the complete candidate module, followed by kernel checking if supported by the reviewed existing runner.",
+      "corrected_prerequisite_targets": [],
+      "expected_unknown_identifiers": [
+        {
+          "column": 15,
+          "line": 34,
+          "name": "translated_contracting"
+        }
+      ],
+      "module": "SpectreGeometry.DeformationHomeomorphism",
+      "observation": "actual_original_module_failure_from_official_report",
+      "owned_closure_count": 1,
+      "path": "src/SpectreGeometry/DeformationHomeomorphism.lean",
+      "prerequisite_source_variant": "candidate",
+      "required_original_outcome": "Nonzero compilation with all expected unknown-identifier names at their source sites. Retain complete bounded output and classify any other errors; known downstream Deformation errors are not independent missing-lemma evidence."
+    },
+    {
+      "candidate_full_module_required_outcome": "Zero compiler exit and no error or sorry diagnostics for the complete candidate module, followed by kernel checking if supported by the reviewed existing runner.",
+      "corrected_prerequisite_targets": [],
+      "expected_unknown_identifiers": [
+        {
+          "column": 33,
+          "line": 60,
+          "name": "position_cancel"
+        },
+        {
+          "column": 25,
+          "line": 61,
+          "name": "position_triangle"
+        }
+      ],
+      "module": "SpectreClusters.ReverseClusterCocycleIntegration",
+      "observation": "actual_original_module_failure_from_official_report",
+      "owned_closure_count": 10,
+      "path": "src/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+      "prerequisite_source_variant": "candidate",
+      "required_original_outcome": "Nonzero compilation with all expected unknown-identifier names at their source sites. Retain complete bounded output and classify any other errors; known downstream Deformation errors are not independent missing-lemma evidence."
+    },
+    {
+      "candidate_full_module_required_outcome": "Zero compiler exit and no error or sorry diagnostics for the complete candidate module, followed by kernel checking if supported by the reviewed existing runner.",
+      "corrected_prerequisite_targets": [],
+      "expected_unknown_identifiers": [
+        {
+          "column": 24,
+          "line": 224,
+          "name": "product_key_collar_interior_disjoint"
+        }
+      ],
+      "module": "SpectreGeometry.PolygonProductKeyBody",
+      "observation": "actual_original_module_failure_from_official_report",
+      "owned_closure_count": 52,
+      "path": "src/SpectreGeometry/PolygonProductKeyBody.lean",
+      "prerequisite_source_variant": "candidate",
+      "required_original_outcome": "Nonzero compilation with all expected unknown-identifier names at their source sites. Retain complete bounded output and classify any other errors; known downstream Deformation errors are not independent missing-lemma evidence."
+    },
+    {
+      "candidate_full_module_required_outcome": "Zero compiler exit and no error or sorry diagnostics for the complete candidate module, followed by kernel checking if supported by the reviewed existing runner.",
+      "corrected_prerequisite_targets": [
+        "SpectreGeometry.DeformationHomeomorphism"
+      ],
+      "module": "SpectreGeometry.PhysicalGridRealization",
+      "observation": "source_prediction_only_not_reported_official_compiler_error",
+      "owned_closure_count": 136,
+      "path": "src/SpectreGeometry/PhysicalGridRealization.lean",
+      "predicted_unknown_identifier": {
+        "column": null,
+        "line": 57,
+        "name": "anchor_registered"
+      },
+      "prerequisite_source_variant": "candidate",
+      "required_original_outcome": "Record actual result. A matching unknown identifier confirms the source prediction; unexpected pass or a different rejection must be reported truthfully and reviewed. Do not fabricate or require a falsely observed historical error."
+    }
+  ],
+  "execution_plan_requirements": [
+    "Validate archive, complete source manifest, replacement map, reverse deltas, dependency DAG, toolchain, and Mathlib pins before any native execution.",
+    "Use candidate prerequisites in dependency order for the exact 174-module union. Stop on a candidate prerequisite compile failure; do not allow a broken dependency to masquerade as a target visibility control.",
+    "Compile each entire candidate module with existing flags. If the existing reviewed runner supports it, kernel-check every candidate module after compilation. Retain separate compiler and kernel-checker outcomes; an unperformed checker is not a pass.",
+    "Run each exact original target file in an isolated output location against its exact candidate prerequisite prefix. Describe these as original-file probes against candidate prerequisites, not a wholly original closure. PhysicalGrid intentionally requires corrected DeformationHomeomorphism.",
+    "Keep original target outputs and failed outputs out of candidate search paths. Never overwrite or import an original target artifact as a candidate prerequisite.",
+    "Require observed three baseline errors by identifier and site; retain known downstream diagnostics. For the fourth source-predicted case, retain actual output and stop for review on an unexpected outcome.",
+    "Rehash target sources, prefix/closure maps, binaries and protected inputs after execution. Capture exit status, elapsed time, resource outcomes and bounded original stdout/stderr.",
+    "Focused smoke results establish only the tested source/compiler behavior. A later exact-source official build, export and complete comparator/checker run remain separate, pending review and authorization."
+  ],
+  "official_identity": {
+    "attempt": 1,
+    "caller_commit": "7ea166c504790c1f596b95a40f4621496834c098",
+    "execution_profile": "palomar-standard-v1",
+    "failed_run_id": 39157637759,
+    "pipeline_commit": "d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44",
+    "source_commit": "a38d5437074bebf7492e661a7e7808e61415546e"
+  },
+  "publication_and_execution_authority": "No native/project execution, artifact acquisition, security-setting change, publication, dispatch or official rerun is authorized by this static contract. CI is the sole publisher.",
+  "runtime": {
+    "global_option_or_limit_changes": false,
+    "lean_toolchain": "leanprover/lean4:v4.35.0-rc2",
+    "mathlib_commit": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+    "module_compiler_arguments": [
+      "-j1",
+      "-DElab.async=false"
+    ],
+    "official_binary_digests": {
+      "bwrap": "6b85780b4d5110d795052bbc1e28a4fc928e2d8a153041d2794750478a34ccf0",
+      "con-ron": "4e5616d94374cae37324dad2594f6230c2bb2297240249fc78ff508f3bc5acef",
+      "lake": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1",
+      "lean": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+      "leanchecker": "9e36e955a251b1313c8eb5b7fa101282d51df109d34d8bb7c1cfdf51985aba29",
+      "leanexport": "c5bc1a10a21e22cbb3671d65987cdef2076833b14182d823ccb2153adf2fa954",
+      "nanoda_bin": "8241c5e6baa29490aa118d382f97961b208ae730fdb96545c2abed74c9ece5a8"
+    },
+    "runtime_acquisition": "Not authorized or performed by this contract. Driver owner must use the separately reviewed existing exact-runtime acquisition and confinement envelope.",
+    "toolchain_commit": "11acb17ec6b07a8f9e9173e6845197929540936b"
+  },
+  "schema": "palomar-five-helper-focused-smoke-contract-v1",
+  "scope": {
+    "changed_files": 4,
+    "external_direct_boundaries": 42,
+    "external_mathlib_boundaries": 40,
+    "historical_audit_gates_affected": false,
+    "official_comparator_or_external_checker_acceptance": false,
+    "official_endpoint_compilation": false,
+    "owned_candidate_modules": 174,
+    "removed_private_modifiers": 5,
+    "source_bytes_removed": 40,
+    "target_modules": 4
+  },
+  "source_packet": {
+    "archive": {
+      "bytes": 8615168,
+      "path": "palomar-five-helper-visibility-source.tar.gz",
+      "sha256": "445aec213eed96ce60e32740305707c5efdd4762c555cbaf07cd8fa5b7a1df0a"
+    },
+    "closure_map": {
+      "bytes": 93955,
+      "path": "/workspace/shared/palomar_visibility_five_helper_successor_20261019T0025/CLOSURE.json",
+      "sha256": "0d15d0051df63f0456ee7e48fddcc0c258baedccc8374bcd305d8d35d20724a1"
+    },
+    "replacement_map": {
+      "bytes": 3913,
+      "path": "/workspace/shared/palomar_visibility_five_helper_successor_20261019T0025/REPLACEMENTS.json",
+      "sha256": "ae4aac52f8527afbe14d61ebf6f60e591a5cf2546909247e9e48f24197decbf8"
+    },
+    "source_manifest": {
+      "bytes": 2460030,
+      "path": "/workspace/shared/palomar_visibility_five_helper_successor_20261019T0025/SOURCE_MANIFEST.json",
+      "sha256": "69e4ab612fb20a7a6e91d69c3e77b38f509201abb591ef120529d540d2b6fdbf"
+    }
+  },
+  "status": "SPECIFICATION_ONLY_UNEXECUTED"
+}

@@ -1,0 +1,3104 @@
+{
+  "cache_roots": [
+    "Mathlib.Algebra.Order.Ring.Unbundled.Rat",
+    "Mathlib.Analysis.Convex.Topology",
+    "Mathlib.Analysis.InnerProductSpace.Basic",
+    "Mathlib.Analysis.InnerProductSpace.PiL2",
+    "Mathlib.Analysis.Normed.Affine.Isometry",
+    "Mathlib.Analysis.Normed.Affine.MazurUlam",
+    "Mathlib.Analysis.Normed.Module.Basic",
+    "Mathlib.Analysis.Normed.Module.Convex",
+    "Mathlib.Analysis.Real.Sqrt",
+    "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Angle",
+    "Mathlib.Data.Finset.Lattice.Fold",
+    "Mathlib.Data.Int.Sqrt",
+    "Mathlib.Data.Rat.Lemmas",
+    "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic",
+    "Mathlib.LinearAlgebra.Dimension.Constructions",
+    "Mathlib.LinearAlgebra.Dimension.DivisionRing",
+    "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+    "Mathlib.Logic.Relation",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic",
+    "Mathlib.Tactic.Abel",
+    "Mathlib.Tactic.FieldSimp",
+    "Mathlib.Tactic.FinCases",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.LinearCombination",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Ring",
+    "Mathlib.Topology.Algebra.ConstMulAction",
+    "Mathlib.Topology.Algebra.ContinuousAffineEquiv",
+    "Mathlib.Topology.Algebra.MetricSpace.Lipschitz",
+    "Mathlib.Topology.Algebra.Module.Cardinality",
+    "Mathlib.Topology.Algebra.Module.FiniteDimension",
+    "Mathlib.Topology.Bases",
+    "Mathlib.Topology.Connected.Basic",
+    "Mathlib.Topology.LocallyFinite",
+    "Mathlib.Topology.MetricSpace.Basic",
+    "Mathlib.Topology.MetricSpace.Bounded",
+    "Mathlib.Topology.MetricSpace.Contracting",
+    "Mathlib.Topology.Order.IntermediateValue",
+    "Mathlib.Topology.Order.LeftRight"
+  ],
+  "distribution_files": [
+    ".github/workflows/palomar-visibility-smoke.yml",
+    "README.md",
+    "originals/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+    "originals/SpectreGeometry/DeformationHomeomorphism.lean",
+    "originals/SpectreGeometry/PhysicalGridRealization.lean",
+    "originals/SpectreGeometry/PolygonProductKeyBody.lean",
+    "owned-sources.tar.gz",
+    "provenance/CLOSURE.json",
+    "provenance/FINAL_FREEZE.json",
+    "provenance/REPLACEMENTS.json",
+    "provenance/SMOKE_CONTRACT.json",
+    "provenance/SOURCE_INDEPENDENT_REVIEW.json",
+    "smoke-contract.json",
+    "tests/inert_loop_fixture.py",
+    "tests/inert_success_fixture.py",
+    "tests/run_guarded.py",
+    "tests/test_smoke.py",
+    "vendor/pipeline/ci/cache_diagnostic.py",
+    "vendor/pipeline/ci/collect_evidence.py",
+    "vendor/pipeline/ci/conditional_transport.py",
+    "vendor/pipeline/ci/fresh_stage.py",
+    "vendor/pipeline/ci/higher_policy.py",
+    "vendor/pipeline/ci/source_header.py",
+    "vendor/pipeline/ci/toolchain_install.py",
+    "vendor/pipeline/locks/cache-client.json",
+    "vendor/pipeline/locks/dependencies.json",
+    "vendor/pipeline/locks/required-modules.json",
+    "visibility_smoke.py"
+  ],
+  "expected_diagnostics": {
+    "SpectreClusters.ReverseClusterCocycleIntegration": [
+      [
+        60,
+        33,
+        "position_cancel"
+      ],
+      [
+        61,
+        25,
+        "position_triangle"
+      ]
+    ],
+    "SpectreGeometry.DeformationHomeomorphism": [
+      [
+        34,
+        15,
+        "translated_contracting"
+      ]
+    ],
+    "SpectreGeometry.PhysicalGridRealization": [
+      [
+        57,
+        null,
+        "anchor_registered"
+      ]
+    ],
+    "SpectreGeometry.PolygonProductKeyBody": [
+      [
+        224,
+        24,
+        "product_key_collar_interior_disjoint"
+      ]
+    ]
+  },
+  "expected_parent_commit": "7ea166c504790c1f596b95a40f4621496834c098",
+  "full_official_verification_claimed": false,
+  "independent_driver_review_sha256": "9a6ba5eee55afb918bef15b66e7f2f8c21a383febd0804069a0b9ae1891c99c9",
+  "init_only_order": [
+    "SpectreFinite.ListedPatches",
+    "SpectreFinite.PatchEnumeration",
+    "SpectreFinite.HexSearchModel",
+    "SpectreFinite.GlobalRestrictions",
+    "SpectreFinite.HexRotation",
+    "SpectreFinite.HexRotationComposition",
+    "SpectreFinite.IntegerStepAction",
+    "SpectreFinite.HexStepAction",
+    "SpectreClusters.KiteGrid",
+    "SpectreClusters.ReverseClusterCocycleIntegration"
+  ],
+  "inputs": {
+    "README.md": {
+      "bytes": 8167,
+      "sha256": "68d84387fa0aae6ba161a996e8db3e3aa19fd441cef0097019518ca8c429a618"
+    },
+    "originals/SpectreClusters/ReverseClusterCocycleIntegration.lean": {
+      "bytes": 6486,
+      "sha256": "40b97dfa3417f4db527da59a70776d4782e9a293a910ef3f213d150d44024114"
+    },
+    "originals/SpectreGeometry/DeformationHomeomorphism.lean": {
+      "bytes": 4605,
+      "sha256": "27eb8807b4d9ff946276be8a90b1414f864023252331b67064947fb892fbd43c"
+    },
+    "originals/SpectreGeometry/PhysicalGridRealization.lean": {
+      "bytes": 8948,
+      "sha256": "db0f52a8039df762658a919a07e5c7e260a066536014d61d2271d0cdf90fa6c4"
+    },
+    "originals/SpectreGeometry/PolygonProductKeyBody.lean": {
+      "bytes": 12039,
+      "sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758"
+    },
+    "provenance/CLOSURE.json": {
+      "bytes": 93955,
+      "sha256": "0d15d0051df63f0456ee7e48fddcc0c258baedccc8374bcd305d8d35d20724a1"
+    },
+    "provenance/FINAL_FREEZE.json": {
+      "bytes": 895,
+      "sha256": "e05f9a28ca441b4fb98a5c54459ef6f81917672eb06134b926fe21c3e02b2578"
+    },
+    "provenance/REPLACEMENTS.json": {
+      "bytes": 3913,
+      "sha256": "ae4aac52f8527afbe14d61ebf6f60e591a5cf2546909247e9e48f24197decbf8"
+    },
+    "provenance/SMOKE_CONTRACT.json": {
+      "bytes": 9953,
+      "sha256": "2ed7c21645f24c3be34fa7e27bccad599ce6f3f6bee6028497f83a296ce3f20e"
+    },
+    "provenance/SOURCE_INDEPENDENT_REVIEW.json": {
+      "bytes": 3650,
+      "sha256": "a15744dd1c7e2d1682606b174950b0caa77822f282174123cd197c1fc26def5c"
+    },
+    "src/PhysicalRegistration/KeyHypograph.lean": {
+      "bytes": 4639,
+      "sha256": "2dd0914d60188755c98a1dab41cdaf35ae5bec7a8f7a840d5fe84fa1360741a1"
+    },
+    "src/PhysicalRegistration/KeyTent.lean": {
+      "bytes": 11357,
+      "sha256": "f3f9a5bc6e1cadfc7f2b9b8241ed395946a04af5487508de06871b319c927995"
+    },
+    "src/PhysicalRegistration/KeyTube.lean": {
+      "bytes": 9992,
+      "sha256": "9eec498ed113e56421eb760d3494517801b3a3ddd568da82032140081558436a"
+    },
+    "src/PhysicalRegistration/LocalGraphs.lean": {
+      "bytes": 4905,
+      "sha256": "06723c18c82f8bac3d2c18611c5ad2328d6dc3c0070a174cba229560667e4bcd"
+    },
+    "src/PhysicalRegistration/PlanarSectorMeasure.lean": {
+      "bytes": 27578,
+      "sha256": "05fe9376a84e5b2a81dc167cf9b89ffd3fcd498465343ae5f1af9aa12ac13ac6"
+    },
+    "src/PhysicalRegistration/ThreeCones.lean": {
+      "bytes": 3493,
+      "sha256": "fcadcc5a37758ac70722a974483e32a9e11aefbfee079353a7ff58e8c44891f2"
+    },
+    "src/PhysicalRegistration/TubeAssembly.lean": {
+      "bytes": 6287,
+      "sha256": "66e6cd0750c5706829be6f48ebb726795ec521ed3a74e465a6516401eb8a86d6"
+    },
+    "src/SpectreClusters/BodyBSPComplete.lean": {
+      "bytes": 1223,
+      "sha256": "6bf9d34966858b258166ce487e2fdd7aa06a86ad1310d6ec64e2687e44f9244b"
+    },
+    "src/SpectreClusters/BodyBSPData.lean": {
+      "bytes": 6384,
+      "sha256": "26d33a610f56d82e5e2134486ab713b2e41bd1ec9615783093beefae14bd9cfd"
+    },
+    "src/SpectreClusters/BodyBSPHatForward.lean": {
+      "bytes": 5190,
+      "sha256": "3986736c010ff40e5e9d809f267cc3fcdc1339f9dc2c4cdad90d02796553df01"
+    },
+    "src/SpectreClusters/BodyBSPHatReverse.lean": {
+      "bytes": 4948,
+      "sha256": "6e2c760639c554a10c8a7525238a405c6e45bca3b732b37caab89f538361f69e"
+    },
+    "src/SpectreClusters/BodyBSPTurtleForward.lean": {
+      "bytes": 6042,
+      "sha256": "b836c62dec5a8682cf3e52c8677279e48684d1662746b2c84828ce836c8d2ca0"
+    },
+    "src/SpectreClusters/BodyBSPTurtleReverse.lean": {
+      "bytes": 5677,
+      "sha256": "0a3993e91eeacea93b8fd1d82608dd24b20b627b288af31f4a2114f1116c40f8"
+    },
+    "src/SpectreClusters/BoundaryChains.lean": {
+      "bytes": 1722,
+      "sha256": "519689b6cfaf0a00a0bb557682ed253208fa72bbe1bbe1e68f393b4d12546e63"
+    },
+    "src/SpectreClusters/DeformedLiteralBinding.lean": {
+      "bytes": 3868,
+      "sha256": "230f18f0bbe91c7d70608e7945174435d4d5c82ff0b70575b51e71e2a6f437a3"
+    },
+    "src/SpectreClusters/GridCoverModel.lean": {
+      "bytes": 3388,
+      "sha256": "3617de5bec346dc54369f6b31748b143f1c726f207c08aa02cf6ce3f7067fa1e"
+    },
+    "src/SpectreClusters/GridKiteProbeData.lean": {
+      "bytes": 1548,
+      "sha256": "c54e026095da0330f342148b5f97b90901d65ce4ddcde9f66f84cf4a9ac6b02e"
+    },
+    "src/SpectreClusters/GridMotions.lean": {
+      "bytes": 3306,
+      "sha256": "a23c41b6ce9aadd5e06b9eb9b81a68ea8073936120d74ef5c86dcd51dbc7c4c9"
+    },
+    "src/SpectreClusters/KiteContact0.lean": {
+      "bytes": 311,
+      "sha256": "23e9cd5697a1076ee2ba03129ddd0d2663dcab0fd9e7dae441335bdf6ac67bc2"
+    },
+    "src/SpectreClusters/KiteContact1.lean": {
+      "bytes": 311,
+      "sha256": "67fd0af55fa8bf66b28b018ea28b7d13ba3b5c66534b99df2957fb2beefb5461"
+    },
+    "src/SpectreClusters/KiteContact2.lean": {
+      "bytes": 311,
+      "sha256": "29fec03fe00eb674226bbe2ddbb9f9813eb34c8dadcc1cff08abccd0cbb0ac37"
+    },
+    "src/SpectreClusters/KiteContact3.lean": {
+      "bytes": 311,
+      "sha256": "8b0927228c0dbeb16ab8c43063b1427043f3540010910105681a1f2e71a81591"
+    },
+    "src/SpectreClusters/KiteContact4.lean": {
+      "bytes": 311,
+      "sha256": "08fc00c1769b444aed72b5effef61d932e2fa0885298d131b59709a0f90c493e"
+    },
+    "src/SpectreClusters/KiteContact5.lean": {
+      "bytes": 311,
+      "sha256": "b65e127791fb7708f42eb0f3f8cdc7150933c63c49884c7bd313644ef76f1c5c"
+    },
+    "src/SpectreClusters/KiteContactData.lean": {
+      "bytes": 1515,
+      "sha256": "2b47adbf493b54c2161225caffe65c6ff39e6f402613bb7085359ae2737823ac"
+    },
+    "src/SpectreClusters/KiteContacts.lean": {
+      "bytes": 3217,
+      "sha256": "6a01e8e2bb1bbb34b48ff1350d7a75d7234754c228367f6f4845407723285865"
+    },
+    "src/SpectreClusters/KiteGrid.lean": {
+      "bytes": 5208,
+      "sha256": "4c4ce2af5fc53b8203e232a5acc99ecb00608cadba5166106a3735d7a94c01ea"
+    },
+    "src/SpectreClusters/LiteralData.lean": {
+      "bytes": 3428,
+      "sha256": "7520c9388789a0482488e73394de1fa4f30389c7f560ee82b527ba12940bce88"
+    },
+    "src/SpectreClusters/NeighborCandidates.lean": {
+      "bytes": 2893,
+      "sha256": "6edd43144cd23ef0b5a5f59245ae50d8068b4ad06f37085a68cf58fa4faf764c"
+    },
+    "src/SpectreClusters/ReverseClusterCocycleIntegration.lean": {
+      "bytes": 6470,
+      "sha256": "47b37dd77dffb4e29010460ce3ea321441d3698af4756dd2f6cd0f73c41d2caa"
+    },
+    "src/SpectreFinite/GlobalRestrictions.lean": {
+      "bytes": 2067,
+      "sha256": "aa094adb8fe7ce80424da98e8145a9fadfe4644a8b1e57990d1cb556e330e890"
+    },
+    "src/SpectreFinite/HexRotation.lean": {
+      "bytes": 7251,
+      "sha256": "dd957f7d47b34794de4857b0b59e4b8fa020523d7c6b6271f490e11ca5351094"
+    },
+    "src/SpectreFinite/HexRotationComposition.lean": {
+      "bytes": 5639,
+      "sha256": "d2b12aaf3cf47173e31c74c0614095879e012f35eb9c691a99e588866cf03105"
+    },
+    "src/SpectreFinite/HexSearchModel.lean": {
+      "bytes": 3272,
+      "sha256": "b34d538ab6921fe1242348ad0d87f34a45d882e4e8cd27c3f7f68077b6236838"
+    },
+    "src/SpectreFinite/HexStepAction.lean": {
+      "bytes": 3181,
+      "sha256": "18b5a663605957341f0abb92c55debb8a1371b5c056201789a0b1fcbd6fb4cf4"
+    },
+    "src/SpectreFinite/IntegerStepAction.lean": {
+      "bytes": 3834,
+      "sha256": "e89bc4e056d35314d17a8e249a7c5f9c4105915d2496abda73fa5cd33aaa4512"
+    },
+    "src/SpectreFinite/ListedPatches.lean": {
+      "bytes": 6147,
+      "sha256": "e99075e7bcd6513338bb3475b2fd44f6fa4a8e6537f006ba4e97f15a7e6c734d"
+    },
+    "src/SpectreFinite/PatchEnumeration.lean": {
+      "bytes": 3171,
+      "sha256": "b4b0634caf140769b7babc5ac280e069e1b8b0b9c28fc0959dd03cb8ae6565e4"
+    },
+    "src/SpectreGeometry/BoundaryNonvertex.lean": {
+      "bytes": 1504,
+      "sha256": "2712b175406d890c85e4bf8be25a9cce188a667c274b561a8ac6c81ad964916c"
+    },
+    "src/SpectreGeometry/BoundarySectorGerms.lean": {
+      "bytes": 5563,
+      "sha256": "0df8f5a553d69d170c07ef16159ee38afc8e4b3e3f9bac955fa49cb45cd29626"
+    },
+    "src/SpectreGeometry/CompactPacking.lean": {
+      "bytes": 3978,
+      "sha256": "5cebc20606cea5d03cd4c0d5f5a2a6f8dc7cde6c6eee2ff882caad9426284401"
+    },
+    "src/SpectreGeometry/CompactTilingIncidence.lean": {
+      "bytes": 4938,
+      "sha256": "d00fa512d36bb7d1bd746ba08ee8ad92a46b296e2250cb6de7e5f20cf1ba84eb"
+    },
+    "src/SpectreGeometry/ContactConnectivity.lean": {
+      "bytes": 3891,
+      "sha256": "a3aa01a1760105164b553bd94edf71173c90b4ba5a4aa66f435f94e13c19e44d"
+    },
+    "src/SpectreGeometry/ConvexQuadrilateral.lean": {
+      "bytes": 1860,
+      "sha256": "a7d145b14dd49c9ee6573612767b2691b5219955c0c495fe64df613353ad0beb"
+    },
+    "src/SpectreGeometry/ConvexZeroFace.lean": {
+      "bytes": 1903,
+      "sha256": "efb70574dea75e571a450149343126dbb2b23a5210e023ca4a44ead337117fcd"
+    },
+    "src/SpectreGeometry/CornerGermData.lean": {
+      "bytes": 1960,
+      "sha256": "5d9e4780a5095b40df87b4f9e6a89aba4a8ac4896a941d0ab5e5d67c484b758b"
+    },
+    "src/SpectreGeometry/CornerNeighborhood.lean": {
+      "bytes": 5245,
+      "sha256": "e9cba698de68eb88d4aa57c1fe0b943d3849a1af9084c18d5c483f76b0327868"
+    },
+    "src/SpectreGeometry/CornerPairSums.lean": {
+      "bytes": 2164,
+      "sha256": "c61d772647d00895d2995c28b053d490d736a02c85076d7d8935b17644b6d103"
+    },
+    "src/SpectreGeometry/CornerSectorReal.lean": {
+      "bytes": 5881,
+      "sha256": "0ab8d86030e7e4a1a2fa090d08a1dd73ef66db860ad0958bef95c4ca7dbfc499"
+    },
+    "src/SpectreGeometry/CornerSignData.lean": {
+      "bytes": 647,
+      "sha256": "7a6bab5404aae6c160ab35df99f1c68bf2031d52665748575fe47b20ac9e9588"
+    },
+    "src/SpectreGeometry/CornerSteps.lean": {
+      "bytes": 2511,
+      "sha256": "d8dca75bf5f22dde0cbefd6756b60d5ede42e509d492a53239452040cc779728"
+    },
+    "src/SpectreGeometry/CountableComplement.lean": {
+      "bytes": 4698,
+      "sha256": "e8bbefd0231b398e3b5b84bb6761c300382c9861617b91989c4e70700dea1ac9"
+    },
+    "src/SpectreGeometry/CyclicFrameRegistration.lean": {
+      "bytes": 5433,
+      "sha256": "c17e6685b2ab543c4712831443a2855ad769f3fc61fc30ba86101963320de92c"
+    },
+    "src/SpectreGeometry/CyclicRotations.lean": {
+      "bytes": 4403,
+      "sha256": "31d34c52645734a2fafb269c4eca019e67a341218ccc24186dd086122fa14dec"
+    },
+    "src/SpectreGeometry/DeformationBoundaryOwnershipData.lean": {
+      "bytes": 330,
+      "sha256": "68a6cd0acd1285f9a5cc27e40741603459f2d4a3a862ee59316191a59546c0c7"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphism.lean": {
+      "bytes": 4597,
+      "sha256": "e98da63c66436d83f70c03837784e26cba4fb79ed4c33af3fdb192175f87d006"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismAffine.lean": {
+      "bytes": 7113,
+      "sha256": "850acb746168040803934513e2e526a89070c41c5f4c8cbdde4a4ee39d88c93a"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismBounds.lean": {
+      "bytes": 1889,
+      "sha256": "3c9d7873578cdf533851b03993f44ae606ca47c7e2bd71d50a57d69a794f2ee5"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismCover.lean": {
+      "bytes": 2695,
+      "sha256": "a1e3cebc45ec6232cfa0038abbc92f9c186c54ec01ed8e35b2fda25c6e8b39ae"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismData.lean": {
+      "bytes": 3022,
+      "sha256": "4d5785da3b013a5aed62c4912697e7e0eec6e41fa4e1b51841d3d05e11208457"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismGluing.lean": {
+      "bytes": 4194,
+      "sha256": "5bf2b9a700dc55cb5b25c1c0baffe20fc9ed81e7a1afad08bb60a30914af2b76"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismMatrix.lean": {
+      "bytes": 3194,
+      "sha256": "bd67f78fea7663ae21253337fc84d45b18bbe9a8b0f0d04fa9af7501a38f174b"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismPhysical.lean": {
+      "bytes": 8062,
+      "sha256": "3e22ba267f6457ac3166d9cdb8ba0054cab7ca214f6ee1595029f95fa7166571"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismTile.lean": {
+      "bytes": 5705,
+      "sha256": "dbe400fc1e822ea03b943d34d48d81b1db20e3b1bf73bb4ac7d7524f13552321"
+    },
+    "src/SpectreGeometry/DeformationHomeomorphismTransport.lean": {
+      "bytes": 5368,
+      "sha256": "72e87a8e34cb355f3ed1ed582590a38467a098eea9d0411978844d3d8fa0f1e8"
+    },
+    "src/SpectreGeometry/DeformationTriangulationCover.lean": {
+      "bytes": 16539,
+      "sha256": "f7d518848098039616adbacc4416ba08e017279b2d566e98d080c1376597ed43"
+    },
+    "src/SpectreGeometry/DeformationTriangulationData.lean": {
+      "bytes": 2564,
+      "sha256": "e0e47ec6a7d79adf89748c5dd2d6bad99be55f07585877075d82520e44b1812f"
+    },
+    "src/SpectreGeometry/DeformationTriangulationFaces.lean": {
+      "bytes": 5593,
+      "sha256": "2ee7b6a64ef5ebd8dddee34e4e94449f4dcf5c1a29e4ad8a4357cc06693c34b2"
+    },
+    "src/SpectreGeometry/DeformationTriangulationReal.lean": {
+      "bytes": 2247,
+      "sha256": "dd5a894581d75dd56a6757df62a6411f68f3ab0a9bb54d671cae9ca552ab9bde"
+    },
+    "src/SpectreGeometry/DeformedLatticeCertificate.lean": {
+      "bytes": 476,
+      "sha256": "849a25b63a4766c0dbcc5a76bef1deda5dfc6d53ee037d742e2204b038a8449c"
+    },
+    "src/SpectreGeometry/DeformedVertexData.lean": {
+      "bytes": 3219,
+      "sha256": "f19906f08110404bd6673dc41d7cab31da929513c638bfdd5d658b5dda0d7175"
+    },
+    "src/SpectreGeometry/DevelopedCenterLattice.lean": {
+      "bytes": 2138,
+      "sha256": "c4469ac81de20d5ad0ebb2746f51a70651d7245bd46ceb29d875e9142f2f398e"
+    },
+    "src/SpectreGeometry/DevelopedLiteralBody.lean": {
+      "bytes": 4273,
+      "sha256": "8014d6d3897de6ce6990775445751966402ef1eee322778f220ea235f1f4d6e3"
+    },
+    "src/SpectreGeometry/DevelopedRealCoordinates.lean": {
+      "bytes": 3388,
+      "sha256": "4ae83b9dd4541b6f45669877a68bd2c7f16464a5fe038bf4046096681c046844"
+    },
+    "src/SpectreGeometry/DirectIsometryFrames.lean": {
+      "bytes": 5412,
+      "sha256": "2e7a56c73ade4b5a1120e8433d7b9126d87a60a99baab0763f295e2826243b71"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase0.lean": {
+      "bytes": 442,
+      "sha256": "c99a1a9439e0ac386c8993fbeed02868ddfd6b334c974abf5917c925470650fb"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase1.lean": {
+      "bytes": 442,
+      "sha256": "4bb8d67ce12164f394a06f2d0c0b48880b9a188c9c19af4eb94eb1a6f68a149e"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase10.lean": {
+      "bytes": 446,
+      "sha256": "d63617699e29345f106575ed129c7909dee9d44e26b8ef24adfe9b7835ef035c"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase11.lean": {
+      "bytes": 446,
+      "sha256": "e312fee43b20127c02183bac2f8f71174d50811515a716501c4f3f53ced38331"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase12.lean": {
+      "bytes": 446,
+      "sha256": "4030697d1c1e53f77efa06f875f79ab02de44b12a76cf6319f2a175679bc9b80"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase13.lean": {
+      "bytes": 446,
+      "sha256": "0324a73419857a1fceb5c84a78e94aac7279fb0dad3ba8cd1f91bf6d8448a1e5"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase2.lean": {
+      "bytes": 442,
+      "sha256": "c95ea6c53a860bc4cddc8c84d10403c7b781919e9f70f3deb035ef8a7016d90a"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase3.lean": {
+      "bytes": 442,
+      "sha256": "94d626d1b0b3e57ddecd14537f3698cbb8e42940a9afd402ff94e3d53bdf95db"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase4.lean": {
+      "bytes": 442,
+      "sha256": "96a6eb5b22487be2270217e98e7f278c243e98377e3fa8895ea9201d1d546355"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase5.lean": {
+      "bytes": 442,
+      "sha256": "9fd9b51928a93a90aa6bab4b8050daf451d300819eb045a0b8b0a7abd0d4ea61"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase6.lean": {
+      "bytes": 442,
+      "sha256": "4cc0b929a01763cf74f369c3359582fa628dc22c23ea3ee87bead048c262baf7"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase7.lean": {
+      "bytes": 442,
+      "sha256": "1dbe8c8501e75614d03824c80b4d291335c9a71e91044476da4bd73ec9861125"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase8.lean": {
+      "bytes": 442,
+      "sha256": "e3ea2e66cb8c7f7cbbb2399d70cdfd926bbcbcae416e7325e67b45e1015046a2"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentCase9.lean": {
+      "bytes": 442,
+      "sha256": "50ecb75b2dabe7cec70ddff4050bb67619175d248496667202b4677472c68843"
+    },
+    "src/SpectreGeometry/EdgeMaskAlignmentData.lean": {
+      "bytes": 2520,
+      "sha256": "0353bd62b469cdb3000a25fb15ad568587c4e55d95a5dbfd7e9ca39696729de1"
+    },
+    "src/SpectreGeometry/EdgeNeighborhood.lean": {
+      "bytes": 4278,
+      "sha256": "6d0d7fd8efd2a5e417449e5b26c4c46313de23684021e1fb2f21afcccbc236f0"
+    },
+    "src/SpectreGeometry/EdgeSectorData.lean": {
+      "bytes": 2120,
+      "sha256": "df8483b50c1468f7b4f0994d8a3931e38e5610e0a3b113db55030c395d03c62c"
+    },
+    "src/SpectreGeometry/EuclideanCarrier.lean": {
+      "bytes": 1989,
+      "sha256": "678f726e22665f372b5e2f4eebdd5b5a7f542d5dd86fa3ba6d06fe6dbbd2c8dd"
+    },
+    "src/SpectreGeometry/FanCoverage.lean": {
+      "bytes": 5191,
+      "sha256": "cfbebe021e9bd12a05b2aa10720a9a3fca9648ca9112bbf93b61dd891edf582d"
+    },
+    "src/SpectreGeometry/FanRealGeometry.lean": {
+      "bytes": 3096,
+      "sha256": "66395d316110e85e8e5d8f7e6aefe18f5fc60d58dc3e874241951d6d0afb808e"
+    },
+    "src/SpectreGeometry/FanSeparation.lean": {
+      "bytes": 4547,
+      "sha256": "079ccdbfc8f708401d83ad0116a04126c933fe15c7f5e5abf1d4f53e971df6b4"
+    },
+    "src/SpectreGeometry/FiniteRayPartition.lean": {
+      "bytes": 2841,
+      "sha256": "55fbd23bf4a5025a217bbec0f68d970044b92887fd22fcbec8e7114c441b8260"
+    },
+    "src/SpectreGeometry/GridAffineGeometry.lean": {
+      "bytes": 2601,
+      "sha256": "ee14b7c53099f930484d02529350665d7cab3c2f41170a6d2a61f0783eeee96e"
+    },
+    "src/SpectreGeometry/GridFieldExtraction.lean": {
+      "bytes": 2922,
+      "sha256": "6cfa20a4039aaad24c144bfc81cd6228f963c4a13c3b08edadd8d77b9e00cdcb"
+    },
+    "src/SpectreGeometry/GridKiteProbeReal.lean": {
+      "bytes": 6925,
+      "sha256": "6cd04554b6aecbd2b459f2109135c40eb3d6320882cfaeba5842823ebd35be10"
+    },
+    "src/SpectreGeometry/GridPhysicalCoordinates.lean": {
+      "bytes": 2384,
+      "sha256": "929d8873387651aa99cb213551b968f742811a99d87c21fb700f1a01e5921699"
+    },
+    "src/SpectreGeometry/HalfplaneCertificateData.lean": {
+      "bytes": 2260,
+      "sha256": "e4e778bea7740b8a0523ff835c29ca3a0d75cf6c7578f83c8c45c491148bbe1c"
+    },
+    "src/SpectreGeometry/HalfplaneCertificateReal.lean": {
+      "bytes": 4770,
+      "sha256": "f037d4fa9edfdd33bbd77ec29a25b6ff14d008a7620e3133c90d11f0019dfec0"
+    },
+    "src/SpectreGeometry/HalfplaneNoncrossing.lean": {
+      "bytes": 3063,
+      "sha256": "be8259bee9d38d82a0e8284ee6014506086156516ea482ad8b979c72b6b993bb"
+    },
+    "src/SpectreGeometry/LiteralKiteBody.lean": {
+      "bytes": 3136,
+      "sha256": "2cfbfc37bc80e69aeabe31242666779f8b6af2919d83ae062fe501e737d0523b"
+    },
+    "src/SpectreGeometry/LocalConeGerm.lean": {
+      "bytes": 4864,
+      "sha256": "7d752967562ab709f6fe577f862c0d8bfdb4d088084707350e7e29a39b1b3d00"
+    },
+    "src/SpectreGeometry/NoVertexInEdge.lean": {
+      "bytes": 2565,
+      "sha256": "85e444b50fae5d91e81623c9b6b3269585d788ba9fc14e29a451f03f2b5cfc47"
+    },
+    "src/SpectreGeometry/NonvertexConnectivity.lean": {
+      "bytes": 4063,
+      "sha256": "5292d5f9d8afaf20c8472e9837601ffe0fdd80a5e059abc08c5cbbf08e4c61b9"
+    },
+    "src/SpectreGeometry/NormalPlaneRankObstruction.lean": {
+      "bytes": 3047,
+      "sha256": "522942d172e7e62f43b0658cae5fd99559bef3d5516dc86e0e9a46ab614c4760"
+    },
+    "src/SpectreGeometry/NormalPlaneSectorMeasure.lean": {
+      "bytes": 3765,
+      "sha256": "446f9b6498ba7e73e7c0236641cc7a6173c8747cd329172cca7d7385e2db5e84"
+    },
+    "src/SpectreGeometry/PhysicalBoundaryDevelopment.lean": {
+      "bytes": 4655,
+      "sha256": "0c6492067f4f5e5c42e6d47811a75ffb99e41f41b636947686d67a5104fb1ce5"
+    },
+    "src/SpectreGeometry/PhysicalBoundaryRays.lean": {
+      "bytes": 4078,
+      "sha256": "6f8f6d610b19cbd510d8355c78c7426bfb96868ea2ae16493e75874beb4bd12f"
+    },
+    "src/SpectreGeometry/PhysicalCornerConstraint.lean": {
+      "bytes": 3726,
+      "sha256": "353ec9eae122104caa5fccc94e1e1bba27712624741715d1d4ab0d5a029ba760"
+    },
+    "src/SpectreGeometry/PhysicalCornerPairs.lean": {
+      "bytes": 2673,
+      "sha256": "1c1acb95de683a93d86bec8fac866f214ae2da3237ada1a0dfd52e0306d5397e"
+    },
+    "src/SpectreGeometry/PhysicalDevelopedLattice.lean": {
+      "bytes": 4951,
+      "sha256": "7fe03f8f54671f0c50c0ea400d6ade8bc0662fe36c311d68dbc8e47c997d3597"
+    },
+    "src/SpectreGeometry/PhysicalDevelopmentPasting.lean": {
+      "bytes": 3344,
+      "sha256": "7fe7ce567acc756b9da088184de415030eaf6242c405dccc617262e48f43f9bf"
+    },
+    "src/SpectreGeometry/PhysicalEdgeOrientation.lean": {
+      "bytes": 3577,
+      "sha256": "b15bb3513bae3a0075288f37fbc26b7748e6c63c9370c82fcb8e01e7da433970"
+    },
+    "src/SpectreGeometry/PhysicalGridRealization.lean": {
+      "bytes": 8940,
+      "sha256": "a9073cac65a99eb84ea0c67312f126fda89880a6638771d6d9258aaf9b08c44d"
+    },
+    "src/SpectreGeometry/PhysicalLatticeEdge.lean": {
+      "bytes": 2541,
+      "sha256": "172d7137cc7d6daede335882cc13ae21d4c913dc0e375c3fb1ff1d87ec958dbf"
+    },
+    "src/SpectreGeometry/PhysicalQuadraticRegistration.lean": {
+      "bytes": 5735,
+      "sha256": "f62bc8046de2ca9a81b4bd7fa47ed30d5d218c46828bc3d9d269f07b287a10d3"
+    },
+    "src/SpectreGeometry/PhysicalSectorStar.lean": {
+      "bytes": 2749,
+      "sha256": "cc86e6e33de5fb65d2de10aa9417af7ac8d3ba77ffc8444263faf87881a1eafc"
+    },
+    "src/SpectreGeometry/PhysicalTwoSlotStar.lean": {
+      "bytes": 3338,
+      "sha256": "76051060eed098694265b119a4468c25a7d05a4cf3cfce377781974efb5e5071"
+    },
+    "src/SpectreGeometry/PhysicalVertexEdgeStar.lean": {
+      "bytes": 4240,
+      "sha256": "e9ab8263435bd81a39ee37d4843047f20ce793be52c919d6da9fbc542c5589e0"
+    },
+    "src/SpectreGeometry/PlacedBoundaryGerms.lean": {
+      "bytes": 4886,
+      "sha256": "416fbc32b6fc54927370a747e77da7408fdef90465bd01eff599e86360b0d010"
+    },
+    "src/SpectreGeometry/PlacedEdgeForms.lean": {
+      "bytes": 4637,
+      "sha256": "4a78b41bb97ffe377776cf7541877880a971289ff5d681d7d45b09a47763c382"
+    },
+    "src/SpectreGeometry/PlacedEdgeNoncrossing.lean": {
+      "bytes": 3836,
+      "sha256": "d20e3b1dceca20df7ab938a37482004a1d468f46551eadf3c30e445c8f8eb0bd"
+    },
+    "src/SpectreGeometry/PolygonBody.lean": {
+      "bytes": 3395,
+      "sha256": "7c6c53a9fa8727cab45a0a6355e440a8e3cb3f58f0ddcb8ff1ca6402a5990a65"
+    },
+    "src/SpectreGeometry/PolygonBoundary.lean": {
+      "bytes": 8239,
+      "sha256": "842e1b37f77d02676699d5fa9f5ee3eb94ce5588498767b0f9b2937c5bb331d4"
+    },
+    "src/SpectreGeometry/PolygonBoundaryConeHalfplanes.lean": {
+      "bytes": 4746,
+      "sha256": "d3c64cbbf773cfc50a5934e6f8904c71300217509bdb67e8cb4d841c83aa4378"
+    },
+    "src/SpectreGeometry/PolygonBoundaryNormalAngles.lean": {
+      "bytes": 3987,
+      "sha256": "319aad93f75242c127ed7940e83ebc2ed8190cf19b8b79a0d5944f0d8de7000f"
+    },
+    "src/SpectreGeometry/PolygonBoundaryNormalRank.lean": {
+      "bytes": 3281,
+      "sha256": "8afee3fbb7e4f54255b9d38c6d22b4dabb09ea59c64ace91625026bcadacf890"
+    },
+    "src/SpectreGeometry/PolygonData.lean": {
+      "bytes": 4294,
+      "sha256": "67c0652db73302f374e56f5bac4156b60d7a35a96b649a3605ba537fc231e251"
+    },
+    "src/SpectreGeometry/PolygonFactorSectionMass.lean": {
+      "bytes": 6161,
+      "sha256": "193ac8b84d3ac6702df66a9d7a5919a02d813237deee0bd20ad8b24de22c2af1"
+    },
+    "src/SpectreGeometry/PolygonFanData.lean": {
+      "bytes": 1920,
+      "sha256": "53450cb083c43fa136a429455d9e3e7599fabe6f956f5aa067762ed859856d95"
+    },
+    "src/SpectreGeometry/PolygonLocalConeGerms.lean": {
+      "bytes": 4405,
+      "sha256": "b0b85a90de1bf85de0d243e275af4e2f67ddd74d6c0f481157b7cc810bc9db56"
+    },
+    "src/SpectreGeometry/PolygonProductBoundaryGerm.lean": {
+      "bytes": 3591,
+      "sha256": "f3e7e5f052207349a1a97f2031992a8e02afaaed6d6781cac0dd83ab62e50633"
+    },
+    "src/SpectreGeometry/PolygonProductBoundaryNormals.lean": {
+      "bytes": 3436,
+      "sha256": "6d5f88dec3ae79cd421f7d87b7e90d8fb8de53400bbeb7cd1ca0da322053ea12"
+    },
+    "src/SpectreGeometry/PolygonProductConeGerms.lean": {
+      "bytes": 3217,
+      "sha256": "f3d81a6e3730f14ebed5a6e93d6d544c4038d438535ec353a4e3eceda1853b22"
+    },
+    "src/SpectreGeometry/PolygonProductKeyBody.lean": {
+      "bytes": 12031,
+      "sha256": "2776c93c5aa061823b76ffd03765121d3a3929d8748675bd77c61ff5e611ffea"
+    },
+    "src/SpectreGeometry/PolygonProductKeyCenterSeparation.lean": {
+      "bytes": 7247,
+      "sha256": "3cd8bd59d222ada1fd7791e7407b1d6b4bafeefe78756a41c4f5c6827e6f3832"
+    },
+    "src/SpectreGeometry/PolygonProductKeyCollar.lean": {
+      "bytes": 4492,
+      "sha256": "8d2671833d985a0d8229797b2a3c0ecb9fa21ea097ad6f99535e543f38ec5a24"
+    },
+    "src/SpectreGeometry/PolygonProductKeyCollarHalfplanes.lean": {
+      "bytes": 8360,
+      "sha256": "084c64b95fa143832e3c6aa342e784030c0ba597e81b57db9473a0b4f0a49030"
+    },
+    "src/SpectreGeometry/PolygonProductKeyCollarMargins.lean": {
+      "bytes": 4746,
+      "sha256": "8c88960588df593a75d3492849e417f0cc26e3cca2181be8819b93ce2b0a1411"
+    },
+    "src/SpectreGeometry/PolygonProductKeyCollarSeparation.lean": {
+      "bytes": 4506,
+      "sha256": "93c5cfb9875d116880340a282f1409fcde667fac11fbb94106ad0903c87e4766"
+    },
+    "src/SpectreGeometry/PolygonProductKeyFrames.lean": {
+      "bytes": 9418,
+      "sha256": "e80b362f967d679b999189343f31aa067147024ed2f3985345e22bae7006db48"
+    },
+    "src/SpectreGeometry/PolygonProductKeyHypographs.lean": {
+      "bytes": 4173,
+      "sha256": "72de4b516c0659c36d43ee84b762535fea19d5be2935812f6958cf3e1faf0086"
+    },
+    "src/SpectreGeometry/PolygonProductKeySeparationData.lean": {
+      "bytes": 2396,
+      "sha256": "fbd4fcf4cd533e5cd2f76426e2c3b097c1507edf7e8b3eb8f7b0574a4ea17963"
+    },
+    "src/SpectreGeometry/PolygonProductNormalAngles.lean": {
+      "bytes": 2697,
+      "sha256": "09104ca25375baaa95e96f552daf7e0e57aeacca80a54643be311758024e5975"
+    },
+    "src/SpectreGeometry/PolygonProductNormalPlane.lean": {
+      "bytes": 1588,
+      "sha256": "f798642e172a9b875cfc601232cc268bb49fa0ca508ffc1283b49b1a3aca8022"
+    },
+    "src/SpectreGeometry/PolygonProductSectionMass.lean": {
+      "bytes": 6256,
+      "sha256": "f1a6fca2a921461ca9fa83f3ad1f80100859b3e8d610eb7953f9a1895c5a26d0"
+    },
+    "src/SpectreGeometry/PolygonReal.lean": {
+      "bytes": 4061,
+      "sha256": "352faff97f8cc296bbbba1eac5c1802a07fa6317ac4c9c1a688e7d6588b76279"
+    },
+    "src/SpectreGeometry/PolygonSegments.lean": {
+      "bytes": 4565,
+      "sha256": "26d23d3e984613a181dec028c74bdb93b8d5729c5b017f8886010321935e1935"
+    },
+    "src/SpectreGeometry/PolygonTilingIncidence.lean": {
+      "bytes": 4091,
+      "sha256": "63f713bf71de4350a765b961610a3764685d2f7273aaa42c1fa7a6e9440e1412"
+    },
+    "src/SpectreGeometry/PrescribedSectorStar.lean": {
+      "bytes": 2513,
+      "sha256": "13af95864f99248fee88fd827bb88a8349b8d2b8006f882b8ae9d7fa8febcc22"
+    },
+    "src/SpectreGeometry/QuadraticCoordinates.lean": {
+      "bytes": 2551,
+      "sha256": "d70075b53608a5b250b6455f9d073cdc44bdeabe28ba82d365f64a3e472bd8a7"
+    },
+    "src/SpectreGeometry/QuadraticDevelopment.lean": {
+      "bytes": 4151,
+      "sha256": "69b9d8ee219552c9ae5fba902f1492d58496f65bc243c8605ec3e34337e132c1"
+    },
+    "src/SpectreGeometry/QuadraticFrameUniqueness.lean": {
+      "bytes": 1641,
+      "sha256": "eb410e7417defe416b18525cfe2c493268082f4dc3f6270505bfc6706dbcbb5e"
+    },
+    "src/SpectreGeometry/QuadraticPointData.lean": {
+      "bytes": 1832,
+      "sha256": "20cc6b0f5f8d6f7df1d419659d4fadf6ca11eb6b93cc1ac378871ec7e60095b7"
+    },
+    "src/SpectreGeometry/QuadraticPointReal.lean": {
+      "bytes": 3259,
+      "sha256": "88cb6c6c9f22881440e17c26232b24c6e6bd064bc678d23df1da25c61dd7d8b6"
+    },
+    "src/SpectreGeometry/QuadraticReal.lean": {
+      "bytes": 3291,
+      "sha256": "99857d78120aae4a1d91633e07c85efb796ca2d4d8fc3271be2b4ece442d2172"
+    },
+    "src/SpectreGeometry/RealPolygonFacets.lean": {
+      "bytes": 6716,
+      "sha256": "7d2dd86f719f29ba86f78295274fcf0cbbe6967ea9a23192c71c1fa88cddb1f2"
+    },
+    "src/SpectreGeometry/RotationData.lean": {
+      "bytes": 1447,
+      "sha256": "3f60a0112659ae526251d3bfb5119a293e66d705ed4e98ab2bc73379a56289c4"
+    },
+    "src/SpectreGeometry/SectorBoundaryRays.lean": {
+      "bytes": 1505,
+      "sha256": "4e672eea4d3ed2345348508c1b64b52bee6a91277ff65cd81ff04fdb9cf3986e"
+    },
+    "src/SpectreGeometry/SectorPartitionConsequences.lean": {
+      "bytes": 2009,
+      "sha256": "4de54fc53917652f0543deaf1ab3fc6fbae87b52d3ced877a90a1cf1e102a1ae"
+    },
+    "src/SpectreGeometry/SectorPartitionCounts.lean": {
+      "bytes": 3062,
+      "sha256": "ce92c3c9318ac5dc1bcc0f2f8862a4c819ef1265b8018b949f07a528920dd1de"
+    },
+    "src/SpectreGeometry/SectorPartitionRays.lean": {
+      "bytes": 3484,
+      "sha256": "48025187364c31ab735b9017a7d6abf6adbdf820208e244d1645986ec4cf30b4"
+    },
+    "src/SpectreGeometry/SectorRotations.lean": {
+      "bytes": 4438,
+      "sha256": "bfbe6d30320526460cdef08eec10525fa647f2f806ed0b1747a345b9a6220438"
+    },
+    "src/SpectreGeometry/SegmentEndpointRegistration.lean": {
+      "bytes": 2355,
+      "sha256": "67ac2dd60b9ad4e340af9eee0a1662d3b2e8e8f847a7f6d3810a9c8cebdcd13e"
+    },
+    "src/SpectreGeometry/TriangleFanCollapse.lean": {
+      "bytes": 3331,
+      "sha256": "6af37e3c1f3f50cf4bd40fd89a6609c58368a769755471170cdc5aa744b5a72b"
+    },
+    "src/SpectreGeometry/TriangleGeometry.lean": {
+      "bytes": 7776,
+      "sha256": "415c3376d7864347e354874fb9291742e044f55e2a286b1684d0191cfb41979b"
+    },
+    "src/SpectreGeometry/TriangulationFlip.lean": {
+      "bytes": 2765,
+      "sha256": "f86a40bc97e15489f6acf5603252c36f2ad7ac8764377edef75a394e0bcbc8cb"
+    },
+    "src/SpectreGeometry/UnitEdgeAlignment.lean": {
+      "bytes": 2197,
+      "sha256": "395457005dd6ddec357c7ae21be2aae7500a2e1f872f5530bce4b20c31830c51"
+    },
+    "src/SpectreGeometry/UnitEdgeDirections.lean": {
+      "bytes": 4044,
+      "sha256": "a8d3a3fe7a74a59262d0dd73ffc7ab53da7517e4e48d73d522c08bff2f1f7b71"
+    },
+    "src/SpectreGeometry/WholeEdgeRegistration.lean": {
+      "bytes": 4202,
+      "sha256": "d05a7be1cf16c8101f241a94663d8490a0b986cf61fda07c2c016a1050f07480"
+    },
+    "tests/inert_loop_fixture.py": {
+      "bytes": 6077,
+      "sha256": "65d92c71b306c37206a82c7419258fe3b103ab0daf6b77df739e43ca324368c4"
+    },
+    "tests/inert_success_fixture.py": {
+      "bytes": 7611,
+      "sha256": "1d84835bf22c458b9823c04e778f1af3294d0f067c3c4e7f6feae78289274772"
+    },
+    "tests/run_guarded.py": {
+      "bytes": 646,
+      "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
+    },
+    "tests/test_smoke.py": {
+      "bytes": 8481,
+      "sha256": "a9f12c8c237c7382c9a3c4c9782b4ec3f8e2a2494ab9f26f43c1fadf43790bdd"
+    },
+    "vendor/pipeline/ci/cache_diagnostic.py": {
+      "bytes": 81922,
+      "sha256": "72d311d1797040e7f9b106792d26b87c6c2b7d9b3a40040af1398e134919cadb"
+    },
+    "vendor/pipeline/ci/collect_evidence.py": {
+      "bytes": 22654,
+      "sha256": "1d6ddba8bc4d29f207da62fb93c1eb226e7dce40269af423f58fb2998840be6a"
+    },
+    "vendor/pipeline/ci/conditional_transport.py": {
+      "bytes": 55492,
+      "sha256": "d8688bf50ffdd460653a007876798c2adf7a21ed7f7fd0e57b564f7c7021469e"
+    },
+    "vendor/pipeline/ci/fresh_stage.py": {
+      "bytes": 50298,
+      "sha256": "6adfa8e43f8e0997ffef27210c4338d555b203b48ca50cb5c7b7b99ac49991d8"
+    },
+    "vendor/pipeline/ci/higher_policy.py": {
+      "bytes": 58899,
+      "sha256": "5bbb593b97e3e686faa466bd755d5817b0c9d39e5d3ade4d4fd85b3e2f567e8a"
+    },
+    "vendor/pipeline/ci/source_header.py": {
+      "bytes": 2551,
+      "sha256": "3eca76608279cbd7fb659eec960177bed6e7ad4829c5e5636f6ad23636645701"
+    },
+    "vendor/pipeline/ci/toolchain_install.py": {
+      "bytes": 6752,
+      "sha256": "9b8fefa2020be7e58bbf04f79445f603657bd647c0afe0b1196078f92629f038"
+    },
+    "vendor/pipeline/locks/cache-client.json": {
+      "bytes": 2502,
+      "sha256": "2aca22248530044e2c97113ea70cee9f7619f2aaf9e3f2750cd87dba355325e4"
+    },
+    "vendor/pipeline/locks/dependencies.json": {
+      "bytes": 2454,
+      "sha256": "088a495e385c8a712ba00c0a4017da6a35f536003b029dd641208baa99b6e99e"
+    },
+    "vendor/pipeline/locks/required-modules.json": {
+      "bytes": 741070,
+      "sha256": "2b48ab2cdf951e9339dfaa764714952bcc3c9f1dd47e5413ec5d1fffb0755a82"
+    },
+    "visibility_smoke.py": {
+      "bytes": 62234,
+      "sha256": "faaed5bee531646b610a8584c9217a5eaddcc97dfe6da9ef418aac764c32d22d"
+    }
+  },
+  "limits": {
+    "address_space_bytes": 12884901888,
+    "aggregate_command_deadline_seconds": 7200,
+    "aggregate_log_max_bytes": 67108864,
+    "check_timeout_seconds": 120,
+    "collection_reserve_bytes": 4194304,
+    "diagnostic_timeout_seconds": 180,
+    "evidence_max_bytes": 130023424,
+    "failure_evidence_grace_seconds": 5,
+    "lean_heap_mib": 4096,
+    "max_created_file_bytes": 536870912,
+    "minimum_free_disk_bytes": 1610612736,
+    "outer_timeout_minutes": 130,
+    "owned_output_max_bytes": 6442450944,
+    "owned_source_max_bytes": 33554432,
+    "per_command_log_max_bytes": 1048576,
+    "rss_tree_bytes": 8589934592,
+    "upload_max_bytes": 134217728
+  },
+  "module_order": [
+    "SpectreFinite.ListedPatches",
+    "SpectreFinite.PatchEnumeration",
+    "SpectreFinite.HexSearchModel",
+    "SpectreFinite.GlobalRestrictions",
+    "SpectreFinite.HexRotation",
+    "SpectreFinite.HexRotationComposition",
+    "SpectreFinite.IntegerStepAction",
+    "SpectreFinite.HexStepAction",
+    "SpectreClusters.KiteGrid",
+    "SpectreClusters.ReverseClusterCocycleIntegration",
+    "SpectreGeometry.DeformationHomeomorphism",
+    "SpectreGeometry.PolygonData",
+    "SpectreGeometry.PolygonProductKeySeparationData",
+    "SpectreGeometry.PolygonFanData",
+    "SpectreGeometry.RotationData",
+    "SpectreGeometry.CornerSteps",
+    "SpectreGeometry.CornerGermData",
+    "SpectreGeometry.QuadraticReal",
+    "SpectreGeometry.PolygonReal",
+    "SpectreGeometry.PolygonSegments",
+    "SpectreGeometry.PolygonBody",
+    "SpectreGeometry.TriangleGeometry",
+    "SpectreGeometry.FanRealGeometry",
+    "SpectreGeometry.FanSeparation",
+    "SpectreGeometry.FanCoverage",
+    "SpectreGeometry.PolygonBoundary",
+    "SpectreGeometry.EdgeNeighborhood",
+    "SpectreGeometry.CornerNeighborhood",
+    "SpectreGeometry.CornerSignData",
+    "SpectreGeometry.CornerSectorReal",
+    "SpectreGeometry.EdgeSectorData",
+    "SpectreGeometry.BoundaryNonvertex",
+    "SpectreGeometry.BoundarySectorGerms",
+    "SpectreGeometry.LocalConeGerm",
+    "SpectreGeometry.PolygonLocalConeGerms",
+    "SpectreGeometry.EuclideanCarrier",
+    "SpectreGeometry.PolygonProductConeGerms",
+    "SpectreGeometry.PolygonBoundaryNormalRank",
+    "SpectreGeometry.PolygonProductBoundaryNormals",
+    "SpectreGeometry.PolygonProductKeyFrames",
+    "SpectreGeometry.PolygonProductKeyCenterSeparation",
+    "SpectreGeometry.PolygonProductKeyCollarMargins",
+    "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+    "SpectreGeometry.PolygonBoundaryNormalAngles",
+    "SpectreGeometry.PolygonProductNormalAngles",
+    "PhysicalRegistration.PlanarSectorMeasure",
+    "SpectreGeometry.NormalPlaneSectorMeasure",
+    "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+    "SpectreGeometry.PolygonFactorSectionMass",
+    "SpectreGeometry.NormalPlaneRankObstruction",
+    "SpectreGeometry.PolygonProductNormalPlane",
+    "SpectreGeometry.PolygonProductSectionMass",
+    "SpectreGeometry.PolygonProductBoundaryGerm",
+    "SpectreGeometry.PolygonProductKeyCollar",
+    "SpectreGeometry.PolygonProductKeyCollarSeparation",
+    "PhysicalRegistration.ThreeCones",
+    "PhysicalRegistration.LocalGraphs",
+    "PhysicalRegistration.KeyTent",
+    "PhysicalRegistration.KeyHypograph",
+    "PhysicalRegistration.TubeAssembly",
+    "PhysicalRegistration.KeyTube",
+    "SpectreGeometry.PolygonProductKeyHypographs",
+    "SpectreGeometry.PolygonProductKeyBody",
+    "SpectreGeometry.HalfplaneCertificateData",
+    "SpectreGeometry.HalfplaneCertificateReal",
+    "SpectreGeometry.TriangulationFlip",
+    "SpectreGeometry.ConvexQuadrilateral",
+    "SpectreGeometry.DeformedVertexData",
+    "SpectreGeometry.DeformationHomeomorphismData",
+    "SpectreGeometry.DeformationTriangulationData",
+    "SpectreClusters.LiteralData",
+    "SpectreClusters.DeformedLiteralBinding",
+    "SpectreClusters.BoundaryChains",
+    "SpectreClusters.BodyBSPData",
+    "SpectreGeometry.RealPolygonFacets",
+    "SpectreClusters.BodyBSPHatForward",
+    "SpectreClusters.BodyBSPHatReverse",
+    "SpectreClusters.BodyBSPTurtleForward",
+    "SpectreClusters.BodyBSPTurtleReverse",
+    "SpectreClusters.BodyBSPComplete",
+    "SpectreGeometry.LiteralKiteBody",
+    "SpectreClusters.GridMotions",
+    "SpectreGeometry.GridAffineGeometry",
+    "SpectreGeometry.CyclicRotations",
+    "SpectreGeometry.DeformationHomeomorphismMatrix",
+    "SpectreGeometry.QuadraticPointData",
+    "SpectreGeometry.QuadraticCoordinates",
+    "SpectreGeometry.QuadraticPointReal",
+    "SpectreGeometry.PlacedEdgeForms",
+    "SpectreGeometry.UnitEdgeDirections",
+    "SpectreGeometry.DirectIsometryFrames",
+    "SpectreGeometry.HalfplaneNoncrossing",
+    "SpectreGeometry.CompactPacking",
+    "SpectreGeometry.CompactTilingIncidence",
+    "SpectreGeometry.PolygonTilingIncidence",
+    "SpectreGeometry.PlacedEdgeNoncrossing",
+    "SpectreGeometry.UnitEdgeAlignment",
+    "SpectreGeometry.ContactConnectivity",
+    "SpectreGeometry.CountableComplement",
+    "SpectreGeometry.NonvertexConnectivity",
+    "SpectreGeometry.CyclicFrameRegistration",
+    "SpectreGeometry.SectorRotations",
+    "SpectreGeometry.PlacedBoundaryGerms",
+    "SpectreGeometry.FiniteRayPartition",
+    "SpectreGeometry.PhysicalSectorStar",
+    "SpectreGeometry.PrescribedSectorStar",
+    "SpectreGeometry.SectorPartitionCounts",
+    "SpectreGeometry.PhysicalCornerConstraint",
+    "SpectreGeometry.SectorPartitionConsequences",
+    "SpectreGeometry.PhysicalVertexEdgeStar",
+    "SpectreGeometry.SectorBoundaryRays",
+    "SpectreGeometry.SectorPartitionRays",
+    "SpectreGeometry.PhysicalBoundaryRays",
+    "SpectreGeometry.NoVertexInEdge",
+    "SpectreGeometry.SegmentEndpointRegistration",
+    "SpectreGeometry.WholeEdgeRegistration",
+    "SpectreGeometry.PhysicalQuadraticRegistration",
+    "SpectreGeometry.QuadraticDevelopment",
+    "SpectreGeometry.DevelopedRealCoordinates",
+    "SpectreGeometry.DeformationHomeomorphismAffine",
+    "SpectreGeometry.TriangleFanCollapse",
+    "SpectreGeometry.DeformationTriangulationReal",
+    "SpectreGeometry.DeformationTriangulationCover",
+    "SpectreGeometry.ConvexZeroFace",
+    "SpectreGeometry.DeformationTriangulationFaces",
+    "SpectreGeometry.DeformationBoundaryOwnershipData",
+    "SpectreGeometry.DeformationHomeomorphismTile",
+    "SpectreGeometry.DevelopedLiteralBody",
+    "SpectreGeometry.DeformedLatticeCertificate",
+    "SpectreGeometry.DevelopedCenterLattice",
+    "SpectreGeometry.GridPhysicalCoordinates",
+    "SpectreClusters.GridKiteProbeData",
+    "SpectreGeometry.GridKiteProbeReal",
+    "SpectreClusters.KiteContactData",
+    "SpectreClusters.KiteContact0",
+    "SpectreClusters.KiteContact1",
+    "SpectreClusters.KiteContact2",
+    "SpectreClusters.KiteContact3",
+    "SpectreClusters.KiteContact4",
+    "SpectreClusters.KiteContact5",
+    "SpectreClusters.KiteContacts",
+    "SpectreClusters.NeighborCandidates",
+    "SpectreClusters.GridCoverModel",
+    "SpectreGeometry.GridFieldExtraction",
+    "SpectreGeometry.QuadraticFrameUniqueness",
+    "SpectreGeometry.EdgeMaskAlignmentCase0",
+    "SpectreGeometry.EdgeMaskAlignmentCase1",
+    "SpectreGeometry.EdgeMaskAlignmentCase2",
+    "SpectreGeometry.EdgeMaskAlignmentCase3",
+    "SpectreGeometry.EdgeMaskAlignmentCase4",
+    "SpectreGeometry.EdgeMaskAlignmentCase5",
+    "SpectreGeometry.EdgeMaskAlignmentCase6",
+    "SpectreGeometry.EdgeMaskAlignmentCase7",
+    "SpectreGeometry.EdgeMaskAlignmentCase8",
+    "SpectreGeometry.EdgeMaskAlignmentCase9",
+    "SpectreGeometry.EdgeMaskAlignmentCase10",
+    "SpectreGeometry.EdgeMaskAlignmentCase11",
+    "SpectreGeometry.EdgeMaskAlignmentCase12",
+    "SpectreGeometry.EdgeMaskAlignmentCase13",
+    "SpectreGeometry.EdgeMaskAlignmentData",
+    "SpectreGeometry.PhysicalEdgeOrientation",
+    "SpectreGeometry.PhysicalTwoSlotStar",
+    "SpectreGeometry.CornerPairSums",
+    "SpectreGeometry.PhysicalCornerPairs",
+    "SpectreGeometry.PhysicalLatticeEdge",
+    "SpectreGeometry.PhysicalDevelopedLattice",
+    "SpectreGeometry.DeformationHomeomorphismGluing",
+    "SpectreGeometry.DeformationHomeomorphismCover",
+    "SpectreGeometry.PhysicalBoundaryDevelopment",
+    "SpectreGeometry.PhysicalDevelopmentPasting",
+    "SpectreGeometry.DeformationHomeomorphismPhysical",
+    "SpectreGeometry.DeformationHomeomorphismBounds",
+    "SpectreGeometry.DeformationHomeomorphismTransport",
+    "SpectreGeometry.PhysicalGridRealization"
+  ],
+  "modules": [
+    {
+      "bytes": 6147,
+      "module": "SpectreFinite.ListedPatches",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreFinite/ListedPatches.lean",
+      "sha256": "e99075e7bcd6513338bb3475b2fd44f6fa4a8e6537f006ba4e97f15a7e6c734d"
+    },
+    {
+      "bytes": 3171,
+      "module": "SpectreFinite.PatchEnumeration",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreFinite/PatchEnumeration.lean",
+      "sha256": "b4b0634caf140769b7babc5ac280e069e1b8b0b9c28fc0959dd03cb8ae6565e4"
+    },
+    {
+      "bytes": 3272,
+      "module": "SpectreFinite.HexSearchModel",
+      "ordered_imports": [
+        "SpectreFinite.ListedPatches",
+        "SpectreFinite.PatchEnumeration"
+      ],
+      "path": "src/SpectreFinite/HexSearchModel.lean",
+      "sha256": "b34d538ab6921fe1242348ad0d87f34a45d882e4e8cd27c3f7f68077b6236838"
+    },
+    {
+      "bytes": 2067,
+      "module": "SpectreFinite.GlobalRestrictions",
+      "ordered_imports": [
+        "SpectreFinite.HexSearchModel"
+      ],
+      "path": "src/SpectreFinite/GlobalRestrictions.lean",
+      "sha256": "aa094adb8fe7ce80424da98e8145a9fadfe4644a8b1e57990d1cb556e330e890"
+    },
+    {
+      "bytes": 7251,
+      "module": "SpectreFinite.HexRotation",
+      "ordered_imports": [
+        "SpectreFinite.GlobalRestrictions"
+      ],
+      "path": "src/SpectreFinite/HexRotation.lean",
+      "sha256": "dd957f7d47b34794de4857b0b59e4b8fa020523d7c6b6271f490e11ca5351094"
+    },
+    {
+      "bytes": 5639,
+      "module": "SpectreFinite.HexRotationComposition",
+      "ordered_imports": [
+        "SpectreFinite.HexRotation"
+      ],
+      "path": "src/SpectreFinite/HexRotationComposition.lean",
+      "sha256": "d2b12aaf3cf47173e31c74c0614095879e012f35eb9c691a99e588866cf03105"
+    },
+    {
+      "bytes": 3834,
+      "module": "SpectreFinite.IntegerStepAction",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreFinite/IntegerStepAction.lean",
+      "sha256": "e89bc4e056d35314d17a8e249a7c5f9c4105915d2496abda73fa5cd33aaa4512"
+    },
+    {
+      "bytes": 3181,
+      "module": "SpectreFinite.HexStepAction",
+      "ordered_imports": [
+        "SpectreFinite.HexRotationComposition",
+        "SpectreFinite.IntegerStepAction"
+      ],
+      "path": "src/SpectreFinite/HexStepAction.lean",
+      "sha256": "18b5a663605957341f0abb92c55debb8a1371b5c056201789a0b1fcbd6fb4cf4"
+    },
+    {
+      "bytes": 5208,
+      "module": "SpectreClusters.KiteGrid",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreClusters/KiteGrid.lean",
+      "sha256": "4c4ce2af5fc53b8203e232a5acc99ecb00608cadba5166106a3735d7a94c01ea"
+    },
+    {
+      "bytes": 6470,
+      "module": "SpectreClusters.ReverseClusterCocycleIntegration",
+      "ordered_imports": [
+        "SpectreFinite.HexStepAction",
+        "SpectreClusters.KiteGrid"
+      ],
+      "path": "src/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+      "sha256": "47b37dd77dffb4e29010460ce3ea321441d3698af4756dd2f6cd0f73c41d2caa"
+    },
+    {
+      "bytes": 4597,
+      "module": "SpectreGeometry.DeformationHomeomorphism",
+      "ordered_imports": [
+        "Mathlib.Topology.MetricSpace.Contracting",
+        "Mathlib.Analysis.Normed.Module.Basic",
+        "Mathlib.Topology.Algebra.ConstMulAction",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphism.lean",
+      "sha256": "e98da63c66436d83f70c03837784e26cba4fb79ed4c33af3fdb192175f87d006"
+    },
+    {
+      "bytes": 4294,
+      "module": "SpectreGeometry.PolygonData",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreGeometry/PolygonData.lean",
+      "sha256": "67c0652db73302f374e56f5bac4156b60d7a35a96b649a3605ba537fc231e251"
+    },
+    {
+      "bytes": 2396,
+      "module": "SpectreGeometry.PolygonProductKeySeparationData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeySeparationData.lean",
+      "sha256": "fbd4fcf4cd533e5cd2f76426e2c3b097c1507edf7e8b3eb8f7b0574a4ea17963"
+    },
+    {
+      "bytes": 1920,
+      "module": "SpectreGeometry.PolygonFanData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "path": "src/SpectreGeometry/PolygonFanData.lean",
+      "sha256": "53450cb083c43fa136a429455d9e3e7599fabe6f956f5aa067762ed859856d95"
+    },
+    {
+      "bytes": 1447,
+      "module": "SpectreGeometry.RotationData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData"
+      ],
+      "path": "src/SpectreGeometry/RotationData.lean",
+      "sha256": "3f60a0112659ae526251d3bfb5119a293e66d705ed4e98ab2bc73379a56289c4"
+    },
+    {
+      "bytes": 2511,
+      "module": "SpectreGeometry.CornerSteps",
+      "ordered_imports": [
+        "SpectreGeometry.RotationData"
+      ],
+      "path": "src/SpectreGeometry/CornerSteps.lean",
+      "sha256": "d8dca75bf5f22dde0cbefd6756b60d5ede42e509d492a53239452040cc779728"
+    },
+    {
+      "bytes": 1960,
+      "module": "SpectreGeometry.CornerGermData",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonFanData",
+        "SpectreGeometry.CornerSteps"
+      ],
+      "path": "src/SpectreGeometry/CornerGermData.lean",
+      "sha256": "5d9e4780a5095b40df87b4f9e6a89aba4a8ac4896a941d0ab5e5d67c484b758b"
+    },
+    {
+      "bytes": 3291,
+      "module": "SpectreGeometry.QuadraticReal",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonData",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "path": "src/SpectreGeometry/QuadraticReal.lean",
+      "sha256": "99857d78120aae4a1d91633e07c85efb796ca2d4d8fc3271be2b4ece442d2172"
+    },
+    {
+      "bytes": 4061,
+      "module": "SpectreGeometry.PolygonReal",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticReal"
+      ],
+      "path": "src/SpectreGeometry/PolygonReal.lean",
+      "sha256": "352faff97f8cc296bbbba1eac5c1802a07fa6317ac4c9c1a688e7d6588b76279"
+    },
+    {
+      "bytes": 4565,
+      "module": "SpectreGeometry.PolygonSegments",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonReal"
+      ],
+      "path": "src/SpectreGeometry/PolygonSegments.lean",
+      "sha256": "26d23d3e984613a181dec028c74bdb93b8d5729c5b017f8886010321935e1935"
+    },
+    {
+      "bytes": 3395,
+      "module": "SpectreGeometry.PolygonBody",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonSegments",
+        "SpectreGeometry.PolygonFanData",
+        "Mathlib.Analysis.Convex.Topology",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "path": "src/SpectreGeometry/PolygonBody.lean",
+      "sha256": "7c6c53a9fa8727cab45a0a6355e440a8e3cb3f58f0ddcb8ff1ca6402a5990a65"
+    },
+    {
+      "bytes": 7776,
+      "module": "SpectreGeometry.TriangleGeometry",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBody",
+        "Mathlib.Topology.Order.LeftRight",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "path": "src/SpectreGeometry/TriangleGeometry.lean",
+      "sha256": "415c3376d7864347e354874fb9291742e044f55e2a286b1684d0191cfb41979b"
+    },
+    {
+      "bytes": 3096,
+      "module": "SpectreGeometry.FanRealGeometry",
+      "ordered_imports": [
+        "SpectreGeometry.TriangleGeometry"
+      ],
+      "path": "src/SpectreGeometry/FanRealGeometry.lean",
+      "sha256": "66395d316110e85e8e5d8f7e6aefe18f5fc60d58dc3e874241951d6d0afb808e"
+    },
+    {
+      "bytes": 4547,
+      "module": "SpectreGeometry.FanSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "path": "src/SpectreGeometry/FanSeparation.lean",
+      "sha256": "079ccdbfc8f708401d83ad0116a04126c933fe15c7f5e5abf1d4f53e971df6b4"
+    },
+    {
+      "bytes": 5191,
+      "module": "SpectreGeometry.FanCoverage",
+      "ordered_imports": [
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "path": "src/SpectreGeometry/FanCoverage.lean",
+      "sha256": "cfbebe021e9bd12a05b2aa10720a9a3fca9648ca9112bbf93b61dd891edf582d"
+    },
+    {
+      "bytes": 8239,
+      "module": "SpectreGeometry.PolygonBoundary",
+      "ordered_imports": [
+        "SpectreGeometry.FanSeparation",
+        "SpectreGeometry.FanCoverage"
+      ],
+      "path": "src/SpectreGeometry/PolygonBoundary.lean",
+      "sha256": "842e1b37f77d02676699d5fa9f5ee3eb94ce5588498767b0f9b2937c5bb331d4"
+    },
+    {
+      "bytes": 4278,
+      "module": "SpectreGeometry.EdgeNeighborhood",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBoundary"
+      ],
+      "path": "src/SpectreGeometry/EdgeNeighborhood.lean",
+      "sha256": "6d0d7fd8efd2a5e417449e5b26c4c46313de23684021e1fb2f21afcccbc236f0"
+    },
+    {
+      "bytes": 5245,
+      "module": "SpectreGeometry.CornerNeighborhood",
+      "ordered_imports": [
+        "SpectreGeometry.CornerGermData",
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "path": "src/SpectreGeometry/CornerNeighborhood.lean",
+      "sha256": "e9cba698de68eb88d4aa57c1fe0b943d3849a1af9084c18d5c483f76b0327868"
+    },
+    {
+      "bytes": 647,
+      "module": "SpectreGeometry.CornerSignData",
+      "ordered_imports": [
+        "SpectreGeometry.CornerGermData"
+      ],
+      "path": "src/SpectreGeometry/CornerSignData.lean",
+      "sha256": "7a6bab5404aae6c160ab35df99f1c68bf2031d52665748575fe47b20ac9e9588"
+    },
+    {
+      "bytes": 5881,
+      "module": "SpectreGeometry.CornerSectorReal",
+      "ordered_imports": [
+        "SpectreGeometry.CornerNeighborhood",
+        "SpectreGeometry.CornerSignData"
+      ],
+      "path": "src/SpectreGeometry/CornerSectorReal.lean",
+      "sha256": "0ab8d86030e7e4a1a2fa090d08a1dd73ef66db860ad0958bef95c4ca7dbfc499"
+    },
+    {
+      "bytes": 2120,
+      "module": "SpectreGeometry.EdgeSectorData",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSignData"
+      ],
+      "path": "src/SpectreGeometry/EdgeSectorData.lean",
+      "sha256": "df8483b50c1468f7b4f0994d8a3931e38e5610e0a3b113db55030c395d03c62c"
+    },
+    {
+      "bytes": 1504,
+      "module": "SpectreGeometry.BoundaryNonvertex",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "path": "src/SpectreGeometry/BoundaryNonvertex.lean",
+      "sha256": "2712b175406d890c85e4bf8be25a9cce188a667c274b561a8ac6c81ad964916c"
+    },
+    {
+      "bytes": 5563,
+      "module": "SpectreGeometry.BoundarySectorGerms",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSectorReal",
+        "SpectreGeometry.EdgeSectorData",
+        "SpectreGeometry.BoundaryNonvertex"
+      ],
+      "path": "src/SpectreGeometry/BoundarySectorGerms.lean",
+      "sha256": "0df8f5a553d69d170c07ef16159ee38afc8e4b3e3f9bac955fa49cb45cd29626"
+    },
+    {
+      "bytes": 4864,
+      "module": "SpectreGeometry.LocalConeGerm",
+      "ordered_imports": [
+        "Mathlib.Analysis.Normed.Affine.MazurUlam",
+        "Mathlib.Topology.Algebra.ContinuousAffineEquiv",
+        "Mathlib.Tactic.Abel"
+      ],
+      "path": "src/SpectreGeometry/LocalConeGerm.lean",
+      "sha256": "7d752967562ab709f6fe577f862c0d8bfdb4d088084707350e7e29a39b1b3d00"
+    },
+    {
+      "bytes": 4405,
+      "module": "SpectreGeometry.PolygonLocalConeGerms",
+      "ordered_imports": [
+        "SpectreGeometry.BoundarySectorGerms",
+        "SpectreGeometry.LocalConeGerm"
+      ],
+      "path": "src/SpectreGeometry/PolygonLocalConeGerms.lean",
+      "sha256": "b0b85a90de1bf85de0d243e275af4e2f67ddd74d6c0f481157b7cc810bc9db56"
+    },
+    {
+      "bytes": 1989,
+      "module": "SpectreGeometry.EuclideanCarrier",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBody",
+        "Mathlib.Analysis.InnerProductSpace.PiL2"
+      ],
+      "path": "src/SpectreGeometry/EuclideanCarrier.lean",
+      "sha256": "678f726e22665f372b5e2f4eebdd5b5a7f542d5dd86fa3ba6d06fe6dbbd2c8dd"
+    },
+    {
+      "bytes": 3217,
+      "module": "SpectreGeometry.PolygonProductConeGerms",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonLocalConeGerms",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Topology.Algebra.Module.FiniteDimension"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductConeGerms.lean",
+      "sha256": "f3d81a6e3730f14ebed5a6e93d6d544c4038d438535ec353a4e3eceda1853b22"
+    },
+    {
+      "bytes": 3281,
+      "module": "SpectreGeometry.PolygonBoundaryNormalRank",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSectorReal",
+        "Mathlib.LinearAlgebra.LinearIndependent.Lemmas"
+      ],
+      "path": "src/SpectreGeometry/PolygonBoundaryNormalRank.lean",
+      "sha256": "8afee3fbb7e4f54255b9d38c6d22b4dabb09ea59c64ace91625026bcadacf890"
+    },
+    {
+      "bytes": 3436,
+      "module": "SpectreGeometry.PolygonProductBoundaryNormals",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductConeGerms",
+        "SpectreGeometry.PolygonBoundaryNormalRank"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductBoundaryNormals.lean",
+      "sha256": "6d5f88dec3ae79cd421f7d87b7e90d8fb8de53400bbeb7cd1ca0da322053ea12"
+    },
+    {
+      "bytes": 9418,
+      "module": "SpectreGeometry.PolygonProductKeyFrames",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductBoundaryNormals",
+        "Mathlib.Analysis.Normed.Affine.Isometry"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyFrames.lean",
+      "sha256": "e80b362f967d679b999189343f31aa067147024ed2f3985345e22bae7006db48"
+    },
+    {
+      "bytes": 7247,
+      "module": "SpectreGeometry.PolygonProductKeyCenterSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeySeparationData",
+        "SpectreGeometry.PolygonProductKeyFrames"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyCenterSeparation.lean",
+      "sha256": "3cd8bd59d222ada1fd7791e7407b1d6b4bafeefe78756a41c4f5c6827e6f3832"
+    },
+    {
+      "bytes": 4746,
+      "module": "SpectreGeometry.PolygonProductKeyCollarMargins",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyFrames",
+        "SpectreGeometry.FanSeparation"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarMargins.lean",
+      "sha256": "8c88960588df593a75d3492849e417f0cc26e3cca2181be8819b93ce2b0a1411"
+    },
+    {
+      "bytes": 8360,
+      "module": "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarMargins",
+        "SpectreGeometry.EdgeNeighborhood"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarHalfplanes.lean",
+      "sha256": "084c64b95fa143832e3c6aa342e784030c0ba597e81b57db9473a0b4f0a49030"
+    },
+    {
+      "bytes": 3987,
+      "module": "SpectreGeometry.PolygonBoundaryNormalAngles",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonBoundaryNormalRank",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic"
+      ],
+      "path": "src/SpectreGeometry/PolygonBoundaryNormalAngles.lean",
+      "sha256": "319aad93f75242c127ed7940e83ebc2ed8190cf19b8b79a0d5944f0d8de7000f"
+    },
+    {
+      "bytes": 2697,
+      "module": "SpectreGeometry.PolygonProductNormalAngles",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductBoundaryNormals",
+        "SpectreGeometry.PolygonBoundaryNormalAngles"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductNormalAngles.lean",
+      "sha256": "09104ca25375baaa95e96f552daf7e0e57aeacca80a54643be311758024e5975"
+    },
+    {
+      "bytes": 27578,
+      "module": "PhysicalRegistration.PlanarSectorMeasure",
+      "ordered_imports": [
+        "Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Angle",
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.Geometry.Euclidean.Angle.Unoriented.Basic",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg"
+      ],
+      "path": "src/PhysicalRegistration/PlanarSectorMeasure.lean",
+      "sha256": "05fe9376a84e5b2a81dc167cf9b89ffd3fcd498465343ae5f1af9aa12ac13ac6"
+    },
+    {
+      "bytes": 3765,
+      "module": "SpectreGeometry.NormalPlaneSectorMeasure",
+      "ordered_imports": [
+        "PhysicalRegistration.PlanarSectorMeasure"
+      ],
+      "path": "src/SpectreGeometry/NormalPlaneSectorMeasure.lean",
+      "sha256": "446f9b6498ba7e73e7c0236641cc7a6173c8747cd329172cca7d7385e2db5e84"
+    },
+    {
+      "bytes": 4746,
+      "module": "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonLocalConeGerms"
+      ],
+      "path": "src/SpectreGeometry/PolygonBoundaryConeHalfplanes.lean",
+      "sha256": "d3c64cbbf773cfc50a5934e6f8904c71300217509bdb67e8cb4d841c83aa4378"
+    },
+    {
+      "bytes": 6161,
+      "module": "SpectreGeometry.PolygonFactorSectionMass",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductNormalAngles",
+        "SpectreGeometry.NormalPlaneSectorMeasure",
+        "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+        "PhysicalRegistration.PlanarSectorMeasure"
+      ],
+      "path": "src/SpectreGeometry/PolygonFactorSectionMass.lean",
+      "sha256": "193ac8b84d3ac6702df66a9d7a5919a02d813237deee0bd20ad8b24de22c2af1"
+    },
+    {
+      "bytes": 3047,
+      "module": "SpectreGeometry.NormalPlaneRankObstruction",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+        "Mathlib.LinearAlgebra.Dimension.Constructions"
+      ],
+      "path": "src/SpectreGeometry/NormalPlaneRankObstruction.lean",
+      "sha256": "522942d172e7e62f43b0658cae5fd99559bef3d5516dc86e0e9a46ab614c4760"
+    },
+    {
+      "bytes": 1588,
+      "module": "SpectreGeometry.PolygonProductNormalPlane",
+      "ordered_imports": [
+        "SpectreGeometry.NormalPlaneRankObstruction",
+        "SpectreGeometry.PolygonProductBoundaryNormals"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductNormalPlane.lean",
+      "sha256": "f798642e172a9b875cfc601232cc268bb49fa0ca508ffc1283b49b1a3aca8022"
+    },
+    {
+      "bytes": 6256,
+      "module": "SpectreGeometry.PolygonProductSectionMass",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonFactorSectionMass",
+        "SpectreGeometry.PolygonProductNormalPlane"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductSectionMass.lean",
+      "sha256": "f1a6fca2a921461ca9fa83f3ad1f80100859b3e8d610eb7953f9a1895c5a26d0"
+    },
+    {
+      "bytes": 3591,
+      "module": "SpectreGeometry.PolygonProductBoundaryGerm",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductSectionMass"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductBoundaryGerm.lean",
+      "sha256": "f3e7e5f052207349a1a97f2031992a8e02afaaed6d6781cac0dd83ab62e50633"
+    },
+    {
+      "bytes": 4492,
+      "module": "SpectreGeometry.PolygonProductKeyCollar",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+        "SpectreGeometry.PolygonProductBoundaryGerm"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyCollar.lean",
+      "sha256": "8d2671833d985a0d8229797b2a3c0ecb9fa21ea097ad6f99535e543f38ec5a24"
+    },
+    {
+      "bytes": 4506,
+      "module": "SpectreGeometry.PolygonProductKeyCollarSeparation",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCenterSeparation",
+        "SpectreGeometry.PolygonProductKeyCollar"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyCollarSeparation.lean",
+      "sha256": "93c5cfb9875d116880340a282f1409fcde667fac11fbb94106ad0903c87e4766"
+    },
+    {
+      "bytes": 3493,
+      "module": "PhysicalRegistration.ThreeCones",
+      "ordered_imports": [
+        "Mathlib.Analysis.InnerProductSpace.Basic",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "path": "src/PhysicalRegistration/ThreeCones.lean",
+      "sha256": "fcadcc5a37758ac70722a974483e32a9e11aefbfee079353a7ff58e8c44891f2"
+    },
+    {
+      "bytes": 4905,
+      "module": "PhysicalRegistration.LocalGraphs",
+      "ordered_imports": [
+        "PhysicalRegistration.ThreeCones"
+      ],
+      "path": "src/PhysicalRegistration/LocalGraphs.lean",
+      "sha256": "06723c18c82f8bac3d2c18611c5ad2328d6dc3c0070a174cba229560667e4bcd"
+    },
+    {
+      "bytes": 11357,
+      "module": "PhysicalRegistration.KeyTent",
+      "ordered_imports": [
+        "PhysicalRegistration.LocalGraphs",
+        "Mathlib.Data.Finset.Lattice.Fold"
+      ],
+      "path": "src/PhysicalRegistration/KeyTent.lean",
+      "sha256": "f3f9a5bc6e1cadfc7f2b9b8241ed395946a04af5487508de06871b319c927995"
+    },
+    {
+      "bytes": 4639,
+      "module": "PhysicalRegistration.KeyHypograph",
+      "ordered_imports": [
+        "PhysicalRegistration.KeyTent"
+      ],
+      "path": "src/PhysicalRegistration/KeyHypograph.lean",
+      "sha256": "2dd0914d60188755c98a1dab41cdaf35ae5bec7a8f7a840d5fe84fa1360741a1"
+    },
+    {
+      "bytes": 6287,
+      "module": "PhysicalRegistration.TubeAssembly",
+      "ordered_imports": [
+        "PhysicalRegistration.KeyHypograph"
+      ],
+      "path": "src/PhysicalRegistration/TubeAssembly.lean",
+      "sha256": "66e6cd0750c5706829be6f48ebb726795ec521ed3a74e465a6516401eb8a86d6"
+    },
+    {
+      "bytes": 9992,
+      "module": "PhysicalRegistration.KeyTube",
+      "ordered_imports": [
+        "PhysicalRegistration.TubeAssembly"
+      ],
+      "path": "src/PhysicalRegistration/KeyTube.lean",
+      "sha256": "9eec498ed113e56421eb760d3494517801b3a3ddd568da82032140081558436a"
+    },
+    {
+      "bytes": 4173,
+      "module": "SpectreGeometry.PolygonProductKeyHypographs",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyFrames",
+        "PhysicalRegistration.KeyTube"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyHypographs.lean",
+      "sha256": "72de4b516c0659c36d43ee84b762535fea19d5be2935812f6958cf3e1faf0086"
+    },
+    {
+      "bytes": 12031,
+      "module": "SpectreGeometry.PolygonProductKeyBody",
+      "ordered_imports": [
+        "SpectreGeometry.PolygonProductKeyCollarSeparation",
+        "SpectreGeometry.PolygonProductKeyHypographs",
+        "Mathlib.Topology.MetricSpace.Bounded"
+      ],
+      "path": "src/SpectreGeometry/PolygonProductKeyBody.lean",
+      "sha256": "2776c93c5aa061823b76ffd03765121d3a3929d8748675bd77c61ff5e611ffea"
+    },
+    {
+      "bytes": 2260,
+      "module": "SpectreGeometry.HalfplaneCertificateData",
+      "ordered_imports": [
+        "Init"
+      ],
+      "path": "src/SpectreGeometry/HalfplaneCertificateData.lean",
+      "sha256": "e4e778bea7740b8a0523ff835c29ca3a0d75cf6c7578f83c8c45c491148bbe1c"
+    },
+    {
+      "bytes": 4770,
+      "module": "SpectreGeometry.HalfplaneCertificateReal",
+      "ordered_imports": [
+        "SpectreGeometry.HalfplaneCertificateData",
+        "SpectreGeometry.TriangleGeometry"
+      ],
+      "path": "src/SpectreGeometry/HalfplaneCertificateReal.lean",
+      "sha256": "f037d4fa9edfdd33bbd77ec29a25b6ff14d008a7620e3133c90d11f0019dfec0"
+    },
+    {
+      "bytes": 2765,
+      "module": "SpectreGeometry.TriangulationFlip",
+      "ordered_imports": [
+        "SpectreGeometry.TriangleGeometry"
+      ],
+      "path": "src/SpectreGeometry/TriangulationFlip.lean",
+      "sha256": "f86a40bc97e15489f6acf5603252c36f2ad7ac8764377edef75a394e0bcbc8cb"
+    },
+    {
+      "bytes": 1860,
+      "module": "SpectreGeometry.ConvexQuadrilateral",
+      "ordered_imports": [
+        "SpectreGeometry.TriangulationFlip"
+      ],
+      "path": "src/SpectreGeometry/ConvexQuadrilateral.lean",
+      "sha256": "a7d145b14dd49c9ee6573612767b2691b5219955c0c495fe64df613353ad0beb"
+    },
+    {
+      "bytes": 3219,
+      "module": "SpectreGeometry.DeformedVertexData",
+      "ordered_imports": [
+        "SpectreGeometry.CornerSteps"
+      ],
+      "path": "src/SpectreGeometry/DeformedVertexData.lean",
+      "sha256": "f19906f08110404bd6673dc41d7cab31da929513c638bfdd5d658b5dda0d7175"
+    },
+    {
+      "bytes": 3022,
+      "module": "SpectreGeometry.DeformationHomeomorphismData",
+      "ordered_imports": [
+        "SpectreGeometry.DeformedVertexData"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismData.lean",
+      "sha256": "4d5785da3b013a5aed62c4912697e7e0eec6e41fa4e1b51841d3d05e11208457"
+    },
+    {
+      "bytes": 2564,
+      "module": "SpectreGeometry.DeformationTriangulationData",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismData",
+        "SpectreGeometry.PolygonFanData"
+      ],
+      "path": "src/SpectreGeometry/DeformationTriangulationData.lean",
+      "sha256": "e0e47ec6a7d79adf89748c5dd2d6bad99be55f07585877075d82520e44b1812f"
+    },
+    {
+      "bytes": 3428,
+      "module": "SpectreClusters.LiteralData",
+      "ordered_imports": [
+        "SpectreClusters.KiteGrid"
+      ],
+      "path": "src/SpectreClusters/LiteralData.lean",
+      "sha256": "7520c9388789a0482488e73394de1fa4f30389c7f560ee82b527ba12940bce88"
+    },
+    {
+      "bytes": 3868,
+      "module": "SpectreClusters.DeformedLiteralBinding",
+      "ordered_imports": [
+        "SpectreGeometry.DeformedVertexData",
+        "SpectreClusters.LiteralData"
+      ],
+      "path": "src/SpectreClusters/DeformedLiteralBinding.lean",
+      "sha256": "230f18f0bbe91c7d70608e7945174435d4d5c82ff0b70575b51e71e2a6f437a3"
+    },
+    {
+      "bytes": 1722,
+      "module": "SpectreClusters.BoundaryChains",
+      "ordered_imports": [
+        "SpectreClusters.LiteralData"
+      ],
+      "path": "src/SpectreClusters/BoundaryChains.lean",
+      "sha256": "519689b6cfaf0a00a0bb557682ed253208fa72bbe1bbe1e68f393b4d12546e63"
+    },
+    {
+      "bytes": 6384,
+      "module": "SpectreClusters.BodyBSPData",
+      "ordered_imports": [
+        "SpectreGeometry.HalfplaneCertificateData",
+        "SpectreGeometry.DeformationTriangulationData",
+        "SpectreClusters.DeformedLiteralBinding",
+        "SpectreClusters.BoundaryChains"
+      ],
+      "path": "src/SpectreClusters/BodyBSPData.lean",
+      "sha256": "26d33a610f56d82e5e2134486ab713b2e41bd1ec9615783093beefae14bd9cfd"
+    },
+    {
+      "bytes": 6716,
+      "module": "SpectreGeometry.RealPolygonFacets",
+      "ordered_imports": [
+        "SpectreGeometry.HalfplaneCertificateReal",
+        "SpectreGeometry.ConvexQuadrilateral",
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreGeometry/RealPolygonFacets.lean",
+      "sha256": "7d2dd86f719f29ba86f78295274fcf0cbbe6967ea9a23192c71c1fa88cddb1f2"
+    },
+    {
+      "bytes": 5190,
+      "module": "SpectreClusters.BodyBSPHatForward",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreClusters/BodyBSPHatForward.lean",
+      "sha256": "3986736c010ff40e5e9d809f267cc3fcdc1339f9dc2c4cdad90d02796553df01"
+    },
+    {
+      "bytes": 4948,
+      "module": "SpectreClusters.BodyBSPHatReverse",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreClusters/BodyBSPHatReverse.lean",
+      "sha256": "6e2c760639c554a10c8a7525238a405c6e45bca3b732b37caab89f538361f69e"
+    },
+    {
+      "bytes": 6042,
+      "module": "SpectreClusters.BodyBSPTurtleForward",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreClusters/BodyBSPTurtleForward.lean",
+      "sha256": "b836c62dec5a8682cf3e52c8677279e48684d1662746b2c84828ce836c8d2ca0"
+    },
+    {
+      "bytes": 5677,
+      "module": "SpectreClusters.BodyBSPTurtleReverse",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreClusters/BodyBSPTurtleReverse.lean",
+      "sha256": "0a3993e91eeacea93b8fd1d82608dd24b20b627b288af31f4a2114f1116c40f8"
+    },
+    {
+      "bytes": 1223,
+      "module": "SpectreClusters.BodyBSPComplete",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPHatForward",
+        "SpectreClusters.BodyBSPHatReverse",
+        "SpectreClusters.BodyBSPTurtleForward",
+        "SpectreClusters.BodyBSPTurtleReverse"
+      ],
+      "path": "src/SpectreClusters/BodyBSPComplete.lean",
+      "sha256": "6bf9d34966858b258166ce487e2fdd7aa06a86ad1310d6ec64e2687e44f9244b"
+    },
+    {
+      "bytes": 3136,
+      "module": "SpectreGeometry.LiteralKiteBody",
+      "ordered_imports": [
+        "SpectreGeometry.RealPolygonFacets",
+        "SpectreClusters.BodyBSPComplete"
+      ],
+      "path": "src/SpectreGeometry/LiteralKiteBody.lean",
+      "sha256": "2cfbfc37bc80e69aeabe31242666779f8b6af2919d83ae062fe501e737d0523b"
+    },
+    {
+      "bytes": 3306,
+      "module": "SpectreClusters.GridMotions",
+      "ordered_imports": [
+        "SpectreClusters.LiteralData"
+      ],
+      "path": "src/SpectreClusters/GridMotions.lean",
+      "sha256": "a23c41b6ce9aadd5e06b9eb9b81a68ea8073936120d74ef5c86dcd51dbc7c4c9"
+    },
+    {
+      "bytes": 2601,
+      "module": "SpectreGeometry.GridAffineGeometry",
+      "ordered_imports": [
+        "SpectreGeometry.RealPolygonFacets",
+        "SpectreClusters.GridMotions"
+      ],
+      "path": "src/SpectreGeometry/GridAffineGeometry.lean",
+      "sha256": "ee14b7c53099f930484d02529350665d7cab3c2f41170a6d2a61f0783eeee96e"
+    },
+    {
+      "bytes": 4403,
+      "module": "SpectreGeometry.CyclicRotations",
+      "ordered_imports": [
+        "SpectreGeometry.EuclideanCarrier",
+        "SpectreGeometry.RotationData"
+      ],
+      "path": "src/SpectreGeometry/CyclicRotations.lean",
+      "sha256": "31d34c52645734a2fafb269c4eca019e67a341218ccc24186dd086122fa14dec"
+    },
+    {
+      "bytes": 3194,
+      "module": "SpectreGeometry.DeformationHomeomorphismMatrix",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismData",
+        "SpectreGeometry.CyclicRotations",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismMatrix.lean",
+      "sha256": "bd67f78fea7663ae21253337fc84d45b18bbe9a8b0f0d04fa9af7501a38f174b"
+    },
+    {
+      "bytes": 1832,
+      "module": "SpectreGeometry.QuadraticPointData",
+      "ordered_imports": [
+        "SpectreGeometry.DeformedVertexData",
+        "Init.Data.Rat"
+      ],
+      "path": "src/SpectreGeometry/QuadraticPointData.lean",
+      "sha256": "20cc6b0f5f8d6f7df1d419659d4fadf6ca11eb6b93cc1ac378871ec7e60095b7"
+    },
+    {
+      "bytes": 2551,
+      "module": "SpectreGeometry.QuadraticCoordinates",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticReal",
+        "Mathlib.Data.Int.Sqrt",
+        "Mathlib.Data.Rat.Lemmas",
+        "Mathlib.Algebra.Order.Ring.Unbundled.Rat"
+      ],
+      "path": "src/SpectreGeometry/QuadraticCoordinates.lean",
+      "sha256": "d70075b53608a5b250b6455f9d073cdc44bdeabe28ba82d365f64a3e472bd8a7"
+    },
+    {
+      "bytes": 3259,
+      "module": "SpectreGeometry.QuadraticPointReal",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticPointData",
+        "SpectreGeometry.QuadraticCoordinates",
+        "SpectreGeometry.CyclicRotations"
+      ],
+      "path": "src/SpectreGeometry/QuadraticPointReal.lean",
+      "sha256": "88cb6c6c9f22881440e17c26232b24c6e6bd064bc678d23df1da25c61dd7d8b6"
+    },
+    {
+      "bytes": 4637,
+      "module": "SpectreGeometry.PlacedEdgeForms",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeNeighborhood",
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Analysis.Normed.Affine.MazurUlam"
+      ],
+      "path": "src/SpectreGeometry/PlacedEdgeForms.lean",
+      "sha256": "4a78b41bb97ffe377776cf7541877880a971289ff5d681d7d45b09a47763c382"
+    },
+    {
+      "bytes": 4044,
+      "module": "SpectreGeometry.UnitEdgeDirections",
+      "ordered_imports": [
+        "SpectreGeometry.PlacedEdgeForms"
+      ],
+      "path": "src/SpectreGeometry/UnitEdgeDirections.lean",
+      "sha256": "a8d3a3fe7a74a59262d0dd73ffc7ab53da7517e4e48d73d522c08bff2f1f7b71"
+    },
+    {
+      "bytes": 5412,
+      "module": "SpectreGeometry.DirectIsometryFrames",
+      "ordered_imports": [
+        "SpectreGeometry.UnitEdgeDirections",
+        "SpectreGeometry.CyclicRotations"
+      ],
+      "path": "src/SpectreGeometry/DirectIsometryFrames.lean",
+      "sha256": "2e7a56c73ade4b5a1120e8433d7b9126d87a60a99baab0763f295e2826243b71"
+    },
+    {
+      "bytes": 3063,
+      "module": "SpectreGeometry.HalfplaneNoncrossing",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeNeighborhood",
+        "SpectreGeometry.EuclideanCarrier"
+      ],
+      "path": "src/SpectreGeometry/HalfplaneNoncrossing.lean",
+      "sha256": "be8259bee9d38d82a0e8284ee6014506086156516ea482ad8b979c72b6b993bb"
+    },
+    {
+      "bytes": 3978,
+      "module": "SpectreGeometry.CompactPacking",
+      "ordered_imports": [
+        "SpectreGeometry.EuclideanCarrier",
+        "Mathlib.Topology.MetricSpace.Basic",
+        "Mathlib.Topology.LocallyFinite"
+      ],
+      "path": "src/SpectreGeometry/CompactPacking.lean",
+      "sha256": "5cebc20606cea5d03cd4c0d5f5a2a6f8dc7cde6c6eee2ff882caad9426284401"
+    },
+    {
+      "bytes": 4938,
+      "module": "SpectreGeometry.CompactTilingIncidence",
+      "ordered_imports": [
+        "SpectreGeometry.CompactPacking"
+      ],
+      "path": "src/SpectreGeometry/CompactTilingIncidence.lean",
+      "sha256": "d00fa512d36bb7d1bd746ba08ee8ad92a46b296e2250cb6de7e5f20cf1ba84eb"
+    },
+    {
+      "bytes": 4091,
+      "module": "SpectreGeometry.PolygonTilingIncidence",
+      "ordered_imports": [
+        "SpectreGeometry.CompactTilingIncidence",
+        "SpectreGeometry.PolygonBoundary"
+      ],
+      "path": "src/SpectreGeometry/PolygonTilingIncidence.lean",
+      "sha256": "63f713bf71de4350a765b961610a3764685d2f7273aaa42c1fa7a6e9440e1412"
+    },
+    {
+      "bytes": 3836,
+      "module": "SpectreGeometry.PlacedEdgeNoncrossing",
+      "ordered_imports": [
+        "SpectreGeometry.PlacedEdgeForms",
+        "SpectreGeometry.HalfplaneNoncrossing",
+        "SpectreGeometry.PolygonTilingIncidence"
+      ],
+      "path": "src/SpectreGeometry/PlacedEdgeNoncrossing.lean",
+      "sha256": "d20e3b1dceca20df7ab938a37482004a1d468f46551eadf3c30e445c8f8eb0bd"
+    },
+    {
+      "bytes": 2197,
+      "module": "SpectreGeometry.UnitEdgeAlignment",
+      "ordered_imports": [
+        "SpectreGeometry.UnitEdgeDirections",
+        "SpectreGeometry.PlacedEdgeNoncrossing"
+      ],
+      "path": "src/SpectreGeometry/UnitEdgeAlignment.lean",
+      "sha256": "395457005dd6ddec357c7ae21be2aae7500a2e1f872f5530bce4b20c31830c51"
+    },
+    {
+      "bytes": 3891,
+      "module": "SpectreGeometry.ContactConnectivity",
+      "ordered_imports": [
+        "SpectreGeometry.CompactTilingIncidence",
+        "Mathlib.Topology.Connected.Basic",
+        "Mathlib.Logic.Relation"
+      ],
+      "path": "src/SpectreGeometry/ContactConnectivity.lean",
+      "sha256": "a3aa01a1760105164b553bd94edf71173c90b4ba5a4aa66f435f94e13c19e44d"
+    },
+    {
+      "bytes": 4698,
+      "module": "SpectreGeometry.CountableComplement",
+      "ordered_imports": [
+        "Mathlib.Analysis.Convex.Topology",
+        "Mathlib.Analysis.Normed.Module.Convex",
+        "Mathlib.LinearAlgebra.Dimension.DivisionRing",
+        "Mathlib.Topology.Algebra.Module.Cardinality"
+      ],
+      "path": "src/SpectreGeometry/CountableComplement.lean",
+      "sha256": "e8bbefd0231b398e3b5b84bb6761c300382c9861617b91989c4e70700dea1ac9"
+    },
+    {
+      "bytes": 4063,
+      "module": "SpectreGeometry.NonvertexConnectivity",
+      "ordered_imports": [
+        "SpectreGeometry.ContactConnectivity",
+        "SpectreGeometry.CountableComplement",
+        "Mathlib.Topology.Bases"
+      ],
+      "path": "src/SpectreGeometry/NonvertexConnectivity.lean",
+      "sha256": "5292d5f9d8afaf20c8472e9837601ffe0fdd80a5e059abc08c5cbbf08e4c61b9"
+    },
+    {
+      "bytes": 5433,
+      "module": "SpectreGeometry.CyclicFrameRegistration",
+      "ordered_imports": [
+        "SpectreGeometry.DirectIsometryFrames",
+        "SpectreGeometry.UnitEdgeAlignment",
+        "SpectreGeometry.NonvertexConnectivity"
+      ],
+      "path": "src/SpectreGeometry/CyclicFrameRegistration.lean",
+      "sha256": "c17e6685b2ab543c4712831443a2855ad769f3fc61fc30ba86101963320de92c"
+    },
+    {
+      "bytes": 4438,
+      "module": "SpectreGeometry.SectorRotations",
+      "ordered_imports": [
+        "SpectreGeometry.CyclicFrameRegistration",
+        "SpectreGeometry.CornerGermData"
+      ],
+      "path": "src/SpectreGeometry/SectorRotations.lean",
+      "sha256": "bfbe6d30320526460cdef08eec10525fa647f2f806ed0b1747a345b9a6220438"
+    },
+    {
+      "bytes": 4886,
+      "module": "SpectreGeometry.PlacedBoundaryGerms",
+      "ordered_imports": [
+        "SpectreGeometry.BoundarySectorGerms",
+        "SpectreGeometry.SectorRotations"
+      ],
+      "path": "src/SpectreGeometry/PlacedBoundaryGerms.lean",
+      "sha256": "416fbc32b6fc54927370a747e77da7408fdef90465bd01eff599e86360b0d010"
+    },
+    {
+      "bytes": 2841,
+      "module": "SpectreGeometry.FiniteRayPartition",
+      "ordered_imports": [
+        "SpectreGeometry.PlacedBoundaryGerms"
+      ],
+      "path": "src/SpectreGeometry/FiniteRayPartition.lean",
+      "sha256": "55fbd23bf4a5025a217bbec0f68d970044b92887fd22fcbec8e7114c441b8260"
+    },
+    {
+      "bytes": 2749,
+      "module": "SpectreGeometry.PhysicalSectorStar",
+      "ordered_imports": [
+        "SpectreGeometry.FiniteRayPartition"
+      ],
+      "path": "src/SpectreGeometry/PhysicalSectorStar.lean",
+      "sha256": "cc86e6e33de5fb65d2de10aa9417af7ac8d3ba77ffc8444263faf87881a1eafc"
+    },
+    {
+      "bytes": 2513,
+      "module": "SpectreGeometry.PrescribedSectorStar",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalSectorStar"
+      ],
+      "path": "src/SpectreGeometry/PrescribedSectorStar.lean",
+      "sha256": "13af95864f99248fee88fd827bb88a8349b8d2b8006f882b8ae9d7fa8febcc22"
+    },
+    {
+      "bytes": 3062,
+      "module": "SpectreGeometry.SectorPartitionCounts",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalSectorStar"
+      ],
+      "path": "src/SpectreGeometry/SectorPartitionCounts.lean",
+      "sha256": "ce92c3c9318ac5dc1bcc0f2f8862a4c819ef1265b8018b949f07a528920dd1de"
+    },
+    {
+      "bytes": 3726,
+      "module": "SpectreGeometry.PhysicalCornerConstraint",
+      "ordered_imports": [
+        "SpectreGeometry.PrescribedSectorStar",
+        "SpectreGeometry.SectorPartitionCounts"
+      ],
+      "path": "src/SpectreGeometry/PhysicalCornerConstraint.lean",
+      "sha256": "353ec9eae122104caa5fccc94e1e1bba27712624741715d1d4ab0d5a029ba760"
+    },
+    {
+      "bytes": 2009,
+      "module": "SpectreGeometry.SectorPartitionConsequences",
+      "ordered_imports": [
+        "SpectreGeometry.SectorPartitionCounts"
+      ],
+      "path": "src/SpectreGeometry/SectorPartitionConsequences.lean",
+      "sha256": "4de54fc53917652f0543deaf1ab3fc6fbae87b52d3ced877a90a1cf1e102a1ae"
+    },
+    {
+      "bytes": 4240,
+      "module": "SpectreGeometry.PhysicalVertexEdgeStar",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalCornerConstraint",
+        "SpectreGeometry.SectorPartitionConsequences"
+      ],
+      "path": "src/SpectreGeometry/PhysicalVertexEdgeStar.lean",
+      "sha256": "e9ab8263435bd81a39ee37d4843047f20ce793be52c919d6da9fbc542c5589e0"
+    },
+    {
+      "bytes": 1505,
+      "module": "SpectreGeometry.SectorBoundaryRays",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeSectorData"
+      ],
+      "path": "src/SpectreGeometry/SectorBoundaryRays.lean",
+      "sha256": "4e672eea4d3ed2345348508c1b64b52bee6a91277ff65cd81ff04fdb9cf3986e"
+    },
+    {
+      "bytes": 3484,
+      "module": "SpectreGeometry.SectorPartitionRays",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalVertexEdgeStar",
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/SectorPartitionRays.lean",
+      "sha256": "48025187364c31ab735b9017a7d6abf6adbdf820208e244d1645986ec4cf30b4"
+    },
+    {
+      "bytes": 4078,
+      "module": "SpectreGeometry.PhysicalBoundaryRays",
+      "ordered_imports": [
+        "SpectreGeometry.SectorPartitionRays"
+      ],
+      "path": "src/SpectreGeometry/PhysicalBoundaryRays.lean",
+      "sha256": "6f8f6d610b19cbd510d8355c78c7426bfb96868ea2ae16493e75874beb4bd12f"
+    },
+    {
+      "bytes": 2565,
+      "module": "SpectreGeometry.NoVertexInEdge",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/NoVertexInEdge.lean",
+      "sha256": "85e444b50fae5d91e81623c9b6b3269585d788ba9fc14e29a451f03f2b5cfc47"
+    },
+    {
+      "bytes": 2355,
+      "module": "SpectreGeometry.SegmentEndpointRegistration",
+      "ordered_imports": [
+        "SpectreGeometry.NoVertexInEdge"
+      ],
+      "path": "src/SpectreGeometry/SegmentEndpointRegistration.lean",
+      "sha256": "67ac2dd60b9ad4e340af9eee0a1662d3b2e8e8f847a7f6d3810a9c8cebdcd13e"
+    },
+    {
+      "bytes": 4202,
+      "module": "SpectreGeometry.WholeEdgeRegistration",
+      "ordered_imports": [
+        "SpectreGeometry.SegmentEndpointRegistration"
+      ],
+      "path": "src/SpectreGeometry/WholeEdgeRegistration.lean",
+      "sha256": "d05a7be1cf16c8101f241a94663d8490a0b986cf61fda07c2c016a1050f07480"
+    },
+    {
+      "bytes": 5735,
+      "module": "SpectreGeometry.PhysicalQuadraticRegistration",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticPointReal",
+        "SpectreGeometry.WholeEdgeRegistration"
+      ],
+      "path": "src/SpectreGeometry/PhysicalQuadraticRegistration.lean",
+      "sha256": "f62bc8046de2ca9a81b4bd7fa47ed30d5d218c46828bc3d9d269f07b287a10d3"
+    },
+    {
+      "bytes": 4151,
+      "module": "SpectreGeometry.QuadraticDevelopment",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalQuadraticRegistration"
+      ],
+      "path": "src/SpectreGeometry/QuadraticDevelopment.lean",
+      "sha256": "69b9d8ee219552c9ae5fba902f1492d58496f65bc243c8605ec3e34337e132c1"
+    },
+    {
+      "bytes": 3388,
+      "module": "SpectreGeometry.DevelopedRealCoordinates",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticDevelopment"
+      ],
+      "path": "src/SpectreGeometry/DevelopedRealCoordinates.lean",
+      "sha256": "4ae83b9dd4541b6f45669877a68bd2c7f16464a5fe038bf4046096681c046844"
+    },
+    {
+      "bytes": 7113,
+      "module": "SpectreGeometry.DeformationHomeomorphismAffine",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismMatrix",
+        "SpectreGeometry.DevelopedRealCoordinates"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismAffine.lean",
+      "sha256": "850acb746168040803934513e2e526a89070c41c5f4c8cbdde4a4ee39d88c93a"
+    },
+    {
+      "bytes": 3331,
+      "module": "SpectreGeometry.TriangleFanCollapse",
+      "ordered_imports": [
+        "SpectreGeometry.TriangulationFlip"
+      ],
+      "path": "src/SpectreGeometry/TriangleFanCollapse.lean",
+      "sha256": "6af37e3c1f3f50cf4bd40fd89a6609c58368a769755471170cdc5aa744b5a72b"
+    },
+    {
+      "bytes": 2247,
+      "module": "SpectreGeometry.DeformationTriangulationReal",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationTriangulationData",
+        "SpectreGeometry.TriangleFanCollapse",
+        "SpectreGeometry.FanRealGeometry"
+      ],
+      "path": "src/SpectreGeometry/DeformationTriangulationReal.lean",
+      "sha256": "dd5a894581d75dd56a6757df62a6411f68f3ab0a9bb54d671cae9ca552ab9bde"
+    },
+    {
+      "bytes": 16539,
+      "module": "SpectreGeometry.DeformationTriangulationCover",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationTriangulationReal"
+      ],
+      "path": "src/SpectreGeometry/DeformationTriangulationCover.lean",
+      "sha256": "f7d518848098039616adbacc4416ba08e017279b2d566e98d080c1376597ed43"
+    },
+    {
+      "bytes": 1903,
+      "module": "SpectreGeometry.ConvexZeroFace",
+      "ordered_imports": [
+        "SpectreGeometry.TriangleGeometry"
+      ],
+      "path": "src/SpectreGeometry/ConvexZeroFace.lean",
+      "sha256": "efb70574dea75e571a450149343126dbb2b23a5210e023ca4a44ead337117fcd"
+    },
+    {
+      "bytes": 5593,
+      "module": "SpectreGeometry.DeformationTriangulationFaces",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationTriangulationReal",
+        "SpectreGeometry.ConvexZeroFace",
+        "SpectreGeometry.FanSeparation"
+      ],
+      "path": "src/SpectreGeometry/DeformationTriangulationFaces.lean",
+      "sha256": "2ee7b6a64ef5ebd8dddee34e4e94449f4dcf5c1a29e4ad8a4357cc06693c34b2"
+    },
+    {
+      "bytes": 330,
+      "module": "SpectreGeometry.DeformationBoundaryOwnershipData",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationTriangulationData"
+      ],
+      "path": "src/SpectreGeometry/DeformationBoundaryOwnershipData.lean",
+      "sha256": "68a6cd0acd1285f9a5cc27e40741603459f2d4a3a862ee59316191a59546c0c7"
+    },
+    {
+      "bytes": 5705,
+      "module": "SpectreGeometry.DeformationHomeomorphismTile",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismAffine",
+        "SpectreGeometry.DeformationTriangulationCover",
+        "SpectreGeometry.DeformationTriangulationFaces",
+        "SpectreGeometry.DeformationBoundaryOwnershipData"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismTile.lean",
+      "sha256": "dbe400fc1e822ea03b943d34d48d81b1db20e3b1bf73bb4ac7d7524f13552321"
+    },
+    {
+      "bytes": 4273,
+      "module": "SpectreGeometry.DevelopedLiteralBody",
+      "ordered_imports": [
+        "SpectreGeometry.LiteralKiteBody",
+        "SpectreGeometry.GridAffineGeometry",
+        "SpectreGeometry.DeformationHomeomorphismTile"
+      ],
+      "path": "src/SpectreGeometry/DevelopedLiteralBody.lean",
+      "sha256": "8014d6d3897de6ce6990775445751966402ef1eee322778f220ea235f1f4d6e3"
+    },
+    {
+      "bytes": 476,
+      "module": "SpectreGeometry.DeformedLatticeCertificate",
+      "ordered_imports": [
+        "SpectreGeometry.DeformedVertexData"
+      ],
+      "path": "src/SpectreGeometry/DeformedLatticeCertificate.lean",
+      "sha256": "849a25b63a4766c0dbcc5a76bef1deda5dfc6d53ee037d742e2204b038a8449c"
+    },
+    {
+      "bytes": 2138,
+      "module": "SpectreGeometry.DevelopedCenterLattice",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticDevelopment",
+        "SpectreGeometry.DeformedLatticeCertificate"
+      ],
+      "path": "src/SpectreGeometry/DevelopedCenterLattice.lean",
+      "sha256": "c4469ac81de20d5ad0ebb2746f51a70651d7245bd46ceb29d875e9142f2f398e"
+    },
+    {
+      "bytes": 2384,
+      "module": "SpectreGeometry.GridPhysicalCoordinates",
+      "ordered_imports": [
+        "SpectreGeometry.DevelopedLiteralBody",
+        "SpectreGeometry.DevelopedCenterLattice"
+      ],
+      "path": "src/SpectreGeometry/GridPhysicalCoordinates.lean",
+      "sha256": "929d8873387651aa99cb213551b968f742811a99d87c21fb700f1a01e5921699"
+    },
+    {
+      "bytes": 1548,
+      "module": "SpectreClusters.GridKiteProbeData",
+      "ordered_imports": [
+        "SpectreClusters.BodyBSPData"
+      ],
+      "path": "src/SpectreClusters/GridKiteProbeData.lean",
+      "sha256": "c54e026095da0330f342148b5f97b90901d65ce4ddcde9f66f84cf4a9ac6b02e"
+    },
+    {
+      "bytes": 6925,
+      "module": "SpectreGeometry.GridKiteProbeReal",
+      "ordered_imports": [
+        "SpectreGeometry.LiteralKiteBody",
+        "SpectreGeometry.GridAffineGeometry",
+        "SpectreClusters.GridKiteProbeData"
+      ],
+      "path": "src/SpectreGeometry/GridKiteProbeReal.lean",
+      "sha256": "6cd04554b6aecbd2b459f2109135c40eb3d6320882cfaeba5842823ebd35be10"
+    },
+    {
+      "bytes": 1515,
+      "module": "SpectreClusters.KiteContactData",
+      "ordered_imports": [
+        "SpectreClusters.KiteGrid"
+      ],
+      "path": "src/SpectreClusters/KiteContactData.lean",
+      "sha256": "2b47adbf493b54c2161225caffe65c6ff39e6f402613bb7085359ae2737823ac"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact0",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact0.lean",
+      "sha256": "23e9cd5697a1076ee2ba03129ddd0d2663dcab0fd9e7dae441335bdf6ac67bc2"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact1",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact1.lean",
+      "sha256": "67fd0af55fa8bf66b28b018ea28b7d13ba3b5c66534b99df2957fb2beefb5461"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact2",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact2.lean",
+      "sha256": "29fec03fe00eb674226bbe2ddbb9f9813eb34c8dadcc1cff08abccd0cbb0ac37"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact3",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact3.lean",
+      "sha256": "8b0927228c0dbeb16ab8c43063b1427043f3540010910105681a1f2e71a81591"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact4",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact4.lean",
+      "sha256": "08fc00c1769b444aed72b5effef61d932e2fa0885298d131b59709a0f90c493e"
+    },
+    {
+      "bytes": 311,
+      "module": "SpectreClusters.KiteContact5",
+      "ordered_imports": [
+        "SpectreClusters.KiteContactData"
+      ],
+      "path": "src/SpectreClusters/KiteContact5.lean",
+      "sha256": "b65e127791fb7708f42eb0f3f8cdc7150933c63c49884c7bd313644ef76f1c5c"
+    },
+    {
+      "bytes": 3217,
+      "module": "SpectreClusters.KiteContacts",
+      "ordered_imports": [
+        "SpectreClusters.KiteContact0",
+        "SpectreClusters.KiteContact1",
+        "SpectreClusters.KiteContact2",
+        "SpectreClusters.KiteContact3",
+        "SpectreClusters.KiteContact4",
+        "SpectreClusters.KiteContact5"
+      ],
+      "path": "src/SpectreClusters/KiteContacts.lean",
+      "sha256": "6a01e8e2bb1bbb34b48ff1350d7a75d7234754c228367f6f4845407723285865"
+    },
+    {
+      "bytes": 2893,
+      "module": "SpectreClusters.NeighborCandidates",
+      "ordered_imports": [
+        "SpectreClusters.KiteContacts",
+        "SpectreClusters.LiteralData"
+      ],
+      "path": "src/SpectreClusters/NeighborCandidates.lean",
+      "sha256": "6edd43144cd23ef0b5a5f59245ae50d8068b4ad06f37085a68cf58fa4faf764c"
+    },
+    {
+      "bytes": 3388,
+      "module": "SpectreClusters.GridCoverModel",
+      "ordered_imports": [
+        "SpectreClusters.NeighborCandidates",
+        "SpectreFinite.PatchEnumeration"
+      ],
+      "path": "src/SpectreClusters/GridCoverModel.lean",
+      "sha256": "3617de5bec346dc54369f6b31748b143f1c726f207c08aa02cf6ce3f7067fa1e"
+    },
+    {
+      "bytes": 2922,
+      "module": "SpectreGeometry.GridFieldExtraction",
+      "ordered_imports": [
+        "SpectreGeometry.GridKiteProbeReal",
+        "SpectreClusters.GridCoverModel"
+      ],
+      "path": "src/SpectreGeometry/GridFieldExtraction.lean",
+      "sha256": "6cfa20a4039aaad24c144bfc81cd6228f963c4a13c3b08edadd8d77b9e00cdcb"
+    },
+    {
+      "bytes": 1641,
+      "module": "SpectreGeometry.QuadraticFrameUniqueness",
+      "ordered_imports": [
+        "SpectreGeometry.QuadraticPointReal",
+        "SpectreGeometry.CyclicFrameRegistration"
+      ],
+      "path": "src/SpectreGeometry/QuadraticFrameUniqueness.lean",
+      "sha256": "eb410e7417defe416b18525cfe2c493268082f4dc3f6270505bfc6706dbcbb5e"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase0",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase0.lean",
+      "sha256": "c99a1a9439e0ac386c8993fbeed02868ddfd6b334c974abf5917c925470650fb"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase1",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase1.lean",
+      "sha256": "4bb8d67ce12164f394a06f2d0c0b48880b9a188c9c19af4eb94eb1a6f68a149e"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase2",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase2.lean",
+      "sha256": "c95ea6c53a860bc4cddc8c84d10403c7b781919e9f70f3deb035ef8a7016d90a"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase3",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase3.lean",
+      "sha256": "94d626d1b0b3e57ddecd14537f3698cbb8e42940a9afd402ff94e3d53bdf95db"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase4",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase4.lean",
+      "sha256": "96a6eb5b22487be2270217e98e7f278c243e98377e3fa8895ea9201d1d546355"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase5",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase5.lean",
+      "sha256": "9fd9b51928a93a90aa6bab4b8050daf451d300819eb045a0b8b0a7abd0d4ea61"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase6",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase6.lean",
+      "sha256": "4cc0b929a01763cf74f369c3359582fa628dc22c23ea3ee87bead048c262baf7"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase7",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase7.lean",
+      "sha256": "1dbe8c8501e75614d03824c80b4d291335c9a71e91044476da4bd73ec9861125"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase8",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase8.lean",
+      "sha256": "e3ea2e66cb8c7f7cbbb2399d70cdfd926bbcbcae416e7325e67b45e1015046a2"
+    },
+    {
+      "bytes": 442,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase9",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase9.lean",
+      "sha256": "50ecb75b2dabe7cec70ddff4050bb67619175d248496667202b4677472c68843"
+    },
+    {
+      "bytes": 446,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase10",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase10.lean",
+      "sha256": "d63617699e29345f106575ed129c7909dee9d44e26b8ef24adfe9b7835ef035c"
+    },
+    {
+      "bytes": 446,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase11",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase11.lean",
+      "sha256": "e312fee43b20127c02183bac2f8f71174d50811515a716501c4f3f53ced38331"
+    },
+    {
+      "bytes": 446,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase12",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase12.lean",
+      "sha256": "4030697d1c1e53f77efa06f875f79ab02de44b12a76cf6319f2a175679bc9b80"
+    },
+    {
+      "bytes": 446,
+      "module": "SpectreGeometry.EdgeMaskAlignmentCase13",
+      "ordered_imports": [
+        "SpectreGeometry.SectorBoundaryRays"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentCase13.lean",
+      "sha256": "0324a73419857a1fceb5c84a78e94aac7279fb0dad3ba8cd1f91bf6d8448a1e5"
+    },
+    {
+      "bytes": 2520,
+      "module": "SpectreGeometry.EdgeMaskAlignmentData",
+      "ordered_imports": [
+        "SpectreGeometry.EdgeMaskAlignmentCase0",
+        "SpectreGeometry.EdgeMaskAlignmentCase1",
+        "SpectreGeometry.EdgeMaskAlignmentCase2",
+        "SpectreGeometry.EdgeMaskAlignmentCase3",
+        "SpectreGeometry.EdgeMaskAlignmentCase4",
+        "SpectreGeometry.EdgeMaskAlignmentCase5",
+        "SpectreGeometry.EdgeMaskAlignmentCase6",
+        "SpectreGeometry.EdgeMaskAlignmentCase7",
+        "SpectreGeometry.EdgeMaskAlignmentCase8",
+        "SpectreGeometry.EdgeMaskAlignmentCase9",
+        "SpectreGeometry.EdgeMaskAlignmentCase10",
+        "SpectreGeometry.EdgeMaskAlignmentCase11",
+        "SpectreGeometry.EdgeMaskAlignmentCase12",
+        "SpectreGeometry.EdgeMaskAlignmentCase13"
+      ],
+      "path": "src/SpectreGeometry/EdgeMaskAlignmentData.lean",
+      "sha256": "0353bd62b469cdb3000a25fb15ad568587c4e55d95a5dbfd7e9ca39696729de1"
+    },
+    {
+      "bytes": 3577,
+      "module": "SpectreGeometry.PhysicalEdgeOrientation",
+      "ordered_imports": [
+        "SpectreGeometry.WholeEdgeRegistration",
+        "SpectreGeometry.EdgeMaskAlignmentData"
+      ],
+      "path": "src/SpectreGeometry/PhysicalEdgeOrientation.lean",
+      "sha256": "b15bb3513bae3a0075288f37fbc26b7748e6c63c9370c82fcb8e01e7da433970"
+    },
+    {
+      "bytes": 3338,
+      "module": "SpectreGeometry.PhysicalTwoSlotStar",
+      "ordered_imports": [
+        "SpectreGeometry.PrescribedSectorStar"
+      ],
+      "path": "src/SpectreGeometry/PhysicalTwoSlotStar.lean",
+      "sha256": "76051060eed098694265b119a4468c25a7d05a4cf3cfce377781974efb5e5071"
+    },
+    {
+      "bytes": 2164,
+      "module": "SpectreGeometry.CornerPairSums",
+      "ordered_imports": [
+        "SpectreGeometry.SectorPartitionConsequences"
+      ],
+      "path": "src/SpectreGeometry/CornerPairSums.lean",
+      "sha256": "c61d772647d00895d2995c28b053d490d736a02c85076d7d8935b17644b6d103"
+    },
+    {
+      "bytes": 2673,
+      "module": "SpectreGeometry.PhysicalCornerPairs",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalTwoSlotStar",
+        "SpectreGeometry.PhysicalCornerConstraint",
+        "SpectreGeometry.CornerPairSums",
+        "SpectreGeometry.DeformedVertexData"
+      ],
+      "path": "src/SpectreGeometry/PhysicalCornerPairs.lean",
+      "sha256": "1c1acb95de683a93d86bec8fac866f214ae2da3237ada1a0dfd52e0306d5397e"
+    },
+    {
+      "bytes": 2541,
+      "module": "SpectreGeometry.PhysicalLatticeEdge",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalEdgeOrientation",
+        "SpectreGeometry.PhysicalCornerPairs",
+        "SpectreGeometry.DeformedLatticeCertificate"
+      ],
+      "path": "src/SpectreGeometry/PhysicalLatticeEdge.lean",
+      "sha256": "172d7137cc7d6daede335882cc13ae21d4c913dc0e375c3fb1ff1d87ec958dbf"
+    },
+    {
+      "bytes": 4951,
+      "module": "SpectreGeometry.PhysicalDevelopedLattice",
+      "ordered_imports": [
+        "SpectreGeometry.DevelopedCenterLattice",
+        "SpectreGeometry.QuadraticFrameUniqueness",
+        "SpectreGeometry.PhysicalLatticeEdge"
+      ],
+      "path": "src/SpectreGeometry/PhysicalDevelopedLattice.lean",
+      "sha256": "7fe03f8f54671f0c50c0ea400d6ade8bc0662fe36c311d68dbc8e47c997d3597"
+    },
+    {
+      "bytes": 4194,
+      "module": "SpectreGeometry.DeformationHomeomorphismGluing",
+      "ordered_imports": [
+        "SpectreGeometry.CompactTilingIncidence",
+        "Mathlib.Topology.Algebra.MetricSpace.Lipschitz",
+        "Mathlib.Topology.Order.IntermediateValue"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismGluing.lean",
+      "sha256": "5bf2b9a700dc55cb5b25c1c0baffe20fc9ed81e7a1afad08bb60a30914af2b76"
+    },
+    {
+      "bytes": 2695,
+      "module": "SpectreGeometry.DeformationHomeomorphismCover",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphism",
+        "SpectreGeometry.DeformationHomeomorphismAffine",
+        "SpectreGeometry.DeformationHomeomorphismGluing"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismCover.lean",
+      "sha256": "a1e3cebc45ec6232cfa0038abbc92f9c186c54ec01ed8e35b2fda25c6e8b39ae"
+    },
+    {
+      "bytes": 4655,
+      "module": "SpectreGeometry.PhysicalBoundaryDevelopment",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalEdgeOrientation"
+      ],
+      "path": "src/SpectreGeometry/PhysicalBoundaryDevelopment.lean",
+      "sha256": "0c6492067f4f5e5c42e6d47811a75ffb99e41f41b636947686d67a5104fb1ce5"
+    },
+    {
+      "bytes": 3344,
+      "module": "SpectreGeometry.PhysicalDevelopmentPasting",
+      "ordered_imports": [
+        "SpectreGeometry.PhysicalBoundaryDevelopment"
+      ],
+      "path": "src/SpectreGeometry/PhysicalDevelopmentPasting.lean",
+      "sha256": "7fe7ce567acc756b9da088184de415030eaf6242c405dccc617262e48f43f9bf"
+    },
+    {
+      "bytes": 8062,
+      "module": "SpectreGeometry.DeformationHomeomorphismPhysical",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismTile",
+        "SpectreGeometry.DeformationHomeomorphismCover",
+        "SpectreGeometry.PhysicalDevelopmentPasting"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismPhysical.lean",
+      "sha256": "3e22ba267f6457ac3166d9cdb8ba0054cab7ca214f6ee1595029f95fa7166571"
+    },
+    {
+      "bytes": 1889,
+      "module": "SpectreGeometry.DeformationHomeomorphismBounds",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphism"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismBounds.lean",
+      "sha256": "3c9d7873578cdf533851b03993f44ae606ca47c7e2bd71d50a57d69a794f2ee5"
+    },
+    {
+      "bytes": 5368,
+      "module": "SpectreGeometry.DeformationHomeomorphismTransport",
+      "ordered_imports": [
+        "SpectreGeometry.DeformationHomeomorphismPhysical",
+        "SpectreGeometry.DeformationHomeomorphismBounds"
+      ],
+      "path": "src/SpectreGeometry/DeformationHomeomorphismTransport.lean",
+      "sha256": "72e87a8e34cb355f3ed1ed582590a38467a098eea9d0411978844d3d8fa0f1e8"
+    },
+    {
+      "bytes": 8940,
+      "module": "SpectreGeometry.PhysicalGridRealization",
+      "ordered_imports": [
+        "SpectreGeometry.GridPhysicalCoordinates",
+        "SpectreGeometry.GridFieldExtraction",
+        "SpectreGeometry.PhysicalDevelopedLattice",
+        "SpectreGeometry.DeformationHomeomorphismTransport"
+      ],
+      "path": "src/SpectreGeometry/PhysicalGridRealization.lean",
+      "sha256": "a9073cac65a99eb84ea0c67312f126fda89880a6638771d6d9258aaf9b08c44d"
+    }
+  ],
+  "original_probes_use_corrected_prerequisites": true,
+  "originals": {
+    "SpectreClusters.ReverseClusterCocycleIntegration": {
+      "bytes": 6486,
+      "path": "originals/SpectreClusters/ReverseClusterCocycleIntegration.lean",
+      "sha256": "40b97dfa3417f4db527da59a70776d4782e9a293a910ef3f213d150d44024114"
+    },
+    "SpectreGeometry.DeformationHomeomorphism": {
+      "bytes": 4605,
+      "path": "originals/SpectreGeometry/DeformationHomeomorphism.lean",
+      "sha256": "27eb8807b4d9ff946276be8a90b1414f864023252331b67064947fb892fbd43c"
+    },
+    "SpectreGeometry.PhysicalGridRealization": {
+      "bytes": 8948,
+      "path": "originals/SpectreGeometry/PhysicalGridRealization.lean",
+      "sha256": "db0f52a8039df762658a919a07e5c7e260a066536014d61d2271d0cdf90fa6c4"
+    },
+    "SpectreGeometry.PolygonProductKeyBody": {
+      "bytes": 12039,
+      "path": "originals/SpectreGeometry/PolygonProductKeyBody.lean",
+      "sha256": "c4859ed11b299786f0412b26172ff0c3f997f1322936d641778f09e73d5b9758"
+    }
+  },
+  "owned_module_count": 174,
+  "owned_source_max_bytes": 33554432,
+  "publication_branch": "verify/palomar-visibility-smoke-20261019",
+  "restore_project_objects": false,
+  "review_status": "reviewed_for_execution",
+  "runtime_roots": [
+    "Init",
+    "Init.Data.Rat"
+  ],
+  "schema": "palomar-four-target-visibility-smoke-v1",
+  "source_archive": {
+    "bytes": 147276,
+    "format": "single-gzip-canonical-ustar-regular-sources-v1",
+    "path": "owned-sources.tar.gz",
+    "sha256": "a5431ebfa2f9d2adb2390530f61bbd182b642e14b2b93081cddcd2ac99b51ac0",
+    "source_bytes": 666228,
+    "source_file_count": 174,
+    "tar_bytes": 798720
+  },
+  "source_provenance": {
+    "candidate_archive_sha256": "445aec213eed96ce60e32740305707c5efdd4762c555cbaf07cd8fa5b7a1df0a",
+    "original_archive_sha256": "93f6a8e91e30e26685b456aa0346c73dbb14def9a825e88a72f8d70e455cebb1",
+    "source_independent_review_sha256": "a15744dd1c7e2d1682606b174950b0caa77822f282174123cd197c1fc26def5c"
+  },
+  "target_closures": {
+    "SpectreClusters.ReverseClusterCocycleIntegration": [
+      "SpectreFinite.ListedPatches",
+      "SpectreFinite.PatchEnumeration",
+      "SpectreFinite.HexSearchModel",
+      "SpectreFinite.GlobalRestrictions",
+      "SpectreFinite.HexRotation",
+      "SpectreFinite.HexRotationComposition",
+      "SpectreFinite.IntegerStepAction",
+      "SpectreFinite.HexStepAction",
+      "SpectreClusters.KiteGrid",
+      "SpectreClusters.ReverseClusterCocycleIntegration"
+    ],
+    "SpectreGeometry.DeformationHomeomorphism": [
+      "SpectreGeometry.DeformationHomeomorphism"
+    ],
+    "SpectreGeometry.PhysicalGridRealization": [
+      "SpectreGeometry.HalfplaneCertificateData",
+      "SpectreGeometry.PolygonData",
+      "SpectreGeometry.QuadraticReal",
+      "SpectreGeometry.PolygonReal",
+      "SpectreGeometry.PolygonSegments",
+      "SpectreGeometry.PolygonFanData",
+      "SpectreGeometry.PolygonBody",
+      "SpectreGeometry.TriangleGeometry",
+      "SpectreGeometry.HalfplaneCertificateReal",
+      "SpectreGeometry.TriangulationFlip",
+      "SpectreGeometry.ConvexQuadrilateral",
+      "SpectreGeometry.RotationData",
+      "SpectreGeometry.CornerSteps",
+      "SpectreGeometry.DeformedVertexData",
+      "SpectreGeometry.DeformationHomeomorphismData",
+      "SpectreGeometry.DeformationTriangulationData",
+      "SpectreClusters.KiteGrid",
+      "SpectreClusters.LiteralData",
+      "SpectreClusters.DeformedLiteralBinding",
+      "SpectreClusters.BoundaryChains",
+      "SpectreClusters.BodyBSPData",
+      "SpectreGeometry.RealPolygonFacets",
+      "SpectreClusters.BodyBSPHatForward",
+      "SpectreClusters.BodyBSPHatReverse",
+      "SpectreClusters.BodyBSPTurtleForward",
+      "SpectreClusters.BodyBSPTurtleReverse",
+      "SpectreClusters.BodyBSPComplete",
+      "SpectreGeometry.LiteralKiteBody",
+      "SpectreClusters.GridMotions",
+      "SpectreGeometry.GridAffineGeometry",
+      "SpectreGeometry.EuclideanCarrier",
+      "SpectreGeometry.CyclicRotations",
+      "SpectreGeometry.DeformationHomeomorphismMatrix",
+      "SpectreGeometry.QuadraticPointData",
+      "SpectreGeometry.QuadraticCoordinates",
+      "SpectreGeometry.QuadraticPointReal",
+      "SpectreGeometry.CornerGermData",
+      "SpectreGeometry.FanRealGeometry",
+      "SpectreGeometry.FanSeparation",
+      "SpectreGeometry.FanCoverage",
+      "SpectreGeometry.PolygonBoundary",
+      "SpectreGeometry.EdgeNeighborhood",
+      "SpectreGeometry.CornerNeighborhood",
+      "SpectreGeometry.CornerSignData",
+      "SpectreGeometry.CornerSectorReal",
+      "SpectreGeometry.EdgeSectorData",
+      "SpectreGeometry.BoundaryNonvertex",
+      "SpectreGeometry.BoundarySectorGerms",
+      "SpectreGeometry.PlacedEdgeForms",
+      "SpectreGeometry.UnitEdgeDirections",
+      "SpectreGeometry.DirectIsometryFrames",
+      "SpectreGeometry.HalfplaneNoncrossing",
+      "SpectreGeometry.CompactPacking",
+      "SpectreGeometry.CompactTilingIncidence",
+      "SpectreGeometry.PolygonTilingIncidence",
+      "SpectreGeometry.PlacedEdgeNoncrossing",
+      "SpectreGeometry.UnitEdgeAlignment",
+      "SpectreGeometry.ContactConnectivity",
+      "SpectreGeometry.CountableComplement",
+      "SpectreGeometry.NonvertexConnectivity",
+      "SpectreGeometry.CyclicFrameRegistration",
+      "SpectreGeometry.SectorRotations",
+      "SpectreGeometry.PlacedBoundaryGerms",
+      "SpectreGeometry.FiniteRayPartition",
+      "SpectreGeometry.PhysicalSectorStar",
+      "SpectreGeometry.PrescribedSectorStar",
+      "SpectreGeometry.SectorPartitionCounts",
+      "SpectreGeometry.PhysicalCornerConstraint",
+      "SpectreGeometry.SectorPartitionConsequences",
+      "SpectreGeometry.PhysicalVertexEdgeStar",
+      "SpectreGeometry.SectorBoundaryRays",
+      "SpectreGeometry.SectorPartitionRays",
+      "SpectreGeometry.PhysicalBoundaryRays",
+      "SpectreGeometry.NoVertexInEdge",
+      "SpectreGeometry.SegmentEndpointRegistration",
+      "SpectreGeometry.WholeEdgeRegistration",
+      "SpectreGeometry.PhysicalQuadraticRegistration",
+      "SpectreGeometry.QuadraticDevelopment",
+      "SpectreGeometry.DevelopedRealCoordinates",
+      "SpectreGeometry.DeformationHomeomorphismAffine",
+      "SpectreGeometry.TriangleFanCollapse",
+      "SpectreGeometry.DeformationTriangulationReal",
+      "SpectreGeometry.DeformationTriangulationCover",
+      "SpectreGeometry.ConvexZeroFace",
+      "SpectreGeometry.DeformationTriangulationFaces",
+      "SpectreGeometry.DeformationBoundaryOwnershipData",
+      "SpectreGeometry.DeformationHomeomorphismTile",
+      "SpectreGeometry.DevelopedLiteralBody",
+      "SpectreGeometry.DeformedLatticeCertificate",
+      "SpectreGeometry.DevelopedCenterLattice",
+      "SpectreGeometry.GridPhysicalCoordinates",
+      "SpectreClusters.GridKiteProbeData",
+      "SpectreGeometry.GridKiteProbeReal",
+      "SpectreClusters.KiteContactData",
+      "SpectreClusters.KiteContact0",
+      "SpectreClusters.KiteContact1",
+      "SpectreClusters.KiteContact2",
+      "SpectreClusters.KiteContact3",
+      "SpectreClusters.KiteContact4",
+      "SpectreClusters.KiteContact5",
+      "SpectreClusters.KiteContacts",
+      "SpectreClusters.NeighborCandidates",
+      "SpectreFinite.PatchEnumeration",
+      "SpectreClusters.GridCoverModel",
+      "SpectreGeometry.GridFieldExtraction",
+      "SpectreGeometry.QuadraticFrameUniqueness",
+      "SpectreGeometry.EdgeMaskAlignmentCase0",
+      "SpectreGeometry.EdgeMaskAlignmentCase1",
+      "SpectreGeometry.EdgeMaskAlignmentCase2",
+      "SpectreGeometry.EdgeMaskAlignmentCase3",
+      "SpectreGeometry.EdgeMaskAlignmentCase4",
+      "SpectreGeometry.EdgeMaskAlignmentCase5",
+      "SpectreGeometry.EdgeMaskAlignmentCase6",
+      "SpectreGeometry.EdgeMaskAlignmentCase7",
+      "SpectreGeometry.EdgeMaskAlignmentCase8",
+      "SpectreGeometry.EdgeMaskAlignmentCase9",
+      "SpectreGeometry.EdgeMaskAlignmentCase10",
+      "SpectreGeometry.EdgeMaskAlignmentCase11",
+      "SpectreGeometry.EdgeMaskAlignmentCase12",
+      "SpectreGeometry.EdgeMaskAlignmentCase13",
+      "SpectreGeometry.EdgeMaskAlignmentData",
+      "SpectreGeometry.PhysicalEdgeOrientation",
+      "SpectreGeometry.PhysicalTwoSlotStar",
+      "SpectreGeometry.CornerPairSums",
+      "SpectreGeometry.PhysicalCornerPairs",
+      "SpectreGeometry.PhysicalLatticeEdge",
+      "SpectreGeometry.PhysicalDevelopedLattice",
+      "SpectreGeometry.DeformationHomeomorphism",
+      "SpectreGeometry.DeformationHomeomorphismGluing",
+      "SpectreGeometry.DeformationHomeomorphismCover",
+      "SpectreGeometry.PhysicalBoundaryDevelopment",
+      "SpectreGeometry.PhysicalDevelopmentPasting",
+      "SpectreGeometry.DeformationHomeomorphismPhysical",
+      "SpectreGeometry.DeformationHomeomorphismBounds",
+      "SpectreGeometry.DeformationHomeomorphismTransport",
+      "SpectreGeometry.PhysicalGridRealization"
+    ],
+    "SpectreGeometry.PolygonProductKeyBody": [
+      "SpectreGeometry.PolygonData",
+      "SpectreGeometry.PolygonProductKeySeparationData",
+      "SpectreGeometry.PolygonFanData",
+      "SpectreGeometry.RotationData",
+      "SpectreGeometry.CornerSteps",
+      "SpectreGeometry.CornerGermData",
+      "SpectreGeometry.QuadraticReal",
+      "SpectreGeometry.PolygonReal",
+      "SpectreGeometry.PolygonSegments",
+      "SpectreGeometry.PolygonBody",
+      "SpectreGeometry.TriangleGeometry",
+      "SpectreGeometry.FanRealGeometry",
+      "SpectreGeometry.FanSeparation",
+      "SpectreGeometry.FanCoverage",
+      "SpectreGeometry.PolygonBoundary",
+      "SpectreGeometry.EdgeNeighborhood",
+      "SpectreGeometry.CornerNeighborhood",
+      "SpectreGeometry.CornerSignData",
+      "SpectreGeometry.CornerSectorReal",
+      "SpectreGeometry.EdgeSectorData",
+      "SpectreGeometry.BoundaryNonvertex",
+      "SpectreGeometry.BoundarySectorGerms",
+      "SpectreGeometry.LocalConeGerm",
+      "SpectreGeometry.PolygonLocalConeGerms",
+      "SpectreGeometry.EuclideanCarrier",
+      "SpectreGeometry.PolygonProductConeGerms",
+      "SpectreGeometry.PolygonBoundaryNormalRank",
+      "SpectreGeometry.PolygonProductBoundaryNormals",
+      "SpectreGeometry.PolygonProductKeyFrames",
+      "SpectreGeometry.PolygonProductKeyCenterSeparation",
+      "SpectreGeometry.PolygonProductKeyCollarMargins",
+      "SpectreGeometry.PolygonProductKeyCollarHalfplanes",
+      "SpectreGeometry.PolygonBoundaryNormalAngles",
+      "SpectreGeometry.PolygonProductNormalAngles",
+      "PhysicalRegistration.PlanarSectorMeasure",
+      "SpectreGeometry.NormalPlaneSectorMeasure",
+      "SpectreGeometry.PolygonBoundaryConeHalfplanes",
+      "SpectreGeometry.PolygonFactorSectionMass",
+      "SpectreGeometry.NormalPlaneRankObstruction",
+      "SpectreGeometry.PolygonProductNormalPlane",
+      "SpectreGeometry.PolygonProductSectionMass",
+      "SpectreGeometry.PolygonProductBoundaryGerm",
+      "SpectreGeometry.PolygonProductKeyCollar",
+      "SpectreGeometry.PolygonProductKeyCollarSeparation",
+      "PhysicalRegistration.ThreeCones",
+      "PhysicalRegistration.LocalGraphs",
+      "PhysicalRegistration.KeyTent",
+      "PhysicalRegistration.KeyHypograph",
+      "PhysicalRegistration.TubeAssembly",
+      "PhysicalRegistration.KeyTube",
+      "SpectreGeometry.PolygonProductKeyHypographs",
+      "SpectreGeometry.PolygonProductKeyBody"
+    ]
+  },
+  "targets": [
+    "SpectreClusters.ReverseClusterCocycleIntegration",
+    "SpectreGeometry.DeformationHomeomorphism",
+    "SpectreGeometry.PolygonProductKeyBody",
+    "SpectreGeometry.PhysicalGridRealization"
+  ],
+  "workflow_template_sha256": "d2dc110a2128fc919a88eb60b04aeb09818c88682de37ff4331796b5e838171b"
+}
