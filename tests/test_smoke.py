@@ -10,9 +10,9 @@ class Controls(unittest.TestCase):
   with self.assertRaises(d.f.Rejected):d.validate_contract(c,reviewed=True)
  def test_locked_distribution(self):d.validate_inputs(c)
  def test_ledger(self):
-  names=d.command_order(c);self.assertEqual(len(names),794);self.assertEqual(len(set(names)),794)
+  names=d.command_order(c);self.assertEqual(len(names),796);self.assertEqual(len(set(names)),796)
   specs=[d.command_spec(c,pathlib.Path('/tmp/inactive'),n) for n in names]
-  self.assertEqual(sum(s['requested_timeout_seconds'] for s in specs),119220)
+  self.assertEqual(sum(s['requested_timeout_seconds'] for s in specs),119580)
   for s in specs:
    self.assertNotIn('--share-net',s['argv']);self.assertNotIn('MATHLIB_CACHE_DIR',s['env']);self.assertTrue(s['allowed_sessions'])
  def test_exact_part32_roots(self):
@@ -146,16 +146,16 @@ class Controls(unittest.TestCase):
   self.assertIn('self.parts[0]?.map (·.1)',env)
   self.assertIn('self.parts[level.ctorIdx]?.map (·.1)',env)
   names=d.command_order(c)
-  self.assertEqual(names[:14],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api',*['compile-fixture-'+v for v in ['baseline','identical','value','type','axiom','inventory']],*['check-interface-fixture-'+v for v in ['identical','value','type','inventory','axiom']]])
-  self.assertEqual(len(names),794)
-  self.assertEqual(c['sum_command_timeout_seconds'],119220)
+  self.assertEqual(names[:16],['bwrap-preflight','read-only-committed-root-preflight','check-interface-api',*['compile-fixture-'+v for v in ['baseline','identical','value','type','axiom','inventory','native']],*['check-interface-fixture-'+v for v in ['identical','value','type','inventory','axiom','native']]])
+  self.assertEqual(len(names),796)
+  self.assertEqual(c['sum_command_timeout_seconds'],119580)
   self.assertIn('compare (root / "baseline") (root / "identical") runtime `Fixture false',candidate)
   self.assertIn('let a ← load left runtime moduleName',candidate)
 
  def test_fixture_isolation_source(self):
   record=json.loads((ROOT/'provenance/FIXTURE_ISOLATION.json').read_text())
   original=(ROOT/'provenance/ImportCut.indexing-predecessor.lean').read_text()
-  candidate=(ROOT/'tools/ImportCut.lean').read_text()
+  candidate=(ROOT/'provenance/ImportCut.generated-predecessor.lean').read_text()
   self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'a2e53bd09fca4f68cc475025def11a01767b6b44650ad2c673f1e5a4209165cf')
   expected=original
   for row in record['helper_replacements']:
@@ -175,11 +175,11 @@ class Controls(unittest.TestCase):
   self.assertNotIn('env.freeRegions',candidate)
   self.assertNotIn('CompactedRegion.free',candidate)
   self.assertEqual(candidate.count('(traceFixtures : Bool := false)'),2)
-  self.assertEqual(c['fixture_cases'],['identical','value','type','inventory','axiom'])
+  self.assertEqual(c['fixture_cases'],['identical','value','type','inventory','axiom','native'])
   self.assertEqual(d.FIXTURE_CASES,c['fixture_cases'])
   names=d.command_order(c)
-  self.assertEqual(names[9:14],['check-interface-fixture-'+v for v in d.FIXTURE_CASES])
-  self.assertEqual(names[14],'compile-'+c['module_order'][0])
+  self.assertEqual(names[10:16],['check-interface-fixture-'+v for v in d.FIXTURE_CASES])
+  self.assertEqual(names[16],'compile-'+c['module_order'][0])
   self.assertNotIn('check-interface-fixtures',names)
   for case in d.FIXTURE_CASES:
    spec=d.command_spec(c,pathlib.Path('/tmp/inactive'),'check-interface-fixture-'+case)
@@ -195,8 +195,8 @@ class Controls(unittest.TestCase):
   for case in d.FIXTURE_CASES:
    good=d.fixture_expected_output(case);result=d.parse_fixture_output(case,good)
    self.assertEqual(result['case'],case)
-   self.assertEqual(result['marker_count'],12 if case=='axiom' else 19)
-   self.assertEqual(good.count('FIXTURE_PHASE\tLOAD_BEGIN\n'),1 if case=='axiom' else 2)
+   self.assertEqual(result['marker_count'],12 if case in ['axiom','native'] else 19)
+   self.assertEqual(good.count('FIXTURE_PHASE\tLOAD_BEGIN\n'),1 if case in ['axiom','native'] else 2)
    lines=good.splitlines(True)
    mutations=['',good.replace('\n','\r\n'),good.replace('\n','\r'),good[:-1],''.join(lines[:-1]),''.join(lines[1:]),good+'EXTRA\n',good+lines[-1],good.replace('LOAD_BEGIN','WRONG_PHASE',1),''.join([lines[1],lines[0],*lines[2:]]),good.replace('FIXTURE_PASSED\t'+case,'FIXTURE_PASSED\twrong')]
    if case!='identical':mutations.append(good.replace('FIXTURE_REJECTED','FIXTURE_ACCEPTED',1))
@@ -208,7 +208,7 @@ class Controls(unittest.TestCase):
  def test_fixture_exact_bytes_source(self):
   record=json.loads((ROOT/'provenance/FIXTURE_CAPTURE_BYTES_REPAIR.json').read_text())
   original=(ROOT/'provenance/root7_import_cut.fixture-predecessor.py').read_text()
-  current=(ROOT/'root7_import_cut.py').read_text()
+  current=(ROOT/'provenance/root7_import_cut.generated-predecessor.py').read_text()
   self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),'7ac6e754581b44e070411b4812aee9fad109ec840c23a684e5b4fcd8c640cad9')
   expected=original
   for row in record['driver_replacements']:
@@ -223,6 +223,70 @@ class Controls(unittest.TestCase):
   self.assertIn("f.json_bytes(fixture['cases'])==f.json_bytes(expected_cases)",current)
   self.assertNotIn("parse_fixture_output(v,output.read_text())",current)
   self.assertNotIn("parse_fixture_output(v,(evidence/'logs'/(name+'.stdout')).read_text())",current)
+
+ def test_generated_repair_exact_source(self):
+  record=json.loads((ROOT/'provenance/GENERATED_METADATA_REPAIR.json').read_text())
+  for path,predecessor,key in [('tools/ImportCut.lean','provenance/ImportCut.generated-predecessor.lean','helper_replacements'),('root7_import_cut.py','provenance/root7_import_cut.generated-predecessor.py','driver_replacements')]:
+   old=(ROOT/predecessor).read_text();new=(ROOT/path).read_text();expected=old
+   for row in record[key]:
+    self.assertEqual(row['path'],path);self.assertEqual(expected.count(row['old']),row['count']);expected=expected.replace(row['old'],row['new'])
+   self.assertEqual(new,expected)
+   for row in reversed(record[key]):
+    self.assertEqual(expected.count(row['new']),row['count']);expected=expected.replace(row['new'],row['old'])
+   self.assertEqual(old,expected)
+  old=(ROOT/'provenance/ImportCut.generated-predecessor.lean').read_text();new=(ROOT/'tools/ImportCut.lean').read_text()
+  self.assertEqual(old[old.index('def exactInfo'):old.index('structure Loaded')].rstrip(),new[new.index('def exactInfo'):new.index('-- ModuleData.extraConstNames')].rstrip())
+  self.assertEqual(old[old.index('  for x in a.introduced'):old.index('  if emit then\n    for n in a.before')],new[new.index('  for x in a.introduced'):new.index('  if emit then\n    for n in a.before')])
+  self.assertEqual(old[old.index('unsafe def coverAxioms'):old.index('unsafe def fixtureCase')],new[new.index('unsafe def coverAxioms'):new.index('unsafe def fixtureCase')])
+  self.assertIn(record['kernel_inventory_checks_exact_moved_text'],new)
+  self.assertEqual(new.count('checkKernelInventory delta raw'),1)
+  self.assertEqual(new.count('checkKernelInventory native.introduced.pop native.introduced'),1)
+  self.assertIn('require (a.extras == b.extras) "GENERATED_IDENTITY_OR_CLASS_DIFFERS"',new)
+  for banned in ['UNAVAILABLE_GENERATED_DECLARATION','endsWith','startsWith','_boxed','env.freeRegions','CompactedRegion.free']:
+   self.assertNotIn(banned,new)
+  source=ROOT/record['pinned_semantics']['path'];self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),record['pinned_semantics']['sha256'])
+  env=source.read_text()
+  for term in ['Extra entries for the `const2ModIdx` map','auxiliary constants are invisible to the Lean kernel','def getModuleIdxFor?','const2ModIdx := const2ModIdx.insertIfNew cname modIdx','extraConstNames := getIRExtraConstNames env level']:
+   self.assertIn(term,env)
+
+ def test_generated_interface_mutations(self):
+  native='GENERATED\tNoSuffixNative\tnative_only\t'+d.PART32+'\n'
+  kernel='GENERATED\t'+c['explicit_part32_declarations'][0]['name']+'\tkernel\t'+d.PART32+'\n'
+  good=interface_text().replace(native,native+kernel).replace('GENERATED_COUNTS\t0\t1','GENERATED_COUNTS\t1\t1')
+  report=d.parse_interface(c,good);self.assertEqual(report['generated_counts'],{'kernel':1,'native_only':1});self.assertEqual(len(report['generated_entries']),2)
+  self.assertIn('no native body/type/value equivalence claim',report['generated_scope'])
+  mutations=[good.replace(native,''),good.replace(native,native+native),good.replace('native_only','unknown'),good.replace(native,native.replace(d.PART32,'Other')),good.replace(native,native.replace('native_only','kernel')),good.replace(kernel,kernel.replace('kernel','native_only')),good.replace(kernel,kernel.replace(c['explicit_part32_declarations'][0]['name'],'NotInKernel')),good.replace('GENERATED_COUNTS\t1\t1\n',''),good.replace('GENERATED_COUNTS\t1\t1','GENERATED_COUNTS\t0\t1'),good.replace('GENERATED_COUNTS\t1\t1','GENERATED_COUNTS\t1\t1\nGENERATED_COUNTS\t1\t1'),good.replace(native,'GENERATED\tNoSuffixNative\n'),good.replace('GENERATED_COUNTS\t1\t1','GENERATED_COUNTS\ttrue\t1'),good.replace('GENERATED_COUNTS\t1\t1','GENERATED_COUNTS\t1.0\t1')]
+  for bad in mutations:
+   with self.assertRaises(d.f.Rejected):d.parse_interface(c,bad)
+
+ def test_native_boundary_fixture_source(self):
+  helper=(ROOT/'tools/ImportCut.lean').read_text();section=helper[helper.index('  else if variant == "native"'):helper.index('  else if variant == "axiom"')]
+  self.assertIn('require (!native.introduced.isEmpty) "NATIVE_FIXTURE_EMPTY_KERNEL_INVENTORY"',section)
+  self.assertIn('require (!(native.extras.filter fun p => p.2 == "native_only").isEmpty) "NATIVE_FIXTURE_NO_METADATA_ONLY_ENTRIES"',section)
+  self.assertIn('try checkKernelInventory native.introduced.pop native.introduced',section)
+  self.assertIn('ENVIRONMENT_SUBTRACTION_SIZE',section)
+  self.assertEqual((ROOT/'fixtures/native/Fixture.lean').read_text(),'module\n@[expose] public section\ndef fixtureNative (n : UInt64) : UInt64 := n + 1\n')
+  self.assertIn('before.const2ModIdx.contains n',helper)
+  self.assertIn('after.getModuleIdxFor? n',helper)
+  self.assertIn('after.header.moduleNames[idx.toNat]?',helper)
+  self.assertIn('DUPLICATE_GENERATED_NAME',helper)
+  for condition in ['require (!knownBefore)','require (owner == some moduleName)','require (!kernelPresent || privatePresent)']:
+   self.assertIn(condition,helper)
+  self.assertIn('(true, false, false, some `Fixture)',helper)
+  self.assertIn('(false, false, false, none)',helper)
+  self.assertIn('(false, false, false, some `Other)',helper)
+  self.assertIn('(false, true, false, some `Fixture)',helper)
+  self.assertEqual(d.command_order(c)[15],'check-interface-fixture-native')
+  self.assertEqual(d.command_order(c)[16],'compile-'+c['module_order'][0])
+
+ def test_generated_finite_contract(self):
+  self.assertEqual(c['publication_parent'],'94be239f4aa18e9d5fd8d4dd664af9640218d9a1')
+  self.assertEqual(c['publication_branch'],'verify/palomar-root7-import-cut-generated-20261019')
+  self.assertEqual(c['recorded_command_count'],796);self.assertEqual(c['sum_command_timeout_seconds'],119580)
+  self.assertEqual(c['limits']['aggregate_command_deadline_seconds'],7200)
+  for field,value in [('recorded_command_count',794),('sum_command_timeout_seconds',119220),('publication_branch','verify/palomar-root7-import-cut-fixtures-20261019')]:
+   bad=copy.deepcopy(c);bad[field]=value
+   with self.assertRaises(d.f.Rejected):d.validate_contract(bad)
 
  def test_actual_loop_synthetic(self):
   # Runs actual extraction, graph/view copies, 388 compile/check admission loops,
@@ -265,11 +329,17 @@ class Controls(unittest.TestCase):
     d.d.collect(cc,digest,work,Watch());self.assertTrue(d.f.load_json(work/'upload/collection.json')['smoke_acceptance_evidence_complete'])
     original_fixture=(work/'evidence/early-fixtures.json').read_bytes();original_result=(work/'evidence/result.json').read_bytes()
     fixture=d.f.parse_json(original_fixture)
-    for change in [lambda x:x['cases'].pop('axiom'),lambda x:x['cases'].update(extra=x['cases']['value']),lambda x:x['cases']['value'].update(command_index=9),lambda x:x['cases']['type']['result'].update(result='identical'),lambda x:x.update(extra=True),lambda x:x['cases']['axiom']['result'].update(loaded_contexts=True),lambda x:x['cases']['axiom']['result'].update(marker_count=12.0),lambda x:x['cases']['axiom'].update(command_index=13.0),lambda x:x['cases']['identical']['result'].update(stdout_sha256='f'*64)]:
+    for change in [lambda x:x['cases'].pop('axiom'),lambda x:x['cases'].pop('native'),lambda x:x['cases']['native']['result'].update(loaded_contexts=2),lambda x:x['cases'].update(extra=x['cases']['value']),lambda x:x['cases']['value'].update(command_index=9),lambda x:x['cases']['type']['result'].update(result='identical'),lambda x:x.update(extra=True),lambda x:x['cases']['axiom']['result'].update(loaded_contexts=True),lambda x:x['cases']['axiom']['result'].update(marker_count=12.0),lambda x:x['cases']['axiom'].update(command_index=14.0),lambda x:x['cases']['identical']['result'].update(stdout_sha256='f'*64)]:
      mutated=copy.deepcopy(fixture);change(mutated);d.a.write_json(work/'evidence/early-fixtures.json',mutated)
      terminal=d.f.parse_json(original_result);terminal['terminal_receipts']['early-fixtures.json']=d.f.file_sha(work/'evidence/early-fixtures.json');d.a.write_json(work/'evidence/result.json',terminal)
      with self.assertRaises(d.f.Rejected):d.verify_success(cc,digest,work/'evidence',work)
      (work/'evidence/early-fixtures.json').write_bytes(original_fixture);(work/'evidence/result.json').write_bytes(original_result)
+    comparison_path=work/'evidence/interface-comparison.json';comparison_original=comparison_path.read_bytes()
+    for change in [lambda x:x['generated_entries'].pop(),lambda x:x['generated_entries'][0].update(classification='kernel'),lambda x:x['generated_entries'][0].update(module='Other'),lambda x:x['generated_counts'].update(native_only=True),lambda x:x['generated_counts'].update(native_only=1.0)]:
+     mutated=d.f.parse_json(comparison_original);change(mutated);d.a.write_json(comparison_path,mutated)
+     terminal=d.f.parse_json(original_result);terminal['terminal_receipts']['interface-comparison.json']=d.f.file_sha(comparison_path);d.a.write_json(work/'evidence/result.json',terminal)
+     with self.assertRaises(d.f.Rejected):d.verify_success(cc,digest,work/'evidence',work)
+     comparison_path.write_bytes(comparison_original);(work/'evidence/result.json').write_bytes(original_result)
     capture_path=work/'evidence/logs/check-interface-fixture-identical.stdout'
     original_capture=capture_path.read_bytes();original_commands=(work/'evidence/commands.jsonl').read_bytes()
     for malformed in [original_capture.replace(b'\n',b'\r\n'),original_capture.replace(b'\n',b'\r'),b'\xff'+original_capture]:
@@ -295,7 +365,7 @@ class Controls(unittest.TestCase):
      with self.assertRaises((d.f.Rejected,UnicodeDecodeError)):d.run(cc,digest,work,Watch())
      rejected=d.f.load_json(work/'evidence/result.json')
      self.assertEqual(rejected['checked_owned_module_count'],0)
-     self.assertEqual(rejected['command_count'],10)
+     self.assertEqual(rejected['command_count'],11)
      self.assertEqual(d.f.load_json(work/'evidence/last_command.json')['name'],'check-interface-fixture-identical')
    finally:
     d.validate_inputs,d.a.git_capture,d.d.acquire_runtime,d.f.run_process,d.d.revalidate_runtime,d.a.RUNTIME_INVENTORY_SHA=prior
@@ -307,7 +377,7 @@ def interface_text():
  lines=['DECL\t'+r['name']+'\t'+r['kind']+'\t' for r in c['explicit_part32_declarations']]
  for mode in ['original','candidate']:
   lines+=['LOADED_'+mode.upper()+'\t'+m for m in c['prerequisite_views'][mode]+c['runtime_roots']]
- return '\n'.join(lines+['PART32_EXACT_COMPARISON_PASSED\t239'])+'\n'
+ return '\n'.join(lines+['GENERATED\tNoSuffixNative\tnative_only\t'+d.PART32,'GENERATED_COUNTS\t0\t1','PART32_EXACT_COMPARISON_PASSED\t239'])+'\n'
 
 def cover_text():
  return '\n'.join(['COVER_DECL\t'+r['name']+'\t'+r['kind']+'\t' for r in c['explicit_cover_declarations']]+['COVER_AXIOMS_PASSED\t213'])+'\n'

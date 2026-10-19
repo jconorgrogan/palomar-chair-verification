@@ -1,0 +1,103 @@
+{
+  "qualifications": [
+    "Read-only retained source inspection; no Lean typecheck performed.",
+    "ModuleIdx.toNat yields Nat; Array optional indexing returns Option Name; missing index maps to none and fails owner equality.",
+    "No API is inferred from a generated-name suffix; native metadata classes are based on actual kernel membership."
+  ],
+  "retained_response": {
+    "bytes": 190284,
+    "path": "provenance/Environment.generated-response.json",
+    "sha256": "e547210d7e1ff5ee6d02d3c3d78ea3a028a288b709c961d6211ef04a1b03cde0"
+  },
+  "runtime_inventory_sha256": "42bd268b1ca3e9bf89f4149ac427d6c0e76f735233b092a6df4ca27a2c2db7ea",
+  "schema": "generated-comparator-pinned-api-proof-v1",
+  "slices": [
+    {
+      "bytes": 433,
+      "first_line": 86,
+      "last_line": 98,
+      "purpose": "ModuleIdx type and optional indexing",
+      "sha256": "cb3b38f100c26e311c6cb75390480b8ead36200a49693753895e4c3bdbcb7c9d",
+      "text": "@[expose] def ModuleIdx := Nat\n  deriving BEq, ToString, Hashable\n\nabbrev ModuleIdx.toNat (midx : ModuleIdx) : Nat := midx\n\ninstance : Inhabited ModuleIdx where default := (0 : Nat)\n\ninstance : GetElem (Array \u03b1) ModuleIdx \u03b1 (fun a i => i.toNat < a.size) where\n  getElem a i h := a[i.toNat]\n\ninstance : GetElem? (Array \u03b1) ModuleIdx \u03b1 (fun a i => i.toNat < a.size) where\n  getElem? a i := a[i.toNat]?\n  getElem! a i := a[i.toNat]!\n"
+    },
+    {
+      "bytes": 1234,
+      "first_line": 155,
+      "last_line": 183,
+      "purpose": "header modules/index correspondence",
+      "sha256": "914372711de3f59a82bf9e28762c833e3f508564fcd870ea7eaa59eab60c1914",
+      "text": "  /--\n  Direct and transitive imports. Modules are given with their effective import modifiers, not their\n  original ones. Each module is listed at most once. The index of a module in the array equals the\n  `ModuleIdx` for the same module.\n  -/\n  modules      : Array EffectiveImport := #[]\n  /-- For `getModuleIdx?` -/\n  private moduleName2Idx : Std.HashMap Name ModuleIdx := Id.run do\n    let mut m := {}\n    for _h : idx in [0:modules.size] do\n      let mod := modules[idx]\n      m := m.insert mod.module idx\n    return m\n  /--\n  Subset of `modules` for which `importAll` is `true`. This is assumed to be a much smaller set so\n  we precompute it instead of iterating over all of `modules` multiple times. However, note that\n  in a non-`module` file, this is identical to `modules`.\n  -/\n  importAllModules : Array EffectiveImport := modules.filter (\u00b7.importAll)\n  /-- Module data for all imported modules. -/\n  moduleData   : Array ModuleData := #[]\n  deriving Nonempty\n\n/--\nName of all imported modules (directly and indirectly).\nThe index of a module name in the array equals the `ModuleIdx` for the same module.\n-/\ndef EnvironmentHeader.moduleNames (header : EnvironmentHeader) : Array Name :=\n  header.modules.map (\u00b7.module)\n"
+    },
+    {
+      "bytes": 674,
+      "first_line": 233,
+      "last_line": 245,
+      "purpose": "kernel ownership map meaning",
+      "sha256": "102d47c9a892a8e0b90c9790c5bc21ecdda7d66bd4dad1f426fbfd31e0f5f19b",
+      "text": "  -/\n  diagnostics : Diagnostics := {}\n  /--\n  Mapping from constant name to module (index) where constant has been declared.\n  Recall that a Lean file has a header where previously compiled modules can be imported.\n  Each imported module has a unique `ModuleIdx`.\n  Many extensions use the `ModuleIdx` to efficiently retrieve information stored in imported modules.\n\n  Remark: this mapping also contains auxiliary constants, created by the code generator, that are **not** in\n  the field `constants`. These auxiliary constants are invisible to the Lean kernel and elaborator.\n  Only the code generator uses them.\n  -/\n  const2ModIdx            : Std.HashMap Name ModuleIdx\n"
+    },
+    {
+      "bytes": 147,
+      "first_line": 735,
+      "last_line": 737,
+      "purpose": "Environment ownership accessor",
+      "sha256": "135689c4a3bcc1bfa020b7f220440895abf8fb461e57636d251fff507f7d1f94",
+      "text": "@[inherit_doc Kernel.Environment.const2ModIdx]\ndef const2ModIdx (env : Environment) : Std.HashMap Name ModuleIdx :=\n  env.toKernelEnv.const2ModIdx\n"
+    },
+    {
+      "bytes": 166,
+      "first_line": 882,
+      "last_line": 884,
+      "purpose": "ownership map contains usage",
+      "sha256": "2fceec3e7a7a6fdf2bcf111b8f667045c773b7d4e2ac50a8cfa33a476d4383a1",
+      "text": "def areRealizationsEnabledForConst (env : Environment) (c : Name) : Bool :=\n  (env.base.get env |>.const2ModIdx.contains c) || env.localRealizationCtxMap.contains c\n\n"
+    },
+    {
+      "bytes": 294,
+      "first_line": 1196,
+      "last_line": 1201,
+      "purpose": "declaration owner API",
+      "sha256": "718576347d8cad72b94842c59e568ca3203e8ddd2e4c9ac9df4f871962422e4a",
+      "text": "def getModuleIdxFor? (env : Environment) (declName : Name) : Option ModuleIdx :=\n  -- async constants are always from the current module\n  env.base.get env |>.const2ModIdx[declName]?\n\ndef isImportedConst (env : Environment) (declName : Name) : Bool :=\n  env.getModuleIdxFor? declName |>.isSome\n"
+    },
+    {
+      "bytes": 349,
+      "first_line": 2069,
+      "last_line": 2073,
+      "purpose": "source module name via toNat index",
+      "sha256": "3d814d31dfcaaffa04e8bb0745d01ba381dae6c075605e9043d8164930ef06e7",
+      "text": "def throwAlreadyImported (s : ImportState) (const2ModIdx : Std.HashMap Name ModuleIdx) (modIdx : Nat) (cname : Name) : IO \u03b1 := do\n  let modName := s.moduleNames[modIdx]!\n  let constModName := s.moduleNames[const2ModIdx[cname]!.toNat]!\n  throw <| IO.userError s!\"import {modName} failed, environment already contains '{cname}' from {constModName}\"\n\n"
+    },
+    {
+      "bytes": 1054,
+      "first_line": 1867,
+      "last_line": 1886,
+      "purpose": "private module exports",
+      "sha256": "cf5c2e2aa767758916133044050684cc2eed366ffcb6c3eaa2bdfa7b87716f07",
+      "text": "      pure (ee.get level)\n  let kenv := env.toKernelEnv\n  let constNames := kenv.constants.foldStage2 (fun names name _ => names.push name) #[]\n  -- not all kernel constants may be exported at `level < .private`\n  let constants := if level == .private then\n    -- (this branch makes very sure all kernel constants are exported eventually)\n    kenv.constants.foldStage2 (fun cs _ c => cs.push c) #[]\n  else\n    constNames.filterMap (fun n =>\n        env.find? n <|>\n        guard (looksLikeOldCodegenName n) *> kenv.find? n)\n      -- While `constants.foldStage2` itself results in a deterministic ordering, then filtering out\n      -- some elements leaves the order of remaining dependent on those filtered elements, which\n      -- would make `.olean` output dependent on `.olean.private`, so we re-sort them here.\n      |>.qsort (lt := fun c\u2081 c\u2082 => c\u2081.name.quickCmp c\u2082.name == .lt)\n  let constNames := constants.map (\u00b7.name)\n  return { env.header with\n    extraConstNames := getIRExtraConstNames env level\n    constNames, constants, entries\n  }\n"
+    },
+    {
+      "bytes": 1493,
+      "first_line": 2024,
+      "last_line": 2053,
+      "purpose": "IR data selection",
+      "sha256": "be2b3fc01634b68bc1f4e580056b1f8599b811141f3def3063b1ecd3741cd8d4",
+      "text": "private def ImportedModule.getData? (self : ImportedModule) (level : OLeanLevel) : Option ModuleData := do\n  -- Without the module system, we only have the exported level.\n  let level := if (\u2190 self.publicModule?).isModule then level else .exported\n  self.parts[level.ctorIdx]?.map (\u00b7.1)\n\n/-- The main module data that will eventually be used to construct the kernel environment. -/\nprivate def ImportedModule.mainModule? (self : ImportedModule) : Option ModuleData :=\n  if self.hasData then\n    self.getData? (if self.importAll then .private else .exported)\n  else\n    self.irParts.back?.map (\u00b7.1)\n\n/-- The module data that should be used for server purposes. -/\nprivate def ImportedModule.serverData? (self : ImportedModule) (level : OLeanLevel) :\n    Option ModuleData :=\n  -- allow unconditional access under `import all`, otherwise fall back to `exported` outside the\n  -- server\n  self.getData? (if self.importAll then .private else if level \u2265 .server then level else .exported)\n\n/--\nThe module data that should be used for accessing IR for interpretation (lean) or compilation\n(leanir; loadIRSig = true). -/\nprivate def ImportedModule.irData? (self : ImportedModule) (loadIRSig : Bool := false) : Option ModuleData :=\n  if self.irParts.isEmpty || !self.mainModule?.any (\u00b7.isModule) then\n    self.mainModule?\n  else\n    -- leanir: for `import all` modules, use `.ir`; otherwise prefer `.ir.sig`\n    if !loadIRSig || self.importAll then\n      self.irParts.back?.map (\u00b7.1)\n    else\n"
+    },
+    {
+      "bytes": 2084,
+      "first_line": 2315,
+      "last_line": 2349,
+      "purpose": "import kernel and generated map population",
+      "sha256": "6063f226a6815921c60bf23c0355a9faba6cf92bda744820720023f36c7f88ed",
+      "text": "    let some data := mod.mainModule? |\n      throw <| IO.userError s!\"missing data file for module {mod.module}\"\n    return data\n  let irData \u2190 modules.mapM fun mod => do\n    let some data := mod.irData? loadIRSig |\n      throw <| IO.userError s!\"missing IR data file for module {mod.module}\"\n    return data\n  let numPrivateConsts := moduleData.foldl (init := 0) fun numPrivateConsts data =>\n    numPrivateConsts + data.constants.size\n  let numExtraConsts := irData.foldl (init := 0) fun numExtraConsts data =>\n    numExtraConsts + data.extraConstNames.size\n  let numPublicConsts := modules.foldl (init := 0) fun numPublicConsts mod => Id.run do\n    if !mod.isExported then numPublicConsts else\n      let some data := mod.publicModule? | numPublicConsts\n      numPublicConsts + data.constants.size\n  let mut const2ModIdx : Std.HashMap Name ModuleIdx := Std.HashMap.emptyWithCapacity (capacity := numPrivateConsts + numExtraConsts)\n  let mut privateConstantMap : Std.HashMap Name ConstantInfo := Std.HashMap.emptyWithCapacity (capacity := numPrivateConsts)\n  let mut publicConstantMap : Std.HashMap Name ConstantInfo := Std.HashMap.emptyWithCapacity (capacity := numPublicConsts)\n  for h : modIdx in *...moduleData.size do\n    let data := moduleData[modIdx]\n    for cname in data.constNames, cinfo in data.constants do\n      match privateConstantMap.getThenInsertIfNew? cname cinfo with\n      | (cinfoPrev?, constantMap') =>\n        privateConstantMap := constantMap'\n        if let some cinfoPrev := cinfoPrev? then\n          -- Recall that the map has not been modified when `cinfoPrev? = some _`.\n          if subsumesInfo privateConstantMap cinfo cinfoPrev then\n            privateConstantMap := privateConstantMap.insert cname cinfo\n          else if !subsumesInfo privateConstantMap cinfoPrev cinfo then\n            throwAlreadyImported s const2ModIdx modIdx cname\n      const2ModIdx := const2ModIdx.insertIfNew cname modIdx\n    if let some data := irData[modIdx]? then\n      for cname in data.extraConstNames do\n        const2ModIdx := const2ModIdx.insertIfNew cname modIdx\n\n"
+    }
+  ],
+  "source": {
+    "bytes": 137864,
+    "git_blob": "ee36b8e4fc921db8f1b3e4cfb5045f49fb008c07",
+    "path": "provenance/Environment.lean",
+    "sha256": "6c90105aecc4d28efe94cc9aef1704c284e7a748b28270b5f8513d2562331e43",
+    "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/Lean/Environment.lean"
+  }
+}

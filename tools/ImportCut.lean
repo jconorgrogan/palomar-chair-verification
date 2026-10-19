@@ -132,11 +132,39 @@ def legalAxioms : Array Name := #[`propext, `Quot.sound, `Classical.choice]
 def checkAxioms (xs : Array Name) : IO Unit := do
   for n in xs do require (legalAxioms.contains n) s!"UNPERMITTED_AXIOM {n}"
 
+-- ModuleData.extraConstNames are code-generator metadata, not an inventory of
+-- ConstantInfo values. Classify from the actual kernel map, never a name suffix.
+-- The imported ownership map must account for every entry in this module.
+def generatedClass (moduleName n : Name) (knownBefore kernelPresent privatePresent : Bool)
+    (owner : Option Name) : IO String := do
+  require (!knownBefore) s!"GENERATED_NAME_ALREADY_IMPORTED {n}"
+  require (owner == some moduleName) s!"GENERATED_MODULE_OWNERSHIP_DIFFERS {n}"
+  require (!kernelPresent || privatePresent) s!"GENERATED_KERNEL_NOT_IN_PRIVATE_INVENTORY {n}"
+  return if kernelPresent then "kernel" else "native_only"
+
+def accountGenerated (before after : Environment) (moduleName : Name)
+    (privateNames extras : Array Name) : IO (Array (Name × String)) := do
+  let mut seen : Std.HashSet Name := {}
+  let mut entries := #[]
+  for n in extras do
+    require (!seen.contains n) s!"DUPLICATE_GENERATED_NAME {n}"
+    seen := seen.insert n
+    let owner := (after.getModuleIdxFor? n).bind fun idx => after.header.moduleNames[idx.toNat]?
+    let classification ← generatedClass moduleName n (before.const2ModIdx.contains n)
+      (after.constants.contains n) (privateNames.contains n) owner
+    entries := entries.push (n, classification)
+  return entries.qsort (fun a b => a.1.quickCmp b.1 == .lt)
+
+def checkKernelInventory (delta raw : Array (Name × ConstantInfo)) : IO Unit := do
+  require (delta.size == raw.size) "ENVIRONMENT_SUBTRACTION_SIZE"
+  for d in delta, r in raw do
+    require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) "ENVIRONMENT_SUBTRACTION_MISMATCH"
+
 structure Loaded where
   before : Environment
   after : Environment
   introduced : Array (Name × ConstantInfo)
-  extras : Array Name
+  extras : Array (Name × String)
 
 def fixturePhase (traceFixtures : Bool) (stage : String) : IO Unit := do
   if traceFixtures then IO.println s!"FIXTURE_PHASE\t{stage}"
@@ -166,16 +194,13 @@ unsafe def load (root runtime : System.FilePath) (moduleName : Name) (traceFixtu
     (fun a b => a.1.quickCmp b.1 == .lt)
   let raw := (privateData.constNames.zip privateData.constants).qsort
     (fun a b => a.1.quickCmp b.1 == .lt)
-  require (delta.size == raw.size) "ENVIRONMENT_SUBTRACTION_SIZE"
-  for d in delta, r in raw do
-    require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) "ENVIRONMENT_SUBTRACTION_MISMATCH"
-  for n in privateData.extraConstNames do
-    require (after.constants.contains n) s!"UNAVAILABLE_GENERATED_DECLARATION {n}"
+  checkKernelInventory delta raw
+  let extras ← accountGenerated before after moduleName privateData.constNames privateData.extraConstNames
   for (n, ci) in before.constants.toList do
     let some ci' := after.constants.find? n | throw <| IO.userError s!"IMPORTED_DECLARATION_LOST {n}"
     require (exactInfo ci ci') s!"IMPORTED_DECLARATION_CHANGED {n}"
   fixturePhase traceFixtures "LOAD_CHECKED"
-  return {before, after, introduced := delta, extras := privateData.extraConstNames}
+  return {before, after, introduced := delta, extras}
 
 unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (emit := true) (traceFixtures : Bool := false) : IO Unit := do
   fixturePhase traceFixtures "COMPARE_BEGIN"
@@ -184,8 +209,7 @@ unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (e
   fixturePhase traceFixtures "COMPARE_LOADED"
   require (a.introduced.size == b.introduced.size)
     s!"INTRODUCED_INVENTORY_DIFFERS original_count={a.introduced.size} candidate_count={b.introduced.size} original_first16={a.introduced.toList.take 16 |>.map (fun p => p.1)} candidate_first16={b.introduced.toList.take 16 |>.map (fun p => p.1)}"
-  require ((a.extras.qsort (fun a b => a.quickCmp b == .lt)) ==
-    (b.extras.qsort (fun a b => a.quickCmp b == .lt))) "GENERATED_IDENTITY_DIFFERS"
+  require (a.extras == b.extras) "GENERATED_IDENTITY_OR_CLASS_DIFFERS"
   for x in a.introduced, y in b.introduced do
     require (x.1 == y.1) s!"INTRODUCED_INVENTORY_DIFFERS original={x.1} candidate={y.1}"
     require (kind x.2 == kind y.2 && x.2.levelParams == y.2.levelParams && Expr.equal x.2.type y.2.type)
@@ -199,7 +223,11 @@ unsafe def compare (left right runtime : System.FilePath) (moduleName : Name) (e
   if emit then
     for n in a.before.header.moduleNames do IO.println s!"LOADED_ORIGINAL\t{n}"
     for n in b.before.header.moduleNames do IO.println s!"LOADED_CANDIDATE\t{n}"
-    for n in a.extras do IO.println s!"GENERATED\t{n}"
+    for (n, classification) in a.extras do
+      IO.println s!"GENERATED\t{n}\t{classification}\t{moduleName}"
+    let kernelCount := (a.extras.filter fun p => p.2 == "kernel").size
+    let nativeCount := (a.extras.filter fun p => p.2 == "native_only").size
+    IO.println s!"GENERATED_COUNTS\t{kernelCount}\t{nativeCount}"
     IO.println s!"PART32_EXACT_COMPARISON_PASSED\t{a.introduced.size}"
   fixturePhase traceFixtures "COMPARE_PASSED"
 
@@ -214,10 +242,25 @@ unsafe def coverAxioms (root runtime : System.FilePath) : IO Unit := do
   IO.println s!"COVER_AXIOMS_PASSED\t{c.introduced.size}"
 
 unsafe def fixtureCase (variant : String) (root runtime : System.FilePath) : IO Unit := do
-  require (["identical", "value", "type", "inventory", "axiom"].contains variant) "UNKNOWN_FIXTURE_CASE"
+  require (["identical", "value", "type", "inventory", "axiom", "native"].contains variant) "UNKNOWN_FIXTURE_CASE"
   IO.println s!"FIXTURE_START\t{variant}"
   if variant == "identical" then
     compare (root / "baseline") (root / "identical") runtime `Fixture false true
+  else if variant == "native" then
+    let native ← load (root / "native") runtime `Fixture true
+    fixturePhase true "NATIVE_CLASSIFICATION_BEGIN"
+    require (!native.introduced.isEmpty) "NATIVE_FIXTURE_EMPTY_KERNEL_INVENTORY"
+    require (!(native.extras.filter fun p => p.2 == "native_only").isEmpty) "NATIVE_FIXTURE_NO_METADATA_ONLY_ENTRIES"
+    -- Remove one actual kernel entry, retaining the full private-side inventory.
+    -- This must fail in the same validator called by the production loader.
+    let mut rejected := false
+    try checkKernelInventory native.introduced.pop native.introduced
+    catch e =>
+      require (((toString e).splitOn "ENVIRONMENT_SUBTRACTION_SIZE").length > 1) "WRONG_MISSING_KERNEL_REJECTION"
+      rejected := true
+    require rejected "MISSING_KERNEL_FIXTURE_PASSED"
+    IO.println "FIXTURE_REJECTED\tnative\tENVIRONMENT_SUBTRACTION_SIZE"
+    fixturePhase true "NATIVE_CLASSIFICATION_PASSED"
   else if variant == "axiom" then
     let bad ← load (root / "axiom") runtime `Fixture true
     fixturePhase true "AXIOM_TRAVERSAL_BEGIN"
@@ -281,6 +324,19 @@ unsafe def main (args : List String) : IO UInt32 := do
     require (ra == rb && !exactInfo ra rb) "RECURSOR_RHS_CONTROL_FAILED"
     require ((differingFields ca cb).contains "value_or_proof" &&
       (differingFields ra rb).contains "recursor.rules[0].rhs") "FIELD_DIAGNOSTIC_CONTROL_FAILED"
+    require ((← generatedClass `Fixture `generated false false false (some `Fixture)) == "native_only")
+      "NATIVE_CLASSIFICATION_CONTROL_FAILED"
+    require ((← generatedClass `Fixture `generated false true true (some `Fixture)) == "kernel")
+      "KERNEL_CLASSIFICATION_CONTROL_FAILED"
+    for (knownBefore, kernelPresent, privatePresent, owner) in
+        [(true, false, false, some `Fixture), (false, false, false, none),
+         (false, false, false, some `Other), (false, true, false, some `Fixture)] do
+      let mut rejected := false
+      try
+        let _ ← generatedClass `Fixture `generated knownBefore kernelPresent privatePresent owner
+        pure ()
+      catch _ => rejected := true
+      require rejected "INVALID_GENERATED_METADATA_CONTROL_PASSED"
     IO.println "INTERFACE_API_SELF_TEST_PASSED"
   | ["fixture", variant, root, runtime] => fixtureCase variant root runtime
   | ["compare", left, right, runtime] => compare left right runtime `SpectreFinite.RadiusFiveRoot7Part32

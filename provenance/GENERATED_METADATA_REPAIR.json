@@ -1,0 +1,234 @@
+{
+  "actual_failure": {
+    "attempt": 1,
+    "command": "check-interface-part32",
+    "commit": "94be239f4aa18e9d5fd8d4dd664af9640218d9a1",
+    "run_id": 39271179344,
+    "stderr": {
+      "bytes": 120,
+      "sha256": "5e7286d9289eea52dd8ba44a7eeaaf1c3d647ecc800a8b5510402a111f643ff0"
+    },
+    "tree": "e6c61ea35f5701e692e9dcd375ed3ab533220a22"
+  },
+  "classification_values": [
+    "kernel",
+    "native_only"
+  ],
+  "driver_replacements": [
+    {
+      "count": 1,
+      "new": "FIXTURES=['baseline','identical','value','type','axiom','inventory','native']",
+      "old": "FIXTURES=['baseline','identical','value','type','axiom','inventory']",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "FIXTURE_CASES=['identical','value','type','inventory','axiom','native']",
+      "old": "FIXTURE_CASES=['identical','value','type','inventory','axiom']",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "'axiom':'UNPERMITTED_AXIOM','native':'ENVIRONMENT_SUBTRACTION_SIZE'}",
+      "old": "'axiom':'UNPERMITTED_AXIOM'}",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "c['publication_branch']=='verify/palomar-root7-import-cut-generated-20261019'",
+      "old": "c['publication_branch']=='verify/palomar-root7-import-cut-fixtures-20261019'",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "c['recorded_command_count']==796 and c['sum_command_timeout_seconds']==119580",
+      "old": "c['recorded_command_count']==794 and c['sum_command_timeout_seconds']==119220",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "c['workflow_template_sha256']=='95ad46508ed59173158f8b90750ae988c9f013efc484082897c4b6b83f0bfe63'",
+      "old": "c['workflow_template_sha256']=='e02da7c5bf440bdf6d163058f680224b388cd961a71a97a8219b92c23db9f3ed'",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": " if case=='native':\n  lines+=load+['FIXTURE_PHASE\\tNATIVE_CLASSIFICATION_BEGIN','FIXTURE_REJECTED\\tnative\\tENVIRONMENT_SUBTRACTION_SIZE','FIXTURE_PHASE\\tNATIVE_CLASSIFICATION_PASSED']\n elif case=='axiom':\n",
+      "old": " if case=='axiom':\n",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "'loaded_contexts':1 if case in ['axiom','native'] else 2}",
+      "old": "'loaded_contexts':1 if case=='axiom' else 2}",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "result['command_count']==len(commands)==796",
+      "old": "result['command_count']==len(commands)==794",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "sum(r['requested_timeout_seconds'] for r in commands)==119580",
+      "old": "sum(r['requested_timeout_seconds'] for r in commands)==119220",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 2,
+      "new": "REAL_SOURCE_CONTROLS_AND_NATIVE_METADATA_BOUNDARY_PASSED",
+      "old": "REAL_SOURCE_POSITIVE_AND_FOUR_NEGATIVE_CONTROLS_PASSED",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": " lines=text.splitlines();decl=[];loaded={'original':[],'candidate':[]};generated=[];generated_counts=[];counts=[]\n",
+      "old": " lines=text.splitlines();decl=[];loaded={'original':[],'candidate':[]};generated=[];counts=[]\n",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "  elif p[0]=='GENERATED':\n   f.need(len(p)==4 and p[1] and p[2] in ['kernel','native_only'] and p[3]==PART32,'generated report malformed')\n   generated.append({'name':p[1],'classification':p[2],'module':p[3]})\n  elif p[0]=='GENERATED_COUNTS':\n   f.need(len(p)==3 and all(x.isdigit() for x in p[1:]),'generated counts malformed');generated_counts.append([int(x) for x in p[1:]])\n",
+      "old": "  elif p[0]=='GENERATED':f.need(len(p)==2,'generated report malformed');generated.append(p[1])\n",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": " index={r['name']:r for r in decl}\n f.need(len({r['name'] for r in generated})==len(generated),'duplicate generated name')\n for row in generated:\n  f.need((row['name'] in index)==(row['classification']=='kernel'),'generated kernel classification differs')\n expected_counts=[sum(r['classification']==kind for r in generated) for kind in ['kernel','native_only']]\n f.need(generated_counts==[expected_counts],'generated counts differ')\n",
+      "old": " index={r['name']:r for r in decl}\n",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "'accounted_generated_names':[r['name'] for r in generated],'generated_entries':generated,'generated_counts':dict(zip(['kernel','native_only'],expected_counts)),'generated_scope':'Exact metadata names, classifications and owning module only for native_only; no native body/type/value equivalence claim','normalization'",
+      "old": "'accounted_generated_names':generated,'normalization'",
+      "path": "root7_import_cut.py"
+    },
+    {
+      "count": 1,
+      "new": "f.need(f.json_bytes(comparison)==f.json_bytes(f.load_json(evidence/'interface-comparison.json')),'interface receipt differs')",
+      "old": "f.need(comparison==f.load_json(evidence/'interface-comparison.json'),'interface receipt differs')",
+      "path": "root7_import_cut.py"
+    }
+  ],
+  "helper_replacements": [
+    {
+      "count": 1,
+      "new": "-- ModuleData.extraConstNames are code-generator metadata, not an inventory of\n-- ConstantInfo values. Classify from the actual kernel map, never a name suffix.\n-- The imported ownership map must account for every entry in this module.\ndef generatedClass (moduleName n : Name) (knownBefore kernelPresent privatePresent : Bool)\n    (owner : Option Name) : IO String := do\n  require (!knownBefore) s!\"GENERATED_NAME_ALREADY_IMPORTED {n}\"\n  require (owner == some moduleName) s!\"GENERATED_MODULE_OWNERSHIP_DIFFERS {n}\"\n  require (!kernelPresent || privatePresent) s!\"GENERATED_KERNEL_NOT_IN_PRIVATE_INVENTORY {n}\"\n  return if kernelPresent then \"kernel\" else \"native_only\"\n\ndef accountGenerated (before after : Environment) (moduleName : Name)\n    (privateNames extras : Array Name) : IO (Array (Name \u00d7 String)) := do\n  let mut seen : Std.HashSet Name := {}\n  let mut entries := #[]\n  for n in extras do\n    require (!seen.contains n) s!\"DUPLICATE_GENERATED_NAME {n}\"\n    seen := seen.insert n\n    let owner := (after.getModuleIdxFor? n).bind fun idx => after.header.moduleNames[idx.toNat]?\n    let classification \u2190 generatedClass moduleName n (before.const2ModIdx.contains n)\n      (after.constants.contains n) (privateNames.contains n) owner\n    entries := entries.push (n, classification)\n  return entries.qsort (fun a b => a.1.quickCmp b.1 == .lt)\n\ndef checkKernelInventory (delta raw : Array (Name \u00d7 ConstantInfo)) : IO Unit := do\n  require (delta.size == raw.size) \"ENVIRONMENT_SUBTRACTION_SIZE\"\n  for d in delta, r in raw do\n    require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) \"ENVIRONMENT_SUBTRACTION_MISMATCH\"\n\nstructure Loaded where\n",
+      "old": "structure Loaded where\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  extras : Array (Name \u00d7 String)\n",
+      "old": "  extras : Array Name\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  checkKernelInventory delta raw\n  let extras \u2190 accountGenerated before after moduleName privateData.constNames privateData.extraConstNames\n",
+      "old": "  require (delta.size == raw.size) \"ENVIRONMENT_SUBTRACTION_SIZE\"\n  for d in delta, r in raw do\n    require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) \"ENVIRONMENT_SUBTRACTION_MISMATCH\"\n  for n in privateData.extraConstNames do\n    require (after.constants.contains n) s!\"UNAVAILABLE_GENERATED_DECLARATION {n}\"\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  return {before, after, introduced := delta, extras}\n",
+      "old": "  return {before, after, introduced := delta, extras := privateData.extraConstNames}\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  require (a.extras == b.extras) \"GENERATED_IDENTITY_OR_CLASS_DIFFERS\"\n",
+      "old": "  require ((a.extras.qsort (fun a b => a.quickCmp b == .lt)) ==\n    (b.extras.qsort (fun a b => a.quickCmp b == .lt))) \"GENERATED_IDENTITY_DIFFERS\"\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "    for (n, classification) in a.extras do\n      IO.println s!\"GENERATED\\t{n}\\t{classification}\\t{moduleName}\"\n    let kernelCount := (a.extras.filter fun p => p.2 == \"kernel\").size\n    let nativeCount := (a.extras.filter fun p => p.2 == \"native_only\").size\n    IO.println s!\"GENERATED_COUNTS\\t{kernelCount}\\t{nativeCount}\"\n",
+      "old": "    for n in a.extras do IO.println s!\"GENERATED\\t{n}\"\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  require ([\"identical\", \"value\", \"type\", \"inventory\", \"axiom\", \"native\"].contains variant) \"UNKNOWN_FIXTURE_CASE\"\n",
+      "old": "  require ([\"identical\", \"value\", \"type\", \"inventory\", \"axiom\"].contains variant) \"UNKNOWN_FIXTURE_CASE\"\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "  else if variant == \"native\" then\n    let native \u2190 load (root / \"native\") runtime `Fixture true\n    fixturePhase true \"NATIVE_CLASSIFICATION_BEGIN\"\n    require (!native.introduced.isEmpty) \"NATIVE_FIXTURE_EMPTY_KERNEL_INVENTORY\"\n    require (!(native.extras.filter fun p => p.2 == \"native_only\").isEmpty) \"NATIVE_FIXTURE_NO_METADATA_ONLY_ENTRIES\"\n    -- Remove one actual kernel entry, retaining the full private-side inventory.\n    -- This must fail in the same validator called by the production loader.\n    let mut rejected := false\n    try checkKernelInventory native.introduced.pop native.introduced\n    catch e =>\n      require (((toString e).splitOn \"ENVIRONMENT_SUBTRACTION_SIZE\").length > 1) \"WRONG_MISSING_KERNEL_REJECTION\"\n      rejected := true\n    require rejected \"MISSING_KERNEL_FIXTURE_PASSED\"\n    IO.println \"FIXTURE_REJECTED\\tnative\\tENVIRONMENT_SUBTRACTION_SIZE\"\n    fixturePhase true \"NATIVE_CLASSIFICATION_PASSED\"\n  else if variant == \"axiom\" then\n",
+      "old": "  else if variant == \"axiom\" then\n",
+      "path": "tools/ImportCut.lean"
+    },
+    {
+      "count": 1,
+      "new": "    require ((\u2190 generatedClass `Fixture `generated false false false (some `Fixture)) == \"native_only\")\n      \"NATIVE_CLASSIFICATION_CONTROL_FAILED\"\n    require ((\u2190 generatedClass `Fixture `generated false true true (some `Fixture)) == \"kernel\")\n      \"KERNEL_CLASSIFICATION_CONTROL_FAILED\"\n    for (knownBefore, kernelPresent, privatePresent, owner) in\n        [(true, false, false, some `Fixture), (false, false, false, none),\n         (false, false, false, some `Other), (false, true, false, some `Fixture)] do\n      let mut rejected := false\n      try\n        let _ \u2190 generatedClass `Fixture `generated knownBefore kernelPresent privatePresent owner\n        pure ()\n      catch _ => rejected := true\n      require rejected \"INVALID_GENERATED_METADATA_CONTROL_PASSED\"\n    IO.println \"INTERFACE_API_SELF_TEST_PASSED\"\n",
+      "old": "    IO.println \"INTERFACE_API_SELF_TEST_PASSED\"\n",
+      "path": "tools/ImportCut.lean"
+    }
+  ],
+  "historical_test_redirects": [
+    {
+      "count": 1,
+      "new": "  candidate=(ROOT/'provenance/ImportCut.generated-predecessor.lean').read_text()\n",
+      "old": "  candidate=(ROOT/'tools/ImportCut.lean').read_text()\n",
+      "path": "tests/test_smoke.py"
+    },
+    {
+      "count": 1,
+      "new": "  current=(ROOT/'provenance/root7_import_cut.generated-predecessor.py').read_text()\n",
+      "old": "  current=(ROOT/'root7_import_cut.py').read_text()\n",
+      "path": "tests/test_smoke.py"
+    }
+  ],
+  "kernel_inventory_checks_exact_moved_text": "  require (delta.size == raw.size) \"ENVIRONMENT_SUBTRACTION_SIZE\"\n  for d in delta, r in raw do\n    require (d.1 == r.1 && r.1 == r.2.name && exactInfo d.2 r.2) \"ENVIRONMENT_SUBTRACTION_MISMATCH\"\n",
+  "native_fixture_qualification": "Source-predicted generation; actual fixture must have at least one native-only metadata entry or fail early. No Lean execution performed locally.",
+  "pinned_semantics": {
+    "bytes": 137864,
+    "path": "provenance/Environment.lean",
+    "ranges": [
+      [
+        107,
+        126
+      ],
+      [
+        155,
+        181
+      ],
+      [
+        239,
+        245
+      ],
+      [
+        735,
+        737
+      ],
+      [
+        1196,
+        1199
+      ],
+      [
+        1867,
+        1886
+      ],
+      [
+        2024,
+        2053
+      ],
+      [
+        2315,
+        2349
+      ]
+    ],
+    "sha256": "6c90105aecc4d28efe94cc9aef1704c284e7a748b28270b5f8513d2562331e43",
+    "url": "https://github.com/leanprover/lean4/blob/11acb17ec6b07a8f9e9173e6845197929540936b/src/Lean/Environment.lean"
+  },
+  "runtime": {
+    "archive_sha256": "b67d0e0ba959fc74e186f1b44aebca32d6ecb6a28f8e9a029fc4e9f73398a049",
+    "release": "v4.35.0-rc2",
+    "source_commit": "11acb17ec6b07a8f9e9173e6845197929540936b"
+  },
+  "schema": "generated-metadata-comparison-repair-v1",
+  "scope": "Kernel ConstantInfo inventory/fields/proofs/axioms remain exact. Native-only generated identities/classifications/owner metadata are exact; native body equivalence is not claimed."
+}

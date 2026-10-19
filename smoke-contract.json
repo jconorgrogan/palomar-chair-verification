@@ -7,6 +7,7 @@
     "fixtures/baseline/Fixture.lean",
     "fixtures/identical/Fixture.lean",
     "fixtures/inventory/Fixture.lean",
+    "fixtures/native/Fixture.lean",
     "fixtures/type/Fixture.lean",
     "fixtures/value/Fixture.lean",
     "inherited_primitives.py",
@@ -20,6 +21,7 @@
     "provenance/DOWNSTREAM_EVIDENCE_SCOPE.json",
     "provenance/Declaration.lean",
     "provenance/Declaration.lean.response.json",
+    "provenance/Environment.generated-response.json",
     "provenance/Environment.lean",
     "provenance/Expr.lean",
     "provenance/Expr.lean.response.json",
@@ -27,9 +29,13 @@
     "provenance/FIXTURE_CAPTURE_BYTES_REPAIR.json",
     "provenance/FIXTURE_FAILURE_REVIEW.json",
     "provenance/FIXTURE_ISOLATION.json",
+    "provenance/GENERATED_API_PROOF.json",
+    "provenance/GENERATED_FAILURE_REVIEW.json",
+    "provenance/GENERATED_METADATA_REPAIR.json",
     "provenance/INDEXING_FAILURE_REVIEW.json",
     "provenance/INDEXING_REPAIR.json",
     "provenance/INPUTS.json",
+    "provenance/ImportCut.generated-predecessor.lean",
     "provenance/ImportCut.indexing-predecessor.lean",
     "provenance/ImportCut.predecessor.lean",
     "provenance/ImportCut.syntax-predecessor.lean",
@@ -49,8 +55,10 @@
     "provenance/checker.lean",
     "provenance/failed-api.stdout",
     "provenance/fixture-memory-failure.stderr",
+    "provenance/generated-failure.stderr",
     "provenance/indexing-failed-api.stdout",
     "provenance/root7_import_cut.fixture-predecessor.py",
+    "provenance/root7_import_cut.generated-predecessor.py",
     "root7_import_cut.py",
     "smoke-contract.json",
     "tests/run_guarded.py",
@@ -1884,14 +1892,15 @@
     "value",
     "type",
     "inventory",
-    "axiom"
+    "axiom",
+    "native"
   ],
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "c841e9bb82db68a5a71c9d37a9aff7ac90b431d3232bf2efc8296cb9d2e4e4f2",
+  "independent_driver_review_sha256": "4f2a2ff82dea22ce647b1ebebb3f27dfab6864043a0aad28a2e85043bfbed233",
   "inputs": {
     "README.md": {
-      "bytes": 16511,
-      "sha256": "e38450e7834ad610acb9eefd1954a7a212fe224d562fa5a85e8afae22bb41a9e"
+      "bytes": 19054,
+      "sha256": "a000e52398ecf7c34e18d3f0b7a8a81d5838c95c40c36f5b94ad145fc9a6cfa7"
     },
     "fixtures/axiom/Fixture.lean": {
       "bytes": 142,
@@ -1908,6 +1917,10 @@
     "fixtures/inventory/Fixture.lean": {
       "bytes": 132,
       "sha256": "453a540bd00a8e26408f6b7bc9bc295896b14b159ad75b4c3fbfb340c6d05f4f"
+    },
+    "fixtures/native/Fixture.lean": {
+      "bytes": 81,
+      "sha256": "4178183c5540d237068fc38db8dbca36e85af3bc78738c752f9184c2de079dd3"
     },
     "fixtures/type/Fixture.lean": {
       "bytes": 113,
@@ -1957,6 +1970,10 @@
       "bytes": 29597,
       "sha256": "53d991e69635a4146b3d5d671f556e95f7f19834d88aecf3a8941fcc179e3c7d"
     },
+    "provenance/Environment.generated-response.json": {
+      "bytes": 190284,
+      "sha256": "e547210d7e1ff5ee6d02d3c3d78ea3a028a288b709c961d6211ef04a1b03cde0"
+    },
     "provenance/Environment.lean": {
       "bytes": 137864,
       "sha256": "6c90105aecc4d28efe94cc9aef1704c284e7a748b28270b5f8513d2562331e43"
@@ -1985,6 +2002,18 @@
       "bytes": 8585,
       "sha256": "f81927b094c624eaf4ab5c8452297fb421accc63f7f9db5e015d91b1d6ff20ca"
     },
+    "provenance/GENERATED_API_PROOF.json": {
+      "bytes": 11572,
+      "sha256": "a2976487ca62b4cee297bfe73f9a3b3868af22db0ea59a2cf125d146773d6cf1"
+    },
+    "provenance/GENERATED_FAILURE_REVIEW.json": {
+      "bytes": 7662,
+      "sha256": "60e261ed1a6b723b8b0943021a3aa2066b6c86e4b5dd636c0d6a13a20179a4b0"
+    },
+    "provenance/GENERATED_METADATA_REPAIR.json": {
+      "bytes": 13622,
+      "sha256": "7db1be59a67b614868c80017a6764f9e452790566b060b5b68d9501fe79871b8"
+    },
     "provenance/INDEXING_FAILURE_REVIEW.json": {
       "bytes": 3642,
       "sha256": "532501a5405d94d83f0cb1bfbe567885131d69556832d77fd1cbce05ae26097a"
@@ -1996,6 +2025,10 @@
     "provenance/INPUTS.json": {
       "bytes": 1973,
       "sha256": "525bcf807f335b63340ebb891ae4b9c6a56972cd92cbf1ac7d87d2b5bc2c1c39"
+    },
+    "provenance/ImportCut.generated-predecessor.lean": {
+      "bytes": 14947,
+      "sha256": "a9a25c2819bfc2c65cedc386bf1705efa3295303d271980d24a235090ac2f46d"
     },
     "provenance/ImportCut.indexing-predecessor.lean": {
       "bytes": 13752,
@@ -2073,6 +2106,10 @@
       "bytes": 115,
       "sha256": "0f8fcb2ce35b4b2c3bf8091f9b4630de6b53f2d2a4a0556e8511e64608bfae66"
     },
+    "provenance/generated-failure.stderr": {
+      "bytes": 120,
+      "sha256": "5e7286d9289eea52dd8ba44a7eeaaf1c3d647ecc800a8b5510402a111f643ff0"
+    },
     "provenance/indexing-failed-api.stdout": {
       "bytes": 660,
       "sha256": "9322c2ee0b86491e5d5216fb059265d35687b716337669467846fce2e46b9ef1"
@@ -2081,9 +2118,13 @@
       "bytes": 36301,
       "sha256": "7ac6e754581b44e070411b4812aee9fad109ec840c23a684e5b4fcd8c640cad9"
     },
-    "root7_import_cut.py": {
+    "provenance/root7_import_cut.generated-predecessor.py": {
       "bytes": 36625,
       "sha256": "6fd8047354631470aadc02d1ea702173c7d4fecfad3056e626bf93cc6f7edb84"
+    },
+    "root7_import_cut.py": {
+      "bytes": 37880,
+      "sha256": "e7a4f2f1895dc5ecbf008d1cf52f2d3ce7f2724f280e4b2308839ed45682b623"
     },
     "src/SpectreFinite/FiniteTableCover.lean": {
       "bytes": 7476,
@@ -3642,12 +3683,12 @@
       "sha256": "e0db08294da2e6c9b9c51f586ba19520a64e143a3add0056c1eeded155c83628"
     },
     "tests/test_smoke.py": {
-      "bytes": 25659,
-      "sha256": "a408e09a849b468e46e2018405eafb6132f9beb6e7df6dd8e0daa4cec00dfdf4"
+      "bytes": 32941,
+      "sha256": "8177c6691f1454affe7daff4981b4bb2d796549247ccf39428dd312b50b14330"
     },
     "tools/ImportCut.lean": {
-      "bytes": 14947,
-      "sha256": "a9a25c2819bfc2c65cedc386bf1705efa3295303d271980d24a235090ac2f46d"
+      "bytes": 18300,
+      "sha256": "27cab31e374da923335492a5808d9ae923eb38723e1d01c7d094c8f367233872"
     },
     "vendor/pipeline/ci/cache_diagnostic.py": {
       "bytes": 81922,
@@ -9108,8 +9149,9 @@
       "SpectreFinite.RadiusFiveRoot7Part31"
     ]
   },
-  "publication_branch": "verify/palomar-root7-import-cut-fixtures-20261019",
-  "recorded_command_count": 794,
+  "publication_branch": "verify/palomar-root7-import-cut-generated-20261019",
+  "publication_parent": "94be239f4aa18e9d5fd8d4dd664af9640218d9a1",
+  "recorded_command_count": 796,
   "restore_project_objects": false,
   "review_status": "reviewed_for_execution",
   "runtime_roots": [
@@ -9126,6 +9168,6 @@
     "source_file_count": 388,
     "tar_bytes": 12113920
   },
-  "sum_command_timeout_seconds": 119220,
-  "workflow_template_sha256": "e02da7c5bf440bdf6d163058f680224b388cd961a71a97a8219b92c23db9f3ed"
+  "sum_command_timeout_seconds": 119580,
+  "workflow_template_sha256": "95ad46508ed59173158f8b90750ae988c9f013efc484082897c4b6b83f0bfe63"
 }
