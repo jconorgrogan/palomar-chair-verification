@@ -1,0 +1,20 @@
+{
+  "actual_stderr_bytes": 0,
+  "actual_stdout_bytes": 207,
+  "actual_stdout_sha256": "4c336872ee5b0b689bc75ae6508abfb79f3d57190e7f72125934858c8c15c704",
+  "changed_native_commands": 0,
+  "failed_parent_commit": "9a16710e49952f23435e395615c4b7c4d87812a4",
+  "failed_run_id": 39344476812,
+  "helper_anchor": "def parse_axioms(text):\n",
+  "inserted_helper": "def validate_wrong_table_failure(work,r,stdout,stderr):\n # This is the exact admitted pinned-toolchain diagnostic, at its fixed source\n # location. Only the verified work-root prefix varies across isolated runs.\n expected=(str(work/'variant-source/fixture-wrong/PilotBridge.lean')+\n  ':11:59: error: Tactic `decide` proved that the proposition\\n'\n  '  \u2200 (v : Fin 2), originalFast v = Fast v\\nis false\\n').encode('utf-8')\n f.need(work.is_absolute() and type(stdout) is bytes and type(stderr) is bytes,'negative control capture/path types differ')\n f.need(r.get('name')=='compile-fixture-wrong-compile-bridge' and\n  d.clean_command(r) and r['exit_code']==1 and r.get('capture_status')=='accepted_bounded_complete','negative control requires exact command and clean exit1 receipt')\n f.need(stdout==expected and stderr==b'','wrong-table diagnostic location/case/proposition/stream bytes differ')\n\n",
+  "native_execution_here": false,
+  "new_branch": "verify/palomar-domains-fast-diagnostics-20261020",
+  "new_runtime_gate": "  if negative:validate_wrong_table_failure(work,r,stdout,stderr)",
+  "new_terminal_gate": "  if negative:validate_wrong_table_failure(work,r,streams[0],streams[1])",
+  "old_branch": "verify/palomar-domains-fast-pilot-20261019",
+  "old_runtime_gate": "  if negative:\n   diagnostic=(stdout+stderr).decode('utf-8')\n   f.need(r['exit_code']!=0 and re.search(r\"error: tactic 'decide'.*\",diagnostic) is not None and 'false' in diagnostic,'wrong-table bridge did not fail for false decide proposition')",
+  "old_terminal_gate": "  if negative:f.need(r['exit_code']!=0 and re.search(r\"error: tactic 'decide'.*\",text) is not None and 'false' in text,'negative did not reject false decide')",
+  "predecessor_driver_sha256": "52b4a7fa55ff92ed51ae0343e49e8148a0da4312921a2b88e941973bcfadb82d",
+  "source_pairs_changed_since_predecessor": 0,
+  "work_root": "/home/runner/work/_temp/palomar-domains-fast-pilot"
+}

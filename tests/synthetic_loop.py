@@ -27,7 +27,8 @@ def exercise(p,C,parent):
   if kind=='api':output='INTERFACE_API_SELF_TEST_PASSED\n'
   elif kind in ['common-compile','compile-target','compile-bridge']:
    negative=name=='compile-fixture-wrong-compile-bridge'
-   if negative:exit_code=1;error="PilotBridge.lean:14:1: error: tactic 'decide' proved that the proposition is false\n"
+   if negative:
+    exit_code=1;output=(p.ROOT/'provenance/negative-control.stdout').read_text().replace('/home/runner/work/_temp/palomar-domains-fast-pilot',str(work),1)
    else:
     if kind=='common-compile':module=r['module'];stage=work/'quarantine'/module
     else:
@@ -59,5 +60,12 @@ def exercise(p,C,parent):
    if not rejected:raise RuntimeError('rehash-preserving cost substitution accepted')
    path.write_bytes(old);result['terminal_receipts']['cost-measurements.json']=p.f.file_sha(path);p.a.write_json(work/'evidence/result.json',result)
    p.verify_success(c,contract_sha,work/'evidence',work)
+   log=work/'evidence/logs/compile-fixture-wrong-compile-bridge.stdout';saved_log=log.read_bytes();bad_log=saved_log.replace(b':11:59:',b':12:59:');log.write_bytes(bad_log)
+   ledger=work/'evidence/commands.jsonl';saved_ledger=ledger.read_bytes();records=[p.f.parse_json(line) for line in saved_ledger.splitlines()];negative=next(row for row in records if row['name']=='compile-fixture-wrong-compile-bridge');negative['stdout_sha256']=p.f.sha(bad_log);negative['captures']['stdout']={'bytes':len(bad_log),'sha256':p.f.sha(bad_log)};ledger.write_text(''.join(json.dumps(row,sort_keys=True,separators=(',',':'))+'\n' for row in records));result['terminal_receipts']['commands.jsonl']=p.f.file_sha(ledger);p.a.write_json(work/'evidence/result.json',result)
+   rejected=False
+   try:p.verify_success(c,contract_sha,work/'evidence',work)
+   except Exception as error:rejected='wrong-table diagnostic location/case/proposition/stream bytes differ' in str(error)
+   if not rejected:raise RuntimeError('rehash-preserving wrong diagnostic location accepted or wrong rejection reason')
+   log.write_bytes(saved_log);ledger.write_bytes(saved_ledger);result['terminal_receipts']['commands.jsonl']=p.f.file_sha(ledger);p.a.write_json(work/'evidence/result.json',result);p.verify_success(c,contract_sha,work/'evidence',work)
  finally:p.a.RUNTIME_INVENTORY_SHA=old_runtime_sha
  return {'synthetic_only':True,'commands':779,'actual_native_executions':0,'actual_project_compilations':0}

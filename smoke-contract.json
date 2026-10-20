@@ -2029,9 +2029,15 @@
     "probes/small/original/PilotBridge.lean",
     "probes/stress/candidate/PilotBridge.lean",
     "probes/stress/original/PilotBridge.lean",
+    "provenance/DIAGNOSTIC_REPAIR.json",
     "provenance/Declaration.lean",
     "provenance/RUNTIME_TOOLS.json",
     "provenance/checker.lean",
+    "provenance/domains_fast_pilot.predecessor.py",
+    "provenance/failed-pilot-result.json",
+    "provenance/negative-control-command.json",
+    "provenance/negative-control.stderr",
+    "provenance/negative-control.stdout",
     "smoke-contract.json",
     "tests/run_guarded.py",
     "tests/synthetic_loop.py",
@@ -2049,11 +2055,11 @@
     "vendor/pipeline/locks/required-modules.json"
   ],
   "full_official_verification_claimed": false,
-  "independent_driver_review_sha256": "98e983efc5e31827042508b331f14fe4c9f8f02b66848eecfcd6a3850ae2022a",
+  "independent_driver_review_sha256": "d6c492e1ea459d1e63a1c24589b66eb886cad87145e34aec96625b37a82bf218",
   "inputs": {
     "README.md": {
-      "bytes": 6857,
-      "sha256": "c476188a20b4fac002e5ffab968edd30aff4c119a609f96a6ff46febfc2c22b4"
+      "bytes": 8748,
+      "sha256": "51909b6776358c5612498b997497b39a95a12e8e1677d2003e9fd22201eaf5d2"
     },
     "SOURCE_DELTA.patch": {
       "bytes": 6363,
@@ -2072,8 +2078,8 @@
       "sha256": "c94d90550221c89b9f2d8812e56ae793117284f22f9876ae079d5e350d2e99f8"
     },
     "domains_fast_pilot.py": {
-      "bytes": 40653,
-      "sha256": "52b4a7fa55ff92ed51ae0343e49e8148a0da4312921a2b88e941973bcfadb82d"
+      "bytes": 41288,
+      "sha256": "93f569c01f4089c1aea9261395df724557a24cbac3067f147d434ba2a681aac2"
     },
     "fixtures/candidate/Fixture.lean": {
       "bytes": 328,
@@ -2127,6 +2133,10 @@
       "bytes": 4486,
       "sha256": "f3ccf230a394192ba870ff6bfd3b310682514f182b1649c40357dc9d1ceef03c"
     },
+    "provenance/DIAGNOSTIC_REPAIR.json": {
+      "bytes": 2303,
+      "sha256": "d1cb72d5a83ac26a41c3b7cbd72bb52073b16ba27b96335d992278e65a68fb58"
+    },
     "provenance/Declaration.lean": {
       "bytes": 21181,
       "sha256": "1cf2f06d848086f165b3df0afe494924ae26aaea248d5e0135d5efc2d588948f"
@@ -2138,6 +2148,26 @@
     "provenance/checker.lean": {
       "bytes": 6673,
       "sha256": "4a406b8ed95da0377206600b7b00a03bedc05102c0fadad641ffe0bfdb95122f"
+    },
+    "provenance/domains_fast_pilot.predecessor.py": {
+      "bytes": 40653,
+      "sha256": "52b4a7fa55ff92ed51ae0343e49e8148a0da4312921a2b88e941973bcfadb82d"
+    },
+    "provenance/failed-pilot-result.json": {
+      "bytes": 571,
+      "sha256": "a84b915caf52abd0ca173b5b20247e0a0ca904502daa01b35f601168941212af"
+    },
+    "provenance/negative-control-command.json": {
+      "bytes": 5385,
+      "sha256": "18cc2daf79eac40e9ea997ba72c92d08aad0672921357517f8254ae754970c59"
+    },
+    "provenance/negative-control.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "provenance/negative-control.stdout": {
+      "bytes": 207,
+      "sha256": "4c336872ee5b0b689bc75ae6508abfb79f3d57190e7f72125934858c8c15c704"
     },
     "src/SpectreFinite/FiniteTableCover.lean": {
       "bytes": 7476,
@@ -3616,12 +3646,12 @@
       "sha256": "d59d102d58bfbf46e428e00ae54d78f5d608eea0e1956c0c319ddb52c19457ba"
     },
     "tests/synthetic_loop.py": {
-      "bytes": 5535,
-      "sha256": "570dcfb7ac818dddcad79e7fafcd077373ca92bfb3001ce2b00d42d7beb1693f"
+      "bytes": 6897,
+      "sha256": "7728d0f8ea26dd96d3f41b7e44a8074e20e81dd969bd38a4b411fac2c66667c8"
     },
     "tests/test_pilot.py": {
-      "bytes": 6658,
-      "sha256": "8e61b26a9a8a5e977445831a299d4591c7831412c4c2986d861ed04a2076b25f"
+      "bytes": 11325,
+      "sha256": "47fb0edc4386b208a7cd0a39135c918212785478ed2ce74e4f8f68e1762f3551"
     },
     "tools/DomainAlias.lean": {
       "bytes": 43553,
@@ -7900,7 +7930,7 @@
   "original_combined_archive_sha256": "38148ca9c87143a4f47cdb52273ffcc4d4fd7d7ef6b2792b03022670479006b6",
   "owned_module_count": 368,
   "owned_source_max_bytes": 33554432,
-  "publication_branch": "verify/palomar-domains-fast-pilot-20261019",
+  "publication_branch": "verify/palomar-domains-fast-diagnostics-20261020",
   "published_source_commit": "048bb245b60abce79f1a2d0c82336ff8508ec752",
   "recorded_command_count": 779,
   "restore_project_objects": false,
@@ -7921,5 +7951,5 @@
   },
   "source_tree": "c6111a7d32daf2906275ee1ac265bf6865ebd9a5",
   "sum_command_timeout_seconds": 116940,
-  "workflow_template_sha256": "1f07946a171bc6021c23fade71331b57145fa20183afa4bc2e58ef7b404a1ee6"
+  "workflow_template_sha256": "2021daff2f7c0d271b1bb69672fcddcd942bcd92ea545f6d115428e76993ffe8"
 }

@@ -43,7 +43,7 @@ def command_plan(c):
 def command_order(c):return [r['name'] for r in command_plan(c)]
 def validate_contract(c,reviewed=False):
  f.need(c['schema']==SCHEMA and c['limits']==LIMITS,'profile differs')
- f.need(c['publication_branch']=='verify/palomar-domains-fast-pilot-20261019','branch differs')
+ f.need(c['publication_branch']=='verify/palomar-domains-fast-diagnostics-20261020','branch differs')
  f.need(c['owned_module_count']==368 and len(c['module_order'])==len(set(c['module_order']))==368 and len(c['common_module_order'])==366,'source scope differs')
  f.need(c['runtime_roots']==['Init','Init.Data.List.OfFn'] and c['cache_roots']==[] and c['restore_project_objects'] is False and c['full_official_verification_claimed'] is False,'runtime boundary differs')
  f.need([(x['id'],x['module'],x['name'],x['fin'],x['closure_count'],x['source_saving_bytes']) for x in c['cases']]==[('small','SpectreFinite.RadiusThreeRoot2Part1','root2Node0Domains4',37,81,933),('stress','SpectreFinite.RadiusFiveRoot7Part43','root7Node110Domains1',91,304,4073)],'selected pair scope differs')
@@ -125,6 +125,17 @@ def validate_command_spec(c,work,r,cache_modules=()):
  f.need(r['new_sessions_explicitly_allowed']==expected['allowed_sessions'],'session policy differs')
  f.need(r['limits']=={k:LIMITS[k] for k in ['address_space_bytes','rss_tree_bytes','max_created_file_bytes']} and r['max_log_bytes']==LIMITS['per_command_log_max_bytes'],'resource profile differs')
  f.need(type(r['effective_timeout_seconds']) is int and 0<r['effective_timeout_seconds']<=expected['requested_timeout_seconds'],'effective timeout differs')
+
+def validate_wrong_table_failure(work,r,stdout,stderr):
+ # This is the exact admitted pinned-toolchain diagnostic, at its fixed source
+ # location. Only the verified work-root prefix varies across isolated runs.
+ expected=(str(work/'variant-source/fixture-wrong/PilotBridge.lean')+
+  ':11:59: error: Tactic `decide` proved that the proposition\n'
+  '  ∀ (v : Fin 2), originalFast v = Fast v\nis false\n').encode('utf-8')
+ f.need(work.is_absolute() and type(stdout) is bytes and type(stderr) is bytes,'negative control capture/path types differ')
+ f.need(r.get('name')=='compile-fixture-wrong-compile-bridge' and
+  d.clean_command(r) and r['exit_code']==1 and r.get('capture_status')=='accepted_bounded_complete','negative control requires exact command and clean exit1 receipt')
+ f.need(stdout==expected and stderr==b'','wrong-table diagnostic location/case/proposition/stream bytes differ')
 
 def parse_axioms(text):
  if text=='':return []
@@ -224,9 +235,7 @@ def run(c,contract_sha,work,watchdog):
   result['complete_log_bytes']+=len(stdout)+len(stderr);persist()
   f.need(result['complete_log_bytes']<=LIMITS['aggregate_log_max_bytes'],'aggregate log bound')
   negative=name=='compile-fixture-wrong-compile-bridge'
-  if negative:
-   diagnostic=(stdout+stderr).decode('utf-8')
-   f.need(r['exit_code']!=0 and re.search(r"error: tactic 'decide'.*",diagnostic) is not None and 'false' in diagnostic,'wrong-table bridge did not fail for false decide proposition')
+  if negative:validate_wrong_table_failure(work,r,stdout,stderr)
   else:f.need(r['exit_code']==0,'native command failed: '+name)
   if name.startswith('compile-') and not negative:
    f.need(not re.search(r'(?im)(^.*\berror:|\bsorry\b|declaration uses .sorry.)',(stdout+stderr).decode('utf-8')),'compiler error/sorry diagnostic')
@@ -326,7 +335,7 @@ def verify_success(c,contract_sha,evidence,work):
    p=evidence/'logs'/(r['name']+'.'+stream);st=p.lstat();f.need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size==r['captures'][stream]['bytes'] and f.file_sha(p)==r['captures'][stream]['sha256']==r[stream+'_sha256'],'terminal log differs');streams.append(p.read_bytes())
   size=sum(map(len,streams));f.need(size<=LIMITS['per_command_log_max_bytes'],'terminal log bound');total+=size;text=b''.join(streams).decode('utf-8')
   negative=r['name']=='compile-fixture-wrong-compile-bridge'
-  if negative:f.need(r['exit_code']!=0 and re.search(r"error: tactic 'decide'.*",text) is not None and 'false' in text,'negative did not reject false decide')
+  if negative:validate_wrong_table_failure(work,r,streams[0],streams[1])
   else:f.need(r['exit_code']==0,'failed positive command')
   if r['name'].startswith('compile-') and not negative:f.need(not re.search(r'(?im)(^.*\berror:|\bsorry\b|declaration uses .sorry.)',text),'compiler error/sorry')
  f.need(total==result['complete_log_bytes'] and total<=LIMITS['aggregate_log_max_bytes'],'aggregate logs differ')
