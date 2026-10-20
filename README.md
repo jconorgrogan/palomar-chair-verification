@@ -1,12 +1,24 @@
 # Aperiodic Monotiles in Every Dimension d ≥ 2
 
-**Working paper · 16 October 2026. The all-dimension proof and its uniform formal verification remain unfinished.**
+## Current verification status · 20 October 2026
+
+**The Lean formalization compiles. It states and supplies a proof of an aperiodic monotile in every integer dimension d ≥ 2; full independent verification and Palomar registration of this all-dimensional result remain pending.**
+
+At [source commit `048bb245`](https://github.com/jconorgrogan/palomar-chair-verification/tree/048bb245b60abce79f1a2d0c82336ff8508ec752), the theorem asserts a compact tile with nonempty interior that tiles Euclidean space and whose every valid tiling has no nonzero translational period. The former parent-occurrence premise C is supplied by a theorem inside the development, rather than left as an extra hypothesis of the selected endpoint.
+
+The [official full preflight run](https://github.com/jconorgrogan/palomar-chair-verification/actions/runs/39294694136) completed the selected `PalomarAllDimensionsSolution` build with **all 12,476 Lake jobs successful**. Both Challenge and Solution proof exports also succeeded. The shared **19,800-second (5½-hour) worker budget** was then exhausted with Comparator as the last active stage. The run did not establish a completed final statement comparison, external-kernel check or final-endpoint axiom audit, and it did not confer Palomar acceptance.
+
+[Read the dated verification note and exact source scope](verification/ALL_DIMENSIONS_STATUS_2026-10-20.md) · [Read the unchanged mechanical report](verification/ALL_DIMENSIONS_MECHANICAL_REPORT_39294694136.json)
+
+## Working paper snapshot · 16 October 2026
+
+**The linked working paper is an earlier snapshot. Its pending-C language describes that snapshot; the selected source and build status above are newer.**
 
 - [Read the working paper (PDF)](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.pdf)
 - [Download the editable paper (Word)](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.docx)
-- [Read the editable text](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.md) and [current claim scope](papers/all-dimensions-working/README.md)
+- [Read the editable text](papers/all-dimensions-working/aperiodic-monotiles-every-dimension-working-v1.md) and [claim scope at that date](papers/all-dimensions-working/README.md)
 
-The working paper records accepted modern results for the exact two- and four-dimensional bodies with one explicit parent-occurrence premise C, together with retained unconditional verification in dimension three and every dimension at least five. C and the unified all-dimension proof remain pending. The four-dimensional count of 362 connected flat three-dimensional boundary pieces is a source-level geometric and exact-arithmetic result; the exact-body polyhedrality and count are not completed Lean theorems. The proposed publication abstract is clearly marked for future completion in the paper's appendix.
+At that date, the working paper recorded accepted modern results for the exact two- and four-dimensional bodies with one explicit parent-occurrence premise C, together with retained unconditional verification in dimension three and every dimension at least five. C and the unified all-dimension proof were marked pending in that paper. The four-dimensional count of 362 connected flat three-dimensional boundary pieces is a source-level geometric and exact-arithmetic result; the exact-body polyhedrality and count are not completed Lean theorems. The proposed publication abstract is clearly marked for future completion in the paper's appendix.
 
 **Completed prior result:** the original five-dimensional CLARK tile is [registered in Palomar as PALOMAR-2026-10-07-000006 v1](https://palomar-registry.org/entry?id=PALOMAR-2026-10-07-000006&version=1). Its [original paper](CLARK_paper.pdf?raw=1), immutable proof links, verification history and citation files remain available below. This all-dimension working paper does not replace that registered result.
 
