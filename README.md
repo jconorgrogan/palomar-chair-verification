@@ -10,6 +10,14 @@ The [official full preflight run](https://github.com/jconorgrogan/palomar-chair-
 
 [Read the dated verification note and exact source scope](verification/ALL_DIMENSIONS_STATUS_2026-10-20.md) · [Read the unchanged mechanical report](verification/ALL_DIMENSIONS_MECHANICAL_REPORT_39294694136.json)
 
+## New work as of 2026-10-22: finite symmetry in every dimension d > 2
+
+The existing source lemmas yield an ordinary mathematical proof that the constructed monotiles in every integer dimension d > 2 have finite full Euclidean symmetry groups in every admitted tiling. This excludes all infinite-order screw and glide symmetries; it does not assert trivial symmetry groups. For the compiler witnesses in d = 3 and d ≥ 5, the argument gives |Sym(T)| ≤ 2^d d!. Dimension 4 uses a separate planar-factor argument; no numerical bound is claimed for that branch.
+
+The argument has received a separate AI mathematical/source review. The new finite-symmetry deductions and stronger all-dimensional endpoint have not been implemented in Lean, compiled, independently kernel-checked, or registered in Palomar. This documentation extension does not change the verification status above or the separately registered original T5 result.
+
+[Read the mathematical extension](papers/FINITE_SYMMETRY_EXTENSION_2026-10-22.md) · [Read the AI source review and its limits](papers/FINITE_SYMMETRY_SOURCE_REVIEW_2026-10-22.md)
+
 ## Working paper snapshot · 16 October 2026
 
 **The linked working paper is an earlier snapshot. Its pending-C language describes that snapshot; the selected source and build status above are newer.**
